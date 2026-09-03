@@ -270,17 +270,32 @@ describe('loadConfigFile re-reads an edited file', () => {
     }
   });
 
-  it('does not re-evaluate an unchanged file (same contents → same module instance)', async () => {
-    // Pin the cache key: an identical file must resolve to the identical URL, so the run-per-save
-    // dev loop does not leak one module instance per re-analysis.
+  it('does not re-evaluate an unchanged file, but does re-evaluate a changed one', async () => {
+    // Pin the cache key: an identical file must resolve to the identical URL (cached, module
+    // body does not re-run), so the run-per-save dev loop does not leak one module instance
+    // per re-analysis — while an actually-changed file must re-run.
     const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-config-reload-'));
+    const evalCounter = () =>
+      (globalThis as { __svelteVitalsConfigEvaluations?: number }).__svelteVitalsConfigEvaluations;
     try {
       const file = join(dir, 'svelte-vitals.config.js');
-      writeFileSync(file, 'export default { metaComponents: [] };\n');
-      const a = await loadConfigFile(dir);
-      const b = await loadConfigFile(dir);
-      expect(a).toEqual(b);
+      (globalThis as { __svelteVitalsConfigEvaluations?: number }).__svelteVitalsConfigEvaluations = 0;
+      writeFileSync(
+        file,
+        'globalThis.__svelteVitalsConfigEvaluations = (globalThis.__svelteVitalsConfigEvaluations ?? 0) + 1;\nexport default { metaComponents: [] };\n'
+      );
+      await loadConfigFile(dir);
+      await loadConfigFile(dir);
+      expect(evalCounter()).toBe(1);
+
+      writeFileSync(
+        file,
+        "globalThis.__svelteVitalsConfigEvaluations = (globalThis.__svelteVitalsConfigEvaluations ?? 0) + 1;\nexport default { metaComponents: ['X'] };\n"
+      );
+      await loadConfigFile(dir);
+      expect(evalCounter()).toBe(2);
     } finally {
+      delete (globalThis as { __svelteVitalsConfigEvaluations?: number }).__svelteVitalsConfigEvaluations;
       rmSync(dir, { recursive: true, force: true });
     }
   });

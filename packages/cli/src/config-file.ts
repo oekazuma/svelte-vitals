@@ -292,8 +292,16 @@ async function loadFrom(path: string): Promise<LoadedConfigFile> {
     // it was first loaded. A content hash in the query re-evaluates only when the file actually
     // changed; an unchanged file keeps hitting the cache instead of leaking a module per run.
     // Modules the config itself imports are still cached — that is a documented limitation.
-    const digest = createHash('sha1').update(readFileSync(path)).digest('hex').slice(0, 16);
-    mod = (await import(`${pathToFileURL(path).href}?v=${digest}`)) as { default?: unknown };
+    let digest = createHash('sha1').update(readFileSync(path)).digest('hex').slice(0, 16);
+    // The import reads the file a second time; a save in between would bind new contents to
+    // the old digest. Recompute after importing and retry (bounded) until the digest we used
+    // matches what's on disk, so a save-then-revert can't stick with the wrong cached module.
+    for (let attempt = 0; ; attempt++) {
+      mod = (await import(`${pathToFileURL(path).href}?v=${digest}`)) as { default?: unknown };
+      const digestAfter = createHash('sha1').update(readFileSync(path)).digest('hex').slice(0, 16);
+      if (digestAfter === digest || attempt >= 2) break;
+      digest = digestAfter;
+    }
   } catch (err) {
     // A .js config in CJS scope is parsed as CJS, so its `export default` is a SyntaxError
     // that names neither the file nor the fix — rethrow with both. A typo in an ESM config
