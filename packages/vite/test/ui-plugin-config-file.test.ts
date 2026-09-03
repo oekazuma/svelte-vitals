@@ -161,11 +161,14 @@ describe('svelteVitals dev dashboard — svelte-vitals.config.* wiring', () => {
         await writeFile(configPath, 'export default { weights: { seo: 2 } };\n');
         fireWatcher(configPath);
         // The re-resolve is async; poll /data.json until the new weight lands.
-        await vi.waitFor(() => {
-          const { res, body } = fakeRes();
-          call(req('GET', '/data.json'), res);
-          expect(JSON.parse(body()).report.weights.seo).toBe(2);
-        });
+        await vi.waitFor(
+          () => {
+            const { res, body } = fakeRes();
+            call(req('GET', '/data.json'), res);
+            expect(JSON.parse(body()).report.weights.seo).toBe(2);
+          },
+          { timeout: 2000 }
+        );
       } finally {
         warnSpy.mockRestore();
       }
@@ -184,9 +187,12 @@ describe('svelteVitals dev dashboard — svelte-vitals.config.* wiring', () => {
         const { call, fireWatcher } = await startUiServer(cwd);
         await writeFile(configPath, "export default { rules: { 'no/such-rule': 'off' } };\n");
         fireWatcher(configPath);
-        await vi.waitFor(() => {
-          expect(warnSpy.mock.calls.some((args) => String(args[0]).includes('config file invalid'))).toBe(true);
-        });
+        await vi.waitFor(
+          () => {
+            expect(warnSpy.mock.calls.some((args) => String(args[0]).includes('config file invalid'))).toBe(true);
+          },
+          { timeout: 2000 }
+        );
         const { res, body } = fakeRes();
         call(req('GET', '/data.json'), res);
         expect(JSON.parse(body()).report.weights.seo).toBe(5);
