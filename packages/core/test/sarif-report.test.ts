@@ -78,6 +78,16 @@ describe('formatSarifReport', () => {
     expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('seo/robots-txt:project');
   });
 
+  it('URI-encodes artifactLocation.uri, keeping separators and `+` intact', () => {
+    const tricky: Result[] = [{ ...results[0]!, location: 'src/routes/a b/#tag/100%/ページ/+page.svelte' }];
+    const run = JSON.parse(formatSarifReport(tricky, config, { version: '0.0.0' })).runs[0];
+    expect(run.results[0].locations[0].physicalLocation.artifactLocation.uri).toBe(
+      'src/routes/a%20b/%23tag/100%25/%E3%83%9A%E3%83%BC%E3%82%B8/+page.svelte'
+    );
+    // The fingerprint keeps the raw path: changing its format would reset alert identity on GitHub.
+    expect(run.results[0].partialFingerprints['svelteVitals/v1']).toBe('seo/title-presence:/none');
+  });
+
   it('uses result.line as startLine when present', () => {
     const withLine: Result[] = [
       {
