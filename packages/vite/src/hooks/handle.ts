@@ -39,7 +39,8 @@ export function findingSignature(results: Result[], config: Config): string {
 
 const warn = (line: string): void => console.warn(terminalSafe(line));
 
-async function postIngest(origin: string, route: string, results: Result[], failedRuleIds: string[]): Promise<void> {
+/** True only when the dashboard acknowledged the POST — the caller records the route's signature on that, so a lost ingest is retried on the next render instead of pinning the route to `static`. */
+async function postIngest(origin: string, route: string, results: Result[], failedRuleIds: string[]): Promise<boolean> {
   // `origin` comes from the request (Host header), so a spoofed Host must not
   // redirect this server-side POST to an arbitrary external host.
   if (!isLoopbackOrigin(origin)) {
@@ -50,18 +51,26 @@ async function postIngest(origin: string, route: string, results: Result[], fail
         `svelte-vitals: live UI ingest skipped for non-loopback origin ${origin} — open the dashboard via localhost`
       );
     }
-    return;
+    return false;
   }
   try {
-    await fetch(`${origin}/__svelte-vitals/ingest`, {
+    const res = await fetch(`${origin}/__svelte-vitals/ingest`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       // failedRuleIds is always sent, empty array included, so a route that recovers from
       // a previously-crashing rule clears its stale entry on the receiving store.
       body: JSON.stringify({ route, results, failedRuleIds })
     });
-  } catch {
+    if (!res.ok && globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
+      warn(`svelte-vitals: live UI ingest for ${route} rejected with HTTP ${res.status}`);
+    }
+    return res.ok;
+  } catch (err) {
     // dev tooling must never break a request — swallow ingest failures
+    if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
+      warn(`svelte-vitals: live UI ingest for ${route} failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    return false;
   }
 }
 
@@ -71,7 +80,8 @@ async function analyzeAndIngest(
   origin: string,
   rules: Rule[],
   config: Config,
-  lastSignature: Map<string, string>
+  lastSignature: Map<string, string>,
+  inflight: Map<string, Promise<void>>
 ): Promise<void> {
   try {
     const { tags, headings: levels, images: imgs, landmarks, nestedLandmarks, ids, idRefs } = parseHtmlHead(html);
@@ -114,9 +124,20 @@ async function analyzeAndIngest(
     // as a change, so its recovery reaches the store instead of being signature-skipped.
     const signature = `${findingSignature(results, config)}|failed:${[...failedRuleIds].sort().join(',')}`;
     if (lastSignature.get(route) === signature) return;
-    lastSignature.set(route, signature);
 
-    if (globalThis.process?.env?.SVELTE_VITALS_UI) void postIngest(origin, route, results, failedRuleIds);
+    if (!globalThis.process?.env?.SVELTE_VITALS_UI) return;
+    // Per-route FIFO: two renders of one route are two unordered fetches otherwise, and the
+    // store replaces last-write-wins, so an older payload could land last. The signature is
+    // recorded only after the dashboard acknowledged the POST, so a lost ingest (dev server
+    // restarting, a rejected origin, a transient socket error) is retried on the next render
+    // instead of pinning the route to `static` for the rest of the session.
+    const previous = inflight.get(route) ?? Promise.resolve();
+    const next = previous.then(async () => {
+      if (await postIngest(origin, route, results, failedRuleIds)) lastSignature.set(route, signature);
+    });
+    inflight.set(route, next);
+    await next;
+    if (inflight.get(route) === next) inflight.delete(route);
   } catch (err) {
     // Dev tooling must never break the request: swallow any parse/rule error.
     // Set SVELTE_VITALS_DEBUG to surface tool-internal errors while debugging.
@@ -152,6 +173,7 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
   // that answer under the visited route, next to the real site-wide result.
   const rules = selectRules(allRules, config).filter((r) => r.scope === 'route' && !r.crossRoute);
   const lastSignature = new Map<string, string>();
+  const inflight = new Map<string, Promise<void>>();
 
   return ({ event, resolve }) => {
     let buffer = '';
@@ -164,7 +186,7 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
         // Matched routes only: an unmatched request (404/error page) is not a route the
         // dashboard tracks, and raw pathnames would grow `lastSignature` without bound.
         if (done && event.route.id != null)
-          void analyzeAndIngest(buffer, event.route.id, event.url.origin, rules, config, lastSignature);
+          void analyzeAndIngest(buffer, event.route.id, event.url.origin, rules, config, lastSignature, inflight);
         return html;
       }
     });

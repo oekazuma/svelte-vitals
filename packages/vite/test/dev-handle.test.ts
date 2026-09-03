@@ -150,6 +150,70 @@ describe('svelteVitalsHandle', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it('retries the ingest on the next render when the first POST failed (non-ok response)', async () => {
+    const fetchMock = setup();
+    fetchMock.mockImplementationOnce(async () => ({ ok: false, status: 403 }) as Response);
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('retries the ingest on the next render when the first POST threw', async () => {
+    const fetchMock = setup();
+    fetchMock.mockImplementationOnce(async () => {
+      throw new Error('ECONNREFUSED');
+    });
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('after a successful POST the same findings are still deduplicated', async () => {
+    const fetchMock = setup();
+    fetchMock.mockImplementationOnce(async () => ({ ok: false, status: 500 }) as Response);
+    const handle = svelteVitalsHandle();
+    for (let i = 0; i < 3; i++) {
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+      await flush();
+    }
+    // 1st fails → 2nd succeeds → 3rd is deduplicated.
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('sends POSTs for the same route in render order even when an earlier one is slow', async () => {
+    const fetchMock = setup();
+    const bodies: string[] = [];
+    let releaseFirst!: () => void;
+    fetchMock.mockImplementationOnce(async (_url, init) => {
+      bodies.push(String(init?.body));
+      await new Promise<void>((r) => (releaseFirst = r));
+      return { ok: true } as Response;
+    });
+    fetchMock.mockImplementation(async (_url, init) => {
+      bodies.push(String(init?.body));
+      return { ok: true } as Response;
+    });
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) });
+    await flush();
+    // The second POST must not have been issued while the first is still in flight.
+    expect(bodies).toHaveLength(1);
+    releaseFirst();
+    await flush();
+    await flush();
+    expect(bodies).toHaveLength(2);
+    expect(JSON.parse(bodies[0]!).results.some((r: Result) => r.id === 'seo/title-presence')).toBe(true);
+    expect(JSON.parse(bodies[1]!).results.some((r: Result) => r.id === 'seo/single-h1')).toBe(true);
+  });
+
   // Outside dev (production builds, and non-Node/edge runtimes), esm-env resolves
   // `DEV` to false, so the handle short-circuits to a pass-through. Mocking esm-env
   // is the canonical way to exercise that branch — `DEV` is a static import, not a
