@@ -246,6 +246,53 @@ describe('svelteVitalsHandle', () => {
     expect(JSON.parse(bodies[2]!).results.some((r: Result) => r.id === 'seo/title-presence')).toBe(true);
   });
 
+  it('a failed older POST must not clear a newer queued signature', async () => {
+    const fetchMock = setup();
+    let releaseFirst!: () => void;
+    fetchMock.mockImplementationOnce(async () => {
+      await new Promise<void>((r) => (releaseFirst = r));
+      return { ok: false, status: 500 } as Response;
+    });
+    fetchMock.mockImplementation(async () => ({ ok: true }) as Response);
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A, hangs
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B, queued behind A
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(1); // B not sent yet — still queued behind A
+    releaseFirst(); // A resolves with 500
+    await flush();
+    await flush();
+    // A's failure must not clear B's queued signature (a newer render already replaced it),
+    // so the chain still sends B next.
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B again — deduped
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A again — sent
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
+  it('an identical re-render while its own POST is still hanging is deduped (exactly 1 call after release)', async () => {
+    const fetchMock = setup();
+    let release!: () => void;
+    fetchMock.mockImplementationOnce(async () => {
+      await new Promise<void>((r) => (release = r));
+      return { ok: true } as Response;
+    });
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // same signature, still in flight
+    await flush();
+    release();
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   // Outside dev (production builds, and non-Node/edge runtimes), esm-env resolves
   // `DEV` to false, so the handle short-circuits to a pass-through. Mocking esm-env
   // is the canonical way to exercise that branch — `DEV` is a static import, not a
