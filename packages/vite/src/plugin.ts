@@ -274,6 +274,9 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       // config-file values independently, since it calls analyzeProject (which loads
       // the config file itself).
       let config: Config;
+      // Config-file warnings already printed here for this edit — the runner below
+      // reloads the same config file itself and must not print them a second time.
+      let printedConfigWarnings = new Set<string>();
 
       // Guards a stale resolve from clobbering a newer one when two watcher-driven
       // calls overlap (the debounce below makes this rare but not impossible: a
@@ -289,6 +292,9 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
           const resolved = await resolveConfig(uiRoot, options);
           if (generation !== configGeneration) return;
           config = resolved.config;
+          // Replaced, not accumulated: an edit that fixes a warning must let a later,
+          // unrelated warning with the same text print again.
+          printedConfigWarnings = new Set(resolved.warnings);
           for (const w of resolved.warnings) warn(`svelte-vitals: ${w}`);
         } catch (err) {
           if (generation !== configGeneration) return;
@@ -327,8 +333,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         onError: (err) =>
           warn(`svelte-vitals: dev analysis failed: ${err instanceof Error ? err.message : String(err)}`),
         // Same sink and prefix as the build path (closeBundle) so the two never read differently.
+        // The runner reloads the config file itself, so its warning set repeats whatever
+        // applyConfig already printed for this edit — skip those to avoid printing twice.
         onWarnings: (warnings) => {
-          for (const w of warnings) warn(`svelte-vitals: ${w}`);
+          for (const w of warnings) if (!printedConfigWarnings.has(w)) warn(`svelte-vitals: ${w}`);
         },
         onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
       });

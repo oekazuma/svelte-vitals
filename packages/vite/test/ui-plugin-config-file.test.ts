@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { EventEmitter } from 'node:events';
@@ -142,6 +142,39 @@ describe('svelteVitals dev dashboard — svelte-vitals.config.* wiring', () => {
       try {
         await startUiServer(cwd);
         expect(warnSpy.mock.calls.some((args) => String(args[0]).includes('failOn'))).toBe(true);
+      } finally {
+        warnSpy.mockRestore();
+      }
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('does not print the same config-file warning twice (applyConfig + the runner both load it)', async () => {
+    const cwd = await mkdtemp(join(tmpdir(), 'sv-ui-config-'));
+    try {
+      // The whole-project runner's analyzeProject only reaches (and warns about) the config
+      // file once detectProject recognizes cwd as a SvelteKit project — svelte.config.js plus
+      // an existing src/routes dir is the minimal shape that satisfies it without any pages.
+      await writeFile(join(cwd, 'svelte.config.js'), 'export default {};\n');
+      await mkdir(join(cwd, 'src/routes'), { recursive: true });
+      await writeFile(join(cwd, 'svelte-vitals.config.js'), `export default { failOn: 'nope' };\n`);
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      try {
+        const { call } = await startUiServer(cwd);
+        // Wait for the whole-project runner's first (fire-and-forget) run to finish, so its
+        // warnings — if any duplicate applyConfig's — have already reached console.warn.
+        await vi.waitFor(
+          () => {
+            const { res, body } = fakeRes();
+            call(req('GET', '/data.json'), res);
+            expect(JSON.parse(body()).analyzing).toBe(false);
+            expect(warnSpy.mock.calls.some((args) => String(args[0]).includes('failOn'))).toBe(true);
+          },
+          { timeout: 2000 }
+        );
+        const failOnWarnings = warnSpy.mock.calls.filter((args) => String(args[0]).includes('unknown failOn'));
+        expect(failOnWarnings).toHaveLength(1);
       } finally {
         warnSpy.mockRestore();
       }
