@@ -58,8 +58,7 @@ interface RegistryProjection {
 // Keyed on the `config` object's identity, then on the rules array's identity: every in-tree
 // caller passes the same `config` object for a whole run (`withFailedRulesOff` returns a fresh
 // object when it changes anything, the same one when it doesn't), and nothing mutates a Config
-// in place. `buildJsonReport` alone calls this ~7 times per route; the projection depends on
-// neither `results` nor `applyCriticalCap`, so a per-call rebuild was ~95% of report-building time.
+// in place.
 const projections = new WeakMap<Config, WeakMap<readonly Rule[], RegistryProjection>>();
 
 function projectRegistry(config: Config, rulesList: readonly Rule[]): RegistryProjection {
