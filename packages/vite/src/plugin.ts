@@ -326,6 +326,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         },
         onError: (err) =>
           warn(`svelte-vitals: dev analysis failed: ${err instanceof Error ? err.message : String(err)}`),
+        // Same sink and prefix as the build path (closeBundle) so the two never read differently.
+        onWarnings: (warnings) => {
+          for (const w of warnings) warn(`svelte-vitals: ${w}`);
+        },
         onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
       });
       runner.start();
