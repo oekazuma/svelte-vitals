@@ -69,9 +69,14 @@ async function startUiServer(cwd: string, extraOptions: Record<string, unknown> 
   const plugins = svelteVitals({ ui: true, cwd, ...extraOptions }) as Plugin[];
   const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
   let handler: MiddlewareHandler = () => {};
+  let watcherCb: ((...args: unknown[]) => void) | undefined;
   const server = {
     config: { root: cwd },
-    watcher: { on: (_event: string, _cb: (...args: unknown[]) => void) => {} },
+    watcher: {
+      on: (_event: string, cb: (...args: unknown[]) => void) => {
+        watcherCb = cb;
+      }
+    },
     middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
   } as ViteDevServer;
   const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
@@ -87,7 +92,7 @@ async function startUiServer(cwd: string, extraOptions: Record<string, unknown> 
   ingestReq.emit('end');
   await new Promise((r) => setTimeout(r, 0));
 
-  return { call };
+  return { call, fireWatcher: (file: string) => watcherCb?.('change', file) };
 }
 
 describe('svelteVitals dev dashboard — svelte-vitals.config.* wiring', () => {
@@ -137,6 +142,60 @@ describe('svelteVitals dev dashboard — svelte-vitals.config.* wiring', () => {
       try {
         await startUiServer(cwd);
         expect(warnSpy.mock.calls.some((args) => String(args[0]).includes('failOn'))).toBe(true);
+      } finally {
+        warnSpy.mockRestore();
+      }
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('re-resolves the dashboard config when svelte-vitals.config.* changes on the watcher', async () => {
+    const cwd = await mkdtemp(join(tmpdir(), 'sv-ui-config-'));
+    try {
+      const configPath = join(cwd, 'svelte-vitals.config.js');
+      await writeFile(configPath, 'export default { weights: { seo: 5 } };\n');
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      try {
+        const { call, fireWatcher } = await startUiServer(cwd);
+        await writeFile(configPath, 'export default { weights: { seo: 2 } };\n');
+        fireWatcher(configPath);
+        // The re-resolve is async; poll /data.json until the new weight lands.
+        await vi.waitFor(
+          () => {
+            const { res, body } = fakeRes();
+            call(req('GET', '/data.json'), res);
+            expect(JSON.parse(body()).report.weights.seo).toBe(2);
+          },
+          { timeout: 2000 }
+        );
+      } finally {
+        warnSpy.mockRestore();
+      }
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('keeps the previous dashboard config when the edited file fails validation', async () => {
+    const cwd = await mkdtemp(join(tmpdir(), 'sv-ui-config-'));
+    try {
+      const configPath = join(cwd, 'svelte-vitals.config.js');
+      await writeFile(configPath, 'export default { weights: { seo: 5 } };\n');
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      try {
+        const { call, fireWatcher } = await startUiServer(cwd);
+        await writeFile(configPath, "export default { rules: { 'no/such-rule': 'off' } };\n");
+        fireWatcher(configPath);
+        await vi.waitFor(
+          () => {
+            expect(warnSpy.mock.calls.some((args) => String(args[0]).includes('config file invalid'))).toBe(true);
+          },
+          { timeout: 2000 }
+        );
+        const { res, body } = fakeRes();
+        call(req('GET', '/data.json'), res);
+        expect(JSON.parse(body()).report.weights.seo).toBe(5);
       } finally {
         warnSpy.mockRestore();
       }

@@ -1,3 +1,5 @@
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { loadConfigFile, loadConfigFromPath } from '../src/config-file.js';
@@ -252,6 +254,51 @@ describe('loadConfigFile', () => {
   // scripts/floor-smoke.js. It cannot live here: vitest's module runner
   // transforms in-process dynamic `import()`, so a `.ts` config always loads
   // inside vitest regardless of the host Node.
+});
+
+describe('loadConfigFile re-reads an edited file', () => {
+  it('returns the new contents after the file is rewritten in the same process', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-config-reload-'));
+    try {
+      const file = join(dir, 'svelte-vitals.config.js');
+      writeFileSync(file, "export default { failOn: 'warning' };\n");
+      expect((await loadConfigFile(dir))?.config.failOn).toBe('warning');
+      writeFileSync(file, "export default { failOn: 'critical' };\n");
+      expect((await loadConfigFile(dir))?.config.failOn).toBe('critical');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('does not re-evaluate an unchanged file, but does re-evaluate a changed one', async () => {
+    // Pin the cache key: an identical file must resolve to the identical URL (cached, module
+    // body does not re-run), so the run-per-save dev loop does not leak one module instance
+    // per re-analysis — while an actually-changed file must re-run.
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-config-reload-'));
+    const evalCounter = () =>
+      (globalThis as { __svelteVitalsConfigEvaluations?: number }).__svelteVitalsConfigEvaluations;
+    try {
+      const file = join(dir, 'svelte-vitals.config.js');
+      (globalThis as { __svelteVitalsConfigEvaluations?: number }).__svelteVitalsConfigEvaluations = 0;
+      writeFileSync(
+        file,
+        'globalThis.__svelteVitalsConfigEvaluations = (globalThis.__svelteVitalsConfigEvaluations ?? 0) + 1;\nexport default { metaComponents: [] };\n'
+      );
+      await loadConfigFile(dir);
+      await loadConfigFile(dir);
+      expect(evalCounter()).toBe(1);
+
+      writeFileSync(
+        file,
+        "globalThis.__svelteVitalsConfigEvaluations = (globalThis.__svelteVitalsConfigEvaluations ?? 0) + 1;\nexport default { metaComponents: ['X'] };\n"
+      );
+      await loadConfigFile(dir);
+      expect(evalCounter()).toBe(2);
+    } finally {
+      delete (globalThis as { __svelteVitalsConfigEvaluations?: number }).__svelteVitalsConfigEvaluations;
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
 });
 
 describe('loadConfigFromPath', () => {
