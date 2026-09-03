@@ -214,6 +214,38 @@ describe('svelteVitalsHandle', () => {
     expect(JSON.parse(bodies[1]!).results.some((r: Result) => r.id === 'seo/single-h1')).toBe(true);
   });
 
+  it('re-sends a route whose findings changed back while an older POST was still in flight', async () => {
+    const fetchMock = setup();
+    const bodies: string[] = [];
+    let releaseSecond!: () => void;
+    fetchMock
+      .mockImplementationOnce(async (_url, init) => {
+        bodies.push(String(init?.body));
+        return { ok: true } as Response;
+      })
+      .mockImplementationOnce(async (_url, init) => {
+        bodies.push(String(init?.body));
+        await new Promise<void>((r) => (releaseSecond = r));
+        return { ok: true } as Response;
+      })
+      .mockImplementation(async (_url, init) => {
+        bodies.push(String(init?.body));
+        return { ok: true } as Response;
+      });
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A, acked
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B, hangs
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A again — must be queued, not deduped
+    await flush();
+    releaseSecond();
+    await flush();
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(JSON.parse(bodies[2]!).results.some((r: Result) => r.id === 'seo/title-presence')).toBe(true);
+  });
+
   // Outside dev (production builds, and non-Node/edge runtimes), esm-env resolves
   // `DEV` to false, so the handle short-circuits to a pass-through. Mocking esm-env
   // is the canonical way to exercise that branch — `DEV` is a static import, not a
