@@ -202,7 +202,7 @@ order, dependencies between plans, and a status column.
 (This section is generated from svelte-vitals' own rule metadata — every
 rule's id, title, severity, rationale, docs link and, where the rule ships
 one, its canonical fix — grouped by category. It reflects the svelte-vitals
-release this skill was generated from; \`npx svelte-vitals explain --list\` is
+source this skill was generated from; \`npx svelte-vitals explain --list\` is
 the authority for what the version installed in this project checks.)
 
 ${ruleDigest()}

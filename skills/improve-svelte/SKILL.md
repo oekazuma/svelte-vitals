@@ -198,7 +198,7 @@ order, dependencies between plans, and a status column.
 (This section is generated from svelte-vitals' own rule metadata — every
 rule's id, title, severity, rationale, docs link and, where the rule ships
 one, its canonical fix — grouped by category. It reflects the svelte-vitals
-release this skill was generated from; `npx svelte-vitals explain --list` is
+source this skill was generated from; `npx svelte-vitals explain --list` is
 the authority for what the version installed in this project checks.)
 
 A `Fix:` below is the rule's canonical fix, the same for every occurrence. A line without one is not a rule without a fix — those rules word their fix per finding, so take it from the finding itself: `recommendation` on each issue in `--reporter json`, printed as `Fix:` by `--reporter agent`.
