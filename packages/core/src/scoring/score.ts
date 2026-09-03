@@ -42,7 +42,12 @@ export interface ScoreResult {
 
 export interface ScoreOptions {
   applyCriticalCap?: boolean;
-  /** The rules that ran. Defaults to the selected registry; supplied by tests and custom rule sets. */
+  /**
+   * The rules that ran. Defaults to the selected registry; supplied by tests and custom rule sets.
+   * Treated as immutable for as long as the same `config` object is in use: the registry projection
+   * is cached by the identity of this array and of `config`, so mutate neither in place — pass a
+   * new array or a new config instead.
+   */
   rules?: readonly Rule[];
 }
 
@@ -58,7 +63,8 @@ interface RegistryProjection {
 // Keyed on the `config` object's identity, then on the rules array's identity: every in-tree
 // caller passes the same `config` object for a whole run (`withFailedRulesOff` returns a fresh
 // object when it changes anything, the same one when it doesn't), and nothing mutates a Config
-// in place.
+// in place. Callers own that contract: a `config` or `options.rules` mutated in place after a call
+// will be scored against the stale projection.
 const projections = new WeakMap<Config, WeakMap<readonly Rule[], RegistryProjection>>();
 
 function projectRegistry(config: Config, rulesList: readonly Rule[]): RegistryProjection {
