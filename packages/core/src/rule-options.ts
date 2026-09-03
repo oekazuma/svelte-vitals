@@ -129,7 +129,8 @@ export function resolveRuleOptions(
   for (const layer of layers) {
     if (!layer) continue;
     for (const [key, value] of Object.entries(layer)) {
-      const s = spec[key];
+      // Same presence rule as `isMentionedAnywhere` above: an inherited member is not a declared option.
+      const s = Object.hasOwn(spec, key) ? spec[key] : undefined;
       if (!s) continue; // validation rejects unknown keys up front; ignore defensively
       if (s.kind === 'integer') out[key] = value;
       else if (s.kind === 'string-list') out[key] = [...(out[key] as string[]), ...(value as string[])];
@@ -183,7 +184,8 @@ export function validateRuleOptions(
   const isNonEmptyString = (v: unknown): boolean => typeof v === 'string' && v.length > 0;
 
   for (const [key, value] of Object.entries(options)) {
-    const s = spec[key];
+    // Same presence rule as `isMentionedAnywhere` above: an inherited member is not a declared option.
+    const s = Object.hasOwn(spec, key) ? spec[key] : undefined;
     if (!s) {
       errors.push(`${ruleId}: unknown option '${key}'. Known options: ${Object.keys(spec).join(', ')}.`);
       continue;

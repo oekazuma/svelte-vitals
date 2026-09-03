@@ -21,6 +21,12 @@ describe('resolveRuleOptions', () => {
   it('returns an empty object for a rule with no spec', () => {
     expect(resolveRuleOptions('r', undefined, defineConfig({}))).toEqual({});
   });
+  it('ignores an Object.prototype-named key in a layer instead of merging it in', () => {
+    // resolveRuleOptions trusts validation, but the defensive `if (!s) continue` must hold for these names too.
+    const config = defineConfig({ rules: { r: { options: { constructor: { z: 'y' } } } } });
+    const resolved = resolveRuleOptions('r', spec, config);
+    expect(Object.hasOwn(resolved, 'constructor')).toBe(false);
+  });
   it('replaces an integer from the global setting', () => {
     const config = defineConfig({ rules: { r: { options: { max: 10 } } } });
     expect(resolveRuleOptions('r', spec, config).max).toBe(10);
@@ -95,6 +101,13 @@ describe('validateRuleOptions', () => {
   });
   it('rejects an unknown option key', () => {
     expect(validateRuleOptions('r', spec, { maxx: 10 })[0]).toContain("unknown option 'maxx'");
+  });
+  it('rejects an Object.prototype-named option key as unknown, not as a wrong-typed option', () => {
+    for (const key of ['constructor', 'toString', 'hasOwnProperty']) {
+      const errors = validateRuleOptions('r', spec, { [key]: { a: 'b' } });
+      expect(errors).toHaveLength(1);
+      expect(errors[0]).toContain(`unknown option '${key}'`);
+    }
   });
   it('rejects options on a rule that declares none', () => {
     expect(validateRuleOptions('r', undefined, { max: 1 })[0]).toContain('takes no options');
