@@ -61,7 +61,8 @@ function isResultLike(x: unknown): x is Result {
  */
 export function installUiMiddleware(
   server: ViteDevServer,
-  config: Config,
+  /** A function is read on every request, so a config-file edit picked up mid-session is reflected without re-mounting the middleware. */
+  config: Config | (() => Config),
   version: string,
   store: FindingsStore,
   coreVersion?: string,
@@ -69,6 +70,7 @@ export function installUiMiddleware(
   getStaticFailedRuleIds?: () => string[] | undefined
 ): void {
   const clients = new Set<ServerResponse>();
+  const currentConfig = (): Config => (typeof config === 'function' ? config() : config);
 
   store.subscribe(() => {
     for (const res of clients) {
@@ -165,7 +167,7 @@ export function installUiMiddleware(
 
     if (url.startsWith('/data.json')) {
       try {
-        const snapshot = buildSnapshot(store, config, { version, coreVersion }, getStaticFailedRuleIds?.());
+        const snapshot = buildSnapshot(store, currentConfig(), { version, coreVersion }, getStaticFailedRuleIds?.());
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(snapshot));
       } catch {
@@ -178,7 +180,9 @@ export function installUiMiddleware(
     // Last line of defense that validated data should never reach: if the renderer
     // throws anyway, return a plain-text 500 and never take down the dev server.
     try {
-      const html = renderAppShell(buildSnapshot(store, config, { version, coreVersion }, getStaticFailedRuleIds?.()));
+      const html = renderAppShell(
+        buildSnapshot(store, currentConfig(), { version, coreVersion }, getStaticFailedRuleIds?.())
+      );
       res.setHeader('Content-Type', 'text/html');
       res.end(html);
     } catch {

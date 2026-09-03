@@ -89,6 +89,7 @@ Notes:
 - Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST, a guard against a spoofed `Host` header, so visited routes won't refine to `measured`. Open it from `localhost` instead.
 - The dashboard's ingest endpoint checks the `Origin` header: a request that carries one must match the dashboard's own host and port, so a page served by another local dev server or tool cannot feed it findings. Requests without an `Origin` header (the server-side handle's own POSTs) are accepted as before.
 - Set `SVELTE_VITALS_DEBUG=true` to surface swallowed internal errors (analysis failures, skipped ingests) to the terminal for troubleshooting.
+- Editing `svelte-vitals.config.{js,ts}` re-analyzes with the new config, dashboard scoring included. Modules the config file itself imports are not re-evaluated until `vite dev` restarts.
 
 ## Copy a fix prompt for any finding
 

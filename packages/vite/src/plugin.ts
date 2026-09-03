@@ -274,20 +274,26 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       // config-file values independently, since it calls analyzeProject (which loads
       // the config file itself).
       let config: Config;
-      let warnings: string[];
-      try {
-        ({ config, warnings } = await resolveConfig(uiRoot, options));
-      } catch (err) {
-        // Dev must not crash on a config typo; the dashboard runs on plugin
-        // options/defaults and says so. The build path (closeBundle) intentionally
-        // DOES fail — see the comment there.
-        warn(
-          `svelte-vitals: config file invalid — dashboard using plugin options/defaults: ${err instanceof Error ? err.message : String(err)}`
-        );
-        config = mergeConfig(options, undefined);
-        warnings = [];
-      }
-      for (const w of warnings) warn(`svelte-vitals: ${w}`);
+
+      // Shared by startup and the config-file watcher below: an invalid config must
+      // never take the dev server down, so a failed re-resolve keeps whatever config
+      // the dashboard was already using.
+      const applyConfig = async (): Promise<void> => {
+        try {
+          const resolved = await resolveConfig(uiRoot, options);
+          config = resolved.config;
+          for (const w of resolved.warnings) warn(`svelte-vitals: ${w}`);
+        } catch (err) {
+          // Dev must not crash on a config typo; the dashboard runs on plugin
+          // options/defaults (or the previous config, on a later edit) and says so.
+          // The build path (closeBundle) intentionally DOES fail — see the comment there.
+          warn(
+            `svelte-vitals: config file invalid — dashboard using ${config ? 'the previous config' : 'plugin options/defaults'}: ${err instanceof Error ? err.message : String(err)}`
+          );
+          config ??= mergeConfig(options, undefined);
+        }
+      };
+      await applyConfig();
       const store = createStore();
 
       // The whole-project runner's crashed-rule ids, read by installUiMiddleware on every
@@ -316,7 +322,11 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       });
       runner.start();
       server.watcher?.on('all', (_event, file) => {
-        if (isRelevant(file, uiRoot)) runner.notifyChange(file);
+        if (!isRelevant(file, uiRoot)) return;
+        // The runner re-loads the config file itself (analyzeProject → loadConfigFile); the
+        // dashboard's scoring config is resolved here, so it has to follow the same edit.
+        if (CONFIG_FILENAMES.includes(basename(file))) void applyConfig();
+        runner.notifyChange(file);
       });
 
       // Clear the flag and stop the runner when the dev server stops, so the handle
@@ -327,7 +337,14 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         runner.stop();
       });
 
-      installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion(), () => staticFailedRuleIds);
+      installUiMiddleware(
+        server,
+        () => config,
+        readPackageVersion(),
+        store,
+        readCoreVersion(),
+        () => staticFailedRuleIds
+      );
 
       // The dashboard has no separate CLI entry point (unlike `vitest --ui`) to signal
       // it exists, so announce it the same way Vite announces its own dev server: as an

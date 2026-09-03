@@ -87,6 +87,7 @@ export const handle = sequence(
 - ライブ更新はループバックオリジン（`localhost`、`127.0.0.1`、`[::1]`）でのみ流れます。`vite dev --host` で LAN の IP からアプリを開いた場合、ハンドルは ingest の POST をスキップする（`Host` ヘッダー偽装への防御）ため、訪問したルートが `measured` に切り替わりません。その場合は `localhost` から開いてください。
 - dashboard の ingest エンドポイントは `Origin` ヘッダーを検査します。`Origin` を持つリクエストは dashboard 自身のホストとポートに一致する必要があるため、別のローカル dev サーバーやツールが配信するページから finding を流し込むことはできません。`Origin` を持たないリクエスト（サーバー側ハンドル自身の POST）は従来どおり受け付けます。
 - `SVELTE_VITALS_DEBUG=true` を設定すると、飲み込まれた内部エラー（分析失敗、ingest のスキップ）がトラブルシューティング用にターミナルへ表示されます。
+- `svelte-vitals.config.{js,ts}` を編集すると、新しい設定で再解析され、ダッシュボードの採点にも反映されます。設定ファイル自身が import している別モジュールは `vite dev` を再起動するまで再評価されません。
 
 ## 指摘ごとに修正プロンプトをコピーする
 

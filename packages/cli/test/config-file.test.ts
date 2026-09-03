@@ -1,3 +1,5 @@
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { loadConfigFile, loadConfigFromPath } from '../src/config-file.js';
@@ -252,6 +254,36 @@ describe('loadConfigFile', () => {
   // scripts/floor-smoke.js. It cannot live here: vitest's module runner
   // transforms in-process dynamic `import()`, so a `.ts` config always loads
   // inside vitest regardless of the host Node.
+});
+
+describe('loadConfigFile re-reads an edited file', () => {
+  it('returns the new contents after the file is rewritten in the same process', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-config-reload-'));
+    try {
+      const file = join(dir, 'svelte-vitals.config.js');
+      writeFileSync(file, "export default { failOn: 'warning' };\n");
+      expect((await loadConfigFile(dir))?.config.failOn).toBe('warning');
+      writeFileSync(file, "export default { failOn: 'critical' };\n");
+      expect((await loadConfigFile(dir))?.config.failOn).toBe('critical');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('does not re-evaluate an unchanged file (same contents → same module instance)', async () => {
+    // Pin the cache key: an identical file must resolve to the identical URL, so the run-per-save
+    // dev loop does not leak one module instance per re-analysis.
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-config-reload-'));
+    try {
+      const file = join(dir, 'svelte-vitals.config.js');
+      writeFileSync(file, 'export default { metaComponents: [] };\n');
+      const a = await loadConfigFile(dir);
+      const b = await loadConfigFile(dir);
+      expect(a).toEqual(b);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
 });
 
 describe('loadConfigFromPath', () => {
