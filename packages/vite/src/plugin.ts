@@ -275,15 +275,23 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       // the config file itself).
       let config: Config;
 
+      // Guards a stale resolve from clobbering a newer one when two watcher-driven
+      // calls overlap (the debounce below makes this rare but not impossible: a
+      // resolve can still be in flight when the timer fires again).
+      let configGeneration = 0;
+
       // Shared by startup and the config-file watcher below: an invalid config must
       // never take the dev server down, so a failed re-resolve keeps whatever config
       // the dashboard was already using.
       const applyConfig = async (): Promise<void> => {
+        const generation = ++configGeneration;
         try {
           const resolved = await resolveConfig(uiRoot, options);
+          if (generation !== configGeneration) return;
           config = resolved.config;
           for (const w of resolved.warnings) warn(`svelte-vitals: ${w}`);
         } catch (err) {
+          if (generation !== configGeneration) return;
           // Dev must not crash on a config typo; the dashboard runs on plugin
           // options/defaults (or the previous config, on a later edit) and says so.
           // The build path (closeBundle) intentionally DOES fail — see the comment there.
@@ -321,11 +329,21 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
       });
       runner.start();
+
+      // A save-by-truncate editor delivers a 'change' event while the file is
+      // half-written, which would make an immediate re-resolve throw on the partial
+      // content and print a false "config file invalid" warning. Debouncing (500ms,
+      // mirroring the runner's own default debounce in ui/analysis.ts) lets a burst
+      // of events settle on the final write before resolving once.
+      let configTimer: ReturnType<typeof setTimeout> | undefined;
       server.watcher?.on('all', (_event, file) => {
         if (!isRelevant(file, uiRoot)) return;
         // The runner re-loads the config file itself (analyzeProject → loadConfigFile); the
         // dashboard's scoring config is resolved here, so it has to follow the same edit.
-        if (CONFIG_FILENAMES.includes(basename(file))) void applyConfig();
+        if (CONFIG_FILENAMES.includes(basename(file))) {
+          clearTimeout(configTimer);
+          configTimer = setTimeout(() => void applyConfig(), 500);
+        }
         runner.notifyChange(file);
       });
 
@@ -334,6 +352,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       // flip, and no re-analysis timer outlives the server.
       server.httpServer?.once('close', () => {
         delete process.env.SVELTE_VITALS_UI;
+        clearTimeout(configTimer);
         runner.stop();
       });
 
