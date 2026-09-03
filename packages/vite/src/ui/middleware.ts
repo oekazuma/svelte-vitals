@@ -4,10 +4,14 @@ import { CATEGORIES, type Config, type Result } from '@svelte-vitals/core';
 import { renderAppShell } from '@svelte-vitals/core/internal';
 import type { FindingsStore } from './store.js';
 import { buildSnapshot } from './snapshot.js';
-import { isLoopbackOrigin } from '../loopback.js';
+import { isLoopbackOrigin, isSameOrigin } from '../loopback.js';
 
 const SEVERITIES = new Set(['critical', 'warning', 'info']);
 const CATEGORY_SET = new Set<string>(CATEGORIES);
+// Same-origin already limits reach to the dashboard's own page, but a same-origin request
+// could still come from a giant accidental body; the built-in kitchen-sink defect gallery's
+// largest route (25 findings) serializes to ~14 KB, so 4 MiB leaves ample headroom.
+const INGEST_BODY_LIMIT = 4 * 1024 * 1024;
 
 function isOptionalString(v: unknown): v is string | undefined {
   return v === undefined || typeof v === 'string';
@@ -89,17 +93,18 @@ export function installUiMiddleware(
   server.middlewares.use('/__svelte-vitals', (req: IncomingMessage, res: ServerResponse) => {
     const url = req.url ?? '/';
 
-    // Same boundary as the sending side's postIngest (hooks/handle.ts): the dev UI is
-    // loopback-only. Cross-site form POSTs carry an Origin header (same-origin GET
-    // navigations don't), so rejecting only "Origin present AND non-loopback" never
-    // breaks legitimate use. Host validation mitigates DNS rebinding (LAN use via
-    // --host is already blocked on the sending side too).
+    // Loopback Host defeats DNS rebinding; on top of that, a request carrying an Origin must come
+    // from this very server (host:port). The handle's server-side fetch sends no Origin, and the
+    // dashboard's own fetches are same-origin, so nothing legitimate is lost — while a page on any
+    // other localhost port (another dev server, a local tool UI) can no longer POST findings in.
     const origin = req.headers.origin;
     const host = req.headers.host;
+    // The Host header has no scheme, but the socket does (server.https) — isSameOrigin needs it to resolve the Host side's default port.
+    const isTls = Boolean((req.socket as { encrypted?: boolean } | undefined)?.encrypted);
     if (
-      (typeof origin === 'string' && !isLoopbackOrigin(origin)) ||
       host === undefined ||
-      !isLoopbackOrigin(`http://${host}`)
+      !isLoopbackOrigin(`http://${host}`) ||
+      (typeof origin === 'string' && !isSameOrigin(origin, host, isTls))
     ) {
       // drain any unread body so the client reliably receives the 403 (unread data kills the socket)
       req.resume();
@@ -112,8 +117,25 @@ export function installUiMiddleware(
       // Collect raw Buffers and decode once: per-chunk toString() would corrupt a
       // multibyte char split across a chunk boundary, dropping that route's findings.
       const chunks: Buffer[] = [];
-      req.on('data', (c: Buffer) => chunks.push(c));
+      let received = 0;
+      let tooLarge = false;
+      req.on('data', (c: Buffer) => {
+        if (tooLarge) return;
+        received += c.length;
+        if (received > INGEST_BODY_LIMIT) {
+          // Answer and drop the connection the moment the cap is crossed, so an oversized sender
+          // cannot keep the request open; a destroyed stream emits no 'end'.
+          tooLarge = true;
+          chunks.length = 0;
+          res.statusCode = 413;
+          res.end();
+          req.destroy();
+          return;
+        }
+        chunks.push(c);
+      });
       req.on('end', () => {
+        if (tooLarge) return;
         try {
           const { route, results, failedRuleIds } = JSON.parse(Buffer.concat(chunks).toString('utf8'));
           if (typeof route === 'string' && Array.isArray(results)) {
