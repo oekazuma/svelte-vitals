@@ -1,8 +1,9 @@
 // Scores are floored, not rounded (2026-07-31): a displayed 100 means the deduction was exactly zero.
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { defineConfig, type Result } from '../src/index.js';
 import { computeScore, withFailedRulesOff } from '../src/internal.js';
 import type { Rule } from '../src/rule.js';
+import * as inventory from '../src/scoring/inventory.js';
 import { buildInventory, DEDUCTION } from '../src/scoring/inventory.js';
 import { INVENTORY_FLOOR, scoresByCategory } from '../src/scoring/score.js';
 
@@ -19,6 +20,36 @@ const fail = (id: string, route: string, severity: 'critical' | 'warning' | 'inf
   detection: { presence: 'none', value: 'absent' },
   route,
   message: 'missing'
+});
+
+describe('computeScore memoizes the registry projection per config', () => {
+  it('builds the inventory once for repeated calls with the same config object', () => {
+    const spy = vi.spyOn(inventory, 'buildInventory');
+    try {
+      const config = defineConfig({});
+      const results: Result[] = [pass('seo/title-presence', '/a'), fail('seo/title-presence', '/b', 'critical')];
+      computeScore(results, config);
+      computeScore(results, config);
+      computeScore(results.slice(0, 1), config, { applyCriticalCap: false });
+      expect(spy).toHaveBeenCalledTimes(1);
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it('rebuilds for a different config object and for an explicit rules list', () => {
+    const spy = vi.spyOn(inventory, 'buildInventory');
+    try {
+      const a = defineConfig({});
+      const b = defineConfig({ rules: { 'seo/title-presence': 'off' } });
+      computeScore([], a);
+      computeScore([], b);
+      computeScore([], a, { rules: [] });
+      expect(spy).toHaveBeenCalledTimes(3);
+    } finally {
+      spy.mockRestore();
+    }
+  });
 });
 
 describe('computeScore (§12 worked example)', () => {
