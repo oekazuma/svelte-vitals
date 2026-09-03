@@ -1,5 +1,14 @@
 # @svelte-vitals/vite
 
+## 0.36.3
+
+### Patch Changes
+
+- d3828d9: The dev dashboard's `/__svelte-vitals/ingest` endpoint now rejects a request whose `Origin` header does not match the dashboard's own host and port (requests without an `Origin`, such as the server-side handle's own POSTs, are accepted as before), and answers 413 as soon as a body exceeds 4 MiB. Previously a page served from any other localhost port could inject findings — including fix snippets that reach "Copy AI prompt" — into the dashboard.
+- Updated dependencies [4eb21d1]
+  - @svelte-vitals/core@0.51.1
+  - svelte-vitals@0.54.3
+
 ## 0.36.2
 
 ### Patch Changes
