@@ -42,8 +42,8 @@ without a judgment call of its own.
    which you delete before finishing. If asked to "just fix it", decline and
    point to \`improve-svelte execute <plan>\`, to running the plan with any
    agent, or to the \`svelte-vitals\` skill's own diff/staged gate.
-2. **No mutating operations.** No \`--fix\`-style flags (svelte-vitals has
-   none today, by design), no code edits, no commits, no formatters, no
+2. **No mutating operations.** No \`--fix\`-style flags (svelte-vitals ships
+   none, by design), no code edits, no commits, no formatters, no
    dependency installs. Run svelte-vitals read-only, for evidence only.
 3. **Plans must be fully self-contained.** The executor has zero context
    from this conversation. Never write "fix it like seo/title-presence above" — inline
@@ -123,7 +123,7 @@ Get the machine map before applying judgment:
 Audit against svelte-vitals' six categories: SEO, Performance, Correctness,
 Security, Architecture, Accessibility (see the rule catalog below for the
 full "hunt for" list per category, generated from svelte-vitals' own rule
-metadata — always in sync, never invented).
+metadata).
 
 For anything beyond a small project, fan out read-only subagents — one per
 category. Each subagent prompt must include: the recon facts (stack,
@@ -167,7 +167,8 @@ Severity here is leverage-driven, **not** svelte-vitals' raw rule severity:
 - **LOW** — polish and hygiene: an \`info\`-severity finding on a low-traffic
   route, a namespace import that could be more tree-shakeable.
 
-After the table, list 2–4 **missed opportunities** — additive improvements
+After the table, list the **missed opportunities** worth naming — additive
+improvements
 svelte-vitals doesn't (and by design won't) flag, since it's a static
 analyzer, not a runtime auditor: actual Core Web Vitals measurement, a
 missing \`sitemap.xml\` entry for a new route, structured-data types beyond
@@ -198,10 +199,11 @@ order, dependencies between plans, and a status column.
 
 ## Rule catalog
 
-(This section is generated at install time from svelte-vitals' own rule
-metadata — every rule's id, title, severity, rationale, docs link and, where
-the rule ships one, its canonical fix — grouped by category. It is always in
-sync with the version of svelte-vitals you have installed.)
+(This section is generated from svelte-vitals' own rule metadata — every
+rule's id, title, severity, rationale, docs link and, where the rule ships
+one, its canonical fix — grouped by category. It reflects the svelte-vitals
+release this skill was generated from; \`npx svelte-vitals explain --list\` is
+the authority for what the version installed in this project checks.)
 
 ${ruleDigest()}
 
