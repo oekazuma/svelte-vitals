@@ -117,6 +117,11 @@ describe('architecture/reserved-name-placement', () => {
     expect(results.map((r) => r.route)).toEqual(['src/lib/Icons/parts', 'src/lib/formatDate/parts']);
   });
 
+  it('does not throw when a directory is named like an Object.prototype member and declared in only one map', async () => {
+    const tree = ['src/lib/Card/Card.svelte', 'src/lib/Card/constructor/a.svelte'];
+    await expect(run(tree, { capitalisedUnitPlacements: { constructor: 'src/lib/**' } })).resolves.toBeDefined();
+  });
+
   // Testing item 2
   it('is silent for an any-case name under both kinds of unit, in one run', async () => {
     const results = await run(UNIT_TREE, { anyCaseUnitPlacements: { tests: 'src/**' } });

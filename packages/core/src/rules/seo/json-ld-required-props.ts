@@ -12,7 +12,9 @@ export const seoJsonLdRequiredProps = jsonldRule({
     let hasKnownType = false;
     for (const node of nodes) {
       for (const t of typeOf(node)) {
-        const required = REQUIRED_PROPS[t];
+        // `t` is the page's own @type string; an unguarded index would return Object.prototype members
+        // for names like `constructor` and crash the whole rule (a crashed rule drops out of scoring).
+        const required = Object.hasOwn(REQUIRED_PROPS, t) ? REQUIRED_PROPS[t] : undefined;
         if (!required) continue; // unknown/custom type, or a type Google requires nothing from → not flagged
         hasKnownType = true;
         const missing = missingRequiredProps(node, required);

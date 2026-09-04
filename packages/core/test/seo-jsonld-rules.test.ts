@@ -426,6 +426,23 @@ describe('seo/json-ld-deprecated-type-021', () => {
       await seoJsonLdRequiredProps.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Person"}')))
     ).toHaveLength(0);
   });
+  it('seo/json-ld-required-props treats an Object.prototype-named @type as unknown instead of throwing', async () => {
+    for (const type of ['constructor', 'toString', 'valueOf', 'hasOwnProperty']) {
+      const rs = await seoJsonLdRequiredProps.check(
+        ctx(headWithJsonLd(`{"@context":"https://schema.org","@type":"${type}"}`))
+      );
+      expect(fails(rs)).toHaveLength(0);
+    }
+    // Same for the array form of @type.
+    const rs = await seoJsonLdRequiredProps.check(
+      ctx(
+        headWithJsonLd(
+          '{"@context":"https://schema.org","@type":["constructor","WebSite"],"name":"n","url":"https://e.com/"}'
+        )
+      )
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
   it('seo/json-ld-deprecated-type-021 skip parseable JSON-LD that seo/json-ld-validity deems invalid (missing @context/@type)', async () => {
     // Relative URL present, but no @context → seo/json-ld-validity owns the finding; seo/json-ld-relative-url stays silent (no misleading pass).
     expect(await seoJsonLdRelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"/logo.png"}')))).toHaveLength(

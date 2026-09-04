@@ -147,15 +147,20 @@ export const architectureReservedNamePlacement: Rule = {
       const inAnyUnits = Object.hasOwn(anyUnits, name);
       if (!inPlacements && !inCapUnits && !inAnyUnits) continue;
 
+      // The presence flags above are `Object.hasOwn`; the value reads must be too, or a name like
+      // `constructor` declared in one map reads Object.prototype's function out of the other two.
+      const declaredValue = (map: typeof placements, present: boolean): string | undefined =>
+        present ? map[name] : undefined;
+
       // A value that splits to nothing ungoverns the NAME, in every map of this resolved option set.
       // Dropping only the empty value would shrink the union and turn a typo into false positives at
       // every position the emptied entry covered — the opposite direction from the sibling rule,
       // whose maps compete rather than union.
       const emptyValue = (present: boolean, value: string | undefined) => present && globsOf(value ?? '').length === 0;
       if (
-        emptyValue(inPlacements, placements[name]) ||
-        emptyValue(inCapUnits, capUnits[name]) ||
-        emptyValue(inAnyUnits, anyUnits[name])
+        emptyValue(inPlacements, declaredValue(placements, inPlacements)) ||
+        emptyValue(inCapUnits, declaredValue(capUnits, inCapUnits)) ||
+        emptyValue(inAnyUnits, declaredValue(anyUnits, inAnyUnits))
       ) {
         continue;
       }
@@ -178,9 +183,9 @@ export const architectureReservedNamePlacement: Rule = {
       // directory twice.
       const judged = new Set<string>();
       const resolvedValues: [MapName, string | undefined][] = [
-        ['placements', placements[name]],
-        ['capitalisedUnitPlacements', capUnits[name]],
-        ['anyCaseUnitPlacements', anyUnits[name]]
+        ['placements', declaredValue(placements, inPlacements)],
+        ['capitalisedUnitPlacements', declaredValue(capUnits, inCapUnits)],
+        ['anyCaseUnitPlacements', declaredValue(anyUnits, inAnyUnits)]
       ];
       for (const [map, value] of resolvedValues) {
         if (value === undefined) continue;
@@ -202,9 +207,17 @@ export const architectureReservedNamePlacement: Rule = {
       // Every map is consulted, not short-circuited on the first that permits the position: an
       // alternative left unread has still qualified this directory, and the classification below would
       // go on to blame an exclusion elsewhere in its glob for the silence.
-      const byPlacement = record('placements', placements[name], true);
-      const byCapUnit = record('capitalisedUnitPlacements', capUnits[name], isUnitDir(parent, filesIn));
-      const byAnyUnit = record('anyCaseUnitPlacements', anyUnits[name], isAnyCaseUnitDir(parent, filesIn));
+      const byPlacement = record('placements', declaredValue(placements, inPlacements), true);
+      const byCapUnit = record(
+        'capitalisedUnitPlacements',
+        declaredValue(capUnits, inCapUnits),
+        isUnitDir(parent, filesIn)
+      );
+      const byAnyUnit = record(
+        'anyCaseUnitPlacements',
+        declaredValue(anyUnits, inAnyUnits),
+        isAnyCaseUnitDir(parent, filesIn)
+      );
       if (byPlacement || byCapUnit || byAnyUnit) continue;
 
       const at = reportAt(dir, files);
