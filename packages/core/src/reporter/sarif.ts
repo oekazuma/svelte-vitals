@@ -5,6 +5,16 @@ import { docsUrlFor, messageText, ruleMetaById, severityToSarifLevel } from './s
 
 type SarifLevel = 'error' | 'warning' | 'note';
 
+/**
+ * SARIF `artifactLocation.uri` is a URI reference: `#`, `?`, `%`, spaces and non-ASCII in a raw
+ * path would be read as fragment/query/escape/invalid and mis-attribute (or drop) the alert in
+ * code scanning. `encodeURI` keeps `/` and `+` (both legal in a path, and `+page.svelte` is every
+ * SvelteKit route) but leaves `#` and `?` alone, so those two are encoded explicitly.
+ */
+function toArtifactUri(location: string): string {
+  return encodeURI(location).replace(/#/g, '%23').replace(/\?/g, '%3F');
+}
+
 interface SarifRule {
   id: string;
   name: string;
@@ -55,7 +65,7 @@ export function formatSarifReport(results: Result[], config: Config, meta: { ver
       result.locations = [
         {
           physicalLocation: {
-            artifactLocation: { uri: r.location },
+            artifactLocation: { uri: toArtifactUri(r.location) },
             ...(r.line !== undefined ? { region: { startLine: r.line } } : {})
           }
         }

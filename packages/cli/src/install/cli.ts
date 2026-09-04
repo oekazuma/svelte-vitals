@@ -51,7 +51,9 @@ export function realIO(): InstallIO {
 export async function selectAppPrompt(apps: string[], message: string): Promise<string | null> {
   const res = await p.select({
     message,
-    options: apps.map((a) => ({ value: a, label: a })),
+    // `apps` are directory names straight off the filesystem: sanitize what clack renders, never
+    // the `value` — that is the path the caller goes on to use.
+    options: apps.map((a) => ({ value: a, label: terminalSafe(a) })),
     initialValue: apps[0]
   });
   return p.isCancel(res) ? null : (res as string);
@@ -77,7 +79,8 @@ export function clackPrompts(): InstallPrompts {
     selectApp: (apps: string[]) =>
       selectAppPrompt(apps, 'Multiple SvelteKit apps found — which one should the Vite/config targets go into?'),
     confirm: async (planText: string) => {
-      const res = await p.confirm({ message: `Apply this plan?\n${planText}` });
+      // planText carries analyzed-repo paths and manual-row snippets; same boundary as log/errorLog above.
+      const res = await p.confirm({ message: `Apply this plan?\n${terminalSafe(planText)}` });
       return p.isCancel(res) ? false : Boolean(res);
     }
   };
