@@ -42,7 +42,12 @@ export interface ScoreResult {
 
 export interface ScoreOptions {
   applyCriticalCap?: boolean;
-  /** The rules that ran. Defaults to the selected registry; supplied by tests and custom rule sets. */
+  /**
+   * The rules that ran. Defaults to the selected registry; supplied by tests and custom rule sets.
+   * Treated as immutable for as long as the same `config` object is in use: the registry projection
+   * is cached by the identity of this array and of `config`, so mutate neither in place — pass a
+   * new array or a new config instead.
+   */
   rules?: readonly Rule[];
 }
 
@@ -50,17 +55,39 @@ function clamp(n: number): number {
   return Math.max(0, Math.min(100, n));
 }
 
+interface RegistryProjection {
+  inventory: Map<PairKey, number>;
+  pairOf: Map<string, PairKey>;
+}
+
+// Keyed on the `config` object's identity, then on the rules array's identity: every in-tree
+// caller passes the same `config` object for a whole run (`withFailedRulesOff` returns a fresh
+// object when it changes anything, the same one when it doesn't), and nothing mutates a Config
+// in place. Callers own that contract: a `config` or `options.rules` mutated in place after a call
+// will be scored against the stale projection.
+const projections = new WeakMap<Config, WeakMap<readonly Rule[], RegistryProjection>>();
+
+function projectRegistry(config: Config, rulesList: readonly Rule[]): RegistryProjection {
+  let byRules = projections.get(config);
+  if (!byRules) projections.set(config, (byRules = new WeakMap()));
+  let projection = byRules.get(rulesList);
+  if (!projection) {
+    // `selectRules` applied here, not just inside `buildInventory`, so `pairOf` and the inventory see
+    // the same filtered list — an injected rule that config turns `off` must vanish from both, not map
+    // to a pair in one and contribute nothing in the other.
+    const rules = selectRules([...rulesList], config);
+    projection = { inventory: buildInventory(config, rules), pairOf: ruleScopes(rules) };
+    byRules.set(rulesList, projection);
+  }
+  return projection;
+}
+
 /** Compute the headline score and its breakdown (design §12). */
 export function computeScore(results: Result[], config: Config, options: ScoreOptions = {}): ScoreResult {
   const routeResults = results.filter((r) => r.route !== undefined);
   const projectResults = results.filter((r) => r.route === undefined);
 
-  // `selectRules` applied here, not just inside `buildInventory`, so `pairOf` and the inventory see
-  // the same filtered list — an injected rule that config turns `off` must vanish from both, not map
-  // to a pair in one and contribute nothing in the other.
-  const rules = selectRules([...(options.rules ?? allRules)], config);
-  const inventory = buildInventory(config, rules);
-  const pairOf = ruleScopes(rules);
+  const { inventory, pairOf } = projectRegistry(config, options.rules ?? allRules);
 
   let anyCritical = false;
 
