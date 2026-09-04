@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import { join } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
 
 type MiddlewareHandler = (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
@@ -110,6 +111,37 @@ describe('svelteVitals({ ui })', () => {
     const irrelevantFile = `${root}/node_modules/foo/index.js`;
     watcherCallback!('change', irrelevantFile);
     expect(mockNotifyChange).not.toHaveBeenCalled();
+  });
+
+  it('notifies the runner of a config-file change only after the config has been re-resolved', async () => {
+    const plugins = svelteVitals({ ui: true }) as Plugin[];
+    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+    let watcherCallback: ((event: string, file: string) => void) | undefined;
+    const root = '/tmp/does-not-exist-svelte-vitals-ui-plugin-test';
+    const server = {
+      config: { root },
+      watcher: {
+        on: (_event: string, cb: (event: string, file: string) => void) => {
+          watcherCallback = cb;
+        }
+      },
+      middlewares: { use: (_path: string, _fn: MiddlewareHandler) => {} }
+    } as ViteDevServer;
+    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
+
+    // A plain src/ file still notifies the runner synchronously (unchanged behavior).
+    const relevantFile = join(root, 'src/routes/+page.svelte');
+    watcherCallback!('change', relevantFile);
+    expect(mockNotifyChange).toHaveBeenCalledWith(relevantFile);
+    mockNotifyChange.mockClear();
+
+    // A config-file edit must wait for applyConfig's re-resolve (debounced 500ms) before
+    // notifying the runner — otherwise the runner's onWarnings dedup can race applyConfig.
+    const configFile = join(root, 'svelte-vitals.config.js');
+    watcherCallback!('change', configFile);
+    expect(mockNotifyChange).not.toHaveBeenCalled();
+    await vi.waitFor(() => expect(mockNotifyChange).toHaveBeenCalledWith(configFile), { timeout: 2000 });
   });
 
   it('configureServer wraps printUrls to also announce the dashboard URL', async () => {

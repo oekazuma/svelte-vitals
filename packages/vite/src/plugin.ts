@@ -352,9 +352,13 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         if (!isRelevant(file, uiRoot)) return;
         // The runner re-loads the config file itself (analyzeProject → loadConfigFile); the
         // dashboard's scoring config is resolved here, so it has to follow the same edit.
+        // Notifying the runner only after this resolve settles (applyConfig never rejects)
+        // keeps onWarnings' dedup order-independent — otherwise a runner run that finishes
+        // first would print a warning applyConfig's still-pending resolve then prints again.
         if (CONFIG_FILENAMES.includes(basename(file))) {
           clearTimeout(configTimer);
-          configTimer = setTimeout(() => void applyConfig(), 500);
+          configTimer = setTimeout(() => void applyConfig().then(() => runner.notifyChange(file)), 500);
+          return;
         }
         runner.notifyChange(file);
       });
