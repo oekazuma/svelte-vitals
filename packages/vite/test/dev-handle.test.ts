@@ -150,6 +150,211 @@ describe('svelteVitalsHandle', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it('retries the ingest on the next render when the first POST failed (non-ok response)', async () => {
+    const fetchMock = setup();
+    fetchMock.mockImplementationOnce(async () => ({ ok: false, status: 403 }) as Response);
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('retries the ingest on the next render when the first POST threw', async () => {
+    const fetchMock = setup();
+    fetchMock.mockImplementationOnce(async () => {
+      throw new Error('ECONNREFUSED');
+    });
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('after a successful POST the same findings are still deduplicated', async () => {
+    const fetchMock = setup();
+    fetchMock.mockImplementationOnce(async () => ({ ok: false, status: 500 }) as Response);
+    const handle = svelteVitalsHandle();
+    for (let i = 0; i < 3; i++) {
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+      await flush();
+    }
+    // 1st fails → 2nd succeeds → 3rd is deduplicated.
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('sends POSTs for the same route in render order even when an earlier one is slow', async () => {
+    const fetchMock = setup();
+    const bodies: string[] = [];
+    let releaseFirst!: () => void;
+    fetchMock.mockImplementationOnce(async (_url, init) => {
+      bodies.push(String(init?.body));
+      await new Promise<void>((r) => (releaseFirst = r));
+      return { ok: true } as Response;
+    });
+    fetchMock.mockImplementation(async (_url, init) => {
+      bodies.push(String(init?.body));
+      return { ok: true } as Response;
+    });
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) });
+    await flush();
+    // The second POST must not have been issued while the first is still in flight.
+    expect(bodies).toHaveLength(1);
+    releaseFirst();
+    await flush();
+    await flush();
+    expect(bodies).toHaveLength(2);
+    expect(JSON.parse(bodies[0]!).results.some((r: Result) => r.id === 'seo/title-presence')).toBe(true);
+    expect(JSON.parse(bodies[1]!).results.some((r: Result) => r.id === 'seo/single-h1')).toBe(true);
+  });
+
+  it('re-sends a route whose findings changed back while an older POST was still in flight', async () => {
+    const fetchMock = setup();
+    const bodies: string[] = [];
+    let releaseSecond!: () => void;
+    fetchMock
+      .mockImplementationOnce(async (_url, init) => {
+        bodies.push(String(init?.body));
+        return { ok: true } as Response;
+      })
+      .mockImplementationOnce(async (_url, init) => {
+        bodies.push(String(init?.body));
+        await new Promise<void>((r) => (releaseSecond = r));
+        return { ok: true } as Response;
+      })
+      .mockImplementation(async (_url, init) => {
+        bodies.push(String(init?.body));
+        return { ok: true } as Response;
+      });
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A, acked
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B, hangs
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A again — must be queued, not deduped
+    await flush();
+    releaseSecond();
+    await flush();
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(JSON.parse(bodies[2]!).results.some((r: Result) => r.id === 'seo/title-presence')).toBe(true);
+  });
+
+  it('a failed older POST must not clear a newer queued signature', async () => {
+    const fetchMock = setup();
+    let releaseFirst!: () => void;
+    fetchMock.mockImplementationOnce(async () => {
+      await new Promise<void>((r) => (releaseFirst = r));
+      return { ok: false, status: 500 } as Response;
+    });
+    fetchMock.mockImplementation(async () => ({ ok: true }) as Response);
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A, hangs
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B, queued behind A
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(1); // B not sent yet — still queued behind A
+    releaseFirst(); // A resolves with 500
+    await flush();
+    await flush();
+    // A's failure must not clear B's queued signature (a newer render already replaced it),
+    // so the chain still sends B next.
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B again — deduped
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A again — sent
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
+  it('an identical re-render while its own POST is still hanging is deduped (exactly 1 call after release)', async () => {
+    const fetchMock = setup();
+    let release!: () => void;
+    fetchMock.mockImplementationOnce(async () => {
+      await new Promise<void>((r) => (release = r));
+      return { ok: true } as Response;
+    });
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // same signature, still in flight
+    await flush();
+    release();
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("aborts a hung ingest after the timeout, unblocking the route's queued ingest behind it", async () => {
+    const fetchMock = setup();
+    const bodies: string[] = [];
+    fetchMock.mockImplementationOnce(
+      (_url, init) =>
+        new Promise((_, reject) => {
+          init?.signal?.addEventListener('abort', () => reject(new Error('aborted')));
+        })
+    );
+    fetchMock.mockImplementation(async (_url, init) => {
+      bodies.push(String(init?.body));
+      return { ok: true } as Response;
+    });
+    vi.useFakeTimers();
+    try {
+      const handle = svelteVitalsHandle();
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A, hangs forever
+      await vi.advanceTimersByTimeAsync(0);
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B, queued behind A
+      await vi.advanceTimersByTimeAsync(0);
+      expect(fetchMock).toHaveBeenCalledTimes(1); // B still queued behind the hung A
+
+      // Past INGEST_TIMEOUT_MS (packages/vite/src/hooks/handle.ts) — A's fetch is aborted,
+      // which frees the chain for B's already-queued ingest.
+      await vi.advanceTimersByTimeAsync(10_001);
+      await vi.advanceTimersByTimeAsync(0);
+      await vi.advanceTimersByTimeAsync(0);
+
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(bodies[0]).toContain('seo/single-h1');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('a failed older POST does not clear a newer identical render already queued behind a different one', async () => {
+    const fetchMock = setup();
+    let releaseFirst!: () => void;
+    fetchMock.mockImplementationOnce(async () => {
+      await new Promise<void>((r) => (releaseFirst = r));
+      return { ok: false, status: 500 } as Response;
+    });
+    fetchMock.mockImplementation(async () => ({ ok: true }) as Response);
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A, hangs
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B, queued behind A
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A′, queued behind B — same signature as A
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(1); // only A's own fetch has fired so far
+
+    releaseFirst(); // A settles with 500 — a string-keyed queue would wrongly clear A′'s entry here
+    await flush();
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(3); // A, then B, then A′ each sent once
+
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A again — must dedupe against A′'s queued entry
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
   // Outside dev (production builds, and non-Node/edge runtimes), esm-env resolves
   // `DEV` to false, so the handle short-circuits to a pass-through. Mocking esm-env
   // is the canonical way to exercise that branch — `DEV` is a static import, not a
