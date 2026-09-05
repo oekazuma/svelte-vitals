@@ -1,5 +1,14 @@
 # @svelte-vitals/core
 
+## 0.51.2
+
+### Patch Changes
+
+- 7e39487: `svelte-vitals` now exports `createNodeRuntime`, the Node adapter behind its own analysis, and `@svelte-vitals/vite` uses it instead of carrying a copy, so this `@svelte-vitals/vite` release requires this `svelte-vitals` release. `@svelte-vitals/core`'s `./internal` entry adds `isPlainObject`, which the CLI now imports. No findings change.
+- 8be4aaf: Guard three remaining `Object.prototype`-keyed lookups. A page whose JSON-LD `@type` is a name like `constructor` no longer crashes `seo/json-ld-required-props` (a crashed rule drops out of scoring project-wide, raising Health); a rule option keyed by such a name is now rejected as `unknown option` instead of being accepted silently or reported with the wrong message; and `architecture/reserved-name-placement` no longer throws when a directory named like that is declared in only one of its placement maps.
+- 49ab437: Memoize the rule-registry projection (`selectRules` → `buildInventory` / `ruleScopes`) that `computeScore` rebuilt on every call. Per-route scoring in the JSON report and the dashboard snapshot no longer pays a 105-rule filter and two Map builds per call; report output is byte-identical (verified against the kitchen-sink gallery). Measured on a synthetic 1,681-route result set, `buildJsonReport` runs roughly 5× faster (tens of milliseconds saved per report; the absolute numbers depend on the machine).
+- fe919d0: Sanitize the two remaining output sinks that carried analyzed-repo strings raw. The interactive app picker and the install plan confirmation now pass directory names and plan text through `terminalSafe` before `@clack/prompts` renders them (the selected value is still the raw path). The SARIF reporter now URI-encodes `artifactLocation.uri`, so a path with `#`, `?`, `%`, spaces or non-ASCII characters attaches the alert to the right file in code scanning. Dynamic route segments are encoded in their RFC 3986 form (`src/routes/[slug]/+page.svelte` becomes `src/routes/%5Bslug%5D/+page.svelte`); `/` and `+` are left as they are, so `src/routes/+page.svelte` is unchanged. `partialFingerprints` are unchanged.
+
 ## 0.51.1
 
 ### Patch Changes
