@@ -10,7 +10,7 @@ import {
   withReadLimit,
   type Runtime
 } from '@svelte-vitals/core/internal';
-import { globFiles } from '../../glob.js';
+import { globFiles } from 'svelte-vitals';
 
 /**
  * Node-backed Runtime adapter (design §8). vite always runs in Node, so no

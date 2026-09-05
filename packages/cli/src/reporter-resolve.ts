@@ -37,41 +37,32 @@ export function isCiEnv(env: NodeJS.ProcessEnv = process.env): boolean {
   return env.CI === 'true' || env.CI === '1';
 }
 
-/**
- * Resolve the reporter: explicit flag → SVELTE_VITALS_REPORTER → agent-env
- * auto-detect → GitHub-Actions auto-detect → console.
- */
+/** Which layer chose the reporter: explicit flag → SVELTE_VITALS_REPORTER → agent-env auto-detect → GitHub-Actions auto-detect → console. */
+function reporterChoice(explicit: ReporterName | undefined, env: NodeJS.ProcessEnv) {
+  if (explicit) return { name: explicit, source: 'flag' as const };
+  const fromEnv = env.SVELTE_VITALS_REPORTER;
+  if (isReporterName(fromEnv)) return { name: fromEnv, source: 'env' as const };
+  if (isAgentEnv(env)) return { name: 'agent' as const, source: 'agent' as const };
+  if (isGithubActionsEnv(env)) return { name: 'github' as const, source: 'github' as const };
+  return { name: 'console' as const, source: 'default' as const };
+}
+
 export function resolveReporter(
   explicit: ReporterName | undefined,
   env: NodeJS.ProcessEnv = process.env
 ): ReporterName {
-  if (explicit) return explicit;
-  const fromEnv = env.SVELTE_VITALS_REPORTER;
-  if (isReporterName(fromEnv)) return fromEnv;
-  if (isAgentEnv(env)) return 'agent';
-  if (isGithubActionsEnv(env)) return 'github';
-  return 'console';
+  return reporterChoice(explicit, env).name;
 }
 
-/**
- * True when the agent reporter is chosen purely by env auto-detection — i.e. no
- * explicit flag and no SVELTE_VITALS_REPORTER, but a known agent env is present.
- * Used to surface a one-line "how to override" hint, since a human running the
- * CLI inside an agent terminal would otherwise get Markdown unexpectedly.
- */
+/** Auto-detected (not asked for) — the run prints a one-line "how to override" hint so a human in an agent terminal isn't surprised by Markdown. */
 export function isAutoDetectedAgent(explicit: ReporterName | undefined, env: NodeJS.ProcessEnv = process.env): boolean {
-  return !explicit && !isReporterName(env.SVELTE_VITALS_REPORTER) && isAgentEnv(env);
+  return reporterChoice(explicit, env).source === 'agent';
 }
 
-/**
- * True when the github reporter is chosen purely by GITHUB_ACTIONS auto-detection
- * (no explicit flag, no SVELTE_VITALS_REPORTER, not an agent env). Used to surface
- * a one-line "how to override" hint so an existing CI user isn't surprised by the
- * switch from console output to workflow commands.
- */
+/** Auto-detected (not asked for) — same hint, so an existing CI user isn't surprised by workflow commands replacing console output. */
 export function isAutoDetectedGithub(
   explicit: ReporterName | undefined,
   env: NodeJS.ProcessEnv = process.env
 ): boolean {
-  return !explicit && !isReporterName(env.SVELTE_VITALS_REPORTER) && !isAgentEnv(env) && isGithubActionsEnv(env);
+  return reporterChoice(explicit, env).source === 'github';
 }

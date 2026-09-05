@@ -41,7 +41,7 @@ export interface Runtime {
  * 64 is chosen to sit well under the stock 256 on macOS while leaving descriptors for everything
  * else the process holds open. It is not a throughput knob: reads are a few percent of the work.
  */
-export const READ_CONCURRENCY = 64;
+const READ_CONCURRENCY = 64;
 
 /**
  * `readFile` with at most `limit` reads in flight. A plain counter plus a queue of waiters —

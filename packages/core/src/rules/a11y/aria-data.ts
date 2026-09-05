@@ -29,7 +29,7 @@ export function isAbstractRole(role: string): boolean {
 }
 
 /** A concrete (non-abstract) role is the one a user agent resolves a role token list to. */
-export function isConcreteRole(role: string): boolean {
+function isConcreteRole(role: string): boolean {
   return isKnownRole(role) && !isAbstractRole(role);
 }
 

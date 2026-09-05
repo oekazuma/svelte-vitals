@@ -22,7 +22,7 @@ export function oneLine(text: string): string {
 /** Whether an option's default carries no signal to check against: an empty list or map. An
  * integer option always has a real numeric default (0 is a meaningful threshold, not "unset"),
  * so it never counts as empty here. */
-export function isEmptyDefault(spec: RuleOptionSpec): boolean {
+function isEmptyDefault(spec: RuleOptionSpec): boolean {
   if (spec.kind === 'string-list') return spec.default.length === 0;
   if (spec.kind === 'string-map') return Object.keys(spec.default).length === 0;
   return false;

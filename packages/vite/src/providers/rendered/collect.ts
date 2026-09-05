@@ -9,7 +9,7 @@ import type {
   ResolvedImages
 } from '@svelte-vitals/core/internal';
 import { parseHtmlHead } from './parse-html.js';
-import { globFiles } from '../../glob.js';
+import { globFiles } from 'svelte-vitals';
 
 /** Group raw occurrence keys (one entry per hit, in document order) by key, `file` attached, `line: 0` (rendered mode does not track source lines). */
 export function toOccurrenceMap(keys: string[], file: string): Record<string, A11yOccurrenceInfo[]> {
