@@ -3,36 +3,6 @@ import type { Result } from '@svelte-vitals/core';
 export type RouteBadge = 'measured' | 'static';
 
 /**
- * In-memory findings store for the dev UI. Owned by the ui plugin, shared between the
- * analysis runner (writes the static, whole-project layer) and the ingest middleware
- * (writes the live, per-route layer from rendered pages). `snapshot()`/`badges()` expose
- * the merged view per the design doc (2026-07-08-dev-dashboard-whole-project-design.md §2).
- */
-export interface FindingsStore {
-  /**
-   * Replace a route's live findings (route stamped onto results missing one) and notify
-   * subscribers. `failedRuleIds` replaces that route's live-layer failed-rule set — an
-   * omitted or empty array clears it, so a route re-analyzed with no failures recovers.
-   */
-  set(route: string, results: Result[], failedRuleIds?: string[]): void;
-  /** Replace the whole static (whole-project) layer and notify subscribers. */
-  setStatic(results: Result[]): void;
-  /** Mark whether a whole-project analysis run is currently in flight; participates in subscribe/notify like a findings change. */
-  setAnalyzing(analyzing: boolean): void;
-  isAnalyzing(): boolean;
-  /** Composed findings across both layers — feed straight into buildJsonReport. */
-  snapshot(): Result[];
-  /** Per-route provenance for the dashboard's badges: 'measured' (live) or 'static'. */
-  badges(): Record<string, RouteBadge>;
-  /** Union of failed rule ids across every live (ingested) route, for `withFailedRulesOff`. */
-  failedRuleIds(): string[];
-  /** Monotonically increasing counter, bumped once per notify() — lets consumers discard stale fetches. */
-  sequence(): number;
-  /** Subscribe to change notifications; returns an unsubscribe function. */
-  subscribe(fn: () => void): () => void;
-}
-
-/**
  * Merge rule (design doc §2): for a route with a live result set, static results whose
  * rule id appears in the live payload are replaced by the live ones — the handle reports
  * passing as well as failing results, so the rule ids present in the payload ARE the
@@ -75,7 +45,15 @@ export function composeBadges(staticResults: Result[], liveByRoute: Map<string, 
   return badges;
 }
 
-export function createStore(): FindingsStore {
+export type FindingsStore = ReturnType<typeof createStore>;
+
+/**
+ * In-memory findings store for the dev UI. Owned by the ui plugin, shared between the
+ * analysis runner (writes the static, whole-project layer) and the ingest middleware
+ * (writes the live, per-route layer from rendered pages). `snapshot()`/`badges()` expose
+ * the merged view per the design doc (2026-07-08-dev-dashboard-whole-project-design.md §2).
+ */
+export function createStore() {
   let staticResults: Result[] = [];
   const liveByRoute = new Map<string, Result[]>();
   const liveFailedByRoute = new Map<string, string[]>();
@@ -89,7 +67,12 @@ export function createStore(): FindingsStore {
   }
 
   return {
-    set(route, results, failedRuleIds) {
+    /**
+     * Replace a route's live findings (route stamped onto results missing one) and notify
+     * subscribers. `failedRuleIds` replaces that route's live-layer failed-rule set — an
+     * omitted or empty array clears it, so a route re-analyzed with no failures recovers.
+     */
+    set(route: string, results: Result[], failedRuleIds?: string[]) {
       liveByRoute.set(
         route,
         results.map((r) => (r.route ? r : { ...r, route }))
@@ -98,30 +81,36 @@ export function createStore(): FindingsStore {
       else liveFailedByRoute.delete(route);
       notify();
     },
-    setStatic(results) {
+    setStatic(results: Result[]) {
       staticResults = results;
       notify();
     },
-    setAnalyzing(next) {
+    /** Whether a whole-project analysis run is in flight; participates in subscribe/notify like a findings change. */
+    setAnalyzing(next: boolean) {
       analyzing = next;
       notify();
     },
     isAnalyzing() {
       return analyzing;
     },
+    /** Composed findings across both layers — feed straight into buildJsonReport. */
     snapshot() {
       return composeSnapshot(staticResults, liveByRoute);
     },
+    /** Per-route provenance for the dashboard's badges: 'measured' (live) or 'static'. */
     badges() {
       return composeBadges(staticResults, liveByRoute);
     },
+    /** Union of failed rule ids across every live (ingested) route, for `withFailedRulesOff`. */
     failedRuleIds() {
       return [...new Set([...liveFailedByRoute.values()].flat())].sort();
     },
+    /** Bumped once per notify() — lets consumers discard stale fetches. */
     sequence() {
       return seq;
     },
-    subscribe(fn) {
+    // Annotated: the body's `subs.delete` would otherwise infer `() => boolean` into FindingsStore.
+    subscribe(fn: () => void): () => void {
       subs.add(fn);
       return () => subs.delete(fn);
     }

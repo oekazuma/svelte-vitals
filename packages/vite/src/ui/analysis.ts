@@ -32,21 +32,12 @@ export interface AnalysisRunnerOptions {
   debounceMs?: number;
 }
 
-export interface AnalysisRunner {
-  /** Kick off the first whole-project analysis. Fire-and-forget — never blocks the caller. */
-  start(): void;
-  /** A relevant source file changed; schedule a debounced re-analysis. */
-  notifyChange(file: string): void;
-  /** Stop the runner: clears any pending timer and makes further calls no-ops. */
-  stop(): void;
-}
-
 /**
  * Owns the dev-dashboard's whole-project analysis lifecycle: an async run at startup,
  * a debounced re-run on source changes, and coalescing so a change that arrives mid-run
  * produces exactly one follow-up run rather than one per change (design doc §1).
  */
-export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunner {
+export function createAnalysisRunner(opts: AnalysisRunnerOptions) {
   const debounceMs = opts.debounceMs ?? 500;
   const analyze = opts.analyze ?? analyzeProject;
   const parseCache: ParseCache = new Map();
@@ -93,10 +84,12 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
   }
 
   return {
+    /** Kick off the first whole-project analysis. Fire-and-forget — never blocks the caller. */
     start() {
       if (stopped) return;
       void runOnce();
     },
+    /** A relevant source file changed; schedule a debounced re-analysis. */
     notifyChange(file: string) {
       if (stopped) return;
       // Invalidate only the changed file's cache entry — the ParseCache is keyed

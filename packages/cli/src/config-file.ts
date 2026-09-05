@@ -6,6 +6,7 @@ import type { Category, Config, RuleOptions, RuleOverride } from '@svelte-vitals
 import { CATEGORIES } from '@svelte-vitals/core';
 import {
   defaultConfig,
+  isPlainObject,
   resolveRuleOptions,
   shouldSkipRangeCheck,
   validateRuleSetting
@@ -33,11 +34,6 @@ const CONFIG_EXTENSIONS = CONFIG_FILENAMES.map((name) => name.slice(name.lastInd
 const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];
 const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
 const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights', 'overrides']);
-
-/** Whether `value` is a plain object (not null, not an array) — usable with Object.keys/entries. */
-export function isPlainObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
 
 /** Result of loading and validating a config file. */
 export interface LoadedConfigFile {

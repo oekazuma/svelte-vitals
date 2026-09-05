@@ -1,9 +1,8 @@
 import { readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Config, Result } from '@svelte-vitals/core';
-import { isPenalized } from '@svelte-vitals/core/internal';
+import { isPenalized, isPlainObject } from '@svelte-vitals/core/internal';
 import { findingKey } from './baseline.js';
-import { isPlainObject } from './config-file.js';
 
 /**
  * Persistent adoption ramp (design doc 2026-07-13-suppressions-file-design.md):

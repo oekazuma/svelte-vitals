@@ -90,7 +90,7 @@ function sanitizeReport(report: JsonReport): JsonReport {
  * `:root[data-theme="dark"]` plus a `prefers-color-scheme` fallback for a
  * first-ever visit with no stored preference.
  */
-export const APP_STYLE: string = `
+const APP_STYLE: string = `
 :root{--ground:#f6f7f9;--panel:#fff;--ink:#0c1322;--muted:#5a6472;--faint:#8c95a3;--line:#e4e7ec;--line-strong:#d3d8e0;--accent:#ff3e00;--good:#2fa968;--warn:#e8a317;--poor:#e5484d;--code-bg:#0e1525;--code-ink:#e7ecf4;--active-bg:#0c1322;--active-ink:#fff;--mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 :root[data-theme="dark"]{--ground:#0b0e14;--panel:#12161f;--ink:#e7ecf4;--muted:#9aa4b2;--faint:#6b7484;--line:#232838;--line-strong:#2d3345;--code-bg:#05070c;--code-ink:#e7ecf4;--active-bg:#e7ecf4;--active-ink:#0b0e14}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0b0e14;--panel:#12161f;--ink:#e7ecf4;--muted:#9aa4b2;--faint:#6b7484;--line:#232838;--line-strong:#2d3345;--code-bg:#05070c;--code-ink:#e7ecf4;--active-bg:#e7ecf4;--active-ink:#0b0e14}}

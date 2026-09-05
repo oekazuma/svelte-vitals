@@ -104,7 +104,7 @@ export {
 } from './config-apply.js';
 export type { CompiledOverride } from './config-apply.js';
 
-export { resolveRuleOptions, validateRuleSetting, shouldSkipRangeCheck } from './rule-options.js';
+export { isPlainObject, resolveRuleOptions, validateRuleSetting, shouldSkipRangeCheck } from './rule-options.js';
 export type { RuleOptionSpec, RuleOptionsSpec } from './rule-options.js';
 
 export type { ScoreResult, ScoreOptions, HealthResult } from './scoring/score.js';
