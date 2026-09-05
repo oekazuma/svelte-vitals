@@ -271,7 +271,7 @@ Guard three remaining `Object.prototype`-keyed lookups. A page whose JSON-LD `@t
 - [ ] `pnpm build && pnpm typecheck && pnpm test && pnpm lint` が全て exit 0
 - [ ] `grep -n "Object.hasOwn(REQUIRED_PROPS" packages/core/src/rules/seo/json-ld-required-props.ts` が 1 行ヒット
 - [ ] `grep -c "Object.hasOwn(spec, key)" packages/core/src/rule-options.ts` が `2`
-- [ ] `grep -nE "(placements|capUnits|anyUnits)\[name\]" packages/core/src/rules/architecture/reserved-name-placement.ts` のヒットが `declaredValue` ヘルパ内の 1 行だけ
+- [ ] `grep -nE "(placements|capUnits|anyUnits)\[name\]" packages/core/src/rules/architecture/reserved-name-placement.ts` のヒットが 0 行(ヘルパは引数名 `map` で読むので名前付き map の生索引は残らない)。`grep -c "\[name\]"` は `1`(`declaredValue` ヘルパ内)
 - [ ] changeset に `__proto__` / `prototype pollution` の語が**含まれない**
 - [ ] `plans/README.md` の 064 行を更新済み(260828-REV-01 を「064 で対応」に書き換え)
 

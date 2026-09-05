@@ -91,7 +91,7 @@ build 経路(`vite build`)は逆に、警告を `warn()` に流している(`ana
 - 設計上の注意(実装判断の根拠として固定):
   - `AnalyzeFn` の戻り値に `warnings?: string[]` を**追加**し、runner は `onWarnings?(warnings: string[])` を**新設**して流す。`onResults` の引数は変えない(厳密 assert のテストを守る)。
   - runner は前回流した警告集合と同一なら**再送しない**(debounce された再解析は保存のたびに走るので、同じ 3 行が毎回 `console.warn` に出るのは騒音)。集合比較は `warnings.join('\n')` の文字列比較で足りる。
-  - `plugin.ts` 側は `onWarnings` を `warn()` に `svelte-vitals: ` 接頭辞付きで流す(build 経路の `:242` と同じ形)。
+  - `plugin.ts` 側は `onWarnings` を `warn()` に流す。各行の先頭に `svelte-vitals:` と空白を付ける(build 経路の `:242` と同じ形)。
   - dashboard の HTML に警告を描画するのは本計画の対象外(`AppSnapshot` の型変更と app-shell の描画が要り、M になる)。
   - リポジトリ規約: コードコメントは英語、非自明な WHY のみ。
 
@@ -113,7 +113,7 @@ vite のテストは `svelte-vitals` と `@svelte-vitals/core` の built dist �
 - `packages/vite/src/ui/analysis.ts`(`AnalyzeFn` の戻り値型、`onWarnings`、重複抑制)
 - `packages/vite/src/plugin.ts`(`onWarnings` の配線。063 が変えた箇所の周辺だが、runner 生成部だけ)
 - `packages/vite/test/ui-analysis.test.ts`(テスト追加)
-- `packages/vite/test/analyze.test.ts`(build 経路のクラッシュ報告テスト追加)
+- `packages/vite/test/analyze-rule-failure.test.ts`(新規。build 経路のクラッシュ報告テスト。`analyze.test.ts` にモジュールレベルの `vi.mock` を足すと他ケースに効くので別ファイル)
 - `packages/vite/test/ui-plugin.test.ts`(`onWarnings` の配線テスト追加、任意)
 - `.changeset/`(新規 changeset 1 件、`@svelte-vitals/vite` の patch)
 

@@ -27,7 +27,7 @@
 CLI の端末出力は `terminalSafe`(`packages/core/src/reporter/sanitize.ts`、C0/C1/OSC/CSI を剥がす)を境界にしている。`cli-io.ts:17`、`bin.ts:16`、`install/cli.ts:26-27`(`log` / `errorLog`)、`frame-writer.ts:71` などが全てラップ済み。**例外が `@clack/prompts` に渡す文字列**で、次の 3 サイトが未適用である。
 
 1. `packages/cli/src/install/cli.ts:54` の `selectAppPrompt` — `options: apps.map((a) => ({ value: a, label: a }))`。`apps` は `discoverApps` がファイルシステムから拾った**ディレクトリ名そのまま**。
-2. `packages/cli/src/install/cli.ts:80` の `confirm` — `message: \`Apply this plan?\n${planText}\``。`planText`は`install/index.ts`の`rowLine`が`r.path` と(manual 行では)`r.snippet` を連結したもの。
+2. `packages/cli/src/install/cli.ts:80` の `confirm` — ``message: `Apply this plan?\n${planText}` ``。`planText`は`install/index.ts`の`rowLine`が`r.path` と(manual 行では)`r.snippet` を連結したもの。
 3. `packages/cli/src/gunshi/analyze.ts:27` の `selectApp` — 1 と同じ `selectAppPrompt` を、`install` ではない通常解析の monorepo ピッカーで呼ぶ。
 
 POSIX のディレクトリ名はほぼ任意のバイトを許すので、エスケープシーケンスを含む名前のディレクトリを持つリポジトリで `svelte-vitals`(monorepo)や `svelte-vitals install` を対話実行すると、端末タイトルの書き換え・カーソル移動・「yes」と答えようとしているプロンプト文の上書きがそのまま起きる。1 は `selectAppPrompt` の中で一度サニタイズすれば 3 も直る。**`value` はサニタイズしない**(選択結果として返す実パスが化けるため)。`label` と `message` だけを対象にする。

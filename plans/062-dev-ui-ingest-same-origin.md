@@ -90,7 +90,7 @@
   }
   ```
 
-- `packages/vite/src/hooks/handle.ts:42-66` — 送信側 `postIngest`。`fetch(\`${origin}/__svelte-vitals/ingest\`, { method: 'POST', headers: { 'content-type': 'application/json' }, body })`。`origin`は`event.url.origin`(=ページ要求の `Host`由来)で、dashboard と同じ vite サーバーを指す。Node の`fetch`(undici)は `Origin` ヘッダーを付けない。
+- `packages/vite/src/hooks/handle.ts:42-66` — 送信側 `postIngest`。``fetch(`${origin}/__svelte-vitals/ingest`, { method: 'POST', headers: { 'content-type': 'application/json' }, body })``。`origin`は`event.url.origin`(=ページ要求の `Host`由来)で、dashboard と同じ vite サーバーを指す。Node の`fetch`(undici)は `Origin` ヘッダーを付けない。
 
 - `packages/vite/test/ui-middleware.test.ts` — 既存テスト。`setup()` がミドルウェアのハンドラを捕まえ、`postReq(url, headers)` / `getReq(url, headers)` が `EventEmitter` ベースの疑似 `IncomingMessage`(`method`/`url`/`headers`/`resume`)を作り、`res()` が疑似 `ServerResponse` を作る。body は `ireq.emit('data', Buffer)` → `ireq.emit('end')` で流す。Origin 関連の既存ケース(206-234 行):
 
@@ -130,13 +130,12 @@
 - ユーザー向け docs — `docs/src/content/docs/guides/(vite)/dev-dashboard.mdx:89`(en)と `docs/src/content/docs/ja/guides/(vite)/dev-dashboard.mdx:87`(ja)の "Notes" 箇条書きに、境界の説明がある:
 
   > - Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST, a guard against a spoofed `Host` header, so visited routes won't refine to `measured`. Open it from `localhost` instead.
-
   > - ライブ更新はループバックオリジン（`localhost`、`127.0.0.1`、`[::1]`）でのみ流れます。`vite dev --host` で LAN の IP からアプリを開いた場合、…
 
   AGENTS.md の規約: en を編集したら ja も同時に更新し、`pnpm --filter docs run translate:stamp <en-file>` で台帳(`docs/blume.translations.json`)に記録する。CI の `docs` ジョブ(`translate:check`)が未記録の en 変更を落とす。**ja を実際に更新せずに stamp してはならない。**
 
 - 設計上の注意点(実装判断の根拠として固定):
-  - 比較は `new URL(origin).host`(hostname と port)対 `new URL(\`http://${req.headers.host}\`).host`(Host 側も URL パーサに通し、既定ポートの省略と大文字小文字を正規化する)。**scheme は比較しない** — Vite を `server.https`で動かすと`Origin`は`https://localhost:5173`、`Host` は `localhost:5173` のままで、scheme まで比べると正規の dashboard からの POST を落とす。
+  - 比較は `new URL(origin).host`(hostname と port)対 ``new URL(`http://${req.headers.host}`).host``(Host 側も URL パーサに通し、既定ポートの省略と大文字小文字を正規化する)。**scheme は比較しない** — Vite を `server.https`で動かすと`Origin`は`https://localhost:5173`、`Host` は `localhost:5173` のままで、scheme まで比べると正規の dashboard からの POST を落とす。
   - `Origin: null`(sandboxed iframe、`file://` ページ — `--reporter html` の静的レポートを含む)は `new URL('null')` が throw するので現状でも 403。そのままにし、テストで固定する。
   - 既存の loopback Host チェックと DNS rebinding 防御は**そのまま残す**。same-origin 判定は Host が loopback であることの上に重ねる。
   - `Content-Type` は見ない(現状どおり)。`no-cors` の simple request は `text/plain` で来るので、Content-Type で絞っても防御にならず、判定は Origin で行う。
