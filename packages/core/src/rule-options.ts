@@ -69,7 +69,7 @@ export function listOption(options: RuleOptions, key: string): string[] {
 /** As `intOption`, for a `string-map` option. */
 export function mapOption(options: RuleOptions, key: string): Record<string, string> {
   const v = options[key];
-  return typeof v === 'object' && v !== null && !Array.isArray(v) ? (v as Record<string, string>) : {};
+  return isPlainObject(v) ? (v as Record<string, string>) : {};
 }
 
 /**
@@ -207,12 +207,7 @@ export function validateRuleOptions(
           if (!s.pattern.regex.test(v)) errors.push(`${ruleId}.${key}: '${v}' is not ${s.pattern.describe}.`);
         }
       }
-    } else if (
-      typeof value !== 'object' ||
-      value === null ||
-      Array.isArray(value) ||
-      !Object.values(value).every(isNonEmptyString)
-    ) {
+    } else if (!isPlainObject(value) || !Object.values(value).every(isNonEmptyString)) {
       errors.push(`${ruleId}.${key} must be an object of string → non-empty string.`);
     }
   }

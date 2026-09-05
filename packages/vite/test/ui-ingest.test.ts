@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import type { Handle, RequestEvent } from '@sveltejs/kit';
-import { svelteVitalsHandle } from '../src/hooks/handle.js';
+import { svelteVitalsHandle } from '../src/hooks/index.js';
 
 // A minimal fake RequestEvent carrying only what the handle reads (single boundary cast).
 // `pathname` may also be an absolute URL, overriding the default loopback origin.

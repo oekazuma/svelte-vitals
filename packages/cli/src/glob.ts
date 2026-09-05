@@ -8,8 +8,7 @@ import { join, relative, sep } from 'node:path';
  * separators), dotfiles excluded (fs.glob's default). A symlink's Dirent never reports isFile(),
  * so symlinks are stat'd and kept when they point at a file; symlinked *directories* are not
  * traversed — fs.glob never descends into them. `exclude` prunes traversal — returning true for
- * a directory skips its whole subtree. Exported from the `svelte-vitals` package entry, which
- * `@svelte-vitals/vite` consumes because core purity rules out the shared home there.
+ * a directory skips its whole subtree.
  */
 export async function globFiles(
   pattern: string | string[],

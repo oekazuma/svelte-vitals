@@ -37,14 +37,14 @@ export function isCiEnv(env: NodeJS.ProcessEnv = process.env): boolean {
   return env.CI === 'true' || env.CI === '1';
 }
 
-/** Which layer chose the reporter: explicit flag → SVELTE_VITALS_REPORTER → agent-env auto-detect → GitHub-Actions auto-detect → console. */
+/** Precedence: explicit flag → SVELTE_VITALS_REPORTER → agent-env auto-detect → GitHub-Actions auto-detect → console. `auto` marks the two detected layers. */
 function reporterChoice(explicit: ReporterName | undefined, env: NodeJS.ProcessEnv) {
-  if (explicit) return { name: explicit, source: 'flag' as const };
+  if (explicit) return { name: explicit, auto: false };
   const fromEnv = env.SVELTE_VITALS_REPORTER;
-  if (isReporterName(fromEnv)) return { name: fromEnv, source: 'env' as const };
-  if (isAgentEnv(env)) return { name: 'agent' as const, source: 'agent' as const };
-  if (isGithubActionsEnv(env)) return { name: 'github' as const, source: 'github' as const };
-  return { name: 'console' as const, source: 'default' as const };
+  if (isReporterName(fromEnv)) return { name: fromEnv, auto: false };
+  if (isAgentEnv(env)) return { name: 'agent' as const, auto: true };
+  if (isGithubActionsEnv(env)) return { name: 'github' as const, auto: true };
+  return { name: 'console' as const, auto: false };
 }
 
 export function resolveReporter(
@@ -56,7 +56,8 @@ export function resolveReporter(
 
 /** Auto-detected (not asked for) — the run prints a one-line "how to override" hint so a human in an agent terminal isn't surprised by Markdown. */
 export function isAutoDetectedAgent(explicit: ReporterName | undefined, env: NodeJS.ProcessEnv = process.env): boolean {
-  return reporterChoice(explicit, env).source === 'agent';
+  const c = reporterChoice(explicit, env);
+  return c.auto && c.name === 'agent';
 }
 
 /** Auto-detected (not asked for) — same hint, so an existing CI user isn't surprised by workflow commands replacing console output. */
@@ -64,5 +65,6 @@ export function isAutoDetectedGithub(
   explicit: ReporterName | undefined,
   env: NodeJS.ProcessEnv = process.env
 ): boolean {
-  return reporterChoice(explicit, env).source === 'github';
+  const c = reporterChoice(explicit, env);
+  return c.auto && c.name === 'github';
 }

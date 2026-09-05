@@ -1,24 +1,7 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import type { Value } from '@svelte-vitals/core';
-import type {
-  A11yOccurrenceInfo,
-  ResolvedA11y,
-  ResolvedHead,
-  ResolvedHeadings,
-  ResolvedImages
-} from '@svelte-vitals/core/internal';
-import { parseHtmlHead } from './parse-html.js';
-import { globFiles } from 'svelte-vitals';
-
-/** Group raw occurrence keys (one entry per hit, in document order) by key, `file` attached, `line: 0` (rendered mode does not track source lines). */
-export function toOccurrenceMap(keys: string[], file: string): Record<string, A11yOccurrenceInfo[]> {
-  // Null prototype: keys are author-controlled (`id="__proto__"` is legal page content) and a
-  // plain {} would resolve such keys on Object.prototype, crashing the `??=`/push below.
-  const out: Record<string, A11yOccurrenceInfo[]> = Object.create(null);
-  for (const key of keys) (out[key] ??= []).push({ file, line: 0 });
-  return out;
-}
+import type { ResolvedA11y, ResolvedHead, ResolvedHeadings, ResolvedImages } from '@svelte-vitals/core/internal';
+import { createNodeRuntime } from 'svelte-vitals';
+import { parseHtmlHead, toOccurrenceMap } from './parse-html.js';
 
 /** Map a prerendered HTML path (relative to pages/, POSIX) to its route. */
 export function deriveRouteFromHtmlPath(relPath: string): string {
@@ -38,11 +21,12 @@ export interface CollectedHeads {
 
 /** Read every prerendered HTML page under `prerenderPagesDir` into ResolvedHead[]. */
 export async function collectRenderedHeads(prerenderPagesDir: string): Promise<CollectedHeads> {
-  const files = (await globFiles('**/*.html', prerenderPagesDir)).sort();
+  const rt = createNodeRuntime();
+  const files = (await rt.glob('**/*.html', prerenderPagesDir)).sort();
   // Read + parse in parallel; Promise.all preserves the sorted order so the
   // "first own <html lang>" pick below stays deterministic.
   const parsedFiles = await Promise.all(
-    files.map(async (rel) => ({ rel, parsed: parseHtmlHead(await readFile(join(prerenderPagesDir, rel), 'utf8')) }))
+    files.map(async (rel) => ({ rel, parsed: parseHtmlHead(await rt.readFile(rt.join(prerenderPagesDir, rel))) }))
   );
 
   const heads: ResolvedHead[] = [];

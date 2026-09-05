@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import type { Handle, RequestEvent } from '@sveltejs/kit';
 import { defineConfig, type Result } from '@svelte-vitals/core';
 import { allRules, isPenalized } from '@svelte-vitals/core/internal';
-import { svelteVitalsHandle } from '../src/hooks/handle.js';
+import { svelteVitalsHandle } from '../src/hooks/index.js';
 
 // A minimal fake RequestEvent carrying only what the handle reads (single boundary cast).
 function fakeEvent(routeId: string | null, pathname = '/') {
@@ -159,7 +159,7 @@ describe('svelteVitalsHandle', () => {
     vi.doMock('esm-env', () => ({ DEV: false }));
     const fetchMock = setup();
     try {
-      const { svelteVitalsHandle: prodHandle } = await import('../src/hooks/handle.js');
+      const { svelteVitalsHandle: prodHandle } = await import('../src/hooks/index.js');
       const handle = prodHandle();
       const resolve = resolveWith([PAGE_NO_TITLE]);
       await handle({ event: fakeEvent('/none', '/none'), resolve });
@@ -205,7 +205,7 @@ describe('svelteVitalsHandle', () => {
     });
     const fetchMock = setup();
     try {
-      const { svelteVitalsHandle: mockedHandle } = await import('../src/hooks/handle.js');
+      const { svelteVitalsHandle: mockedHandle } = await import('../src/hooks/index.js');
       const handle = mockedHandle();
       await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
       await flush();
@@ -243,7 +243,7 @@ describe('svelteVitalsHandle', () => {
     });
     const fetchMock = setup();
     try {
-      const { svelteVitalsHandle: mockedHandle } = await import('../src/hooks/handle.js');
+      const { svelteVitalsHandle: mockedHandle } = await import('../src/hooks/index.js');
       const handle = mockedHandle();
       await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
       await flush();
@@ -274,7 +274,7 @@ describe('svelteVitalsHandle', () => {
     const prev = process.env.SVELTE_VITALS_DEBUG;
     process.env.SVELTE_VITALS_DEBUG = '1';
     try {
-      const { svelteVitalsHandle: debugHandle } = await import('../src/hooks/handle.js');
+      const { svelteVitalsHandle: debugHandle } = await import('../src/hooks/index.js');
       const handle = debugHandle();
       await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
       await flush();

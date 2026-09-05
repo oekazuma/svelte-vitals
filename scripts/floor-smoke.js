@@ -138,7 +138,7 @@ test('every published entry point imports under bare node', async () => {
     'packages/core/dist/internal.js',
     'packages/cli/dist/index.js',
     'packages/vite/dist/index.js',
-    'packages/vite/dist/hooks/handle.js'
+    'packages/vite/dist/hooks/index.js'
   ]) {
     const mod = await import(join(root, entry));
     assert.ok(Object.keys(mod).length > 0, `${entry} exported nothing`);

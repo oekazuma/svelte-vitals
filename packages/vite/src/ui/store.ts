@@ -72,7 +72,7 @@ export function createStore() {
      * subscribers. `failedRuleIds` replaces that route's live-layer failed-rule set — an
      * omitted or empty array clears it, so a route re-analyzed with no failures recovers.
      */
-    set(route: string, results: Result[], failedRuleIds?: string[]): void {
+    set(route: string, results: Result[], failedRuleIds?: string[]) {
       liveByRoute.set(
         route,
         results.map((r) => (r.route ? r : { ...r, route }))
@@ -81,36 +81,35 @@ export function createStore() {
       else liveFailedByRoute.delete(route);
       notify();
     },
-    /** Replace the whole static (whole-project) layer and notify subscribers. */
-    setStatic(results: Result[]): void {
+    setStatic(results: Result[]) {
       staticResults = results;
       notify();
     },
     /** Whether a whole-project analysis run is in flight; participates in subscribe/notify like a findings change. */
-    setAnalyzing(next: boolean): void {
+    setAnalyzing(next: boolean) {
       analyzing = next;
       notify();
     },
-    isAnalyzing(): boolean {
+    isAnalyzing() {
       return analyzing;
     },
     /** Composed findings across both layers — feed straight into buildJsonReport. */
-    snapshot(): Result[] {
+    snapshot() {
       return composeSnapshot(staticResults, liveByRoute);
     },
     /** Per-route provenance for the dashboard's badges: 'measured' (live) or 'static'. */
-    badges(): Record<string, RouteBadge> {
+    badges() {
       return composeBadges(staticResults, liveByRoute);
     },
     /** Union of failed rule ids across every live (ingested) route, for `withFailedRulesOff`. */
-    failedRuleIds(): string[] {
+    failedRuleIds() {
       return [...new Set([...liveFailedByRoute.values()].flat())].sort();
     },
     /** Bumped once per notify() — lets consumers discard stale fetches. */
-    sequence(): number {
+    sequence() {
       return seq;
     },
-    /** Returns the unsubscribe function. */
+    // Annotated: the body's `subs.delete` would otherwise infer `() => boolean` into FindingsStore.
     subscribe(fn: () => void): () => void {
       subs.add(fn);
       return () => subs.delete(fn);

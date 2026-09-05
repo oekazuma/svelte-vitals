@@ -77,12 +77,12 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions) {
 
   return {
     /** Kick off the first whole-project analysis. Fire-and-forget — never blocks the caller. */
-    start(): void {
+    start() {
       if (stopped) return;
       void runOnce();
     },
     /** A relevant source file changed; schedule a debounced re-analysis. */
-    notifyChange(file: string): void {
+    notifyChange(file: string) {
       if (stopped) return;
       // Invalidate only the changed file's cache entry — the ParseCache is keyed
       // by project-root-relative POSIX path (as globFiles returns it), while the
@@ -97,8 +97,7 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions) {
         else void runOnce();
       }, debounceMs);
     },
-    /** Clears any pending timer and makes further calls no-ops. */
-    stop(): void {
+    stop() {
       stopped = true;
       if (timer !== undefined) {
         clearTimeout(timer);

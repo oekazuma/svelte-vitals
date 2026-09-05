@@ -711,7 +711,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
 export { ProjectError } from './providers/source/project.js';
 export { routeMatcher } from './route-matcher.js';
-export { globFiles } from './glob.js';
+export { createNodeRuntime } from './runtime/node.js';
 export type { ParseCache } from './providers/source/resolve.js';
 export { findUnknownRuleIds, knownRuleIds, registryTag, ruleOptionsSpec } from './rules-config.js';
 export { loadConfigFile, CONFIG_FILENAMES } from './config-file.js';

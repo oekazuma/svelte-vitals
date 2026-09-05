@@ -1,6 +1,6 @@
 import { parse, type HTMLElement } from 'node-html-parser';
 import type { Value } from '@svelte-vitals/core';
-import type { HeadTag, ImageInfo } from '@svelte-vitals/core/internal';
+import type { A11yOccurrenceInfo, HeadTag, ImageInfo } from '@svelte-vitals/core/internal';
 import {
   decodeFragmentId,
   splitTokens,
@@ -240,4 +240,13 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   const a11y = collectA11y(root);
 
   return { tags, htmlLang, headings, images, ...a11y };
+}
+
+/** Group raw occurrence keys (one entry per hit, in document order) by key, `file` attached, `line: 0` (rendered mode does not track source lines). */
+export function toOccurrenceMap(keys: string[], file: string): Record<string, A11yOccurrenceInfo[]> {
+  // Null prototype: keys are author-controlled (`id="__proto__"` is legal page content) and a
+  // plain {} would resolve such keys on Object.prototype, crashing the `??=`/push below.
+  const out: Record<string, A11yOccurrenceInfo[]> = Object.create(null);
+  for (const key of keys) (out[key] ??= []).push({ file, line: 0 });
+  return out;
 }

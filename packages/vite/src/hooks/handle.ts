@@ -16,8 +16,7 @@ import {
   type ResolvedImages,
   type Rule
 } from '@svelte-vitals/core/internal';
-import { parseHtmlHead } from '../providers/rendered/parse-html.js';
-import { toOccurrenceMap } from '../providers/rendered/collect.js';
+import { parseHtmlHead, toOccurrenceMap } from '../providers/rendered/parse-html.js';
 import { isLoopbackOrigin } from '../loopback.js';
 
 /** Options for the dev-time SvelteKit handle. A focused subset of the plugin options. */
