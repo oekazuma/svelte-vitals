@@ -228,7 +228,7 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 - **260828-BUG-04** gunshi 系 6 closure の exit code 初期値 0 → 2 への防御的変更(現 HEAD で到達不能と検証済み、latent)(S)。
 - **260828-BUG-05** `permitted-contents` の KNOWN_TAGS が `svg:` prefix 剥がしで SVG 専用 60 名を HTML 既知タグ扱い(`<div><g>` に info 発火。measured spec の「unknown は無判定」方針と矛盾)(S)。
 - **260828-BUG-06** `loadSuppressions` の catch-all を ENOENT 限定に(EACCES が「ファイルなし」に化ける。安全側の failure だが診断が紛らわしい)(S)。
-- **260828-REV-01(055 レビュー副産物)** `reserved-name-placement.ts:181-183/205-207` の `capUnits[name]`/`anyUnits[name]` が hasOwn なしの config キー索引 — `constructor` という名のディレクトリ+片側 map の config エントリで Object 関数が `globsOf` に流れる(S)。
+- **260828-REV-01(055 レビュー副産物)** **→ 2026-09-03 の計画 064 に収容(未変化で再現済み)。** `reserved-name-placement.ts:181-183/205-207` の `capUnits[name]`/`anyUnits[name]` が hasOwn なしの config キー索引 — `constructor` という名のディレクトリ+片側 map の config エントリで Object 関数が `globsOf` に流れる(S)。
 - **260828-REV-02(058 レビュー副産物)** `reporter/agent.ts:55` の `fix.snippet` フェンスが固定 ``` — dashboard 側で直したのと同クラス。全ルールの snippet がリテラル著述の現在は latent(S)。
 - **260828-REV-03(056 レビュー副産物)** 短縮形 `-h --help=false` が last-wins 非対応(base から同挙動の既知ギャップ。気にする人が出たら、の優先度)(S)。
 - **260828-REV-04(PR #615 の Copilot 指摘、pre-existing と実測確認済み)** `collectAriaElements` がタグを小文字化せず記録(`collectElements` は小文字化する)ため、`<dIv>` のような mixed-case タグで `roleCandidates` が undefined になり role 依存の a11y 判定が静かにスキップされる(latent FN)。根治は role-candidates 側の lowercase ではなく collection 側(`component-parse.ts` の `collectAriaElements`)で `collectElements` と同様に小文字化 — 全 consumer が一度に直る。mixed-case 回帰テスト付きで(S)。監査時の「collectAriaElements SVG/case gap(latent)」の具体的帰結。**済み([PR #621](https://github.com/oekazuma/svelte-vitals/pull/621) — collection 側で小文字化。敵対的レビュー 1 巡: required-aria-props は「欠落」ではなく「過検出が直る」方向のみと executor が反証し reviewer が撤回)**
@@ -265,7 +265,116 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 - **2608-DIR-05(minHealth の config キー非対称)** HEAD 再確認 — `failOn` は config キー(config-file.ts の KNOWN_TOP_LEVEL_KEYS)なのに `minHealth` は CLI フラグのみのまま。flag-beats-config の優先順位を決める設計ノート 1 枚(S)。
 - 2608-DIR-04(agent skill 世代ズレ警告)は状況変化なし。v1 Phase E(タグ付け)は意図的保留のまま — 本監査からの提案はしない。
 
+## 2026-09-03 security 監査(commit `13aa7ad0`)
+
+`/improve security` による security カテゴリ限定の監査(standard、サブエージェントなし — 親が全対象コードを直接実読)。対象: vite dev UI(middleware / loopback / handle / snapshot / store)、CLI の shell-out・`import()`・ファイル書き込み経路(changed-files / baseline / config-file / install / ci / suppressions)、core の 6 レポーター(HTML / agent / markdown / github / sarif / json)とサニタイザ、own workflows と scaffold される workflow、ecosystem-smoke、pnpm / Renovate の supply-chain 設定、`pnpm audit --prod`。所見は 1 件だけ計画化し、それ以外は棄却理由を下に記録した。番号は 062 から: 060 / 061 はブランチ名(`advisor/060-aria-elements-lowercase` → PR #621、`advisor/061-terminal-safe-c1` → PR #623)として使用済みで、計画ファイル自体は plans/ に残っていない。
+
+| Plan | Title                                                                                                                               | Priority | Effort | Depends on | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---- | ----------------------------------------------------------------------------------------------------------------------------------- | -------- | ------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 062  | dev UI の `POST /ingest` を same-origin(host:port 一致)に限定し、body を 4 MiB で 413 にする(loopback なら別ポートでも通る現状の穴) | P2       | S      | —          | DONE(2026-09-03 Sonnet executor、逸脱なし → レビュー(Fable)APPROVE[done criteria を worktree で全件再実行、main の middleware.ts に差し替える mutation check で新テスト 2 件だけが fail することを確認]。ブランチ `advisor/062-dev-ui-ingest-same-origin`、commit `26d4f766`。worktree `.claude/worktrees/agent-a835ee474b2dfd072`。[PR #640](https://github.com/oekazuma/svelte-vitals/pull/640) 作成済み。CodeRabbit 指摘 3 件[isSameOrigin の既定ポートがスキームをまたいで衝突(https://localhost が localhost:80 に一致・:443 明示が不一致)/413 が end まで返らない/docs と changeset が「Origin なし=ハンドルのみ」と過大主張]は全て妥当と検証し、REVISE 1 回で commit `4616b976`[hostname+実効ポート比較、socket.encrypted で Host 側の既定ポートを解決、cap 超過時に即 413+destroy、文言修正]→ 再レビュー APPROVE) |
+
+### 2026-09-03 監査で棄却・検証済みの所見(再監査防止)
+
+- `git` への引数注入(`packages/cli/src/baseline.ts:41` の `worktree add … <ref>`、`changed-files.ts:39` の `--merge-base <base>`)。ref は CLI 起動者自身の `--baseline` / `--diff` から来る。scaffold される workflow は `origin/${{ github.base_ref }}` と接頭辞付きで渡す。境界を越えていないので計画化しない。
+- `pnpm audit --prod`。30 件(high 17)は全て `docs>blume` 配下の devDependency 経路のみで、公開 3 パッケージからの到達経路はゼロ(advisory ごとの paths を機械照合)。2026-08-28 の 260828-DEPS-04(docs の devDependencies 化)が未着手のままノイズとして残っている — メンテナー直接作業が最安、という前回の結論を維持。
+- agent レポーターの固定フェンス(`packages/core/src/reporter/agent.ts:55` は `fenceFor` 相当なしで ``` を使う)。全 7 ルールの `fix.snippet` を実読し、いずれも定数文字列で解析対象由来の文字列を含まない。dashboard 側(058)と非対称だが、現状では到達不能。snippet に解析対象の値を埋め込むルールを足す時に初めて必要になる。
+- agent レポーター / AI prompt への意味的 prompt injection(`<dt>` テキスト、`hreflang` 値、`$state` 名などの引用が message に入る)。構造面(改行・リンク・フェンス)は `mdEscape` / `mdSafe` で無害化済みで、`agent-report.test.ts:129` に敵対値のテストもある。意味面は「自分のリポジトリの文字列を自分のエージェントに渡す」経路であり、linter→agent フィード一般に内在する。計画化しない。
+- dashboard の CSP 不在。描画は全て `textContent` / `setAttribute` / エスケープ済み埋め込み JSON 経由で、`docsUrl` は `safeHref` 済み。inline script のハッシュ計算は core の `node:` 禁止(runtime-agnostic)に抵触し、生成器+ドリフトテストを足すコストに見合わない。
+- own workflows / scaffold / supply-chain。SHA ピン、`persist-credentials: false`、最小 `permissions`、`pull_request_target` 不使用、`--frozen-lockfile`、`minimumReleaseAge`(pnpm 3 日 / Renovate 3 days)、`allowBuilds` 許可リスト、OIDC provenance — 全て HEAD で維持。所見なし。
+- ecosystem-smoke の untrusted clone。`execFileSync` 配列形、config ファイル除去(`import()` RCE 経路の遮断)、realpath による封じ込め、`contents: read` のみ — 2026-08-28 の検証結果を再確認、変化なし。
+- CLI の shell-out。`execFileSync` / `spawnSync` の配列形のみ(`shell: true` は win32 の install 経路だけで、引数は定数)。`import()` は config ファイル(設計どおり)と自身のモジュールのみ。
+- HTML レポート / dashboard の XSS。`embedJson`(`<` / U+2028 / U+2029 エスケープ)、`escapeHtml`、`safeHref`、`h()` の `textContent` 経由 — 実読で穴なし。
+- 委託済み秘密情報。`.env` なし、トークン形パターンの grep 0 件、npm publish は OIDC。
+
+### 本監査でカバーしていない領域(明示)
+
+- 別リポジトリの `oekazuma/svelte-vitals-action`(scaffold が呼ぶ側)。
+- `rules/security/*` の検出器そのものの妥当性(ルールの偽陰性・偽陽性は security 監査ではなく rule validity review の領域)。
+- ルールの正規表現に対する ReDoS(敵対的ソースでの CI 遅延)。PR 側が任意コードを走らせられる CI では境界にならないと判断し、計測していない。
+- Windows 挙動(引き続き macOS 上のみ)。
+
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJECTED (with one-line rationale)
+
+## 2026-09-03 deep 監査(commit `13aa7ad0`、計画は `origin/main` `d3828d9e` 起点)
+
+/improve deep による全リポジトリ監査(9 カテゴリ、8 並列サブエージェント + direction は親が直接)。前回 deep 監査(2026-08-28、`690dd5e4`)から 36 コミット / 113 ファイル。監査は #630/#632/#633 のリファクタ(runAnalysis 統合、module-ast 抽出)と tinyglobby → `node:fs` glob 置換に重み付けした。計画対象の所見は全件、親が引用元コードを実読し、うち BUG-01(ESM キャッシュ)は Node と vitest の両方で、TEST-01(読めないディレクトリ)は実 FS で再現した。ユーザー非対話セッションのため、スキルの既定に従い leverage 上位 6 件を計画化した。監査時のローカル HEAD `13aa7ad0` は `origin/main` より 3 コミット遅れ(#640/#641/#642)。作業ツリーを変えない方針で pull せず、計画の drift check は `d3828d9e` 起点で書いてある。
+
+| Plan | Title                                                                                                                                                                                  | Priority | Effort | Depends on            | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------ | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 063  | config ファイルの `import()` をキャッシュバストし、dev dashboard が編集後の config を読む(ESM モジュールキャッシュ。dashboard 側の config も getter 化)(260903-BUG-01)                 | P1       | S      | —                     | DONE(2026-09-03 Sonnet executor → 敵対的レビュー(Fable)APPROVE[done criteria 全件再実行、mutation で新テストだけが赤になることを確認、内容ハッシュのキー契約を dist プローブで実証]→ should-fix 1 件[watcher 直後の即時 re-resolve が truncate+write 保存で偽の invalid 警告]を debounce 500 ms + 世代カウンタで修正 → 再レビュー APPROVE → [PR #643](https://github.com/oekazuma/svelte-vitals/pull/643)。ブランチ `advisor/063-config-file-import-cache`、commit `982baca9`)                                                                                                                           |
+| 064  | core の `Object.prototype` キー索引の残り 3 サイト(JSON-LD `@type` でルール脱落+スコア上振れ / rule options の無言受理 / placement 値読み。260828-REV-01 を収容)(260903-CORRECT-01/02) | P1       | S      | —                     | DONE(2026-09-03 Sonnet executor、逸脱なし → 敵対的レビュー(Fable)一発 APPROVE[3 サイト個別の mutation で対応テストだけが赤、`__proto__` は computed key 経由で到達可能だが修正後は unknown option として拒否されることを実証]→ [PR #644](https://github.com/oekazuma/svelte-vitals/pull/644)。ブランチ `advisor/064-prototype-key-sweep`、commit `fb6ea829`。レビュー nit: placement テストは `toEqual([])` にすれば更に強い)                                                                                                                                                                            |
+| 065  | 解析対象由来の文字列が素通りする 2 シンク(`@clack/prompts` の `terminalSafe` 未適用 3 サイト / SARIF `artifactLocation.uri` 未エンコード。fingerprint は不変)(260903-SEC-02/03)        | P1       | S      | —                     | DONE(2026-09-03 Sonnet executor[worktree 間で共有される `git stash` の衝突を踏んだが復旧、以後 stash 禁止]→ 敵対的レビュー(Fable)APPROVE[mutation で対応テストだけが赤、clack の `label` は描画専用と dist 実読で確認]→ should-fix 1 件[`encodeURI` が `[slug]` を `%5Bslug%5D` にする点が未固定]をテスト+changeset で固定 → [PR #645](https://github.com/oekazuma/svelte-vitals/pull/645)。ブランチ `advisor/065-sink-sanitizer-gaps`、commit `565e70b5`)                                                                                                                                               |
+| 066  | `computeScore` のレジストリ射影を config 単位でメモ化(レポート構築の約 95% が結果非依存のセットアップ。JSON バイト同一が done 条件)(260903-PERF-01)                                    | P2       | S      | —                     | DONE(2026-09-03 Sonnet executor[065 との共有 stash 衝突から dangling commit 経由で自力復旧、以後 cp 方式]→ 敵対的レビュー(Fable)APPROVE[json / console / --by-route の 3 形式でバイト同一を再確認、config 同一性を無視する誤メモ化は既存テスト 2 件も落とすことを実証、全 caller の config 不変性を列挙]→ nit 2 件[changeset の絶対 ms を比率表現に、コメントの動機文を削除]反映 → [PR #646](https://github.com/oekazuma/svelte-vitals/pull/646)。ブランチ `advisor/066-score-registry-memo`、commit `134388bb`)                                                                                         |
+| 067  | vite dashboard runner が `analyzeProject` の warnings を捨てている問題+build 経路のクラッシュ報告テスト(260903-BUG-03/TEST-04)                                                         | P2       | S      | 063(同じ `plugin.ts`) | DONE(2026-09-03 Sonnet executor → 敵対的レビュー(Fable)REJECT 1 回[config ファイル警告が applyConfig と runner の両方から出て起動時に二重印字。計画のスコープ外だった applyConfig の warn ループを親が許可]→ printed-Set で runner 側を抑制+1 回だけ印字を assert するテスト追加 → 再レビュー APPROVE[3 フェーズの実キャプチャで各行 1 回を確認]→ [PR #647](https://github.com/oekazuma/svelte-vitals/pull/647)。#643 マージ後(2026-09-04)に `git rebase --onto origin/main 982baca9` で main に載せ替え、base を main へ変更。ブランチ `advisor/067-vite-surface-analysis-warnings`、commit `408450bb`) |
+| 068  | dev handle の ingest 署名を POST 成功後に記録し、同一ルートの POST を直列化(初回失敗で `static` 固定)(260903-BUG-02)                                                                   | P2       | S      | —                     | DONE(2026-09-03 Sonnet executor → 敵対的レビュー(Fable)APPROVE + should-fix 2 件[「最後に ack された署名」で dedup すると A→B(in-flight)→A の再描画が 1 往復ぶん古いまま残る/inflight の掃除が finally でない]→ queued-signature 方式に変更+finally+interleave テスト → 再レビュー APPROVE + should-fix 2 件[changeset の機構文言が旧版のまま/失敗分岐の `=== signature` ガードを pin するテストなし]→ 反映 → [PR #648](https://github.com/oekazuma/svelte-vitals/pull/648)。ブランチ `advisor/068-dev-handle-ingest-signature`、commit `f7abd829`)                                                      |
+
+### 2026-09-03 の依存メモ
+
+- 063 → 067 は同じ `packages/vite/src/plugin.ts` の `configureServer` を触るので直列(067 は 063 の後、または 063 ブランチにスタック)。
+- 064 / 065 / 066 / 068 は互いに独立で並行可。064 と 066 は core の別ファイル、065 は cli+core の別ファイル、068 は vite の `hooks/handle.ts` のみ。
+
+### メンテナーが直接やるのが最安の 8 件(計画化しない)
+
+- 260903-DX-01(`.github/workflows/ci.yml:92`): test ジョブは dist キャッシュを復元した直後に `pnpm test`(= `pnpm build && pnpm -r test`)で無条件に再ビルドする。CI ログ(run 33726697506)でキャッシュヒット直後に 3 パッケージの tsdown が走るのを確認。`pnpm -r test` に変えればキャッシュが効く。root の `test` スクリプトは計画 048 の理由で build 先行のまま残す。
+- 260903-DX-05: `tsup` 言及 4 箇所(`packages/cli/src/version.ts:4,25`、`gunshi/registry.ts:3` の「tsup.config.ts」は存在しないファイル名、`packages/vite/src/version.ts:22`)。ツールは tsdown。
+- 260903-DOCS-01/02/03(`packages/core/README.md`): 8 行目「zero runtime dependencies」は誤り(`aria-query` と `svelte`、dep-budget 上限 21)。18 行目の stable 表に `CATEGORIES` 値 export と `Summary` / `RuleEvidence` / `ScoreModel` 型がない。`summary.ts:29` の `summarize` だけ JSDoc がない(effective severity で集計する非自明さを 1 行)。
+- 260903-DX-03: `NO_COLOR` / `FORCE_COLOR`(`packages/cli/src/color.ts:30-32`)が docs のどこにもない。`guides/(setup)/cli.md` の env 節に en/ja+stamp。
+- 260903-DEBT-04: `NAMING_ATTRS` が core 内で 2 つの意味(`a11y.ts:152` は landmark 用 2 属性、`rules/a11y/accessible-name.ts:6` はローカルの 3 属性、`component-parse.ts:1273` はインライン 3 属性)。前者を `LANDMARK_NAMING_ATTRS` に改名し、後者 2 つを 1 つの export に。
+- 260903-DX-02: PR #577(lock file maintenance)が `renovate/stability-days` pending で 10 日間ブロック(15 回 CI 再実行)。`renovate.json:7` のコメント「3-day age holds」と観測が矛盾。`pnpm-workspace.yaml` の `minimumReleaseAge` が resolve 時点で効いているので Renovate 側の gate は二重の可能性。設定判断はメンテナー。
+- 260903-DEPS-03: `magicast ^0.5.4` は published CLI の**ランタイム** 0.x 依存だが、`renovate.json` の minor automerge 例外は gunshi だけ。同じ 1 ルールを足す。
+- 260903-DEPS-01: TypeScript 7(PR #181、2026-07-11 から open、15 回 CI 失敗)のブロッカーは `examples/kitchen-sink` の `svelte-check` ガードだけ(TS6 の npm alias + `--tsgo` で解ける)。ただし core/cli/vite が TS7 で typecheck を通るかは kitchen-sink で止まるため未検証。判断はメンテナー。
+
+### 2026-09-03 監査で検出したが計画化しなかった主な所見(次回選定の候補、leverage 順)
+
+- 260903-TEST-01: `fs.glob` は読めないディレクトリを無警告で飛ばす(実 FS で再現)。`component.ts:364-386` は read/parse 失敗しか警告せず、列挙されなかったファイルは「無かった」ことになり正常スコアが出る。`runtime.ts:41-52` の EMFILE 事例と同クラス。まず `glob.test.ts` に `chmod 000` ケース(root と Windows では skip)、次に skipped-directory を warnings に流す(S + S–M)。
+- 260903-TEST-02 / DEBT-02: `packages/vite/src/glob.ts` はテストゼロ。cli 版とシグネチャが既に乖離(cli は `string[]` + `exclude`)。cli の 4 ケースをミラーし、共通本体の byte 同一性を pin する(S)。
+- 260903-TEST-03: `module-ast.ts`(20 export、#633 で新設)に直接テストなし(`grep module-ast packages/*/test` = 0)。同時期の `a11y.ts` / `head.ts` / `runAnalysis` にはある。scope/binding 4 関数の characterization テスト先行(M)。
+- 260903-TEST-05: `memory-runtime.ts:21-23` は `cwd` を捨て、ディレクトリを表現できないので `Runtime.glob` の 2 不変条件を反証できない。両アダプタで走る conformance テーブル(S、14 テストファイルが consumer)。
+- 260903-TEST-07: `--weights` / `--treat-dynamic-as` は parse と core の両端にテストがあるが `run()` で結線を assert するテストがない(S)。
+- 260903-TEST-08: `gunshi-docs-parity` の 4 セルが 130 行の docs 本文をスナップショットに埋め込み(dispatch 形状だけを assert する形に)(S)。
+- 260903-DEBT-01: `2026-08-16-v1-public-surface.md:262-291` が指定する `public-surface.json` + closure テストが**存在しない**(decision drift)。`json.ts:21` の `JsonIssue` は推論型のまま frozen `JsonReport` に含まれる(M)。
+- 260903-DEBT-03 / PERF-05: `component-parse.ts` に `CHILD_NODE_KEYS` walker skeleton が 23 個(cli `parse.ts` に 5 個)、`parseComponentFacts` は fragment を 17 回無条件+最大 13 回条件付きで走査。bench 設計書 §2 の「seven-walk」は実数の 2.4〜4.3 倍の過小(doc 訂正 S、`walkTemplate` 抽出 + 3 クラスタ分割は L)。
+- 260903-PERF-02: 1 回の CLI 実行で glob パターン 10 個 = 10 回のフル走査。`cli/glob.ts:13` は既に `string[]` を受けるが `Runtime.glob`(`runtime.ts:29`)が単一パターン。kitchen-sink 実測 17.1 ms → 5.2 ms。io-budget の「each pattern once」不変条件の書き換えが要る(M)。
+- 260903-PERF-03: dashboard の `buildSnapshot` が `/data.json` ごとに `buildJsonReport` を再構築。`store.sequence()` がサーバー側で未使用(S。066 の後が自然)。
+- 260903-PERF-04: `walkEstree` が `walkEvalScope` に委譲し、ノードごとに `scopeIntroducedNames` の `Set` を捨てている(kitchen-sink で 1 パスあたり 554 回、11 パス)。scope なしの再帰に分離(S、`pnpm bench` で確認)。
+- 260903-DEBT-05: #632 後も `mergeConfig`(vite `analyze.ts:44-55` vs cli `index.ts:300-313`)と post-analysis 警告の尾(`analyze.ts:124-126` vs `index.ts:330,359`)は 2 コピー(M)。
+- 260903-DEBT-06: vite `analyze.ts:128` の `score`(`computeScore` の combined、Health と一致しない)は plugin が読まない。`summary` は `failed` 判定で使用中なので削るのは `score` だけ(S)。
+- 260903-BUG-04: `install/index.ts:520-524` で `@svelte-vitals/vite` の自動インストール失敗が `errorLog` のみで exit 0。設計書 2026-07-04 は「warning 以上の recovery は non-goal」で、exit code は未規定。exit 2 にするか「best-effort、exit 0」と明文化するかはメンテナー判断(S)。
+- 260903-BUG-05: `baseline.ts:68-71` の catch が worktree 登録を prune せずに tmp を消す(`git worktree list` に prunable が残る)(S)。
+- 260903-DOCS-04: `2026-07-31-floor-smoke-design.md:35` の依存表が tinyglobby / mri / smol-toml を挙げる(3 つとも消滅)。AGENTS.md が現行として引いているので snapshot 注記か更新(S)。
+- 260903-DOCS-05: kitchen-sink README の route→rule 表に `a11y/unverified-id-ref` がない(105 中 104。ドリフトガードなし)(S)。
+- 260903-DX-04: gen 系スクリプト 7 本に umbrella がなく、AGENTS.md の 3 節に散在。`gen:all` + 1 表(S)。
+- 260903-DEPS-02: vite の dep 閉包 12/12 の内訳に `entities@4` と `entities@8`(node-html-parser 経由、upstream の問題)。override は dom-serializer を壊すので**やらない**。`max: 12` に注記のみ。
+- 260903-REV-01(監査副産物): `core/component.ts:366` のコメント「picomatch-style matching」は tinyglobby 時代の記述(現在は `node:fs` glob)。`2026-08-16-v1-public-surface.md:197` が `APP_STYLE` を vite の consumer として挙げるが `internal.ts` は export していない。どちらも 1 行。
+
+### 2026-09-03 監査で棄却・検証済みの所見(再監査防止)
+
+- TEST-06(`flag-coverage.test.ts` が help スナップショットで満たされる)は**誤り**。同テストは `.test.ts` しか読まない(`:20-26`)。「parse テストで名前が挙がるだけで通る」点はテストのヘッダと AGENTS.md が明記済みの by-design。棄却。
+- 前回 backlog の訂正: CATEGORIES は 3 重複ではなく 2 重複(`types.ts:144`、`resolve-args.ts:9`)。`internal.ts` の未消費 12 型は e9fd01ee の方針(「seam を越える shape は consumer が名指ししなくても残す」)どおりで所見ではない。
+- `isClassicScriptType`(#630)の空白のみ `type` の扱いが変わった件は WHATWG「prepare the script element」に照らして新挙動が正(リテラル空のみ classic)。drift ではない。
+- glob 置換(tinyglobby → `node:fs`)の意味論: `**` の 0 セグメント、brace の空代替、dot 除外、ディレクトリ除外、symlink ファイル追従(6f5419c0 の決定)、`exclude` の枝刈り、順序(全 consumer が sort)を全て probe し、乖離なし。
+- module-ast(#633)の 19 関数は 690dd5e4 の本体と byte 同一(`guardTerminates` だけ未ガード読みを**修正**)。`runAnalysis`(#632)の補正順序は旧 2 パイプラインと同一。landmark policy(#630)は #619/#621 の修正を含んで両 provider と一致。
+- パーサの fuzz(snippet / `{@render}` / `{@attach}` / `bind:` / `<svelte:element>` / `<svelte:boundary>` / TS generics / `$props.id()` / ネスト each 分割代入)で throw なし。Object.prototype ハザードの残り(html-spec / role-candidates / casing / heavy-import / reserved-directory-names / examinedCounts / aria-query)は全てガード済みと確認。正規表現の破滅的バックトラックなし。
+- セキュリティ(2026-09-03 security 監査の続き): 新 glob の path escape なし(全パターンがリテラル)、install scaffolder は解析対象の文字列を生成物に埋め込まない、`pkg-json.ts` の `JSON.parse` は安全、reporters の残りサニタイザ正常、post-#640 の `isSameOrigin` / 413 は健全、`scripts/` は無変更、fixture に prompt-injection 内容なし、`pnpm audit --prod` は published 3 パッケージ到達 0 件。
+- deps: catalog 迂回 0、engines 整合、tinyglobby 完全除去、全ランタイム依存に import サイトあり、廃止予定 API なし、typecheck / lint pass、vitest 設定にハックなし、cli の throw メッセージ 25 件は全て locator 付き。
+- docs: 監査範囲で `docs/src/content/docs/` の変更ゼロ、translations 台帳完全、CHANGELOG の主張 3 件を実装照合済み、`packages/cli/docs` の flag / path 全存在、cli-reference テストは en/ja 両方をカバー、AGENTS.md の path 20 件 / script 全件 / CI 5 job / 「3 箇所登録」主張は全て正。
+- Svelte 5.57 自身に `<constructor>` タグで throw する同型の穴(`html-tree-validation.js:68`)。`collectComponentFacts` が catch して `parseFailed` にするので svelte-vitals 側は安全。upstream 報告候補。
+
+### 本監査でカバーしていない領域(明示)
+
+- Windows 挙動(引き続き macOS のみ。`glob.ts:27` の separator 正規化も未検証)。
+- ルール docs の prose 層(#619/#621 の語彙で targeted grep のみ。全 210 ページの通読はしていない)。
+- `html-spec/content-model.ts` のセレクタエンジン(`matchHas` の subtree walk の複合コストは未定量化)。
+- `kit-module-parse.ts`(886 行)自身のパス数と fact 単位の意味論。`component-parse.ts` の ~30 collector の「throw しないが誤る」出力。
+- SvelteKit handle hook が受け取る config の staleness(config ファイルを読まないので 063 の対象外と判断したが、プラグインオプション変更時の挙動は見ていない)。
+- core/cli/vite が TypeScript 7 で typecheck を通るか(kitchen-sink で止まるため)。
+- Vite plugin API の 8→9 readiness(`ssr` 系のみ grep)。
+
+### 2026-09-03 方向性所見(計画化せず記録)
+
+- vite プラグインの build ゲート(`failOn`)は `svelte-vitals-suppressions.json` を読まない。設計書 `2026-07-13-suppressions-file-design.md:53` が「vite integration は v1 では CLI only」と明記した deferral だが、PR #211 で config ファイルが vite に配線された今、CLI で受け入れた finding が `vite build` では落ちる非対称がユーザーに見える。`applyScope` 相当を `analyze.ts` に足す設計 1 枚(S–M)。
+- dev dashboard はクラッシュしたルールの id を一切表示しない(`snapshot.ts:41-42` で採点補正のみ)。067 でターミナルには出るようになるが、dashboard 本体に出すかは `AppSnapshot` の型を広げる設計判断(M)。
+- 前回からの継続: 旧 i18n スパイクの Superseded 明記、examined counts の console footer、`minHealth` の config キー非対称。いずれも状況変化なし。v1 Phase E は意図的保留のまま(本監査からの提案はしない)。
 
 ## Dependency notes
 
