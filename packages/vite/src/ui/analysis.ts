@@ -10,7 +10,7 @@ export type AnalyzeFn = (opts: {
   rules?: Record<string, RuleSetting>;
   failOn?: Severity;
   parseCache?: ParseCache;
-}) => Promise<{ results: Result[]; failedRuleIds?: string[] }>;
+}) => Promise<{ results: Result[]; failedRuleIds?: string[]; warnings?: string[] }>;
 
 export interface AnalysisRunnerOptions {
   /** Project root to analyze (passed as `cwd` to `analyzeProject`). */
@@ -24,6 +24,8 @@ export interface AnalysisRunnerOptions {
   /** `failedRuleIds` is `analyzeProject`'s crashed-rule ids — omitted when the injected `analyze` doesn't return them. Ids only, not a config: the base config (plugin-option weights/overrides included) must stay the caller's, never swapped for `analyzeProject`'s own. */
   onResults(results: Result[], failedRuleIds?: string[]): void;
   onError(err: unknown): void;
+  /** `analyzeProject`'s human-readable warnings (empty selections, unknown directive ids, skipped files, crashed rules). Called only when the set differs from the previous run's — a debounced re-run per save would otherwise repeat the same lines. */
+  onWarnings?(warnings: string[]): void;
   /** Called `true` right before a run starts its `analyze()` call and `false` once that run settles — including right before a coalesced follow-up starts again, so a rapid burst of changes may emit false-then-true between runs rather than staying true throughout. */
   onStatusChange?(analyzing: boolean): void;
   /** Debounce window for `notifyChange` (default: 500ms). */
@@ -52,13 +54,14 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
   let running = false;
   let pending = false;
   let timer: ReturnType<typeof setTimeout> | undefined;
+  let lastWarningsKey: string | undefined;
 
   async function runOnce(): Promise<void> {
     if (stopped) return;
     running = true;
     opts.onStatusChange?.(true);
     try {
-      const { results, failedRuleIds } = await analyze({
+      const result = await analyze({
         cwd: opts.root,
         treatDynamicAs: opts.treatDynamicAs,
         metaComponents: opts.metaComponents,
@@ -66,12 +69,17 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
         failOn: opts.failOn,
         parseCache
       });
+      const { results, failedRuleIds } = result;
       // Passing a 2nd arg only when defined keeps callers that ignore it (and tests
       // asserting exact call args) unaffected by this addition.
       if (!stopped) {
         if (failedRuleIds !== undefined) opts.onResults(results, failedRuleIds);
         else opts.onResults(results);
       }
+      const warnings = result.warnings ?? [];
+      const key = warnings.join('\n');
+      if (!stopped && warnings.length > 0 && key !== lastWarningsKey) opts.onWarnings?.(warnings);
+      lastWarningsKey = key;
     } catch (err) {
       if (!stopped) opts.onError(err);
     } finally {

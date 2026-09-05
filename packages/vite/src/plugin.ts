@@ -274,6 +274,9 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       // config-file values independently, since it calls analyzeProject (which loads
       // the config file itself).
       let config: Config;
+      // Config-file warnings already printed here for this edit — the runner below
+      // reloads the same config file itself and must not print them a second time.
+      let printedConfigWarnings = new Set<string>();
 
       // Guards a stale resolve from clobbering a newer one when two watcher-driven
       // calls overlap (the debounce below makes this rare but not impossible: a
@@ -289,6 +292,9 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
           const resolved = await resolveConfig(uiRoot, options);
           if (generation !== configGeneration) return;
           config = resolved.config;
+          // Replaced, not accumulated: an edit that fixes a warning must let a later,
+          // unrelated warning with the same text print again.
+          printedConfigWarnings = new Set(resolved.warnings);
           for (const w of resolved.warnings) warn(`svelte-vitals: ${w}`);
         } catch (err) {
           if (generation !== configGeneration) return;
@@ -326,6 +332,12 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         },
         onError: (err) =>
           warn(`svelte-vitals: dev analysis failed: ${err instanceof Error ? err.message : String(err)}`),
+        // Same sink and prefix as the build path (closeBundle) so the two never read differently.
+        // The runner reloads the config file itself, so its warning set repeats whatever
+        // applyConfig already printed for this edit — skip those to avoid printing twice.
+        onWarnings: (warnings) => {
+          for (const w of warnings) if (!printedConfigWarnings.has(w)) warn(`svelte-vitals: ${w}`);
+        },
         onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
       });
       runner.start();
@@ -340,9 +352,13 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         if (!isRelevant(file, uiRoot)) return;
         // The runner re-loads the config file itself (analyzeProject → loadConfigFile); the
         // dashboard's scoring config is resolved here, so it has to follow the same edit.
+        // Notifying the runner only after this resolve settles (applyConfig never rejects)
+        // keeps onWarnings' dedup order-independent — otherwise a runner run that finishes
+        // first would print a warning applyConfig's still-pending resolve then prints again.
         if (CONFIG_FILENAMES.includes(basename(file))) {
           clearTimeout(configTimer);
-          configTimer = setTimeout(() => void applyConfig(), 500);
+          configTimer = setTimeout(() => void applyConfig().then(() => runner.notifyChange(file)), 500);
+          return;
         }
         runner.notifyChange(file);
       });
