@@ -39,6 +39,9 @@ export function findingSignature(results: Result[], config: Config): string {
 
 const warn = (line: string): void => console.warn(terminalSafe(line));
 
+/** A dashboard that never answers must not block the route's later ingests forever. */
+const INGEST_TIMEOUT_MS = 10_000;
+
 /** True only when the dashboard acknowledged the POST. */
 async function postIngest(origin: string, route: string, results: Result[], failedRuleIds: string[]): Promise<boolean> {
   // `origin` comes from the request (Host header), so a spoofed Host must not
@@ -53,24 +56,32 @@ async function postIngest(origin: string, route: string, results: Result[], fail
     }
     return false;
   }
+  // Not AbortSignal.timeout: vitest fake timers can't drive it, so this test suite
+  // couldn't exercise the timeout deterministically.
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), INGEST_TIMEOUT_MS);
   try {
     const res = await fetch(`${origin}/__svelte-vitals/ingest`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       // failedRuleIds is always sent, empty array included, so a route that recovers from
       // a previously-crashing rule clears its stale entry on the receiving store.
-      body: JSON.stringify({ route, results, failedRuleIds })
+      body: JSON.stringify({ route, results, failedRuleIds }),
+      signal: controller.signal
     });
     if (!res.ok && globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
       warn(`svelte-vitals: live UI ingest for ${route} rejected with HTTP ${res.status}`);
     }
     return res.ok;
   } catch (err) {
-    // dev tooling must never break a request — swallow ingest failures
+    // dev tooling must never break a request — swallow ingest failures (including an
+    // abort from the timeout above, which surfaces here as a rejected fetch)
     if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
       warn(`svelte-vitals: live UI ingest for ${route} failed: ${err instanceof Error ? err.message : String(err)}`);
     }
     return false;
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -80,7 +91,7 @@ async function analyzeAndIngest(
   origin: string,
   rules: Rule[],
   config: Config,
-  queuedSignature: Map<string, string>,
+  queued: Map<string, { signature: string }>,
   inflight: Map<string, Promise<void>>
 ): Promise<void> {
   try {
@@ -127,21 +138,24 @@ async function analyzeAndIngest(
     // render that changes findings back to that older value, and the stale in-flight
     // POST would land last and overwrite the dashboard's more recent state.
     const signature = `${findingSignature(results, config)}|failed:${[...failedRuleIds].sort().join(',')}`;
-    if (queuedSignature.get(route) === signature) return;
+    if (queued.get(route)?.signature === signature) return;
 
     if (!globalThis.process?.env?.SVELTE_VITALS_UI) return;
     // Mark this signature as queued before sending, so an interleaved identical render
     // is deduped even while this POST is still in flight.
-    queuedSignature.set(route, signature);
+    const entry = { signature };
+    queued.set(route, entry);
     // Per-route FIFO: two renders of one route are two unordered fetches otherwise, and the
     // store replaces last-write-wins, so an older payload could land last.
     const previous = inflight.get(route) ?? Promise.resolve();
     const next = previous.then(async () => {
       const ok = await postIngest(origin, route, results, failedRuleIds);
-      // A lost ingest (dev server restarting, a rejected origin, a transient socket error)
-      // clears the entry so the next render retries — but only if no newer render has
-      // already queued a different signature for this route in the meantime.
-      if (!ok && queuedSignature.get(route) === signature) queuedSignature.delete(route);
+      // A lost ingest (dev server restarting, a rejected origin, a transient socket error,
+      // or a timed-out fetch) clears the entry so the next render retries — but only if no
+      // newer render has already replaced this route's queued entry in the meantime.
+      // Compared by identity, not by signature string, so a repeated signature (A, B, A) can't
+      // make a late failure for the first A clear the second A's already-queued entry.
+      if (!ok && queued.get(route) === entry) queued.delete(route);
     });
     inflight.set(route, next);
     try {
@@ -183,7 +197,7 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
   // dashboard's merge; a project-scope rule answers for the site from one page and the store files
   // that answer under the visited route, next to the real site-wide result.
   const rules = selectRules(allRules, config).filter((r) => r.scope === 'route' && !r.crossRoute);
-  const queuedSignature = new Map<string, string>();
+  const queued = new Map<string, { signature: string }>();
   const inflight = new Map<string, Promise<void>>();
 
   return ({ event, resolve }) => {
@@ -195,9 +209,9 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
         // analysis. We fire-and-forget on the final chunk; analyzeAndIngest swallows
         // its own errors, so the floating promise can never reject.
         // Matched routes only: an unmatched request (404/error page) is not a route the
-        // dashboard tracks, and raw pathnames would grow `queuedSignature` without bound.
+        // dashboard tracks, and raw pathnames would grow `queued` without bound.
         if (done && event.route.id != null)
-          void analyzeAndIngest(buffer, event.route.id, event.url.origin, rules, config, queuedSignature, inflight);
+          void analyzeAndIngest(buffer, event.route.id, event.url.origin, rules, config, queued, inflight);
         return html;
       }
     });

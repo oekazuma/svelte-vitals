@@ -293,6 +293,68 @@ describe('svelteVitalsHandle', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it("aborts a hung ingest after the timeout, unblocking the route's queued ingest behind it", async () => {
+    const fetchMock = setup();
+    const bodies: string[] = [];
+    fetchMock.mockImplementationOnce(
+      (_url, init) =>
+        new Promise((_, reject) => {
+          init?.signal?.addEventListener('abort', () => reject(new Error('aborted')));
+        })
+    );
+    fetchMock.mockImplementation(async (_url, init) => {
+      bodies.push(String(init?.body));
+      return { ok: true } as Response;
+    });
+    vi.useFakeTimers();
+    try {
+      const handle = svelteVitalsHandle();
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A, hangs forever
+      await vi.advanceTimersByTimeAsync(0);
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B, queued behind A
+      await vi.advanceTimersByTimeAsync(0);
+      expect(fetchMock).toHaveBeenCalledTimes(1); // B still queued behind the hung A
+
+      // Past INGEST_TIMEOUT_MS (packages/vite/src/hooks/handle.ts) — A's fetch is aborted,
+      // which frees the chain for B's already-queued ingest.
+      await vi.advanceTimersByTimeAsync(10_001);
+      await vi.advanceTimersByTimeAsync(0);
+      await vi.advanceTimersByTimeAsync(0);
+
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      expect(bodies[0]).toContain('seo/single-h1');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('a failed older POST does not clear a newer identical render already queued behind a different one', async () => {
+    const fetchMock = setup();
+    let releaseFirst!: () => void;
+    fetchMock.mockImplementationOnce(async () => {
+      await new Promise<void>((r) => (releaseFirst = r));
+      return { ok: false, status: 500 } as Response;
+    });
+    fetchMock.mockImplementation(async () => ({ ok: true }) as Response);
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A, hangs
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_TWO_H1]) }); // B, queued behind A
+    await flush();
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A′, queued behind B — same signature as A
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(1); // only A's own fetch has fired so far
+
+    releaseFirst(); // A settles with 500 — a string-keyed queue would wrongly clear A′'s entry here
+    await flush();
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(3); // A, then B, then A′ each sent once
+
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) }); // A again — must dedupe against A′'s queued entry
+    await flush();
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
   // Outside dev (production builds, and non-Node/edge runtimes), esm-env resolves
   // `DEV` to false, so the handle short-circuits to a pass-through. Mocking esm-env
   // is the canonical way to exercise that branch — `DEV` is a static import, not a
