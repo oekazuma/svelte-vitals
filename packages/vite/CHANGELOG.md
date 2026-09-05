@@ -1,5 +1,21 @@
 # @svelte-vitals/vite
 
+## 0.36.4
+
+### Patch Changes
+
+- 0e20a04: Re-evaluate `svelte-vitals.config.{js,ts}` when it changes instead of serving Node's ESM module cache. In `vite dev` the dashboard re-analysis now runs with the edited config, and the dashboard's own scoring config (weights, overrides) follows the edit too; an edit that fails validation is warned about and the previous config is kept. Modules the config file imports are still cached until the dev server process restarts.
+- 3d96e0c: `svelteVitalsHandle` now drops a route's ingest signature when the dashboard does not acknowledge the POST, so a route whose first ingest was lost (dev server restarting, a transient socket error, a rejected request) is retried on its next render instead of staying `static` for the rest of the session. POSTs for the same route are sent in render order, so a slow earlier ingest can no longer overwrite a newer one, and a render whose findings change back while an older POST is still in flight is sent rather than deduplicated. With `SVELTE_VITALS_DEBUG` set, a rejected or failed ingest is logged. An ingest the dashboard never answers is abandoned after 10 seconds so later renders of that route are not blocked behind it.
+- 7e39487: `svelte-vitals` now exports `createNodeRuntime`, the Node adapter behind its own analysis, and `@svelte-vitals/vite` uses it instead of carrying a copy, so this `@svelte-vitals/vite` release requires this `svelte-vitals` release. `@svelte-vitals/core`'s `./internal` entry adds `isPlainObject`, which the CLI now imports. No findings change.
+- ddfe6c8: The dev dashboard's whole-project runner now forwards `analyzeProject`'s warnings (for example an `overrides` glob that matched nothing, an unknown inline-directive id, a file that could not be read or parsed, a rule that crashed and was skipped, or a config-file validation notice) to the terminal, the same way `vite build` already does. An unchanged warning set is not repeated on the next re-analysis. Config-file warnings already printed when the file was loaded are not printed a second time by the runner. The build path's crashed-rule warning is now pinned by a test.
+- Updated dependencies [0e20a04]
+- Updated dependencies [7e39487]
+- Updated dependencies [8be4aaf]
+- Updated dependencies [49ab437]
+- Updated dependencies [fe919d0]
+  - svelte-vitals@0.54.4
+  - @svelte-vitals/core@0.51.2
+
 ## 0.36.3
 
 ### Patch Changes

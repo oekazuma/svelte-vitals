@@ -1,5 +1,18 @@
 # svelte-vitals
 
+## 0.54.4
+
+### Patch Changes
+
+- 0e20a04: Re-evaluate `svelte-vitals.config.{js,ts}` when it changes instead of serving Node's ESM module cache. In `vite dev` the dashboard re-analysis now runs with the edited config, and the dashboard's own scoring config (weights, overrides) follows the edit too; an edit that fails validation is warned about and the previous config is kept. Modules the config file imports are still cached until the dev server process restarts.
+- 7e39487: `svelte-vitals` now exports `createNodeRuntime`, the Node adapter behind its own analysis, and `@svelte-vitals/vite` uses it instead of carrying a copy, so this `@svelte-vitals/vite` release requires this `svelte-vitals` release. `@svelte-vitals/core`'s `./internal` entry adds `isPlainObject`, which the CLI now imports. No findings change.
+- fe919d0: Sanitize the two remaining output sinks that carried analyzed-repo strings raw. The interactive app picker and the install plan confirmation now pass directory names and plan text through `terminalSafe` before `@clack/prompts` renders them (the selected value is still the raw path). The SARIF reporter now URI-encodes `artifactLocation.uri`, so a path with `#`, `?`, `%`, spaces or non-ASCII characters attaches the alert to the right file in code scanning. Dynamic route segments are encoded in their RFC 3986 form (`src/routes/[slug]/+page.svelte` becomes `src/routes/%5Bslug%5D/+page.svelte`); `/` and `+` are left as they are, so `src/routes/+page.svelte` is unchanged. `partialFingerprints` are unchanged.
+- Updated dependencies [7e39487]
+- Updated dependencies [8be4aaf]
+- Updated dependencies [49ab437]
+- Updated dependencies [fe919d0]
+  - @svelte-vitals/core@0.51.2
+
 ## 0.54.3
 
 ### Patch Changes
