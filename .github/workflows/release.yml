@@ -21,8 +21,6 @@ jobs:
           persist-credentials: false
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
-        with:
-          registry-url: 'https://registry.npmjs.org'
       - name: Build packages
         run: pnpm build
       - name: Create Release Pull Request or Publish to npm

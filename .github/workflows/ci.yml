@@ -64,8 +64,8 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        # setup-node rewrites devEngines.runtime.version to this,
-        # so pnpm's managed runtime (onFail: download) actually runs scripts under it.
+        # setup-node puts this Node on PATH and disables pnpm's devEngines shim,
+        # so scripts actually run under it rather than the pinned 24.16.0.
         # These are the release lines the DEV toolchain supports — the published
         # engines.node floor (24.16.0) is defended by the `floor-smoke` job instead.
         # '24' is the latest 24.x (the current development line — devEngines pins 24.16.0);
@@ -90,8 +90,8 @@ jobs:
         run: pnpm build
       - name: Run tests
         run: pnpm test
-      # Bare `node` is correct here — actions/setup-node puts the matrix
-      # version on PATH, so the built dist runs under each supported line.
+      # Bare `node` is correct here — setup-node puts the matrix version on
+      # PATH, so the built dist runs under each supported line.
       - name: Run the floor smoke on the matrix Node
         run: node scripts/floor-smoke.js
       # dist is already built by this point (restored from cache or built above) — the
