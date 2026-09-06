@@ -64,12 +64,9 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        # setup-node puts this Node on PATH and disables pnpm's devEngines shim,
-        # so scripts actually run under it rather than the pinned 24.16.0.
-        # These are the release lines the DEV toolchain supports — the published
-        # engines.node floor (24.16.0) is defended by the `floor-smoke` job instead.
-        # '24' is the latest 24.x (the current development line — devEngines pins 24.16.0);
-        # '26' is the latest of the Current line (active LTS from 2026-10) — early warning.
+        # Release lines the DEV toolchain supports; the published engines.node floor is
+        # defended by the `floor-smoke` job. setup-node disables pnpm's devEngines shim,
+        # so scripts run under the matrix Node rather than the pinned one.
         node-version: ['24', '26']
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -90,12 +87,8 @@ jobs:
         run: pnpm build
       - name: Run tests
         run: pnpm test
-      # Bare `node` is correct here — setup-node puts the matrix version on
-      # PATH, so the built dist runs under each supported line.
       - name: Run the floor smoke on the matrix Node
         run: node scripts/floor-smoke.js
-      # dist is already built by this point (restored from cache or built above) — the
-      # gate-flag E2E (Phase 0 of the gunshi migration) runs the same built bin.js.
       - name: Run the CLI gate-flag E2E
         run: pnpm e2e
 
@@ -107,12 +100,9 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      # 24.16.0 is the published packages' engines.node floor. This is the only job
-      # pinned to it: it runs the built dist under a bare `node`, so no dev
-      # dependency (vitest, happy-dom, ...) is held to the end-user's Node version.
-      # pnpm itself is not exempt, though: the pinned pnpm in the root
-      # `package.json` still runs `pnpm install`/`pnpm build` on this floor, so a
-      # future pnpm bump needs to stay runnable on 24.16.0 too.
+      # The only job pinned to the published engines.node floor: it runs the built
+      # dist under a bare `node`, so no dev dependency is held to the end-user's
+      # Node — only the build toolchain, which `pnpm build` still runs on it.
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
         with:
