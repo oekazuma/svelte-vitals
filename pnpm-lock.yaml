@@ -174,8 +174,8 @@ catalogs:
       specifier: ^0.5.4
       version: 0.5.4
     node-html-parser:
-      specifier: ^9.0.2
-      version: 9.0.2
+      specifier: ^9.0.3
+      version: 9.0.3
     oxfmt:
       specifier: ^0.66.0
       version: 0.66.0
@@ -383,7 +383,7 @@ importers:
         version: 1.2.2
       node-html-parser:
         specifier: 'catalog:'
-        version: 9.0.2
+        version: 9.0.3
     devDependencies:
       '@svelte-vitals/core':
         specifier: workspace:*
@@ -5494,8 +5494,8 @@ packages:
   node-html-parser@9.0.1:
     resolution: {integrity: sha512-QrdiYYm1NnLRXsMXThUgVcF/syWfWIgHFmy8hylWMGFbHFtnRuXLBxxGQvIm3xaIJMUDJ0ayOmT/FGJYT3pZIw==}
 
-  node-html-parser@9.0.2:
-    resolution: {integrity: sha512-XhM0CTeF4Hkw3el7VCyasGJCEvp500Xf0s1J3ZigYfTOkVqZRQRY3EiAw1CbJzNrxaKSDthXiT9c/4CBwIJyfw==}
+  node-html-parser@9.0.3:
+    resolution: {integrity: sha512-iaQ9rokcYNp99IY0h82q04Wtc27SObRT+OEytdJh0bFv2IN0fypnU63KUNVavkPSiwsmIELG1eUenajGhzrvpg==}
 
   node-localstorage@2.2.1:
     resolution: {integrity: sha512-vv8fJuOUCCvSPjDjBLlMqYMHob4aGjkmrkaE42/mZr0VT+ZAU10jRF8oTnX9+pgU9/vYJ8P7YT3Vd6ajkmzSCw==}
@@ -5604,6 +5604,28 @@ packages:
           targets:
             - cpu: x64
               os: win32
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-hd3ieqc1A7A9rfoEEKgABntOP3Avt/yqO+ryhN/Maek=
+            type: binary
+            url: https://unofficial-builds.nodejs.org/download/release/v24.16.0/node-v24.16.0-linux-arm64-musl.tar.gz
+          targets:
+            - cpu: arm64
+              os: linux
+              libc: musl
+        - resolution:
+            archive: tarball
+            bin:
+              node: bin/node
+            integrity: sha256-UN9djUdIktT3uQYWffNvd/W5OQj2PcUy3FaCGcq2WEE=
+            type: binary
+            url: https://unofficial-builds.nodejs.org/download/release/v24.16.0/node-v24.16.0-linux-x64-musl.tar.gz
+          targets:
+            - cpu: x64
+              os: linux
+              libc: musl
     version: 24.16.0
     hasBin: true
 
@@ -12973,7 +12995,7 @@ snapshots:
       css-select: 5.2.2
       entities: 8.0.0
 
-  node-html-parser@9.0.2:
+  node-html-parser@9.0.3:
     dependencies:
       css-select: 5.2.2
       entities: 8.0.0
