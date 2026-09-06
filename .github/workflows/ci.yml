@@ -75,7 +75,7 @@ jobs:
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
         with:
-          node-version: ${{ matrix.node-version }}
+          runtime: node@${{ matrix.node-version }}
       - name: Restore package builds
         id: dist-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -106,7 +106,7 @@ jobs:
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
         with:
-          node-version: '24.16.0'
+          runtime: node@24.16.0
       - name: Restore package builds
         id: dist-cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0

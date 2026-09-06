@@ -2,22 +2,21 @@ name: 'Setup Node.js and pnpm'
 description: 'Install pnpm and Node.js (from package.json devEngines unless overridden) and install dependencies'
 
 inputs:
-  node-version:
-    description: 'Optional Node.js version override (defaults to devEngines.runtime.version)'
+  runtime:
+    description: 'Optional runtime override such as node@24 (defaults to devEngines.runtime)'
     required: false
     default: ''
 
 runs:
   using: 'composite'
   steps:
-    # `node` without a version resolves to devEngines.runtime. Either way the action installs the
-    # Node it picked on PATH, disables pnpm's context-aware `node` shim and installs with
-    # `--no-runtime`, so a matrix job's scripts run under the version it asked for, not the
-    # manifest's pin. It installs only `node`, no `npm`: `check:publish`'s `attw --pack` shells
-    # out to `npm pack` and gets the runner image's npm.
+    # The action puts the Node it installed on PATH, disables pnpm's context-aware `node` shim
+    # and installs with `--no-runtime`, so a matrix job's scripts run under the version it asked
+    # for, not the manifest's pin. It installs only `node`, no `npm`: `check:publish`'s
+    # `attw --pack` shells out to `npm pack` and gets the runner image's npm.
     - name: Install pnpm, Node.js and dependencies
       uses: pnpm/setup@703c52620218391530e48b9e8870d5c0082e1b9b # v2.1.0
       with:
-        runtime: ${{ inputs.node-version != '' && format('node@{0}', inputs.node-version) || 'node' }}
+        runtime: ${{ inputs.runtime }}
         cache: true
         require-lockfile: true
