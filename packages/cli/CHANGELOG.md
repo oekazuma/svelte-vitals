@@ -1,5 +1,13 @@
 # svelte-vitals
 
+## 0.54.5
+
+### Patch Changes
+
+- 4630838: Release all packages in lockstep. `svelte-vitals`, `@svelte-vitals/core` and `@svelte-vitals/vite` now always share one version number; this release only aligns them.
+- Updated dependencies [4630838]
+  - @svelte-vitals/core@0.54.5
+
 ## 0.54.4
 
 ### Patch Changes
