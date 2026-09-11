@@ -114,8 +114,8 @@ catalogs:
       specifier: ^3.0.2
       version: 3.0.2
     '@clack/prompts':
-      specifier: ^1.7.0
-      version: 1.7.0
+      specifier: ^1.8.0
+      version: 1.8.0
     '@gunshi/docs':
       specifier: 0.37.2
       version: 0.37.2
@@ -132,8 +132,8 @@ catalogs:
       specifier: 4.18.0
       version: 4.18.0
     '@oxlint/plugins':
-      specifier: ^1.81.0
-      version: 1.81.0
+      specifier: ^1.82.0
+      version: 1.82.0
     '@sveltejs/adapter-static':
       specifier: ^3.0.10
       version: 3.0.10
@@ -174,8 +174,8 @@ catalogs:
       specifier: ^0.5.4
       version: 0.5.4
     node-html-parser:
-      specifier: ^9.0.3
-      version: 9.0.3
+      specifier: ^9.0.4
+      version: 9.0.4
     oxfmt:
       specifier: ^0.66.0
       version: 0.66.0
@@ -225,7 +225,7 @@ importers:
         version: 3.0.2
       '@oxlint/plugins':
         specifier: 'catalog:'
-        version: 1.81.0
+        version: 1.82.0
       '@textlint-ja/textlint-rule-preset-ai-writing':
         specifier: 'catalog:'
         version: 1.7.0
@@ -318,7 +318,7 @@ importers:
     dependencies:
       '@clack/prompts':
         specifier: 'catalog:'
-        version: 1.7.0
+        version: 1.8.0
       '@gunshi/plugin-completion':
         specifier: 'catalog:'
         version: 0.37.2(@gunshi/plugin-i18n@0.37.2)(cac@6.7.14)(citty@0.1.6)(commander@15.0.0)
@@ -383,7 +383,7 @@ importers:
         version: 1.2.2
       node-html-parser:
         specifier: 'catalog:'
-        version: 9.0.3
+        version: 9.0.4
     devDependencies:
       '@svelte-vitals/core':
         specifier: workspace:*
@@ -819,8 +819,16 @@ packages:
     resolution: {integrity: sha512-/kr3UWNtdJfxZtPgDqUOmG2pvwlmcLGheex5yiZKdwbzZJxhV+HMNR9QNmyY5cGwTNV6LrR7Jtp+KjhUAP1qBQ==}
     engines: {node: '>= 20.12.0'}
 
+  '@clack/core@1.5.0':
+    resolution: {integrity: sha512-zNikCcd8BbcEvzzG1sbXFrRHFk5kHPrpwZwksPvf9qyQO1Teb7JaXaOAxXZei9nZLDW0gaZawiuTCji88bTBhw==}
+    engines: {node: '>= 20.12.0'}
+
   '@clack/prompts@1.7.0':
     resolution: {integrity: sha512-y7/yvZ2TPAnR9+jnc00klvNNLkJiXFFrQA/hlLCcxA9a2A4zQIOimyFQ9XfwYKiGD1fb5GY8vbKIIgO8d5Tb2A==}
+    engines: {node: '>= 20.12.0'}
+
+  '@clack/prompts@1.8.0':
+    resolution: {integrity: sha512-PXzLZ8N34rxmuo4dJg3xtOXhcBse94qGjDqsteoEYrFrrZ5FSjIGwMAuOcv64ln8rHVBBD06XeVGr+/JX+plcA==}
     engines: {node: '>= 20.12.0'}
 
   '@colors/colors@1.5.0':
@@ -1614,8 +1622,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oxlint/plugins@1.81.0':
-    resolution: {integrity: sha512-HhD8kd3r6XpelZkhxhRty/po8V6yK1VV63Eq4kSsOS2IoHUywG3DV2EX+z/ZHw46aLI74Y6aA604NRiAqLKW9w==}
+  '@oxlint/plugins@1.82.0':
+    resolution: {integrity: sha512-IDF4UXBNOaCeLoEpVxf5Bg85KOWdeuBEkbo1rGzS2vXcbD+GT1asBSeeTC+5BgW6NFTHVByd6N5giHsFPGtwAA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   '@pagefind/darwin-arm64@1.5.2':
@@ -5362,6 +5370,9 @@ packages:
   node-html-parser@9.0.3:
     resolution: {integrity: sha512-iaQ9rokcYNp99IY0h82q04Wtc27SObRT+OEytdJh0bFv2IN0fypnU63KUNVavkPSiwsmIELG1eUenajGhzrvpg==}
 
+  node-html-parser@9.0.4:
+    resolution: {integrity: sha512-reUSrZkF1rO7hEYe5mJwtbVcQ6mB5QrViCZH6Wv+iz3er/PA9Q50gol15dMLQRDfdli4VzqPMPR24HNRFgVKFw==}
+
   node-localstorage@2.2.1:
     resolution: {integrity: sha512-vv8fJuOUCCvSPjDjBLlMqYMHob4aGjkmrkaE42/mZr0VT+ZAU10jRF8oTnX9+pgU9/vYJ8P7YT3Vd6ajkmzSCw==}
     engines: {node: '>=0.12'}
@@ -7705,9 +7716,21 @@ snapshots:
       fast-wrap-ansi: 0.2.2
       sisteransi: 1.0.5
 
+  '@clack/core@1.5.0':
+    dependencies:
+      fast-wrap-ansi: 0.2.2
+      sisteransi: 1.0.5
+
   '@clack/prompts@1.7.0':
     dependencies:
       '@clack/core': 1.4.3
+      fast-string-width: 3.0.2
+      fast-wrap-ansi: 0.2.2
+      sisteransi: 1.0.5
+
+  '@clack/prompts@1.8.0':
+    dependencies:
+      '@clack/core': 1.5.0
       fast-string-width: 3.0.2
       fast-wrap-ansi: 0.2.2
       sisteransi: 1.0.5
@@ -8302,7 +8325,7 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.81.0':
     optional: true
 
-  '@oxlint/plugins@1.81.0': {}
+  '@oxlint/plugins@1.82.0': {}
 
   '@pagefind/darwin-arm64@1.5.2':
     optional: true
@@ -12401,6 +12424,11 @@ snapshots:
   node-gyp-build@4.8.4: {}
 
   node-html-parser@9.0.3:
+    dependencies:
+      css-select: 5.2.2
+      entities: 8.0.0
+
+  node-html-parser@9.0.4:
     dependencies:
       css-select: 5.2.2
       entities: 8.0.0
