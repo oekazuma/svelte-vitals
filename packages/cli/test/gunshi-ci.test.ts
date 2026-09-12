@@ -57,12 +57,16 @@ describe('gunshi/bone ci — pinned behavior across the argv-shape matrix', () =
   }
 });
 
-// The help TEXT is pinned once, by help-golden.test.ts; what stays here is that -h lands on
-// exactly that output.
+// help-golden.test.ts pins the help text; this only pins that the sub-subcommands resolve to it.
 describe('help aliases', () => {
-  it('-h is byte-identical to --help', async () => {
-    expect(await ci(['-h'])).toEqual(await ci(['--help']));
-  });
+  for (const args of [
+    ['install', '--help'],
+    ['upgrade', '--help']
+  ]) {
+    it(`${args.join(' ')} is byte-identical to --help`, async () => {
+      expect(await ci(args)).toEqual(await ci(['--help']));
+    });
+  }
 });
 
 // did-you-mean addendum (design doc): appended ahead of the existing CI_HELP dump, never replacing

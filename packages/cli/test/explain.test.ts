@@ -100,7 +100,7 @@ describe('svelte-vitals explain', () => {
     });
   });
 
-  it('does not match a rule id with the wrong case (exact match only), and is far enough for no did-you-mean hint', async () => {
+  it('does not match a rule id with the wrong case (exact match only), and gets no did-you-mean hint', async () => {
     const { code, err } = await explain(['SEO/TITLE-PRESENCE']);
     expect(code).toBe(2);
     expect(err).toContain("unknown rule id 'SEO/TITLE-PRESENCE'");

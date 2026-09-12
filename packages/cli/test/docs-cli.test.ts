@@ -112,7 +112,7 @@ describe('svelte-vitals docs — dispatch', () => {
     expect(out).toContain('svelte-vitals docs');
   });
 
-  it('an unknown subcommand exits 2, names the valid ones, and is far enough from both for no did-you-mean hint', async () => {
+  it('an unknown subcommand exits 2, names the valid ones, and gets no did-you-mean hint', async () => {
     const { code, out, err } = await docs(['read', 'config']);
     expect(code).toBe(2);
     expect(out).toBe('');

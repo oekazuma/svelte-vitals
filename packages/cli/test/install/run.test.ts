@@ -478,6 +478,28 @@ describe('runInstall — ci-workflow target', () => {
     expect(content).toContain('oekazuma/svelte-vitals-action@');
   });
 
+  it('a second run without --force reports exists and writes nothing', async () => {
+    const first = fakeIO();
+    await runInstall({ client: ['ci-workflow'], yes: true }, first.io, noPrompts);
+    const existing = first.writes['/proj/.github/workflows/svelte-vitals.yml']!;
+    const { io, writes, out } = fakeIO({ files: { '/proj/.github/workflows/svelte-vitals.yml': existing } });
+    const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('already configured');
+    expect(out.join('\n')).toContain('--force to overwrite');
+  });
+
+  it('--force regenerates an already-existing workflow file', async () => {
+    const { io, writes } = fakeIO({
+      files: { '/proj/.github/workflows/svelte-vitals.yml': 'stale content' }
+    });
+    const code = await runInstall({ client: ['ci-workflow'], yes: true, force: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes['/proj/.github/workflows/svelte-vitals.yml']).toContain('name: svelte-vitals');
+    expect(writes['/proj/.github/workflows/svelte-vitals.yml']).not.toBe('stale content');
+  });
+
   it('pre-selects ci-workflow in the interactive picker when the workflow file already exists', async () => {
     const { io } = fakeIO({ isTTY: true, files: { '/proj/.github/workflows/svelte-vitals.yml': 'existing' } });
     let seenDefaults: string[] = [];
@@ -503,7 +525,7 @@ describe('runInstall — ci-workflow target', () => {
 });
 
 describe('runInstall — grouped interactive picker', () => {
-  it('offers every install target, grouped by category, with the retired SKILL.md targets gone', async () => {
+  it('offers every install target, grouped by category, and no SKILL.md target', async () => {
     const { io } = fakeIO({ isTTY: true });
     let seenGroups: Record<string, string[]> = {};
     const prompts: InstallPrompts = {

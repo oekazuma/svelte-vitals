@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { cpSync, mkdtempSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { collectComponentFacts } from '@svelte-vitals/core/internal';
+import { collectComponentFacts, emptyComponentFacts } from '@svelte-vitals/core/internal';
 import { parseFile } from '../src/providers/source/parse.js';
 import { run } from '../src/index.js';
 import { createNodeRuntime } from '../src/runtime/node.js';
@@ -37,8 +37,7 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
 
     const broken = byFile.get('src/lib/Broken.svelte');
     expect(broken).toBeDefined();
-    expect(broken).toMatchObject({ file: 'src/lib/Broken.svelte', loc: 0, parseFailed: true });
-    expect(broken!.readFailed).toBeUndefined();
+    expect(broken).toEqual({ ...emptyComponentFacts('src/lib/Broken.svelte'), parseFailed: true });
 
     // The well-formed sibling file must still be parsed normally — one broken
     // file must not degrade facts collection for the rest of the project.

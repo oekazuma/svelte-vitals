@@ -62,14 +62,6 @@ describe('gunshi/bone install — pinned behavior across the argv-shape matrix',
   }
 });
 
-// The help TEXT is pinned once, by help-golden.test.ts; what stays here is that -h lands on
-// exactly that output.
-describe('help aliases', () => {
-  it('-h is byte-identical to --help', async () => {
-    expect(await gunshi(['-h'])).toEqual(await gunshi(['--help']));
-  });
-});
-
 describe('gate (c): in-process, injected IO, no process-global coupling', () => {
   afterEach(() => {
     vi.restoreAllMocks();

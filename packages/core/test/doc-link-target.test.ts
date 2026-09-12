@@ -106,7 +106,7 @@ describe('architecture/doc-link-target', () => {
   });
 
   it('strips a #fragment, a ?query and a trailing slash before checking whether the target exists', async () => {
-    for (const suffix of ['#examples', '?tab=usage', '/', '/#examples']) {
+    for (const suffix of ['#examples', '?tab=usage', '/', '//', '/#examples']) {
       const rs = await architectureDocLinkTarget.check(
         ctx([{ url: `${ROOT}src/lib/Card${suffix}`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
       );

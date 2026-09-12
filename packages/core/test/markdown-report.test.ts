@@ -39,8 +39,8 @@ describe('formatMarkdownReport', () => {
     expect(out).toContain('| Severity | Rule | Location | Message |');
     expect(out).toContain('[seo/title-presence](https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence)');
     expect(out).toContain('src/routes/none/+page.svelte');
-    // `<title>` renders as inline code, not raw HTML — see the hostile-content test below
-    // for why (a bare tag is otherwise indistinguishable from injected/attacker HTML).
+    // `<title>` renders as inline code, not raw HTML (a bare tag is otherwise indistinguishable
+    // from injected/attacker HTML) — the escaping itself is pinned in sanitize.test.ts.
     expect(out).toContain('Missing `<title>`');
     expect(out).toContain('src/routes/blog/+page.svelte:42');
 
@@ -154,7 +154,9 @@ describe('formatMarkdownReport', () => {
         message
       }
     ];
-    expect(formatMarkdownReport(results, config, { version: '1.0.0' })).toContain(mdEscape(message));
+    const md = formatMarkdownReport(results, config, { version: '1.0.0' });
+    expect(md).toContain(mdEscape(message));
+    expect(md).not.toContain('<script>alert(1)</script>');
   });
 
   it('escapes pipes and newlines inside message cells', () => {

@@ -1,12 +1,5 @@
-// Phase 2a of the gunshi migration (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md)
-// grew this file to compare the gunshi/bone port (gunshi/docs.ts) against the legacy `runDocsCli`
-// (docs/cli.ts) byte for byte across a wide argv-shape matrix. Phase 3 deleted `runDocsCli` (nothing
-// routed through it once `runCli` dispatched to the gunshi port) and hybridized `docs --help`'s
-// output, so the legacy runner is no longer available as a live oracle for this file's own cells.
-// Converted to direct snapshot pins instead: every cell here pinned the SAME bytes the legacy
-// comparison already proved equal (guard/strip/dispatch logic is unchanged). Coverage of the
-// argv-shape matrix (unknown-flag-before-positional, `--` terminator, tail-promotion,
-// literal-`=false` coercion, …) survives unchanged.
+// Snapshot pins for the docs argv-shape matrix (unknown-flag-before-positional, `--` terminator,
+// tail-promotion, literal-`=false` coercion). The help text itself is pinned by help-golden.test.ts.
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { runDocsCliGunshi } from '../src/gunshi/docs.js';
 import { captureIO } from './helpers/capture-io.js';
@@ -77,10 +70,12 @@ describe('gunshi/bone docs — pinned behavior across the argv-shape matrix', ()
   }
 });
 
-// The help TEXT is pinned once, by help-golden.test.ts; what stays here is that every other
-// help-reaching argv shape lands on exactly that output.
+// help-golden.test.ts pins the help text; this only pins that the subcommands resolve to it.
 describe('help aliases', () => {
-  for (const args of [['-h'], ['list', '--help'], ['show', '--help']]) {
+  for (const args of [
+    ['list', '--help'],
+    ['show', '--help']
+  ]) {
     it(`${args.join(' ')} is byte-identical to --help`, async () => {
       expect(await gunshi(args)).toEqual(await gunshi(['--help']));
     });

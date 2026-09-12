@@ -113,7 +113,9 @@ describe('formatAgentReport', () => {
         message
       }
     ];
-    expect(formatAgentReport(hostile, config)).toContain(mdEscape(message));
+    const md = formatAgentReport(hostile, config);
+    expect(md).toContain(mdEscape(message));
+    expect(md).not.toContain('<script>alert(1)</script>');
   });
 
   it('orders findings within a group by severity', () => {

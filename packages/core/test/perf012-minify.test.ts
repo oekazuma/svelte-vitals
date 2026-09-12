@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { performanceMinifyDisabled } from '../src/rules/perf/minify-disabled.js';
+import { allRules } from '../src/rules/index.js';
 import { defaultProject, defaultConfig } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
@@ -46,5 +47,9 @@ describe('performance/minify-disabled minify disabled', () => {
     expect(results[0]!.location).toBeUndefined();
     expect(results[0]!.line).toBeUndefined();
     expect(results[0]!.message).toContain('inline (programmatic) Vite config');
+  });
+
+  it('scores as a project-scoped rule', () => {
+    expect(allRules.find((r) => r.id === 'performance/minify-disabled')?.scope).toBe('project');
   });
 });

@@ -14,6 +14,14 @@ async function cli(args: string[]): Promise<{ code: number; out: string; err: st
   return { code, out: io.out, err: io.err };
 }
 
+describe('-h resolves to --help on every surface', () => {
+  for (const surface of [[], ['docs'], ['explain'], ['install'], ['ci']]) {
+    it(`${[...surface, '-h'].join(' ')}`, async () => {
+      expect(await cli([...surface, '-h'])).toEqual(await cli([...surface, '--help']));
+    });
+  }
+});
+
 describe('help goldens', () => {
   it('root --help', async () => {
     const { code, out, err } = await cli(['--help']);

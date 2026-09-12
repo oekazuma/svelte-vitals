@@ -73,7 +73,10 @@ const multiRule = componentRule({
 describe('componentRule — one finding per bad occurrence', () => {
   it('emits a finding per issue, each at its own line', async () => {
     const rs = await multiRule.check(ctx([comp({})]));
-    expect(fails(rs).map((r) => r.line)).toEqual([3, 9]);
+    expect(fails(rs).map((r) => [r.line, r.message])).toEqual([
+      [3, 'first violation'],
+      [9, 'second violation']
+    ]);
   });
 });
 

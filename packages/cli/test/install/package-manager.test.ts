@@ -14,17 +14,14 @@ function fakeReadCwd(files: Record<string, string>) {
 }
 
 describe('detectPackageManagerFromLockfile', () => {
-  it('maps each supported lockfile to its package manager', () => {
-    const cases = {
-      'pnpm-lock.yaml': 'pnpm',
-      'yarn.lock': 'yarn',
-      'bun.lock': 'bun',
-      'bun.lockb': 'bun',
-      'package-lock.json': 'npm'
-    };
-    for (const [file, pm] of Object.entries(cases)) {
-      expect(detectPackageManagerFromLockfile(fakeReadCwd({ [`/proj/${file}`]: '' })), file).toBe(pm);
-    }
+  it.each([
+    ['pnpm-lock.yaml', 'pnpm'],
+    ['yarn.lock', 'yarn'],
+    ['bun.lock', 'bun'],
+    ['bun.lockb', 'bun'],
+    ['package-lock.json', 'npm']
+  ])('maps %s to %s', (file, pm) => {
+    expect(detectPackageManagerFromLockfile(fakeReadCwd({ [`/proj/${file}`]: '' }))).toBe(pm);
   });
   it('returns undefined when no lockfile is found, so callers can apply their own fallback', () => {
     expect(detectPackageManagerFromLockfile(fakeReadCwd({}))).toBeUndefined();

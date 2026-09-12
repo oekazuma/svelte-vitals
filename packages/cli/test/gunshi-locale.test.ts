@@ -5,10 +5,6 @@ import { describe, it, expect } from 'vitest';
 import { resolveLocale } from '../src/gunshi/locale.js';
 
 describe('resolveLocale', () => {
-  // The help goldens (help-golden.test.ts / help-golden-ja.test.ts) call `runCli` without an `env`
-  // argument on the en side, relying on `process.env` carrying no locale override in the test
-  // harness — this pins that assumption so a future CI/dev env change fails loudly here instead of
-  // silently flipping the English goldens to ja.
   it('defaults to en when every precedence var is absent', () => {
     expect(resolveLocale({})).toBe('en');
   });

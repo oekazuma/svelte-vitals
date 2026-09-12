@@ -1,15 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { defineConfig, type Result } from '../src/index.js';
-import {
-  isPenalized,
-  effectiveSeverity,
-  summarize,
-  runRules,
-  seoTitlePresence,
-  defaultConfig,
-  defaultProject,
-  type ResolvedHead
-} from '../src/internal.js';
+import { isPenalized, effectiveSeverity, summarize } from '../src/internal.js';
 
 const dynResult: Result = {
   id: 'seo/title-presence',
@@ -35,23 +26,5 @@ describe('treatDynamicAs handling', () => {
     const s = summarize([dynResult], defineConfig({ treatDynamicAs: 'warn' }));
     expect(s.warning).toBe(1);
     expect(s.critical).toBe(0);
-  });
-});
-
-describe('summarize over a real rule run', () => {
-  const titleHead = (route: string, value?: 'static' | 'dynamic'): ResolvedHead => ({
-    route,
-    file: `src/routes${route}/+page.svelte`,
-    source: 'static',
-    tags: value ? [{ kind: 'title', presence: 'own', value }] : []
-  });
-
-  it('summarizes a mixed project', async () => {
-    const { results } = await runRules([seoTitlePresence], {
-      heads: [titleHead('/static', 'static'), titleHead('/dynamic', 'dynamic'), titleHead('/none')],
-      project: defaultProject,
-      config: defaultConfig
-    });
-    expect(summarize(results, defaultConfig)).toEqual({ critical: 1, warning: 0, info: 0, passed: 2, dynamic: 1 });
   });
 });

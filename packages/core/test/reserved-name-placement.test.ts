@@ -622,8 +622,8 @@ describe('architecture/reserved-name-placement', () => {
     expect(Object.keys(examined).filter((k) => k.startsWith('placements.'))).toEqual([]);
   });
 
-  // The two guards are separate: `sourceFiles === undefined` exits first, `isMentionedAnywhere`
-  // exits earlier still when no config layer names this rule even though a file inventory exists.
+  // The two guards are separate: `sourceFiles === undefined` exits first; `isMentionedAnywhere`
+  // exits next, when a file inventory exists but no config layer names this rule.
   // Both must leave `recordExamined` uncalled, or an unconfigured project would gain an
   // `"architecture/reserved-name-placement": {}` entry in every report — exactly the "absent for
   // rules that count nothing" property the design relies on.

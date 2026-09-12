@@ -1,6 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { type Config } from '../src/index.js';
-import { seoTitlePresence, classify, defaultConfig, defaultProject, type ResolvedHead } from '../src/internal.js';
+import {
+  seoTitlePresence,
+  classify,
+  defaultConfig,
+  defaultProject,
+  runRules,
+  summarize,
+  type ResolvedHead
+} from '../src/internal.js';
 
 const config: Config = defaultConfig;
 
@@ -52,5 +60,16 @@ describe('seo/title-presence title detection', () => {
     const [result] = await seoTitlePresence.check({ heads: [inheritedHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'inherited', value: 'static' });
     expect(classify(result!, config)).toBe('pass');
+  });
+});
+
+describe('summarize', () => {
+  it('counts a mixed project by classification', async () => {
+    const { results } = await runRules([seoTitlePresence], {
+      heads: [staticHead, dynamicHead, noneHead],
+      project: defaultProject,
+      config
+    });
+    expect(summarize(results, config)).toEqual({ critical: 1, warning: 0, info: 0, passed: 2, dynamic: 1 });
   });
 });
