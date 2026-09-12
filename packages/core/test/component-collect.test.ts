@@ -29,71 +29,31 @@ function createMemoryRuntime(files: Record<string, string>, unreadable: Set<stri
   };
 }
 
-describe('emptyComponentFacts', () => {
-  it('returns the empty-facts shape for the given file', () => {
-    expect(emptyComponentFacts('src/lib/Broken.svelte')).toEqual({
-      file: 'src/lib/Broken.svelte',
-      eachBlocks: [],
-      effects: [],
-      htmlTags: [],
-      javascriptUrls: [],
-      loc: 0,
-      propCount: 0,
-      imports: [],
-      importSpans: [],
-      namespaceImports: [],
-      constableStates: [],
-      mutatedProps: [],
-      stalePropDerivations: [],
-      rawableStates: [],
-      nonreactiveBuiltinStates: [],
-      basePathLinks: [],
-      orphanEffects: [],
-      orphanLifecycleCalls: [],
-      browserGlobalRefs: [],
-      checkableBindValues: [],
-      moduleStateDecls: [],
-      suppressions: [],
-      commentLinks: []
-    });
-  });
-});
-
 describe('collectComponentFacts', () => {
-  it('parses a well-formed file into real facts', async () => {
+  it('parses well-formed files into real facts, including one with an argument-less $state()', async () => {
     const rt = createMemoryRuntime({
-      'src/routes/+page.svelte': '{#each xs as x}<i>{x}</i>{/each}'
+      'src/routes/+page.svelte': '{#each xs as x}<i>{x}</i>{/each}',
+      'src/lib/Dialog.svelte': '<script>\n  let el = $state();\n</script>\n<dialog bind:this={el}></dialog>'
     });
-    const facts = await collectComponentFacts(rt, '');
-    expect(facts).toHaveLength(1);
-    expect(facts[0]!.file).toBe('src/routes/+page.svelte');
-    expect(facts[0]!.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
+    const byFile = new Map((await collectComponentFacts(rt, '')).map((f) => [f.file, f]));
+    expect(byFile.get('src/routes/+page.svelte')!.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
+    expect(byFile.get('src/lib/Dialog.svelte')!.loc).toBe(4);
   });
 
   it('marks a file it could not read as readFailed, not merely parseFailed', async () => {
     // An unreadable file is an environment problem; reporting it as a parse failure is how a
     // descriptor limit once read as hundreds of broken components.
     const rt = createMemoryRuntime(
-      { 'src/lib/Unreadable.svelte': '<div></div>' },
-      new Set(['src/lib/Unreadable.svelte'])
-    );
-    const facts = await collectComponentFacts(rt, '');
-    expect(facts).toEqual([
-      { ...emptyComponentFacts('src/lib/Unreadable.svelte'), parseFailed: true, readFailed: true }
-    ]);
-  });
-
-  it('marks parseFailed on a failed file and leaves it unset on a healthy one', async () => {
-    const rt = createMemoryRuntime(
-      {
-        'src/lib/Unreadable.svelte': '<div></div>',
-        'src/routes/+page.svelte': '<p>ok</p>'
-      },
+      { 'src/lib/Unreadable.svelte': '<div></div>', 'src/routes/+page.svelte': '<p>ok</p>' },
       new Set(['src/lib/Unreadable.svelte'])
     );
     const facts = await collectComponentFacts(rt, '');
     const byFile = new Map(facts.map((f) => [f.file, f]));
-    expect(byFile.get('src/lib/Unreadable.svelte')!.parseFailed).toBe(true);
+    expect(byFile.get('src/lib/Unreadable.svelte')).toEqual({
+      ...emptyComponentFacts('src/lib/Unreadable.svelte'),
+      parseFailed: true,
+      readFailed: true
+    });
     expect(byFile.get('src/routes/+page.svelte')!.parseFailed).toBeUndefined();
   });
 
@@ -125,23 +85,6 @@ describe('collectComponentFacts', () => {
     expect(facts.map((f) => f.file)).toEqual(['src/lib/legacy.svelte.js', 'src/lib/store.svelte.ts']);
     expect(facts[0]!.orphanEffects).toEqual([{ line: 1, kind: 'top-level' }]);
     expect(facts[1]!.orphanEffects).toEqual([{ line: 1, kind: 'top-level' }]);
-  });
-
-  it('parses a module source containing a literal "</script>" string (neutralised wrap)', async () => {
-    const rt = createMemoryRuntime({ 'src/lib/tricky.svelte.ts': 'const s = "</' + 'script>";\n$effect(() => {});' });
-    const facts = await collectComponentFacts(rt, '');
-    expect(facts).toHaveLength(1);
-    expect(facts[0]!.orphanEffects).toEqual([{ line: 2, kind: 'top-level' }]);
-  });
-
-  it('does not fall back to empty facts for a component with an argument-less $state() (issue #424)', async () => {
-    const rt = createMemoryRuntime({
-      'src/lib/Dialog.svelte': '<script>\n  let el = $state();\n</script>\n<dialog bind:this={el}></dialog>'
-    });
-    const facts = await collectComponentFacts(rt, '');
-    expect(facts).toHaveLength(1);
-    expect(facts[0]).not.toEqual(emptyComponentFacts('src/lib/Dialog.svelte'));
-    expect(facts[0]!.loc).toBe(4);
   });
 });
 

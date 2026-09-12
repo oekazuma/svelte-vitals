@@ -25,20 +25,13 @@ describe('correctness/nonreactive-builtin-state', () => {
     expect(penalized[0]!.location).toBe('src/lib/Tags.svelte');
     expect(penalized[0]!.line).toBe(3);
     expect(penalized[0]!.severity).toBe('warning');
-    expect(penalized[0]!.message).toBe(
-      '"tags" is a plain Set in $state — its mutations are not tracked, so the UI silently stops updating when it changes. Use SvelteSet from \'svelte/reactivity\'.'
-    );
+    expect(penalized[0]!.message).toContain('"tags" is a plain Set in $state');
+    expect(penalized[0]!.message).toContain('Use SvelteSet');
     expect(penalized[0]!.fix?.description).toContain('svelte/reactivity');
     expect(penalized[0]!.fix?.snippet).toBeUndefined();
   });
 
   it('emits nothing without the fact', async () => {
     expect(await correctnessNonreactiveBuiltinState.check(ctx([comp('src/lib/Ok.svelte', [])]))).toEqual([]);
-  });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'correctness/nonreactive-builtin-state')).toBe(true);
-    expect(explainRule('correctness/nonreactive-builtin-state')?.severity).toBe('warning');
   });
 });

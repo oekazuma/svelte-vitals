@@ -11,7 +11,7 @@ import {
 } from '../src/internal.js';
 import { defineConfig, defaultProject, type Project, type Result } from '../src/types.js';
 import { parseComponentFacts } from '../src/component-parse.js';
-import type { ComponentFacts } from '../src/component.js';
+import { emptyComponentFacts, type ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 
 const config = defineConfig({});
@@ -20,29 +20,8 @@ const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none'
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const projCtx = (p: Partial<Project>): RuleContext => ({ heads: [], config, project: { ...defaultProject, ...p } });
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
-  file: 'src/lib/C.svelte',
-  eachBlocks: [],
-  effects: [],
-  htmlTags: [],
-  javascriptUrls: [],
+  ...emptyComponentFacts('src/lib/C.svelte'),
   loc: 10,
-  propCount: 0,
-  imports: [],
-  importSpans: [],
-  namespaceImports: [],
-  constableStates: [],
-  mutatedProps: [],
-  stalePropDerivations: [],
-  rawableStates: [],
-  nonreactiveBuiltinStates: [],
-  checkableBindValues: [],
-  basePathLinks: [],
-  orphanEffects: [],
-  orphanLifecycleCalls: [],
-  browserGlobalRefs: [],
-  moduleStateDecls: [],
-  suppressions: [],
-  commentLinks: [],
   ...over
 });
 
@@ -52,10 +31,6 @@ describe('a11y/interactive-nesting', () => {
       ctx([comp({ interactiveNestings: [{ containerTag: 'a', descendantTag: 'button', line: 2 }] })])
     );
     expect(fails(rs).map((r) => r.line)).toEqual([2]);
-  });
-  it('passes a component with no recorded nesting', async () => {
-    const rs = await a11yInteractiveNesting.check(ctx([comp({ interactiveNestings: [] })]));
-    expect(fails(rs)).toHaveLength(0);
   });
 });
 
@@ -74,10 +49,6 @@ describe('a11y/aria-hidden-focus', () => {
     expect(failing.map((r) => r.line)).toEqual([4]);
     expect(failing[0]?.message).toBe('<a aria-hidden="true"> is still keyboard-focusable');
   });
-  it('passes a component with no recorded aria-hidden focusables', async () => {
-    const rs = await a11yAriaHiddenFocus.check(ctx([comp({ ariaHiddenFocusables: [] })]));
-    expect(fails(rs)).toHaveLength(0);
-  });
 });
 
 describe('a11y/accessible-name', () => {
@@ -86,10 +57,6 @@ describe('a11y/accessible-name', () => {
     const failing = fails(rs);
     expect(failing.map((r) => r.line)).toEqual([3]);
     expect(failing[0]?.message).toBe('<button> has no accessible name');
-  });
-  it('passes a component with no recorded unnamed interactive elements', async () => {
-    const rs = await a11yAccessibleName.check(ctx([comp({ unnamedInteractive: [] })]));
-    expect(fails(rs)).toHaveLength(0);
   });
 });
 
@@ -160,10 +127,6 @@ describe('a11y/label-has-control', () => {
     expect(failing.map((r) => r.line)).toEqual([4]);
     expect(failing[0]?.message).toBe('<label> has no associated control');
   });
-  it('passes a component with no recorded unassociated labels', async () => {
-    const rs = await a11yLabelHasControl.check(ctx([comp({ unassociatedLabels: [] })]));
-    expect(fails(rs)).toHaveLength(0);
-  });
 });
 
 describe('a11y/use-list', () => {
@@ -174,10 +137,6 @@ describe('a11y/use-list', () => {
     expect(failing[0]?.message).toBe("Text starts with a bullet character ('•') — use a list element");
     expect(failing[0]?.severity).toBe('info');
   });
-  it('passes a component with no recorded bullet texts', async () => {
-    const rs = await a11yUseList.check(ctx([comp({ bulletTexts: [] })]));
-    expect(fails(rs)).toHaveLength(0);
-  });
 });
 
 describe('a11y/placeholder-label-option', () => {
@@ -186,10 +145,6 @@ describe('a11y/placeholder-label-option', () => {
     const failing = fails(rs);
     expect(failing.map((r) => r.line)).toEqual([5]);
     expect(failing[0]?.message).toBe('<select required> is missing a placeholder label option');
-  });
-  it('passes a component with no recorded selects missing a placeholder', async () => {
-    const rs = await a11yPlaceholderLabelOption.check(ctx([comp({ selectsMissingPlaceholder: [] })]));
-    expect(fails(rs)).toHaveLength(0);
   });
 });
 
@@ -203,10 +158,6 @@ describe('a11y/require-datetime', () => {
     expect(failing[0]?.message).toBe(
       '<time> content "last Tuesday" is not machine-readable and has no datetime attribute'
     );
-  });
-  it('passes a component with no recorded times missing datetime', async () => {
-    const rs = await a11yRequireDatetime.check(ctx([comp({ timesMissingDatetime: [] })]));
-    expect(fails(rs)).toHaveLength(0);
   });
 });
 

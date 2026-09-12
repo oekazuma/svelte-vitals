@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { scoreAnimationEnabled, playScoreAnimation } from '../src/pulse-animation.js';
 import { noColorPalette, ansiPalette } from '../src/color.js';
+import { renderMascotReaction } from '../src/mascot.js';
 import { REACTION_MESSAGES } from '../src/speech-bubble.js';
 import { fakeStream } from './helpers/fake-stream.js';
 
@@ -45,14 +46,15 @@ describe('playScoreAnimation', () => {
   it('colors the final Health score using scoreColor thresholds', async () => {
     const { writes, stream } = fakeStream();
     await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 });
-    expect(writes[writes.length - 1]).toContain('\x1b[32m'); // green, score >= 90
+    expect(writes[writes.length - 1]).toContain(ansiPalette.green('95/100')); // green, score >= 90
   });
 
   it('shows the mascot reaction matching the final state on the last frame', async () => {
     const { writes, stream } = fakeStream();
     await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
     const allWrites = writes.join('');
-    expect(allWrites).toContain('   ╰──╯   '); // happy's mouth row — distinct from content's/ecstatic's
+    // withSpeechBubble appends the bubble to each row, so every face row survives verbatim.
+    for (const row of renderMascotReaction('happy').split('\n')) expect(allWrites).toContain(row);
   });
 
   it('plays a confetti bonus after a perfect 100, but not for any other score', async () => {
@@ -91,17 +93,7 @@ describe('playScoreAnimation', () => {
     expect(allWrites).toContain('\x1b[38;2;153;37;0m'); // dim orange, seen during at least one counting frame
   });
 
-  it('shows no wave line once the score settles — just the mascot pose and Health score', async () => {
-    const { writes, stream } = fakeStream();
-    await playScoreAnimation({ score: 82, palette: ansiPalette, stream, frameDelayMs: 0 });
-    const last = writes[writes.length - 1]!;
-    expect(last).toContain('82/100');
-    // '╱'/'╲' only ever appear in WAVE_FRAMES — unlike a bare '─' (also used by the
-    // mascot's own box border), their absence unambiguously means no wave line.
-    expect(last).not.toMatch(/[╱╲]/);
-  });
-
-  it('shows no wave line during the confetti bonus either', async () => {
+  it('shows no wave line once the score settles, including during the confetti bonus', async () => {
     const { writes, stream } = fakeStream();
     // No columns override: defaults to a width wide enough for mascotFitsWidth to pass
     // (unlike the narrow-terminal tests above), so score: 100 actually reaches the
@@ -117,6 +109,8 @@ describe('playScoreAnimation', () => {
     // '╱'/'╲' only ever appear in WAVE_FRAMES — unlike a bare '─' (also used by the
     // mascot's own box border), their absence unambiguously means no wave line.
     expect(last).not.toMatch(/[╱╲]/);
+    // The settled frame of the count-up loop itself, before any confetti frame.
+    expect(writes.find((w) => w.includes('100/100'))).not.toMatch(/[╱╲]/);
   });
 
   it('shows a reaction speech bubble matching the final state, on a wide enough terminal', async () => {

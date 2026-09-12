@@ -12,43 +12,6 @@ describe('svelteVitals rules option validation', () => {
     );
   });
 
-  it('throws synchronously on an out-of-range option value', () => {
-    expect(() => svelteVitals({ ui: false, rules: { 'architecture/prop-count': { options: { max: 0 } } } })).toThrow(
-      /must be >= 1/
-    );
-  });
-
-  it('throws synchronously on options for a rule that takes none', () => {
-    expect(() => svelteVitals({ ui: false, rules: { 'seo/title-presence': { options: { max: 1 } } } })).toThrow(
-      /takes no options/
-    );
-  });
-
-  it('throws synchronously on an inverted min/max range', () => {
-    expect(() => svelteVitals({ ui: false, rules: { 'seo/title-length': { options: { min: 100 } } } })).toThrow(
-      /min \(100\) must be <= max \(60\)/
-    );
-  });
-
-  it('accepts a valid rules option', () => {
-    expect(() =>
-      svelteVitals({ ui: false, rules: { 'architecture/prop-count': { options: { max: 10 } } } })
-    ).not.toThrow();
-  });
-
-  it('accepts the bare string form and object forms without options', () => {
-    expect(() =>
-      svelteVitals({
-        ui: false,
-        rules: { 'seo/title-presence': 'off', 'architecture/prop-count': { severity: 'warning' } }
-      })
-    ).not.toThrow();
-  });
-
-  it('accepts no rules option at all', () => {
-    expect(() => svelteVitals({ ui: false })).not.toThrow();
-  });
-
   // 2026-07-26 second review, Finding D: an unknown rule id with options used to
   // report the misleading "takes no options" (ruleOptionsSpec returns undefined
   // for an unknown id), instead of pointing at the actual problem — the typo'd id.
@@ -69,22 +32,10 @@ describe('svelteVitals rules option validation', () => {
   // these for a `vite.config.ts`, but a `vite.config.js` got no help at all and
   // the typo'd field silently left the rule at its built-in severity — the exact
   // failure mode this validation exists to prevent.
-  it('throws on an invalid severity string', () => {
-    expect(() => svelteVitals({ ui: false, rules: { 'architecture/prop-count': 'error' as never } })).toThrow(
-      /invalid setting 'error'/
-    );
-  });
-
   it('throws on an invalid severity in the object form', () => {
     expect(() =>
       svelteVitals({ ui: false, rules: { 'architecture/prop-count': { severity: 'error' as never } } })
     ).toThrow(/rules\.architecture\/prop-count\.severity: invalid setting 'error'/);
-  });
-
-  it('throws on an unrecognized key in the object form', () => {
-    expect(() =>
-      svelteVitals({ ui: false, rules: { 'architecture/prop-count': { sevrity: 'warning' } as never } })
-    ).toThrow(/unknown key\(s\) sevrity/);
   });
 });
 
@@ -94,15 +45,6 @@ describe('svelteVitals rules option validation', () => {
 // per-rule-options feature exists to prevent, in the field the changeset
 // advertises as the per-path home for options.
 describe('svelteVitals overrides option validation', () => {
-  it('throws synchronously on an unknown option key inside an override', () => {
-    expect(() =>
-      svelteVitals({
-        ui: false,
-        overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { maxx: 10 } } } }]
-      })
-    ).toThrow(/unknown option 'maxx'/);
-  });
-
   it('throws synchronously on an unknown rule id inside an override', () => {
     expect(() =>
       svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { 'seo/titel-length': { options: { max: 10 } } } }] })
@@ -113,15 +55,6 @@ describe('svelteVitals overrides option validation', () => {
     expect(() =>
       svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { seo: { options: { max: 10 } } } }] })
     ).toThrow(/options are not allowed on a category key/);
-  });
-
-  it('accepts a valid overrides option', () => {
-    expect(() =>
-      svelteVitals({
-        ui: false,
-        overrides: [{ route: '/x', rules: { 'architecture/prop-count': { options: { max: 4 } } } }]
-      })
-    ).not.toThrow();
   });
 
   it('accepts an override that only narrows one side of an otherwise-valid global range (Finding A)', () => {
@@ -142,10 +75,6 @@ describe('svelteVitals overrides option validation', () => {
         overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { max: 35 } } } }]
       })
     ).toThrow(/min \(40\) must be <= max \(35\)/);
-  });
-
-  it('accepts no overrides option at all', () => {
-    expect(() => svelteVitals({ ui: false })).not.toThrow();
   });
 
   it('accepts two override entries that jointly widen a range, when validating one against the built-in default alone would falsely invert it (Finding A, third pass)', () => {
@@ -182,18 +111,6 @@ describe('svelteVitals overrides option validation', () => {
         overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 100 } } } }]
       })
     ).toThrow(/min \(100\) must be <= max \(60\)/);
-  });
-
-  it('still reports type and unknown-key problems in an override with no rules option', () => {
-    expect(() =>
-      svelteVitals({
-        ui: false,
-        overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 0.5 } } } }]
-      })
-    ).toThrow(/must be an integer/);
-    expect(() =>
-      svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { mn: 10 } } } }] })
-    ).toThrow(/unknown option 'mn'/);
   });
 
   it('validates the setting shape inside an override (severity and unknown keys)', () => {

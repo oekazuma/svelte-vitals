@@ -100,10 +100,11 @@ describe('svelte-vitals explain', () => {
     });
   });
 
-  it('does not match a rule id with the wrong case (exact match only)', async () => {
+  it('does not match a rule id with the wrong case (exact match only), and gets no did-you-mean hint', async () => {
     const { code, err } = await explain(['SEO/TITLE-PRESENCE']);
     expect(code).toBe(2);
     expect(err).toContain("unknown rule id 'SEO/TITLE-PRESENCE'");
+    expect(err).not.toContain('did you mean');
   });
 
   it('exits 2 and lists the known ids for an unknown id', async () => {
@@ -122,11 +123,6 @@ describe('svelte-vitals explain', () => {
     expect(code).toBe(2);
     expect(err).toContain("unknown rule id 'seo/ssr-disable'");
     expect(err).toContain('svelte-vitals: did you mean `svelte-vitals explain seo/ssr-disabled`?');
-  });
-
-  it('the wrong-case rule id above is far enough (case-sensitive match) that it gets no hint either', async () => {
-    const { err } = await explain(['SEO/TITLE-PRESENCE']);
-    expect(err).not.toContain('did you mean');
   });
 
   it('exits 2 when no rule id is given', async () => {

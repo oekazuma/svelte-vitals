@@ -1,13 +1,5 @@
-// Phase 2a of the gunshi migration (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md)
-// grew this file to compare the gunshi/bone port (gunshi/docs.ts) against the legacy `runDocsCli`
-// (docs/cli.ts) byte for byte across a wide argv-shape matrix. Phase 3 deleted `runDocsCli` (nothing
-// routed through it once `runCli` dispatched to the gunshi port) and hybridized `docs --help`'s
-// output, so the legacy runner is no longer available as a live oracle for this file's own cells.
-// Converted to direct snapshot pins instead: every cell here pinned the SAME bytes the legacy
-// comparison already proved equal (guard/strip/dispatch logic is unchanged) except the four
-// `--help`-reaching cells, which now pin the new hybrid text — the one declared movement in this
-// PR's changeset. Coverage of the argv-shape matrix (unknown-flag-before-positional, `--`
-// terminator, tail-promotion, literal-`=false` coercion, …) survives unchanged.
+// Snapshot pins for the docs argv-shape matrix (unknown-flag-before-positional, `--` terminator,
+// tail-promotion, literal-`=false` coercion). The help text itself is pinned by help-golden.test.ts.
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { runDocsCliGunshi } from '../src/gunshi/docs.js';
 import { captureIO } from './helpers/capture-io.js';
@@ -31,10 +23,6 @@ describe('gunshi/bone docs — pinned behavior across the argv-shape matrix', ()
     { name: 'show (no name)', args: ['show'] },
     { name: 'no sub', args: [] },
     { name: 'bogus sub', args: ['bogus'] },
-    { name: '--help', args: ['--help'] },
-    { name: '-h', args: ['-h'] },
-    { name: 'list --help (help wins over list logic, same as today)', args: ['list', '--help'] },
-    { name: 'show --help (help wins over show logic, same as today)', args: ['show', '--help'] },
     { name: '-v (unrecognized, falls through to no-sub)', args: ['-v'] },
     { name: 'list -v (unrecognized flag ignored, list still runs)', args: ['list', '-v'] },
     { name: 'list --json=false (literal-false coercion)', args: ['list', '--json=false'] },
@@ -78,6 +66,18 @@ describe('gunshi/bone docs — pinned behavior across the argv-shape matrix', ()
   for (const { name, args } of cells) {
     it(`${name}`, async () => {
       expect(await gunshi(args)).toMatchSnapshot();
+    });
+  }
+});
+
+// help-golden.test.ts pins the help text; this only pins that the subcommands resolve to it.
+describe('help aliases', () => {
+  for (const args of [
+    ['list', '--help'],
+    ['show', '--help']
+  ]) {
+    it(`${args.join(' ')} is byte-identical to --help`, async () => {
+      expect(await gunshi(args)).toEqual(await gunshi(['--help']));
     });
   }
 });

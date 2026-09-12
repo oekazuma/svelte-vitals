@@ -67,6 +67,22 @@ describe('gunshi/bone: ctx.positionals includes the matched sub-command path tok
     expect(captured?.positionals.slice(captured!.commandPath.length)).toEqual(['extra']);
   });
 
+  it('a root entry with no declared positional: commandPath is [] and ctx.positionals still carries the path', async () => {
+    let captured: { positionals: string[]; commandPath: string[] } | undefined;
+    const cmd = define({
+      name: 'probe',
+      args: {},
+      run: (ctx) => {
+        captured = { positionals: ctx.positionals, commandPath: ctx.commandPath };
+      }
+    });
+
+    await cli(['./apps/web'], cmd, { name: 'probe' });
+
+    expect(captured?.commandPath).toEqual([]);
+    expect(captured?.positionals).toEqual(['./apps/web']);
+  });
+
   it('explain <id>: commandPath is [] at the entry level — positionals already IS "args after explain", so the slice is a documented no-op, not a real recovery', async () => {
     let captured: { positionals: string[]; commandPath: string[] } | undefined;
     const explainCommand = define({

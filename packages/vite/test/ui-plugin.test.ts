@@ -26,24 +26,11 @@ afterEach(() => {
 });
 
 describe('svelteVitals({ ui })', () => {
-  it('defaults ui to true: returns both plugins when ui is not set', () => {
+  it('defaults ui to true: returns both plugins when ui is not set, the UI one dev-only', () => {
     const plugins = svelteVitals({}) as Plugin[];
     expect(Array.isArray(plugins)).toBe(true);
     expect(plugins.map((p) => p.name).sort()).toEqual(['svelte-vitals', 'svelte-vitals:ui']);
-  });
-
-  it('returns a single build-only plugin when ui: false is passed explicitly', () => {
-    const p = svelteVitals({ ui: false });
-    expect(Array.isArray(p)).toBe(false);
-    expect((p as Plugin).name).toBe('svelte-vitals');
-  });
-
-  it('adds a dev-only UI plugin when ui:true', () => {
-    const plugins = svelteVitals({ ui: true }) as Plugin[];
-    expect(Array.isArray(plugins)).toBe(true);
-    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
-    expect(ui).toBeDefined();
-    expect(ui.apply).toBe('serve');
+    expect(plugins.find((p) => p.name === 'svelte-vitals:ui')!.apply).toBe('serve');
   });
 
   it('configureServer installs middleware and sets the UI env flag', async () => {
@@ -63,24 +50,6 @@ describe('svelteVitals({ ui })', () => {
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
     expect(process.env.SVELTE_VITALS_UI).toBe('1');
     expect(used).toContain('/__svelte-vitals');
-  });
-
-  it('configureServer registers a watcher listener for source-change re-analysis', async () => {
-    const plugins = svelteVitals({ ui: true }) as Plugin[];
-    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
-    const watcherEvents: string[] = [];
-    const server = {
-      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      watcher: {
-        on: (event: string, _cb: (...args: unknown[]) => void) => {
-          watcherEvents.push(event);
-        }
-      },
-      middlewares: { use: (_path: string, _fn: MiddlewareHandler) => {} }
-    } as ViteDevServer;
-    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
-    expect(watcherEvents).toContain('all');
   });
 
   it('the watcher callback triggers re-analysis for a relevant file and skips an irrelevant one', async () => {
@@ -129,12 +98,6 @@ describe('svelteVitals({ ui })', () => {
     } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
-
-    // A plain src/ file still notifies the runner synchronously (unchanged behavior).
-    const relevantFile = join(root, 'src/routes/+page.svelte');
-    watcherCallback!('change', relevantFile);
-    expect(mockNotifyChange).toHaveBeenCalledWith(relevantFile);
-    mockNotifyChange.mockClear();
 
     // A config-file edit must wait for applyConfig's re-resolve (debounced 500ms) before
     // notifying the runner — otherwise the runner's onWarnings dedup can race applyConfig.

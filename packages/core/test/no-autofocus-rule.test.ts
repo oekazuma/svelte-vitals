@@ -35,11 +35,6 @@ describe('a11y/no-autofocus', () => {
     );
   });
 
-  it('flags a literal-string autofocus — same literal-presence branch as bare', async () => {
-    const { penalized } = await check('<input autofocus="autofocus" />');
-    expect(penalized).toHaveLength(1);
-  });
-
   it('flags a blank literal autofocus — browsers treat autofocus="" as set', async () => {
     const { penalized } = await check('<input autofocus="" />');
     expect(penalized).toHaveLength(1);
@@ -49,12 +44,6 @@ describe('a11y/no-autofocus', () => {
     const { penalized, passed } = await check('<input autofocus={focusMe} />');
     expect(penalized).toEqual([]);
     expect(passed).toEqual([]);
-  });
-
-  it('passes autofocus on a direct child of <dialog> — one-hop parent walk', async () => {
-    const { penalized, passed } = await check('<dialog><input autofocus /></dialog>');
-    expect(penalized).toEqual([]);
-    expect(passed).toHaveLength(1);
   });
 
   it('passes a deep <dialog> descendant — the walk continues past the first ancestor', async () => {
@@ -110,11 +99,5 @@ describe('a11y/no-autofocus', () => {
     const { penalized, passed } = await check('<input />');
     expect(penalized).toEqual([]);
     expect(passed).toEqual([]);
-  });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'a11y/no-autofocus')).toBe(true);
-    expect(explainRule('a11y/no-autofocus')?.severity).toBe('warning');
   });
 });

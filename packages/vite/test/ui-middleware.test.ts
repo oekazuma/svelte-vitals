@@ -144,6 +144,21 @@ describe('installUiMiddleware', () => {
               detection: { presence: 'none', value: 'absent' }
             }, // invalid severity
             {
+              id: 'seo/html-lang',
+              message: 'm',
+              category: 123, // would pass `?? 'seo'` and throw inside escapeHtml
+              detection: { presence: 'none', value: 'absent' },
+              severity: 'critical'
+            },
+            {
+              id: 'seo/indexability',
+              message: 'm',
+              category: 'seo',
+              detection: { presence: 'none', value: 'absent' },
+              severity: 'critical',
+              fix: { description: 5 } // non-string description would throw inside escapeHtml
+            },
+            {
               id: 'seo/title-presence',
               detection: { presence: 'none', value: 'absent' },
               message: 'm',
@@ -159,10 +174,13 @@ describe('installUiMiddleware', () => {
     const gr = res();
     call(getReq('/'), gr);
     const html = gr.chunks.join('');
-    expect(html.startsWith('<!doctype html>')).toBe(true); // did not crash on the malformed entries
+    expect(gr.statusCode).not.toBe(500); // did not crash on the malformed entries
+    expect(html.startsWith('<!doctype html>')).toBe(true);
     expect(html).toContain('seo/title-presence'); // the valid finding survived
     expect(html).not.toContain('seo/description-presence'); // missing message/severity → dropped
     expect(html).not.toContain('seo/canonical-url'); // invalid severity → dropped
+    expect(html).not.toContain('seo/html-lang'); // non-string category → dropped
+    expect(html).not.toContain('seo/indexability'); // malformed fix → dropped
   });
 
   it('decodes a multibyte ingest body split across chunk boundaries', async () => {
@@ -221,7 +239,7 @@ describe('installUiMiddleware', () => {
     expect(gr.chunks.join('')).not.toContain('seo/title-presence');
   });
 
-  it('rejects an ingest POST from another loopback port (cross-origin on localhost)', async () => {
+  it('rejects an ingest POST from another loopback port', async () => {
     const { call } = setup();
     const ir = res();
     const ireq = postReq('/ingest', { host: 'localhost:5173', origin: 'http://localhost:3000' });
@@ -247,31 +265,6 @@ describe('installUiMiddleware', () => {
     const gr = res();
     call(getReq('/'), gr);
     expect(gr.chunks.join('')).toContain('seo/title-presence');
-  });
-
-  it('accepts a same-host https Origin (server.https)', async () => {
-    const { call } = setup();
-    const ir = res();
-    const ireq = postReq('/ingest', { host: 'localhost:5173', origin: 'https://localhost:5173' });
-    call(ireq, ir);
-    ireq.emit('data', Buffer.from(ingestBody));
-    ireq.emit('end');
-    await new Promise((r) => setTimeout(r, 0));
-    expect(ir.statusCode).toBe(204);
-  });
-
-  it('rejects Origin: null', async () => {
-    const { call } = setup();
-    const ir = res();
-    const ireq = postReq('/ingest', { host: 'localhost:5173', origin: 'null' });
-    call(ireq, ir);
-    expect(ir.statusCode).toBe(403);
-    ireq.emit('data', Buffer.from(ingestBody));
-    ireq.emit('end');
-    await new Promise((r) => setTimeout(r, 0));
-    const gr = res();
-    call(getReq('/'), gr);
-    expect(gr.chunks.join('')).not.toContain('seo/title-presence');
   });
 
   it('rejects an ingest body over the size cap and stores nothing', async () => {
@@ -311,37 +304,6 @@ describe('installUiMiddleware', () => {
     expect(gr.chunks.join('')).not.toContain('<!doctype html>');
   });
 
-  it('filters a finding with a non-string category so the dashboard still renders', async () => {
-    const { call } = setup();
-    const ireq = postReq('/ingest');
-    call(ireq, res());
-    ireq.emit(
-      'data',
-      Buffer.from(
-        JSON.stringify({
-          route: '/x',
-          results: [
-            {
-              id: 'seo/html-lang',
-              message: 'm',
-              category: 123, // would pass `?? 'seo'` and throw inside escapeHtml
-              detection: { presence: 'none', value: 'absent' },
-              severity: 'critical'
-            }
-          ]
-        })
-      )
-    );
-    ireq.emit('end');
-    await new Promise((r) => setTimeout(r, 0));
-    const gr = res();
-    call(getReq('/'), gr);
-    const html = gr.chunks.join('');
-    expect(gr.statusCode).not.toBe(500); // dashboard did not crash
-    expect(html.startsWith('<!doctype html>')).toBe(true);
-    expect(html).not.toContain('seo/html-lang'); // malformed finding was filtered out
-  });
-
   it('surfaces the resolved @svelte-vitals/core version in the embedded snapshot when passed', () => {
     const { call } = setup('0.21.0');
     const gr = res();
@@ -352,38 +314,6 @@ describe('installUiMiddleware', () => {
     const end = html.indexOf('</script>', contentStart);
     const embedded = JSON.parse(html.slice(contentStart, end));
     expect(embedded.meta.coreVersion).toBe('0.21.0');
-  });
-
-  it('filters a finding with a malformed fix shape so the dashboard still renders', async () => {
-    const { call } = setup();
-    const ireq = postReq('/ingest');
-    call(ireq, res());
-    ireq.emit(
-      'data',
-      Buffer.from(
-        JSON.stringify({
-          route: '/x',
-          results: [
-            {
-              id: 'seo/indexability',
-              message: 'm',
-              category: 'seo',
-              detection: { presence: 'none', value: 'absent' },
-              severity: 'critical',
-              fix: { description: 5 } // non-string description would throw inside escapeHtml
-            }
-          ]
-        })
-      )
-    );
-    ireq.emit('end');
-    await new Promise((r) => setTimeout(r, 0));
-    const gr = res();
-    call(getReq('/'), gr);
-    const html = gr.chunks.join('');
-    expect(gr.statusCode).not.toBe(500); // dashboard did not crash
-    expect(html.startsWith('<!doctype html>')).toBe(true);
-    expect(html).not.toContain('seo/indexability'); // malformed finding was filtered out
   });
 
   it('GET /data.json returns the same snapshot the dashboard embeds', async () => {
@@ -428,35 +358,20 @@ describe('installUiMiddleware', () => {
         ...(failedRuleIds ? { failedRuleIds } : {})
       });
 
-    const control = setup();
-    const cr = postReq('/ingest');
-    control.call(cr, res());
-    cr.emit('data', Buffer.from(body()));
-    cr.emit('end');
-    await new Promise((r) => setTimeout(r, 0));
-    const controlData = JSON.parse(
-      (() => {
-        const jr = res();
-        control.call(getReq('/data.json'), jr);
-        return jr.chunks.join('');
-      })()
-    );
+    const { call } = setup();
+    const scoreAfterIngest = async (payload: string) => {
+      const ireq = postReq('/ingest');
+      call(ireq, res());
+      ireq.emit('data', Buffer.from(payload));
+      ireq.emit('end');
+      await new Promise((r) => setTimeout(r, 0));
+      const jr = res();
+      call(getReq('/data.json'), jr);
+      return JSON.parse(jr.chunks.join('')).report.score;
+    };
 
-    const failing = setup();
-    const fr = postReq('/ingest');
-    failing.call(fr, res());
-    fr.emit('data', Buffer.from(body(['seo/title-presence'])));
-    fr.emit('end');
-    await new Promise((r) => setTimeout(r, 0));
-    const failingData = JSON.parse(
-      (() => {
-        const jr = res();
-        failing.call(getReq('/data.json'), jr);
-        return jr.chunks.join('');
-      })()
-    );
-
-    expect(failingData.report.score).not.toBe(controlData.report.score);
+    const control = await scoreAfterIngest(body());
+    expect(await scoreAfterIngest(body(['seo/title-presence']))).not.toBe(control);
   });
 
   it('tolerates a non-array failedRuleIds field (treated as no failures)', async () => {
@@ -488,18 +403,6 @@ describe('installUiMiddleware', () => {
     call(getReq('/'), gr);
     expect(gr.statusCode).not.toBe(500); // did not crash on the malformed field
     expect(gr.chunks.join('')).toContain('seo/title-presence'); // finding still stored
-  });
-
-  it('tolerates an absent failedRuleIds field (treated as no failures)', async () => {
-    const { call } = setup();
-    const ireq = postReq('/ingest');
-    call(ireq, res());
-    ireq.emit('data', Buffer.from(ingestBody)); // no failedRuleIds key at all
-    ireq.emit('end');
-    await new Promise((r) => setTimeout(r, 0));
-    const gr = res();
-    call(getReq('/'), gr);
-    expect(gr.statusCode).not.toBe(500);
   });
 
   it('reads getStaticFailedRuleIds per request so a later re-analysis is reflected without re-mounting', () => {

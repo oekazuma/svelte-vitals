@@ -105,20 +105,14 @@ describe('architecture/doc-link-target', () => {
     expect(await architectureDocLinkTarget.check(ctx([], ['src/lib/A/A.svelte'], [ROOT]))).toEqual([]);
   });
 
-  it('strips a #fragment before checking whether the target exists', async () => {
-    const rs = await architectureDocLinkTarget.check(
-      ctx([{ url: `${ROOT}src/lib/Card#examples`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
-    );
-    expect(fails(rs)).toEqual([]);
-    expect(passes(rs)).toHaveLength(1);
-  });
-
-  it('strips a ?query before checking whether the target exists', async () => {
-    const rs = await architectureDocLinkTarget.check(
-      ctx([{ url: `${ROOT}src/lib/Card?tab=usage`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
-    );
-    expect(fails(rs)).toEqual([]);
-    expect(passes(rs)).toHaveLength(1);
+  it('strips a #fragment, a ?query and a trailing slash before checking whether the target exists', async () => {
+    for (const suffix of ['#examples', '?tab=usage', '/', '//', '/#examples']) {
+      const rs = await architectureDocLinkTarget.check(
+        ctx([{ url: `${ROOT}src/lib/Card${suffix}`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
+      );
+      expect(fails(rs)).toEqual([]);
+      expect(passes(rs)).toHaveLength(1);
+    }
   });
 
   it('emits nothing for a URL that is exactly a declared root — the root exists by definition', async () => {
@@ -152,30 +146,6 @@ describe('architecture/doc-link-target', () => {
       ctx([{ url: 'mailto:team@x.test', line: 1 }], ['src/lib/A/A.svelte'], [ROOT])
     );
     expect(rs).toEqual([]);
-  });
-
-  it('resolves a directory target written with a trailing slash', async () => {
-    const rs = await architectureDocLinkTarget.check(
-      ctx([{ url: `${ROOT}src/lib/Card/`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
-    );
-    expect(fails(rs)).toEqual([]);
-    expect(passes(rs)).toHaveLength(1);
-  });
-
-  it('resolves a directory target written with a doubled trailing slash', async () => {
-    const rs = await architectureDocLinkTarget.check(
-      ctx([{ url: `${ROOT}src/lib/Card//`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
-    );
-    expect(fails(rs)).toEqual([]);
-    expect(passes(rs)).toHaveLength(1);
-  });
-
-  it('resolves a trailing-slash directory target reached through a #fragment', async () => {
-    const rs = await architectureDocLinkTarget.check(
-      ctx([{ url: `${ROOT}src/lib/Card/#examples`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
-    );
-    expect(fails(rs)).toEqual([]);
-    expect(passes(rs)).toHaveLength(1);
   });
 
   it('leaves a remainder outside src/ silent, even when the file exists in the repository', async () => {

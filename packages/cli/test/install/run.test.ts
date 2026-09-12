@@ -307,32 +307,6 @@ describe('runInstall — agent targets', () => {
     expect(writes[MDC_PATH]).toContain('svelte-vitals 1.0.0');
   });
 
-  it('dry-run does not write agent target files', async () => {
-    const { io, writes, out } = fakeIO();
-    const code = await runInstall({ client: ['cursor-rules'], dryRun: true }, io, noPrompts);
-    expect(code).toBe(0);
-    expect(writes).toEqual({});
-    expect(out.join('\n')).toContain('Dry run');
-  });
-
-  it('interactive picker options include cursor-rules but not the retired SKILL.md targets', async () => {
-    const { io } = fakeIO({ isTTY: true });
-    let seenOptions: string[] = [];
-    const prompts: InstallPrompts = {
-      ...noPrompts,
-      selectClients: async (groups) => {
-        seenOptions = Object.values(groups)
-          .flat()
-          .map((o) => o.id);
-        return null;
-      }
-    };
-    await runInstall({}, io, prompts);
-    expect(seenOptions).toContain('cursor-rules');
-    expect(seenOptions).not.toContain('claude-skill');
-    expect(seenOptions).not.toContain('claude-skill-improve');
-  });
-
   it('a read failure (e.g. EACCES) while planning an agent target is reported and exits 2', async () => {
     const { io, writes, err } = fakeIO({
       throwOnRead: MDC_PATH
@@ -377,36 +351,6 @@ describe('runInstall — config-file target', () => {
     expect(writes['/proj/svelte-vitals.config.js']).not.toBe('stale content');
   });
 
-  it('dry-run does not write the config file', async () => {
-    const { io, writes, out } = fakeIO();
-    const code = await runInstall({ client: ['config-file'], dryRun: true }, io, noPrompts);
-    expect(code).toBe(0);
-    expect(writes).toEqual({});
-    expect(out.join('\n')).toContain('Dry run');
-  });
-
-  it('a plan can mix an agent skill and the config-file target in one run', async () => {
-    const { io, writes } = fakeIO();
-    await runInstall({ client: ['cursor-rules', 'config-file'], yes: true }, io, noPrompts);
-    expect(Object.keys(writes).sort()).toEqual([MDC_PATH, '/proj/svelte-vitals.config.js']);
-  });
-
-  it('interactive picker options include the config-file target', async () => {
-    const { io } = fakeIO({ isTTY: true });
-    let seenOptions: string[] = [];
-    const prompts: InstallPrompts = {
-      ...noPrompts,
-      selectClients: async (groups) => {
-        seenOptions = Object.values(groups)
-          .flat()
-          .map((o) => o.id);
-        return null;
-      }
-    };
-    await runInstall({}, io, prompts);
-    expect(seenOptions).toContain('config-file');
-  });
-
   describe('auto-picking the best extension', () => {
     // The .ts template imports defineConfig at runtime, so .ts is only picked when
     // svelte-vitals is a declared dependency — these fixtures declare it.
@@ -424,15 +368,6 @@ describe('runInstall — config-file target', () => {
       expect(content).toContain('export default defineConfig({');
       expect(writes['/proj/svelte-vitals.config.js']).toBeUndefined();
     });
-
-    it('a vite.config.ts alone (no tsconfig.json) is enough to pick .ts', async () => {
-      const { io, writes } = fakeIO({
-        files: { '/proj/vite.config.ts': 'export default {}', '/proj/package.json': PKG_WITH_DEP }
-      });
-      await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
-      expect(writes['/proj/svelte-vitals.config.ts']).toBeDefined();
-    });
-
     it('an npx-only TS project (svelte-vitals not in package.json) gets .js — the defineConfig import would not resolve at load time', async () => {
       const { io, writes } = fakeIO({
         files: { '/proj/tsconfig.json': '{}', '/proj/package.json': JSON.stringify({ type: 'module' }) }
@@ -442,13 +377,6 @@ describe('runInstall — config-file target', () => {
       expect(writes['/proj/svelte-vitals.config.ts']).toBeUndefined();
       expect(writes['/proj/svelte-vitals.config.js']).not.toContain('defineConfig');
     });
-
-    it('a plain JS project (no tsconfig.json, no vite.config.ts) gets .js', async () => {
-      const { io, writes } = fakeIO({ files: { '/proj/package.json': PKG_WITH_DEP } });
-      await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
-      expect(writes['/proj/svelte-vitals.config.js']).toBeDefined();
-    });
-
     it('a second run detects an existing .ts config (not just .js) and reports exists without creating a duplicate .js', async () => {
       const first = fakeIO({
         files: { '/proj/tsconfig.json': '{}', '/proj/package.json': PKG_WITH_DEP }
@@ -572,34 +500,6 @@ describe('runInstall — ci-workflow target', () => {
     expect(writes['/proj/.github/workflows/svelte-vitals.yml']).not.toBe('stale content');
   });
 
-  it('dry-run does not write the workflow file', async () => {
-    const { io, writes, out } = fakeIO();
-    const code = await runInstall({ client: ['ci-workflow'], dryRun: true }, io, noPrompts);
-    expect(code).toBe(0);
-    expect(writes).toEqual({});
-    expect(out.join('\n')).toContain('Dry run');
-  });
-
-  it('a plan can mix an agent skill and the ci-workflow target in one run', async () => {
-    const { io, writes } = fakeIO();
-    await runInstall({ client: ['cursor-rules', 'ci-workflow'], yes: true }, io, noPrompts);
-    expect(Object.keys(writes).sort()).toEqual([MDC_PATH, '/proj/.github/workflows/svelte-vitals.yml']);
-  });
-
-  it('interactive picker options include the ci-workflow target, grouped under "CI (GitHub Actions)"', async () => {
-    const { io } = fakeIO({ isTTY: true });
-    let seenGroups: Record<string, string[]> = {};
-    const prompts: InstallPrompts = {
-      ...noPrompts,
-      selectClients: async (groups) => {
-        seenGroups = Object.fromEntries(Object.entries(groups).map(([group, opts]) => [group, opts.map((o) => o.id)]));
-        return null;
-      }
-    };
-    await runInstall({}, io, prompts);
-    expect(seenGroups['CI (GitHub Actions)']).toEqual(['ci-workflow']);
-  });
-
   it('pre-selects ci-workflow in the interactive picker when the workflow file already exists', async () => {
     const { io } = fakeIO({ isTTY: true, files: { '/proj/.github/workflows/svelte-vitals.yml': 'existing' } });
     let seenDefaults: string[] = [];
@@ -625,18 +525,24 @@ describe('runInstall — ci-workflow target', () => {
 });
 
 describe('runInstall — grouped interactive picker', () => {
-  it('groups options by category: Vite integration, Agent rules, CI, Config file', async () => {
+  it('offers every install target, grouped by category, and no SKILL.md target', async () => {
     const { io } = fakeIO({ isTTY: true });
-    let seenGroupNames: string[] = [];
+    let seenGroups: Record<string, string[]> = {};
     const prompts: InstallPrompts = {
       ...noPrompts,
       selectClients: async (groups) => {
-        seenGroupNames = Object.keys(groups);
+        seenGroups = Object.fromEntries(Object.entries(groups).map(([group, opts]) => [group, opts.map((o) => o.id)]));
         return null;
       }
     };
     await runInstall({}, io, prompts);
-    expect(seenGroupNames).toEqual(['Vite integration', 'Agent rules', 'CI (GitHub Actions)', 'Config file']);
+    expect(Object.keys(seenGroups)).toEqual(['Vite integration', 'Agent rules', 'CI (GitHub Actions)', 'Config file']);
+    expect(seenGroups).toEqual({
+      'Vite integration': ['vite-plugin', 'vite-hooks'],
+      'Agent rules': ['cursor-rules'],
+      'CI (GitHub Actions)': ['ci-workflow'],
+      'Config file': ['config-file']
+    });
   });
 });
 

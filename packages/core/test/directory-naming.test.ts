@@ -332,28 +332,22 @@ describe('architecture/directory-naming — examined counts', () => {
     expect(examined[ID]).toEqual({});
   });
 
-  it('reports no counts at all on a run with no file inventory', async () => {
-    const config = defineConfig({ rules: { [ID]: { options: { directories: { 'src/lib/*': 'camelCase' } } } } });
+  it('reports no counts at all without a file inventory, and none when no config layer mentions the rule', async () => {
     const seen: Record<string, number>[] = [];
+    const recordExamined = (c: Record<string, number>) => void seen.push(c);
     await architectureDirectoryNaming.check({
       sourceFiles: undefined,
       heads: [],
       project: defaultProject,
-      config,
-      recordExamined: (c: Record<string, number>) => void seen.push(c)
+      config: defineConfig({ rules: { [ID]: { options: { directories: { 'src/lib/*': 'camelCase' } } } } }),
+      recordExamined
     });
-    expect(seen).toEqual([]);
-  });
-
-  it('reports no counts at all when no config layer mentions the rule', async () => {
-    const config = defineConfig({});
-    const seen: Record<string, number>[] = [];
     await architectureDirectoryNaming.check({
       sourceFiles: ['src/lib/dialog/a.ts'],
       heads: [],
       project: defaultProject,
-      config,
-      recordExamined: (c: Record<string, number>) => void seen.push(c)
+      config: defineConfig({}),
+      recordExamined
     });
     expect(seen).toEqual([]);
   });

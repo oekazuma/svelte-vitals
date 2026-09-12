@@ -112,12 +112,13 @@ describe('svelte-vitals docs — dispatch', () => {
     expect(out).toContain('svelte-vitals docs');
   });
 
-  it('an unknown subcommand exits 2 and names the valid ones', async () => {
+  it('an unknown subcommand exits 2, names the valid ones, and gets no did-you-mean hint', async () => {
     const { code, out, err } = await docs(['read', 'config']);
     expect(code).toBe(2);
     expect(out).toBe('');
     expect(err).toContain("unknown docs subcommand 'read'");
     expect(err).toContain('list|show');
+    expect(err).not.toContain('did you mean');
   });
 
   it('a close typo of a real subcommand gets a did-you-mean hint (design doc addendum)', async () => {
@@ -125,11 +126,6 @@ describe('svelte-vitals docs — dispatch', () => {
     expect(code).toBe(2);
     expect(err).toContain("unknown docs subcommand 'lsit'");
     expect(err).toContain('svelte-vitals: did you mean `svelte-vitals docs list`?');
-  });
-
-  it('"read" is far enough from both list/show that no hint is added (already exercised above, asserted explicitly)', async () => {
-    const { err } = await docs(['read', 'config']);
-    expect(err).not.toContain('did you mean');
   });
 
   it('documents the escape hatch for a ./docs directory', async () => {

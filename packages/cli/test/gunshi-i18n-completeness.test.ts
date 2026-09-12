@@ -49,18 +49,4 @@ describe('ja help resource completeness (drift test)', () => {
       }
     }
   });
-
-  // The five surface names double as the "prose registry": every surface with an arg-description
-  // map above also has its own ja prose builder — a missing one is a compile error (the surface
-  // file's build*HelpText imports it by name), so this is a lightweight sanity check that each
-  // actually produces non-empty ja text, not the primary completeness gate for prose.
-  it('every surface has a ja prose builder that renders non-empty text', async () => {
-    const { rootHelpJa, docsHelpJa, explainHelpJa, installHelpJa, ciHelpJa } =
-      await import('../src/gunshi/locales/ja.js');
-    expect(rootHelpJa('OPTIONS:')).toContain('svelte-vitals');
-    expect(docsHelpJa('OPTIONS:')).toContain('svelte-vitals docs');
-    expect(explainHelpJa('OPTIONS:')).toContain('svelte-vitals explain');
-    expect(installHelpJa('OPTIONS:')).toContain('svelte-vitals install');
-    expect(ciHelpJa('OPTIONS:', '.github/workflows/svelte-vitals.yml')).toContain('svelte-vitals ci');
-  });
 });

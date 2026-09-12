@@ -2,12 +2,11 @@ import { describe, it, expect } from 'vitest';
 import { type Config } from '../src/index.js';
 import {
   seoTitlePresence,
-  runRules,
-  summarize,
   classify,
-  formatConsoleReport,
   defaultConfig,
   defaultProject,
+  runRules,
+  summarize,
   type ResolvedHead
 } from '../src/internal.js';
 
@@ -64,27 +63,13 @@ describe('seo/title-presence title detection', () => {
   });
 });
 
-describe('summary + reporter', () => {
-  it('summarizes a mixed project', async () => {
+describe('summarize', () => {
+  it('counts a mixed project by classification', async () => {
     const { results } = await runRules([seoTitlePresence], {
       heads: [staticHead, dynamicHead, noneHead],
       project: defaultProject,
       config
     });
-    const summary = summarize(results, config);
-    expect(summary).toEqual({ critical: 1, warning: 0, info: 0, passed: 2, dynamic: 1 });
-  });
-
-  it('renders ✗ for missing and ↯ for dynamic', async () => {
-    const { results } = await runRules([seoTitlePresence], {
-      heads: [staticHead, dynamicHead, noneHead],
-      project: defaultProject,
-      config
-    });
-    const report = formatConsoleReport(results, config, { verbose: true });
-    expect(report).toContain('Critical (1)');
-    expect(report).toContain('✗ seo/title-presence  Missing <title>');
-    expect(report).toContain('↯ dynamic');
-    expect(report).toContain('/static');
+    expect(summarize(results, config)).toEqual({ critical: 1, warning: 0, info: 0, passed: 2, dynamic: 1 });
   });
 });

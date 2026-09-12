@@ -103,10 +103,20 @@ describe('resolveArgs', () => {
     expect(resolve('--diff', 'main').options?.diffBase).toBe('main');
   });
 
-  it('omits diffBase/staged when not passed', () => {
-    const { options } = resolve('--reporter', 'json');
+  it('leaves every optional field undefined when no flag is passed', () => {
+    const { options } = resolve();
     expect(options?.diffBase).toBeUndefined();
     expect(options?.staged).toBeUndefined();
+    expect(options?.updateSuppressions).toBeUndefined();
+    expect(options?.noSuppressions).toBeUndefined();
+    expect(options?.rules).toBeUndefined();
+    expect(options?.allowRules).toBeUndefined();
+    expect(options?.ignoreRules).toBeUndefined();
+    expect(options?.categories).toBeUndefined();
+    expect(options?.score).toBeUndefined();
+    expect(options?.verbose).toBeUndefined();
+    expect(options?.noColor).toBeUndefined();
+    expect(options?.noAnimation).toBeUndefined();
   });
 
   it('maps --baseline <ref> to options.baseline', () => {
@@ -146,12 +156,6 @@ describe('resolveArgs', () => {
     expect(errors).toEqual([]);
   });
 
-  it('omits updateSuppressions/noSuppressions when neither flag is passed', () => {
-    const { options } = resolve('--reporter', 'json');
-    expect(options?.updateSuppressions).toBeUndefined();
-    expect(options?.noSuppressions).toBeUndefined();
-  });
-
   it('reports --update-suppressions with --no-suppressions as a fatal error (no options)', () => {
     const { options, errors } = resolve('--update-suppressions', '--no-suppressions');
     expect(options).toBeNull();
@@ -179,13 +183,6 @@ describe('resolveArgs', () => {
     const options = resolve('--rules', 'seo/title-presence', '--ignore', 'seo/canonical-url').options;
     expect(options?.allowRules).toEqual(['seo/title-presence']);
     expect(options?.ignoreRules).toEqual(['seo/canonical-url']);
-  });
-
-  it('leaves every rule-selection field undefined when neither flag is passed', () => {
-    const options = resolve().options;
-    expect(options?.rules).toBeUndefined();
-    expect(options?.allowRules).toBeUndefined();
-    expect(options?.ignoreRules).toBeUndefined();
   });
 
   it('parses --weights into a per-category map, normalizing case', () => {
@@ -236,11 +233,6 @@ describe('resolveArgs', () => {
     expect(options?.categories).toEqual(['seo', 'security']);
   });
 
-  it('omits categories when --category is not passed', () => {
-    const { options } = resolve('--reporter', 'json');
-    expect(options?.categories).toBeUndefined();
-  });
-
   it('reports an unknown category in --category as a fatal error', () => {
     const { options, errors } = resolve('--category', 'bogus');
     expect(options).toBeNull();
@@ -258,11 +250,6 @@ describe('resolveArgs', () => {
     const { options, warnings } = resolve('--score');
     expect(options?.score).toBe(true);
     expect(warnings).toEqual([]);
-  });
-
-  it('omits score when --score is not passed', () => {
-    const { options } = resolve('--reporter', 'json');
-    expect(options?.score).toBeUndefined();
   });
 
   it('warns when --score is combined with --reporter', () => {
@@ -287,29 +274,14 @@ describe('resolveArgs', () => {
     expect(options?.verbose).toBe(true);
   });
 
-  it('verbose defaults to false (undefined) when not passed', () => {
-    const { options } = resolve();
-    expect(options?.verbose).toBeUndefined();
-  });
-
   it('threads --no-color into options.noColor', () => {
     const { options } = resolve('--no-color');
     expect(options?.noColor).toBe(true);
   });
 
-  it('noColor defaults to false (undefined) when --no-color is not passed', () => {
-    const { options } = resolve();
-    expect(options?.noColor).toBeUndefined();
-  });
-
   it('threads --no-animation into options.noAnimation', () => {
     const { options } = resolve('--no-animation');
     expect(options?.noAnimation).toBe(true);
-  });
-
-  it('noAnimation defaults to false (undefined) when --no-animation is not passed', () => {
-    const { options } = resolve();
-    expect(options?.noAnimation).toBeUndefined();
   });
 
   // parseArgs (strict:false) lets a declared string flag consume a following flag token

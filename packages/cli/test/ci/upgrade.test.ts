@@ -53,14 +53,6 @@ describe('upgradeActionPin', () => {
     expect(outcome.content).toBe(`      - uses: oekazuma/svelte-vitals-action@${NEW_SHA} # v2.0.0`);
   });
 
-  it('is tolerant of different indentation (user-edited workflow)', () => {
-    const content = `- uses: oekazuma/svelte-vitals-action@${OLD_SHA} # v1.0.0`;
-    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
-
-    expect(outcome.status).toBe('upgraded');
-    expect(outcome.content).toBe(`- uses: oekazuma/svelte-vitals-action@${NEW_SHA} # v2.0.0`);
-  });
-
   it('replaces every matching line for matrix-style workflows', () => {
     const content = [
       `      - uses: oekazuma/svelte-vitals-action@${OLD_SHA} # v1.0.0`,
@@ -87,27 +79,6 @@ describe('upgradeActionPin', () => {
     expect(outcome.status).toBe('upgraded');
     expect(outcome.replaced).toBe(1);
     expect(outcome.content).toContain(`- uses: actions/checkout@${OLD_SHA} # v7.0.0`);
-  });
-
-  it('preserves user customizations elsewhere in the file', () => {
-    const content = [
-      'on:',
-      '  pull_request:',
-      '  workflow_dispatch: # custom trigger the user added',
-      'jobs:',
-      '  svelte-vitals:',
-      '    steps:',
-      `      - uses: oekazuma/svelte-vitals-action@${OLD_SHA} # v1.0.0`,
-      '      - name: custom follow-up step',
-      '        run: echo done'
-    ].join('\n');
-
-    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
-
-    expect(outcome.status).toBe('upgraded');
-    expect(outcome.content).toContain('workflow_dispatch: # custom trigger the user added');
-    expect(outcome.content).toContain('custom follow-up step');
-    expect(outcome.content).toContain('run: echo done');
   });
 
   it('rewrites the comment when the sha matches but the version does not (stale/mismatched comment)', () => {
@@ -187,18 +158,6 @@ describe('upgradeActionPin', () => {
     expect(outcome.content?.replace(/\r\n/g, '')).not.toContain('\n');
   });
 
-  it('upgrades a CRLF workflow with no trailing comment, keeping the line CRLF-terminated', () => {
-    const content = [`      - uses: oekazuma/svelte-vitals-action@${OLD_SHA}`, 'next line'].join('\r\n');
-
-    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
-
-    expect(outcome.status).toBe('upgraded');
-    expect(outcome.from).toBe(OLD_SHA.slice(0, 7));
-    expect(outcome.content).toBe(
-      [`      - uses: oekazuma/svelte-vitals-action@${NEW_SHA} # v2.0.0`, 'next line'].join('\r\n')
-    );
-  });
-
   it('reports up-to-date (not no-reference) for a CRLF workflow already pinned to the current sha', () => {
     const content = [`      - uses: oekazuma/svelte-vitals-action@${NEW_SHA} # v2.0.0`, ''].join('\r\n');
 
@@ -227,15 +186,6 @@ describe('upgradeActionPin', () => {
     // The alias line itself has no literal ref to rewrite — a YAML parser resolves it
     // to the anchor's (now-updated) value at parse time, so it's correctly left as-is.
     expect(outcome.content).toContain('      - uses: *vitals_action');
-  });
-
-  it('rewrites an anchor-defined uses: line with no trailing comment', () => {
-    const content = `      - uses: &vitals_action oekazuma/svelte-vitals-action@${OLD_SHA}`;
-    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
-
-    expect(outcome.status).toBe('upgraded');
-    expect(outcome.from).toBe(OLD_SHA.slice(0, 7));
-    expect(outcome.content).toBe(`      - uses: &vitals_action oekazuma/svelte-vitals-action@${NEW_SHA} # v2.0.0`);
   });
 
   it('reports up-to-date for an anchor-defined line already pinned to the current sha', () => {

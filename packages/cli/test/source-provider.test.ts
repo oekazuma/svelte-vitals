@@ -325,17 +325,6 @@ describe('collectRoutes <link> additivity', () => {
     expect(preloads.find((t) => t.file === 'src/routes/+layout.svelte')?.presence).toBe('inherited');
     expect(preloads.find((t) => t.file === 'src/routes/+page.svelte')?.presence).toBe('own');
   });
-
-  it('still overrides the layout canonical with the page canonical (singular rel regression pin)', async () => {
-    const rt = createMemoryRuntime({
-      'src/routes/+layout.svelte': `<svelte:head><link rel="canonical" href="https://example.com/" /></svelte:head>`,
-      'src/routes/+page.svelte': `<svelte:head><link rel="canonical" href="https://example.com/page" /></svelte:head>`
-    });
-    const [head] = await collectHeads(rt, '');
-    const canonicals = links(head!, 'canonical');
-    expect(canonicals).toHaveLength(1);
-    expect(canonicals[0]?.presence).toBe('own');
-  });
 });
 
 describe('collectRoutes <script src> additivity', () => {

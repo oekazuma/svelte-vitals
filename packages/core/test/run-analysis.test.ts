@@ -41,17 +41,13 @@ describe('runAnalysis', () => {
     expect(results.map((r) => r.severity)).toEqual(['critical']);
   });
 
-  it('an empty directive index leaves results untouched', async () => {
-    const { results } = await runAnalysis([okRule], ctxFor(), new Map());
-    expect(results).toEqual([finding]);
-  });
-
-  it('an empty directive index leaves a penalized finding untouched too', async () => {
-    // The dev handle relies on this branch: penalized findings take the directive-lookup path.
+  it('an empty directive index leaves results untouched, penalized or not', async () => {
+    // An empty index returns before any per-result bookkeeping, so neither kind of finding
+    // reaches the directive lookup — the dev handle's per-request path relies on that.
     const penalized: Result = { ...finding, detection: { presence: 'none', value: 'absent' } };
     const failingRule: Rule = { ...okRule, check: async () => [penalized] };
-    const { results } = await runAnalysis([failingRule], ctxFor(), new Map());
-    expect(results).toEqual([penalized]);
+    expect((await runAnalysis([okRule], ctxFor(), new Map())).results).toEqual([finding]);
+    expect((await runAnalysis([failingRule], ctxFor(), new Map())).results).toEqual([penalized]);
   });
 
   it('turns a crashed rule off in the returned scoring config', async () => {

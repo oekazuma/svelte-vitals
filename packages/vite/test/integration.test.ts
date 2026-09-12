@@ -21,10 +21,11 @@ describe('svelteVitals plugin', () => {
   });
   afterAll(async () => rm(cwd, { recursive: true, force: true }));
 
-  it('is a build-only plugin named svelte-vitals', () => {
-    const p = svelteVitals({ cwd, ui: false }) as Plugin;
-    expect(p.name).toBe('svelte-vitals');
-    expect(p.apply).toBe('build');
+  it('is a single build-only plugin named svelte-vitals when ui is off', () => {
+    const p = svelteVitals({ cwd, ui: false });
+    expect(Array.isArray(p)).toBe(false);
+    expect((p as Plugin).name).toBe('svelte-vitals');
+    expect((p as Plugin).apply).toBe('build');
   });
 
   it('throws to fail the build when a critical finding exists (missing title on /)', async () => {

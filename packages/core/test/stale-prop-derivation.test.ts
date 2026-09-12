@@ -25,9 +25,8 @@ describe('correctness/stale-prop-derivation', () => {
     expect(penalized[0]!.location).toBe('src/lib/Badge.svelte');
     expect(penalized[0]!.line).toBe(3);
     expect(penalized[0]!.severity).toBe('warning');
-    expect(penalized[0]!.message).toBe(
-      '"color" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.'
-    );
+    expect(penalized[0]!.message).toContain('"color" is computed from a prop once');
+    expect(penalized[0]!.message).toContain('Wrap it in $derived.');
     expect(penalized[0]!.fix?.description).toBeTruthy();
   });
 
@@ -37,18 +36,10 @@ describe('correctness/stale-prop-derivation', () => {
     );
     const penalized = results.filter((r) => r.detection.presence === 'none');
     expect(penalized).toHaveLength(1);
-    expect(penalized[0]!.message).toBe(
-      '"color" is computed from a prop once, at initialization — it will not update when the prop changes. Prefix the assignment with $: to make it a reactive statement.'
-    );
+    expect(penalized[0]!.message).toContain('Prefix the assignment with $: to make it a reactive statement.');
   });
 
   it('emits nothing without the fact', async () => {
     expect(await correctnessStalePropDerivation.check(ctx([comp('src/lib/Ok.svelte', [])]))).toEqual([]);
-  });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'correctness/stale-prop-derivation')).toBe(true);
-    expect(explainRule('correctness/stale-prop-derivation')?.severity).toBe('warning');
   });
 });

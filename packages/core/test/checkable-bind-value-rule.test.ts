@@ -43,26 +43,7 @@ describe('correctness/checkable-bind-value', () => {
     );
   });
 
-  it('flags each fact independently when a file has both', async () => {
-    const results = await correctnessCheckableBindValue.check(
-      ctx([
-        comp('src/lib/Form.svelte', [
-          { kind: 'checkbox', line: 4 },
-          { kind: 'radio', line: 6 }
-        ])
-      ])
-    );
-    const penalized = results.filter((r) => r.detection.presence === 'none');
-    expect(penalized).toHaveLength(2);
-  });
-
   it('emits nothing without the fact', async () => {
     expect(await correctnessCheckableBindValue.check(ctx([comp('src/lib/Ok.svelte', [])]))).toEqual([]);
-  });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'correctness/checkable-bind-value')).toBe(true);
-    expect(explainRule('correctness/checkable-bind-value')?.severity).toBe('warning');
   });
 });

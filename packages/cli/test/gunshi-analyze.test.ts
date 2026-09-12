@@ -7,8 +7,6 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { cli } from 'gunshi/bone';
-import { define } from 'gunshi/definition';
 import { runCli } from '../src/cli.js';
 import { shadowParseDiffAndBaseline } from '../src/gunshi/analyze.js';
 import { captureIO } from './helpers/capture-io.js';
@@ -35,22 +33,6 @@ afterEach(() => {
     const dir = dirs.pop();
     if (dir) rmSync(dir, { recursive: true, force: true });
   }
-});
-
-describe('root analyzer: single bone entry, no subCommands map', () => {
-  it('ctx.commandPath is always [] and ctx.positionals needs no slicing (mirrors explain.ts, not docs.ts)', async () => {
-    let captured: { positionals: string[]; commandPath: string[] } | undefined;
-    const cmd = define({
-      name: 'probe',
-      args: {},
-      run: (ctx) => {
-        captured = { positionals: ctx.positionals, commandPath: ctx.commandPath };
-      }
-    });
-    await cli(['./apps/web'], cmd, { name: 'probe' });
-    expect(captured?.commandPath).toEqual([]);
-    expect(captured?.positionals).toEqual(['./apps/web']);
-  });
 });
 
 // did-you-mean addendum (design doc): a mistyped sub-command name falls through to the root
@@ -194,18 +176,6 @@ describe('-- terminator: everything after it is a literal positional, never a fl
   });
 });
 
-describe('--score --score=false: last-wins through the real dispatch path', () => {
-  it('a trailing =false turns --score off (falls through to the normal reporter path)', async () => {
-    const dir = tmpProjectDir();
-    const { code, err } = await run([dir, '--score', '--score=false']);
-    // --score off means no "--score overrides --reporter" warning path is even reachable here;
-    // the run still fails on project detection, proving --score itself did not stay on (a
-    // literal score run prints only a number, never this message).
-    expect(code).toBe(2);
-    expect(err).toContain('No SvelteKit project found');
-  });
-});
-
 // Truth table for every 2-token last-wins shape, run against a real project (unitEntryFixtureDir)
 // instead of an invalid dir: ProjectError fires before opts.score is ever read, so an invalid-dir
 // run can't distinguish --score being on from off (both hit the same "No SvelteKit project found"
@@ -221,12 +191,6 @@ describe('boolean last-wins truth table (--score): every =<value> spelling count
 
   it('--score=false --score=true: the trailing =true wins, on (a bare Health-score number)', async () => {
     const { code, out } = await run([unitEntryFixtureDir, '--score=false', '--score=true']);
-    expect(code).toBe(1);
-    expect(out).toMatch(/^\d+$/);
-  });
-
-  it('--score=false --score: the trailing bare flag wins, on (a bare Health-score number)', async () => {
-    const { code, out } = await run([unitEntryFixtureDir, '--score=false', '--score']);
     expect(code).toBe(1);
     expect(out).toMatch(/^\d+$/);
   });

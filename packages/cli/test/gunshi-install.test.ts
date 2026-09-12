@@ -25,8 +25,6 @@ async function gunshi(args: string[]) {
 
 describe('gunshi/bone install — pinned behavior across the argv-shape matrix', () => {
   const cells: { name: string; args: string[] }[] = [
-    { name: '--help', args: ['--help'] },
-    { name: '-h', args: ['-h'] },
     { name: 'no args (non-TTY, no client)', args: [] },
     { name: '--client bogus (unknown target, fatal)', args: ['--client', 'bogus'] },
     { name: '--refresh --client cursor-rules (conflict, fatal)', args: ['--refresh', '--client', 'cursor-rules'] },

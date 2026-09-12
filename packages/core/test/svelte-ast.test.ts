@@ -8,7 +8,6 @@ import {
   attrValue,
   lineOf,
   findAttr,
-  attrValueOf,
   attrTextOf
 } from '../src/svelte-ast.js';
 
@@ -108,12 +107,7 @@ describe('attrValue', () => {
   });
 });
 
-describe('attrValueOf / attrTextOf', () => {
-  it('attrValueOf mirrors attrValue for a single attribute node', () => {
-    expect(attrValueOf(attr('x', exprTag()))).toBe('dynamic');
-    expect(attrValueOf(attr('x', [text('hi')]))).toBe('static');
-    expect(attrValueOf(attr('x', true))).toBe('absent');
-  });
+describe('attrTextOf', () => {
   it('attrTextOf returns the literal text or undefined if dynamic/absent', () => {
     expect(attrTextOf(attr('x', [text('hi')]))).toBe('hi');
     expect(attrTextOf(attr('x', [exprTag()]))).toBeUndefined();

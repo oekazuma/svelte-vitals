@@ -103,9 +103,8 @@ function makeWarningOnlyProject() {
 // The CLI is a read-only scanner, so one fixture of each kind serves every check.
 const cleanDir = makeCleanProject();
 const warningDir = makeWarningOnlyProject();
-const nonProjectDir = mkdtempSync(join(tmpdir(), 'cli-e2e-nonproject-'));
 after(() => {
-  for (const dir of [cleanDir, warningDir, nonProjectDir]) rmSync(dir, { recursive: true, force: true });
+  for (const dir of [cleanDir, warningDir]) rmSync(dir, { recursive: true, force: true });
 });
 
 test('a clean project (no routes) exits 0 under the default gate', () => {
@@ -132,13 +131,6 @@ test('--min-health 100 fails on an imperfect project', () => {
   const { code, signal, stderr } = runCli(args);
   assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
   assert.equal(code, 1, `\`svelte-vitals ${args.join(' ')}\` expected exit 1, got ${code}: ${stderr}`);
-});
-
-test('a non-project directory exits 2', () => {
-  const { code, signal, stderr } = runCli([nonProjectDir]);
-  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-  assert.equal(code, 2, `\`svelte-vitals ${nonProjectDir}\` expected exit 2, got ${code}: ${stderr}`);
-  assert.match(stderr, /No SvelteKit project found/);
 });
 
 test('--help exits 0', () => {

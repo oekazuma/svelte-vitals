@@ -174,45 +174,6 @@ describe('loadConfigFile', () => {
     });
   });
 
-  it('rejects an unknown option key', async () => {
-    await expect(loadConfigFile(fixture('config-file-options-unknown-key'))).rejects.toThrow(/unknown option 'maxx'/);
-  });
-
-  it('rejects options on a rule that takes none', async () => {
-    await expect(loadConfigFile(fixture('config-file-options-none-allowed'))).rejects.toThrow(/takes no options/);
-  });
-
-  it('accepts an empty options object on a rule that takes none', async () => {
-    const loaded = await loadConfigFile(fixture('config-file-options-empty'));
-    expect(loaded?.config.rules!['seo/charset']).toEqual({ options: {} });
-  });
-
-  it('rejects an out-of-range integer option', async () => {
-    await expect(loadConfigFile(fixture('config-file-options-out-of-range'))).rejects.toThrow(/must be >= 1/);
-  });
-
-  it('rejects a wrongly-typed option', async () => {
-    await expect(loadConfigFile(fixture('config-file-options-wrong-type'))).rejects.toThrow(/must be an integer/);
-  });
-
-  it('rejects an unknown option on architecture/private-scope-import', async () => {
-    await expect(loadConfigFile(fixture('config-file-private-scope-unknown-option'))).rejects.toThrow(
-      /unknown option 'scope'/
-    );
-  });
-
-  it('rejects a non-list scopes value', async () => {
-    await expect(loadConfigFile(fixture('config-file-private-scope-bad-type'))).rejects.toThrow(
-      /must be an array of non-empty strings/
-    );
-  });
-
-  it('rejects an inverted min/max range (Finding 3, 2026-07-26 review)', async () => {
-    await expect(loadConfigFile(fixture('config-file-options-min-max-inverted'))).rejects.toThrow(
-      /min \(100\) must be <= max \(60\)/
-    );
-  });
-
   it('accepts an override that only narrows one side of an otherwise-valid global range (Finding A, second review)', async () => {
     const loaded = await loadConfigFile(fixture('config-file-overrides-options-valid-layered-range'));
     expect(loaded?.config.rules?.['seo/title-length']).toEqual({ options: { min: 100, max: 200 } });

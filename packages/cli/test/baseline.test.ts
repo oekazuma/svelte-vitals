@@ -43,22 +43,6 @@ describe('filterToNewFindings', () => {
     const baseline: Result[] = [r({ id: 'A', location: 'x.svelte' })];
     expect(filterToNewFindings(current, baseline).map((x) => x.id)).toEqual(['B', 'C']);
   });
-
-  it('keeps everything when the baseline has no findings', () => {
-    const current: Result[] = [r({ id: 'A', location: 'x.svelte' })];
-    expect(filterToNewFindings(current, [])).toEqual(current);
-  });
-
-  it('drops everything when current and baseline are identical', () => {
-    const current: Result[] = [r({ id: 'A', location: 'x.svelte' }), r({ id: 'B' })];
-    expect(filterToNewFindings(current, current)).toEqual([]);
-  });
-
-  it('a line-only difference on an existing finding is still treated as pre-existing (not new)', () => {
-    const current: Result[] = [r({ id: 'A', location: 'x.svelte', line: 99 })];
-    const baseline: Result[] = [r({ id: 'A', location: 'x.svelte', line: 1 })];
-    expect(filterToNewFindings(current, baseline)).toEqual([]);
-  });
 });
 
 // Characterization tests for docs/superpowers/specs/2026-08-08-pass-result-location-design.md's

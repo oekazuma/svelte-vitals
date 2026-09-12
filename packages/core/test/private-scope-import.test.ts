@@ -4,6 +4,7 @@ import { routeGlobToRegExp } from '../src/config-apply.js';
 import { architecturePrivateScopeImport } from '../src/internal.js';
 import { applyOverrides } from '../src/config-apply.js';
 import { defineConfig, defaultProject } from '../src/types.js';
+import { emptyComponentFacts } from '../src/component.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';
@@ -45,29 +46,8 @@ describe('routeGlobToRegExp (exported for private-scope-import)', () => {
 const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
-  file: 'src/lib/C.svelte',
-  eachBlocks: [],
-  effects: [],
-  htmlTags: [],
-  javascriptUrls: [],
+  ...emptyComponentFacts('src/lib/C.svelte'),
   loc: 10,
-  propCount: 0,
-  imports: [],
-  importSpans: [],
-  namespaceImports: [],
-  constableStates: [],
-  mutatedProps: [],
-  stalePropDerivations: [],
-  rawableStates: [],
-  nonreactiveBuiltinStates: [],
-  checkableBindValues: [],
-  basePathLinks: [],
-  orphanEffects: [],
-  orphanLifecycleCalls: [],
-  browserGlobalRefs: [],
-  moduleStateDecls: [],
-  suppressions: [],
-  commentLinks: [],
   ...over
 });
 
@@ -232,16 +212,6 @@ describe('architecture/private-scope-import', () => {
     const rs = await architecturePrivateScopeImport.check(scoped([c], ['parts']));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
-  });
-
-  it('flags a type-only import the same as a value import (the coupling survives even though the import is erased at build)', async () => {
-    const c = comp({
-      file: 'src/lib/Other/Other.svelte',
-      importSpans: [{ source: '../Card/parts/types.js', line: 3 }]
-    });
-    const rs = await architecturePrivateScopeImport.check(scoped([c], SCOPES));
-    expect(fails(rs)).toHaveLength(1);
-    expect(rs[0]!.message).toContain('src/lib/Card/parts/types.js');
   });
 
   describe('inline suppression', () => {

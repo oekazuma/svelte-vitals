@@ -32,17 +32,6 @@ const results: Result[] = [
 ];
 
 describe('formatConsoleReport', () => {
-  it('shows a combined Health headline above the category scores', () => {
-    const out = formatConsoleReport(results, config);
-    expect(out).toMatch(/Health: \d+\/100/);
-    expect(out).toMatch(/SEO Score: \d+\/100/); // per-category line still present
-  });
-  it('shows a score header and groups findings', () => {
-    const out = formatConsoleReport(results, config);
-    expect(out).toMatch(/SEO Score: \d+\/100/);
-    expect(out).toContain('Critical (1)');
-    expect(out).toContain('Missing <meta name="description">');
-  });
   it('renders a per-route tree under --by-route', () => {
     const out = formatConsoleReport(results, config, { byRoute: true });
     expect(out).toContain('By route');
@@ -171,41 +160,6 @@ describe('formatConsoleReport', () => {
     expect(out).toMatch(/Performance Score: \d+\/100/);
     expect(out).toContain('performance/image-dimensions');
     expect(out).toContain('src/routes/blog/+page.svelte:42');
-  });
-
-  it('adds a Correctness score section when correctness findings exist', () => {
-    const withCorrect: Result[] = [
-      ...results,
-      {
-        id: 'correctness/each-key',
-        category: 'correctness',
-        severity: 'warning',
-        detection: { presence: 'none', value: 'absent' },
-        route: 'src/lib/List.svelte',
-        location: 'src/lib/List.svelte',
-        line: 5,
-        message: '{#each} block has no key'
-      }
-    ];
-    const out = formatConsoleReport(withCorrect, config);
-    expect(out).toMatch(/Correctness Score: \d+\/100/);
-    expect(out).toContain('correctness/each-key');
-  });
-
-  it('renders an Accessibility section for a11y findings', () => {
-    const withA11y: Result[] = [
-      ...results,
-      {
-        id: 'a11y/duplicate-landmark',
-        category: 'a11y',
-        severity: 'warning',
-        detection: { presence: 'none', value: 'absent' },
-        route: '/',
-        message: 'Duplicate <main> landmark'
-      }
-    ];
-    const out = formatConsoleReport(withA11y, config);
-    expect(out).toContain('Accessibility');
   });
 
   it('collapses a rule that fires on multiple routes into one group with an "…and N more" line', () => {
@@ -354,12 +308,19 @@ describe('formatConsoleReport', () => {
     expect(verbose).toContain('↯ = set dynamically (verified at runtime).');
   });
 
-  it('omitHeader:true skips the brand/Health lines but still prints category score lines', () => {
-    const out = formatConsoleReport(results, config, { omitHeader: true });
-    expect(out).not.toContain('Svelte Vitals');
-    expect(out).not.toContain('Health:');
-    expect(out).toContain('SEO Score:');
-    expect(out).toContain('Critical (1)'); // body content still present
+  it('prints the brand/Health header by default and omits only that under omitHeader:true', () => {
+    const out = formatConsoleReport(results, config);
+    expect(out).toContain('Svelte Vitals');
+    expect(out).toMatch(/Health: \d+\/100/);
+    expect(out).toMatch(/SEO Score: \d+\/100/);
+    expect(out).toContain('Critical (1)');
+    expect(out).toContain('Missing <meta name="description">');
+
+    const bare = formatConsoleReport(results, config, { omitHeader: true });
+    expect(bare).not.toContain('Svelte Vitals');
+    expect(bare).not.toContain('Health:');
+    expect(bare).toContain('SEO Score:');
+    expect(bare).toContain('Critical (1)'); // body content still present
   });
 
   it('strips ANSI escapes and C0 control characters from analyzed-derived route/message text', () => {
@@ -383,11 +344,5 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('/evil');
     expect(out).toContain('Missing title');
     expect(out).toContain('fake red');
-  });
-
-  it('omitHeader is false by default — header still prints', () => {
-    const out = formatConsoleReport(results, config);
-    expect(out).toContain('Svelte Vitals');
-    expect(out).toContain('Health:');
   });
 });

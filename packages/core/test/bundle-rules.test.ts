@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { performanceHeavyImport, performanceNamespaceImport } from '../src/internal.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
+import { emptyComponentFacts } from '../src/component.js';
 import type { ComponentFacts, SuppressionDirective } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 import { parseComponentFacts } from '../src/component-parse.js';
@@ -13,29 +14,11 @@ const comp = (
   importSpans: ComponentFacts['importSpans'],
   suppressions: SuppressionDirective[] = []
 ): ComponentFacts => ({
-  file: 'src/lib/C.svelte',
-  eachBlocks: [],
-  effects: [],
-  htmlTags: [],
-  javascriptUrls: [],
+  ...emptyComponentFacts('src/lib/C.svelte'),
   loc: 10,
-  propCount: 0,
   imports: importSpans.map((s) => s.source),
   importSpans,
-  namespaceImports: [],
-  constableStates: [],
-  mutatedProps: [],
-  stalePropDerivations: [],
-  rawableStates: [],
-  nonreactiveBuiltinStates: [],
-  checkableBindValues: [],
-  basePathLinks: [],
-  orphanEffects: [],
-  orphanLifecycleCalls: [],
-  browserGlobalRefs: [],
-  moduleStateDecls: [],
-  suppressions,
-  commentLinks: []
+  suppressions
 });
 
 describe('performance/heavy-import heavy dependency import', () => {

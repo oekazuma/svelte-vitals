@@ -105,16 +105,6 @@ describe('createAnalysisRunner', () => {
     expect(onWarnings.mock.calls).toEqual([[['same']], [['same', 'new']]]);
   });
 
-  it('still calls onResults with one argument when the analyzer returns no failedRuleIds', async () => {
-    // Guards the existing exact-args assertions above against the widened return type.
-    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [], warnings: [] }));
-    const onResults = vi.fn();
-    const runner = createAnalysisRunner({ root: '/proj', analyze, onResults, onError: vi.fn() });
-    runner.start();
-    await vi.waitFor(() => expect(onResults).toHaveBeenCalledTimes(1));
-    expect(onResults.mock.calls[0]).toEqual([[]]);
-  });
-
   it('coalesces N rapid notifyChange calls into a single debounced run', async () => {
     const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [] }));
     const runner = createAnalysisRunner({

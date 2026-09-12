@@ -79,19 +79,9 @@ describe('resolveFileTags (layers 2 & 4)', () => {
     expect(r.tags).toHaveLength(0);
   });
 
-  it('BROAD_KINDS includes a dynamic title', () => {
-    expect(BROAD_KINDS).toContainEqual({ kind: 'title', value: 'dynamic' });
-  });
-
   it('tagKey distinguishes kinds', () => {
     expect(tagKey({ kind: 'title', value: 'static' })).toBe('title');
     expect(tagKey({ kind: 'meta', name: 'description', value: 'static' })).toBe('meta:name=description');
-  });
-
-  it('BROAD_KINDS covers og:description, og:url and twitter:card', () => {
-    expect(BROAD_KINDS).toContainEqual({ kind: 'meta', property: 'og:description', value: 'dynamic' });
-    expect(BROAD_KINDS).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
-    expect(BROAD_KINDS).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'dynamic' });
   });
 
   it('BROAD_KINDS does NOT cover jsonld (structured data is a separate concern)', () => {

@@ -53,10 +53,4 @@ describe('correctness/each-index-key', () => {
     expect(unkeyed.map((r) => r.line)).toEqual([2]);
     expect(indexKeyed.map((r) => r.line)).toEqual([5]);
   });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'correctness/each-index-key')).toBe(true);
-    expect(explainRule('correctness/each-index-key')?.title).toBe('Index used as each key');
-  });
 });

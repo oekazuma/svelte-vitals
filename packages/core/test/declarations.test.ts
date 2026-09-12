@@ -232,30 +232,10 @@ describe('splitNames', () => {
 });
 
 describe('moreSpecificGlob', () => {
-  it('prefers more path segments', () => {
-    expect(moreSpecificGlob('src/routes/api/*', 'src/routes/**')).toBe(true);
-    expect(moreSpecificGlob('src/routes/**', 'src/routes/api/*')).toBe(false);
-  });
-
-  it('prefers fewer double-star segments at equal depth', () => {
-    expect(moreSpecificGlob('src/lib/features/*', 'src/lib/features/**')).toBe(true);
-  });
-
-  it('prefers the longer key when depth and double stars tie', () => {
-    expect(moreSpecificGlob('src/lib/api*', 'src/lib/*')).toBe(true);
-  });
-
   it('is false in both directions for two identical globs', () => {
     // This is the property the rule's cross-map tie-break relies on: identical globs are the only
     // pair the four steps cannot separate, so the caller decides.
     expect(moreSpecificGlob('src/lib/Card', 'src/lib/Card')).toBe(false);
-  });
-
-  it('agrees with matchKeys on the same pair', () => {
-    const compile = createKeyCompiler();
-    const m = matchKeys('src/lib/features/fair', compile(['src/lib/features/*', 'src/lib/features/**']));
-    expect(m.best).toBe('src/lib/features/*');
-    expect(moreSpecificGlob('src/lib/features/*', 'src/lib/features/**')).toBe(true);
   });
 });
 

@@ -98,11 +98,6 @@ describe('runRules examined counts', () => {
     const { examined } = await runRules([ruleThatCounts('a/one', { g: 1 }), ruleThatCounts('a/two', { g: 2 })], ctx);
     expect(examined).toEqual({ 'a/one': { g: 1 }, 'a/two': { g: 2 } });
   });
-
-  it('still returns the results', async () => {
-    const { results } = await runRules([ruleThatDoesNot('a/two')], ctx);
-    expect(results).toEqual([]);
-  });
 });
 
 // Issue #387: reserved-name-placement already reported examined counts; the three glob-configured
@@ -160,11 +155,6 @@ describe('runRules — a throwing rule is isolated', () => {
     expect(failedRules).toEqual([{ id: 'a/boom', message: 'kaboom' }]);
   });
 
-  it('reports the failed rule’s id and message in failedRules', async () => {
-    const { failedRules } = await runRules([ruleThatThrows('a/boom', 'kaboom')], ctx);
-    expect(failedRules).toEqual([{ id: 'a/boom', message: 'kaboom' }]);
-  });
-
   it('keeps a healthy rule’s examined counts when a sibling throws', async () => {
     const { examined, failedRules } = await runRules(
       [ruleThatCounts('a/fine', { g: 1 }), ruleThatThrows('a/boom', 'kaboom')],
@@ -178,11 +168,6 @@ describe('runRules — a throwing rule is isolated', () => {
     const { results, failedRules } = await runRules([ruleThatThrows('a/sync-boom', 'sync kaboom', 'sync')], ctx);
     expect(results).toEqual([]);
     expect(failedRules).toEqual([{ id: 'a/sync-boom', message: 'sync kaboom' }]);
-  });
-
-  it('isolates a rule that rejects its promise (the default async throw)', async () => {
-    const { failedRules } = await runRules([ruleThatThrows('a/async-boom', 'async kaboom', 'async')], ctx);
-    expect(failedRules).toEqual([{ id: 'a/async-boom', message: 'async kaboom' }]);
   });
 
   it('gives failedRules an empty array when nothing failed', async () => {

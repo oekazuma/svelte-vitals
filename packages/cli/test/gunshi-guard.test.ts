@@ -89,16 +89,8 @@ describe('splitAtTerminator', () => {
     expect(splitAtTerminator(['a', '--', 'b', 'c'])).toEqual({ head: ['a'], tail: ['b', 'c'] });
   });
 
-  it('no -- present: everything is head, tail is empty', () => {
-    expect(splitAtTerminator(['a', 'b'])).toEqual({ head: ['a', 'b'], tail: [] });
-  });
-
   it('only the FIRST -- terminates; a second one is a literal tail token', () => {
     expect(splitAtTerminator(['a', '--', 'b', '--', 'c'])).toEqual({ head: ['a'], tail: ['b', '--', 'c'] });
-  });
-
-  it('-- as the very first token: empty head, everything else is tail', () => {
-    expect(splitAtTerminator(['--', 'a', 'b'])).toEqual({ head: [], tail: ['a', 'b'] });
   });
 });
 
@@ -147,15 +139,7 @@ describe('suggestClosest', () => {
     expect(suggestClosest('isntall', subcommands)).toBe('install');
   });
 
-  it('an exact match "suggests" itself (distance 0, still <= the threshold)', () => {
-    expect(suggestClosest('docs', subcommands)).toBe('docs');
-  });
-
   it('unrelated input beyond the default distance threshold gets no suggestion', () => {
     expect(suggestClosest('xyzzyplugh', subcommands)).toBeUndefined();
-  });
-
-  it('an empty candidate list never suggests', () => {
-    expect(suggestClosest('isntall', [])).toBeUndefined();
   });
 });

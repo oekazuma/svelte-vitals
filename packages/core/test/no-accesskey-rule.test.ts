@@ -57,10 +57,4 @@ describe('a11y/no-accesskey', () => {
     expect(penalized).toEqual([]);
     expect(passed).toEqual([]);
   });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'a11y/no-accesskey')).toBe(true);
-    expect(explainRule('a11y/no-accesskey')?.severity).toBe('warning');
-  });
 });

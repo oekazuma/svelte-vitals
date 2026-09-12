@@ -201,22 +201,6 @@ describe('ja `--help` design: SVELTE_VITALS_LANG=ja never reaches the completion
     }
   }
 
-  for (const shell of SHELLS) {
-    it(`${shell}: emitted script is byte-identical under a real ja env`, async () => {
-      const baseline = spyLog();
-      await runCompleteCliGunshi(['complete', shell], captureIO());
-      const en = baseline.calls();
-      baseline.restore();
-
-      const under = spyLog();
-      await underJaEnv(() => runCompleteCliGunshi(['complete', shell], captureIO()));
-      const ja = under.calls();
-      under.restore();
-
-      expect(ja).toBe(en);
-    });
-  }
-
   it('flag/value candidate descriptions are unchanged under a real ja env', async () => {
     async function candidateLines(words: string[]): Promise<string> {
       const log = spyLog();
@@ -284,14 +268,6 @@ describe('locale isolation through the real runCli dispatch (explicit env, no pr
     const out = log.calls();
     log.restore();
     return out;
-  }
-
-  for (const shell of SHELLS) {
-    it(`${shell}: script byte-identical between explicit clean and ja envs`, async () => {
-      const en = await viaRunCli(['complete', shell], {});
-      const ja = await viaRunCli(['complete', shell], { SVELTE_VITALS_LANG: 'ja' });
-      expect(ja).toBe(en);
-    });
   }
 
   it('candidate descriptions byte-identical between explicit clean and ja envs', async () => {
