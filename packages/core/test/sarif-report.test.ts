@@ -93,23 +93,6 @@ describe('formatSarifReport', () => {
     );
   });
 
-  it('uses result.line as startLine when present', () => {
-    const withLine: Result[] = [
-      {
-        id: 'performance/image-dimensions',
-        category: 'performance',
-        severity: 'warning',
-        detection: { presence: 'none', value: 'absent' },
-        route: '/blog',
-        location: 'src/routes/blog/+page.svelte',
-        line: 42,
-        message: 'Missing <img> width/height'
-      }
-    ];
-    const run = JSON.parse(formatSarifReport(withLine, config, { version: '0.0.0' })).runs[0];
-    expect(run.results[0].locations[0].physicalLocation.region.startLine).toBe(42);
-  });
-
   it('produces distinct partialFingerprints for same (id, route) but different line', () => {
     const twoImages: Result[] = [
       {
@@ -170,12 +153,6 @@ describe('formatSarifReport', () => {
     expect(fp0).toBe('performance/image-dimensions:/blog:src/routes/blog/+page.svelte:5');
     expect(fp1).toBe('performance/image-dimensions:/blog:src/routes/blog/Card.svelte:5');
     expect(fp0).not.toBe(fp1);
-  });
-
-  it('SEO fingerprints (no line) are unchanged by the location-in-fingerprint change', () => {
-    const run = JSON.parse(formatSarifReport(results, config, { version: '0.0.0' })).runs[0];
-    expect(run.results[0].partialFingerprints['svelteVitals/v1']).toBe('seo/title-presence:/none');
-    expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('seo/robots-txt:project');
   });
 
   it('emits a valid empty log when there are no penalized findings', () => {

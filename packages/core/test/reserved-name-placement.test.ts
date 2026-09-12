@@ -622,33 +622,27 @@ describe('architecture/reserved-name-placement', () => {
     expect(Object.keys(examined).filter((k) => k.startsWith('placements.'))).toEqual([]);
   });
 
-  it('reports no counts at all on a run with no file inventory', async () => {
-    const config = defineConfig({ rules: { [ID]: { options: { capitalisedUnitPlacements: { parts: 'src/**' } } } } });
+  // The two guards are separate: `sourceFiles === undefined` exits first, `isMentionedAnywhere`
+  // exits earlier still when no config layer names this rule even though a file inventory exists.
+  // Both must leave `recordExamined` uncalled, or an unconfigured project would gain an
+  // `"architecture/reserved-name-placement": {}` entry in every report — exactly the "absent for
+  // rules that count nothing" property the design relies on.
+  it('reports no counts at all without a file inventory, and none when no config layer mentions the rule', async () => {
     const seen: Record<string, number>[] = [];
+    const recordExamined = (c: Record<string, number>) => void seen.push(c);
     await architectureReservedNamePlacement.check({
       sourceFiles: undefined,
       heads: [],
       project: defaultProject,
-      config,
-      recordExamined: (c: Record<string, number>) => void seen.push(c)
+      config: defineConfig({ rules: { [ID]: { options: { capitalisedUnitPlacements: { parts: 'src/**' } } } } }),
+      recordExamined
     });
-    expect(seen).toEqual([]);
-  });
-
-  // Companion to the test above: that one exits on the `sourceFiles === undefined` guard. This one
-  // exits on the earlier `isMentionedAnywhere` guard instead — no config layer names this rule at
-  // all, even though a file inventory exists. Both must leave `recordExamined` uncalled, or an
-  // unconfigured project would gain an `"architecture/reserved-name-placement": {}` entry in every
-  // report, which is exactly the "absent for rules that count nothing" property the design relies on.
-  it('reports no counts at all when no config layer mentions the rule', async () => {
-    const config = defineConfig({});
-    const seen: Record<string, number>[] = [];
     await architectureReservedNamePlacement.check({
       sourceFiles: ['src/lib/e2e/a.ts'],
       heads: [],
       project: defaultProject,
-      config,
-      recordExamined: (c: Record<string, number>) => void seen.push(c)
+      config: defineConfig({}),
+      recordExamined
     });
     expect(seen).toEqual([]);
   });

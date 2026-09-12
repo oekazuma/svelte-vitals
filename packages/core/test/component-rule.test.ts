@@ -1,39 +1,17 @@
 import { describe, it, expect } from 'vitest';
 import { componentRule } from '../src/rules/component-rule.js';
 import { applyOverrides } from '../src/config-apply.js';
-import { defineConfig, defaultProject } from '../src/types.js';
-import type { ComponentFacts } from '../src/component.js';
+import { defineConfig, defaultProject, type Result } from '../src/types.js';
+import { emptyComponentFacts, type ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
-const fails = (rs: { detection: { presence: string; value: string } }[]) =>
-  rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
+const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
-  file: 'src/lib/C.svelte',
-  eachBlocks: [],
-  effects: [],
-  htmlTags: [],
-  javascriptUrls: [],
+  ...emptyComponentFacts('src/lib/C.svelte'),
   loc: 10,
-  propCount: 0,
-  imports: [],
-  importSpans: [],
-  namespaceImports: [],
-  constableStates: [],
-  mutatedProps: [],
-  stalePropDerivations: [],
-  rawableStates: [],
-  nonreactiveBuiltinStates: [],
-  checkableBindValues: [],
-  basePathLinks: [],
-  orphanEffects: [],
-  orphanLifecycleCalls: [],
-  browserGlobalRefs: [],
-  moduleStateDecls: [],
-  suppressions: [],
-  commentLinks: [],
   ...over
 });
 
@@ -75,6 +53,27 @@ describe('componentRule — inline suppression directives (issue #92)', () => {
   it('a suppressed-to-PASS result carries the same location a penalized result on this file would', async () => {
     const rs = await fakeRule.check(ctx([comp({ suppressions: [{ line: 5, ruleIds: ['FAKE001'] }] })]));
     expect(rs[0]!.location).toBe('src/lib/C.svelte');
+  });
+});
+
+const multiRule = componentRule({
+  id: 'MULTI001',
+  title: 'Multi rule',
+  category: 'correctness',
+  label: 'Multi check',
+  recommendation: 'n/a',
+  rationale: 'n/a',
+  applies: () => true,
+  bad: () => [
+    { line: 3, message: 'first violation' },
+    { line: 9, message: 'second violation' }
+  ]
+});
+
+describe('componentRule — one finding per bad occurrence', () => {
+  it('emits a finding per issue, each at its own line', async () => {
+    const rs = await multiRule.check(ctx([comp({})]));
+    expect(fails(rs).map((r) => r.line)).toEqual([3, 9]);
   });
 });
 

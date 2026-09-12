@@ -44,7 +44,10 @@ const run = (results: Result[], idx: DirectiveIndex) => applyInlineDirectives(re
 
 describe('applyInlineDirectives', () => {
   it('silences a matching finding and turns the rule+route into a PASS', () => {
-    const out = run([bad({})], index({ 'src/lib/Card.svelte': [{ line: 3, ruleIds: ['a11y/id-duplication'] }] }));
+    const out = run(
+      [bad({ fix: { description: 'do the thing' } })],
+      index({ 'src/lib/Card.svelte': [{ line: 3, ruleIds: ['a11y/id-duplication'] }] })
+    );
     expect(out).toEqual([
       {
         id: 'a11y/id-duplication',
@@ -111,13 +114,6 @@ describe('applyInlineDirectives', () => {
   it('falls back to the rule title when the rule declares no pass label', () => {
     const out = run([bad({ id: 'seo/single-h1' })], index({ 'src/lib/Card.svelte': [{ line: 3 }] }));
     expect(out[0]!.message).toBe('Single h1');
-  });
-
-  it('drops the defect message, line and fix from the PASS it builds', () => {
-    const out = run([bad({ fix: { description: 'do the thing' } })], index({ 'src/lib/Card.svelte': [{ line: 3 }] }));
-    expect(out[0]!.message).toBe('label for a11y/id-duplication');
-    expect(out[0]!.line).toBeUndefined();
-    expect(out[0]!.fix).toBeUndefined();
   });
 });
 

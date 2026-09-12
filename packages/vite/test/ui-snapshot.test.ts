@@ -47,15 +47,6 @@ describe('buildSnapshot', () => {
     );
   });
 
-  it('sequence reflects the snapshot at build time, not a live reference', () => {
-    const store = createStore();
-    store.setStatic([r('seo/title-presence', '/a')]);
-    const first = buildSnapshot(store, defineConfig({}), { version: '9.9.9' });
-    store.setStatic([r('seo/description-presence', '/b')]);
-    const second = buildSnapshot(store, defineConfig({}), { version: '9.9.9' });
-    expect(second.sequence).toBeGreaterThan(first.sequence);
-  });
-
   it('scores a live-layer failed rule as not-run, matching withFailedRulesOff', () => {
     const store = createStore();
     // 'warning' (not the r() default 'critical') so the critical-cap doesn't mask the

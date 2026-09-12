@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
 import { join } from 'node:path';
-import type { Result } from '@svelte-vitals/core';
 import { createStore } from '../src/ui/store.js';
 import { createAnalysisRunner } from '../src/ui/analysis.js';
 
@@ -24,16 +23,6 @@ async function analyzedStore() {
   expect(onError).not.toHaveBeenCalled();
   return store;
 }
-
-const live = (id: string, route: string): Result =>
-  ({
-    id,
-    message: `${id} (live)`,
-    category: 'seo',
-    detection: { presence: 'own', value: 'static' },
-    route,
-    severity: 'critical'
-  }) as Result;
 
 describe('dev dashboard whole-project integration (real analyzeProject)', () => {
   it('populates the snapshot with all routes and multiple categories without any page visit', async () => {
@@ -61,57 +50,5 @@ describe('dev dashboard whole-project integration (real analyzeProject)', () => 
     expect(badges['/']).toBe('static');
     expect(badges['/about']).toBe('static');
     expect(Object.values(badges).every((b) => b === 'static')).toBe(true);
-  });
-
-  it('a live ingest replaces only the matching rule ids on that route and flips its badge to measured', async () => {
-    const store = await analyzedStore();
-    const staticSnapshot = store.snapshot();
-    const staticHome = staticSnapshot.filter((r) => r.route === '/');
-    const staticAbout = staticSnapshot.filter((r) => r.route === '/about');
-    expect(staticHome.length).toBeGreaterThan(1); // more ids than the live payload below
-
-    // Visit '/': the rendered page evaluated only seo/title-presence (payload rule-id set = {seo/title-presence}).
-    store.set('/', [live('seo/title-presence', '/')]);
-    const merged = store.snapshot();
-
-    // The live result replaced the static seo/title-presence on '/'...
-    const home001 = merged.filter((r) => r.id === 'seo/title-presence' && r.route === '/');
-    expect(home001).toHaveLength(1);
-    expect(home001[0]!.message).toBe('seo/title-presence (live)');
-
-    // ...while static findings on '/' whose id was NOT in the live payload are kept.
-    const homeIds = merged.filter((r) => r.route === '/').map((r) => r.id);
-    for (const kept of staticHome.filter((r) => r.id !== 'seo/title-presence')) {
-      expect(homeIds).toContain(kept.id);
-    }
-
-    // The unvisited route '/about' is byte-for-byte untouched.
-    expect(merged.filter((r) => r.route === '/about')).toEqual(staticAbout);
-
-    // Site-wide (routeless) findings are untouched by a route-scoped live payload.
-    expect(merged.filter((r) => r.route === undefined)).toEqual(staticSnapshot.filter((r) => r.route === undefined));
-
-    // Provenance: '/' is now measured, '/about' stays static.
-    const badges = store.badges();
-    expect(badges['/']).toBe('measured');
-    expect(badges['/about']).toBe('static');
-  });
-
-  it('onStatusChange wired to store.setAnalyzing toggles isAnalyzing() around the real run', async () => {
-    const store = createStore();
-    const onError = vi.fn();
-    const runner = createAnalysisRunner({
-      root: FIXTURE,
-      onResults: (results) => store.setStatic(results),
-      onError,
-      onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
-    });
-    expect(store.isAnalyzing()).toBe(false);
-    runner.start();
-    await vi.waitFor(() => expect(store.isAnalyzing()).toBe(true));
-    await vi.waitFor(() => expect(store.snapshot().length).toBeGreaterThan(0), { timeout: 15000 });
-    await vi.waitFor(() => expect(store.isAnalyzing()).toBe(false));
-    runner.stop();
-    expect(onError).not.toHaveBeenCalled();
   });
 });

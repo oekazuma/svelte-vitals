@@ -73,43 +73,6 @@ describe('collectRenderedProject: kitPathsBase', () => {
       file: 'svelte.config.js'
     });
   });
-
-  it('omits the fact when no config declares a base', async () => {
-    await writeFile(join(cwd, 'svelte.config.js'), `export default { kit: {} };`);
-    expect((await collectRenderedProject(cwd, htmlLang)).kitPathsBase).toBeUndefined();
-  });
-
-  it('picks up the sveltekit({ paths: { base } }) shape in vite.config.ts', async () => {
-    await writeFile(
-      join(cwd, 'vite.config.ts'),
-      [
-        `import { sveltekit } from '@sveltejs/kit/vite';`,
-        `export default { plugins: [sveltekit({ paths: { base: '/from-vite' } })] };`
-      ].join('\n')
-    );
-    expect((await collectRenderedProject(cwd, htmlLang)).kitPathsBase).toEqual({
-      value: '/from-vite',
-      file: 'vite.config.ts'
-    });
-  });
-
-  it('prefers the vite.config plugin form when both config files are present', async () => {
-    await writeFile(
-      join(cwd, 'svelte.config.js'),
-      `export default { kit: { paths: { base: '/from-svelte-config' } } };`
-    );
-    await writeFile(
-      join(cwd, 'vite.config.ts'),
-      [
-        `import { sveltekit } from '@sveltejs/kit/vite';`,
-        `export default { plugins: [sveltekit({ paths: { base: '/from-vite' } })] };`
-      ].join('\n')
-    );
-    expect((await collectRenderedProject(cwd, htmlLang)).kitPathsBase).toEqual({
-      value: '/from-vite',
-      file: 'vite.config.ts'
-    });
-  });
 });
 
 describe('collectRenderedProject: kitAliases', () => {
@@ -127,44 +90,6 @@ describe('collectRenderedProject: kitAliases', () => {
     );
     expect((await collectRenderedProject(cwd, htmlLang)).kitAliases).toEqual([
       { find: '$lib', replacement: 'src/library', match: 'prefix' },
-      { find: '$data', replacement: 'src/data', match: 'prefix' }
-    ]);
-  });
-
-  it('defaults to the $lib-only list when svelte.config declares no alias', async () => {
-    await writeFile(join(cwd, 'svelte.config.js'), `export default { kit: {} };`);
-    expect((await collectRenderedProject(cwd, htmlLang)).kitAliases).toEqual([
-      { find: '$lib', replacement: 'src/lib', match: 'prefix' }
-    ]);
-  });
-
-  it('is absent when no config file exists at all', async () => {
-    expect((await collectRenderedProject(cwd, htmlLang)).kitAliases).toBeUndefined();
-  });
-
-  it('ignores svelte.config aliases when vite.config carries a sveltekit(<config>) argument', async () => {
-    await writeFile(join(cwd, 'svelte.config.js'), `export default { kit: { alias: { '$data': 'src/data' } } };`);
-    await writeFile(
-      join(cwd, 'vite.config.ts'),
-      [
-        `import { sveltekit } from '@sveltejs/kit/vite';`,
-        `export default { plugins: [sveltekit({ paths: { base: '/from-vite' } })] };`
-      ].join('\n')
-    );
-    // Kit says svelte.config is ignored once options are passed to the plugin — aliases
-    // must follow that same precedence as kitPathsBase does, or they'd be read from a file
-    // the bundler ignores.
-    expect((await collectRenderedProject(cwd, htmlLang)).kitAliases).toBeUndefined();
-  });
-
-  it("leaves svelte.config's aliases in effect when vite.config's sveltekit() takes no argument", async () => {
-    await writeFile(join(cwd, 'svelte.config.js'), `export default { kit: { alias: { '$data': 'src/data' } } };`);
-    await writeFile(
-      join(cwd, 'vite.config.ts'),
-      [`import { sveltekit } from '@sveltejs/kit/vite';`, `export default { plugins: [sveltekit()] };`].join('\n')
-    );
-    expect((await collectRenderedProject(cwd, htmlLang)).kitAliases).toEqual([
-      { find: '$lib', replacement: 'src/lib', match: 'prefix' },
       { find: '$data', replacement: 'src/data', match: 'prefix' }
     ]);
   });

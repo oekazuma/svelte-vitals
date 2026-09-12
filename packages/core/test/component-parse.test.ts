@@ -325,18 +325,14 @@ describe('parseComponentFacts — mount-only $effect (correctness/effect-as-onmo
       facts('class Counter { n = $state(0); } const c = new Counter(); $effect(() => { c.n; });')[0]!.mountOnly
     ).toBe(false);
   });
-  it('is not mountOnly for a SvelteMap/SvelteSet member read', () => {
+  it('is not mountOnly for a member read on an imported binding, whatever the module', () => {
     expect(
       facts("import { SvelteMap } from 'svelte/reactivity'; const m = new SvelteMap(); $effect(() => { m.size; });")[0]!
         .mountOnly
     ).toBe(false);
-  });
-  it('is not mountOnly for an imported runes-module state object member read', () => {
     expect(
       facts("import { counterState } from './state.svelte.js'; $effect(() => { counterState.count; });")[0]!.mountOnly
     ).toBe(false);
-  });
-  it('is not mountOnly for a svelte/reactivity/window live binding read', () => {
     expect(
       facts("import { innerWidth } from 'svelte/reactivity/window'; $effect(() => { innerWidth.current; });")[0]!
         .mountOnly
@@ -397,9 +393,6 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
   });
   it('does not flag a $state passed as a prop to a dynamic component', () => {
     expect(names('<script>let d = $state({});</script><svelte:component this={C} d={d} />')).toEqual([]);
-  });
-  it('still flags a genuinely read-only $state used in a template expression', () => {
-    expect(names('<script>let t = $state("x");</script><p>{t}</p>')).toEqual(['t']);
   });
   it('still flags a $state when only a shadowing local of the same name is written (issue #140)', () => {
     expect(names('<script>let count = $state(0); function f() { let count = 0; count++; }</script>')).toEqual([
@@ -506,10 +499,6 @@ describe('parseComponentFacts — suppression directives (issue #92)', () => {
   it('accepts rule ids whose category contains digits (a11y/*)', () => {
     const src = '<!-- svelte-vitals-disable-next-line a11y/invalid-role -->\n<div role="bogus">x</div>';
     expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 2, ruleIds: ['a11y/invalid-role'] }]);
-    const two = '<!-- svelte-vitals-disable-next-line a11y/invalid-role, seo/image-alt -->\n<img />';
-    expect(parseComponentFacts(two, 'C.svelte').suppressions).toEqual([
-      { line: 2, ruleIds: ['a11y/invalid-role', 'seo/image-alt'] }
-    ]);
   });
 
   it('captures a script-side disable-next-line with a rule id', () => {

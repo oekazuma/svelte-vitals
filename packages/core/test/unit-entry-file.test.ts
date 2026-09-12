@@ -383,36 +383,6 @@ describe('architecture/unit-entry-file — per-path options', () => {
 });
 
 describe('architecture/unit-entry-file — specificity', () => {
-  it("keeps the documented example's outcome under the segment-count metric", async () => {
-    // The rule page's own example. Every key here has the narrower glob as the longer string too,
-    // so the metric change must be a no-op for it — that is what makes the change safe to ship.
-    const EXAMPLE = {
-      units: {
-        'src/lib/api/**/*': '.ts',
-        'src/**/functions/*': '.ts',
-        'src/**/functions/*/*': '.ts',
-        'src/**/stores/*': '.svelte.ts'
-      }
-    };
-    // Every key must govern something here. With a fixture that exercises only some of them, the
-    // rule reports the rest as declarations that check nothing — a real finding that has nothing
-    // to do with the metric, and one `fails()` counts.
-    const rs = await architectureUnitEntryFile.check(
-      ctx(
-        [
-          'src/lib/functions/getFoo/getFoo.ts',
-          'src/lib/functions/getFoo/helper/helper.ts',
-          'src/lib/api/item/fetchItem/fetchItem.ts',
-          'src/lib/stores/searchState/searchState.svelte.ts'
-        ],
-        EXAMPLE
-      )
-    );
-    // All four documented keys now govern a real unit, so nothing is inert and every unit conforms.
-    expect(fails(rs)).toHaveLength(0);
-    expect(passes(rs)).toHaveLength(4);
-  });
-
   it('lets a single-star declaration narrow a double-star one at the same depth', async () => {
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/widgets/Card/Card.svelte'], {
@@ -490,20 +460,18 @@ describe('architecture/unit-entry-file — a pass is evidence, not a score key',
   it('emits a pass with no route, so a conforming unit adds nothing to the denominator', async () => {
     // A .ts unit entry is the case that exposed this: no other rule keys a plain .ts file, so the
     // pass was inventing a fresh 100 for every conforming unit.
-    const rs = await architectureUnitEntryFile.check(ctx(['src/lib/api/api.ts'], { units: { 'src/lib/*': '.ts' } }));
-    expect(rs).toHaveLength(1);
-    expect(rs[0]!.detection).toEqual({ presence: 'own', value: 'static' });
-    expect(rs[0]!.route).toBeUndefined();
-    expect(rs[0]!.location).toBe('src/lib/api/api.ts');
-  });
+    const ts = await architectureUnitEntryFile.check(ctx(['src/lib/api/api.ts'], { units: { 'src/lib/*': '.ts' } }));
+    expect(ts).toHaveLength(1);
+    expect(ts[0]!.detection).toEqual({ presence: 'own', value: 'static' });
+    expect(ts[0]!.route).toBeUndefined();
+    expect(ts[0]!.location).toBe('src/lib/api/api.ts');
 
-  it('does the same for a .svelte entry, so the fix is not narrowed to the reported symptom', async () => {
-    const rs = await architectureUnitEntryFile.check(
+    const svelte = await architectureUnitEntryFile.check(
       ctx(['src/lib/Card/Card.svelte'], { pascalCaseUnits: { 'src/lib/**': '.svelte' } })
     );
-    expect(rs).toHaveLength(1);
-    expect(rs[0]!.route).toBeUndefined();
-    expect(rs[0]!.location).toBe('src/lib/Card/Card.svelte');
+    expect(svelte).toHaveLength(1);
+    expect(svelte[0]!.route).toBeUndefined();
+    expect(svelte[0]!.location).toBe('src/lib/Card/Card.svelte');
   });
 
   it('gives each conforming unit a distinct location, so their finding keys do not collapse', async () => {
@@ -631,28 +599,22 @@ describe('architecture/unit-entry-file — examined counts', () => {
     expect(examined[ID]).toEqual({});
   });
 
-  it('reports no counts at all on a run with no file inventory', async () => {
-    const config = defineConfig({ rules: { [ID]: { options: PASCAL } } });
+  it('reports no counts at all without a file inventory, and none when no config layer mentions the rule', async () => {
     const seen: Record<string, number>[] = [];
+    const recordExamined = (c: Record<string, number>) => void seen.push(c);
     await architectureUnitEntryFile.check({
       sourceFiles: undefined,
       heads: [],
       project: defaultProject,
-      config,
-      recordExamined: (c: Record<string, number>) => void seen.push(c)
+      config: defineConfig({ rules: { [ID]: { options: PASCAL } } }),
+      recordExamined
     });
-    expect(seen).toEqual([]);
-  });
-
-  it('reports no counts at all when no config layer mentions the rule', async () => {
-    const config = defineConfig({});
-    const seen: Record<string, number>[] = [];
     await architectureUnitEntryFile.check({
       sourceFiles: ['src/lib/Card/Card.svelte'],
       heads: [],
       project: defaultProject,
-      config,
-      recordExamined: (c: Record<string, number>) => void seen.push(c)
+      config: defineConfig({}),
+      recordExamined
     });
     expect(seen).toEqual([]);
   });

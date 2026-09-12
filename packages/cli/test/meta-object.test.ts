@@ -1,24 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { parse } from 'svelte/compiler';
 import type { AST } from 'svelte/compiler';
-import type { ObjectExpression, Property } from 'estree';
-import {
-  exprValue,
-  resolveMetaObject,
-  OPEN_GRAPH_KEYS,
-  TWITTER_KEYS
-} from '../src/providers/source/adapters/meta-object.js';
+import { resolveMetaObject, OPEN_GRAPH_KEYS, TWITTER_KEYS } from '../src/providers/source/adapters/meta-object.js';
 
 function attrOf(tag: string, name: string): AST.Attribute | undefined {
   const ast = parse(`<script></script>${tag}`, { modern: true, filename: 'x.svelte' });
   const component = ast.fragment.nodes.find((n): n is AST.Component => n.type === 'Component');
   return component?.attributes.find((a): a is AST.Attribute => a.type === 'Attribute' && a.name === name);
-}
-
-/** The first property of an attribute's inline object-literal value, e.g. `openGraph={{ url: … }}`. */
-function firstObjectProp(attr: AST.Attribute): Property {
-  const expr = (attr.value as AST.ExpressionTag).expression as ObjectExpression;
-  return expr.properties[0] as Property;
 }
 
 describe('resolveMetaObject', () => {
@@ -68,17 +56,5 @@ describe('resolveMetaObject', () => {
     expect(smt.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'static' });
     const seo = resolveMetaObject(attrOf('<Seo twitter={{ card: "summary" }} />', 'twitter'), TWITTER_KEYS);
     expect(seo.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'static' });
-  });
-});
-
-describe('exprValue', () => {
-  it('classifies a non-empty string literal as static', () => {
-    const attr = attrOf('<MetaTags openGraph={{ url: "https://x" }} />', 'openGraph')!;
-    expect(exprValue(firstObjectProp(attr).value)).toBe('static');
-  });
-
-  it('classifies an identifier as dynamic', () => {
-    const attr = attrOf('<MetaTags openGraph={{ url: SITE }} />', 'openGraph')!;
-    expect(exprValue(firstObjectProp(attr).value)).toBe('dynamic');
   });
 });

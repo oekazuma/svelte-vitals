@@ -42,12 +42,6 @@ describe('performance/image-dimensions image dimensions', () => {
     expect(r!.detection).toEqual({ presence: 'none', value: 'absent' });
   });
 
-  it('passes an <img> with both dimensions (dynamic counts as present)', async () => {
-    const ctx = ctxWith([{ route: '/a', images: [img({})] }]);
-    const [r] = await performanceImageDimensions.check(ctx);
-    expect(r!.detection).toEqual({ presence: 'own', value: 'static' }); // a seeding pass result
-  });
-
   it('emits nothing for a route with no images (no Performance signal)', async () => {
     const ctx = ctxWith([{ route: '/empty', images: [] }]);
     const results = await performanceImageDimensions.check(ctx);
@@ -58,7 +52,7 @@ describe('performance/image-dimensions image dimensions', () => {
     const ctx = ctxWith([{ route: '/a', images: [img({})] }]);
     const results = await performanceImageDimensions.check(ctx);
     expect(results).toHaveLength(1);
-    expect(results[0]!.detection.presence).toBe('own');
+    expect(results[0]!.detection).toEqual({ presence: 'own', value: 'static' });
     // A passing seed has nothing to remediate, so it carries no fix.
     expect('fix' in results[0]!).toBe(false);
     // ResolvedImages has no route-level file (unlike ResolvedHead) — the route's first
@@ -91,12 +85,6 @@ describe('performance/image-dimensions image line omission when unknown (line: 0
     const [r] = await performanceImageDimensions.check(ctx);
     expect('line' in r!).toBe(false);
     expect(r!.line).toBeUndefined();
-  });
-
-  it('still sets line when img.line > 0', async () => {
-    const ctx = ctxWith([{ route: '/a', images: [img({ hasWidth: false })] }]);
-    const [r] = await performanceImageDimensions.check(ctx);
-    expect(r!.line).toBe(7);
   });
 });
 

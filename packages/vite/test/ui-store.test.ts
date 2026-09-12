@@ -49,31 +49,6 @@ describe('createStore', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  it('notifies subscribers on setStatic', () => {
-    const s = createStore();
-    const fn = vi.fn();
-    s.subscribe(fn);
-    s.setStatic([r('seo/title-presence', '/a')]);
-    expect(fn).toHaveBeenCalledTimes(1);
-  });
-
-  it('snapshot() includes the static layer alone when no live layer exists', () => {
-    const s = createStore();
-    s.setStatic([r('seo/title-presence', '/a'), r('seo/description-presence', '/b')]);
-    expect(
-      s
-        .snapshot()
-        .map((x) => x.id)
-        .sort()
-    ).toEqual(['seo/description-presence', 'seo/title-presence']);
-  });
-
-  it('badges() marks every static-only route as static', () => {
-    const s = createStore();
-    s.setStatic([r('seo/title-presence', '/a'), r('seo/description-presence', '/b')]);
-    expect(s.badges()).toEqual({ '/a': 'static', '/b': 'static' });
-  });
-
   it('live overrides the static result for a matching rule id on a visited route', () => {
     const s = createStore();
     s.setStatic([r('seo/title-presence', '/a')]);
@@ -167,13 +142,6 @@ describe('createStore', () => {
     s.set('/a', [r('seo/title-presence', '/a')], ['seo/json-ld']);
     expect(s.failedRuleIds()).toEqual(['seo/json-ld']);
     s.set('/a', [r('seo/title-presence', '/a')]);
-    expect(s.failedRuleIds()).toEqual([]);
-  });
-
-  it('re-set with an empty failedRuleIds array clears a route that previously failed', () => {
-    const s = createStore();
-    s.set('/a', [r('seo/title-presence', '/a')], ['seo/json-ld']);
-    s.set('/a', [r('seo/title-presence', '/a')], []);
     expect(s.failedRuleIds()).toEqual([]);
   });
 

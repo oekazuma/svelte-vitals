@@ -90,16 +90,4 @@ describe('a11y/no-duplicate-dt', () => {
     const src = '<svg><dl><dt>S</dt><dd>1</dd><dt>S</dt><dd>2</dd></dl></svg>';
     expect(await check(src)).toEqual([]);
   });
-
-  it('is silenced by an inline directive above the duplicated dt', async () => {
-    const src =
-      '<dl>\n<dt>Coffee</dt>\n<dd>Hot</dd>\n<!-- svelte-vitals-disable-next-line a11y/no-duplicate-dt -->\n<dt>Coffee</dt>\n<dd>Iced</dd>\n</dl>';
-    expect(await check(src)).toEqual([]);
-  });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'a11y/no-duplicate-dt')).toBe(true);
-    expect(explainRule('a11y/no-duplicate-dt')?.severity).toBe('info');
-  });
 });

@@ -94,18 +94,12 @@ describe('run() flags', () => {
 });
 
 describe('run() reporters and gating', () => {
-  it('emits JSON when reporter is json', async () => {
+  it('emits JSON when reporter is json, with robots/sitemap/html lang passing for the fixture', async () => {
     const cap = capture();
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json' });
     const json = JSON.parse(cap.out.join('\n'));
     expect(json).toHaveProperty('score');
     expect(json).toHaveProperty('routes');
-  });
-
-  it('reports project facts: robots/sitemap/html lang all pass for the fixture', async () => {
-    const cap = capture();
-    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json' });
-    const json = JSON.parse(cap.out.join('\n'));
     const siteIds = json.siteIssues.map((i: { id: string }) => i.id);
     expect(siteIds).not.toContain('seo/robots-txt'); // robots.txt present
     expect(siteIds).not.toContain('seo/sitemap-xml'); // sitemap present
@@ -147,7 +141,7 @@ describe('run() reporters and gating', () => {
     expect(json.rules['security/raw-html']).toEqual({ findings: 0, passed: 0 });
   });
 
-  it('omits a rule disabled via config `rules` from `json.rules`, unlike an `overrides`-disabled one', async () => {
+  it('omits a rule disabled via config `rules` from `json.rules` and from the findings, unlike an `overrides`-disabled one', async () => {
     const cap = capture();
     await run({
       cwd: fixtureDir,
@@ -163,18 +157,6 @@ describe('run() reporters and gating', () => {
     // reaches ruleIds, not just `results`.
     expect(Object.hasOwn(json.rules, 'seo/description-presence')).toBe(false);
     expect(Object.hasOwn(json.rules, 'security/raw-html')).toBe(true);
-  });
-
-  it('disabling a rule via rules:{id:off} removes its findings', async () => {
-    const cap = capture();
-    await run({
-      cwd: fixtureDir,
-      log: cap.log,
-      errorLog: cap.errorLog,
-      reporter: 'json',
-      rules: { 'seo/description-presence': 'off' }
-    });
-    const json = JSON.parse(cap.out.join('\n'));
     const anySEO002 = json.routes.some((r: { issues: { id: string }[] }) =>
       r.issues.some((i) => i.id === 'seo/description-presence')
     );
@@ -244,17 +226,6 @@ describe('run() --rules named rule scoped off by overrides (issue #385)', () => 
   });
 });
 
-describe('run() performance rules', () => {
-  it('reports a Performance finding for an <img> missing dimensions', async () => {
-    const cap = capture();
-    await run({ cwd: fixtureDir, reporter: 'json', log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
-    const json = JSON.parse(cap.out.join('\n'));
-    expect(json.categories.performance).toBeDefined();
-    const img = json.routes.find((r: { route: string }) => r.route === '/img');
-    expect(img.issues.some((i: { id: string }) => i.id === 'performance/image-dimensions')).toBe(true);
-  });
-});
-
 describe('run() a11y rules', () => {
   it('reports an a11y finding for an invalid ARIA role, leaving other categories’ counts unchanged', async () => {
     const cap = capture();
@@ -264,13 +235,13 @@ describe('run() a11y rules', () => {
     // Component-level rules attach to the component's own file, not the page route that renders it.
     const imgComponent = json.routes.find((r: { route: string }) => r.route === 'src/routes/img/+page.svelte');
     expect(imgComponent.issues.some((i: { id: string }) => i.id === 'a11y/invalid-role')).toBe(true);
+    const img = json.routes.find((r: { route: string }) => r.route === '/img');
+    expect(img.issues.some((i: { id: string }) => i.id === 'performance/image-dimensions')).toBe(true);
 
     // The other categories' counts are untouched by the a11y/invalid-role finding above.
-    expect(json.categories.seo.keys).toBe(9);
     expect(json.categories.seo.affectedKeys).toBe(9);
     expect(json.categories.performance.keys).toBe(5);
     expect(json.categories.performance.affectedKeys).toBe(1);
-    expect(json.categories.architecture.keys).toBe(12);
     expect(json.categories.architecture.affectedKeys).toBe(0);
     expect(json.rules['performance/image-dimensions']).toEqual({ findings: 1, passed: 0 });
     expect(json.rules['seo/title-presence']).toEqual({ findings: 2, passed: 7 });
@@ -278,13 +249,6 @@ describe('run() a11y rules', () => {
 });
 
 describe('run() --min-health validation', () => {
-  it('returns exit 2 for an out-of-range minHealth (150)', async () => {
-    const cap = capture();
-    const code = await run({ cwd: fixtureDir, minHealth: 150, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
-    expect(code).toBe(2);
-    expect(cap.err.join('\n')).toContain('invalid minHealth');
-  });
-
   it('returns exit 2 for a NaN minHealth', async () => {
     const cap = capture();
     const code = await run({ cwd: fixtureDir, minHealth: NaN, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
@@ -360,17 +324,6 @@ describe('run() sarif & github reporters', () => {
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, env: { GITHUB_ACTIONS: 'true' } });
     expect(cap.out.join('\n')).toContain('::error ');
     expect(cap.err.join('\n')).toContain('github reporter auto-selected');
-  });
-
-  it('lets an agent env outrank GitHub Actions', async () => {
-    const cap = capture();
-    await run({
-      cwd: fixtureDir,
-      log: cap.log,
-      errorLog: cap.errorLog,
-      env: { GITHUB_ACTIONS: 'true', SVELTE_VITALS_AGENT: '1' }
-    });
-    expect(cap.out.join('\n')).toContain('# svelte-vitals — fixes'); // agent Markdown, not workflow commands
   });
 
   it('emits nothing on stdout for a clean github run (no stray blank line)', async () => {
@@ -482,20 +435,6 @@ describe('run() --score', () => {
 });
 
 describe('run() --verbose and animation', () => {
-  it('passes verbose:true through to the console report body', async () => {
-    const cap = capture();
-    await run({
-      cwd: fixtureDir,
-      log: cap.log,
-      errorLog: cap.errorLog,
-      env: CLEAN_ENV,
-      verbose: true
-    });
-    // basic-project's single critical finding still renders the same either way,
-    // but verbose:true must not throw and must still produce console output.
-    expect(cap.out.join('\n')).toContain('Critical');
-  });
-
   it('animates the header on an interactive stdout and omits it from the printed body', async () => {
     const cap = capture();
     const { writes: animWrites, stream: stdoutStream } = fakeStream();

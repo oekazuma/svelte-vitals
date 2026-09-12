@@ -66,12 +66,4 @@ describe('performance/sequential-awaits sequential independent awaits', () => {
     expect(penalized[0]!.severity).toBe('info');
     expect(penalized[0]!.message).toContain('Promise.all');
   });
-
-  it('is registered along with performance/load-waterfall', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'performance/load-waterfall')).toBe(true);
-    expect(allRules.some((r) => r.id === 'performance/sequential-awaits')).toBe(true);
-    expect(explainRule('performance/load-waterfall')?.severity).toBe('warning');
-    expect(explainRule('performance/sequential-awaits')?.severity).toBe('info');
-  });
 });

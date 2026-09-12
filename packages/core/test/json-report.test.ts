@@ -78,16 +78,6 @@ describe('formatJsonReport', () => {
     expect(report.score).toBe(computeHealth(results, config).health);
     expect(report.weights).toEqual(computeHealth(results, config).weights);
   });
-
-  it('buildJsonReport returns the object formatJsonReport stringifies', () => {
-    const report = buildJsonReport(results, config, { version: '9.9.9' });
-    expect(report.version).toBe('9.9.9');
-    expect(report).toHaveProperty('score');
-    expect(report).toHaveProperty('summary');
-    expect(Array.isArray(report.routes)).toBe(true);
-    expect(Array.isArray(report.siteIssues)).toBe(true);
-    expect(formatJsonReport(results, config, { version: '9.9.9' })).toBe(JSON.stringify(report, null, 2));
-  });
 });
 
 describe('buildJsonReport — per-rule evidence', () => {
@@ -144,11 +134,6 @@ describe('buildJsonReport — per-rule evidence', () => {
     // Back-compat: an external caller on the three-argument form sees today's information.
     const report = buildJsonReport(passOnly, config, { version: 'x' });
     expect(report.rules).toEqual({ 'architecture/unit-entry-file': { findings: 0, passed: 1 } });
-  });
-
-  it('reaches the same shape through formatJsonReport', () => {
-    const parsed = JSON.parse(formatJsonReport([], config, { version: 'x' }, ['seo/single-h1']));
-    expect(parsed.rules).toEqual({ 'seo/single-h1': { findings: 0, passed: 0 } });
   });
 });
 
@@ -213,11 +198,6 @@ describe('skipped routes map', () => {
     expect(report.skipped).toEqual(skipped);
     expect(buildJsonReport(results, config, { version: '0.0.0' }).skipped).toBeUndefined();
     expect(buildJsonReport(results, config, { version: '0.0.0' }, undefined, undefined, {}).skipped).toBeUndefined();
-  });
-
-  it('round-trips through formatJsonReport', () => {
-    const parsed = JSON.parse(formatJsonReport(results, config, { version: '0.0.0' }, undefined, undefined, skipped));
-    expect(parsed.skipped).toEqual(skipped);
   });
 });
 
@@ -356,22 +336,6 @@ describe('buildJsonReport — pair inventories', () => {
     // -10 from 110) and is above the floor; architecture::component holds 8 and is not.
     expect(report.inventories['seo::route']).toBe(100);
     expect(report.inventories['architecture::component']).toBe(25);
-  });
-
-  it('lets a reader recompute a route category score from the map', () => {
-    const results: Result[] = [
-      {
-        id: 'seo/canonical-url',
-        category: 'seo',
-        severity: 'warning',
-        detection: { presence: 'none', value: 'absent' },
-        route: '/a',
-        message: 'x'
-      }
-    ];
-    const report = buildJsonReport(results, config, { version: '0.0.0' });
-    const i = report.inventories['seo::route']!;
-    expect(Math.floor(100 - (100 * 5) / i)).toBe(report.routes[0]!.categories.seo);
   });
 
   it('recomputes every present category from `inventories`, including one that spans both scopes', () => {

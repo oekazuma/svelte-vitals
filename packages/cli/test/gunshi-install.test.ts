@@ -25,8 +25,6 @@ async function gunshi(args: string[]) {
 
 describe('gunshi/bone install — pinned behavior across the argv-shape matrix', () => {
   const cells: { name: string; args: string[] }[] = [
-    { name: '--help', args: ['--help'] },
-    { name: '-h', args: ['-h'] },
     { name: 'no args (non-TTY, no client)', args: [] },
     { name: '--client bogus (unknown target, fatal)', args: ['--client', 'bogus'] },
     { name: '--refresh --client cursor-rules (conflict, fatal)', args: ['--refresh', '--client', 'cursor-rules'] },
@@ -62,6 +60,14 @@ describe('gunshi/bone install — pinned behavior across the argv-shape matrix',
       expect(await gunshi(args)).toMatchSnapshot();
     });
   }
+});
+
+// The help TEXT is pinned once, by help-golden.test.ts; what stays here is that -h lands on
+// exactly that output.
+describe('help aliases', () => {
+  it('-h is byte-identical to --help', async () => {
+    expect(await gunshi(['-h'])).toEqual(await gunshi(['--help']));
+  });
 });
 
 describe('gate (c): in-process, injected IO, no process-global coupling', () => {

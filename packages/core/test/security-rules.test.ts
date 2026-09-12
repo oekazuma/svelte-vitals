@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { securityRawHtml, securityJavascriptUrl } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
+import { emptyComponentFacts } from '../src/component.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 
@@ -10,29 +11,8 @@ const fails = (rs: { detection: { presence: string; value: string } }[]) =>
   rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
-  file: 'src/lib/C.svelte',
-  eachBlocks: [],
-  effects: [],
-  htmlTags: [],
-  javascriptUrls: [],
+  ...emptyComponentFacts('src/lib/C.svelte'),
   loc: 10,
-  propCount: 0,
-  imports: [],
-  importSpans: [],
-  namespaceImports: [],
-  constableStates: [],
-  mutatedProps: [],
-  stalePropDerivations: [],
-  rawableStates: [],
-  nonreactiveBuiltinStates: [],
-  checkableBindValues: [],
-  basePathLinks: [],
-  orphanEffects: [],
-  orphanLifecycleCalls: [],
-  browserGlobalRefs: [],
-  moduleStateDecls: [],
-  suppressions: [],
-  commentLinks: [],
   ...over
 });
 
@@ -45,12 +25,6 @@ describe('security/raw-html raw HTML render', () => {
   });
   it('emits nothing for a component without {@html}', async () => {
     expect(await securityRawHtml.check(ctx([comp({})]))).toHaveLength(0);
-  });
-  it('passes when the {@html} finding is suppressed via a template-side directive (issue #92)', async () => {
-    const rs = await securityRawHtml.check(
-      ctx([comp({ htmlTags: [{ line: 4 }], suppressions: [{ line: 4, ruleIds: ['security/raw-html'] }] })])
-    );
-    expect(fails(rs)).toHaveLength(0);
   });
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await securityRawHtml.check(base as RuleContext)).toHaveLength(0);

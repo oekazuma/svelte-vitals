@@ -138,24 +138,14 @@ describe('architecture/route-component-import — exemptions', () => {
     expect(passes(await run(span, 'src/lib/A.test.svelte'))).toHaveLength(1);
   });
 
-  it('exempts a pattern appended through the option', async () => {
-    const cfg = defineConfig({
-      rules: { 'architecture/route-component-import': { options: { exemptImporters: ['**/*.fixture.svelte'] } } }
-    });
-    const rs = await architectureRouteComponentImport.check(
-      ctx([comp('src/lib/A.fixture.svelte', span)], { config: cfg })
-    );
-    expect(fails(rs)).toEqual([]);
-  });
-
-  it('keeps the built-ins when the option appends to them', async () => {
+  it('exempts an appended pattern without replacing the built-ins', async () => {
     // A string-list ADDS to its default; an appended pattern must not replace *.test.svelte.
     const cfg = defineConfig({
       rules: { 'architecture/route-component-import': { options: { exemptImporters: ['**/*.fixture.svelte'] } } }
     });
-    const rs = await architectureRouteComponentImport.check(
-      ctx([comp('src/lib/A.test.svelte', span)], { config: cfg })
-    );
-    expect(fails(rs)).toEqual([]);
+    for (const importer of ['src/lib/A.fixture.svelte', 'src/lib/A.test.svelte']) {
+      const rs = await architectureRouteComponentImport.check(ctx([comp(importer, span)], { config: cfg }));
+      expect(fails(rs)).toEqual([]);
+    }
   });
 });

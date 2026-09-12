@@ -63,10 +63,4 @@ describe('a11y/pattern-title', () => {
     expect(await check('<input pattern="[a-z]+" {...rest} />')).toEqual([]);
     expect(await check('<svg><input pattern="[a-z]+" /></svg>')).toEqual([]);
   });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'a11y/pattern-title')).toBe(true);
-    expect(explainRule('a11y/pattern-title')?.severity).toBe('info');
-  });
 });

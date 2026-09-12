@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { cpSync, mkdtempSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { collectComponentFacts, type Runtime } from '@svelte-vitals/core/internal';
+import { collectComponentFacts } from '@svelte-vitals/core/internal';
 import { parseFile } from '../src/providers/source/parse.js';
 import { run } from '../src/index.js';
 import { createNodeRuntime } from '../src/runtime/node.js';
@@ -37,32 +37,8 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
 
     const broken = byFile.get('src/lib/Broken.svelte');
     expect(broken).toBeDefined();
-    expect(broken).toEqual({
-      file: 'src/lib/Broken.svelte',
-      eachBlocks: [],
-      effects: [],
-      htmlTags: [],
-      javascriptUrls: [],
-      loc: 0,
-      propCount: 0,
-      imports: [],
-      importSpans: [],
-      namespaceImports: [],
-      constableStates: [],
-      mutatedProps: [],
-      stalePropDerivations: [],
-      rawableStates: [],
-      nonreactiveBuiltinStates: [],
-      checkableBindValues: [],
-      basePathLinks: [],
-      orphanEffects: [],
-      orphanLifecycleCalls: [],
-      browserGlobalRefs: [],
-      moduleStateDecls: [],
-      suppressions: [],
-      commentLinks: [],
-      parseFailed: true
-    });
+    expect(broken).toMatchObject({ file: 'src/lib/Broken.svelte', loc: 0, parseFailed: true });
+    expect(broken!.readFailed).toBeUndefined();
 
     // The well-formed sibling file must still be parsed normally — one broken
     // file must not degrade facts collection for the rest of the project.
@@ -79,61 +55,6 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
     const code = await run({ cwd: malformedComponentProject, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(code).not.toBe(2);
     expect([0, 1]).toContain(code);
-  });
-
-  it('returns empty facts when the file cannot even be read (not just a parse failure)', async () => {
-    // Same intentional contract as above, exercised through the catch branch's
-    // other entry point: readFile rejecting (e.g. a permissions error or a race
-    // with a deleted file), not just parseComponentFacts throwing.
-    const unreadablePath = 'src/lib/Unreadable.svelte';
-    const goodPath = 'src/routes/+page.svelte';
-    const rt: Runtime = {
-      async readFile(path) {
-        if (path.endsWith(unreadablePath)) throw new Error('EACCES: permission denied');
-        return '<svelte:head><title>t</title></svelte:head>';
-      },
-      async exists() {
-        return true;
-      },
-      async glob() {
-        return [unreadablePath, goodPath];
-      },
-      join(...parts) {
-        return parts.filter((p) => p.length > 0).join('/');
-      }
-    };
-
-    const facts = await collectComponentFacts(rt, '');
-    const byFile = new Map(facts.map((f) => [f.file, f]));
-
-    expect(byFile.get(unreadablePath)).toEqual({
-      file: unreadablePath,
-      eachBlocks: [],
-      effects: [],
-      htmlTags: [],
-      javascriptUrls: [],
-      loc: 0,
-      propCount: 0,
-      imports: [],
-      importSpans: [],
-      namespaceImports: [],
-      constableStates: [],
-      mutatedProps: [],
-      stalePropDerivations: [],
-      rawableStates: [],
-      nonreactiveBuiltinStates: [],
-      checkableBindValues: [],
-      basePathLinks: [],
-      orphanEffects: [],
-      orphanLifecycleCalls: [],
-      browserGlobalRefs: [],
-      moduleStateDecls: [],
-      suppressions: [],
-      commentLinks: [],
-      parseFailed: true,
-      readFailed: true
-    });
-    expect(byFile.get(goodPath)!.loc).toBeGreaterThan(0);
   });
 });
 

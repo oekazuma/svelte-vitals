@@ -11,6 +11,7 @@ import {
   correctnessInstanceBrowserGlobal
 } from '../src/internal.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
+import { emptyComponentFacts } from '../src/component.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { KitModuleFacts } from '../src/kit-module.js';
 import type { RuleContext } from '../src/rule.js';
@@ -21,29 +22,8 @@ const base = { heads: [], project: defaultProject, config };
 const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
-  file: 'src/lib/C.svelte',
-  eachBlocks: [],
-  effects: [],
-  htmlTags: [],
-  javascriptUrls: [],
+  ...emptyComponentFacts('src/lib/C.svelte'),
   loc: 10,
-  propCount: 0,
-  imports: [],
-  importSpans: [],
-  namespaceImports: [],
-  constableStates: [],
-  mutatedProps: [],
-  stalePropDerivations: [],
-  rawableStates: [],
-  nonreactiveBuiltinStates: [],
-  checkableBindValues: [],
-  basePathLinks: [],
-  orphanEffects: [],
-  orphanLifecycleCalls: [],
-  browserGlobalRefs: [],
-  moduleStateDecls: [],
-  suppressions: [],
-  commentLinks: [],
   ...over
 });
 

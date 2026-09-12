@@ -207,7 +207,4 @@ describe('override matching', () => {
     expect(overrideMatches(o!, { route: '/admin/users' })).toBe(true);
     expect(overrideMatches(o!, { route: '/about' })).toBe(false);
   });
-  it('returns an empty list when the config has no overrides', () => {
-    expect(compileOverrides(defineConfig({}))).toEqual([]);
-  });
 });

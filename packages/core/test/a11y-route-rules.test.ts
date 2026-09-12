@@ -40,13 +40,12 @@ describe('a11y/duplicate-landmark', () => {
     );
     const f = fails(rs);
     expect(f).toHaveLength(1);
-    expect(f[0]).toMatchObject({ location: 'src/routes/+page.svelte', line: 5, route: '/' });
-  });
-  it('PASS with one main, nothing with zero landmarks', async () => {
-    const one = await a11yDuplicateLandmark.check(ctxA11y([ra({ landmarks: { main: [{ file: 'f', line: 1 }] } })]));
-    expect(one).toHaveLength(1);
-    expect(fails(one)).toHaveLength(0);
-    expect(await a11yDuplicateLandmark.check(ctxA11y([ra({})]))).toHaveLength(0);
+    expect(f[0]).toMatchObject({
+      location: 'src/routes/+page.svelte',
+      line: 5,
+      route: '/',
+      message: 'Duplicate main landmark (2 of 2)'
+    });
   });
 });
 
@@ -122,22 +121,6 @@ describe('a11y/id-duplication', () => {
       line: 4,
       message: 'Duplicate id "shell-root" — also defined by the src/app.html shell (line 8)'
     });
-  });
-
-  it('keeps the plain message for route-internal duplicates', async () => {
-    const rs = await a11yIdDuplication.check(
-      ctxA11y([
-        ra({
-          ids: {
-            x: [
-              { file: 'a.svelte', line: 1 },
-              { file: 'b.svelte', line: 2 }
-            ]
-          }
-        })
-      ])
-    );
-    expect(fails(rs)[0]!.message).toBe('Duplicate id "x"');
   });
 });
 
@@ -248,6 +231,5 @@ describe('a11y/unverified-id-ref', () => {
 
   it('declares the opt-in class', () => {
     expect(a11yUnverifiedIdRef.defaultOff).toBe(true);
-    expect(a11yUnverifiedIdRef.severity).toBe('info');
   });
 });

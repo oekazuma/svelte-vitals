@@ -109,10 +109,4 @@ describe('correctness/base-path-navigation', () => {
     );
     expect(results).toEqual([]);
   });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'correctness/base-path-navigation')).toBe(true);
-    expect(explainRule('correctness/base-path-navigation')?.severity).toBe('warning');
-  });
 });

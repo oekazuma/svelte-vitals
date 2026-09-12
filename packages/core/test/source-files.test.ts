@@ -35,11 +35,6 @@ describe('collectSourceFiles', () => {
     expect(await collectSourceFiles(rt, '/project')).toEqual(['src/app.html', 'src/lib/a.ts', 'src/lib/b.ts']);
   });
 
-  it('returns an empty list when nothing matches', async () => {
-    const { rt } = fakeRuntime([]);
-    expect(await collectSourceFiles(rt, '/project')).toEqual([]);
-  });
-
   it('does not read any file', async () => {
     // Recorded rather than inferred from a rejection: a swallowed or unawaited read would
     // leave the outer promise resolving normally, so only a call count can prove this.

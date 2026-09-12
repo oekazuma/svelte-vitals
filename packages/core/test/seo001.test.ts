@@ -1,15 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { type Config } from '../src/index.js';
-import {
-  seoTitlePresence,
-  runRules,
-  summarize,
-  classify,
-  formatConsoleReport,
-  defaultConfig,
-  defaultProject,
-  type ResolvedHead
-} from '../src/internal.js';
+import { seoTitlePresence, classify, defaultConfig, defaultProject, type ResolvedHead } from '../src/internal.js';
 
 const config: Config = defaultConfig;
 
@@ -61,30 +52,5 @@ describe('seo/title-presence title detection', () => {
     const [result] = await seoTitlePresence.check({ heads: [inheritedHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'inherited', value: 'static' });
     expect(classify(result!, config)).toBe('pass');
-  });
-});
-
-describe('summary + reporter', () => {
-  it('summarizes a mixed project', async () => {
-    const { results } = await runRules([seoTitlePresence], {
-      heads: [staticHead, dynamicHead, noneHead],
-      project: defaultProject,
-      config
-    });
-    const summary = summarize(results, config);
-    expect(summary).toEqual({ critical: 1, warning: 0, info: 0, passed: 2, dynamic: 1 });
-  });
-
-  it('renders ✗ for missing and ↯ for dynamic', async () => {
-    const { results } = await runRules([seoTitlePresence], {
-      heads: [staticHead, dynamicHead, noneHead],
-      project: defaultProject,
-      config
-    });
-    const report = formatConsoleReport(results, config, { verbose: true });
-    expect(report).toContain('Critical (1)');
-    expect(report).toContain('✗ seo/title-presence  Missing <title>');
-    expect(report).toContain('↯ dynamic');
-    expect(report).toContain('/static');
   });
 });

@@ -36,17 +36,9 @@ async function ci(args: string[], files: Record<string, string> = {}) {
 describe('gunshi/bone ci — pinned behavior across the argv-shape matrix', () => {
   const cells: { name: string; args: string[] }[] = [
     { name: 'no sub (bare ci)', args: [] },
-    { name: '--help', args: ['--help'] },
-    { name: '-h', args: ['-h'] },
     { name: 'bogus sub', args: ['bogus'] },
     // did-you-mean addendum (design doc): a close typo of a real sub-subcommand name.
     { name: 'isntall (typo of install, close enough for a did-you-mean hint)', args: ['isntall'] },
-    { name: 'install', args: ['install'] },
-    { name: 'install --dry-run', args: ['install', '--dry-run'] },
-    { name: 'install --help', args: ['install', '--help'] },
-    { name: 'upgrade (no workflow file)', args: ['upgrade'] },
-    { name: 'upgrade --help', args: ['upgrade', '--help'] },
-    { name: 'upgrade --dry-run (no workflow file)', args: ['upgrade', '--dry-run'] },
     // Discriminators for the dispatch shape described in this file's header comment — every one
     // of these must dispatch exactly like `args[0]` string comparison would, never like a
     // promoted/stripped gunshi parse.
@@ -65,19 +57,11 @@ describe('gunshi/bone ci — pinned behavior across the argv-shape matrix', () =
   }
 });
 
-describe('the declared movement: ci stdout→stderr on exit-2 paths', () => {
-  it('bare `ci` leaves stdout empty', async () => {
-    const { code, out, err } = await ci([]);
-    expect(code).toBe(2);
-    expect(out).toBe('');
-    expect(err).toContain('svelte-vitals ci install');
-  });
-
-  it('an unknown sub-subcommand leaves stdout empty', async () => {
-    const { code, out, err } = await ci(['bogus']);
-    expect(code).toBe(2);
-    expect(out).toBe('');
-    expect(err).toContain('Usage:');
+// The help TEXT is pinned once, by help-golden.test.ts; what stays here is that -h lands on
+// exactly that output.
+describe('help aliases', () => {
+  it('-h is byte-identical to --help', async () => {
+    expect(await ci(['-h'])).toEqual(await ci(['--help']));
   });
 });
 

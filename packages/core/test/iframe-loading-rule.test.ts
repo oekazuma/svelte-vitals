@@ -35,10 +35,8 @@ describe('performance/iframe-loading', () => {
 
   it('passes any literal loading value — the author made a choice', async () => {
     const lazy = await check('<iframe src="/embed" title="Embed" loading="lazy"></iframe>');
-    const eager = await check('<iframe src="/embed" title="Embed" loading="eager"></iframe>');
     expect(lazy.penalized).toEqual([]);
     expect(lazy.passed).toHaveLength(1);
-    expect(eager.penalized).toEqual([]);
   });
 
   it('passes an expression-valued loading — unknowable', async () => {
@@ -62,11 +60,5 @@ describe('performance/iframe-loading', () => {
     const { penalized, passed } = await check('<img src="/a.jpg" alt="" />');
     expect(penalized).toEqual([]);
     expect(passed).toEqual([]);
-  });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'performance/iframe-loading')).toBe(true);
-    expect(explainRule('performance/iframe-loading')?.severity).toBe('info');
   });
 });

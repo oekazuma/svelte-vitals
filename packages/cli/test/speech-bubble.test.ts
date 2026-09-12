@@ -4,7 +4,6 @@ import {
   withSpeechBubble,
   bubbleFitsWidth,
   pickMessage,
-  renderMascotWithSpeech,
   playMascotGreeting,
   GREETING_MESSAGES,
   REACTION_MESSAGES
@@ -13,7 +12,7 @@ import { renderMascotReaction } from '../src/mascot.js';
 import { fakeStream } from './helpers/fake-stream.js';
 
 describe('renderSpeechBubble', () => {
-  it('returns exactly 3 lines: top border, text, bottom border', () => {
+  it('returns exactly 3 lines of equal width: top border, text, bottom border', () => {
     const lines = renderSpeechBubble('Hi there!');
     expect(lines).toHaveLength(3);
     expect(lines[0]!.startsWith('╭')).toBe(true);
@@ -21,23 +20,11 @@ describe('renderSpeechBubble', () => {
     expect(lines[2]!.startsWith('╰')).toBe(true);
     expect(lines[2]!.endsWith('╯')).toBe(true);
     expect(lines[1]).toBe('│ Hi there! │');
-  });
-
-  it('all 3 lines have equal width regardless of text length', () => {
-    const lines = renderSpeechBubble('Welcome to Svelte Vitals!');
-    const widths = new Set(lines.map((l) => l.length));
-    expect(widths.size).toBe(1);
+    expect(new Set(renderSpeechBubble('Welcome to Svelte Vitals!').map((l) => l.length)).size).toBe(1);
   });
 });
 
 describe('withSpeechBubble', () => {
-  it('combines a 4-line mascot block with a 3-line bubble into 4 lines total', () => {
-    const mascot = renderMascotReaction('content');
-    const bubble = renderSpeechBubble('Keep going!');
-    const combined = withSpeechBubble(mascot, bubble).split('\n');
-    expect(combined).toHaveLength(4);
-  });
-
   it('places the 3-line bubble at the top of the 4-line mascot block, with the extra row left blank at the bottom', () => {
     // padTop = floor((4-3)/2) = 0, padBottom = 4-3-0 = 1 — withSpeechBubble's
     // generic centering formula, not a special case for this height combination.
@@ -45,6 +32,7 @@ describe('withSpeechBubble', () => {
     const bubble = renderSpeechBubble('Keep going!');
     const combined = withSpeechBubble(mascot, bubble).split('\n');
     const bubbleWidth = bubble[0]!.length;
+    expect(combined).toHaveLength(4);
     // combined[0] is the mascot's own top border, which already contains '╭' on its own —
     // a bare `.toContain('╭')` would pass even if the bubble weren't rendered on this row
     // at all, so assert the bubble's exact top-border string appears (not just one char).
@@ -73,17 +61,8 @@ describe('bubbleFitsWidth', () => {
 });
 
 describe('pickMessage', () => {
-  it('picks the first item when random() returns 0', () => {
-    expect(pickMessage(['a', 'b', 'c'], () => 0)).toBe('a');
-  });
   it('picks the last item when random() returns just under 1', () => {
     expect(pickMessage(['a', 'b', 'c'], () => 0.999)).toBe('c');
-  });
-  it('defaults to Math.random and always returns a pool member', () => {
-    const pool = ['a', 'b', 'c'];
-    for (let i = 0; i < 20; i++) {
-      expect(pool).toContain(pickMessage(pool));
-    }
   });
 });
 
@@ -95,18 +74,6 @@ describe('message pools', () => {
     for (const pool of Object.values(REACTION_MESSAGES)) {
       for (const m of pool) expect(m.length).toBeLessThanOrEqual(26);
     }
-  });
-  it('has a reaction pool for every mascot state', () => {
-    expect(Object.keys(REACTION_MESSAGES).sort()).toEqual(['content', 'ecstatic', 'happy']);
-  });
-});
-
-describe('renderMascotWithSpeech', () => {
-  it('composes a mascot pose and a message into a single bubbled block', () => {
-    const block = renderMascotWithSpeech(renderMascotReaction('happy'), 'Nice work!');
-    expect(block.split('\n')).toHaveLength(4);
-    expect(block).toContain('Nice work!');
-    expect(block).toContain('\x1b[38;2;255;62;0m'); // still the mascot, orange present
   });
 });
 

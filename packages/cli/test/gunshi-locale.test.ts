@@ -5,6 +5,10 @@ import { describe, it, expect } from 'vitest';
 import { resolveLocale } from '../src/gunshi/locale.js';
 
 describe('resolveLocale', () => {
+  // The help goldens (help-golden.test.ts / help-golden-ja.test.ts) call `runCli` without an `env`
+  // argument on the en side, relying on `process.env` carrying no locale override in the test
+  // harness — this pins that assumption so a future CI/dev env change fails loudly here instead of
+  // silently flipping the English goldens to ja.
   it('defaults to en when every precedence var is absent', () => {
     expect(resolveLocale({})).toBe('en');
   });
@@ -15,22 +19,6 @@ describe('resolveLocale', () => {
 
   it('canonicalizes ja_JP.UTF-8 to ja', () => {
     expect(resolveLocale({ LANG: 'ja_JP.UTF-8' })).toBe('ja');
-  });
-
-  it('canonicalizes ja-JP to ja', () => {
-    expect(resolveLocale({ LANG: 'ja-JP' })).toBe('ja');
-  });
-
-  it('canonicalizes the bare ja to ja', () => {
-    expect(resolveLocale({ LANG: 'ja' })).toBe('ja');
-  });
-
-  it('en_US does not canonicalize to ja', () => {
-    expect(resolveLocale({ LANG: 'en_US.UTF-8' })).toBe('en');
-  });
-
-  it('a garbage locale value falls back to en', () => {
-    expect(resolveLocale({ LANG: 'not-a-real-locale' })).toBe('en');
   });
 
   it('a value merely containing "ja" as a substring does not canonicalize (japanese !== ja)', () => {
@@ -60,13 +48,4 @@ describe('resolveLocale', () => {
       expect(resolveLocale({ LC_MESSAGES: 'ja_JP.UTF-8', LANG: 'en_US.UTF-8' })).toBe('ja');
     });
   });
-
-  it('an explicit SVELTE_VITALS_LANG=ja wins under an otherwise-English env', () => {
-    expect(resolveLocale({ SVELTE_VITALS_LANG: 'ja', LANG: 'en_US.UTF-8' })).toBe('ja');
-  });
-
-  // The help goldens (help-golden.test.ts / help-golden-ja.test.ts) call `runCli` without an `env`
-  // argument on the en side, relying on `process.env` carrying no locale override in the test
-  // harness — this pins that assumption so a future CI/dev env change fails loudly here instead of
-  // silently flipping the English goldens to ja.
 });

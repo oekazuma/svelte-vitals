@@ -6,6 +6,7 @@ import {
   seoSsrDisabled
 } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
+import { emptyComponentFacts } from '../src/component.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { KitModuleFacts } from '../src/kit-module.js';
 import type { RuleContext } from '../src/rule.js';
@@ -61,43 +62,29 @@ describe('security/handler-state-write handler writes imported state', () => {
     );
     expect(fails(rs)).toHaveLength(0);
   });
-  it('is silent on a universal file that opts out of SSR', async () => {
-    const rs = await securityHandlerStateWrite.check(
+  it('honours the ssr=false opt-out only on a universal file', async () => {
+    const writes: KitModuleFacts['importedStateWrites'] = [{ name: 'user', line: 3, via: 'set-call' }];
+    const optedOut = await securityHandlerStateWrite.check(
       ctx([
-        kit({
-          file: 'src/routes/+page.ts',
-          kind: 'universal',
-          importedStateWrites: [{ name: 'user', line: 3, via: 'set-call' }],
-          ssrDisabled: { line: 1 }
-        })
+        kit({ file: 'src/routes/+page.ts', kind: 'universal', importedStateWrites: writes, ssrDisabled: { line: 1 } })
       ])
     );
-    expect(rs).toHaveLength(0);
-  });
-  it('still fires on a universal file without the ssr=false opt-out', async () => {
-    const rs = await securityHandlerStateWrite.check(
-      ctx([
-        kit({
-          file: 'src/routes/+page.ts',
-          kind: 'universal',
-          importedStateWrites: [{ name: 'user', line: 3, via: 'set-call' }]
-        })
-      ])
+    expect(optedOut).toHaveLength(0);
+    const universal = await securityHandlerStateWrite.check(
+      ctx([kit({ file: 'src/routes/+page.ts', kind: 'universal', importedStateWrites: writes })])
     );
-    expect(fails(rs)).toHaveLength(1);
-  });
-  it('still fires on a server-kind file even with ssr=false', async () => {
-    const rs = await securityHandlerStateWrite.check(
+    expect(fails(universal)).toHaveLength(1);
+    const server = await securityHandlerStateWrite.check(
       ctx([
         kit({
           file: 'src/routes/+page.server.ts',
           kind: 'server',
-          importedStateWrites: [{ name: 'user', line: 3, via: 'set-call' }],
+          importedStateWrites: writes,
           ssrDisabled: { line: 1 }
         })
       ])
     );
-    expect(fails(rs)).toHaveLength(1);
+    expect(fails(server)).toHaveLength(1);
   });
 });
 
@@ -119,29 +106,8 @@ describe('security/server-module-state server module-scope state', () => {
 });
 
 const stateModule = (file: string): ComponentFacts => ({
-  file,
-  eachBlocks: [],
-  effects: [],
-  htmlTags: [],
-  javascriptUrls: [],
-  loc: 0,
-  propCount: 0,
-  imports: [],
-  importSpans: [],
-  namespaceImports: [],
-  constableStates: [],
-  mutatedProps: [],
-  stalePropDerivations: [],
-  rawableStates: [],
-  nonreactiveBuiltinStates: [],
-  checkableBindValues: [],
-  basePathLinks: [],
-  orphanEffects: [],
-  orphanLifecycleCalls: [],
-  browserGlobalRefs: [],
-  moduleStateDecls: [{ name: 'user', line: 1 }],
-  suppressions: [],
-  commentLinks: []
+  ...emptyComponentFacts(file),
+  moduleStateDecls: [{ name: 'user', line: 1 }]
 });
 
 describe('security/shared-state-import shared runes-state import on the server', () => {
@@ -196,32 +162,20 @@ describe('security/shared-state-import shared runes-state import on the server',
     );
     expect(fails(noState)).toHaveLength(0);
   });
-  it('is silent on a universal file that opts out of SSR', async () => {
-    const rs = await securitySharedStateImport.check(
+  it('honours the ssr=false opt-out only on a universal file', async () => {
+    const components = [stateModule('src/lib/quiz.svelte.js')];
+    const optedOut = await securitySharedStateImport.check(
       ctx(
-        [
-          kit({
-            file: 'src/routes/+page.ts',
-            kind: 'universal',
-            runesModuleImports: [imp],
-            ssrDisabled: { line: 1 }
-          })
-        ],
-        { components: [stateModule('src/lib/quiz.svelte.js')] }
+        [kit({ file: 'src/routes/+page.ts', kind: 'universal', runesModuleImports: [imp], ssrDisabled: { line: 1 } })],
+        { components }
       )
     );
-    expect(rs).toHaveLength(0);
-  });
-  it('still fires on a universal file without the ssr=false opt-out', async () => {
-    const rs = await securitySharedStateImport.check(
-      ctx([kit({ file: 'src/routes/+page.ts', kind: 'universal', runesModuleImports: [imp] })], {
-        components: [stateModule('src/lib/quiz.svelte.js')]
-      })
+    expect(optedOut).toHaveLength(0);
+    const universal = await securitySharedStateImport.check(
+      ctx([kit({ file: 'src/routes/+page.ts', kind: 'universal', runesModuleImports: [imp] })], { components })
     );
-    expect(fails(rs)).toHaveLength(1);
-  });
-  it('still fires on a server-kind file even with ssr=false', async () => {
-    const rs = await securitySharedStateImport.check(
+    expect(fails(universal)).toHaveLength(1);
+    const server = await securitySharedStateImport.check(
       ctx(
         [
           kit({
@@ -231,10 +185,10 @@ describe('security/shared-state-import shared runes-state import on the server',
             ssrDisabled: { line: 1 }
           })
         ],
-        { components: [stateModule('src/lib/quiz.svelte.js')] }
+        { components }
       )
     );
-    expect(fails(rs)).toHaveLength(1);
+    expect(fails(server)).toHaveLength(1);
   });
 });
 

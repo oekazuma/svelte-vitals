@@ -4,10 +4,9 @@
 // routed through it once `runCli` dispatched to the gunshi port) and hybridized `docs --help`'s
 // output, so the legacy runner is no longer available as a live oracle for this file's own cells.
 // Converted to direct snapshot pins instead: every cell here pinned the SAME bytes the legacy
-// comparison already proved equal (guard/strip/dispatch logic is unchanged) except the four
-// `--help`-reaching cells, which now pin the new hybrid text — the one declared movement in this
-// PR's changeset. Coverage of the argv-shape matrix (unknown-flag-before-positional, `--`
-// terminator, tail-promotion, literal-`=false` coercion, …) survives unchanged.
+// comparison already proved equal (guard/strip/dispatch logic is unchanged). Coverage of the
+// argv-shape matrix (unknown-flag-before-positional, `--` terminator, tail-promotion,
+// literal-`=false` coercion, …) survives unchanged.
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { runDocsCliGunshi } from '../src/gunshi/docs.js';
 import { captureIO } from './helpers/capture-io.js';
@@ -31,10 +30,6 @@ describe('gunshi/bone docs — pinned behavior across the argv-shape matrix', ()
     { name: 'show (no name)', args: ['show'] },
     { name: 'no sub', args: [] },
     { name: 'bogus sub', args: ['bogus'] },
-    { name: '--help', args: ['--help'] },
-    { name: '-h', args: ['-h'] },
-    { name: 'list --help (help wins over list logic, same as today)', args: ['list', '--help'] },
-    { name: 'show --help (help wins over show logic, same as today)', args: ['show', '--help'] },
     { name: '-v (unrecognized, falls through to no-sub)', args: ['-v'] },
     { name: 'list -v (unrecognized flag ignored, list still runs)', args: ['list', '-v'] },
     { name: 'list --json=false (literal-false coercion)', args: ['list', '--json=false'] },
@@ -78,6 +73,16 @@ describe('gunshi/bone docs — pinned behavior across the argv-shape matrix', ()
   for (const { name, args } of cells) {
     it(`${name}`, async () => {
       expect(await gunshi(args)).toMatchSnapshot();
+    });
+  }
+});
+
+// The help TEXT is pinned once, by help-golden.test.ts; what stays here is that every other
+// help-reaching argv shape lands on exactly that output.
+describe('help aliases', () => {
+  for (const args of [['-h'], ['list', '--help'], ['show', '--help']]) {
+    it(`${args.join(' ')} is byte-identical to --help`, async () => {
+      expect(await gunshi(args)).toEqual(await gunshi(['--help']));
     });
   }
 });

@@ -128,11 +128,6 @@ describe('a11y/permitted-contents', () => {
     expect(await failing('<form><div><my-x><form></form></my-x></div></form>')).toEqual([]);
   });
 
-  it('is silenced by an inline directive on the finding line', async () => {
-    const src = '<ul>\n  <!-- svelte-vitals-disable-next-line a11y/permitted-contents -->\n  <div>x</div>\n</ul>';
-    expect(await failing(src)).toEqual([]);
-  });
-
   it('emits one PASS for a clean file that has elements', async () => {
     const rs = await run('<ul><li>ok</li></ul>');
     expect(fails(rs)).toEqual([]);

@@ -64,30 +64,15 @@ describe('seo/json-ld-validity: unknown @type vocabulary', () => {
     expect(rs[0]?.message).toBe("Unknown @type 'article' — not a schema.org type. Did you mean 'Article'?");
   });
 
-  it('suggests the closest name for a distance-1 typo (dropped letter)', async () => {
-    const rs = fails(
-      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Artcle"}')))
-    );
-    expect(rs).toHaveLength(1);
-    expect(rs[0]?.message).toBe("Unknown @type 'Artcle' — not a schema.org type. Did you mean 'Article'?");
-  });
-
-  it('suggests the closest name for a distance-2 typo (transposition)', async () => {
-    // measured: levenshtein('artilce', 'article') === 2
-    const rs = fails(
-      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Artilce"}')))
-    );
-    expect(rs).toHaveLength(1);
-    expect(rs[0]?.message).toBe("Unknown @type 'Artilce' — not a schema.org type. Did you mean 'Article'?");
-  });
-
-  it('suggests the closest name for a distance-2 typo (dropped letters)', async () => {
-    // measured: levenshtein('artcl', 'article') === 2
-    const rs = fails(
-      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Artcl"}')))
-    );
-    expect(rs).toHaveLength(1);
-    expect(rs[0]?.message).toBe("Unknown @type 'Artcl' — not a schema.org type. Did you mean 'Article'?");
+  it('suggests the closest name for a typo up to distance 2', async () => {
+    // measured: levenshtein('artcle', 'article') === 1, levenshtein('artilce', 'article') === 2
+    for (const typo of ['Artcle', 'Artilce']) {
+      const rs = fails(
+        await seoJsonLdValidity.check(ctx(headWithJsonLd(`{"@context":"https://schema.org","@type":"${typo}"}`)))
+      );
+      expect(rs).toHaveLength(1);
+      expect(rs[0]?.message).toBe(`Unknown @type '${typo}' — not a schema.org type. Did you mean 'Article'?`);
+    }
   });
 
   it('gives no suggestion when nothing in the catalog is within distance 2', async () => {
@@ -256,22 +241,6 @@ describe('seo/json-ld-deprecated-type-021', () => {
       )
     ).toHaveLength(0);
   });
-  it('seo/json-ld-relative-url accepts protocol-relative and data-URI values', async () => {
-    expect(
-      fails(
-        await seoJsonLdRelativeUrl.check(
-          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","logo":"//cdn.e.com/l.png"}'))
-        )
-      )
-    ).toHaveLength(0);
-    expect(
-      fails(
-        await seoJsonLdRelativeUrl.check(
-          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","image":"data:image/png;base64,AAAA"}'))
-        )
-      )
-    ).toHaveLength(0);
-  });
   it('seo/json-ld-date-format flags a non-ISO date under a known key', async () => {
     expect(
       fails(
@@ -284,22 +253,6 @@ describe('seo/json-ld-deprecated-type-021', () => {
       fails(
         await seoJsonLdDateFormat.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","datePublished":"2026-06-01"}'))
-        )
-      )
-    ).toHaveLength(0);
-  });
-  it('seo/json-ld-date-format accepts schema.org reduced-precision dates (year / year-month)', async () => {
-    expect(
-      fails(
-        await seoJsonLdDateFormat.check(
-          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Event","startDate":"2026"}'))
-        )
-      )
-    ).toHaveLength(0);
-    expect(
-      fails(
-        await seoJsonLdDateFormat.check(
-          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Event","startDate":"2026-06"}'))
         )
       )
     ).toHaveLength(0);

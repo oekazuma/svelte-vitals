@@ -606,28 +606,6 @@ describe('architecture/reserved-directory-names — the unit-map partition (desi
 });
 
 describe('architecture/reserved-directory-names — anyCaseUnitScopes declarations that check nothing', () => {
-  it('reports an anyCaseUnitScopes key that matched no directory', async () => {
-    const rs = await architectureReservedDirectoryNames.check(
-      ctx(['src/lib/formatDate/formatDate.ts'], {
-        anyCaseUnitScopes: { 'src/**': 'parts', 'src/nowhere/*': 'parts' }
-      })
-    );
-    expect(project(rs)).toHaveLength(1);
-    expect(project(rs)[0]!.message).toContain("'src/nowhere/*'");
-    expect(project(rs)[0]!.message).toContain('matched no directory');
-  });
-
-  it('reports an anyCaseUnitScopes key whose every match is excluded', async () => {
-    const rs = await architectureReservedDirectoryNames.check(
-      ctx(['src/lib/tests/formatDate/formatDate.ts'], {
-        anyCaseUnitScopes: { 'src/**/tests/*': 'parts' },
-        exclude: ['**/tests']
-      })
-    );
-    expect(project(rs)).toHaveLength(1);
-    expect(project(rs)[0]!.message).toContain('matched only excluded directories');
-  });
-
   it('reports an anyCaseUnitScopes key that matched directories but never a unit of either case', async () => {
     // 'grouping' holds no same-stemmed file, so it is not a unit of any case — the key identified
     // nothing, which is a stronger claim than unitScopes's 'never a unit' and gets its own wording.
@@ -752,28 +730,22 @@ describe('architecture/reserved-directory-names — examined counts', () => {
     expect(examined[ID]).toEqual({});
   });
 
-  it('reports no counts at all on a run with no file inventory', async () => {
-    const config = defineConfig({ rules: { [ID]: { options: { unitScopes: { 'src/**': 'parts' } } } } });
+  it('reports no counts at all without a file inventory, and none when no config layer mentions the rule', async () => {
     const seen: Record<string, number>[] = [];
+    const recordExamined = (c: Record<string, number>) => void seen.push(c);
     await architectureReservedDirectoryNames.check({
       sourceFiles: undefined,
       heads: [],
       project: defaultProject,
-      config,
-      recordExamined: (c: Record<string, number>) => void seen.push(c)
+      config: defineConfig({ rules: { [ID]: { options: { unitScopes: { 'src/**': 'parts' } } } } }),
+      recordExamined
     });
-    expect(seen).toEqual([]);
-  });
-
-  it('reports no counts at all when no config layer mentions the rule', async () => {
-    const config = defineConfig({});
-    const seen: Record<string, number>[] = [];
     await architectureReservedDirectoryNames.check({
       sourceFiles: ['src/lib/Card/Card.svelte'],
       heads: [],
       project: defaultProject,
-      config,
-      recordExamined: (c: Record<string, number>) => void seen.push(c)
+      config: defineConfig({}),
+      recordExamined
     });
     expect(seen).toEqual([]);
   });

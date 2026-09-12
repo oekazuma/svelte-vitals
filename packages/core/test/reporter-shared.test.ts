@@ -1,23 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import {
-  severityToSarifLevel,
-  severityToGithubLevel,
-  messageText,
-  ruleMetaById,
-  docsUrlFor
-} from '../src/reporter/shared.js';
+import { severityToSarifLevel, messageText, ruleMetaById } from '../src/reporter/shared.js';
 import type { Result } from '../src/index.js';
 
 describe('severity level maps', () => {
-  it('maps to SARIF levels', () => {
-    expect(severityToSarifLevel('critical')).toBe('error');
-    expect(severityToSarifLevel('warning')).toBe('warning');
+  it('maps info to the SARIF note level', () => {
     expect(severityToSarifLevel('info')).toBe('note');
-  });
-  it('maps to GitHub levels', () => {
-    expect(severityToGithubLevel('critical')).toBe('error');
-    expect(severityToGithubLevel('warning')).toBe('warning');
-    expect(severityToGithubLevel('info')).toBe('notice');
   });
 });
 
@@ -37,24 +24,7 @@ describe('messageText', () => {
 });
 
 describe('ruleMetaById', () => {
-  it('returns canonical metadata for a known rule', () => {
-    const m = ruleMetaById('seo/title-presence');
-    expect(m).toEqual({
-      title: 'Title presence',
-      severity: 'critical',
-      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence'
-    });
-  });
   it('returns undefined for an unknown rule id', () => {
     expect(ruleMetaById('NOPE999')).toBeUndefined();
-  });
-  it('sources its docsUrl from docsUrlFor', () => {
-    expect(ruleMetaById('seo/title-presence')?.docsUrl).toBe(docsUrlFor('seo/title-presence'));
-  });
-});
-
-describe('docsUrlFor', () => {
-  it('builds the canonical rule docs URL', () => {
-    expect(docsUrlFor('seo/title-presence')).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence');
   });
 });

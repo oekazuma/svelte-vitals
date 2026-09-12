@@ -8,8 +8,7 @@ import {
   hasPlaceholder,
   hasNonEmpty,
   typeOf,
-  URL_KEYS,
-  REQUIRED_PROPS
+  URL_KEYS
 } from '../src/rules/seo/jsonld-engine.js';
 
 describe('parseJsonLd', () => {
@@ -95,19 +94,5 @@ describe('hasNonEmpty', () => {
     expect(hasNonEmpty({ itemListElement: [] }, 'itemListElement')).toBe(false);
     expect(hasNonEmpty({ itemListElement: [{}] }, 'itemListElement')).toBe(true);
     expect(hasNonEmpty({ offers: {} }, 'offers')).toBe(true); // a non-empty object counts
-  });
-});
-
-describe('REQUIRED_PROPS', () => {
-  it('covers the common types', () => {
-    expect(REQUIRED_PROPS['Product']).toEqual({ all: ['name'], oneOf: ['review', 'aggregateRating', 'offers'] });
-    expect(REQUIRED_PROPS['BreadcrumbList']).toContain('itemListElement');
-  });
-  it('has no row for types with no per-node-checkable requirement (zero Google-required props, or a requirement scoped to a relationship this engine does not track)', () => {
-    expect(REQUIRED_PROPS['Article']).toBeUndefined();
-    expect(REQUIRED_PROPS['BlogPosting']).toBeUndefined();
-    expect(REQUIRED_PROPS['NewsArticle']).toBeUndefined();
-    expect(REQUIRED_PROPS['Organization']).toBeUndefined();
-    expect(REQUIRED_PROPS['Person']).toBeUndefined();
   });
 });

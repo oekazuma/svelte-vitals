@@ -45,63 +45,16 @@ describe('resolveInstallArgs', () => {
   });
 });
 
-describe('resolveInstallArgs — Vite targets', () => {
-  it('accepts vite-plugin and vite-hooks in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-hooks']));
+describe('resolveInstallArgs — target ids', () => {
+  it('accepts every install target id in one --client list', () => {
+    const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-hooks,cursor-rules,config-file,ci-workflow']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['vite-plugin', 'vite-hooks']);
-  });
-  it('mixes an agent target id with a Vite target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,vite-plugin']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['cursor-rules', 'vite-plugin']);
-  });
-  it('still rejects a genuinely unknown id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'not-a-real-target']));
-    expect(r.warnings.join('\n')).toContain('not-a-real-target');
-  });
-});
-
-describe('resolveInstallArgs — agent targets', () => {
-  it('accepts cursor-rules in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'cursor-rules']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['cursor-rules']);
+    expect(r.flags!.client).toEqual(['vite-plugin', 'vite-hooks', 'cursor-rules', 'config-file', 'ci-workflow']);
   });
   it('rejects the retired SKILL.md target ids like any unknown id', () => {
     const r = resolveInstallArgs(parse(['--client', 'claude-skill,claude-skill-improve']));
     expect(r.flags).toBeNull();
     expect(r.warnings.join('\n')).toContain('claude-skill');
-  });
-  it('still rejects a genuinely unknown id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'not-an-agent-target']));
-    expect(r.warnings.join('\n')).toContain('not-an-agent-target');
-  });
-});
-
-describe('resolveInstallArgs — config target', () => {
-  it('accepts config-file in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'config-file']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['config-file']);
-  });
-  it('mixes an agent target id with the config target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,config-file']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['cursor-rules', 'config-file']);
-  });
-});
-
-describe('resolveInstallArgs — ci target', () => {
-  it('accepts ci-workflow in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'ci-workflow']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['ci-workflow']);
-  });
-  it('mixes an agent target id with the ci target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,ci-workflow']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['cursor-rules', 'ci-workflow']);
   });
 });
 

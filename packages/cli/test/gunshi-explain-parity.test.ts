@@ -22,8 +22,6 @@ describe('gunshi/bone explain — pinned behavior across the argv-shape matrix',
     { name: 'unknown id', args: ['NOPE999'] },
     { name: 'wrong-case id (exact match only)', args: ['SEO/TITLE-PRESENCE'] },
     { name: 'id plus extra positionals (legacy ignores them)', args: ['seo/title-presence', 'extra'] },
-    { name: '--help', args: ['--help'] },
-    { name: '-h', args: ['-h'] },
     { name: '--json=false (literal-false coercion)', args: ['--json=false', 'seo/title-length'] },
     { name: '--list=false (literal-false coercion, falls through to no-id)', args: ['--list=false'] },
     // Phase 2b (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md): an unknown
@@ -39,6 +37,14 @@ describe('gunshi/bone explain — pinned behavior across the argv-shape matrix',
       expect(await gunshi(args)).toMatchSnapshot();
     });
   }
+});
+
+// The help TEXT is pinned once, by help-golden.test.ts; what stays here is that -h lands on
+// exactly that output.
+describe('help aliases', () => {
+  it('-h is byte-identical to --help', async () => {
+    expect(await gunshi(['-h'])).toEqual(await gunshi(['--help']));
+  });
 });
 
 describe('gate (c): in-process, injected IO, no process-global coupling', () => {

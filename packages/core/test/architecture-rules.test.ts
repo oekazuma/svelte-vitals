@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { architectureComponentSize, architecturePropCount, parseComponentFacts } from '../src/internal.js';
+import { architectureComponentSize, architecturePropCount } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
+import { emptyComponentFacts } from '../src/component.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';
@@ -10,29 +11,8 @@ const base = { heads: [], project: defaultProject, config };
 const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
-  file: 'src/lib/C.svelte',
-  eachBlocks: [],
-  effects: [],
-  htmlTags: [],
-  javascriptUrls: [],
+  ...emptyComponentFacts('src/lib/C.svelte'),
   loc: 10,
-  propCount: 0,
-  imports: [],
-  importSpans: [],
-  namespaceImports: [],
-  constableStates: [],
-  mutatedProps: [],
-  stalePropDerivations: [],
-  rawableStates: [],
-  nonreactiveBuiltinStates: [],
-  checkableBindValues: [],
-  basePathLinks: [],
-  orphanEffects: [],
-  orphanLifecycleCalls: [],
-  browserGlobalRefs: [],
-  moduleStateDecls: [],
-  suppressions: [],
-  commentLinks: [],
   ...over
 });
 
@@ -48,17 +28,6 @@ describe('architecture/component-size component size', () => {
     const rs = await architectureComponentSize.check(ctx([comp({ loc: 50 })]));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
-  });
-  it('passes a component at exactly the line limit', async () => {
-    const rs = await architectureComponentSize.check(ctx([comp({ loc: 200 })]));
-    expect(fails(rs)).toHaveLength(0);
-    expect(rs).toHaveLength(1);
-  });
-  it('flags a component one line over the limit', async () => {
-    const rs = await architectureComponentSize.check(ctx([comp({ loc: 201 })]));
-    expect(fails(rs)).toHaveLength(1);
-    expect(rs[0]!.message).toContain('201');
-    expect(rs[0]!.message).toContain('over 200');
   });
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await architectureComponentSize.check(base as RuleContext)).toHaveLength(0);
@@ -79,31 +48,8 @@ describe('architecture/prop-count prop count', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
-  it('passes a component at exactly the threshold', async () => {
-    const rs = await architecturePropCount.check(ctx([comp({ propCount: 6 })]));
-    expect(fails(rs)).toHaveLength(0);
-    expect(rs).toHaveLength(1);
-  });
-  it('flags a component one prop over the threshold', async () => {
-    const rs = await architecturePropCount.check(ctx([comp({ propCount: 7 })]));
-    expect(fails(rs)).toHaveLength(1);
-    expect(rs[0]!.message).toContain('7');
-    expect(rs[0]!.message).toContain('over 6');
-  });
   it('emits nothing for a component with no countable props', async () => {
     expect(await architecturePropCount.check(ctx([comp({ propCount: 0 })]))).toHaveLength(0);
-  });
-  it('passes a real component with 6 named props beside a rest element', async () => {
-    const src = '<script>let { a, b, c, d, e, f, ...rest } = $props();</script>';
-    const facts = parseComponentFacts(src, 'C.svelte');
-    const rs = await architecturePropCount.check(ctx([comp({ propCount: facts.propCount })]));
-    expect(fails(rs)).toHaveLength(0);
-  });
-  it('flags a real component with 7 named props beside a rest element', async () => {
-    const src = '<script>let { a, b, c, d, e, f, g, ...rest } = $props();</script>';
-    const facts = parseComponentFacts(src, 'C.svelte');
-    const rs = await architecturePropCount.check(ctx([comp({ propCount: facts.propCount })]));
-    expect(fails(rs)).toHaveLength(1);
   });
 });
 
@@ -117,11 +63,15 @@ describe('architecture rule options', () => {
 
   it('pins the built-in prop-count threshold', async () => {
     expect(fails(await architecturePropCount.check(ctx([comp({ propCount: 6 })])))).toHaveLength(0);
-    expect(fails(await architecturePropCount.check(ctx([comp({ propCount: 7 })])))).toHaveLength(1);
+    const over = fails(await architecturePropCount.check(ctx([comp({ propCount: 7 })])));
+    expect(over).toHaveLength(1);
+    expect(over[0]!.message).toContain('over 6');
   });
   it('pins the built-in component-size threshold', async () => {
     expect(fails(await architectureComponentSize.check(ctx([comp({ loc: 200 })])))).toHaveLength(0);
-    expect(fails(await architectureComponentSize.check(ctx([comp({ loc: 201 })])))).toHaveLength(1);
+    const over = fails(await architectureComponentSize.check(ctx([comp({ loc: 201 })])));
+    expect(over).toHaveLength(1);
+    expect(over[0]!.message).toContain('over 200');
   });
   it('honours a configured prop-count max', async () => {
     const cfg = { rules: { 'architecture/prop-count': { options: { max: 10 } } } };

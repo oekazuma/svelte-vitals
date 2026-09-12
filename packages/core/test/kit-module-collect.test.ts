@@ -129,13 +129,6 @@ describe('collectKitModuleFacts', () => {
     expect(facts[1]!.moduleStateReassignments).toEqual([{ name: 'user', line: 3, inHandler: true }]);
   });
   it('marks a file it could not read as readFailed, not merely parseFailed', async () => {
-    const rt = createMemoryRuntime({ 'src/routes/+page.server.ts': 'let x;' }, new Set(['src/routes/+page.server.ts']));
-    expect(await collectKitModuleFacts(rt, '')).toEqual([
-      { ...emptyKitModuleFacts('src/routes/+page.server.ts', 'server'), parseFailed: true, readFailed: true }
-    ]);
-  });
-
-  it('marks parseFailed on a failed file and leaves it unset on a healthy one', async () => {
     const rt = createMemoryRuntime(
       {
         'src/routes/+page.server.ts': 'let x;',
@@ -145,7 +138,11 @@ describe('collectKitModuleFacts', () => {
     );
     const facts = await collectKitModuleFacts(rt, '');
     const byFile = new Map(facts.map((f) => [f.file, f]));
-    expect(byFile.get('src/routes/+page.server.ts')!.parseFailed).toBe(true);
+    expect(byFile.get('src/routes/+page.server.ts')).toEqual({
+      ...emptyKitModuleFacts('src/routes/+page.server.ts', 'server'),
+      parseFailed: true,
+      readFailed: true
+    });
     expect(byFile.get('src/routes/about/+page.ts')!.parseFailed).toBeUndefined();
   });
 });

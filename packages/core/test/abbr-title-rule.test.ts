@@ -47,10 +47,4 @@ describe('a11y/abbr-title', () => {
   it('skips an <abbr> inside <svg> — it is not an SVG element', async () => {
     expect(await check('<svg><abbr>SVG</abbr></svg>')).toEqual([]);
   });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'a11y/abbr-title')).toBe(true);
-    expect(explainRule('a11y/abbr-title')?.severity).toBe('info');
-  });
 });

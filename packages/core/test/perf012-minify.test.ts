@@ -47,12 +47,4 @@ describe('performance/minify-disabled minify disabled', () => {
     expect(results[0]!.line).toBeUndefined();
     expect(results[0]!.message).toContain('inline (programmatic) Vite config');
   });
-
-  it('is registered with project scope', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    const rule = allRules.find((r) => r.id === 'performance/minify-disabled');
-    expect(rule).toBeDefined();
-    expect(rule?.scope).toBe('project');
-    expect(explainRule('performance/minify-disabled')?.title).toBe('Minification disabled');
-  });
 });

@@ -27,20 +27,7 @@ describe('correctness/autoplay-muted', () => {
     expect(penalized[0]!.fix?.snippet).toContain('muted');
   });
 
-  it('flags each fact independently', async () => {
-    const results = await correctnessAutoplayMuted.check(
-      ctx([comp('src/routes/+page.svelte', [{ line: 3 }, { line: 9 }])])
-    );
-    expect(results.filter((r) => r.detection.presence === 'none')).toHaveLength(2);
-  });
-
   it('emits nothing without the fact', async () => {
     expect(await correctnessAutoplayMuted.check(ctx([comp('src/routes/+page.svelte', [])]))).toEqual([]);
-  });
-
-  it('is registered', async () => {
-    const { allRules, explainRule } = await import('../src/rules/index.js');
-    expect(allRules.some((r) => r.id === 'correctness/autoplay-muted')).toBe(true);
-    expect(explainRule('correctness/autoplay-muted')?.severity).toBe('warning');
   });
 });

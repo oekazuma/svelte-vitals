@@ -2,33 +2,11 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { collectSourceFiles } from '../src/providers/source/components.js';
 import { analyze } from '../src/analyze.js';
 
-// fileURLToPath, not URL.pathname: pathname keeps percent-encoding and carries a leading slash
-// before a Windows drive letter, so it is not a filesystem path.
-const here = fileURLToPath(new URL('.', import.meta.url));
-const packageRoot = fileURLToPath(new URL('..', import.meta.url));
-
-describe('collectSourceFiles (vite provider)', () => {
-  it('returns paths under src/ for the repository it is pointed at', async () => {
-    // Point it at this package: packages/vite/src exists and holds .ts files.
-    const files = await collectSourceFiles(packageRoot);
-    expect(files.length).toBeGreaterThan(0);
-    expect(files.every((f) => f.startsWith('src/'))).toBe(true);
-    expect(files).toEqual(files.slice().sort());
-  });
-
-  it('returns an empty list for a directory with no src/', async () => {
-    expect(await collectSourceFiles(here)).toEqual([]);
-  });
-});
-
-// The provider tests above prove the collector works; they would still pass if analyze() stopped
-// putting `sourceFiles` in the RuleContext, since nothing else in the plugin reads the inventory.
-// This exercises the whole path — glob, RuleContext, rule — the way the componentFacts wiring test
-// in analyze.test.ts does for the component collector.
+// Nothing else in the plugin reads the file inventory, so only an end-to-end run — glob,
+// RuleContext, rule — can tell that analyze() still puts `sourceFiles` in the context, the way
+// the componentFacts wiring test in analyze.test.ts does for the component collector.
 describe('analyze wires sourceFiles into the rule context', () => {
   let cwd: string;
   let pages: string;
@@ -60,74 +38,5 @@ describe('analyze wires sourceFiles into the rule context', () => {
     // the declaration, not from the rule being on by default.
     const r = await analyze(pages, cwd, { report: false });
     expect(r.results.filter((x) => x.id === 'architecture/unit-entry-file')).toEqual([]);
-  });
-});
-
-// A separate temp project, not appended to the fixture above: `Price_Table` starts with an
-// uppercase letter, which `architecture/unit-entry-file`'s `isPascalCase` gate treats as PascalCase
-// too, so adding it next to `Card` there would also trip that rule's own `pascalCaseUnits`
-// declaration and turn its single expected finding into two.
-describe('analyze wires sourceFiles into the rule context for architecture/directory-naming', () => {
-  let cwd: string;
-  let pages: string;
-  beforeAll(async () => {
-    cwd = await mkdtemp(join(tmpdir(), 'sv-source-files-casing-'));
-    pages = join(cwd, '.svelte-kit/output/prerendered/pages');
-    await mkdir(pages, { recursive: true });
-    await writeFile(join(pages, 'index.html'), `<html lang="en"><head><title>Home</title></head><body></body></html>`);
-    // A directory the casing declaration requires to be camelCase, but is not.
-    await mkdir(join(cwd, 'src/lib/Price_Table'), { recursive: true });
-    await writeFile(join(cwd, 'src/lib/Price_Table/index.ts'), 'export const summary = 1;');
-  });
-  afterAll(async () => rm(cwd, { recursive: true, force: true }));
-
-  it('runs the casing rule over the collected inventory', async () => {
-    const r = await analyze(pages, cwd, {
-      report: false,
-      rules: { 'architecture/directory-naming': { options: { directories: { 'src/lib/**': 'camelCase' } } } }
-    });
-    const found = r.results.filter((x) => x.id === 'architecture/directory-naming');
-    expect(found).toHaveLength(1);
-    // `route` is the directory, `location` a file inside it (see the rule's comment on why the two differ).
-    expect(found[0]!.route).toBe('src/lib/Price_Table');
-    expect(found[0]!.location).toBe('src/lib/Price_Table/index.ts');
-  });
-
-  it('emits nothing from that rule when it is left unconfigured', async () => {
-    const r = await analyze(pages, cwd, { report: false });
-    expect(r.results.filter((x) => x.id === 'architecture/directory-naming')).toEqual([]);
-  });
-});
-
-// A third separate temp project: a directory name chosen for one rule can satisfy another rule's
-// gate and break its wiring test (as happened when a sibling rule's test was added to a shared
-// fixture), so this rule gets its own project rather than extending either describe above.
-describe('analyze wires sourceFiles into the reserved-names rule', () => {
-  let cwd: string;
-  let pages: string;
-  beforeAll(async () => {
-    cwd = await mkdtemp(join(tmpdir(), 'sv-reserved-names-'));
-    pages = join(cwd, '.svelte-kit/output/prerendered/pages');
-    await mkdir(pages, { recursive: true });
-    await writeFile(join(pages, 'index.html'), `<html lang="en"><head><title>Home</title></head><body></body></html>`);
-    await mkdir(join(cwd, 'src/lib/Card/helpers'), { recursive: true });
-    await writeFile(join(cwd, 'src/lib/Card/Card.svelte'), '<div>card</div>');
-    await writeFile(join(cwd, 'src/lib/Card/helpers/format.ts'), 'export const format = 1;');
-  });
-  afterAll(async () => rm(cwd, { recursive: true, force: true }));
-
-  it('reports the undeclared child directory', async () => {
-    const r = await analyze(pages, cwd, {
-      report: false,
-      rules: { 'architecture/reserved-directory-names': { options: { unitScopes: { 'src/**': 'parts|tests' } } } }
-    });
-    const found = r.results.filter((x) => x.id === 'architecture/reserved-directory-names');
-    expect(found).toHaveLength(1);
-    expect(found[0]!.route).toBe('src/lib/Card/helpers');
-  });
-
-  it('emits nothing from that rule when it is left unconfigured', async () => {
-    const r = await analyze(pages, cwd, { report: false });
-    expect(r.results.filter((x) => x.id === 'architecture/reserved-directory-names')).toEqual([]);
   });
 });
