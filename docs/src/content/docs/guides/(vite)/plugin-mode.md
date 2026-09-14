@@ -55,7 +55,7 @@ export default {
 
 ## Scope
 
-The HTML check covers prerendered routes only. SSR and dynamic routes have no build output, so nothing here reads their rendered HTML. The `svelte-vitals` CLI covers those routes by source analysis instead, and the [live dashboard](/guides/dev-dashboard) gets a rendered reading of them when you browse during `vite dev`. The source scan applies project-wide regardless of how a route renders.
+The HTML check covers prerendered routes only. Routes that are not prerendered (server-rendered, or dynamic routes without prerendered entries) have no build output, so nothing here reads their rendered HTML. A prerendered route with `ssr = false` has build output, but it is the empty app shell, so the HTML check skips it too — a `+layout` with `ssr = false` skips its whole subtree — and the build prints one warning listing the skipped routes. The `svelte-vitals` CLI covers those routes by source analysis instead, and the [live dashboard](/guides/dev-dashboard) gets a rendered reading of them when you browse during `vite dev`. The source scan applies project-wide regardless of how a route renders.
 
 ## How it works
 

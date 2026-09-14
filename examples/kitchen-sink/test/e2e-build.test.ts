@@ -80,6 +80,13 @@ describe('kitchen-sink e2e (build mode)', () => {
     expect(routes).not.toContain('/gallery/seo/ssr-off');
   });
 
+  it('skips the prerendered spa-shell route (ssr=false, prerendered as the empty app shell) and says so', () => {
+    const routes = report.routes.map((r) => r.route);
+    expect(routes).not.toContain('/gallery/seo/spa-shell');
+    expect(buildStderr).toContain('skipped 1 prerendered route(s) with ssr = false');
+    expect(buildStderr).toContain('to check them from source: /gallery/seo/spa-shell');
+  });
+
   it('never reports skipped routes: the prerendered document is its own closed world', () => {
     expect(report.skipped).toBeUndefined();
   });

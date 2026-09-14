@@ -34,7 +34,7 @@ export default {
 - `cwd`: project root (defaults to the Vite config root).
 - `ui`: serve the live dev dashboard (default `true`); pass `false` to keep only the build-time gate.
 
-At build time the HTML check covers prerendered routes only; the source scan applies project-wide. SSR and dynamic routes have no build output, so nothing checks their rendered HTML here. The `svelte-vitals` CLI covers them by source analysis, and browsing them during `vite dev` gets the live dashboard a rendered reading.
+At build time the HTML check covers prerendered routes only; the source scan applies project-wide. Routes that are not prerendered (server-rendered, or dynamic routes without prerendered entries) have no build output, so nothing checks their rendered HTML here. A prerendered route with `ssr = false` has build output, but only the empty app shell, so the HTML check skips it too (a `+layout` with `ssr = false` skips its subtree) and prints one warning listing the skipped routes. The `svelte-vitals` CLI covers them by source analysis, and browsing them during `vite dev` gets the live dashboard a rendered reading.
 
 See [Live dashboard](https://oekazuma.github.io/svelte-vitals/guides/dev-dashboard/) and [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/) for the full picture.
 
