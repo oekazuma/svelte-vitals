@@ -53,6 +53,8 @@ export default {
 
 `@svelte-vitals/vite` はプロジェクトルートの `svelte-vitals.config.*` を自動的に読み込みます。上記の明示的なオプションは常に設定ファイルの値より優先されます。優先順位のルールと、ライブダッシュボードが設定ファイルをどう利用するかは [設定ファイル § Vite プラグインで設定ファイルを再利用する](/ja/guides/configuration#vite-プラグインで設定ファイルを再利用する) を参照してください。
 
+同じ場所にある `svelte-vitals-suppressions.json`（[`svelte-vitals --update-suppressions`](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) が書き出すファイル）も、ビルドゲートとライブダッシュボードのプロジェクト全体レイヤーの両方に適用され、CLI と結果が一致します。適用されるのはソース走査のエントリだけです（Correctness、Security、Architecture、コンポーネント単位の Accessibility。ルール ID・route・location が CLI と共通の検出結果）。レンダリング後のルート検出結果はビルド済み HTML ファイルに紐づき、CLI が記録する `+page.svelte` とは location が異なるため、プラグインはルート単位のエントリをビルドゲート・ダッシュボードのどちらでもスキップし、スキップした件数を出力します。それらには [`overrides`](/ja/guides/configuration#overrides) を使ってください。ビルド時には抑制した件数も出力します。stale なエントリの報告は CLI だけが行います。壊れたファイルは CLI と同様にビルドを失敗させます。
+
 ## 対象範囲
 
 HTML の検査対象はプリレンダリングされたルートのみです。プリレンダリングされないルート（サーバーレンダリングのルートや、プリレンダリング対象のエントリを持たない動的ルート）にはビルド出力がないので、ここではレンダリング後の HTML を読めません。`ssr = false` のプリレンダリングされたルートにはビルド出力がありますが、中身は空のアプリシェルなので HTML 検査はこれもスキップします（`ssr = false` の `+layout` はそのサブツリー全体をスキップ）。スキップしたルートはビルド時に警告 1 行で列挙します。これらのルートは `svelte-vitals` CLI がソース解析でカバーし、`vite dev` 中にブラウズすれば[ライブダッシュボード](/ja/guides/dev-dashboard)がレンダリング結果を読み取ります。ソース走査のほうは、ルートのレンダリング方式に関係なくプロジェクト全体が対象です。

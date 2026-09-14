@@ -16,11 +16,12 @@ import {
   type Project,
   type SuppressionDirective
 } from '@svelte-vitals/core/internal';
-import { loadConfigFile } from 'svelte-vitals';
+import { loadConfigFile, loadSuppressions, type SuppressionEntry } from 'svelte-vitals';
 import type { SvelteVitalsOptions } from './plugin.js';
 import { collectRenderedHeads } from './providers/rendered/collect.js';
 import { collectRenderedProject } from './providers/rendered/project.js';
 import { collectComponentFacts, collectKitModuleFacts, collectSourceFiles } from './providers/source/components.js';
+import { applySourceSuppressions } from './suppressions.js';
 import { readPackageVersion } from './version.js';
 
 export interface AnalyzeResult {
@@ -124,17 +125,19 @@ export function ssrDisabledRouteMatcher(kitModules: readonly KitModuleFacts[]): 
 /**
  * Collect prerendered heads + project facts + component facts, run the core pipeline, and
  * format reports. Config precedence: see `resolveConfig`. Pass `resolved` when the caller
- * already resolved config itself (build mode resolves it outside `analyze`'s try/catch so a
- * config-file validation error fails the build instead of being caught as an analysis error).
+ * already resolved config and loaded `svelte-vitals-suppressions.json` itself (build mode does
+ * both outside `analyze`'s try/catch so a validation error fails the build instead of being
+ * caught as an analysis error); `suppressions: undefined` means the file does not exist.
  */
 export async function analyze(
   prerenderPagesDir: string,
   cwd: string,
   options: SvelteVitalsOptions,
   extraProjectFacts?: Partial<Project>,
-  resolved?: { config: Config; warnings: string[] }
+  resolved?: { config: Config; warnings: string[]; suppressions: SuppressionEntry[] | undefined }
 ): Promise<AnalyzeResult> {
   const { config, warnings } = resolved ?? (await resolveConfig(cwd, options));
+  const suppressions = resolved ? resolved.suppressions : loadSuppressions(cwd);
 
   // collectRenderedProject needs htmlLang out of the rendered-head parse pass, so it can't
   // join the Promise.all below; components/sourceFiles have no such dependency and do.
@@ -184,11 +187,18 @@ export async function analyze(
   // line-anchored finding is covered in both pipelines without a second wiring step.
   const directives = new Map<string, readonly SuppressionDirective[]>();
   addFactsDirectives(directives, { components, kitModules, viteMinifyDisabled: project.viteMinifyDisabled });
-  const { results, examined, failedRules, scoringConfig } = await runAnalysis(
+  const analysis = await runAnalysis(
     selected,
     { heads, headings, images, a11y, project, components, config, kitModules, sourceFiles },
     directives
   );
+  const { examined, failedRules, scoringConfig } = analysis;
+  let results = analysis.results;
+  if (suppressions !== undefined) {
+    const applied = applySourceSuppressions(results, suppressions, config);
+    results = applied.results;
+    warnings.push(...applied.notices);
+  }
   // Surfaced through the same `warnings` channel as config-file issues (plugin.ts logs each with
   // `console.warn`). A file the collectors could not read or parse contributes empty facts, so its
   // findings go missing rather than showing as fixed — the build has to say so, exactly as the CLI

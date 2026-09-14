@@ -181,7 +181,7 @@ svelte-vitals --fail-on warning       # 以降はこのコミット以後に導�
 
 `--update-suppressions` はプロジェクト全体を解析し（`--diff`/`--staged`/`--baseline` によるスコープ絞り込みは無視されます。このファイルは差分ではなくプロジェクト全体の状態を記録するためのものです）、現在スコアの減点対象になっているすべての検出結果を解析対象ディレクトリの `svelte-vitals-suppressions.json` に書き込みます（パスしている検出結果は書き込みません）。そして stderr にサマリーを表示し、レポートは出力せずに終了コード `0` で終了します。
 
-ファイルが存在すると、以降の実行では**自動的に**（`--diff`/`--staged` と `--baseline` の後に）適用されます。ルール ID、route、location がエントリと一致する減点対象の検出結果を取り除き、抑制した件数を表示します。
+ファイルが存在すると、以降の実行では**自動的に**（`--diff`/`--staged` と `--baseline` の後に）適用されます。ルール ID、route、location がエントリと一致する減点対象の検出結果を取り除き、抑制した件数を表示します。[`@svelte-vitals/vite`](/ja/guides/plugin-mode#設定ファイル) も同じファイルをビルドゲートとライブダッシュボードに適用します。
 
 ```
 svelte-vitals: 12 finding(s) suppressed by svelte-vitals-suppressions.json.

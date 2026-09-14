@@ -44,7 +44,9 @@ git add svelte-vitals-suppressions.json
 This analyzes the whole project (`--diff`/`--staged`/`--baseline` are ignored), writes every
 penalized finding, and exits `0` without a report.
 
-The file then applies automatically on every run, after `--diff`/`--staged` and `--baseline`.
+The file then applies automatically on every run, after `--diff`/`--staged` and `--baseline` —
+in `vite build` and the live dashboard too (source-scan entries only; route-level entries are
+skipped there, since rendered route findings anchor to the built HTML).
 Fixing an accepted finding leaves a **stale** entry, reported on stderr but never failing the run.
 `--no-suppressions` ignores the file for one run.
 

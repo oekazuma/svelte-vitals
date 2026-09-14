@@ -184,7 +184,7 @@ svelte-vitals --fail-on warning       # now gates only on findings introduced af
 
 `--update-suppressions` analyzes the whole project, ignoring any `--diff`/`--staged`/`--baseline` scoping, since the file is meant to capture the whole project's state rather than a diff. It writes every currently-penalized finding to `svelte-vitals-suppressions.json` in the analyzed directory (passing findings are never written), prints a summary to stderr, and exits `0` without printing a report.
 
-Once the file exists, svelte-vitals applies it **automatically** on every run, after `--diff`/`--staged` and `--baseline`. It removes any penalized finding whose rule id, route, and location match an entry, and prints how many were suppressed:
+Once the file exists, svelte-vitals applies it **automatically** on every run, after `--diff`/`--staged` and `--baseline`. It removes any penalized finding whose rule id, route, and location match an entry, and prints how many were suppressed. [`@svelte-vitals/vite`](/guides/plugin-mode#config-file) applies the same file to its build gate and live dashboard:
 
 ```
 svelte-vitals: 12 finding(s) suppressed by svelte-vitals-suppressions.json.
