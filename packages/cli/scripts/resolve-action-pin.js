@@ -3,8 +3,8 @@ const REPO = 'oekazuma/svelte-vitals-action';
 /**
  * Resolve the pin to bundle for `@svelte-vitals/action`'s replacement — a dedicated
  * repository (see docs/superpowers/specs), so this is a live GitHub API lookup rather than
- * a local `git rev-parse`: the latest release's tag (a plain `vX.Y.Z`, no translation
- * needed for Renovate) resolved to its commit SHA.
+ * a local `git rev-parse`: the latest release's tag (a plain `vX.Y.Z`, the shape Renovate's
+ * github-tags datasource discovers) resolved to its commit SHA.
  *
  * `fetchImpl` is injectable for testing. Not run as part of the routine build/test/typecheck
  * scripts (that would make every CI run and offline dev build network-dependent) — this only

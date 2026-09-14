@@ -52,7 +52,9 @@ semver ranges, not workspace links). See `docs/superpowers/specs/2026-07-22-acti
 for why it was split out. `packages/cli/scripts/gen-action-pin.js` (run manually via
 `pnpm --filter svelte-vitals run update-action-pin`, not on every build) fetches that repo's
 latest release into the committed `packages/cli/src/ci/action-pin.generated.ts`, which `ci
-install`/`ci upgrade` bundle into scaffolded workflows.
+install`/`ci upgrade` bundle into scaffolded workflows. Renovate bumps that same file through the
+regex `customManagers` entry in `renovate.json` (version + commit digest from the action repo's tags);
+its PR is deliberately not automerged because the bump is user-facing and needs a changeset.
 
 ## Hard rules
 

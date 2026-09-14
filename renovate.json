@@ -11,11 +11,29 @@
   },
   "rangeStrategy": "bump",
   "platformAutomerge": true,
+  "customManagers": [
+    {
+      "description": "The svelte-vitals-action pin that `ci install`/`ci upgrade` scaffold is a generated file nothing else refreshes (gen-action-pin.js is a manual script) — let Renovate bump it like any other dependency.",
+      "customType": "regex",
+      "managerFilePatterns": ["/^packages/cli/src/ci/action-pin\\.generated\\.ts$/"],
+      "matchStrings": [
+        "ACTION_SHA = '(?<currentDigest>[0-9a-f]{40})';\\s*export const ACTION_VERSION = '(?<currentValue>[^']+)';"
+      ],
+      "depNameTemplate": "oekazuma/svelte-vitals-action",
+      "datasourceTemplate": "github-tags",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    }
+  ],
   "packageRules": [
     {
       "description": "Auto-merge everything except major updates (those need review) — CI still has to pass first. The Renovate app is on main's ruleset bypass list specifically so these can merge without a human review.",
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
+    },
+    {
+      "description": "Later rules win: a pin bump changes what `ci install` scaffolds, so it needs a changeset before it can ship — no automerge, a human adds one.",
+      "matchDepNames": ["oekazuma/svelte-vitals-action"],
+      "automerge": false
     },
     {
       "description": "Published packages' engines.node is a public compatibility floor for consumers, not a dev-toolchain pin — never auto-bump it.",
