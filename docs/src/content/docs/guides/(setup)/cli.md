@@ -202,7 +202,7 @@ Use `--no-suppressions` to ignore the file for one run (e.g. to see the project'
 
 **Key difference from `--baseline <ref>`.** `--baseline` re-derives "what's pre-existing" by re-analyzing a git ref on every run. Nothing to commit, but it only ever compares against one ref. The suppressions file is a committed, persistent record you build once (or update deliberately) and that keeps applying regardless of which ref you're on.
 
-> Entries match without a line number, same as `--baseline`, so a second violation of an accepted rule lower in the same file won't surface as new. The `@svelte-vitals/vite` plugin does not read this file. The GitHub Action does, since it runs the CLI's own engine.
+> Entries match without a line number, same as `--baseline`, so a second violation of an accepted rule lower in the same file won't surface as new. The `@svelte-vitals/vite` plugin applies the source-scan entries and skips route-level ones (see [Plugin mode](/guides/plugin-mode#config-file)); the GitHub Action applies the whole file, since it runs the CLI's own engine.
 
 ### `--by-route`
 

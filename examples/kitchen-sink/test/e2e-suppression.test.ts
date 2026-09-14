@@ -378,12 +378,19 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     const dir = scratchCopy();
     scratch.push(dir);
     execFileSync(process.execPath, [bin, dir, '--update-suppressions'], { encoding: 'utf8', stdio: 'pipe' });
+    // The scratch copy carries the gallery's committed report — remove it so a build that dies
+    // before analysis cannot pass these assertions on stale output.
+    const reportPath = join(dir, 'svelte-vitals-report.json');
+    rmSync(reportPath, { force: true });
     const build = spawnSync(process.execPath, [join(dir, 'node_modules', 'vite', 'bin', 'vite.js'), 'build'], {
       cwd: dir,
       encoding: 'utf8',
       maxBuffer: 16 * 1024 * 1024
     });
-    const report: JsonReport = JSON.parse(readFileSync(join(dir, 'svelte-vitals-report.json'), 'utf8'));
+    // The gate still fails: the file's route-level entries do not apply, so the gallery's rendered
+    // critical findings remain. That failure is the plugin's own, after the report was written.
+    expect(build.stderr).toContain('svelte-vitals: build failed');
+    const report: JsonReport = JSON.parse(readFileSync(reportPath, 'utf8'));
     expect(build.stderr).toMatch(/\d+ finding\(s\) suppressed by svelte-vitals-suppressions\.json\./);
     expect(build.stderr).toMatch(/\d+ route-level entries do not apply to the plugin/);
     // Component and Kit-module findings share the CLI's id::route::location key, so they are gone.
