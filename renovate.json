@@ -17,7 +17,7 @@
       "customType": "regex",
       "managerFilePatterns": ["/^packages/cli/src/ci/action-pin\\.generated\\.ts$/"],
       "matchStrings": [
-        "ACTION_SHA = '(?<currentDigest>[0-9a-f]{40})';\\s*export const ACTION_VERSION = '(?<currentValue>[^']+)';"
+        "ACTION_SHA = ['\"](?<currentDigest>[0-9a-f]{40})['\"];\\s*export const ACTION_VERSION = ['\"](?<currentValue>[^'\"]+)['\"];"
       ],
       "depNameTemplate": "oekazuma/svelte-vitals-action",
       "datasourceTemplate": "github-tags",
