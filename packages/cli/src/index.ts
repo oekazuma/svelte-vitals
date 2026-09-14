@@ -715,6 +715,8 @@ export { createNodeRuntime } from './runtime/node.js';
 export type { ParseCache } from './providers/source/resolve.js';
 export { findUnknownRuleIds, knownRuleIds, registryTag, ruleOptionsSpec } from './rules-config.js';
 export { loadConfigFile, CONFIG_FILENAMES } from './config-file.js';
+export { loadSuppressions, applySuppressions, SUPPRESSIONS_FILE } from './suppressions.js';
+export type { SuppressionEntry } from './suppressions.js';
 export type { LoadedConfigFile } from './config-file.js';
 // Re-exported so user config files can `import { defineConfig } from 'svelte-vitals'`
 // (the package they actually installed) instead of the transitive `@svelte-vitals/core`

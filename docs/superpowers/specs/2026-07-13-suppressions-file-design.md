@@ -74,3 +74,20 @@ spot, still matches and is suppressed. This is intended, not a bug: the
 message stays out of the key deliberately, for stability across releases as
 rules gain arms. Disposition: document the semantics (suppressions guide,
 this doc, add-a-rule convention) rather than change the key format.
+
+## Vite plugin applies the file (2026-09-14)
+
+The "CLI only" non-goal is lifted for `@svelte-vitals/vite` (issue #687: the same project
+scored 100 in the CLI and 99 in `vite build`). The build gate loads the file from the plugin's
+project root — the same directory `svelte-vitals.config.*` is read from — outside the
+analysis try/catch, so a malformed file fails the build exactly as it exits 2 in the CLI, and
+applies it after `runAnalysis` and before scoring and `failOn`. The dev dashboard's
+whole-project layer applies it too, warning instead of failing on a malformed file. Stale
+entries are not counted in the plugin: rendered route findings anchor to the built HTML
+(`index.html`) while the CLI records `src/routes/…/+page.svelte`, so every route-level entry
+would read as stale there; pruning stays with `--update-suppressions`. The key format is
+unchanged (decision 3), so route-level entries recorded by the CLI could never match the
+rendered pass; the plugin therefore skips route-level entries on every surface — including the
+dashboard's whole-project layer, which analyzes with CLI keys and would otherwise drop a finding
+only until the route was browsed and the live layer re-surfaced it — and prints how many it
+skipped, which is the lever's "selected nothing" signal. `overrides` remains the route-scoped tool.

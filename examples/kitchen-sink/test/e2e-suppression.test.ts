@@ -373,4 +373,30 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(totalFindings(report)).toBe(0);
     expect(code).toBe(0);
   });
+
+  it('vite build applies the suppressions file to its source-scan findings, not to rendered route findings', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    execFileSync(process.execPath, [bin, dir, '--update-suppressions'], { encoding: 'utf8', stdio: 'pipe' });
+    // The scratch copy carries the gallery's committed report — remove it so a build that dies
+    // before analysis cannot pass these assertions on stale output.
+    const reportPath = join(dir, 'svelte-vitals-report.json');
+    rmSync(reportPath, { force: true });
+    const build = spawnSync(process.execPath, [join(dir, 'node_modules', 'vite', 'bin', 'vite.js'), 'build'], {
+      cwd: dir,
+      encoding: 'utf8',
+      maxBuffer: 16 * 1024 * 1024
+    });
+    // The gate still fails: the file's route-level entries do not apply, so the gallery's rendered
+    // critical findings remain. That failure is the plugin's own, after the report was written.
+    expect(build.stderr).toContain('svelte-vitals: build failed');
+    const report: JsonReport = JSON.parse(readFileSync(reportPath, 'utf8'));
+    expect(build.stderr).toMatch(/\d+ finding\(s\) suppressed by svelte-vitals-suppressions\.json\./);
+    expect(build.stderr).toMatch(/\d+ route-level entries do not apply to the plugin/);
+    // Component and Kit-module findings share the CLI's id::route::location key, so they are gone.
+    expect(findings(report, 'architecture/component-size')).toBe(0);
+    expect(findings(report, 'correctness/each-key')).toBe(0);
+    // A rendered route finding anchors to the built HTML, not the +page.svelte the CLI recorded.
+    expect(findings(report, 'seo/title-presence')).toBe(findings(baseline, 'seo/title-presence'));
+  }, 240_000);
 });

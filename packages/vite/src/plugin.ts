@@ -19,7 +19,15 @@ import {
   terminalSafe,
   validateRuleSetting
 } from '@svelte-vitals/core/internal';
-import { CONFIG_FILENAMES, findUnknownRuleIds, knownRuleIds, registryTag, ruleOptionsSpec } from 'svelte-vitals';
+import {
+  CONFIG_FILENAMES,
+  SUPPRESSIONS_FILE,
+  findUnknownRuleIds,
+  knownRuleIds,
+  loadSuppressions,
+  registryTag,
+  ruleOptionsSpec
+} from 'svelte-vitals';
 import { analyze, mergeConfig, resolveConfig } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
@@ -33,6 +41,7 @@ const CONFIG_BASENAMES = new Set([
   // The svelte-vitals config names come from the CLI's own loader list, so the watcher
   // can never drift from what analyze() actually loads.
   ...CONFIG_FILENAMES,
+  SUPPRESSIONS_FILE,
   'vite.config.js',
   'vite.config.mjs',
   'vite.config.ts',
@@ -215,10 +224,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       // don't emit a spurious "0 routes" report or gate on nothing.
       if (!existsSync(resolved)) return;
 
-      // Resolved OUTSIDE the try: a config-file validation error must fail the
-      // build (same stance as the CLI's exit 2) — the catch below is only for
-      // the analysis itself (unreadable output, glob errors), not for config errors.
-      const resolvedConfig = await resolveConfig(root, options);
+      // Resolved OUTSIDE the try: a config-file validation error or a malformed
+      // suppressions file must fail the build (same stance as the CLI's exit 2) — the
+      // catch below is only for the analysis itself (unreadable output, glob errors).
+      const resolvedConfig = { ...(await resolveConfig(root, options)), suppressions: loadSuppressions(root) };
 
       let result;
       try {

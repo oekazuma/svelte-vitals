@@ -1,6 +1,7 @@
 import { relative, sep } from 'node:path';
-import type { Result, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
-import { analyzeProject, type ParseCache } from 'svelte-vitals';
+import type { Config, Result, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
+import { analyzeProject, loadSuppressions, SUPPRESSIONS_FILE, type ParseCache } from 'svelte-vitals';
+import { applySourceSuppressions } from '../suppressions.js';
 
 /** The subset of `analyzeProject` (from `svelte-vitals`) the runner needs. Injectable for tests. */
 export type AnalyzeFn = (opts: {
@@ -10,7 +11,28 @@ export type AnalyzeFn = (opts: {
   rules?: Record<string, RuleSetting>;
   failOn?: Severity;
   parseCache?: ParseCache;
-}) => Promise<{ results: Result[]; failedRuleIds?: string[]; warnings?: string[] }>;
+}) => Promise<{ results: Result[]; failedRuleIds?: string[]; warnings?: string[]; config?: Config }>;
+
+/**
+ * Apply `svelte-vitals-suppressions.json` to the whole-project layer, same entries as the build
+ * gate (see `applySourceSuppressions`). A malformed file is a warning here, not an error: dev
+ * must keep serving. Returns the results unchanged when the file is absent or `config` is
+ * unknown (an injected `analyze` that returns no config).
+ */
+function suppress(root: string, results: Result[], config: Config | undefined, warnings: string[]): Result[] {
+  if (!config) return results;
+  let entries;
+  try {
+    entries = loadSuppressions(root);
+  } catch (err) {
+    warnings.push(`${err instanceof Error ? err.message : String(err)} — ${SUPPRESSIONS_FILE} ignored.`);
+    return results;
+  }
+  if (entries === undefined) return results;
+  const applied = applySourceSuppressions(results, entries, config);
+  warnings.push(...applied.notices);
+  return applied.results;
+}
 
 export interface AnalysisRunnerOptions {
   /** Project root to analyze (passed as `cwd` to `analyzeProject`). */
@@ -60,14 +82,15 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions) {
         failOn: opts.failOn,
         parseCache
       });
-      const { results, failedRuleIds } = result;
+      const { failedRuleIds } = result;
+      const warnings = [...(result.warnings ?? [])];
+      const results = suppress(opts.root, result.results, result.config, warnings);
       // Passing a 2nd arg only when defined keeps callers that ignore it (and tests
       // asserting exact call args) unaffected by this addition.
       if (!stopped) {
         if (failedRuleIds !== undefined) opts.onResults(results, failedRuleIds);
         else opts.onResults(results);
       }
-      const warnings = result.warnings ?? [];
       const key = warnings.join('\n');
       if (!stopped && warnings.length > 0 && key !== lastWarningsKey) opts.onWarnings?.(warnings);
       lastWarningsKey = key;
