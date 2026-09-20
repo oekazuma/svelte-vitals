@@ -378,15 +378,21 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
       case 'SnippetBlock':
         walk(node.body, { ...ctx, repeatable: true });
         return;
-      // <svelte:element> has a dynamic tag (so no tag-derived landmark) but its literal id/idref
-      // attributes are real — dropping them would make no-missing-id-ref report phantom misses.
+      // <svelte:element>'s tag may be dynamic (then no tag-derived landmark) but its literal
+      // id/idref attributes are real — dropping them would make no-missing-id-ref report
+      // phantom misses.
       case 'RegularElement':
-      case 'SvelteElement':
-        // A dynamic tag can render any element; its name is unknown to the presence set either way.
-        if (node.type === 'SvelteElement') elementsUnknowable = true;
-        else elementTags.add(node.name.toLowerCase());
+      case 'SvelteElement': {
+        const tags = node.type === 'SvelteElement' ? svelteElementTags(node.tag) : [node.name];
+        // A tag the expression does not pin down can render any element, so the presence set is
+        // no longer closed. Resolved names join it like a literal element's: branch reachability
+        // is already ignored here (an element inside {#if} counts), so a conditional's branches
+        // are added for the same reason.
+        if (!tags) elementsUnknowable = true;
+        else for (const tag of tags) elementTags.add(tag.toLowerCase());
         walkElement(node, ctx);
         return;
+      }
       case 'Component':
       case 'SvelteComponent':
       case 'SvelteSelf':
@@ -430,12 +436,10 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     // The element this node renders as: the tag itself, or a <svelte:element this="…"> literal.
     // Lowercased because HTML tag names are ASCII case-insensitive and Svelte's SSR output
     // normalizes them — the rendered provider sees <heaDer> as a banner, so this walk must too.
-    const literalTag =
-      node.type === 'SvelteElement'
-        ? node.tag.type === 'Literal' && typeof node.tag.value === 'string'
-          ? node.tag.value
-          : undefined
-        : node.name;
+    // A conditional between two tags yields no single element, so landmark/role resolution
+    // — which needs one definite tag — stays out of it.
+    const resolved = node.type === 'SvelteElement' ? svelteElementTags(node.tag) : [node.name];
+    const literalTag = resolved?.length === 1 ? resolved[0] : undefined;
     const tag = literalTag?.toLowerCase();
     // A per-file walk cannot see cross-file sectioning ancestry, so insideSectioning stays false;
     // countsAsLandmark (routes.ts) applies the topLevel approximation at composition instead.

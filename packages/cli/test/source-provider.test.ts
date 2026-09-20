@@ -676,13 +676,18 @@ describe('collectRoutes a11y composition', () => {
       expect(a11y.file).toBe('src/routes/+page.svelte');
     });
 
-    it('is body-scoped: <svelte:head> content, <template> children and <svelte:element> do not count', async () => {
+    it('is body-scoped: <svelte:head> content and <template> children do not count', async () => {
       const a11y = await tagsOf({
         'src/routes/+page.svelte': `<svelte:head><title>t</title></svelte:head><template><main>x</main></template><svelte:element this="section">s</svelte:element><div>d</div>`
       });
-      expect([...a11y.elementTags!].sort()).toEqual(['div', 'template']);
-      // A dynamic tag can render anything the walk cannot see — literal `this` and expression alike.
-      expect(a11y.elementsClosed).toBe(false);
+      // A `<svelte:element>` the walk can resolve counts as the element it renders.
+      expect([...a11y.elementTags!].sort()).toEqual(['div', 'section', 'template']);
+      expect(a11y.elementsClosed).toBe(true);
+      const branches = await tagsOf({
+        'src/routes/+page.svelte': `<svelte:element this={wide ? 'h1' : 'h2'}>s</svelte:element>`
+      });
+      expect([...branches.elementTags!].sort()).toEqual(['h1', 'h2']);
+      // A tag the expression does not pin down can render anything the walk cannot see.
       const expr = await tagsOf({ 'src/routes/+page.svelte': `<svelte:element this={tag}>s</svelte:element>` });
       expect(expr.elementsClosed).toBe(false);
     });
