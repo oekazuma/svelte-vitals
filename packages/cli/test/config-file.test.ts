@@ -151,6 +151,15 @@ describe('loadConfigFile', () => {
     );
   });
 
+  it('loads seo: { indexable: false } (issue #702)', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-seo'));
+    expect(loaded?.config.seo).toEqual({ indexable: false });
+  });
+
+  it('rejects a non-boolean seo.indexable', async () => {
+    await expect(loadConfigFile(fixture('config-file-seo-bad'))).rejects.toThrow(/seo\.indexable must be a boolean/);
+  });
+
   it('warns (without rejecting) on a metaComponents value that is not an array of strings, dropping the field', async () => {
     const loaded = await loadConfigFile(fixture('config-file-bad-metacomponents'));
     expect(loaded?.config.metaComponents).toBeUndefined();

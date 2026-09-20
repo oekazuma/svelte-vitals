@@ -22,7 +22,7 @@ export default {
 
 `elements` is a list of **bare tag names** (a letter, then letters, digits and hyphens; case-insensitive); selector syntax is rejected when the config loads. An `overrides` entry with `route` **adds** to the list for the routes it matches.
 
-Presence is optimistic, so an element inside any `{#if}` arm, `{#each}` body or snippet counts, and it is a body rule: `<svelte:head>` content never counts (a required `<title>` is `seo/title-presence`'s job), `<template>` children do not (they are inert until instantiated), and `<svelte:element>` does not, whatever its `this`.
+Presence is optimistic, so an element inside any `{#if}` arm, `{#each}` body or snippet counts, and it is a body rule: `<svelte:head>` content never counts (a required `<title>` is `seo/title-presence`'s job), `<template>` children do not (they are inert until instantiated), and a `<svelte:element>` counts as the element its `this` resolves to — a string literal, or a conditional whose branches are both literals (both branches count, as with `{#if}`).
 
 ```svelte
 <!-- +layout.svelte -->
@@ -34,7 +34,7 @@ Presence is optimistic, so an element inside any `{#if}` arm, `{#each}` body or 
 <p>No main here or in the layout.</p>
 ```
 
-**Present** is a safe claim in any world: an unresolved component can only add elements, so a route with every declared element present passes whether or not everything resolved. **Missing** is a claim about the whole page, and it is made only when the world is closed for elements: every component resolved, no `{@html}`, no `<svelte:element>`. A route missing a declared element with the world open emits nothing.
+**Present** is a safe claim in any world: an unresolved component can only add elements, so a route with every declared element present passes whether or not everything resolved. **Missing** is a claim about the whole page, and it is made only when the world is closed for elements: every component resolved, no `{@html}`, and no `<svelte:element>` whose `this` cannot be resolved. A route missing a declared element with the world open emits nothing.
 
 ## Mode differences
 

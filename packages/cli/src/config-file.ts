@@ -33,7 +33,15 @@ const CONFIG_EXTENSIONS = CONFIG_FILENAMES.map((name) => name.slice(name.lastInd
 
 const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];
 const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
-const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights', 'overrides']);
+const KNOWN_TOP_LEVEL_KEYS = new Set([
+  'treatDynamicAs',
+  'metaComponents',
+  'rules',
+  'failOn',
+  'weights',
+  'overrides',
+  'seo'
+]);
 
 /** Result of loading and validating a config file. */
 export interface LoadedConfigFile {
@@ -206,6 +214,22 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
       });
     });
     config.overrides = overrides;
+  }
+
+  if (raw.seo !== undefined) {
+    if (!isPlainObject(raw.seo)) {
+      throw new Error(`${path}: seo must be an object, e.g. { indexable: false }.`);
+    }
+    const unknown = Object.keys(raw.seo).filter((k) => k !== 'indexable');
+    if (unknown.length > 0) {
+      throw new Error(`${path}: unknown key(s) in seo: ${unknown.join(', ')}. Known keys: indexable.`);
+    }
+    if (raw.seo.indexable !== undefined) {
+      if (typeof raw.seo.indexable !== 'boolean') {
+        throw new Error(`${path}: seo.indexable must be a boolean.`);
+      }
+      config.seo = { indexable: raw.seo.indexable };
+    }
   }
 
   if (raw.weights !== undefined) {

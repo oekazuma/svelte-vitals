@@ -17,7 +17,8 @@ const multipleRecommendation =
  * a primary heading. Two or more is only `info`: a single <h1> is the conventional
  * signal, but no official source documents a ranking penalty for several (2026-08-09 v1
  * rule-validity review, P2 #11) — so it's flagged as a style nit, not a defect. Exactly
- * one passes. A route whose headings were not collected (channel unset) emits nothing. A
+ * one passes. A route whose headings were not collected (channel unset) emits nothing, as does
+ * one whose `dynamicHeading` flag says an undeterminable `<svelte:element>` may be its <h1>. A
  * global `rules: { 'seo/single-h1': <severity> }` override flattens both arms to one
  * severity (design, `applyRuleSeverities`).
  */
@@ -37,6 +38,9 @@ export const seoSingleH1: Rule = {
       let problem: { message: string; severity: 'warning' | 'info'; recommendation: string } | undefined;
       let where: Pick<Result, 'location' | 'line'> = {};
       if (h1.length === 0) {
+        // A `<svelte:element>` whose tag is not statically determinable may render the page's
+        // <h1>; "missing" would be a guess, so the route is skipped rather than flagged.
+        if (route.dynamicHeading) continue;
         problem = { message: 'Missing <h1>', severity: 'warning', recommendation: missingRecommendation };
         // Counting reads `combined`; attribution deliberately does not. Locating the
         // Missing arm in a component file would change its findingKey

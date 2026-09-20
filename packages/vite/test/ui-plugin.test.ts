@@ -20,6 +20,27 @@ vi.mock('../src/ui/analysis.js', () => ({
 
 import { svelteVitals } from '../src/index.js';
 
+/** Resolve a plugin's `apply` the way Vite does, under a chosen `process.env.VITEST`. */
+function applies(
+  plugin: Plugin,
+  env: { command: 'serve' | 'build'; mode: string },
+  procEnv?: { VITEST?: string }
+): boolean {
+  const restore = process.env.VITEST;
+  if (procEnv) {
+    if (procEnv.VITEST === undefined) delete process.env.VITEST;
+    else process.env.VITEST = procEnv.VITEST;
+  }
+  try {
+    const apply = plugin.apply;
+    if (typeof apply === 'function') return apply({}, { ...env, isPreview: false, isSsrBuild: false });
+    return apply === undefined || apply === env.command;
+  } finally {
+    if (restore === undefined) delete process.env.VITEST;
+    else process.env.VITEST = restore;
+  }
+}
+
 afterEach(() => {
   delete process.env.SVELTE_VITALS_UI;
   mockNotifyChange.mockClear();
@@ -30,7 +51,22 @@ describe('svelteVitals({ ui })', () => {
     const plugins = svelteVitals({}) as Plugin[];
     expect(Array.isArray(plugins)).toBe(true);
     expect(plugins.map((p) => p.name).sort()).toEqual(['svelte-vitals', 'svelte-vitals:ui']);
-    expect(plugins.find((p) => p.name === 'svelte-vitals:ui')!.apply).toBe('serve');
+    expect(
+      applies(
+        plugins.find((p) => p.name === 'svelte-vitals:ui')!,
+        { command: 'serve', mode: 'development' },
+        {}
+      )
+    ).toBe(true);
+  });
+
+  it('stays out of a vitest run: the UI plugin does not apply while VITEST is set', () => {
+    const ui = (svelteVitals({}) as Plugin[]).find((p) => p.name === 'svelte-vitals:ui')!;
+    // Vitest runs tests through a dev server, so `command` is 'serve' here too — VITEST
+    // is what separates it from a real `vite dev`.
+    const env = { command: 'serve' as const, mode: 'test' };
+    expect(applies(ui, env, { VITEST: 'true' })).toBe(false);
+    expect(applies(ui, env, {})).toBe(true);
   });
 
   it('configureServer installs middleware and sets the UI env flag', async () => {

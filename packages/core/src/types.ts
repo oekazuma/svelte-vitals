@@ -203,6 +203,8 @@ export interface Config {
   weights?: Partial<Record<Category, number>>;
   /** Route-/file-scoped rule overrides, applied to results after analysis (later entries win). */
   overrides?: RuleOverride[];
+  /** SEO-wide switches. `indexable: false` turns off the search-result rules (`SEARCH_RESULT_RULES`). */
+  seo?: { indexable?: boolean };
 }
 
 export const defaultConfig: Config = {

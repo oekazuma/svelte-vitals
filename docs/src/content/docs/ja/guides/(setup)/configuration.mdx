@@ -81,10 +81,35 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`   | 実行を失敗させる（終了コード `1`）最低重大度                                                                                                     |
 | `weights`        | `Partial<Record<Category, number>>`                                                     | 各カテゴリ `1` | 組み合わせた [Health スコア](/ja/guides/health-report) のカテゴリごとの重み                                                                      |
 | `overrides`      | `RuleOverride[]`                                                                        | （なし）       | ルート/ファイル単位のルール上書き（[下記](#ルールをルートやファイルにスコープする-overrides)を参照）                                             |
+| `seo`            | `{ indexable?: boolean }`                                                               | （なし）       | `indexable: false` で、検索結果に出るページにだけ意味のあるルールをまとめて無効化（[下記](#インデックスされないプロジェクト)を参照）             |
 
 `Category` は `'seo' | 'performance' | 'correctness' | 'security' | 'architecture' | 'a11y'` です。
 
 重み `0` は正当な値で、そのカテゴリを Health の平均から完全に除外します（カテゴリ自体のスコアは引き続き出力され、検出結果や終了コードの挙動にも影響しません）。ただし、結果に存在する**すべて**のカテゴリを `0` にすると平均の取りようがなくなるため、実行はエラー（終了コード `2`）になります。
+
+## インデックスされないプロジェクト
+
+非公開のアプリ、社内ツール、`noindex` の PWA は検索結果に出ません。検索結果の見た目を整えるためのルールは、そうしたプロジェクトではノイズにしかなりません。次の 1 行でまとめて無効化できます。
+
+```js svelte-vitals.config.js
+export default {
+  seo: { indexable: false }
+};
+```
+
+無効になるのは `seo/canonical-url`・`seo/og-title`・`seo/og-description`・`seo/og-image`・`seo/og-url`・`seo/twitter-card`・`seo/json-ld`・`seo/sitemap-xml`・`seo/sitemap-in-robots`・`seo/title-length`・`seo/description-length` です。`rules` でそれぞれを `'off'` と書いた場合とまったく同じ扱いになり、Health スコアの母数からも外れます。
+
+SEO ルールのうち 2 つはそのまま残ります。`seo/single-h1` が見ているのは文書構造で、インデックスの有無にかかわらず支援技術が読み取ります。`seo/robots-txt` も実際に機能します。`noindex` の meta タグはページがクロールされて初めて読まれるからです。JSON-LD の妥当性を見るルールも残ります。構造化データを置くのであれば、その内容は正しくあるべきです。
+
+`rules` のエントリはこのスイッチより優先されるため、一部だけ残すこともできます。
+
+```js svelte-vitals.config.js
+export default {
+  seo: { indexable: false },
+  // チャットアプリのリンクプレビューは og:title を読むので、これだけは残す。
+  rules: { 'seo/og-title': 'warning' }
+};
+```
 
 ## ルールをルートやファイルにスコープする （overrides）
 

@@ -113,6 +113,33 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(issuesOn(baseline, '/gallery/a11y', 'a11y/')).toBeGreaterThan(0);
   });
 
+  it('seo: { indexable: false } turns off the search-result rules, and an explicit entry wins (issue #702)', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const cfgPath = join(dir, 'svelte-vitals.config.ts');
+    const cfg = readFileSync(cfgPath, 'utf8');
+    writeFileSync(
+      cfgPath,
+      cfg
+        .replace('export default {', 'export default {\n  seo: { indexable: false },\n')
+        .replace('rules: {', "rules: {\n    'seo/og-title': 'warning',")
+    );
+    const { report } = run(dir);
+    for (const id of ['seo/canonical-url', 'seo/twitter-card', 'seo/title-length', 'seo/sitemap-xml']) {
+      expect(findings(baseline, id) + passed(baseline, id), `${id} exercised in the baseline`).toBeGreaterThan(0);
+      expect(findings(report, id), `${id} off`).toBe(0);
+      expect(passed(report, id), `${id} out of the denominator`).toBe(0);
+    }
+    // The explicit `rules` entry is spread over the switch, so this one stays on.
+    expect(findings(report, 'seo/og-title')).toBe(findings(baseline, 'seo/og-title'));
+    // Not a search-result rule: document structure is checked either way.
+    expect(findings(report, 'seo/single-h1')).toBe(findings(baseline, 'seo/single-h1'));
+    // --rules layers on top of the switch, so it force-enables one the switch turned off.
+    const scoped = run(dir, '--rules', 'seo/canonical-url').report;
+    expect(Object.keys(scoped.rules)).toEqual(['seo/canonical-url']);
+    expect(findings(scoped, 'seo/canonical-url')).toBe(findings(baseline, 'seo/canonical-url'));
+  });
+
   it('an inline directive suppresses exactly its line, including for a11y/* ids', () => {
     const dir = scratchCopy();
     scratch.push(dir);

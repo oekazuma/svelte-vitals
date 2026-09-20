@@ -90,10 +90,42 @@ That import is a **runtime** one. It resolves when svelte-vitals loads the file,
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                                                                         |
 | `weights`        | `Partial<Record<Category, number>>`                                                     | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                                                                 |
 | `overrides`      | `RuleOverride[]`                                                                        | (none)             | Route- and file-scoped rule overrides; see [below](#scoping-rules-to-routes-or-files-overrides)                                             |
+| `seo`            | `{ indexable?: boolean }`                                                               | (none)             | `indexable: false` turns off the rules that only matter for a page in a search result; see [below](#a-project-that-is-not-indexed)          |
 
 `Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture' | 'a11y'`.
 
 A weight of `0` is valid. It excludes that category from the Health average entirely; the category's own score still appears in the output, and findings and exit-code behavior are unaffected. Setting **every** present category to `0` is an error, though: there is nothing left to average, so the run stops with exit `2`.
+
+## A project that is not indexed
+
+A private app, an internal tool, or a `noindex` PWA never appears in a search result, so the
+rules that shape how a result looks are noise there. One switch turns them off:
+
+```js svelte-vitals.config.js
+export default {
+  seo: { indexable: false }
+};
+```
+
+It turns off `seo/canonical-url`, `seo/og-title`, `seo/og-description`, `seo/og-image`,
+`seo/og-url`, `seo/twitter-card`, `seo/json-ld`, `seo/sitemap-xml`, `seo/sitemap-in-robots`,
+`seo/title-length`, and `seo/description-length` — the same effect as writing each one as
+`'off'` in `rules`, including their removal from the Health denominator.
+
+Two SEO rules stay on. `seo/single-h1` checks document structure, which assistive technology
+reads whether or not the page is indexed, and `seo/robots-txt` still does real work: a `noindex`
+meta tag is only read after the page has been crawled. The JSON-LD validity rules stay on too —
+a structured-data document that exists should be correct.
+
+An entry in `rules` wins over the switch, so you can keep one of them:
+
+```js svelte-vitals.config.js
+export default {
+  seo: { indexable: false },
+  // Link previews in chat apps read og:title, so keep that one.
+  rules: { 'seo/og-title': 'warning' }
+};
+```
 
 ## Scoping rules to routes or files (overrides)
 

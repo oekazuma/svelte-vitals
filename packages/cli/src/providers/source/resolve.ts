@@ -14,6 +14,8 @@ interface ResolveResult {
    * including them here too would double-count).
    */
   headings: HeadingInfo[];
+  /** Any strict descendant has a `<svelte:element>` that may render a heading of an undetermined level. */
+  dynamicHeading: boolean;
 }
 
 /**
@@ -122,6 +124,7 @@ export async function resolveFileTags(
 ): Promise<ResolveResult> {
   const tags: ParsedTag[] = [...parsed.headTags];
   const headings: HeadingInfo[] = [];
+  let dynamicHeading = false;
   let broad = false;
 
   for (const use of parsed.components) {
@@ -158,6 +161,7 @@ export async function resolveFileTags(
         broad = broad || child.broad;
         for (const h of childParsed.headings) headings.push({ ...h, file: childRel });
         headings.push(...child.headings);
+        dynamicHeading = dynamicHeading || childParsed.dynamicHeading || child.dynamicHeading;
         continue;
       }
     }
@@ -174,5 +178,5 @@ export async function resolveFileTags(
     // Unresolved & undeclared components contribute nothing (strict).
   }
 
-  return { tags, broad, headings };
+  return { tags, broad, headings, dynamicHeading };
 }
