@@ -59,6 +59,8 @@ A `svelte-vitals-suppressions.json` next to it (written by [`svelte-vitals --upd
 
 The HTML check covers prerendered routes only. Routes that are not prerendered (server-rendered, or dynamic routes without prerendered entries) have no build output, so nothing here reads their rendered HTML. A prerendered route with `ssr = false` has build output, but it is the empty app shell, so the HTML check skips it too — a `+layout` with `ssr = false` skips its whole subtree — and the build prints one warning listing the skipped routes. The `svelte-vitals` CLI covers those routes by source analysis instead, and the [live dashboard](/guides/dev-dashboard) gets a rendered reading of them when you browse during `vite dev`. The source scan applies project-wide regardless of how a route renders.
 
+The plugin is inert under Vitest. Vitest resolves the same Vite config and starts a dev server to run tests, so the dashboard's analysis would otherwise run — and print its notices — in the middle of your test output. Nothing runs there; `vite dev` and `vite build` are unaffected.
+
 ## How it works
 
 During `vite build`, after SvelteKit prerenders your pages, `@svelte-vitals/vite` locates the output HTML files and parses each page's `<head>` and body; alongside that it scans `src/` for the source-level rules. Because the HTML is the real shipped output, dynamic values are already resolved. A `<title>` the CLI can only mark `↯ dynamic` is checked here for what it actually says. If any finding meets the `failOn` threshold, the build process exits with a non-zero code.

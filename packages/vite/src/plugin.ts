@@ -273,7 +273,11 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
 
   const uiPlugin: Plugin = {
     name: 'svelte-vitals:ui',
-    apply: 'serve',
+    // Vitest resolves the project's Vite config and creates a dev server to run tests,
+    // so a plain `apply: 'serve'` would start the dashboard's whole-project analysis —
+    // work and rule notices in the middle of unrelated test output. `VITEST` is set
+    // before the config is resolved, and unlike `mode` it cannot be renamed by a flag.
+    apply: (_config, env) => env.command === 'serve' && !process.env.VITEST,
     async configureServer(server: ViteDevServer) {
       process.env.SVELTE_VITALS_UI = '1';
       const uiRoot = options.cwd ?? server.config.root;
