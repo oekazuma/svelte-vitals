@@ -304,6 +304,7 @@ async function resolveRoute(
   const images: ImageInfo[] = [];
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
+  let dynamicHeading = false;
   const a11yCtx: ComposeCtx = {
     rt,
     cwd,
@@ -340,6 +341,7 @@ async function resolveRoute(
     for (const heading of parsed.headings) {
       headings.push({ ...heading, file: rel });
     }
+    dynamicHeading = dynamicHeading || parsed.dynamicHeading;
 
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
@@ -353,6 +355,7 @@ async function resolveRoute(
       else broadInherited = true;
     }
     componentHeadings.push(...resolved.headings);
+    dynamicHeading = dynamicHeading || resolved.dynamicHeading;
   }
 
   // Broad (opaque) meta source: fill only kinds not already set specifically.
@@ -390,7 +393,7 @@ async function resolveRoute(
   return {
     head: { route, source: 'static', tags: [...composed.values(), ...additiveTags], file: pageRel },
     images: { route, images },
-    headings: { route, headings, componentHeadings },
+    headings: { route, headings, componentHeadings, ...(dynamicHeading ? { dynamicHeading: true } : {}) },
     a11y: {
       route,
       landmarks: representatives(

@@ -206,8 +206,46 @@ function collectImages(node: WalkNode | WalkNode[] | null | undefined, source: s
   }
 }
 
-/** Recursively collect page-body headings (<h1>–<h6>) anywhere in the template (seo/single-h1). */
-function collectHeadings(node: WalkNode | WalkNode[] | null | undefined, source: string, acc: ParsedHeading[]): void {
+/**
+ * The tag names a `<svelte:element this={…}>` can render as, or undefined when the expression
+ * is not statically determinable. A string literal gives one name; a conditional whose branches
+ * are both literals gives both, so the common `this={cond ? 'h1' : 'span'}` reads as the set it
+ * really is rather than as an unknown.
+ */
+function svelteElementTags(tag: AST.SvelteElement['tag']): string[] | undefined {
+  if (tag.type === 'Literal') return typeof tag.value === 'string' ? [tag.value] : undefined;
+  if (tag.type === 'ConditionalExpression') {
+    const branches = [tag.consequent, tag.alternate].map((b) =>
+      b.type === 'Literal' && typeof b.value === 'string' ? b.value : undefined
+    );
+    return branches.every((b) => b !== undefined) ? (branches as string[]) : undefined;
+  }
+  return undefined;
+}
+
+const HEADING_TAG = /^h[1-6]$/;
+
+/** The one heading level a resolved tag set renders as, or undefined (no heading, or two levels). */
+function headingLevelOf(tags: string[]): number | undefined {
+  const levels = new Set(
+    tags
+      .map((t) => t.toLowerCase())
+      .filter((t) => HEADING_TAG.test(t))
+      .map((t) => Number(t[1]))
+  );
+  return levels.size === 1 ? [...levels][0] : undefined;
+}
+
+/**
+ * Recursively collect page-body headings (<h1>–<h6>) anywhere in the template (seo/single-h1).
+ * `acc.dynamic` records a `<svelte:element>` that may render a heading but whose level is not
+ * statically determinable — a route carrying one cannot be reported as having no <h1>.
+ */
+function collectHeadings(
+  node: WalkNode | WalkNode[] | null | undefined,
+  source: string,
+  acc: { headings: ParsedHeading[]; dynamic: boolean }
+): void {
   if (Array.isArray(node)) {
     for (const child of node) collectHeadings(child, source, acc);
     return;
@@ -215,8 +253,15 @@ function collectHeadings(node: WalkNode | WalkNode[] | null | undefined, source:
   if (!node || typeof node !== 'object') return;
   // Body headings only — a stray <h1> inside <svelte:head> is not a page heading.
   if (node.type === 'SvelteHead') return;
-  if (node.type === 'RegularElement' && /^h[1-6]$/.test(node.name)) {
-    acc.push({ level: Number(node.name[1]), line: lineOf(source, node.start) });
+  if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
+    acc.headings.push({ level: Number(node.name[1]), line: lineOf(source, node.start) });
+  } else if (node.type === 'SvelteElement') {
+    const tags = svelteElementTags(node.tag);
+    const level = tags ? headingLevelOf(tags) : undefined;
+    if (level !== undefined) acc.headings.push({ level, line: lineOf(source, node.start) });
+    // An unresolvable tag may be a heading; two different heading levels is a heading whose
+    // level is unknown. A resolved non-heading set (`cond ? 'span' : 'em'`) is neither.
+    else if (!tags || tags.some((t) => HEADING_TAG.test(t.toLowerCase()))) acc.dynamic = true;
   }
   for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectHeadings(childOf(node, key), source, acc);
@@ -468,6 +513,8 @@ export interface ParsedFile {
   imports: ImportMap;
   images: ParsedImage[];
   headings: ParsedHeading[];
+  /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
+  dynamicHeading: boolean;
   a11y: ParsedA11y;
   /** Inline `svelte-vitals-disable-next-line` directives in this file, for the central
    *  suppression pass. Collected here because a route-scoped finding can be located in any file
@@ -484,14 +531,15 @@ export function parseFile(source: string, filename: string): ParsedFile {
   collectComponents(ast.fragment, components);
   const images: ParsedImage[] = [];
   collectImages(ast.fragment, source, images);
-  const headings: ParsedHeading[] = [];
-  collectHeadings(ast.fragment, source, headings);
+  const headingAcc = { headings: [] as ParsedHeading[], dynamic: false };
+  collectHeadings(ast.fragment, source, headingAcc);
   return {
     headTags: heads.flatMap(tagsFromHead),
     components,
     imports: collectImports(ast),
     images,
-    headings,
+    headings: headingAcc.headings,
+    dynamicHeading: headingAcc.dynamic,
     a11y: collectA11y(ast.fragment, source),
     suppressions: collectSuppressions(source)
   };

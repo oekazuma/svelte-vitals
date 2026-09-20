@@ -23,4 +23,10 @@ export interface ResolvedHeadings {
    * counting (seo/single-h1), unusable for outline order (seo/heading-level-skip).
    */
   componentHeadings?: HeadingInfo[];
+  /**
+   * This route renders a `<svelte:element>` that may be a heading whose level is not
+   * statically determinable (`this={`h${n}`}`, an identifier, …) — source mode only.
+   * Counting stays as-is; only the "no <h1> anywhere" claim becomes unsafe to make.
+   */
+  dynamicHeading?: boolean;
 }

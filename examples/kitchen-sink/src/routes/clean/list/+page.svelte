@@ -36,6 +36,8 @@
       loading: 'lazy'
     }
   ];
+
+  const primary = true;
 </script>
 
 <svelte:head>
@@ -57,7 +59,9 @@
 
 <JsonLd />
 
-<h1>Product list</h1>
+<!-- The heading tag comes from an expression (issue #700). Static analysis resolves the
+     branches to a single heading level, so this must read as the page's <h1>. -->
+<svelte:element this={primary ? 'h1' : 'span'}>Product list</svelte:element>
 <p>A keyed list where each item carries a stable identifier used as the loop key.</p>
 
 <ul>

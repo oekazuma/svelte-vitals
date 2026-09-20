@@ -159,6 +159,58 @@ describe('collectRoutes (single-pass heads + images)', () => {
   });
 });
 
+describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
+  const headingsFor = async (page: string) => {
+    const rt = createMemoryRuntime({ 'src/routes/+page.svelte': page });
+    const { headings } = await collectRoutes(rt, '');
+    return headings;
+  };
+  const check = async (headings: Awaited<ReturnType<typeof headingsFor>>) =>
+    (await seoSingleH1.check({ heads: [], headings, project: defaultProject, config: defaultConfig })).map(
+      (r) => r.message
+    );
+
+  it('reads a literal tag as the heading it resolves to', async () => {
+    const headings = await headingsFor(`<main><svelte:element this={'h1'} class="sr-only">T</svelte:element></main>`);
+    expect(headings[0]!.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/routes/+page.svelte' }]);
+    expect(await check(headings)).toEqual(['Heading hierarchy']);
+  });
+
+  it('reads a conditional whose branches are literals, counting its one heading level', async () => {
+    const headings = await headingsFor(`<svelte:element this={p === 1 ? 'h1' : 'span'}>Title</svelte:element>`);
+    expect(headings[0]!.headings.map((h) => h.level)).toEqual([1]);
+    expect(await check(headings)).toEqual(['Heading hierarchy']);
+  });
+
+  it('skips the route instead of reporting "Missing <h1>" when the tag is not determinable', async () => {
+    const headings = await headingsFor('<svelte:element this={`h${level}`}>Title</svelte:element>');
+    expect(headings[0]!.dynamicHeading).toBe(true);
+    expect(await check(headings)).toEqual([]);
+  });
+
+  it('treats a conditional between two heading levels as undeterminable, not as either level', async () => {
+    const headings = await headingsFor(`<svelte:element this={top ? 'h1' : 'h2'}>Title</svelte:element>`);
+    expect(headings[0]!.headings).toEqual([]);
+    expect(headings[0]!.dynamicHeading).toBe(true);
+  });
+
+  it('leaves a resolvable non-heading tag reporting the missing <h1> it really is', async () => {
+    const headings = await headingsFor(`<svelte:element this={'span'}>Title</svelte:element>`);
+    expect(headings[0]!.dynamicHeading).toBeUndefined();
+    expect(await check(headings)).toEqual(['Missing <h1>']);
+  });
+
+  it('sees a dynamic heading inside a child component', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<script>import Heading from '$lib/Heading.svelte';</script><Heading />`,
+      'src/lib/Heading.svelte': '<svelte:element this={`h${level}`}>T</svelte:element>'
+    });
+    const { headings } = await collectRoutes(rt, '');
+    expect(headings[0]!.dynamicHeading).toBe(true);
+    expect(await check(headings)).toEqual([]);
+  });
+});
+
 describe('collectRoutes componentHeadings (issue #425)', () => {
   it('lets seo/single-h1 see an <h1> rendered by an imported child component', async () => {
     const rt = createMemoryRuntime({
