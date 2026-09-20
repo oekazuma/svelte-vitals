@@ -218,7 +218,9 @@ function svelteElementTags(tag: AST.SvelteElement['tag']): string[] | undefined 
     const branches = [tag.consequent, tag.alternate].map((b) =>
       b.type === 'Literal' && typeof b.value === 'string' ? b.value : undefined
     );
-    return branches.every((b) => b !== undefined) ? (branches as string[]) : undefined;
+    // Deduped: `cond ? 'main' : 'main'` is one definite tag, and callers that need exactly one
+    // (landmark resolution in `walkElement`) would otherwise read it as two possibilities.
+    return branches.every((b) => b !== undefined) ? [...new Set(branches as string[])] : undefined;
   }
   return undefined;
 }

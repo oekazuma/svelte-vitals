@@ -687,6 +687,11 @@ describe('collectRoutes a11y composition', () => {
         'src/routes/+page.svelte': `<svelte:element this={wide ? 'h1' : 'h2'}>s</svelte:element>`
       });
       expect([...branches.elementTags!].sort()).toEqual(['h1', 'h2']);
+      // Both branches naming the same tag is one definite element, not two possibilities.
+      const same = await tagsOf({
+        'src/routes/+page.svelte': `<svelte:element this={wide ? 'main' : 'main'}>s</svelte:element>`
+      });
+      expect(Object.keys(same.landmarks)).toEqual(['main']);
       // A tag the expression does not pin down can render anything the walk cannot see.
       const expr = await tagsOf({ 'src/routes/+page.svelte': `<svelte:element this={tag}>s</svelte:element>` });
       expect(expr.elementsClosed).toBe(false);
