@@ -2,6 +2,7 @@ import { defineConfig, type Config, type Result, type Summary, type Severity } f
 import {
   allRules,
   selectRules,
+  withIndexableOff,
   unknownDirectiveIds,
   addFactsDirectives,
   runAnalysis,
@@ -46,13 +47,15 @@ export interface AnalyzeResult {
 export function mergeConfig(options: SvelteVitalsOptions, fileConfig: Partial<Config> | undefined): Config {
   const weights = options.weights ?? fileConfig?.weights;
   const overrides = options.overrides ?? fileConfig?.overrides;
+  const seo = options.seo ?? fileConfig?.seo;
   return defineConfig({
     treatDynamicAs: options.treatDynamicAs ?? fileConfig?.treatDynamicAs ?? 'pass',
     metaComponents: options.metaComponents ?? fileConfig?.metaComponents ?? [],
-    rules: options.rules ?? fileConfig?.rules ?? {},
+    rules: withIndexableOff(options.rules ?? fileConfig?.rules, seo) ?? {},
     failOn: options.failOn ?? fileConfig?.failOn ?? 'critical',
     ...(weights !== undefined ? { weights } : {}),
-    ...(overrides !== undefined ? { overrides } : {})
+    ...(overrides !== undefined ? { overrides } : {}),
+    ...(seo !== undefined ? { seo } : {})
   });
 }
 

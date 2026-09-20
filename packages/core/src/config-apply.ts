@@ -49,6 +49,44 @@ export function withFailedRulesOff(config: Config, failedRuleIds: readonly strin
   };
 }
 
+/**
+ * The rules that only pay off for a page that appears in a search result, turned off by
+ * `seo: { indexable: false }`. `seo/single-h1` and `seo/robots-txt` are deliberately absent:
+ * a primary heading is document structure either way, and a `noindex` meta is only read after
+ * the page is crawled, so robots.txt still does real work. Design:
+ * docs/superpowers/specs/2026-09-21-noindex-seo-rules-design.md.
+ */
+export const SEARCH_RESULT_RULES = [
+  'seo/canonical-url',
+  'seo/og-title',
+  'seo/og-description',
+  'seo/og-image',
+  'seo/og-url',
+  'seo/twitter-card',
+  'seo/json-ld',
+  'seo/sitemap-xml',
+  'seo/sitemap-in-robots',
+  'seo/title-length',
+  'seo/description-length'
+] as const;
+
+/**
+ * Expand `seo: { indexable: false }` into the `'off'` entries a user writes by hand today, so
+ * nothing downstream needs a second notion of "not counted". The caller's own map is spread
+ * last: an explicit `rules` entry re-enables a rule the switch turned off. Applied before
+ * `--rules`/`--ignore` layer on top, which is what lets `--rules seo/og-title` force one back on.
+ */
+export function withIndexableOff(
+  rules: Record<string, RuleSetting> | undefined,
+  seo: Config['seo'] | undefined
+): Record<string, RuleSetting> | undefined {
+  if (seo?.indexable !== false) return rules;
+  return {
+    ...Object.fromEntries(SEARCH_RESULT_RULES.map((id): [string, RuleSetting] => [id, 'off'])),
+    ...rules
+  };
+}
+
 /** One-line "rule failed and was skipped" warning; capped to the message's first line so a stack trace can't flood a terminal. */
 export function formatFailedRuleWarning(f: { id: string; message: string }): string {
   return `rule ${f.id} failed and was skipped: ${f.message.split('\n')[0]}`;

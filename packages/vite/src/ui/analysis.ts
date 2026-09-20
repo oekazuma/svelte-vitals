@@ -10,6 +10,7 @@ export type AnalyzeFn = (opts: {
   metaComponents?: string[];
   rules?: Record<string, RuleSetting>;
   failOn?: Severity;
+  seo?: Config['seo'];
   parseCache?: ParseCache;
 }) => Promise<{ results: Result[]; failedRuleIds?: string[]; warnings?: string[]; config?: Config }>;
 
@@ -41,6 +42,7 @@ export interface AnalysisRunnerOptions {
   metaComponents?: string[];
   rules?: Record<string, RuleSetting>;
   failOn?: Severity;
+  seo?: Config['seo'];
   /** `analyzeProject`-compatible function, injectable for tests. Defaults to `analyzeProject`. */
   analyze?: AnalyzeFn;
   /** `failedRuleIds` is `analyzeProject`'s crashed-rule ids — omitted when the injected `analyze` doesn't return them. Ids only, not a config: the base config (plugin-option weights/overrides included) must stay the caller's, never swapped for `analyzeProject`'s own. */
@@ -80,6 +82,7 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions) {
         metaComponents: opts.metaComponents,
         rules: opts.rules,
         failOn: opts.failOn,
+        seo: opts.seo,
         parseCache
       });
       const { failedRuleIds } = result;

@@ -100,6 +100,8 @@ export {
   compileOverrides,
   settingSeverity,
   withFailedRulesOff,
+  withIndexableOff,
+  SEARCH_RESULT_RULES,
   formatFailedRuleWarning
 } from './config-apply.js';
 export type { CompiledOverride } from './config-apply.js';

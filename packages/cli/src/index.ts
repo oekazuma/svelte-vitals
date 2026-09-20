@@ -25,6 +25,7 @@ import {
   hasFailureAtOrAbove,
   computeHealth,
   selectRules,
+  withIndexableOff,
   unknownDirectiveIds,
   settingSeverity,
   formatFailedRuleWarning,
@@ -174,6 +175,8 @@ export interface AnalyzeOptions {
   allowRules?: string[];
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
+  /** SEO-wide switches (config-file field; no CLI flag). `indexable: false` turns off the search-result rules. */
+  seo?: Config['seo'];
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
   categories?: Category[];
   /**
@@ -298,18 +301,21 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const file = loaded?.config;
 
   const weights = opts.weights ?? file?.weights;
+  const seo = opts.seo ?? file?.seo;
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? file?.treatDynamicAs ?? 'pass',
     metaComponents: opts.metaComponents ?? file?.metaComponents ?? [],
+    // The `seo.indexable` expansion goes in as the base map, so `--rules`/`--ignore` still
+    // layer on top — `--rules seo/og-title` force-enables one the switch turned off.
     rules: resolveRuleSelection({
-      fileRules: file?.rules,
-      rules: opts.rules,
+      rules: withIndexableOff(opts.rules ?? file?.rules, seo),
       allowRules: opts.allowRules,
       ignoreRules: opts.ignoreRules
     }),
     failOn: opts.failOn ?? file?.failOn ?? 'critical',
     ...(weights !== undefined ? { weights } : {}),
-    ...(file?.overrides !== undefined ? { overrides: file.overrides } : {})
+    ...(file?.overrides !== undefined ? { overrides: file.overrides } : {}),
+    ...(seo !== undefined ? { seo } : {})
   });
 
   await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project

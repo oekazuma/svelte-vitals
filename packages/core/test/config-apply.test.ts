@@ -4,6 +4,8 @@ import {
   selectRules,
   compileOverrides,
   withFailedRulesOff,
+  withIndexableOff,
+  SEARCH_RESULT_RULES,
   formatFailedRuleWarning,
   type Rule
 } from '../src/internal.js';
@@ -206,5 +208,34 @@ describe('override matching', () => {
     const [o] = compileOverrides(defineConfig({ overrides: [{ route: '/admin/**', rules: { seo: 'off' } }] }));
     expect(overrideMatches(o!, { route: '/admin/users' })).toBe(true);
     expect(overrideMatches(o!, { route: '/about' })).toBe(false);
+  });
+});
+
+describe('withIndexableOff (issue #702)', () => {
+  it('leaves the rules map untouched unless indexable is explicitly false', () => {
+    const rules = { 'seo/og-title': 'warning' } as const;
+    expect(withIndexableOff(rules, undefined)).toBe(rules);
+    expect(withIndexableOff(rules, {})).toBe(rules);
+    expect(withIndexableOff(rules, { indexable: true })).toBe(rules);
+    expect(withIndexableOff(undefined, undefined)).toBeUndefined();
+  });
+
+  it('turns every search-result rule off, and drops them from the scored inventory', () => {
+    const rules = withIndexableOff(undefined, { indexable: false })!;
+    expect(Object.keys(rules).sort()).toEqual([...SEARCH_RESULT_RULES].sort());
+    const config = defineConfig({ rules });
+    const ids = selectRules([ruleA, { ...ruleA, id: 'seo/canonical-url' } as Rule], config).map((r) => r.id);
+    expect(ids).toEqual(['seo/title-presence']);
+  });
+
+  it('keeps seo/single-h1 and seo/robots-txt on — neither is about the search result', () => {
+    expect(SEARCH_RESULT_RULES).not.toContain('seo/single-h1');
+    expect(SEARCH_RESULT_RULES).not.toContain('seo/robots-txt');
+  });
+
+  it('lets an explicit rules entry win over the switch', () => {
+    const rules = withIndexableOff({ 'seo/og-title': 'warning' }, { indexable: false })!;
+    expect(rules['seo/og-title']).toBe('warning');
+    expect(rules['seo/og-image']).toBe('off');
   });
 });

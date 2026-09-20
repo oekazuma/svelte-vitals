@@ -121,4 +121,14 @@ describe('svelteVitals overrides option validation', () => {
       svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { seo: { severity: 'error' as never } } }] })
     ).toThrow(/overrides\[0\]\.rules\.seo\.severity: invalid setting 'error'/);
   });
+
+  it('validates the seo option, which TypeScript cannot check in a vite.config.js (issue #702)', () => {
+    expect(() => svelteVitals({ ui: false, seo: { indexable: false } })).not.toThrow();
+    expect(() => svelteVitals({ ui: false, seo: { indexable: 'no' as never } })).toThrow(
+      /seo\.indexable must be a boolean/
+    );
+    expect(() => svelteVitals({ ui: false, seo: { indexible: false } as never })).toThrow(
+      /unknown key\(s\): indexible/
+    );
+  });
 });

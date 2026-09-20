@@ -14,6 +14,7 @@ import type {
 import { CATEGORIES } from '@svelte-vitals/core';
 import {
   defaultConfig,
+  isPlainObject,
   resolveRuleOptions,
   shouldSkipRangeCheck,
   terminalSafe,
@@ -83,6 +84,8 @@ export interface SvelteVitalsOptions {
   failOn?: Severity;
   /** Per-category weights for the combined Health score shown in the JSON/console report (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
+  /** SEO-wide switches (option > config file). `indexable: false` turns off the search-result rules. */
+  seo?: Config['seo'];
   /** Report output (default: 'console'). */
   report?: 'console' | 'json' | false;
   /** Write the JSON report to this path. */
@@ -191,10 +194,31 @@ function validateOverridesOption(
   if (errors.length > 0) throw new Error(`svelte-vitals: invalid \`overrides\` option — ${errors.join(' ')}`);
 }
 
+/**
+ * Validate the plugin's `seo` option the same way the config-file loader validates the
+ * `seo` key. A `vite.config.js` gets no type checking, and `{ indexable: 'no' }` would
+ * otherwise be silently inert — the failure mode `validateRulesOption` exists for.
+ */
+function validateSeoOption(seo: Config['seo'] | undefined): void {
+  if (seo === undefined) return;
+  if (!isPlainObject(seo))
+    throw new Error('svelte-vitals: invalid `seo` option — must be an object, e.g. { indexable: false }.');
+  const unknown = Object.keys(seo).filter((k) => k !== 'indexable');
+  if (unknown.length > 0) {
+    throw new Error(
+      `svelte-vitals: invalid \`seo\` option — unknown key(s): ${unknown.join(', ')}. Known keys: indexable.`
+    );
+  }
+  if (seo.indexable !== undefined && typeof seo.indexable !== 'boolean') {
+    throw new Error('svelte-vitals: invalid `seo` option — seo.indexable must be a boolean.');
+  }
+}
+
 /** svelte-vitals Vite/SvelteKit plugin. */
 export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin[] {
   validateRulesOption(options.rules);
   validateOverridesOption(options.overrides, options.rules);
+  validateSeoOption(options.seo);
   let root = options.cwd ?? process.cwd();
   let minify: unknown;
   let configFile: string | undefined;
@@ -339,6 +363,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         metaComponents: options.metaComponents,
         rules: options.rules,
         failOn: options.failOn,
+        seo: options.seo,
         onResults: (results, failedRuleIds) => {
           store.setStatic(results);
           staticFailedRuleIds = failedRuleIds ?? [];
