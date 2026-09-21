@@ -109,14 +109,19 @@ export default {
 
 It turns off `seo/canonical-url`, `seo/og-title`, `seo/og-description`, `seo/og-image`,
 `seo/og-url`, `seo/twitter-card`, `seo/json-ld`, `seo/sitemap-xml`, `seo/sitemap-in-robots`,
-`seo/title-length`, and `seo/description-length` — the same effect as writing each one as
-`'off'` in `rules`, including their removal from the Health denominator. It also turns off
-`seo/indexability`, since the switch already says the `noindex` is intentional.
+`seo/title-length`, `seo/description-length`, `seo/description-presence`,
+`seo/duplicate-title`, `seo/duplicate-description`, `seo/hreflang`, and `seo/ssr-disabled` —
+the same effect as writing each one as `'off'` in `rules`, including their removal from the
+Health denominator. It also turns off `seo/indexability`, since the switch already says the
+`noindex` is intentional.
 
-Two SEO rules stay on. `seo/single-h1` checks document structure, which assistive technology
-reads whether or not the page is indexed, and `seo/robots-txt` still does real work: a `noindex`
-meta tag is only read after the page has been crawled. The JSON-LD validity rules stay on too —
-a structured-data document that exists should be correct.
+The other SEO rules stay on, because each still does work on a page that is never indexed.
+`seo/title-presence` names the browser tab and bookmark. `seo/html-lang`, `seo/viewport`,
+`seo/charset`, and `seo/image-alt` affect how the page renders and how assistive technology
+reads it. `seo/single-h1` and `seo/heading-level-skip` check document structure.
+`seo/robots-txt` still matters because a `noindex` meta tag is only read after the page has
+been crawled. The JSON-LD validity rules stay on too — a structured-data document that exists
+should be correct.
 
 An entry in `rules` wins over the switch, so you can keep one of them:
 

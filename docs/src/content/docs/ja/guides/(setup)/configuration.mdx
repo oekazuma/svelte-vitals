@@ -97,9 +97,9 @@ export default {
 };
 ```
 
-無効になるのは `seo/canonical-url`・`seo/og-title`・`seo/og-description`・`seo/og-image`・`seo/og-url`・`seo/twitter-card`・`seo/json-ld`・`seo/sitemap-xml`・`seo/sitemap-in-robots`・`seo/title-length`・`seo/description-length` です。`rules` でそれぞれを `'off'` と書いた場合とまったく同じ扱いになり、Health スコアの母数からも外れます。`noindex` が意図的であることはこのスイッチ自体が示しているので、`seo/indexability` も無効になります。
+無効になるのは `seo/canonical-url`・`seo/og-title`・`seo/og-description`・`seo/og-image`・`seo/og-url`・`seo/twitter-card`・`seo/json-ld`・`seo/sitemap-xml`・`seo/sitemap-in-robots`・`seo/title-length`・`seo/description-length`・`seo/description-presence`・`seo/duplicate-title`・`seo/duplicate-description`・`seo/hreflang`・`seo/ssr-disabled` です。`rules` でそれぞれを `'off'` と書いた場合とまったく同じ扱いになり、Health スコアの母数からも外れます。`noindex` が意図的であることはこのスイッチ自体が示しているので、`seo/indexability` も無効になります。
 
-SEO ルールのうち 2 つはそのまま残ります。`seo/single-h1` が見ているのは文書構造で、インデックスの有無にかかわらず支援技術が読み取ります。`seo/robots-txt` も実際に機能します。`noindex` の meta タグはページがクロールされて初めて読まれるからです。JSON-LD の妥当性を見るルールも残ります。構造化データを置くのであれば、その内容は正しくあるべきです。
+それ以外の SEO ルールは残ります。どれもインデックスされないページで役に立つからです。`seo/title-presence` はブラウザのタブやブックマークの名前になります。`seo/html-lang`・`seo/viewport`・`seo/charset`・`seo/image-alt` は、ページの表示や支援技術による読み上げに関わります。`seo/single-h1` と `seo/heading-level-skip` が見ているのは文書構造です。`seo/robots-txt` も実際に機能します。`noindex` の meta タグはページがクロールされて初めて読まれるからです。JSON-LD の妥当性を見るルールも残ります。構造化データを置くのであれば、その内容は正しくあるべきです。
 
 `rules` のエントリはこのスイッチより優先されるため、一部だけ残すこともできます。
 
