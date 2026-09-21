@@ -1,5 +1,21 @@
 # @svelte-vitals/vite
 
+## 0.55.0
+
+### Minor Changes
+
+- 16cd36a: New config switch `seo: { indexable: false }` for projects that never appear in a search result. It turns off `seo/canonical-url`, `seo/og-title`, `seo/og-description`, `seo/og-image`, `seo/og-url`, `seo/twitter-card`, `seo/json-ld`, `seo/sitemap-xml`, `seo/sitemap-in-robots`, `seo/title-length`, and `seo/description-length`, replacing the block of `'off'` entries a private app writes by hand. `seo/single-h1` and `seo/robots-txt` stay on, and an explicit `rules` entry still wins over the switch.
+
+### Patch Changes
+
+- 16cd36a: The plugin no longer runs its analysis, or prints rule notices, during a Vitest run. Vitest resolves the project's Vite config and starts a dev server to run tests, which used to start the dashboard's whole-project analysis and log into the test output. `vite dev` and `vite build` are unaffected.
+- Updated dependencies [16cd36a]
+- Updated dependencies [2b1599e]
+- Updated dependencies [16cd36a]
+- Updated dependencies [16cd36a]
+  - svelte-vitals@0.55.0
+  - @svelte-vitals/core@0.55.0
+
 ## 0.54.7
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @svelte-vitals/core
 
+## 0.55.0
+
+### Minor Changes
+
+- 16cd36a: New config switch `seo: { indexable: false }` for projects that never appear in a search result. It turns off `seo/canonical-url`, `seo/og-title`, `seo/og-description`, `seo/og-image`, `seo/og-url`, `seo/twitter-card`, `seo/json-ld`, `seo/sitemap-xml`, `seo/sitemap-in-robots`, `seo/title-length`, and `seo/description-length`, replacing the block of `'off'` entries a private app writes by hand. `seo/single-h1` and `seo/robots-txt` stay on, and an explicit `rules` entry still wins over the switch.
+
+### Patch Changes
+
+- 2b1599e: The vendored HTML spec data now comes from `@markuplint/html-spec` 5.0.0, which changes two findings:
+  
+  - `a11y/disallowed-aria-props` reports `aria-label`, `aria-labelledby` and `aria-braillelabel` on `role="tooltip"`, following the dataset's ARIA 1.3 role table. Recorded suppressions for `a11y/disallowed-aria-props` already cover these findings.
+  - `a11y/permitted-contents` reports an HTML element placed directly inside `<math>` (e.g. `<math><b>x</b></math>`) as `info`; `<math>` now has a MathML content model instead of admitting anything. MathML children themselves are still not judged.
+- 16cd36a: `seo/single-h1` now reads a `<svelte:element this={…}>` as the element it resolves to when the tag expression is a string literal, or a conditional whose branches are both literals naming one heading level. A tag it cannot determine that way may be the page's `<h1>`, so the route is left unreported instead of flagged `Missing <h1>` — which is what the CLI used to do while `@svelte-vitals/vite` passed the same route.
+
 ## 0.54.7
 
 No changes in this release.
