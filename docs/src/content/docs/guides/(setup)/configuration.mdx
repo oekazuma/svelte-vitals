@@ -110,7 +110,8 @@ export default {
 It turns off `seo/canonical-url`, `seo/og-title`, `seo/og-description`, `seo/og-image`,
 `seo/og-url`, `seo/twitter-card`, `seo/json-ld`, `seo/sitemap-xml`, `seo/sitemap-in-robots`,
 `seo/title-length`, and `seo/description-length` — the same effect as writing each one as
-`'off'` in `rules`, including their removal from the Health denominator.
+`'off'` in `rules`, including their removal from the Health denominator. It also turns off
+`seo/indexability`, since the switch already says the `noindex` is intentional.
 
 Two SEO rules stay on. `seo/single-h1` checks document structure, which assistive technology
 reads whether or not the page is indexed, and `seo/robots-txt` still does real work: a `noindex`
