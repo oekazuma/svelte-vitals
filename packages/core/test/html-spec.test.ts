@@ -48,6 +48,12 @@ describe('html-spec: what the projection must and must not carry', () => {
     expect(HTML_SPEC.elements.label!.aria.namingProhibited).toBe(true);
   });
 
+  it('keys the MathML root by its HTML name, in the element table and the content models', () => {
+    expect(htmlElement('math')?.aria.implicitRole).toBe('math');
+    expect(HTML_SPEC.contentModels['#phrasing']).toContain('math');
+    expect(HTML_SPEC.contentModels['#phrasing']).not.toContain('mml|math');
+  });
+
   it('keeps the per-attribute required columns, which are a different fact', () => {
     expect(HTML_SPEC.elements.img!.attributes.src!.requiredEither).toContain('srcset');
   });

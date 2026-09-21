@@ -192,7 +192,8 @@ function flatten(contents: unknown, acc: string[], filters: string[]): void {
     return;
   }
   if (typeof contents === 'string') {
-    acc.push(contents);
+    // Emptiness is not judged, so the non-empty text entry is plain text.
+    acc.push(contents === '#nonEmptyText' ? '#text' : contents);
     return;
   }
   if (contents !== null && typeof contents === 'object') {
