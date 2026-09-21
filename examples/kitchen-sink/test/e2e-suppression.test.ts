@@ -125,7 +125,13 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
         .replace('rules: {', "rules: {\n    'seo/og-title': 'warning',")
     );
     const { report } = run(dir);
-    for (const id of ['seo/canonical-url', 'seo/twitter-card', 'seo/title-length', 'seo/sitemap-xml']) {
+    for (const id of [
+      'seo/canonical-url',
+      'seo/twitter-card',
+      'seo/title-length',
+      'seo/sitemap-xml',
+      'seo/indexability'
+    ]) {
       expect(findings(baseline, id) + passed(baseline, id), `${id} exercised in the baseline`).toBeGreaterThan(0);
       expect(findings(report, id), `${id} off`).toBe(0);
       expect(passed(report, id), `${id} out of the denominator`).toBe(0);
