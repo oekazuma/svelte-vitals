@@ -26,15 +26,24 @@ the dashboard — needs no new notion of "not counted".
 
 Covered: `seo/canonical-url`, `seo/og-title`, `seo/og-description`, `seo/og-image`,
 `seo/og-url`, `seo/twitter-card`, `seo/json-ld`, `seo/sitemap-xml`, `seo/sitemap-in-robots`,
-`seo/title-length`, `seo/description-length`. Also `seo/indexability`: its only question, "is
+`seo/title-length`, `seo/description-length`, `seo/description-presence` (the meta
+description is the search snippet), `seo/duplicate-title` and `seo/duplicate-description`
+(duplicates only compete in search results), `seo/hreflang` (read only by search engines), and
+`seo/ssr-disabled` (its own guidance is to restrict `ssr = false` to routes that don't need
+SEO). Also `seo/indexability`: its only question, "is
 this `noindex` intentional?", is what the switch answers. Reporting the inverse (a route
 _missing_ `noindex`) was rejected — source analysis cannot see a `noindex` in `app.html`, so it
 would fire on every route of a project that sets it there.
 
-Not covered: `seo/single-h1` (a primary heading is document structure, useful to assistive
-technology either way) and `seo/robots-txt` (a `noindex` meta is only read after the page is
-crawled, so `robots.txt` still does real work). The JSON-LD _validity_ rules stay on too — a
-document that exists should be correct whether or not it is indexed.
+Not covered: `seo/title-presence` (the tab and bookmark name), `seo/html-lang`,
+`seo/viewport`, `seo/charset` and `seo/image-alt` (rendering and assistive technology),
+`seo/single-h1` and `seo/heading-level-skip` (document structure), and `seo/robots-txt` (a
+`noindex` meta is only read after the page is crawled, so `robots.txt` still does real work).
+The JSON-LD _validity_ rules stay on too — a document that exists should be correct whether or
+not it is indexed.
+
+Every SEO rule is in exactly one of the two lists; `packages/core/test/config-apply.test.ts`
+fails when a new SEO rule is in neither, so adding one forces the decision.
 
 ## Rejected: deriving it from `seo/indexability`
 

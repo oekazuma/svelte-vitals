@@ -6,6 +6,7 @@ import {
   withFailedRulesOff,
   withIndexableOff,
   SEARCH_RESULT_RULES,
+  allRules,
   formatFailedRuleWarning,
   type Rule
 } from '../src/internal.js';
@@ -228,9 +229,28 @@ describe('withIndexableOff (issue #702)', () => {
     expect(ids).toEqual(['seo/title-presence']);
   });
 
-  it('keeps seo/single-h1 and seo/robots-txt on — neither is about the search result', () => {
-    expect(SEARCH_RESULT_RULES).not.toContain('seo/single-h1');
-    expect(SEARCH_RESULT_RULES).not.toContain('seo/robots-txt');
+  it('classifies every SEO rule as either turned off by the switch or deliberately kept on', () => {
+    // Kept on: each still does work on a page that never appears in a search result.
+    const keptOn = [
+      'seo/title-presence',
+      'seo/robots-txt',
+      'seo/html-lang',
+      'seo/viewport',
+      'seo/charset',
+      'seo/image-alt',
+      'seo/single-h1',
+      'seo/heading-level-skip',
+      'seo/json-ld-validity',
+      'seo/json-ld-deprecated-type',
+      'seo/json-ld-relative-url',
+      'seo/json-ld-date-format',
+      'seo/json-ld-placeholder',
+      'seo/json-ld-required-props'
+    ];
+    const off: readonly string[] = SEARCH_RESULT_RULES;
+    expect(keptOn.filter((id) => off.includes(id))).toEqual([]);
+    const seoIds = allRules.filter((r) => r.category === 'seo').map((r) => r.id);
+    expect([...off, ...keptOn].sort()).toEqual([...seoIds].sort());
   });
 
   it('lets an explicit rules entry win over the switch', () => {

@@ -52,9 +52,8 @@ export function withFailedRulesOff(config: Config, failedRuleIds: readonly strin
 /**
  * The rules that only pay off for a page that appears in a search result, turned off by
  * `seo: { indexable: false }` — plus `seo/indexability`, whose "is this noindex intentional?"
- * the switch answers. `seo/single-h1` and `seo/robots-txt` are deliberately absent:
- * a primary heading is document structure either way, and a `noindex` meta is only read after
- * the page is crawled, so robots.txt still does real work. Design:
+ * the switch answers. Every other SEO rule is deliberately absent, and a test fails on an SEO
+ * rule classified neither way. Design:
  * docs/superpowers/specs/2026-09-21-noindex-seo-rules-design.md.
  */
 export const SEARCH_RESULT_RULES = [
@@ -69,6 +68,11 @@ export const SEARCH_RESULT_RULES = [
   'seo/sitemap-in-robots',
   'seo/title-length',
   'seo/description-length',
+  'seo/description-presence',
+  'seo/duplicate-title',
+  'seo/duplicate-description',
+  'seo/hreflang',
+  'seo/ssr-disabled',
   'seo/indexability'
 ] as const;
 

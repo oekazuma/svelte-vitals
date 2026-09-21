@@ -130,7 +130,12 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
       'seo/twitter-card',
       'seo/title-length',
       'seo/sitemap-xml',
-      'seo/indexability'
+      'seo/indexability',
+      'seo/description-presence',
+      'seo/duplicate-title',
+      'seo/duplicate-description',
+      'seo/hreflang',
+      'seo/ssr-disabled'
     ]) {
       expect(findings(baseline, id) + passed(baseline, id), `${id} exercised in the baseline`).toBeGreaterThan(0);
       expect(findings(report, id), `${id} off`).toBe(0);
