@@ -1,5 +1,20 @@
 # svelte-vitals
 
+## 0.55.0
+
+### Minor Changes
+
+- 16cd36a: New config switch `seo: { indexable: false }` for projects that never appear in a search result. It turns off `seo/canonical-url`, `seo/og-title`, `seo/og-description`, `seo/og-image`, `seo/og-url`, `seo/twitter-card`, `seo/json-ld`, `seo/sitemap-xml`, `seo/sitemap-in-robots`, `seo/title-length`, and `seo/description-length`, replacing the block of `'off'` entries a private app writes by hand. `seo/single-h1` and `seo/robots-txt` stay on, and an explicit `rules` entry still wins over the switch.
+
+### Patch Changes
+
+- 16cd36a: The static a11y walk now resolves a `<svelte:element>` whose `this` is a string literal, or a conditional whose branches are both literals, to the element(s) it renders, and credits them to the route's element set. Such an element previously left the set open whatever its `this`, which made `a11y/required-element` skip the route rather than report a missing element. A `this` that still cannot be resolved keeps the old, conservative behaviour.
+- 16cd36a: `seo/single-h1` now reads a `<svelte:element this={…}>` as the element it resolves to when the tag expression is a string literal, or a conditional whose branches are both literals naming one heading level. A tag it cannot determine that way may be the page's `<h1>`, so the route is left unreported instead of flagged `Missing <h1>` — which is what the CLI used to do while `@svelte-vitals/vite` passed the same route.
+- Updated dependencies [2b1599e]
+- Updated dependencies [16cd36a]
+- Updated dependencies [16cd36a]
+  - @svelte-vitals/core@0.55.0
+
 ## 0.54.7
 
 ### Patch Changes
