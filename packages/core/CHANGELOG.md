@@ -1,5 +1,12 @@
 # @svelte-vitals/core
 
+## 0.55.1
+
+### Patch Changes
+
+- fcc3d94: `seo: { indexable: false }` now also turns off `seo/indexability`. The switch already states that the project's `noindex` is intentional, so the rule's "verify this is intentional" finding no longer keeps a rendered build below 100.
+- d4ac401: `seo: { indexable: false }` now also turns off `seo/description-presence`, `seo/duplicate-title`, `seo/duplicate-description`, `seo/hreflang` and `seo/ssr-disabled`. Each only matters for a page that appears in a search result, so a project that declares itself not indexed no longer gets these findings. An explicit `rules` entry still re-enables any of them.
+
 ## 0.55.0
 
 ### Minor Changes
