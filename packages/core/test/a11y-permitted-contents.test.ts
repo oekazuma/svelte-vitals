@@ -99,6 +99,28 @@ describe('a11y/permitted-contents', () => {
     ).toEqual([]);
   });
 
+  it('judges <math> as an HTML element and skips the MathML inside it', async () => {
+    expect(await failing('<p>a <math><mi>x</mi><mo>=</mo><mn>1</mn></math></p>')).toEqual([]);
+    expect((await failing('<ul><math><mi>x</mi></math></ul>')).map((f) => f.severity)).toEqual(['warning']);
+    expect(await failing('<math><mi>x</mi><b>y</b></math>')).toEqual([
+      {
+        line: 1,
+        severity: 'info',
+        message: "`<b>` is not permitted content here — `<math>`'s content model is MathMLPresentation content"
+      }
+    ]);
+  });
+
+  it('reads a non-empty-text content model as text', async () => {
+    expect(await failing('<title><b>x</b></title>')).toEqual([
+      {
+        line: 1,
+        severity: 'info',
+        message: "`<b>` is not permitted content here — `<title>`'s content model is text content"
+      }
+    ]);
+  });
+
   it('keeps judging literal children next to an unknowable sibling', async () => {
     const out = await failing('<ul>\n  <Component />\n  <div>x</div>\n</ul>');
     expect(out.map((f) => f.line)).toEqual([3]);

@@ -70,6 +70,13 @@ function conditionOutcomes(conditions) {
 }
 
 /**
+ * The dataset keys MathML as `mml:*` and names the root `mml|math` in content models. The root is
+ * embedded in HTML and gets the HTML name, like any HTML element; the rest of the namespace stays
+ * prefixed so the collector keeps treating those tags as unknown.
+ */
+const MATH_ROOT = { key: 'mml:math', selector: 'mml|math', name: 'math' };
+
+/**
  * Project the dataset down to what the rules read. Prose (`description`, `cite`, `defaultValue`,
  * `animatable`) goes; so does everything from `#aria` except the deprecation and per-role property
  * rows, and from those rows the `required` field is dropped so this module can never answer what
@@ -79,7 +86,7 @@ export function projectHtmlSpec(raw) {
   const elements = {};
   for (const s of raw.specs) {
     const aria = s.aria ?? {};
-    elements[s.name] = {
+    elements[s.name === MATH_ROOT.key ? MATH_ROOT.name : s.name] = {
       categories: s.categories ?? [],
       ...(s.deprecated ? { deprecated: true } : {}),
       ...(s.obsolete ? { obsolete: true } : {}),
@@ -109,7 +116,12 @@ export function projectHtmlSpec(raw) {
   for (const r of [...a13.roles, ...(a13.graphicsRoles ?? [])]) roles[r.name] = roleRow(r);
   return {
     elements,
-    contentModels: raw.def['#contentModels'],
+    contentModels: Object.fromEntries(
+      Object.entries(raw.def['#contentModels']).map(([cat, sels]) => [
+        cat,
+        sels.map((sel) => (sel === MATH_ROOT.selector ? MATH_ROOT.name : sel))
+      ])
+    ),
     globalAttrs,
     aria: {
       roles,

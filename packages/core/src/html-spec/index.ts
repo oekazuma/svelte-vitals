@@ -4,7 +4,7 @@ import type { HtmlAttrSpec, HtmlElementSpec } from './types.js';
 export type { HtmlAttrSpec, HtmlElementSpec, HtmlSpecData, AriaRoleRow } from './types.js';
 export { HTML_SPEC, HTML_SPEC_VERSION } from './generated.js';
 
-/** The HTML element's spec row; `undefined` for SVG (`svg:*`) and unknown names. */
+/** The HTML element's spec row; `undefined` for SVG (`svg:*`), MathML below `<math>` (`mml:*`) and unknown names. */
 export function htmlElement(tag: string): HtmlElementSpec | undefined {
   const key = tag.toLowerCase();
   // JSON.parse output inherits Object.prototype, and `constructor` is a legal author tag —

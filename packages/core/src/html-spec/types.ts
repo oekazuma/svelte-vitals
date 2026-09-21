@@ -62,7 +62,7 @@ export interface AriaRoleRow {
 }
 
 export interface HtmlSpecData {
-  /** Keyed by element name; SVG elements are `svg:<name>`. */
+  /** Keyed by element name; SVG elements are `svg:<name>`, MathML elements below `<math>` are `mml:<name>`. */
   elements: Record<string, HtmlElementSpec>;
   contentModels: Record<string, string[]>;
   globalAttrs: Record<string, Record<string, HtmlAttrSpec>>;
