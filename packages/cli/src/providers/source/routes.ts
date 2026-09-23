@@ -328,6 +328,9 @@ async function resolveRoute(
 
     const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true);
     for (const node of contributed) {
+      // The layout's main/aside is this file's sectioning ancestor, so a top-level <header>/<footer>
+      // here is no landmark (HTML-AAM) — for any rule, not just nesting.
+      if (node.topLevel && (slotLandmark === 'main' || slotLandmark === 'complementary')) node.topLevel = false;
       if (!node.chain || node.kind !== 'landmark' || !countsAsLandmark(node) || node.repeatable) continue;
       const within = node.inLandmark ?? slotLandmark;
       if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
