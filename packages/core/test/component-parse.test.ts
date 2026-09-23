@@ -542,6 +542,11 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
       names('<script>let { items } = $props(); function add(x) { items.push(x); items = items; }</script>')
     ).toEqual(['items']);
   });
+  it('does not flag a method call whose result is assigned straight back to the prop', () => {
+    const src =
+      '<script>let { value, items } = $props(); function f() { value = value.set({ hour: 15 }); items.push(1); }</script>';
+    expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'items', line: 1 }]);
+  });
   it('treats an `export const` in a runes component as an instance export, not a legacy prop', () => {
     const src =
       '<script>let { sel } = $props(); export const reset = () => {}; function f() { sel.all = true; }</script>';

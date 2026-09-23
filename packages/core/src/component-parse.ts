@@ -2008,7 +2008,7 @@ function collectPropMutations(
 ): void {
   if (propNames.size === 0) return;
   // Legacy idiom `items.push(x); items = items;`: a reassignment in the same function invalidates the mutation.
-  const reassignedInFn = new Set<Node>();
+  const exemptCalls = new Set<Node>();
   if (legacy.size > 0) {
     walkEstree(root, (fn: Node) => {
       if (!isDeferredBody(fn)) return;
@@ -2018,15 +2018,21 @@ function collectPropMutations(
       });
       walkEstree(fn.body, (m: Node) => {
         const r = m.type === 'CallExpression' ? rootObjectName(m.callee?.object) : undefined;
-        if (r && legacy.has(r) && assigned.has(r)) reassignedInFn.add(m);
+        if (r && legacy.has(r) && assigned.has(r)) exemptCalls.add(m);
       });
     });
   }
+  // `value = value.set({ … })`: the result goes straight back into the prop, the shape of an
+  // immutable API (@internationalized/date, Immutable.js) whose `set`/`add` return a new value.
+  walkEstree(root, (m: Node) => {
+    const call = m.type === 'AssignmentExpression' && m.left?.type === 'Identifier' ? m.right : undefined;
+    if (call?.type === 'CallExpression' && rootObjectName(call.callee?.object) === m.left.name) exemptCalls.add(call);
+  });
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const flag = (r: string | undefined) => {
       if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
     };
-    if (reassignedInFn.has(n)) return;
+    if (exemptCalls.has(n)) return;
     if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
       const r = rootObjectName(n.left);
       if (r && !legacy.has(r)) flag(r);
