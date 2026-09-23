@@ -56,7 +56,7 @@ Measured on 16 apps, each pinned to a commit:
 - [sveltejs/realworld](https://github.com/sveltejs/realworld/tree/df796708040f5200ec572b28ab7f88ecee5794dd) (`df79670`)
 - [sveltejs/svelte.dev/apps/svelte.dev](https://github.com/sveltejs/svelte.dev/tree/1c5ddf9ab29dc9c6544bcde40ca53b51b6374532/apps/svelte.dev) (`1c5ddf9`)
 
-5675 of 5675 corpus findings have a verdict.
+5669 of 5669 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision      | Design share  |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | -------------- | ------------- |
@@ -110,7 +110,7 @@ Measured on 16 apps, each pinned to a commit:
 | [`correctness/nonreactive-builtin-state`](../../docs/src/content/docs/rules/correctness/nonreactive-builtin-state.md) | 0               | 0    | —                                     | —              | —             |
 | [`correctness/orphan-effect`](../../docs/src/content/docs/rules/correctness/orphan-effect.md)                         | 0               | 0    | —                                     | —              | —             |
 | [`correctness/orphan-lifecycle`](../../docs/src/content/docs/rules/correctness/orphan-lifecycle.md)                   | 0               | 0    | —                                     | —              | —             |
-| [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 37              | 7    | 16 / 5 / 16 / 0                       | 76% (16/21)    | 43% (16/37)   |
+| [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 36              | 6    | 16 / 4 / 16 / 0                       | 80% (16/20)    | 44% (16/36)   |
 | [`correctness/server-browser-global`](../../docs/src/content/docs/rules/correctness/server-browser-global.md)         | 0               | 0    | —                                     | —              | —             |
 | [`correctness/stale-prop-derivation`](../../docs/src/content/docs/rules/correctness/stale-prop-derivation.md)         | 27              | 4    | 6 / 0 / 21 / 0                        | 100% (6/6)     | 78% (21/27)   |
 | [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 23              | 4    | 23 / 0 / 0 / 0                        | 100% (23/23)   | 0% (0/23)     |
@@ -157,7 +157,7 @@ Measured on 16 apps, each pinned to a commit:
 | [`seo/og-title`](../../docs/src/content/docs/rules/seo/og-title.md)                                                   | 216             | 12   | 216 / 0 / 0 / 0                       | 100% (216/216) | 0% (0/216)    |
 | [`seo/og-url`](../../docs/src/content/docs/rules/seo/og-url.md)                                                       | 278             | 13   | 278 / 0 / 0 / 0                       | 100% (278/278) | 0% (0/278)    |
 | [`seo/robots-txt`](../../docs/src/content/docs/rules/seo/robots-txt.md)                                               | 6               | 6    | 6 / 0 / 0 / 0                         | 100% (6/6)     | 0% (0/6)      |
-| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 151             | 15   | 135 / 5 / 10 / 1                      | 96% (135/140)  | 7% (10/151)   |
+| [`seo/single-h1`](../../docs/src/content/docs/rules/seo/single-h1.md)                                                 | 146             | 14   | 135 / 0 / 10 / 1                      | 100% (135/135) | 7% (10/146)   |
 | [`seo/sitemap-in-robots`](../../docs/src/content/docs/rules/seo/sitemap-in-robots.md)                                 | 1               | 1    | 1 / 0 / 0 / 0                         | 100% (1/1)     | 0% (0/1)      |
 | [`seo/sitemap-xml`](../../docs/src/content/docs/rules/seo/sitemap-xml.md)                                             | 12              | 12   | 12 / 0 / 0 / 0                        | 100% (12/12)   | 0% (0/12)     |
 | [`seo/ssr-disabled`](../../docs/src/content/docs/rules/seo/ssr-disabled.md)                                           | 7               | 4    | 7 / 0 / 0 / 0                         | 100% (7/7)     | 0% (0/7)      |

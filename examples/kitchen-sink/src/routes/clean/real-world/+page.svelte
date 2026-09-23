@@ -7,6 +7,7 @@
 <script lang="ts">
   import alert from '$lib/clean/real-world/notify';
   import LegacyCard from '$lib/clean/real-world/LegacyCard.svelte';
+  import Clock from '$lib/clean/real-world/Clock.svelte';
   import JsonLd from '$lib/clean/jsonld/RealWorldPage.svelte';
 
   let { data } = $props();
@@ -72,3 +73,5 @@
 </fieldset>
 
 <LegacyCard card={{ title: 'Legacy card', opened: 0 }} tags={['a']} />
+
+<Clock />

@@ -99,7 +99,7 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
       "import { user } from '$lib/user';\nexport async function load({ fetch }) {\n  user.set(await (await fetch('/api/user')).json());\n}";
     expect(facts(src).importedStateWrites).toEqual([{ name: 'user', line: 3, via: 'set-call' }]);
   });
-  it('does not treat a namespace import\'s exported update/set function as a store write', () => {
+  it("does not treat a namespace import's exported update/set function as a store write", () => {
     const src =
       "import * as gist from '$lib/db/gist.js';\nimport * as stores from '$lib/stores';\nexport async function PUT({ params }) {\n  await gist.update(params.id, {});\n  stores.user.set(null);\n}";
     expect(facts(src).importedStateWrites).toEqual([{ name: 'stores', line: 5, via: 'set-call' }]);

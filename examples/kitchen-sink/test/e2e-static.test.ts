@@ -101,9 +101,11 @@ describe('kitchen-sink e2e (static mode)', () => {
   });
 
   it('analyzes the real-world canary, so its cleanliness is not vacuous', () => {
-    const realWorld = report.routes.find((r) => r.route === '/clean/real-world');
-    expect(realWorld).toBeDefined();
-    expect(realWorld!.issues).toEqual([]);
+    for (const route of ['/clean/real-world', '/clean/subpath']) {
+      const canary = report.routes.find((r) => r.route === route);
+      expect(canary, route).toBeDefined();
+      expect(canary!.issues, route).toEqual([]);
+    }
   });
 
   it('gives a page whose load always redirects no route-level findings', () => {
