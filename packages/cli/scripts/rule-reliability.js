@@ -48,8 +48,9 @@ function repoUrl({ repo, path, sha }) {
   return `https://github.com/${repo}/tree/${sha}${path === '.' ? '' : `/${path}`}`;
 }
 
+/** Carries its sample size: "100%" over one verdict must not read like "100%" over hundreds. */
 function precision({ tp, fp }) {
-  return tp + fp === 0 ? '—' : `${Math.round((100 * tp) / (tp + fp))}%`;
+  return tp + fp === 0 ? '—' : `${Math.round((100 * tp) / (tp + fp))}% (${tp}/${tp + fp})`;
 }
 
 /**
