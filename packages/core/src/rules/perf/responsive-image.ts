@@ -14,5 +14,6 @@ export const performanceResponsiveImage = imageRule({
       '<img src="/hero.jpg" srcset="/hero-800.jpg 800w, /hero-1600.jpg 1600w" sizes="100vw" width="1600" height="900" alt="…" />',
     lang: 'svelte'
   },
-  ok: (img) => img.hasSrcset
+  // A vector image scales to any size from one file, so srcset has nothing to choose between.
+  ok: (img) => img.hasSrcset || img.svg === true
 });

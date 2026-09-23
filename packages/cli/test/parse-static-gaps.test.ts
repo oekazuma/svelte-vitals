@@ -73,6 +73,15 @@ describe('parse: image loading/srcset capture (performance/lcp-image, performanc
     expect(parseFile('<img src="/a.jpg" srcset="/a-2x.jpg 2x" />', 'x.svelte').images[0]!.hasSrcset).toBe(true);
     expect(parseFile('<img src="/a.jpg" />', 'x.svelte').images[0]!.hasSrcset).toBe(false);
   });
+  it('marks an SVG source: a literal or base-prefixed .svg path, or an imported .svg', () => {
+    const svg = (src: string) => parseFile(src, 'x.svelte').images[0]!.svg;
+    expect(svg('<img src="/rss.svg?v=2" />')).toBe(true);
+    expect(svg('<img src="{base}/icons/rss.svg" />')).toBe(true);
+    expect(svg("<script>import logo from '$lib/logo.svg';</script><img src={logo} />")).toBe(true);
+    expect(svg('<img src="/a.jpg" />')).toBeUndefined();
+    expect(svg("<script>import hero from '$lib/hero.png';</script><img src={hero} />")).toBeUndefined();
+    expect(svg('<img src={url} />')).toBeUndefined();
+  });
 });
 
 describe('parse: image alt capture (seo/image-alt)', () => {

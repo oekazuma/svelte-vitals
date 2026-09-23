@@ -7,6 +7,7 @@ import {
   isTopFragment,
   stripTextDirective,
   isClassicScriptType,
+  isSvgSrc,
   resolveLandmark,
   SECTIONING_TAGS,
   ASIDE_DEMOTING_TAGS,
@@ -234,6 +235,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     hasAlt: img.hasAttribute('alt'),
     lazy: img.getAttribute('loading') === 'lazy',
     hasSrcset: img.hasAttribute('srcset'),
+    ...(isSvgSrc(img.getAttribute('src') ?? '') ? { svg: true } : {}),
     line: 0
   }));
 

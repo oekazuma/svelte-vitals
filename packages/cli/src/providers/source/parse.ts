@@ -20,7 +20,8 @@ import {
   ASIDE_DEMOTING_TAGS,
   ANCESTRY_DEPENDENT_TAGS,
   NAMING_ATTRS,
-  IDREF_ATTRS
+  IDREF_ATTRS,
+  isSvgSrc
 } from '@svelte-vitals/core/internal';
 import { collectImports, type ImportMap } from './imports.js';
 
@@ -212,6 +213,7 @@ interface ParsedImage {
   hasAlt: boolean;
   lazy: boolean;
   hasSrcset: boolean;
+  svg?: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
 }
@@ -224,9 +226,31 @@ interface ParsedHeading {
   line: number;
 }
 
-function collectImages(node: WalkNode | WalkNode[] | null | undefined, source: string, acc: ParsedImage[]): void {
+/**
+ * Whether an <img> src is known to be an SVG. A mixed value's trailing literal carries the
+ * extension (`src="{base}/rss.svg"`), and `src={logo}` resolves through a `*.svg` import.
+ */
+function isSvgImage(attrs: AST.Attribute[], imports: ImportMap): boolean {
+  const value = findAttr(attrs, 'src')?.value;
+  if (Array.isArray(value)) {
+    const last = value.at(-1);
+    return last?.type === 'Text' && isSvgSrc(last.data);
+  }
+  if (value && value !== true && value.expression.type === 'Identifier') {
+    const from = imports.get(value.expression.name)?.source;
+    return from !== undefined && isSvgSrc(from);
+  }
+  return false;
+}
+
+function collectImages(
+  node: WalkNode | WalkNode[] | null | undefined,
+  source: string,
+  imports: ImportMap,
+  acc: ParsedImage[]
+): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectImages(child, source, acc);
+    for (const child of node) collectImages(child, source, imports, acc);
     return;
   }
   if (!node || typeof node !== 'object') return;
@@ -243,11 +267,12 @@ function collectImages(node: WalkNode | WalkNode[] | null | undefined, source: s
       // A literal loading="lazy" only — a spread or dynamic loading={…} must not be flagged.
       lazy: attrText(attrs, 'loading') === 'lazy',
       hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')),
+      ...(isSvgImage(attrs, imports) ? { svg: true } : {}),
       line: lineOf(source, node.start)
     });
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectImages(childOf(node, key), source, acc);
+    if (key in node) collectImages(childOf(node, key), source, imports, acc);
   }
 }
 
@@ -580,14 +605,15 @@ export function parseFile(source: string, filename: string): ParsedFile {
   collectSvelteHeads(ast.fragment, heads);
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components);
+  const imports = collectImports(ast);
   const images: ParsedImage[] = [];
-  collectImages(ast.fragment, source, images);
+  collectImages(ast.fragment, source, imports, images);
   const headingAcc = { headings: [] as ParsedHeading[], dynamic: false };
   collectHeadings(ast.fragment, source, headingAcc);
   return {
     headTags: heads.flatMap((h) => tagsFromHead(h, source)),
     components,
-    imports: collectImports(ast),
+    imports,
     images,
     headings: headingAcc.headings,
     dynamicHeading: headingAcc.dynamic,
