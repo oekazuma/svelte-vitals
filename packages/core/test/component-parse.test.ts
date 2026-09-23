@@ -1006,6 +1006,21 @@ describe('parseComponentFacts — browser-global refs (correctness/server-browse
       { name: 'localStorage', line: 5, context: 'instance' }
     ]);
   });
+  it('treats instance-script imports as bound in the module script (the compiler hoists them)', () => {
+    const src = [
+      '<script module>',
+      'const plugins = [alert()];',
+      'const d = document.title;',
+      '</script>',
+      '<script>',
+      "  import alert from 'some-lib/alert';",
+      '  const document = {};',
+      '</script>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([
+      { name: 'document', line: 3, context: 'module' }
+    ]);
+  });
   it("shares the module script's guard and bindings with the instance scan", () => {
     const src = [
       '<script module>',

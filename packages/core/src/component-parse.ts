@@ -2499,7 +2499,10 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     : [];
   const browserGlobalRefs: BrowserGlobalRefFact[] = [];
   if (moduleProgram) {
-    for (const r of collectBrowserGlobalRefs(moduleProgram, source)) {
+    // The compiler hoists instance-script imports to module scope; the instance's other bindings stay out of reach.
+    const hoisted = new Set<string>();
+    collectImportedLocalNames(ast.instance?.content, hoisted);
+    for (const r of collectBrowserGlobalRefs(moduleProgram, source, { bound: hoisted })) {
       browserGlobalRefs.push({ ...r, context: 'module' });
     }
   }
