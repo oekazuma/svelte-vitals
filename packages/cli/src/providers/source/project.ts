@@ -1,6 +1,7 @@
 import { type Detection } from '@svelte-vitals/core';
 import {
   ROBOTS_SOURCE_PATHS,
+  ROOT_FILE_ENDPOINT_GLOB,
   SITEMAP_SOURCE_PATHS,
   SVELTE_CONFIG_FILES,
   VITE_CONFIG_FILES,
@@ -9,6 +10,7 @@ import {
   lineOf,
   resolveKitAliases,
   resolveKitPathsBase,
+  servesRootFile,
   type Project,
   type Runtime
 } from '@svelte-vitals/core/internal';
@@ -310,17 +312,18 @@ async function detectKitConfigFacts(rt: Runtime, cwd: string): Promise<Pick<Proj
 
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
-  const [hasRobotsTxt, hasSitemap, appHtmlFacts, viteMinifyDisabled, kitConfig] = await Promise.all([
+  const [hasRobotsFile, hasSitemapFile, endpoints, appHtmlFacts, viteMinifyDisabled, kitConfig] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
+    rt.glob(ROOT_FILE_ENDPOINT_GLOB, cwd),
     detectAppHtmlFacts(rt, cwd),
     detectViteMinifyDisabled(rt, cwd),
     detectKitConfigFacts(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
-    hasRobotsTxt,
-    hasSitemap,
+    hasRobotsTxt: hasRobotsFile || endpoints.some((p) => servesRootFile(p, 'robots.txt')),
+    hasSitemap: hasSitemapFile || endpoints.some((p) => servesRootFile(p, 'sitemap.xml')),
     ...appHtmlFacts,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
     ...(viteMinifyDisabled ? { viteMinifyDisabled } : {}),
