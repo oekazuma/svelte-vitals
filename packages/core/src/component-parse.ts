@@ -94,17 +94,19 @@ function isLengthOnlyArrayCall(expr: TsExpression): boolean {
     e.callee.property.name === 'from' &&
     e.arguments?.[0]?.type === 'ObjectExpression'
   ) {
-    return (e.arguments[0].properties ?? []).some(
-      (p: Node) => p?.type === 'Property' && !p.computed && (p.key?.name === 'length' || p.key?.value === 'length')
-    );
+    return (e.arguments[0].properties ?? []).some(isLengthProperty);
   }
   return false;
+}
+
+function isLengthProperty(p: Node): boolean {
+  return p?.type === 'Property' && !p.computed && (p.key?.name === 'length' || p.key?.value === 'length');
 }
 
 /**
  * Whether the each expression yields no item identity to key on: a constant
  * inline array literal (fixed length, never reorders), a length-only list
- * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })` —
+ * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`, `{ length: n }` —
  * placeholder/skeleton lists), or a spread array whose every element spreads a
  * length-only list. Such blocks are skipped entirely — neither each-key nor
  * each-index-key can give useful advice on them.
@@ -114,6 +116,7 @@ function isIdentityFreeEach(node: AST.EachBlock): boolean {
   if (expr.type === 'ArrayExpression' && Array.isArray(expr.elements)) {
     return expr.elements.every((el) => el?.type !== 'SpreadElement' || isLengthOnlyArrayCall(el.argument));
   }
+  if (expr.type === 'ObjectExpression') return expr.properties.length === 1 && isLengthProperty(expr.properties[0]);
   return isLengthOnlyArrayCall(expr);
 }
 

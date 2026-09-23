@@ -62,12 +62,18 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
   });
 
   it('skips length-only placeholder lists entirely', () => {
-    for (const list of ['Array(n)', 'new Array(8)', '[...Array(n)]', 'Array.from({ length: n })']) {
+    for (const list of ['Array(n)', 'new Array(8)', '[...Array(n)]', 'Array.from({ length: n })', '{ length: n }']) {
       const c = facts(`{#each ${list} as _, i (i)}<li>{i}</li>{/each}`);
       expect(c.eachBlocks, list).toEqual([]);
     }
     const unkeyed = facts('{#each [...Array(n)] as _, i}<li>{i}</li>{/each}');
     expect(unkeyed.eachBlocks).toEqual([]);
+    expect(facts('{#each { length: 3 } as _}<li></li>{/each}').eachBlocks).toEqual([]);
+  });
+
+  it('still collects an object literal with properties besides length', () => {
+    const c = facts('{#each { length: n, 0: a } as item}<li>{item}</li>{/each}');
+    expect(c.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
   });
 
   it('still collects spread lists with real items', () => {
