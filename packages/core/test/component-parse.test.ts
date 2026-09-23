@@ -499,6 +499,24 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
   it('does not flag plain reassignment of a legacy prop (the sanctioned pattern for re-triggering reactivity)', () => {
     expect(names('<script>export let items; items = items;</script>')).toEqual([]);
   });
+  it('does not flag a legacy mutating call whose function also reassigns the prop', () => {
+    expect(names('<script>export let items; function add(x) { items.push(x); items = items; }</script>')).toEqual([]);
+    expect(
+      names(
+        '<script>export let files;</script><button on:click={() => { files.splice(0, 1); files = files; }}>x</button>'
+      )
+    ).toEqual([]);
+  });
+  it('still flags a legacy mutating call when only another function reassigns the prop', () => {
+    expect(
+      names('<script>export let items; function add(x) { items.push(x); } function bump() { items = items; }</script>')
+    ).toEqual(['items']);
+  });
+  it('still flags a runes-mode mutating call even when the prop is reassigned alongside', () => {
+    expect(
+      names('<script>let { items } = $props(); function add(x) { items.push(x); items = items; }</script>')
+    ).toEqual(['items']);
+  });
 });
 
 describe('parseComponentFacts — suppression directives (issue #92)', () => {

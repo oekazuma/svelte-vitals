@@ -2000,11 +2000,27 @@ function collectPropMutations(
   legacy: boolean
 ): void {
   if (propNames.size === 0) return;
+  // Legacy idiom `items.push(x); items = items;`: a reassignment in the same function invalidates the mutation.
+  const reassignedInFn = new Set<Node>();
+  if (legacy) {
+    walkEstree(root, (fn: Node) => {
+      if (!isDeferredBody(fn)) return;
+      const assigned = new Set<string>();
+      walkEstree(fn.body, (m: Node) => {
+        if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier') assigned.add(m.left.name);
+      });
+      walkEstree(fn.body, (m: Node) => {
+        const r = m.type === 'CallExpression' ? rootObjectName(m.callee?.object) : undefined;
+        if (r && assigned.has(r)) reassignedInFn.add(m);
+      });
+    });
+  }
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const flag = (r: string | undefined) => {
       if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
     };
     if (legacy && (n.type === 'AssignmentExpression' || n.type === 'UpdateExpression')) return;
+    if (reassignedInFn.has(n)) return;
     if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
       flag(rootObjectName(n.left));
     } else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {

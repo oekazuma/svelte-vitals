@@ -77,6 +77,8 @@ Reassign the prop after mutating it to re-trigger reactivity. This is Svelte's o
 </script>
 ```
 
+A mutating call is not flagged when the same function also reassigns the prop. A reassignment in a different function does not count.
+
 ## Mode differences
 
 None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
