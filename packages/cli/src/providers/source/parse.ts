@@ -76,7 +76,8 @@ function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
         tags.push({ kind: 'meta', name: 'charset', value: charset });
         continue;
       }
-      const name = attrText(attributes, 'name');
+      // Like rel below: rules compare meta names literally, but HTML treats them case-insensitively.
+      const name = attrText(attributes, 'name')?.toLowerCase();
       const property = attrText(attributes, 'property');
       const content = name === 'robots' ? attrText(attributes, 'content') : undefined;
       const noindex = content !== undefined && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
