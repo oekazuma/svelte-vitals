@@ -92,6 +92,21 @@ describe('a11y/id-duplication', () => {
     const f = fails(rs);
     expect(f).toHaveLength(1);
     expect(f[0]).toMatchObject({ location: 'b', line: 2, message: 'Duplicate id "x"' });
+    expect(f[0]!.recommendation).toContain('{:else}');
+  });
+  it('recommends $props.id() when the duplicates are one source location rendered more than once', async () => {
+    const at = { file: 'src/lib/Field.svelte', line: 3 };
+    const f = fails(await a11yIdDuplication.check(ctxA11y([ra({ ids: { name: [at, { ...at }, { ...at }] } })])));
+    expect(f).toHaveLength(2);
+    for (const r of f) {
+      expect(r.message).toBe('Duplicate id "name"');
+      expect(r.recommendation).toContain('$props.id()');
+    }
+  });
+  it('keeps the generic recommendation when lines are unknown (rendered mode)', async () => {
+    const at = { file: 'build/index.html', line: 0 };
+    const f = fails(await a11yIdDuplication.check(ctxA11y([ra({ ids: { x: [at, { ...at }] } })])));
+    expect(f[0]!.recommendation).toBe('Every id in a route should be unique.');
   });
   it('PASS with only single-occurrence ids, nothing with zero ids', async () => {
     const one = await a11yIdDuplication.check(

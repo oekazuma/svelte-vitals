@@ -34,6 +34,19 @@ Rename one of the colliding ids so it's unique within the route:
 <!-- was id="site-search", collided with the layout -->
 ```
 
+When every occurrence is the same line, the id is hardcoded in a component that renders more than once on the route, and renaming it does not help. The finding says so; generate the id per instance with `$props.id()` (Svelte 5.20+):
+
+```svelte Field.svelte
+<script>
+  const uid = $props.id();
+</script>
+
+<label for="{uid}-name">Name</label>
+<input id="{uid}-name" />
+```
+
+When the occurrences sit in separate `{#if}` blocks that never render at the same time, make them branches of one `{#if}…{:else}` so the fold sees them as exclusive.
+
 ## Mode differences
 
 Ids are collected in both modes, but from different sources, so results can differ:

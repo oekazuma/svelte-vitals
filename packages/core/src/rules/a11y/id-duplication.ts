@@ -18,5 +18,12 @@ export const a11yIdDuplication = surplusRule({
     first.file === 'src/app.html'
       ? `Duplicate id "${id}" — also defined by the src/app.html shell (line ${first.line})`
       : `Duplicate id "${id}"`,
+  // Rendered mode has no source lines (every representative is line 0), so a shared location means nothing there.
+  recommendationFor: (rep, first) =>
+    first.file === 'src/app.html' || first.line === 0
+      ? undefined
+      : rep.file === first.file && rep.line === first.line
+        ? 'This id is hardcoded in a component rendered more than once on this route. Generate it per instance with $props.id() (Svelte 5.20+): `const uid = $props.id();`, then `id="{uid}-name"`.'
+        : 'Rename one of them. Separate {#if} blocks are treated as able to render together; if these never render at the same time, make them branches of one {#if}…{:else}.',
   passMessage: 'No duplicate ids'
 });
