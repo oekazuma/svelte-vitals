@@ -340,6 +340,16 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
     ].join('\n');
     expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
   });
+  it('recognises the SvelteKit 3 $app/env browser import as a guard', () => {
+    const src = [
+      "import { browser } from '$app/env';",
+      'export function load() {',
+      "  if (browser && location.hash === '#x') return { h: true };",
+      '  return {};',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
   it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {
     const ssrOff =
       'export const ssr = false;\nconst w = window.innerWidth;\nexport function load() {\n  return { t: document.title };\n}';

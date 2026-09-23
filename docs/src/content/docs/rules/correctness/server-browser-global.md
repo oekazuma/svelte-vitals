@@ -14,7 +14,7 @@ Flags reads of browser-only globals (`window`, `document`, `localStorage`, `sess
 
 Not flagged:
 
-- Code guarded by `browser` from `$app/environment` (aliases included) or a `typeof window !== 'undefined'` check (early-return guards included).
+- Code guarded by `browser` from `$app/environment` (or SvelteKit 3's `$app/env`; aliases included) or a `typeof window !== 'undefined'` check (early-return guards included).
 - Code inside `onMount`, `$effect`, or ordinary functions, since none of them run at module evaluation.
 - A bare `typeof window`, which never throws.
 - Names you imported or declared yourself (`const document = …`).
