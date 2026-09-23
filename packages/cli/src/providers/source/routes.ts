@@ -14,7 +14,7 @@ import type {
   Runtime
 } from '@svelte-vitals/core/internal';
 import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
-import type { A11yNode, ParsedFile } from './parse.js';
+import type { A11yNode, ParsedFile, ParsedTag } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {
   resolveComponentPath,
@@ -285,7 +285,8 @@ async function resolveRoute(
   cache: ParseCache,
   aliases: readonly KitAlias[] | undefined,
   appHtmlIds: readonly { id: string; line: number }[] | undefined,
-  appHtmlBodyTags: readonly string[] | undefined
+  appHtmlBodyTags: readonly string[] | undefined,
+  appHtmlHeadTags: readonly ParsedTag[] | undefined
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
   const chainOrder = new Map(files.map((f, i) => [f.rel, i]));
@@ -369,6 +370,11 @@ async function resolveRoute(
       if (!composed.has(key)) composed.set(key, { ...tag, presence });
     }
   }
+  // After the broad fill: an opaque meta component may override the shell's literal.
+  for (const tag of appHtmlHeadTags ?? []) {
+    const key = tagKey(tag);
+    if (!composed.has(key)) composed.set(key, { ...tag, presence: 'inherited', file: 'src/app.html' });
+  }
 
   const idNodes = a11yNodes.filter((n) => n.kind === 'id');
   // An expression-valued id (key '') is unknowable: it closes no world and is no candidate.
@@ -444,7 +450,9 @@ export async function collectRoutes(
   // satisfy a route's id references.
   appHtmlIds?: readonly { id: string; line: number }[],
   // The shell's `<body>` tag names (`Project.appHtmlBodyTags`): present on every route.
-  appHtmlBodyTags?: readonly string[]
+  appHtmlBodyTags?: readonly string[],
+  // The shell's literal head tags (`Project.appHtmlHeadTags`): every route's lowest-priority tags.
+  appHtmlHeadTags?: readonly ParsedTag[]
 ): Promise<{
   heads: ResolvedHead[];
   images: ResolvedImages[];
@@ -453,7 +461,9 @@ export async function collectRoutes(
 }> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
   const facts = await Promise.all(
-    pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags))
+    pages.map((page) =>
+      resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags, appHtmlHeadTags)
+    )
   );
   return {
     heads: facts.map((f) => f.head),

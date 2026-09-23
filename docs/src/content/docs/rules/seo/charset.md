@@ -24,7 +24,7 @@ Without a declared character encoding the browser must guess, which can render t
 
 ## Mode differences
 
-**Rendered analysis only** (the Vite plugin's build pass, a route you visit in the dashboard). The tag lives in `src/app.html`, which source analysis (the CLI, the dashboard's static baseline) does not resolve, so that pass reports nothing for this rule.
+**Rendered analysis only** (the Vite plugin's build pass, a route you visit in the dashboard). The tag lives in `src/app.html`; source analysis (the CLI, the dashboard's static baseline) reads the title, canonical link and other `<meta>` tags there but not this one, so that pass reports nothing for this rule.
 
 ## Disabling
 

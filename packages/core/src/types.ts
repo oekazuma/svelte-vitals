@@ -4,6 +4,7 @@
  */
 
 import type { SuppressionDirective } from './component.js';
+import type { HeadTag } from './head.js';
 
 export type Severity = 'critical' | 'warning' | 'info';
 
@@ -92,6 +93,11 @@ export interface Project {
   appHtmlIds?: { id: string; line: number }[];
   /** Distinct lowercased tag names inside `app.html`'s `<body>` (a11y/required-element's presence set; static mode). */
   appHtmlBodyTags?: string[];
+  /**
+   * The shell's own literal `<title>`, `<meta name|property>` (except charset/viewport) and
+   * `<link rel="canonical">`, rendered on every route beside `%sveltekit.head%` (static mode).
+   */
+  appHtmlHeadTags?: Omit<HeadTag, 'presence' | 'file'>[];
 }
 
 export const defaultProject: Project = {

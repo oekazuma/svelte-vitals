@@ -91,3 +91,48 @@ describe('collectAll — kit aliases', () => {
     expect(facts.kitModules[0]!.runesModuleImports).toEqual([]);
   });
 });
+
+describe('collectAll: app.html head tags', () => {
+  const APP_HTML = `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Shell title</title>
+    <meta name="Twitter:card" content="summary" />
+    <meta property="og:image" content="%sveltekit.assets%/og.png" />
+    <link rel="icon" href="/favicon.png" />
+    <link rel="canonical" href="https://example.test/" />
+    %sveltekit.head%
+  </head>
+  <body>%sveltekit.body%</body>
+</html>`;
+
+  it("seeds every route with the shell's literal title, meta and canonical below any route tag", async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': APP_HTML,
+      'src/routes/a/+page.svelte': `<h1>A</h1>`,
+      'src/routes/b/+page.svelte': `<svelte:head><title>Own title</title></svelte:head><h1>B</h1>`,
+      'src/routes/c/+page.svelte': `<script>import Seo from 'seo-pkg';</script><Seo /><h1>C</h1>`
+    });
+
+    const { heads } = await collectAll(rt, '', { ...defaultConfig, metaComponents: ['Seo'] });
+    const tagsOf = (route: string) => heads.find((h) => h.route === route)!.tags;
+
+    expect(tagsOf('/a')).toEqual([
+      { kind: 'title', value: 'static', text: 'Shell title', presence: 'inherited', file: 'src/app.html' },
+      { kind: 'meta', name: 'twitter:card', value: 'static', presence: 'inherited', file: 'src/app.html' },
+      {
+        kind: 'link',
+        rel: 'canonical',
+        value: 'static',
+        href: 'https://example.test/',
+        presence: 'inherited',
+        file: 'src/app.html'
+      }
+    ]);
+    expect(tagsOf('/b').find((t) => t.kind === 'title')).toMatchObject({ presence: 'own', text: 'Own title' });
+    // An opaque meta component may set the title, so the shell's literal must not stand in for it.
+    expect(tagsOf('/c').find((t) => t.kind === 'title')).toEqual({ kind: 'title', value: 'dynamic', presence: 'own' });
+  });
+});
