@@ -267,6 +267,15 @@ function isBodyParseCall(arg: Node): boolean {
   );
 }
 
+const WORK_STARTING = new Set(['CallExpression', 'NewExpression', 'ImportExpression', 'TaggedTemplateExpression']);
+
+/** Whether an await argument starts work (a call, tagged template, `new`, or `import()`), as opposed to awaiting an existing promise. */
+function startsWork(arg: Node): boolean {
+  let e = unwrapTs(arg);
+  if (e?.type === 'ChainExpression') e = e.expression;
+  return WORK_STARTING.has(e?.type);
+}
+
 /**
  * Whether the expression references any tainted name. Threads nested-function
  * shadowing (`scopeIntroducedNames`) so a callback parameter that shadows a
@@ -377,9 +386,9 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
             const anchor = dependent.reduce((m, a) => (a.start < m.start ? a : m));
             dependentLines.push(line(anchor.start));
           } else if (sawAwaitSite) {
-            // Awaiting an already-created promise (bare identifier) starts no request —
+            // Awaiting an already-created promise (`await p`, `await obj.p`) starts no request —
             // only awaits that start work can be needlessly sequential.
-            const workSites = sites.filter((a) => unwrapTs(a.argument)?.type !== 'Identifier');
+            const workSites = sites.filter((a) => startsWork(a.argument));
             if (workSites.length > 0) {
               const anchor = workSites.reduce((m, a) => (a.start < m.start ? a : m));
               independentLines.push(line(anchor.start));
