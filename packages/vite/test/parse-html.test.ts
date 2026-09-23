@@ -186,6 +186,15 @@ describe('parse-html: image capture (rendered image-rule parity)', () => {
     expect(images[1]!).toMatchObject({ hasWidth: false, hasAlt: false, lazy: false, hasSrcset: false });
   });
 
+  it('marks an <img> whose src is an SVG', () => {
+    const { images } = parseHtmlHead(
+      doc(
+        '<img src="/_app/immutable/assets/logo.Bx1a.svg" /><img src="data:image/svg+xml,%3Csvg%3E" /><img src="/a.png" />'
+      )
+    );
+    expect(images.map((i) => i.svg)).toEqual([true, true, undefined]);
+  });
+
   it('reports no images for a page without <img>', () => {
     expect(parseHtmlHead(doc('<h1>t</h1>')).images).toEqual([]);
   });

@@ -39,6 +39,8 @@ export function surplusRule(spec: {
   recommendation: string;
   map: (route: ResolvedA11y) => [string, A11yOccurrenceInfo[]][];
   message: (key: string, i: number, n: number, first: A11yOccurrenceInfo) => string;
+  /** A finding-specific recommendation for `rep` (a surplus representative), or undefined for the rule's own. */
+  recommendationFor?: (rep: A11yOccurrenceInfo, first: A11yOccurrenceInfo) => string | undefined;
   passMessage: string;
 }): Rule {
   const result = resultFactory(spec.id, spec.recommendation, 'warning');
@@ -59,7 +61,9 @@ export function surplusRule(spec: {
           first ??= reps[0];
           for (let i = 1; i < reps.length; i++) {
             surplus = true;
-            out.push(result(route.route, PENALIZED, reps[i]!, spec.message(key, i, reps.length, reps[0]!)));
+            const finding = result(route.route, PENALIZED, reps[i]!, spec.message(key, i, reps.length, reps[0]!));
+            const recommendation = spec.recommendationFor?.(reps[i]!, reps[0]!);
+            out.push(recommendation ? { ...finding, recommendation } : finding);
           }
         }
         if (first && !surplus) out.push(result(route.route, PASS, { file: first.file, line: 0 }, spec.passMessage));

@@ -9,6 +9,8 @@ description: Large images should provide a srcset.
 
 Flags an `<img>` without a `srcset` attribute.
 
+An SVG is not flagged, since a vector image scales to any size from one file. That covers a `src` path ending in `.svg` (query and fragment ignored), an inline `data:image/svg+xml` URI, and in source analysis an `src={logo}` whose `logo` is imported from a `.svg` file.
+
 ## Why it matters
 
 An `<img>` without `srcset` ships one fixed-size asset to every device, wasting bytes on small screens. Static analysis cannot measure the intended display size, so this is advisory.

@@ -24,8 +24,9 @@ export interface ResolvedHeadings {
    */
   componentHeadings?: HeadingInfo[];
   /**
-   * This route renders a `<svelte:element>` that may be a heading whose level is not
-   * statically determinable (`this={`h${n}`}`, an identifier, …) — source mode only.
+   * This route may render a heading whose level is not statically determinable: a
+   * `<svelte:element>` (`this={`h${n}`}`, an identifier, …), or a component that cannot be
+   * followed but is given a literal `h1` element prop (`<Heading tag="h1">`) — source mode only.
    * Counting stays as-is; only the "no <h1> anywhere" claim becomes unsafe to make.
    */
   dynamicHeading?: boolean;

@@ -11,6 +11,9 @@ export function deriveRouteFromHtmlPath(relPath: string): string {
   return '/' + p;
 }
 
+/** The whole file SvelteKit's prerender writes for a route that redirected — no document of the page. */
+const REDIRECT_STUB = /^<script>location\.href=.*;<\/script><meta http-equiv="refresh" content="0;url=[^"]*">\s*$/s;
+
 export interface CollectedHeads {
   heads: ResolvedHead[];
   headings: ResolvedHeadings[];
@@ -26,7 +29,10 @@ export async function collectRenderedHeads(prerenderPagesDir: string): Promise<C
   // Read + parse in parallel; Promise.all preserves the sorted order so the
   // "first own <html lang>" pick below stays deterministic.
   const parsedFiles = await Promise.all(
-    files.map(async (rel) => ({ rel, parsed: parseHtmlHead(await rt.readFile(rt.join(prerenderPagesDir, rel))) }))
+    files.map(async (rel) => {
+      const html = await rt.readFile(rt.join(prerenderPagesDir, rel));
+      return { rel, parsed: REDIRECT_STUB.test(html) ? undefined : parseHtmlHead(html) };
+    })
   );
 
   const heads: ResolvedHead[] = [];
@@ -36,6 +42,7 @@ export async function collectRenderedHeads(prerenderPagesDir: string): Promise<C
   let htmlLang: CollectedHeads['htmlLang'] = { presence: 'none', value: 'absent' };
 
   for (const { rel, parsed } of parsedFiles) {
+    if (!parsed) continue;
     if (htmlLang.presence === 'none' && parsed.htmlLang.presence === 'own') htmlLang = parsed.htmlLang;
     const route = deriveRouteFromHtmlPath(rel);
     heads.push({

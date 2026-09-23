@@ -3,7 +3,8 @@ import {
   performanceLcpImage,
   performanceResponsiveImage,
   performanceRenderBlockingScript,
-  performancePreconnect
+  performancePreconnect,
+  isSvgSrc
 } from '../src/internal.js';
 import { applyOverrides } from '../src/config-apply.js';
 import { defineConfig, defaultProject } from '../src/types.js';
@@ -65,6 +66,28 @@ describe('performance/responsive-image responsive image', () => {
   it('passes an <img> with srcset', async () => {
     const rs = await performanceResponsiveImage.check(imagesCtx([{ route: '/a', images: [img({ hasSrcset: true })] }]));
     expect(fails(rs)).toHaveLength(0);
+  });
+  it('passes an SVG <img> without srcset', async () => {
+    const rs = await performanceResponsiveImage.check(
+      imagesCtx([{ route: '/a', images: [img({ hasSrcset: false, svg: true })] }])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('isSvgSrc', () => {
+  it('matches a .svg path ignoring query and fragment, and an inline SVG data URI', () => {
+    for (const src of [
+      '/rss.svg',
+      'logo.SVG?v=2',
+      '/_app/immutable/assets/logo.Bx1a.svg#icon',
+      'data:image/svg+xml,%3Csvg%3E'
+    ])
+      expect(isSvgSrc(src), src).toBe(true);
+  });
+  it('does not match a raster image or a path that only mentions svg', () => {
+    for (const src of ['/hero.jpg', '/svg/hero.png', '/a.svg.png', 'data:image/png;base64,AAAA', ''])
+      expect(isSvgSrc(src), src).toBe(false);
   });
 });
 

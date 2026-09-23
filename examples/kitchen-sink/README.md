@@ -8,6 +8,11 @@ A real SvelteKit app used four ways:
   that every rule in `allRules` has an entry.
 - False-positive canary — `/clean/**` and `src/lib/clean/**` are written to be finding-free.
   If a rule change makes them fail, that's a regression in the rule, not the example.
+  `/clean/redirect` is a page whose `load` always redirects: both e2e suites assert it gets no
+  route-level analysis at all. `/clean/real-world` collects code shapes from real apps that
+  svelte-vitals once misreported (head tags in `{#if}`, legacy `export let` writes, `{#each}`
+  item writes, a page `<header>` under the layout's `<main>`, and more): when a real app turns up
+  a false positive, add its shape here along with the fix.
 - Live-dashboard dogfood — `@svelte-vitals/vite`'s `svelteVitals()` plugin runs against this
   app's own `vite build`, exercising the same rendered-HTML analysis path and dashboard
   (`/__svelte-vitals/`) that real consumers use.

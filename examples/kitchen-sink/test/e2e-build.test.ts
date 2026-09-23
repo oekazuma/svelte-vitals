@@ -11,7 +11,7 @@ let buildStderr = '';
 
 interface JsonReport {
   rules: Record<string, { findings: number; passed: number }>;
-  routes: Array<{ route: string }>;
+  routes: Array<{ route: string; issues: unknown[] }>;
   skipped?: Record<
     string,
     Array<{ route: string; refs: number; causes: Array<{ kind: string; file: string; line: number; detail?: string }> }>
@@ -85,6 +85,19 @@ describe('kitchen-sink e2e (build mode)', () => {
     expect(routes).not.toContain('/gallery/seo/spa-shell');
     expect(buildStderr).toContain('skipped 1 prerendered route(s) with ssr = false');
     expect(buildStderr).toContain('to check them from source: /gallery/seo/spa-shell');
+  });
+
+  it('skips the redirect stub Kit prerenders for a page whose load always redirects', () => {
+    expect(existsSync(join(appDir, '.svelte-kit/output/prerendered/pages/clean/redirect.html'))).toBe(true);
+    const routes = report.routes.map((r) => r.route);
+    expect(routes).toContain('/clean');
+    expect(routes).not.toContain('/clean/redirect');
+  });
+
+  it('analyzes the real-world canary and finds it clean', () => {
+    const realWorld = report.routes.find((r) => r.route === '/clean/real-world');
+    expect(realWorld).toBeDefined();
+    expect(realWorld!.issues).toEqual([]);
   });
 
   it('never reports skipped routes: the prerendered document is its own closed world', () => {

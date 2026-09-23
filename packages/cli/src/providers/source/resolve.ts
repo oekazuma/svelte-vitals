@@ -1,9 +1,12 @@
 import type { Config } from '@svelte-vitals/core';
 import type { HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
-import { resolveRepoLocalPath } from '@svelte-vitals/core/internal';
+import { attrTextOf, resolveRepoLocalPath } from '@svelte-vitals/core/internal';
 import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { parseFile } from './parse.js';
+
+/** Props a heading component conventionally takes its element from (`<Heading tag="h1">`, `as`, `element`, `is`). */
+const HEADING_TAG_PROPS = new Set(['tag', 'as', 'element', 'is']);
 
 interface ResolveResult {
   tags: ParsedTag[];
@@ -14,7 +17,7 @@ interface ResolveResult {
    * including them here too would double-count).
    */
   headings: HeadingInfo[];
-  /** Any strict descendant has a `<svelte:element>` that may render a heading of an undetermined level. */
+  /** A heading of an undetermined level may render: a descendant's `<svelte:element>`, or an unfollowable component given a literal heading tag. */
   dynamicHeading: boolean;
 }
 
@@ -164,6 +167,17 @@ export async function resolveFileTags(
         dynamicHeading = dynamicHeading || childParsed.dynamicHeading || child.dynamicHeading;
         continue;
       }
+    }
+
+    // A component we cannot follow may render its heading from a prop (`<Heading tag="h1">`), so,
+    // like an undeterminable `<svelte:element>`, it rules out the "no <h1>" claim. Only element props and
+    // only h1: `value="h1"` on a toolbar button, or `tag="h3"`, says nothing about the page's <h1>.
+    if (
+      use.attributes.some(
+        (a) => a.type === 'Attribute' && HEADING_TAG_PROPS.has(a.name) && attrTextOf(a)?.trim().toLowerCase() === 'h1'
+      )
+    ) {
+      dynamicHeading = true;
     }
 
     // Layer 4, a fallback, never an override: a declared meta component is only credited as a

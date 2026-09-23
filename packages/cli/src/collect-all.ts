@@ -22,13 +22,15 @@ import {
 } from '@svelte-vitals/core/internal';
 import { collectProjectFacts } from './providers/source/project.js';
 import type { ParseCache } from './providers/source/resolve.js';
-import { collectRoutes } from './providers/source/routes.js';
+import { collectRoutes, deriveRoute } from './providers/source/routes.js';
 import { routeMatcher } from './route-matcher.js';
 
 /** An override's `route`/`files` field as a list — the schema allows one glob or many. */
 function globList(globs: string | string[] | undefined): string[] {
   return globs === undefined ? [] : Array.isArray(globs) ? globs : [globs];
 }
+
+const PAGE_MODULE_RE = /\/\+page(\.server)?\.(ts|js)$/;
 
 /** Everything the rule engine needs about a project, gathered through the Runtime. */
 interface CollectedFacts {
@@ -76,7 +78,7 @@ export async function collectAll(
   // project is resolved first: collectKitModuleFacts needs project.kitAliases, so
   // everything else that's independent of it runs alongside it in one Promise.all.
   const project = await collectProjectFacts(rt, cwd);
-  const [collected, components, kitModules, sourceFiles] = await Promise.all([
+  const [collected, components, allKitModules, sourceFiles] = await Promise.all([
     collectRoutes(
       rt,
       cwd,
@@ -88,20 +90,27 @@ export async function collectAll(
       project.appHtmlHeadTags
     ),
     // Component (Correctness) facts are file-scoped with no route attribution yet, so a
-    // route-filtered run skips them rather than reporting unrelated components (#68 review);
-    // kitModules is skipped for the same reason.
+    // route-filtered run skips them rather than reporting unrelated components (#68 review).
     opts.route ? [] : collectComponentFacts(rt, cwd),
-    opts.route ? [] : collectKitModuleFacts(rt, cwd, project.kitAliases),
+    // Read under `--route` too, for the redirect-only gate below; the rules still get none then.
+    collectKitModuleFacts(rt, cwd, project.kitAliases),
     // Unlike its two neighbours above, the --route branch gets `undefined` here, not `[]`: an empty
     // inventory would tell architecture/unit-entry-file that the declared unit directories truly do
     // not exist, so it would report every declaration as inert, whereas `undefined` means the mode
     // never collected the fact at all, and the rule stays silent instead of raising a false alarm.
     opts.route ? undefined : collectSourceFiles(rt, cwd)
   ]);
-  const heads = collected.heads.filter((h) => matches(h.route));
-  const images = collected.images.filter((i) => matches(i.route));
-  const headings = collected.headings.filter((h) => matches(h.route));
-  const a11y = collected.a11y.filter((a) => matches(a.route));
+  // Kit-module facts are file-scoped too, so a route-filtered run hands the rules none.
+  const kitModules = opts.route ? [] : allKitModules;
+  // A page whose own load always redirects never renders a document, so it has no route-level facts.
+  const redirectOnly = new Set(
+    allKitModules.filter((m) => m.loadAlwaysRedirects && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file))
+  );
+  const routeLevel = (route: string) => matches(route) && !redirectOnly.has(route);
+  const heads = collected.heads.filter((h) => routeLevel(h.route));
+  const images = collected.images.filter((i) => routeLevel(i.route));
+  const headings = collected.headings.filter((h) => routeLevel(h.route));
+  const a11y = collected.a11y.filter((a) => routeLevel(a.route));
   // Every file the run read is entered, directives or not, so `has(file)` answers "was this file
   // scanned" — the invariant `test/directive-coverage.test.ts` checks against the real gallery.
   const directives = new Map<string, readonly SuppressionDirective[]>();

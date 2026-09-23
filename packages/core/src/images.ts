@@ -13,10 +13,17 @@ export interface ImageInfo {
   lazy: boolean;
   /** True when the <img> has a `srcset` attribute (performance/responsive-image). */
   hasSrcset: boolean;
+  /** True when the <img>'s src is known to be an SVG (`isSvgSrc`; performance/responsive-image). */
+  svg?: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
   /** Source file the <img> came from. */
   file: string;
+}
+
+/** A `.svg` path (query and fragment ignored) or an inline `data:image/svg+xml` URI. */
+export function isSvgSrc(src: string): boolean {
+  return /^data:image\/svg\+xml[;,]/i.test(src) || /\.svg$/i.test(src.split(/[?#]/, 1)[0]!);
 }
 
 /** Resolved <img> elements for a single route (page + layout chain). */

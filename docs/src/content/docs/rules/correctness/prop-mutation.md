@@ -15,6 +15,8 @@ A local reusing the prop's name shadows it and is not the prop at all, so mutati
 
 `{#snippet}`/`{:then}`/`{:catch}` bindings are not tracked and could still produce a false positive. This is a deliberately partial mitigation, not full scope resolution.
 
+A prop holding a class instance with `$state` fields is still flagged when you mutate it through its fields or methods (`todo.done = true`, `cart.add(item)`), even though that mutation is reactive: static analysis cannot tell a class instance from a plain object. If that is the intended pattern, suppress the occurrence inline.
+
 ## Why it matters
 
 Svelte's docs say plainly: "don't mutate props" unless they are `$bindable`. Three failure modes, none caught by the compiler:

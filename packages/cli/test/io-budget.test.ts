@@ -101,7 +101,7 @@ describe('I/O budget for the collection phase', () => {
     }
   });
 
-  it('scans no components or kit modules for a route-filtered run', async () => {
+  it('scans no components for a route-filtered run', async () => {
     const full = createCountingRuntime(createMemoryRuntime(project(6)));
     const filtered = createCountingRuntime(createMemoryRuntime(project(6)));
 
@@ -114,17 +114,9 @@ describe('I/O budget for the collection phase', () => {
     // in `full`, so the two runs would look identical and this would go red rather
     // than passing vacuously).
     const skipped = [...full.counts.glob.keys()].filter((p) => !filtered.counts.glob.has(p));
-    // The source-file inventory, component scanning, and every kit-module glob
-    // (page/layout, their .server variants, +server endpoints, and hooks.server) —
-    // the whole file-scoped-facts surface that a route-filtered run has no use for.
-    expect(skipped.sort()).toEqual([
-      'src/**/*',
-      'src/**/*.svelte{,.ts,.js}',
-      'src/hooks.server.{ts,js}',
-      'src/routes/**/+server.{ts,js}',
-      'src/routes/**/+{page,layout}.server.{ts,js}',
-      'src/routes/**/+{page,layout}.{ts,js}'
-    ]);
+    // The source-file inventory and component scanning. Kit modules are still read: a page whose
+    // load always redirects has no route-level facts, and only its kit module says so.
+    expect(skipped.sort()).toEqual(['src/**/*', 'src/**/*.svelte{,.ts,.js}']);
 
     // The filtered run is held to the same count budgets as the unfiltered one. The
     // set comparison above proves only WHICH patterns were issued, never how many

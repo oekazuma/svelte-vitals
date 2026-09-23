@@ -18,7 +18,7 @@ const multipleRecommendation =
  * signal, but no official source documents a ranking penalty for several (2026-08-09 v1
  * rule-validity review, P2 #11) — so it's flagged as a style nit, not a defect. Exactly
  * one passes. A route whose headings were not collected (channel unset) emits nothing, as does
- * one whose `dynamicHeading` flag says an undeterminable `<svelte:element>` may be its <h1>. A
+ * one whose `dynamicHeading` flag says a heading of undeterminable level may be its <h1>. A
  * global `rules: { 'seo/single-h1': <severity> }` override flattens both arms to one
  * severity (design, `applyRuleSeverities`).
  */
