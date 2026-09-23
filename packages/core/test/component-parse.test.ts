@@ -62,12 +62,18 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
   });
 
   it('skips length-only placeholder lists entirely', () => {
-    for (const list of ['Array(n)', 'new Array(8)', '[...Array(n)]', 'Array.from({ length: n })']) {
+    for (const list of ['Array(n)', 'new Array(8)', '[...Array(n)]', 'Array.from({ length: n })', '{ length: n }']) {
       const c = facts(`{#each ${list} as _, i (i)}<li>{i}</li>{/each}`);
       expect(c.eachBlocks, list).toEqual([]);
     }
     const unkeyed = facts('{#each [...Array(n)] as _, i}<li>{i}</li>{/each}');
     expect(unkeyed.eachBlocks).toEqual([]);
+    expect(facts('{#each { length: 3 } as _}<li></li>{/each}').eachBlocks).toEqual([]);
+  });
+
+  it('still collects an object literal with properties besides length', () => {
+    const c = facts('{#each { length: n, 0: a } as item}<li>{item}</li>{/each}');
+    expect(c.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
   });
 
   it('still collects spread lists with real items', () => {
@@ -371,6 +377,25 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
   it('does not flag a $state passed as a component prop', () => {
     expect(names('<script>let data = $state({});</script><Child d={data} />')).toEqual([]);
   });
+  it('does not flag a $state written through an {#each} item', () => {
+    expect(
+      names('<script>let s = $state([]);</script>{#each s as it (it.id)}<input bind:checked={it.on} />{/each}')
+    ).toEqual([]);
+    expect(
+      names(
+        '<script>let r = $state([]);</script>{#each r as row}<button onclick={() => (row.role = 1)}>x</button>{/each}'
+      )
+    ).toEqual([]);
+    expect(names('<script>let r = $state({ rows: [] });</script>{#each r.rows as { meta }}{meta.x++}{/each}')).toEqual(
+      []
+    );
+  });
+  it('still flags a $state whose {#each} items are only read or whose index is passed on', () => {
+    expect(names('<script>let s = $state([]);</script>{#each s as it}<p>{it.id}</p>{/each}')).toEqual(['s']);
+    expect(
+      names('<script>let s = $state([]);</script>{#each s as it, i}<button onclick={() => pick(i)}>x</button>{/each}')
+    ).toEqual(['s']);
+  });
   it('still flags a $state only read in a slot child or DOM attribute', () => {
     expect(names('<script>let label = $state("x");</script><Card>{label}</Card>')).toEqual(['label']);
     expect(names('<script>let ph = $state("x");</script><input value={ph} />')).toEqual(['ph']);
@@ -486,12 +511,41 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
     const facts = parseComponentFacts('<script>export let items; items.push(1);</script>', 'C.svelte');
     expect(facts.mutatedProps).toEqual([{ name: 'items', line: 1, legacy: true }]);
   });
-  it('flags a member-expression write on a legacy `export let` prop with a default value', () => {
-    const facts = parseComponentFacts('<script>export let user = {}; user.name = "x";</script>', 'C.svelte');
+  it('flags `delete` on a legacy `export let` prop with a default value', () => {
+    const facts = parseComponentFacts('<script>export let user = {}; delete user.name;</script>', 'C.svelte');
     expect(facts.mutatedProps).toEqual([{ name: 'user', line: 1, legacy: true }]);
+  });
+  it('does not flag a member write or update on a legacy prop (compiled as an invalidating assignment)', () => {
+    expect(names('<script>export let user = {}; user.name = "x";</script>')).toEqual([]);
+    expect(names('<script>export let c; function add(x) { c.items = [...c.items, x]; }</script>')).toEqual([]);
+    expect(names('<script>export let c;</script><button on:click={() => c.n++}>+</button>')).toEqual([]);
+    expect(names('<script>export let c; c.n += 1;</script>')).toEqual([]);
   });
   it('does not flag plain reassignment of a legacy prop (the sanctioned pattern for re-triggering reactivity)', () => {
     expect(names('<script>export let items; items = items;</script>')).toEqual([]);
+  });
+  it('does not flag a legacy mutating call whose function also reassigns the prop', () => {
+    expect(names('<script>export let items; function add(x) { items.push(x); items = items; }</script>')).toEqual([]);
+    expect(
+      names(
+        '<script>export let files;</script><button on:click={() => { files.splice(0, 1); files = files; }}>x</button>'
+      )
+    ).toEqual([]);
+  });
+  it('still flags a legacy mutating call when only another function reassigns the prop', () => {
+    expect(
+      names('<script>export let items; function add(x) { items.push(x); } function bump() { items = items; }</script>')
+    ).toEqual(['items']);
+  });
+  it('still flags a runes-mode mutating call even when the prop is reassigned alongside', () => {
+    expect(
+      names('<script>let { items } = $props(); function add(x) { items.push(x); items = items; }</script>')
+    ).toEqual(['items']);
+  });
+  it('treats an `export const` in a runes component as an instance export, not a legacy prop', () => {
+    const src =
+      '<script>let { sel } = $props(); export const reset = () => {}; function f() { sel.all = true; }</script>';
+    expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'sel', line: 1 }]);
   });
 });
 
@@ -955,6 +1009,21 @@ describe('parseComponentFacts — browser-global refs (correctness/server-browse
     expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([
       { name: 'window', line: 2, context: 'module' },
       { name: 'localStorage', line: 5, context: 'instance' }
+    ]);
+  });
+  it('treats instance-script imports as bound in the module script (the compiler hoists them)', () => {
+    const src = [
+      '<script module>',
+      'const plugins = [alert()];',
+      'const d = document.title;',
+      '</script>',
+      '<script>',
+      "  import alert from 'some-lib/alert';",
+      '  const document = {};',
+      '</script>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([
+      { name: 'document', line: 3, context: 'module' }
     ]);
   });
   it("shares the module script's guard and bindings with the instance scan", () => {
@@ -1507,7 +1576,7 @@ describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', ()
     ].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
   });
-  it('accepts an expression alt, the two label routes, slots and custom elements', () => {
+  it('accepts an expression alt, the two label routes, slots, custom elements and preprocessor tags', () => {
     const src = [
       '<a href="/about"><img src="/l.png" alt={siteName} /></a>',
       '<input type="image" src="/s.png" alt={t} />',
@@ -1515,7 +1584,8 @@ describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', ()
       '<label for="b">Save</label><button id="b"></button>',
       '<button><slot /></button>',
       '<a href="/x"><svelte:fragment /></a>',
-      '<button><my-icon></my-icon></button>'
+      '<button><my-icon></my-icon></button>',
+      '<a href="/s"><enhanced:img src="./s.png" alt="Survey" /></a>'
     ].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
   });

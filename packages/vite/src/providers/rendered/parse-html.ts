@@ -133,7 +133,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   }
 
   for (const meta of head.querySelectorAll('meta')) {
-    const name = meta.getAttribute('name');
+    const name = meta.getAttribute('name')?.toLowerCase();
     const property = meta.getAttribute('property');
     const charset = meta.getAttribute('charset');
     if (charset != null) {

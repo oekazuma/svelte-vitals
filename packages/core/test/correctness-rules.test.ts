@@ -378,6 +378,36 @@ describe('correctness/server-browser-global browser global in server module code
     expect(fails(rs)).toHaveLength(0);
     expect(await correctnessServerBrowserGlobal.check(base as RuleContext)).toHaveLength(0);
   });
+  it('skips universal files under a root-layout ssr = false, but not server files or runes modules', async () => {
+    const refs = [{ name: 'localStorage', line: 3, inHandler: true }];
+    const rs = await correctnessServerBrowserGlobal.check({
+      ...ctx([
+        comp({ file: 'src/lib/store.svelte.ts', browserGlobalRefs: [{ name: 'window', line: 1, context: 'module' }] })
+      ]),
+      kitModules: [
+        kitFacts({ file: 'src/routes/+layout.ts', ssrDisabled: { line: 1 } }),
+        kitFacts({ file: 'src/routes/a/+page.ts', browserGlobalRefs: refs }),
+        kitFacts({ file: 'src/routes/a/+page.server.ts', kind: 'server', browserGlobalRefs: refs })
+      ]
+    });
+    expect(fails(rs).map((r) => r.route)).toEqual(['src/lib/store.svelte.ts', 'src/routes/a/+page.server.ts']);
+  });
+  it('still flags module scope of a universal file under a root-layout ssr = false', async () => {
+    const rs = await correctnessServerBrowserGlobal.check({
+      ...ctx([]),
+      kitModules: [
+        kitFacts({ file: 'src/routes/+layout.ts', ssrDisabled: { line: 1 } }),
+        kitFacts({
+          file: 'src/routes/a/+page.ts',
+          browserGlobalRefs: [
+            { name: 'window', line: 2, inHandler: false },
+            { name: 'localStorage', line: 5, inHandler: true }
+          ]
+        })
+      ]
+    });
+    expect(fails(rs).map((r) => r.line)).toEqual([2]);
+  });
 });
 
 describe('correctness/instance-browser-global browser global during component initialisation', () => {
@@ -404,5 +434,14 @@ describe('correctness/instance-browser-global browser global during component in
       )
     ).toHaveLength(0);
     expect(await correctnessInstanceBrowserGlobal.check(ctx([comp({})]))).toHaveLength(0);
+  });
+  it('is silent when a root-layout ssr = false makes every component client-only', async () => {
+    const components = [comp({ browserGlobalRefs: [{ name: 'navigator', line: 2, context: 'instance' }] })];
+    const rootOff = kitFacts({ file: 'src/routes/+layout.ts', ssrDisabled: { line: 1 } });
+    expect(await correctnessInstanceBrowserGlobal.check({ ...ctx(components), kitModules: [rootOff] })).toHaveLength(0);
+    const reEnabled = kitFacts({ file: 'src/routes/blog/+page.ts', ssrEnabled: true });
+    expect(
+      fails(await correctnessInstanceBrowserGlobal.check({ ...ctx(components), kitModules: [rootOff, reEnabled] }))
+    ).toHaveLength(1);
   });
 });

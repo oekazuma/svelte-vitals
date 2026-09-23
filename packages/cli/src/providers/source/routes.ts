@@ -14,7 +14,7 @@ import type {
   Runtime
 } from '@svelte-vitals/core/internal';
 import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
-import type { A11yNode, ParsedFile } from './parse.js';
+import type { A11yNode, ParsedFile, ParsedTag } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {
   resolveComponentPath,
@@ -182,6 +182,11 @@ function dedupeCauses(causes: A11ySkipCause[]): A11ySkipCause[] {
 }
 
 /** Paths are shared across every route that uses a parsed file — re-address by copying. */
+/** Every robots meta renders and crawlers obey the most restrictive one, so none may override another. */
+function isRobotsMeta(tag: { kind: string; name?: string }): boolean {
+  return tag.kind === 'meta' && tag.name === 'robots';
+}
+
 function offsetPath(path: BranchStep[], base: number): BranchStep[] {
   return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
 }
@@ -285,7 +290,8 @@ async function resolveRoute(
   cache: ParseCache,
   aliases: readonly KitAlias[] | undefined,
   appHtmlIds: readonly { id: string; line: number }[] | undefined,
-  appHtmlBodyTags: readonly string[] | undefined
+  appHtmlBodyTags: readonly string[] | undefined,
+  appHtmlHeadTags: readonly ParsedTag[] | undefined
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
   const chainOrder = new Map(files.map((f, i) => [f.rel, i]));
@@ -328,6 +334,9 @@ async function resolveRoute(
 
     const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true);
     for (const node of contributed) {
+      // The layout's main/aside is this file's sectioning ancestor, so a top-level <header>/<footer>
+      // here is no landmark (HTML-AAM) — for any rule, not just nesting.
+      if (node.topLevel && (slotLandmark === 'main' || slotLandmark === 'complementary')) node.topLevel = false;
       if (!node.chain || node.kind !== 'landmark' || !countsAsLandmark(node) || node.repeatable) continue;
       const within = node.inLandmark ?? slotLandmark;
       if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
@@ -346,7 +355,12 @@ async function resolveRoute(
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
       const stamped: HeadTag = { ...tag, presence: isPage ? 'own' : 'inherited', file: rel };
-      if (tag.kind === 'jsonld' || tag.kind === 'script' || (tag.kind === 'link' && tag.rel !== 'canonical'))
+      if (
+        tag.kind === 'jsonld' ||
+        tag.kind === 'script' ||
+        (tag.kind === 'link' && tag.rel !== 'canonical') ||
+        isRobotsMeta(tag)
+      )
         additiveTags.push(stamped);
       else composed.set(tagKey(tag), stamped);
     }
@@ -365,6 +379,12 @@ async function resolveRoute(
       const key = tagKey(tag);
       if (!composed.has(key)) composed.set(key, { ...tag, presence });
     }
+  }
+  // After the broad fill: an opaque meta component may override the shell's literal.
+  for (const tag of appHtmlHeadTags ?? []) {
+    const stamped: HeadTag = { ...tag, presence: 'inherited', file: 'src/app.html' };
+    if (isRobotsMeta(tag)) additiveTags.push(stamped);
+    else if (!composed.has(tagKey(tag))) composed.set(tagKey(tag), stamped);
   }
 
   const idNodes = a11yNodes.filter((n) => n.kind === 'id');
@@ -441,7 +461,9 @@ export async function collectRoutes(
   // satisfy a route's id references.
   appHtmlIds?: readonly { id: string; line: number }[],
   // The shell's `<body>` tag names (`Project.appHtmlBodyTags`): present on every route.
-  appHtmlBodyTags?: readonly string[]
+  appHtmlBodyTags?: readonly string[],
+  // The shell's literal head tags (`Project.appHtmlHeadTags`): every route's lowest-priority tags.
+  appHtmlHeadTags?: readonly ParsedTag[]
 ): Promise<{
   heads: ResolvedHead[];
   images: ResolvedImages[];
@@ -450,7 +472,9 @@ export async function collectRoutes(
 }> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
   const facts = await Promise.all(
-    pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags))
+    pages.map((page) =>
+      resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags, appHtmlHeadTags)
+    )
   );
   return {
     heads: facts.map((f) => f.head),

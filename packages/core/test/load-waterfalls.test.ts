@@ -290,6 +290,33 @@ describe('collectLoadWaterfalls — exclusions and scope', () => {
     expect(wf(src)).toBeUndefined();
   });
 
+  it('does not flag an await of a promise held in a member expression', () => {
+    const src = [
+      "import { mgr } from '$lib/mgr';",
+      'export async function load({ fetch }) {',
+      '  const res = await fetch("/api/a");',
+      '  await mgr.loading;',
+      '  await mgr?.ready;',
+      '  return { res: res.status };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toBeUndefined();
+  });
+
+  it('flags work-starting awaits of new, import(), optional calls and tagged templates', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const a = await fetch("/api/a");',
+      '  const b = await new Promise((r) => setTimeout(r, 1));',
+      '  const c = await import("./c");',
+      '  const d = await api?.get("/d");',
+      '  const e = await sql`select 1`;',
+      '  return { a, b, c, d, e };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [], independentLines: [3, 4, 5, 6] });
+  });
+
   it('still flags a work-starting await after a pre-started one', () => {
     const src = [
       'export async function load({ fetch }) {',

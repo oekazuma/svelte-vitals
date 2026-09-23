@@ -18,6 +18,18 @@ describe('collectProjectFacts', () => {
     expect(p.hasRobotsTxt).toBe(true);
     expect(p.hasSitemap).toBe(true);
   });
+  it('detects endpoints under (group) directories, which add no URL segment', async () => {
+    const grouped = createMemoryRuntime({
+      'src/routes/(marketing)/robots.txt/+server.js': 'export function GET(){}',
+      'src/routes/(a)/(b)/sitemap.xml/+server.ts': 'export function GET(){}'
+    });
+    expect(await collectProjectFacts(grouped, '')).toMatchObject({ hasRobotsTxt: true, hasSitemap: true });
+    const nested = createMemoryRuntime({
+      'src/routes/blog/robots.txt/+server.js': 'export function GET(){}',
+      'src/routes/(app)/blog/sitemap.xml/+server.ts': 'export function GET(){}'
+    });
+    expect(await collectProjectFacts(nested, '')).toMatchObject({ hasRobotsTxt: false, hasSitemap: false });
+  });
   it('parses <html lang> from app.html', async () => {
     const present = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': '<html lang="en">' }), '');
     expect(present.htmlLang).toEqual({ presence: 'own', value: 'static' });

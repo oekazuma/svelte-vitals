@@ -516,10 +516,30 @@ describe('collectRoutes a11y composition', () => {
   it('reports a page landmark nested in the layout slot landmark', async () => {
     const a11y = await a11yOf({
       'src/routes/+layout.svelte': `<main><slot /></main>`,
+      'src/routes/+page.svelte': `<main>page</main>`
+    });
+    expect(a11y.nestedLandmarks).toEqual([{ kind: 'main', within: 'main', file: 'src/routes/+page.svelte', line: 1 }]);
+  });
+
+  it('does not count a page <header>/<footer> rendered inside a layout <main> or <aside> as a landmark', async () => {
+    for (const wrapper of ['main', 'aside']) {
+      const a11y = await a11yOf({
+        'src/routes/+layout.svelte': `<header>site</header><${wrapper}><slot /></${wrapper}>`,
+        'src/routes/+page.svelte': `<header>page</header><p>body</p><footer>page</footer>`
+      });
+      expect(a11y.nestedLandmarks).toEqual([]);
+      expect(a11y.landmarks.banner).toEqual([{ file: 'src/routes/+layout.svelte', line: 1 }]);
+      expect(a11y.landmarks.contentinfo ?? []).toEqual([]);
+    }
+  });
+
+  it('still reports a page <header> rendered inside a layout <footer>', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `<footer><slot /></footer>`,
       'src/routes/+page.svelte': `<header>page</header>`
     });
     expect(a11y.nestedLandmarks).toEqual([
-      { kind: 'banner', within: 'main', file: 'src/routes/+page.svelte', line: 1 }
+      { kind: 'banner', within: 'contentinfo', file: 'src/routes/+page.svelte', line: 1 }
     ]);
   });
 

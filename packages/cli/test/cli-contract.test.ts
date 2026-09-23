@@ -31,15 +31,18 @@ afterEach(() => {
 });
 
 describe('unknown/malformed flags', () => {
-  it('an unknown flag is silently ignored, not rejected — parseArgs(strict:false) passthrough', async () => {
-    // A non-project dir gives a deterministic, unrelated exit-2 reason; the assertion is that
-    // NOTHING about '--nonsense-flag' appears in stderr, proving it was never even inspected.
+  it('an unknown flag is ignored with a warning, not rejected', async () => {
     const dir = tmpProjectDir();
     const { code, err, exit } = await cli(['--nonsense-flag', dir]);
     expect(code).toBe(2);
     expect(exit).toBe('immediate');
-    expect(err).not.toContain('nonsense-flag');
+    expect(err).toContain('svelte-vitals: unknown flag --nonsense-flag ignored');
     expect(err).toContain('No SvelteKit project found');
+  });
+
+  it('a near-miss unknown flag names the flag it resembles', async () => {
+    const { err } = await cli(['--rule', 'seo/title-presence', tmpProjectDir()]);
+    expect(err).toContain('svelte-vitals: unknown flag --rule ignored — did you mean --rules?');
   });
 
   it('an unknown value for an enum flag (--reporter) is a fatal argv error', async () => {

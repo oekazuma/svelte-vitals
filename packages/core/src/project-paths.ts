@@ -18,6 +18,21 @@ export const SITEMAP_SOURCE_PATHS = [
   'src/routes/sitemap.xml/+server.js'
 ] as const;
 
+/** The `+server` endpoints above, wherever (group) directories nest them — filter with `servesRootFile`. */
+export const ROOT_FILE_ENDPOINT_GLOB = 'src/routes/**/{robots.txt,sitemap.xml}/+server.{ts,js}';
+
+/** Whether a `+server` endpoint serves `/<file>`: (group) directories add no URL segment. */
+export function servesRootFile(rel: string, file: 'robots.txt' | 'sitemap.xml'): boolean {
+  const segments = rel.split('/');
+  return (
+    segments[0] === 'src' &&
+    segments[1] === 'routes' &&
+    segments.at(-2) === file &&
+    /^\+server\.(ts|js)$/.test(segments.at(-1) ?? '') &&
+    segments.slice(2, -2).every((s) => /^\(.+\)$/.test(s))
+  );
+}
+
 /** Vite's own config resolution order — only the first existing file is the one Vite loads. */
 export const VITE_CONFIG_FILES = [
   'vite.config.js',

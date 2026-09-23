@@ -22,6 +22,18 @@ describe('collectRenderedProject', () => {
     expect(p.htmlLang).toEqual({ presence: 'own', value: 'static' });
   });
 
+  it('detects endpoints inside route groups, but not under a URL segment', async () => {
+    const cwd = await mkdtemp(join(tmpdir(), 'sv-proj-group-'));
+    for (const rel of ['(marketing)/sitemap.xml', 'blog/robots.txt']) {
+      await mkdir(join(cwd, 'src', 'routes', rel), { recursive: true });
+      await writeFile(join(cwd, 'src', 'routes', rel, '+server.ts'), 'export function GET(){}');
+    }
+    const p = await collectRenderedProject(cwd, { presence: 'none', value: 'absent' });
+    expect(p.hasSitemap).toBe(true);
+    expect(p.hasRobotsTxt).toBe(false);
+    await rm(cwd, { recursive: true, force: true });
+  });
+
   it('reports missing robots/sitemap', async () => {
     const empty = await mkdtemp(join(tmpdir(), 'sv-proj-empty-'));
     const p = await collectRenderedProject(empty, { presence: 'none', value: 'absent' });

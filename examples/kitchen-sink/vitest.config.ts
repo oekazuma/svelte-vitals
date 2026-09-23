@@ -4,6 +4,8 @@ import { defineConfig } from 'vitest/config';
 // plugin for what is just a node child-process e2e test.
 export default defineConfig({
   test: {
-    include: ['test/**/*.test.ts']
+    include: ['test/**/*.test.ts'],
+    // Every case spawns the CLI, often several times; 5 s is too tight on a loaded runner.
+    testTimeout: 60_000
   }
 });

@@ -14,12 +14,12 @@ Flags reads of browser-only globals (`window`, `document`, `localStorage`, `sess
 
 Not flagged:
 
-- Code guarded by `browser` from `$app/environment` (aliases included) or a `typeof window !== 'undefined'` check (early-return guards included).
+- Code guarded by `browser` from `$app/environment` (or SvelteKit 3's `$app/env`; aliases included) or a `typeof window !== 'undefined'` check (early-return guards included).
 - Code inside `onMount`, `$effect`, or ordinary functions, since none of them run at module evaluation.
 - A bare `typeof window`, which never throws.
 - Names you imported or declared yourself (`const document = …`).
 - Closures nested inside handlers, typically client callbacks.
-- Files that export `ssr = false` themselves.
+- Files that export `ssr = false` themselves, and the `load` functions of universal `+page.ts`/`+layout.ts` files when SSR is off app-wide (their module scope is still checked: SvelteKit imports the file on the server when it cannot read the page options statically): a root `src/routes/+layout.ts` (or `+layout.server.ts`) that exports `ssr = false`, as long as no other `+page`/`+layout` file exports `ssr` with any other value. Server files (`+page.server.ts`, `+server.ts`, `hooks.server.ts`) and runes modules are still checked.
 
 ## Why it matters
 

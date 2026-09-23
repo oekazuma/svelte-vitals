@@ -94,17 +94,19 @@ function isLengthOnlyArrayCall(expr: TsExpression): boolean {
     e.callee.property.name === 'from' &&
     e.arguments?.[0]?.type === 'ObjectExpression'
   ) {
-    return (e.arguments[0].properties ?? []).some(
-      (p: Node) => p?.type === 'Property' && !p.computed && (p.key?.name === 'length' || p.key?.value === 'length')
-    );
+    return (e.arguments[0].properties ?? []).some(isLengthProperty);
   }
   return false;
+}
+
+function isLengthProperty(p: Node): boolean {
+  return p?.type === 'Property' && !p.computed && (p.key?.name === 'length' || p.key?.value === 'length');
 }
 
 /**
  * Whether the each expression yields no item identity to key on: a constant
  * inline array literal (fixed length, never reorders), a length-only list
- * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })` —
+ * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`, `{ length: n }` —
  * placeholder/skeleton lists), or a spread array whose every element spreads a
  * length-only list. Such blocks are skipped entirely — neither each-key nor
  * each-index-key can give useful advice on them.
@@ -114,6 +116,7 @@ function isIdentityFreeEach(node: AST.EachBlock): boolean {
   if (expr.type === 'ArrayExpression' && Array.isArray(expr.elements)) {
     return expr.elements.every((el) => el?.type !== 'SpreadElement' || isLengthOnlyArrayCall(el.argument));
   }
+  if (expr.type === 'ObjectExpression') return expr.properties.length === 1 && isLengthProperty(expr.properties[0]);
   return isLengthOnlyArrayCall(expr);
 }
 
@@ -587,21 +590,23 @@ function collectFragmentAliasRefs(
 }
 
 /**
- * Each-context taint (performance/state-raw condition 5): for `{#each candidate as item}`
+ * Each-context taint (performance/state-raw condition 5, correctness/unmutated-state): for `{#each candidate as item}`
  * or `{#each candidate.path as item}`, any mutate/escape of the context binding (or index)
  * inside the block — member writes, method calls, call arguments, `bind:`, component props —
  * disqualifies the candidate over the candidate or a member path of it
  * (`{#each obj.items as item}`): item-level edits stop being reactive under $state.raw.
  * Pure reassignments of the context name are ignored (they don't touch the list's contents).
+ * `includeIndex: false` ignores the index binding, a number that cannot carry a write back to the list.
  */
 function collectEachContextTaint(
   node: Node,
   names: Set<string>,
   acc: Set<string>,
-  shadowed: Set<string> = new Set()
+  shadowed: Set<string> = new Set(),
+  includeIndex = true
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectEachContextTaint(child, names, acc, shadowed);
+    for (const child of node) collectEachContextTaint(child, names, acc, shadowed, includeIndex);
     return;
   }
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
@@ -614,7 +619,7 @@ function collectEachContextTaint(
     if (target !== undefined && names.has(target) && !shadowed.has(target)) {
       const ctxNames = new Set<string>();
       addBoundNames(node.context, ctxNames);
-      if (typeof node.index === 'string') ctxNames.add(node.index);
+      if (includeIndex && typeof node.index === 'string') ctxNames.add(node.index);
       if (ctxNames.size > 0) {
         const union = new Set<string>();
         const kinds = new Map<string, Set<WriteKind>>();
@@ -630,7 +635,7 @@ function collectEachContextTaint(
   }
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    collectEachContextTaint(node[key], names, acc, scope);
+    collectEachContextTaint(node[key], names, acc, scope, includeIndex);
   }
 }
 
@@ -1273,10 +1278,13 @@ function hasNamingAttr(attributes: Node[]): boolean {
   return ['aria-label', 'aria-labelledby', 'title'].some((name) => hasNamingValue(attributes, name));
 }
 
-/** A tag name with a hyphen is a custom element: it may be form-associated, and its shadow root may
- *  supply content, neither of which is visible here. Treated as unknowable by both a11y scanners. */
+/** A custom element may be form-associated and its shadow root may supply content; a namespaced tag
+ *  (`<enhanced:img>`) is rewritten by a preprocessor into markup not visible here. Treated as
+ *  unknowable by both a11y scanners. */
 function isCustomElement(node: Node): boolean {
-  return node.type === 'RegularElement' && typeof node.name === 'string' && node.name.includes('-');
+  if (node.type !== 'RegularElement' || typeof node.name !== 'string') return false;
+  const tag = node.name.toLowerCase();
+  return tag.includes('-') || !KNOWN_TAGS.has(tag);
 }
 
 /** Named/unknowable verdict for a candidate interactive element's descendant subtree
@@ -1954,6 +1962,8 @@ function collectLegacyPropNames(program: Node): Set<string> {
   const names = new Set<string>();
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ExportNamedDeclaration' || stmt.declaration?.type !== 'VariableDeclaration') continue;
+    // `export const` is a read-only instance export, not a prop — in runes mode too.
+    if (stmt.declaration.kind === 'const') continue;
     for (const d of stmt.declaration.declarations ?? []) {
       if (d?.id?.type === 'Identifier') names.add(d.id.name);
     }
@@ -1986,22 +1996,43 @@ const MUTATING_METHODS = new Set([
  * reassignment for ephemeral state; only mutation is prohibited. Run over the instance
  * program AND the template fragment (inline handlers can mutate props in the template).
  * Scope-aware (issue #140): a local that shadows the prop's name is not flagged.
+ * A `legacy` (export let) prop is flagged only for `delete` and mutating method calls — the legacy
+ * compiler turns a member write or update into an invalidating assignment (`prop(prop().x = …, true)`).
  */
 function collectPropMutations(
   root: Node,
   propNames: Set<string>,
   source: string,
-  acc: { name: string; line: number }[]
+  acc: { name: string; line: number }[],
+  legacy: Set<string>
 ): void {
   if (propNames.size === 0) return;
+  // Legacy idiom `items.push(x); items = items;`: a reassignment in the same function invalidates the mutation.
+  const reassignedInFn = new Set<Node>();
+  if (legacy.size > 0) {
+    walkEstree(root, (fn: Node) => {
+      if (!isDeferredBody(fn)) return;
+      const assigned = new Set<string>();
+      walkEstree(fn.body, (m: Node) => {
+        if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier') assigned.add(m.left.name);
+      });
+      walkEstree(fn.body, (m: Node) => {
+        const r = m.type === 'CallExpression' ? rootObjectName(m.callee?.object) : undefined;
+        if (r && legacy.has(r) && assigned.has(r)) reassignedInFn.add(m);
+      });
+    });
+  }
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const flag = (r: string | undefined) => {
       if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
     };
+    if (reassignedInFn.has(n)) return;
     if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
-      flag(rootObjectName(n.left));
+      const r = rootObjectName(n.left);
+      if (r && !legacy.has(r)) flag(r);
     } else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
-      flag(rootObjectName(n.argument));
+      const r = rootObjectName(n.argument);
+      if (r && !legacy.has(r)) flag(r);
     } else if (n.type === 'UnaryExpression' && n.operator === 'delete') {
       flag(rootObjectName(n.argument));
     } else if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
@@ -2471,7 +2502,10 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     : [];
   const browserGlobalRefs: BrowserGlobalRefFact[] = [];
   if (moduleProgram) {
-    for (const r of collectBrowserGlobalRefs(moduleProgram, source)) {
+    // The compiler hoists instance-script imports to module scope; the instance's other bindings stay out of reach.
+    const hoisted = new Set<string>();
+    collectImportedLocalNames(ast.instance?.content, hoisted);
+    for (const r of collectBrowserGlobalRefs(moduleProgram, source, { bound: hoisted })) {
       browserGlobalRefs.push({ ...r, context: 'module' });
     }
   }
@@ -2493,8 +2527,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     const legacyPropNames = collectLegacyPropNames(program);
     const nonBindableProps = new Set([...collectPropNames(program, false), ...legacyPropNames]);
     const rawMutations: { name: string; line: number }[] = [];
-    collectPropMutations(program, nonBindableProps, source, rawMutations);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations);
+    collectPropMutations(program, nonBindableProps, source, rawMutations, legacyPropNames);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations, legacyPropNames);
+    const isLegacy = legacyPropNames.size > 0;
     for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
     const allPropNames = new Set([...collectPropNames(program, true), ...legacyPropNames]);
     if (allPropNames.size > 0) {
@@ -2512,7 +2547,6 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
         // `c.name` is the derived LOCAL variable (e.g. `color`), never the prop itself (e.g.
         // `type`) — legacy-ness is a per-component property (export let vs $props(), never
         // mixed), not per-candidate, so every candidate here shares the same flag.
-        const isLegacy = legacyPropNames.size > 0;
         for (const c of candidates) {
           if (!disqualified.has(c.name) && referenced.has(c.name)) {
             stalePropDerivations.push(isLegacy ? { ...c, legacy: true } : c);
@@ -2555,6 +2589,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
+      collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);
     }
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);

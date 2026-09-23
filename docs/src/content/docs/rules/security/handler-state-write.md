@@ -11,7 +11,7 @@ Flags writes to an **imported binding** from inside a server-executed handler, m
 
 Not flagged:
 
-- A universal `+page.ts`/`+layout.ts` file that itself exports `ssr = false`. That load never runs on the server, so there is no shared-process instance to leak through. `+page.server.ts` still runs server-side regardless of `ssr`, so server-kind files are unaffected.
+- A universal `+page.ts`/`+layout.ts` file that itself exports `ssr = false`, or any universal file when SSR is off app-wide: a root `src/routes/+layout.ts` (or `+layout.server.ts`) that exports `ssr = false`, as long as no other `+page`/`+layout` file exports `ssr` with any other value. That load never runs on the server, so there is no shared-process instance to leak through. `+page.server.ts` still runs server-side regardless of `ssr`, so server-kind files are unaffected.
 - Reads, other method calls (`logger.info(…)`), and writes to local variables.
 - `.set()`/`.update()` on imports from installed packages.
 - `.set()`/`.update()` on a **persistence client** resolving to `src/lib/server`: the directory entrypoint (`import { db } from '$lib/server'`) or anything under `src/lib/server/**`, such as Drizzle's `db.update(...).set(...)`. Those calls are persistence, not shared module state.

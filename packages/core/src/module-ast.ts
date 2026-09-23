@@ -365,12 +365,16 @@ export function collectNamedImportAliases(program: Node, moduleSource: string, n
 const BROWSER_GUARD_NAMES = new Set(['browser']);
 
 /**
- * Local names of `browser` value-imported from '$app/environment' (alias-resolved) —
+ * Local names of `browser` value-imported from '$app/environment' or its SvelteKit 3 name
+ * '$app/env' (alias-resolved) —
  * the guard binding recognised by the browser-global scanner (correctness/server-browser-global, correctness/instance-browser-global).
  * Shared with the Kit-module parser.
  */
 export function collectBrowserGuardImports(program: Node): Set<string> {
-  return collectNamedImportAliases(program, '$app/environment', BROWSER_GUARD_NAMES);
+  return new Set([
+    ...collectNamedImportAliases(program, '$app/environment', BROWSER_GUARD_NAMES),
+    ...collectNamedImportAliases(program, '$app/env', BROWSER_GUARD_NAMES)
+  ]);
 }
 
 /**
@@ -419,6 +423,10 @@ function guardTerminates(consequent: Node): boolean {
  * Over-matching here only widens the skip — a conservative miss, never a false positive.
  */
 function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
+  // `a || b` is truthy on the server whenever `b` is, so it only guards when both sides do.
+  if (test?.type === 'LogicalExpression' && test.operator !== '&&') {
+    return isBrowserGuardTest(test.left, guardBindings) && isBrowserGuardTest(test.right, guardBindings);
+  }
   let guarded = false;
   walkEstree(test, (n) => {
     if (n.type === 'Identifier' && guardBindings.has(n.name)) guarded = true;
@@ -502,7 +510,14 @@ export function collectBrowserGlobalRefs(
     if (EVAL_SCOPE_BOUNDARIES.has(n.type)) return;
 
     if ((n.type === 'IfStatement' || n.type === 'ConditionalExpression') && isBrowserGuardTest(n.test, guards)) return;
-    if (n.type === 'LogicalExpression' && isBrowserGuardTest(n.left, guards)) return;
+    // `browser && x` evaluates `x` only in the browser; `!browser || x` likewise. `browser || x` evaluates `x` on the server.
+    if (
+      n.type === 'LogicalExpression' &&
+      (n.operator === '&&'
+        ? isBrowserGuardTest(n.left, guards)
+        : n.left?.type === 'UnaryExpression' && n.left.operator === '!' && isBrowserGuardTest(n.left.argument, guards))
+    )
+      return;
 
     const introduced = scopeIntroducedNames(n);
     const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;

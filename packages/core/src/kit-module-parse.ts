@@ -174,6 +174,19 @@ function findFalseOptOut(program: Node, source: string, name: 'ssr' | 'csr'): { 
   return hit;
 }
 
+/** Whether the module exports a binding named `name` in any form, re-exports and unresolved aliases included. */
+function exportsName(program: Node, name: string): boolean {
+  return (program.body ?? []).some((stmt: Node) => {
+    if (stmt?.type !== 'ExportNamedDeclaration' || stmt.exportKind === 'type') return false;
+    const decl = stmt.declaration;
+    if (decl?.type === 'VariableDeclaration') return decl.declarations?.some((d: Node) => d?.id?.name === name);
+    if (decl) return decl.id?.name === name;
+    return (stmt.specifiers ?? []).some(
+      (s: Node) => s?.exportKind !== 'type' && (s?.exported?.name ?? s?.exported?.value) === name
+    );
+  });
+}
+
 /**
  * The exported `load` function node (inline `export function load` / `export const
  * load = …`, `satisfies`/`as` unwrapped) or a same-file alias export. Cross-file
@@ -265,6 +278,15 @@ function isBodyParseCall(arg: Node): boolean {
     callee.property.type === 'Identifier' &&
     BODY_METHODS.has(callee.property.name)
   );
+}
+
+const WORK_STARTING = new Set(['CallExpression', 'NewExpression', 'ImportExpression', 'TaggedTemplateExpression']);
+
+/** Whether an await argument starts work (a call, tagged template, `new`, or `import()`), as opposed to awaiting an existing promise. */
+function startsWork(arg: Node): boolean {
+  let e = unwrapTs(arg);
+  if (e?.type === 'ChainExpression') e = e.expression;
+  return WORK_STARTING.has(e?.type);
 }
 
 /**
@@ -377,9 +399,9 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
             const anchor = dependent.reduce((m, a) => (a.start < m.start ? a : m));
             dependentLines.push(line(anchor.start));
           } else if (sawAwaitSite) {
-            // Awaiting an already-created promise (bare identifier) starts no request —
+            // Awaiting an already-created promise (`await p`, `await obj.p`) starts no request —
             // only awaits that start work can be needlessly sequential.
-            const workSites = sites.filter((a) => unwrapTs(a.argument)?.type !== 'Identifier');
+            const workSites = sites.filter((a) => startsWork(a.argument));
             if (workSites.length > 0) {
               const anchor = workSites.reduce((m, a) => (a.start < m.start ? a : m));
               independentLines.push(line(anchor.start));
@@ -877,6 +899,7 @@ export function parseKitModuleFacts(
     browserGlobalRefs: byLine(browserGlobalRefs),
     basePathLinks: byLine(basePathLinks),
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
+    ...(!ssrOptOut && exportsName(program, 'ssr') ? { ssrEnabled: true as const } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
       ? { loadWaterfalls: waterfalls }

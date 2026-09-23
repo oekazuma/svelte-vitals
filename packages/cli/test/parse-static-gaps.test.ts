@@ -104,3 +104,39 @@ describe('parse: heading capture (seo/single-h1)', () => {
     expect(headings.map((h) => h.level)).toEqual([1]);
   });
 });
+
+describe('parse: head tags inside blocks', () => {
+  it('reads a title set in every branch of an if/else as one dynamic title', () => {
+    const tags = parseHeadTags(
+      head('{#if a}<title>One title</title>{:else}<title>Other title</title>{/if}'),
+      'x.svelte'
+    );
+    expect(tags).toEqual([{ kind: 'title', value: 'dynamic' }]);
+  });
+  it('reads a tag in only some branches, or in each/await, as dynamic with no literal claims', () => {
+    const tags = parseHeadTags(
+      head(
+        '{#if a}<meta name="description" content="Literal" />{/if}' +
+          '{#each langs as l}<link rel="alternate" hreflang="en" href="/en" />{/each}' +
+          '{#await p then v}<meta name="robots" content="noindex" />{/await}'
+      ),
+      'x.svelte'
+    );
+    expect(tags).toEqual([
+      { kind: 'meta', name: 'description', value: 'dynamic' },
+      { kind: 'link', rel: 'alternate', value: 'dynamic', href: '/en' },
+      { kind: 'meta', name: 'robots', value: 'dynamic' }
+    ]);
+  });
+  it('counts a tag repeated across exclusive branches once', () => {
+    const tags = parseHeadTags(
+      head('{#if a}<script src="/a.js"></script>{:else if b}<script src="/a.js"></script>{:else}<p></p>{/if}'),
+      'x.svelte'
+    );
+    expect(tags).toEqual([{ kind: 'script', value: 'dynamic', href: '/a.js', blocking: true }]);
+  });
+  it('keeps literal values inside {#key}, which always renders once', () => {
+    const tags = parseHeadTags(head('{#key k}<title>Keyed title</title>{/key}'), 'x.svelte');
+    expect(tags).toEqual([{ kind: 'title', value: 'static', text: 'Keyed title' }]);
+  });
+});

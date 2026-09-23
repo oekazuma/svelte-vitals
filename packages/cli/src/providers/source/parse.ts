@@ -53,10 +53,43 @@ function collectSvelteHeads(node: WalkNode | WalkNode[] | null | undefined, acc:
   }
 }
 
-function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
+/**
+ * Tags from the branches of an if/each/await block: which branch renders, and how often, is
+ * runtime state. So each tag is dynamic with no literal claim (text, noindex, JSON-LD, hreflang)
+ * — picking one branch's literal would judge a value that may never render — and a tag repeated
+ * across exclusive branches counts once.
+ */
+function conditionalTags(branches: Array<AST.Fragment | null | undefined>): ParsedTag[] {
+  const unique = new Map<string, ParsedTag>();
+  for (const fragment of branches) {
+    for (const tag of tagsFromNodes(fragment?.nodes ?? [])) {
+      const { text: _text, noindex: _noindex, jsonld: _jsonld, hreflang: _hreflang, ...shape } = tag;
+      const dynamic: ParsedTag = { ...shape, value: 'dynamic' };
+      unique.set(JSON.stringify(dynamic), dynamic);
+    }
+  }
+  return [...unique.values()];
+}
+
+function tagsFromNodes(children: AST.Fragment['nodes']): ParsedTag[] {
   const tags: ParsedTag[] = [];
-  const children = head.fragment.nodes;
   for (const node of children) {
+    if (node.type === 'KeyBlock') {
+      tags.push(...tagsFromNodes(node.fragment.nodes));
+      continue;
+    }
+    const branches =
+      node.type === 'IfBlock'
+        ? [node.consequent, node.alternate]
+        : node.type === 'EachBlock'
+          ? [node.body, node.fallback]
+          : node.type === 'AwaitBlock'
+            ? [node.pending, node.then, node.catch]
+            : undefined;
+    if (branches) {
+      tags.push(...conditionalTags(branches));
+      continue;
+    }
     if (node.type === 'TitleElement') {
       // A <title>'s fragment only ever contains literal text and {expr} tags.
       const titleNodes = node.fragment.nodes as Array<AST.Text | AST.ExpressionTag>;
@@ -76,7 +109,8 @@ function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
         tags.push({ kind: 'meta', name: 'charset', value: charset });
         continue;
       }
-      const name = attrText(attributes, 'name');
+      // Like rel below: rules compare meta names literally, but HTML treats them case-insensitively.
+      const name = attrText(attributes, 'name')?.toLowerCase();
       const property = attrText(attributes, 'property');
       const content = name === 'robots' ? attrText(attributes, 'content') : undefined;
       const noindex = content !== undefined && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
@@ -133,6 +167,10 @@ function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
     }
   }
   return tags;
+}
+
+function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
+  return tagsFromNodes(head.fragment.nodes);
 }
 
 export interface ComponentUse {

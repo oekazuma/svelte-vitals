@@ -340,6 +340,31 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
     ].join('\n');
     expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
   });
+  it('recognises the SvelteKit 3 $app/env browser import as a guard', () => {
+    const src = [
+      "import { browser } from '$app/env';",
+      'export function load() {',
+      "  if (browser && location.hash === '#x') return { h: true };",
+      '  return {};',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
+  it('does not treat browser as a guard when its falsy side still runs the read', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'export function load() {',
+      "  if (browser || location.hash === '#x') return { h: true };",
+      '  const a = browser || navigator.userAgent;',
+      '  const b = !browser || navigator.language;',
+      '  return { a, b };',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'location', line: 3, inHandler: true },
+      { name: 'navigator', line: 4, inHandler: true }
+    ]);
+  });
   it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {
     const ssrOff =
       'export const ssr = false;\nconst w = window.innerWidth;\nexport function load() {\n  return { t: document.title };\n}';
@@ -414,6 +439,22 @@ describe('parseKitModuleFacts — ssrDisabled (seo/ssr-disabled)', () => {
       facts("import { dev } from '$app/environment';\nexport const ssr = dev;", 'src/routes/+page.ts').ssrDisabled
     ).toBeUndefined();
     expect(facts('const ssr = false;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
+  });
+});
+
+describe('parseKitModuleFacts — ssrEnabled (app-wide ssr = false override)', () => {
+  it('is set when ssr is exported as anything but literal false', () => {
+    expect(facts('export const ssr = true;', 'src/routes/+page.ts').ssrEnabled).toBe(true);
+    expect(
+      facts("import { dev } from '$app/environment';\nexport const ssr = dev;", 'src/routes/+page.ts').ssrEnabled
+    ).toBe(true);
+    expect(facts('const ssr = true;\nexport { ssr };', 'src/routes/+page.server.ts').ssrEnabled).toBe(true);
+    expect(facts("export { ssr } from './options';", 'src/routes/+layout.ts').ssrEnabled).toBe(true);
+  });
+  it('is absent for a literal ssr = false and when ssr is not exported', () => {
+    expect(facts('export const ssr = false;', 'src/routes/+page.ts').ssrEnabled).toBeUndefined();
+    expect(facts('const ssr = false;\nexport { ssr };', 'src/routes/+page.ts').ssrEnabled).toBeUndefined();
+    expect(facts('export const csr = true;\nconst ssr = true;', 'src/routes/+page.ts').ssrEnabled).toBeUndefined();
   });
 });
 

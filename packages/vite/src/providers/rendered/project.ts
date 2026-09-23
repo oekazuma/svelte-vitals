@@ -1,5 +1,5 @@
-import { access, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { access, readFile, readdir } from 'node:fs/promises';
+import { join, sep } from 'node:path';
 import { type Detection } from '@svelte-vitals/core';
 import {
   ROBOTS_SOURCE_PATHS,
@@ -8,6 +8,7 @@ import {
   VITE_CONFIG_FILES,
   resolveKitAliases,
   resolveKitPathsBase,
+  servesRootFile,
   type Project
 } from '@svelte-vitals/core/internal';
 
@@ -33,6 +34,15 @@ async function robotsRefsSitemap(cwd: string): Promise<boolean | undefined> {
   }
 }
 
+async function routeEndpoints(cwd: string): Promise<string[]> {
+  try {
+    const entries = await readdir(join(cwd, 'src/routes'), { recursive: true });
+    return entries.map((e) => `src/routes/${e.split(sep).join('/')}`);
+  } catch {
+    return [];
+  }
+}
+
 /** First existing config candidate with its source — same "only the first is loaded" rule as the CLI provider. */
 async function readFirstConfig(
   cwd: string,
@@ -52,9 +62,10 @@ async function readFirstConfig(
 
 /** Project facts for plugin mode: robots/sitemap from source, htmlLang from rendered HTML. */
 export async function collectRenderedProject(cwd: string, htmlLang: Detection): Promise<Project> {
-  const [hasRobotsTxt, hasSitemap, viteConfig, svelteConfig] = await Promise.all([
+  const [hasRobotsFile, hasSitemapFile, endpoints, viteConfig, svelteConfig] = await Promise.all([
     existsAny(cwd, ROBOTS_SOURCE_PATHS),
     existsAny(cwd, SITEMAP_SOURCE_PATHS),
+    routeEndpoints(cwd),
     readFirstConfig(cwd, VITE_CONFIG_FILES),
     readFirstConfig(cwd, SVELTE_CONFIG_FILES)
   ]);
@@ -62,8 +73,8 @@ export async function collectRenderedProject(cwd: string, htmlLang: Detection): 
   const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
   const kitAliases = resolveKitAliases(viteConfig, svelteConfig);
   return {
-    hasRobotsTxt,
-    hasSitemap,
+    hasRobotsTxt: hasRobotsFile || endpoints.some((p) => servesRootFile(p, 'robots.txt')),
+    hasSitemap: hasSitemapFile || endpoints.some((p) => servesRootFile(p, 'sitemap.xml')),
     htmlLang,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
     ...(kitPathsBase ? { kitPathsBase } : {}),

@@ -3,6 +3,7 @@ import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { SuppressionDirective } from '../../component.js';
 import { isSuppressed } from '../component-rule.js';
 import { PENALIZED, PASS } from '../detection.js';
+import { universalNeverSsr } from '../../kit-module.js';
 
 const ID = 'correctness/server-browser-global';
 const DOCS_URL = docsUrlFor(ID);
@@ -81,7 +82,10 @@ export const correctnessServerBrowserGlobal: Rule = {
       );
     }
     for (const m of ctx.kitModules ?? []) {
-      const refs = m.browserGlobalRefs ?? [];
+      // Module scope still runs on the server when SvelteKit imports the file to read page options it
+      // cannot analyze statically; only load/handler bodies are client-only.
+      const neverSsr = universalNeverSsr(m, ctx.kitModules);
+      const refs = (m.browserGlobalRefs ?? []).filter((r) => !(neverSsr && r.inHandler));
       if (refs.length === 0) continue;
       emitFile(
         out,

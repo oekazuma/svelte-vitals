@@ -315,6 +315,16 @@ export async function runAnalyzeCliGunshi(
         return;
       }
 
+      // Still ignored, not fatal — but a typo'd gate (`--rule`, `--fail-on-warning`) must not look
+      // like it ran.
+      for (const token of head) {
+        if (!token.startsWith('--')) continue;
+        const name = token.slice(2).split('=')[0]!;
+        if (KNOWN_LONG_FLAGS.has(name)) continue;
+        const hint = suggestClosest(name, [...KNOWN_LONG_FLAGS]);
+        io.errorLog(`svelte-vitals: unknown flag --${name} ignored${hint ? ` — did you mean --${hint}?` : ''}`);
+      }
+
       if (guard.errors.length > 0) {
         // gunshi's parser can't reject these post-parse (guard.ts's own doc comment) — fall back
         // to the exact legacy parse/validate pair so the printed diagnostics (guard's own wording

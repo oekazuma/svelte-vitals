@@ -1,6 +1,7 @@
 import { type Detection } from '@svelte-vitals/core';
 import {
   ROBOTS_SOURCE_PATHS,
+  ROOT_FILE_ENDPOINT_GLOB,
   SITEMAP_SOURCE_PATHS,
   SVELTE_CONFIG_FILES,
   VITE_CONFIG_FILES,
@@ -9,9 +10,11 @@ import {
   lineOf,
   resolveKitAliases,
   resolveKitPathsBase,
+  servesRootFile,
   type Project,
   type Runtime
 } from '@svelte-vitals/core/internal';
+import { parseHeadTags, type ParsedTag } from './parse.js';
 
 /** Thrown when the target directory is not a SvelteKit project (CLI maps to exit 2). */
 export class ProjectError extends Error {
@@ -188,11 +191,39 @@ function detectAppHtmlIds(html: string): { id: string; line: number }[] {
   return [...out].map(([id, line]) => ({ id, line }));
 }
 
-/** app.html-derived facts sharing one read (io-budget): <html lang>, the leading doctype, and shell ids. */
+/**
+ * The shell `<head>`'s literal title, meta and canonical, read as a `<svelte:head>` so they parse
+ * exactly as a layout's would. A `%sveltekit.*%` placeholder becomes an expression, so a tag
+ * carrying one reads as dynamic and is dropped; so does a shell the Svelte parser rejects.
+ * Charset and viewport stay out: their rules are rendered-mode only.
+ */
+function detectAppHtmlHeadTags(html: string): ParsedTag[] {
+  const markup = html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
+  const head = /<head\b[^>]*>([\s\S]*?)(?:<\/head\s*>|<body\b|$)/i.exec(markup)?.[1];
+  if (head === undefined) return [];
+  let tags: ParsedTag[];
+  try {
+    tags = parseHeadTags(`<svelte:head>${head.replace(/%sveltekit\.[^%\s]*%/g, '{0}')}</svelte:head>`, 'src/app.html');
+  } catch {
+    return [];
+  }
+  return tags.filter(
+    (t) =>
+      t.value === 'static' &&
+      (t.kind === 'title' ||
+        (t.kind === 'meta' && t.name !== 'charset' && t.name !== 'viewport') ||
+        (t.kind === 'link' && t.rel === 'canonical'))
+  );
+}
+
+/** app.html-derived facts sharing one read (io-budget): <html lang>, the leading doctype, shell ids and head tags. */
 async function detectAppHtmlFacts(
   rt: Runtime,
   cwd: string
-): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds' | 'appHtmlBodyTags'>> {
+): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds' | 'appHtmlBodyTags' | 'appHtmlHeadTags'>> {
   const appHtmlPath = rt.join(cwd, 'src/app.html');
   if (!(await rt.exists(appHtmlPath))) return { htmlLang: { presence: 'none', value: 'absent' } };
   let content: string;
@@ -208,7 +239,8 @@ async function detectAppHtmlFacts(
     // with no doctype (measured: ~45 leading comments hang the process).
     appHtmlDoctype: /^\s*<!doctype\s+html/i.test(content.replace(/<!--[\s\S]*?-->/g, '')),
     appHtmlIds: detectAppHtmlIds(content),
-    appHtmlBodyTags: detectAppHtmlBodyTags(content)
+    appHtmlBodyTags: detectAppHtmlBodyTags(content),
+    appHtmlHeadTags: detectAppHtmlHeadTags(content)
   };
 }
 
@@ -280,17 +312,18 @@ async function detectKitConfigFacts(rt: Runtime, cwd: string): Promise<Pick<Proj
 
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
-  const [hasRobotsTxt, hasSitemap, appHtmlFacts, viteMinifyDisabled, kitConfig] = await Promise.all([
+  const [hasRobotsFile, hasSitemapFile, endpoints, appHtmlFacts, viteMinifyDisabled, kitConfig] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
+    rt.glob(ROOT_FILE_ENDPOINT_GLOB, cwd),
     detectAppHtmlFacts(rt, cwd),
     detectViteMinifyDisabled(rt, cwd),
     detectKitConfigFacts(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
-    hasRobotsTxt,
-    hasSitemap,
+    hasRobotsTxt: hasRobotsFile || endpoints.some((p) => servesRootFile(p, 'robots.txt')),
+    hasSitemap: hasSitemapFile || endpoints.some((p) => servesRootFile(p, 'sitemap.xml')),
     ...appHtmlFacts,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
     ...(viteMinifyDisabled ? { viteMinifyDisabled } : {}),

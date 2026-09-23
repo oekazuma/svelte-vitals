@@ -80,6 +80,10 @@ describe('parse-html: link as/crossorigin', () => {
 });
 
 describe('parse-html: robots noindex', () => {
+  it('matches the meta name case-insensitively', () => {
+    const { tags } = parseHtmlHead('<html><head><meta name="Robots" content="noindex"></head><body></body></html>');
+    expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBe(true);
+  });
   it('flags a rendered noindex robots meta', () => {
     const { tags } = parseHtmlHead('<html><head><meta name="robots" content="noindex"></head><body></body></html>');
     expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBe(true);
