@@ -137,7 +137,10 @@ describe('collectAll: app.html head tags', () => {
   });
   it('keeps every robots meta — the shell, layout and page ones all render', async () => {
     const rt = createMemoryRuntime({
-      'src/app.html': APP_HTML.replace('%sveltekit.head%', '<meta name="robots" content="noindex" />\n    %sveltekit.head%'),
+      'src/app.html': APP_HTML.replace(
+        '%sveltekit.head%',
+        '<meta name="robots" content="noindex" />\n    %sveltekit.head%'
+      ),
       'src/routes/+layout.svelte': `<svelte:head><meta name="robots" content="noindex" /></svelte:head><slot />`,
       'src/routes/a/+page.svelte': `<svelte:head><meta name="robots" content="index, follow" /></svelte:head><h1>A</h1>`
     });
