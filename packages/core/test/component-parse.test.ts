@@ -377,6 +377,25 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
   it('does not flag a $state passed as a component prop', () => {
     expect(names('<script>let data = $state({});</script><Child d={data} />')).toEqual([]);
   });
+  it('does not flag a $state written through an {#each} item', () => {
+    expect(
+      names('<script>let s = $state([]);</script>{#each s as it (it.id)}<input bind:checked={it.on} />{/each}')
+    ).toEqual([]);
+    expect(
+      names(
+        '<script>let r = $state([]);</script>{#each r as row}<button onclick={() => (row.role = 1)}>x</button>{/each}'
+      )
+    ).toEqual([]);
+    expect(names('<script>let r = $state({ rows: [] });</script>{#each r.rows as { meta }}{meta.x++}{/each}')).toEqual(
+      []
+    );
+  });
+  it('still flags a $state whose {#each} items are only read or whose index is passed on', () => {
+    expect(names('<script>let s = $state([]);</script>{#each s as it}<p>{it.id}</p>{/each}')).toEqual(['s']);
+    expect(
+      names('<script>let s = $state([]);</script>{#each s as it, i}<button onclick={() => pick(i)}>x</button>{/each}')
+    ).toEqual(['s']);
+  });
   it('still flags a $state only read in a slot child or DOM attribute', () => {
     expect(names('<script>let label = $state("x");</script><Card>{label}</Card>')).toEqual(['label']);
     expect(names('<script>let ph = $state("x");</script><input value={ph} />')).toEqual(['ph']);

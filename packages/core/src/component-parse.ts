@@ -590,21 +590,23 @@ function collectFragmentAliasRefs(
 }
 
 /**
- * Each-context taint (performance/state-raw condition 5): for `{#each candidate as item}`
+ * Each-context taint (performance/state-raw condition 5, correctness/unmutated-state): for `{#each candidate as item}`
  * or `{#each candidate.path as item}`, any mutate/escape of the context binding (or index)
  * inside the block — member writes, method calls, call arguments, `bind:`, component props —
  * disqualifies the candidate over the candidate or a member path of it
  * (`{#each obj.items as item}`): item-level edits stop being reactive under $state.raw.
  * Pure reassignments of the context name are ignored (they don't touch the list's contents).
+ * `includeIndex: false` ignores the index binding, a number that cannot carry a write back to the list.
  */
 function collectEachContextTaint(
   node: Node,
   names: Set<string>,
   acc: Set<string>,
-  shadowed: Set<string> = new Set()
+  shadowed: Set<string> = new Set(),
+  includeIndex = true
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectEachContextTaint(child, names, acc, shadowed);
+    for (const child of node) collectEachContextTaint(child, names, acc, shadowed, includeIndex);
     return;
   }
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
@@ -617,7 +619,7 @@ function collectEachContextTaint(
     if (target !== undefined && names.has(target) && !shadowed.has(target)) {
       const ctxNames = new Set<string>();
       addBoundNames(node.context, ctxNames);
-      if (typeof node.index === 'string') ctxNames.add(node.index);
+      if (includeIndex && typeof node.index === 'string') ctxNames.add(node.index);
       if (ctxNames.size > 0) {
         const union = new Set<string>();
         const kinds = new Map<string, Set<WriteKind>>();
@@ -633,7 +635,7 @@ function collectEachContextTaint(
   }
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    collectEachContextTaint(node[key], names, acc, scope);
+    collectEachContextTaint(node[key], names, acc, scope, includeIndex);
   }
 }
 
@@ -2581,6 +2583,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
+      collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);
     }
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
