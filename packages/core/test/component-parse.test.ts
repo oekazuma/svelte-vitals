@@ -486,9 +486,15 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
     const facts = parseComponentFacts('<script>export let items; items.push(1);</script>', 'C.svelte');
     expect(facts.mutatedProps).toEqual([{ name: 'items', line: 1, legacy: true }]);
   });
-  it('flags a member-expression write on a legacy `export let` prop with a default value', () => {
-    const facts = parseComponentFacts('<script>export let user = {}; user.name = "x";</script>', 'C.svelte');
+  it('flags `delete` on a legacy `export let` prop with a default value', () => {
+    const facts = parseComponentFacts('<script>export let user = {}; delete user.name;</script>', 'C.svelte');
     expect(facts.mutatedProps).toEqual([{ name: 'user', line: 1, legacy: true }]);
+  });
+  it('does not flag a member write or update on a legacy prop (compiled as an invalidating assignment)', () => {
+    expect(names('<script>export let user = {}; user.name = "x";</script>')).toEqual([]);
+    expect(names('<script>export let c; function add(x) { c.items = [...c.items, x]; }</script>')).toEqual([]);
+    expect(names('<script>export let c;</script><button on:click={() => c.n++}>+</button>')).toEqual([]);
+    expect(names('<script>export let c; c.n += 1;</script>')).toEqual([]);
   });
   it('does not flag plain reassignment of a legacy prop (the sanctioned pattern for re-triggering reactivity)', () => {
     expect(names('<script>export let items; items = items;</script>')).toEqual([]);

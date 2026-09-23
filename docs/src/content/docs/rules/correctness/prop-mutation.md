@@ -62,6 +62,8 @@ The same class of bug exists in legacy-mode components, for a different reason. 
 </script>
 ```
 
+The same goes for `delete items.x`. A member write or update (`user.name = …`, `user.count++`) is different: it is itself an assignment, which the compiler turns into an update of the prop, so in legacy mode it is not flagged.
+
 Reassign the prop after mutating it to re-trigger reactivity. This is Svelte's own documented pattern, not a workaround:
 
 ```svelte

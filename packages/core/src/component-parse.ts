@@ -1989,18 +1989,22 @@ const MUTATING_METHODS = new Set([
  * reassignment for ephemeral state; only mutation is prohibited. Run over the instance
  * program AND the template fragment (inline handlers can mutate props in the template).
  * Scope-aware (issue #140): a local that shadows the prop's name is not flagged.
+ * `legacy` (export let props) flags only `delete` and mutating method calls — the legacy compiler
+ * turns a member write or update into an invalidating assignment (`prop(prop().x = …, true)`).
  */
 function collectPropMutations(
   root: Node,
   propNames: Set<string>,
   source: string,
-  acc: { name: string; line: number }[]
+  acc: { name: string; line: number }[],
+  legacy: boolean
 ): void {
   if (propNames.size === 0) return;
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const flag = (r: string | undefined) => {
       if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
     };
+    if (legacy && (n.type === 'AssignmentExpression' || n.type === 'UpdateExpression')) return;
     if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
       flag(rootObjectName(n.left));
     } else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
@@ -2496,8 +2500,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     const legacyPropNames = collectLegacyPropNames(program);
     const nonBindableProps = new Set([...collectPropNames(program, false), ...legacyPropNames]);
     const rawMutations: { name: string; line: number }[] = [];
-    collectPropMutations(program, nonBindableProps, source, rawMutations);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations);
+    const isLegacy = legacyPropNames.size > 0;
+    collectPropMutations(program, nonBindableProps, source, rawMutations, isLegacy);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations, isLegacy);
     for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
     const allPropNames = new Set([...collectPropNames(program, true), ...legacyPropNames]);
     if (allPropNames.size > 0) {
@@ -2515,7 +2520,6 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
         // `c.name` is the derived LOCAL variable (e.g. `color`), never the prop itself (e.g.
         // `type`) — legacy-ness is a per-component property (export let vs $props(), never
         // mixed), not per-candidate, so every candidate here shares the same flag.
-        const isLegacy = legacyPropNames.size > 0;
         for (const c of candidates) {
           if (!disqualified.has(c.name) && referenced.has(c.name)) {
             stalePropDerivations.push(isLegacy ? { ...c, legacy: true } : c);
