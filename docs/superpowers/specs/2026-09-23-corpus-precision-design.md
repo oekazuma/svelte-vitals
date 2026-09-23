@@ -33,8 +33,11 @@ the CLI runs with `--reporter json --no-suppressions`.
 
 ## Verdict ledger
 
-`scripts/corpus/verdicts.json`: one entry per finding, keyed `app::rule::file:line`, where `app` is
-`owner/repo` or `owner/repo:path`. Route is not part of the key: a component finding repeats on every
+`scripts/corpus/verdicts.json`: one entry per finding, keyed `app::rule::file:line::claim`, where
+`app` is `owner/repo` or `owner/repo:path` and `claim` is the finding's title with digits masked
+(`Multiple <h1> (#)`). The claim is part of the key so a rule that starts saying something else at the
+same place shows up as a new, unreviewed finding instead of inheriting the old verdict; rewording a
+rule's title orphans its verdicts on purpose. Route is not part of the key: a component finding repeats on every
 route that renders it, and one reading of the code decides all of them. Not every finding has a line,
 so the locus falls back in order: `file:line`, then `file` (the route-level SEO findings, one per
 page file), then the route (findings with no file, e.g. a route with no `<h1>`), then `(site)` for
@@ -87,3 +90,10 @@ The docs table is generated from `allRules`, and a drift test fails the build wh
 table differs from the generator's output — so a new rule cannot ship without re-running
 `pnpm corpus update`, and it appears as "not yet reviewed" until verdicts are added. The PR comment
 flags `measurement.json` as stale whenever the head measurement differs from it.
+
+## Failed runs
+
+A rule that throws is skipped with a `rule <id> failed and was skipped` warning on stderr while the
+JSON report still parses. Its findings would then read as removed in the PR diff, or be missing from
+a committed measurement. The script rejects any app whose stderr carries that warning, the same way
+it rejects a non-JSON report or an exit 2.

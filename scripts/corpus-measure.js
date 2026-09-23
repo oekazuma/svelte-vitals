@@ -9,7 +9,7 @@
 //
 // Node builtins plus `git`, like ecosystem-smoke.js: no dev dependency may leak in here.
 
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, realpathSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
@@ -39,7 +39,10 @@ const measurementFile = join(corpusDir, 'measurement.json');
 /**
  * One reading of the code decides a finding, so the route is not part of the key: a component
  * finding repeats on every route that renders it. Findings with no line fall back to the file,
- * with no file to the route (e.g. "Missing <h1>"), and site-level findings to `(site)`.
+ * with no file to the route (e.g. "Missing <h1>"), and site-level findings to `(site)`. The claim
+ * (the title, counts masked so "Multiple <h1> (19)" survives an unrelated count change) is part of
+ * the key: a rule that starts saying something else at the same place must not inherit the verdict
+ * given to what it said before.
  */
 function findingKey(app, issue, route) {
   const locus = issue.location
@@ -47,8 +50,11 @@ function findingKey(app, issue, route) {
       ? `${issue.location}:${issue.line}`
       : issue.location
     : (route ?? '(site)');
-  return `${app}::${issue.id}::${locus}`;
+  return `${app}::${issue.id}::${locus}::${String(issue.title).replace(/\d+/g, '#')}`;
 }
+
+/** A rule that throws is skipped with a stderr warning while the report still parses; its findings would read as removed. */
+const FAILED_RULE = /\brule (\S+) failed and was skipped\b/g;
 
 /**
  * The CLI dynamically imports a config file from the directory it analyzes, so cloning arbitrary
@@ -63,19 +69,15 @@ function dropConfigFiles(dir) {
 
 /** Never throws: returns the exit code alongside the captured streams. */
 function analyze(cli, dir) {
-  try {
-    // `--no-suppressions` because a target's own recorded suppressions would silently hide
-    // findings, and a suppressions file from a future format version is a hard exit 2.
-    const stdout = execFileSync(process.execPath, [cli, dir, '--reporter', 'json', '--no-suppressions'], {
-      encoding: 'utf8',
-      timeout: ANALYZE_TIMEOUT_MS,
-      maxBuffer: STDOUT_CAP_MB * 1024 * 1024,
-      stdio: ['ignore', 'pipe', 'pipe']
-    });
-    return { code: 0, stdout, stderr: '', signal: null };
-  } catch (e) {
-    return { code: e.status, stdout: e.stdout ?? '', stderr: e.stderr ?? '', signal: e.signal ?? null };
-  }
+  // `--no-suppressions` because a target's own recorded suppressions would silently hide
+  // findings, and a suppressions file from a future format version is a hard exit 2.
+  const r = spawnSync(process.execPath, [cli, dir, '--reporter', 'json', '--no-suppressions'], {
+    encoding: 'utf8',
+    timeout: ANALYZE_TIMEOUT_MS,
+    maxBuffer: STDOUT_CAP_MB * 1024 * 1024,
+    stdio: ['ignore', 'pipe', 'pipe']
+  });
+  return { code: r.status, stdout: r.stdout ?? '', stderr: r.stderr ?? '', signal: r.signal ?? null };
 }
 
 function git(args, opts = {}) {
@@ -164,6 +166,8 @@ function measureTarget(target, cli, cache) {
     };
   if (code !== 0 && code !== 1)
     return { app, sha: target.sha, error: `exit ${code}: ${stderr.trim().split('\n').slice(0, 6).join(' | ')}` };
+  const failedRules = [...stderr.matchAll(FAILED_RULE)].map((m) => m[1]);
+  if (failedRules.length > 0) return { app, sha: target.sha, error: `rule(s) crashed: ${failedRules.join(', ')}` };
   let report;
   try {
     report = JSON.parse(stdout);
@@ -286,7 +290,7 @@ function diff(before, after, verdicts, measurement) {
   else {
     const unlabeled = [...added.values()].flat().filter((f) => !verdicts.has(f.key)).length;
     out.push(
-      `Distinct findings (\`app::rule::file:line\`) on ${targets.length} pinned apps. ${unlabeled} added finding(s) have no verdict in \`scripts/corpus/verdicts.json\`.`,
+      `Distinct findings (\`app::rule::file:line::claim\`) on ${targets.length} pinned apps. ${unlabeled} added finding(s) have no verdict in \`scripts/corpus/verdicts.json\`.`,
       '',
       '| rule | base | head | added | removed | net |',
       '| --- | ---: | ---: | ---: | ---: | ---: |',
