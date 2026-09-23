@@ -458,6 +458,42 @@ describe('parseKitModuleFacts — ssrEnabled (app-wide ssr = false override)', (
   });
 });
 
+describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', () => {
+  const kit = "import { redirect } from '@sveltejs/kit';\n";
+  const always = (src: string, file = 'src/routes/old/+page.ts') => facts(kit + src, file).loadAlwaysRedirects;
+  it('is set when a top-level statement of load calls or throws redirect()', () => {
+    expect(always("export function load() {\n  redirect(301, '/');\n}")).toBe(true);
+    expect(always("export async function load() {\n  throw redirect(302, '/');\n}")).toBe(true);
+    expect(always("export const load = () => redirect(301, '/');")).toBe(true);
+    expect(
+      always("export const load = (async () => {\n  await x();\n  redirect(301, '/');\n}) satisfies PageLoad;")
+    ).toBe(true);
+    expect(
+      always("const load = () => {\n  redirect(301, '/');\n};\nexport { load };", 'src/routes/old/+page.server.ts')
+    ).toBe(true);
+    expect(
+      facts(
+        "import { redirect as go } from '@sveltejs/kit';\nexport function load() {\n  go(301, '/');\n}",
+        'src/routes/+page.ts'
+      ).loadAlwaysRedirects
+    ).toBe(true);
+  });
+  it('is absent when the redirect is conditional, nested, preceded by a return, or not the kit redirect', () => {
+    expect(always("export function load({ url }) {\n  if (url.search) redirect(301, '/');\n}")).toBeUndefined();
+    expect(always("export function load() {\n  try {\n    redirect(301, '/');\n  } catch {}\n}")).toBeUndefined();
+    expect(always("export function load() {\n  const go = () => redirect(301, '/');\n  go();\n}")).toBeUndefined();
+    expect(
+      always(
+        "export function load({ locals }) {\n  if (locals.user) return { user: locals.user };\n  redirect(302, '/login');\n}"
+      )
+    ).toBeUndefined();
+    expect(always("export function actions() {\n  redirect(303, '/');\n}")).toBeUndefined();
+    expect(
+      facts("export function load() {\n  redirect(301, '/');\n}", 'src/routes/+page.ts').loadAlwaysRedirects
+    ).toBeUndefined();
+  });
+});
+
 const prefix = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'prefix' });
 const contents = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'contents' });
 const exact = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'exact' });

@@ -44,7 +44,7 @@ describe('collectAll', () => {
     ]);
   });
 
-  it('filters route-scoped facts and skips component/kit-module scanning when route is set', async () => {
+  it('filters route-scoped facts and hands the rules no component/kit-module facts when route is set', async () => {
     const rt = createMemoryRuntime(PROJECT);
 
     const facts = await collectAll(rt, '', defaultConfig, { route: 'a' });
@@ -61,6 +61,27 @@ describe('collectAll', () => {
     // collected and the rule stays silent. Pinned here as well as in
     // analyze-project.test.ts so a break points at collectAll rather than at the CLI.
     expect(facts.sourceFiles).toBeUndefined();
+  });
+
+  it('drops the route facts of a page whose load always redirects, keeping its file-scoped facts', async () => {
+    const rt = createMemoryRuntime({
+      ...PROJECT,
+      'src/routes/(app)/old/+page.svelte': '',
+      'src/routes/(app)/old/+page.ts': `import { redirect } from '@sveltejs/kit';\nexport function load() {\n  redirect(301, '/a');\n}\n`,
+      'src/routes/+layout.ts': `import { redirect } from '@sveltejs/kit';\nexport function load() {\n  redirect(301, '/a');\n}\n`
+    });
+
+    const facts = await collectAll(rt, '', defaultConfig);
+
+    for (const list of [facts.heads, facts.images, facts.headings, facts.a11y])
+      expect(list.map((f) => f.route).sort()).toEqual(['/a', '/b']);
+    expect(facts.components.map((c) => c.file)).toContain('src/routes/(app)/old/+page.svelte');
+    expect(facts.emptySelections).toEqual([]);
+
+    const scoped = await collectAll(rt, '', defaultConfig, { route: '/old' });
+    expect(scoped.heads).toEqual([]);
+    expect(scoped.kitModules).toEqual([]);
+    expect(scoped.emptySelections).toEqual([]);
   });
 });
 

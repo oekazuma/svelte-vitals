@@ -21,10 +21,15 @@ describe('collectRenderedHeads', () => {
     const doc = (t: string) => `<html lang="en"><head><title>${t}</title></head><body></body></html>`;
     await writeFile(join(dir, 'index.html'), doc('Home'));
     await writeFile(join(dir, 'blog', 'index.html'), doc('Blog'));
+    // SvelteKit's prerender output for a route that redirected.
+    await writeFile(
+      join(dir, 'old.html'),
+      '<script>location.href="/blog?a=1&b=2";</script><meta http-equiv="refresh" content="0;url=/blog?a=1&amp;b=2">'
+    );
   });
   afterAll(async () => rm(dir, { recursive: true, force: true }));
 
-  it('reads every .html into a ResolvedHead with source rendered', async () => {
+  it('reads every .html but a redirect stub into a ResolvedHead with source rendered', async () => {
     const { heads, htmlLang } = await collectRenderedHeads(dir);
     const byRoute = new Map(heads.map((h) => [h.route, h]));
     expect([...byRoute.keys()].sort()).toEqual(['/', '/blog']);

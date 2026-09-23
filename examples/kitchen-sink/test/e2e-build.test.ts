@@ -87,6 +87,13 @@ describe('kitchen-sink e2e (build mode)', () => {
     expect(buildStderr).toContain('to check them from source: /gallery/seo/spa-shell');
   });
 
+  it('skips the redirect stub Kit prerenders for a page whose load always redirects', () => {
+    expect(existsSync(join(appDir, '.svelte-kit/output/prerendered/pages/clean/redirect.html'))).toBe(true);
+    const routes = report.routes.map((r) => r.route);
+    expect(routes).toContain('/clean');
+    expect(routes).not.toContain('/clean/redirect');
+  });
+
   it('never reports skipped routes: the prerendered document is its own closed world', () => {
     expect(report.skipped).toBeUndefined();
   });

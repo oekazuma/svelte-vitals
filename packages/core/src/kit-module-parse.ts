@@ -242,6 +242,35 @@ function collectRedirectCalls(node: Node, locals: Set<string>, out: Node[] = [])
   return out;
 }
 
+/** Whether `node` holds a `return` outside nested functions. */
+function containsReturn(node: Node): boolean {
+  if (Array.isArray(node)) return node.some(containsReturn);
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string' || isFunctionNode(node)) return false;
+  if (node.type === 'ReturnStatement') return true;
+  return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && containsReturn(node[key]));
+}
+
+/**
+ * Whether the exported `load` redirects on every call: a statement directly in its body is a
+ * `redirect(…)` / `throw redirect(…)` and no earlier statement can `return` first. A redirect
+ * under a condition, in a `try`, or in a helper function does not count.
+ */
+function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
+  const load = locals.size > 0 ? findLoadFunction(program) : undefined;
+  if (!load?.body) return false;
+  const isRedirect = (expr: Node): boolean => {
+    const e = unwrapTs(expr);
+    return e?.type === 'CallExpression' && e.callee?.type === 'Identifier' && locals.has(e.callee.name);
+  };
+  if (load.body.type !== 'BlockStatement') return isRedirect(load.body);
+  for (const stmt of load.body.body ?? []) {
+    if (stmt?.type === 'ExpressionStatement' && isRedirect(stmt.expression)) return true;
+    if (stmt?.type === 'ThrowStatement' && isRedirect(stmt.argument)) return true;
+    if (containsReturn(stmt)) return false;
+  }
+  return false;
+}
+
 /**
  * Whether `await`'s argument is a `parent()` / `<x>.parent()` call (Kit's parent-load
  * step, exempt from performance/load-waterfall and performance/sequential-awaits). Any `<expr>.parent()` member call matches — over-broad
@@ -901,6 +930,7 @@ export function parseKitModuleFacts(
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
     ...(!ssrOptOut && exportsName(program, 'ssr') ? { ssrEnabled: true as const } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
+    ...(loadAlwaysRedirects(program, redirectLocals) ? { loadAlwaysRedirects: true as const } : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
       ? { loadWaterfalls: waterfalls }
       : {}),
