@@ -59,10 +59,10 @@ function collectSvelteHeads(node: WalkNode | WalkNode[] | null | undefined, acc:
  * — picking one branch's literal would judge a value that may never render — and a tag repeated
  * across exclusive branches counts once.
  */
-function conditionalTags(branches: Array<AST.Fragment | null | undefined>): ParsedTag[] {
+function conditionalTags(branches: Array<AST.Fragment | null | undefined>, source: string): ParsedTag[] {
   const unique = new Map<string, ParsedTag>();
   for (const fragment of branches) {
-    for (const tag of tagsFromNodes(fragment?.nodes ?? [])) {
+    for (const tag of tagsFromNodes(fragment?.nodes ?? [], source)) {
       const { text: _text, noindex: _noindex, jsonld: _jsonld, hreflang: _hreflang, ...shape } = tag;
       const dynamic: ParsedTag = { ...shape, value: 'dynamic' };
       unique.set(JSON.stringify(dynamic), dynamic);
@@ -71,11 +71,11 @@ function conditionalTags(branches: Array<AST.Fragment | null | undefined>): Pars
   return [...unique.values()];
 }
 
-function tagsFromNodes(children: AST.Fragment['nodes']): ParsedTag[] {
+function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedTag[] {
   const tags: ParsedTag[] = [];
   for (const node of children) {
     if (node.type === 'KeyBlock') {
-      tags.push(...tagsFromNodes(node.fragment.nodes));
+      tags.push(...tagsFromNodes(node.fragment.nodes, source));
       continue;
     }
     const branches =
@@ -87,7 +87,7 @@ function tagsFromNodes(children: AST.Fragment['nodes']): ParsedTag[] {
             ? [node.pending, node.then, node.catch]
             : undefined;
     if (branches) {
-      tags.push(...conditionalTags(branches));
+      tags.push(...conditionalTags(branches, source));
       continue;
     }
     if (node.type === 'TitleElement') {
@@ -95,6 +95,13 @@ function tagsFromNodes(children: AST.Fragment['nodes']): ParsedTag[] {
       const titleNodes = node.fragment.nodes as Array<AST.Text | AST.ExpressionTag>;
       const text = textFromNodes(titleNodes);
       tags.push({ kind: 'title', value: valueFromNodes(titleNodes), ...(text !== undefined ? { text } : {}) });
+      continue;
+    }
+    if (node.type === 'HtmlTag') {
+      // A JSON-LD <script> built as a string (`{@html jsonLd(data)}`) is invisible as an element, so
+      // the expression's own wording is the only signal; other injections (`{@html css}`) stay unmatched.
+      if (/json-?ld|ld\+json/i.test(source.slice(node.start, node.end)))
+        tags.push({ kind: 'jsonld', value: 'dynamic' });
       continue;
     }
     if (node.type !== 'RegularElement') continue;
@@ -169,8 +176,8 @@ function tagsFromNodes(children: AST.Fragment['nodes']): ParsedTag[] {
   return tags;
 }
 
-function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
-  return tagsFromNodes(head.fragment.nodes);
+function tagsFromHead(head: AST.SvelteHead, source: string): ParsedTag[] {
+  return tagsFromNodes(head.fragment.nodes, source);
 }
 
 export interface ComponentUse {
@@ -578,7 +585,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const headingAcc = { headings: [] as ParsedHeading[], dynamic: false };
   collectHeadings(ast.fragment, source, headingAcc);
   return {
-    headTags: heads.flatMap(tagsFromHead),
+    headTags: heads.flatMap((h) => tagsFromHead(h, source)),
     components,
     imports: collectImports(ast),
     images,
@@ -597,5 +604,5 @@ export function parseHeadTags(source: string, filename: string): ParsedTag[] {
   const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
-  return heads.flatMap(tagsFromHead);
+  return heads.flatMap((h) => tagsFromHead(h, source));
 }

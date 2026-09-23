@@ -14,3 +14,20 @@ describe('parse: jsonld raw capture (static)', () => {
     expect(jsonld(parseHeadTags(src, 'x.svelte')).jsonld).toBe('{@html ld}');
   });
 });
+
+describe('parse: {@html} JSON-LD in <svelte:head>', () => {
+  const jsonldTags = (inner: string) => parseHeadTags(head(inner), 'x.svelte').filter((t) => t.kind === 'jsonld');
+
+  it('treats an {@html} whose expression names JSON-LD as a dynamic JSON-LD tag', () => {
+    expect(jsonldTags('{@html schemaToJsonLd(data.breadcrumbJsonLd)}')).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    expect(jsonldTags('{@html `<script type="application/ld+json">${JSON.stringify(ld)}</script>`}')).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+    expect(jsonldTags('{#if ld}{@html jsonLdScript}{/if}')).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+  });
+
+  it('leaves an unrelated {@html} injection unmatched', () => {
+    expect(jsonldTags("{@html '<style>body{margin:0}</style>'}")).toEqual([]);
+    expect(jsonldTags('{@html themeCss}')).toEqual([]);
+  });
+});
