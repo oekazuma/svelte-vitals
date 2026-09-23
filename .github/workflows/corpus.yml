@@ -1,0 +1,99 @@
+name: Corpus
+
+# Measures the PR's findings on the pinned third-party corpus against its base and reports what
+# changed. Design: docs/superpowers/specs/2026-09-23-corpus-precision-design.md
+#
+# Never PR-blocking and not a required check: it reports what a change adds or removes on real
+# code, and the reviewer decides. The docs drift test in `test` is the only gate on this data.
+on:
+  pull_request:
+    paths:
+      - 'packages/**'
+      - 'scripts/corpus/**'
+      - 'scripts/corpus-measure.js'
+      - '.github/workflows/corpus.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  measure:
+    # Runs the PR's code over cloned third-party repos, so it gets nothing worth stealing; the
+    # write token lives only in the `comment` job, which runs neither.
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    # A real run measures the corpus twice in a few minutes; this is a backstop above the
+    # script's own per-app limits.
+    timeout-minutes: 45
+    outputs:
+      report: ${{ steps.report.outputs.report }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - name: Build head
+        run: pnpm build
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: .corpus-base
+          persist-credentials: false
+      - name: Build base
+        working-directory: .corpus-base
+        run: pnpm install --frozen-lockfile && pnpm build
+      - name: Cache corpus clones
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/corpus
+          key: corpus-${{ hashFiles('scripts/corpus/targets.json') }}
+      # The head's script measures both sides, so the base is read with the same key function
+      # and targets even when the base predates them. An app that fails is reported in the diff.
+      - name: Measure head
+        run: node scripts/corpus-measure.js run --cache "$RUNNER_TEMP/corpus" --out "$RUNNER_TEMP/head.json" || echo "::warning::some corpus apps failed on head"
+      - name: Measure base
+        run: node scripts/corpus-measure.js run --cli .corpus-base/packages/cli/dist/bin.js --cache "$RUNNER_TEMP/corpus" --out "$RUNNER_TEMP/base.json" || echo "::warning::some corpus apps failed on base"
+      - name: Diff
+        id: report
+        run: |
+          node scripts/corpus-measure.js diff "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" --measurement scripts/corpus/measurement.json > "$RUNNER_TEMP/report.md"
+          cat "$RUNNER_TEMP/report.md" >> "$GITHUB_STEP_SUMMARY"
+          # A PR comment holds 65536 characters; the summary above keeps the full report.
+          if [ "$(wc -c < "$RUNNER_TEMP/report.md")" -gt 60000 ]; then
+            { head -c 60000 "$RUNNER_TEMP/report.md" | iconv -c -f utf-8 -t utf-8; printf '\n\n…truncated; the full report is in the workflow run summary.\n'; } > "$RUNNER_TEMP/comment.md"
+          else
+            cp "$RUNNER_TEMP/report.md" "$RUNNER_TEMP/comment.md"
+          fi
+          delimiter="EOF_$(openssl rand -hex 8)"
+          { echo "report<<$delimiter"; cat "$RUNNER_TEMP/comment.md"; echo "$delimiter"; } >> "$GITHUB_OUTPUT"
+
+  comment:
+    needs: measure
+    # A fork PR's token cannot write comments; its report stays in the job summary.
+    if: github.event.pull_request.head.repo.full_name == github.repository && needs.measure.outputs.report != ''
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Post or update the sticky comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          REPORT: ${{ needs.measure.outputs.report }}
+        run: |
+          marker='<!-- svelte-vitals-corpus -->'
+          { echo "$marker"; printf '%s\n' "$REPORT"; } > body.md
+          id=$(gh api --paginate "repos/$REPO/issues/$PR/comments" \
+            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"$marker\"))) | .id" | head -n 1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$id" -F body=@body.md > /dev/null
+          else
+            gh api "repos/$REPO/issues/$PR/comments" -F body=@body.md > /dev/null
+          fi
