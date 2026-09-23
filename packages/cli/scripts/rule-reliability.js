@@ -12,7 +12,14 @@ export const END_MARKER = '<!-- rule-reliability:end -->';
 
 export const VERDICTS = ['tp', 'fp', 'design', 'unclear'];
 
-const HEADER = ['Rule', 'Corpus findings', 'Apps', 'Reviewed (tp / fp / design / unclear)', 'Precision'];
+const HEADER = [
+  'Rule',
+  'Corpus findings',
+  'Apps',
+  'Reviewed (tp / fp / design / unclear)',
+  'Precision',
+  'Design share'
+];
 
 /** The report file, relative to the repo root. */
 export function reportPath(repoRoot) {
@@ -33,6 +40,12 @@ function repoUrl({ repo, path, sha }) {
 }
 
 /** Carries its sample size: "100%" over one verdict must not read like "100%" over hundreds. */
+/** Precision leaves `design` out, so a rule whose findings are all `design` would read as 100%; this says so. */
+function designShare(m) {
+  const labeled = VERDICTS.reduce((sum, v) => sum + m[v], 0);
+  return labeled === 0 ? '—' : `${Math.round((100 * m.design) / labeled)}% (${m.design}/${labeled})`;
+}
+
 function precision({ tp, fp }) {
   return tp + fp === 0 ? '—' : `${Math.round((100 * tp) / (tp + fp))}% (${tp}/${tp + fp})`;
 }
@@ -58,7 +71,7 @@ export function renderBlock(rules, measurement, targets) {
     const verdicts =
       m.findings === 0 ? '—' : labeled === 0 ? 'not yet reviewed' : VERDICTS.map((v) => m[v]).join(' / ');
     rows.push(
-      `| [\`${rule.id}\`](../../docs/src/content/docs/rules/${rule.id}.md) | ${m.findings} | ${m.apps} | ${verdicts} | ${precision(m)} |`
+      `| [\`${rule.id}\`](../../docs/src/content/docs/rules/${rule.id}.md) | ${m.findings} | ${m.apps} | ${verdicts} | ${precision(m)} | ${designShare(m)} |`
     );
   }
   lines.push('', `${reviewed} of ${total} corpus findings have a verdict.`, '');
