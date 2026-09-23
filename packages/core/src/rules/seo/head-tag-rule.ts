@@ -22,6 +22,20 @@ export interface HeadTagRuleOptions {
    * rule stays silent instead of false-flagging "missing".
    */
   appliesTo?: (head: ResolvedHead) => boolean;
+  /**
+   * A tag that carries the right key under the wrong attribute (`<meta name="og:image">`). Its
+   * presence turns "Missing" into a pointer at the attribute, since the author did try.
+   */
+  misspelled?: { match: (tag: HeadTag) => boolean; label: string; recommendation: string };
+}
+
+/** Open Graph keys are read from `property=`; `name="og:*"` is the common slip. */
+export function ogMisspelled(key: string): NonNullable<HeadTagRuleOptions['misspelled']> {
+  return {
+    match: (t) => t.kind === 'meta' && t.name === key && t.property === undefined,
+    label: `<meta name="${key}"> should be <meta property="${key}">`,
+    recommendation: `Open Graph reads ${key} from the property attribute: change name="${key}" to property="${key}".`
+  };
 }
 
 function detect(head: ResolvedHead, match: (t: HeadTag) => boolean): Detection {
@@ -51,8 +65,13 @@ export function headTagRule(opts: HeadTagRuleOptions): Rule {
       const heads = opts.appliesTo ? ctx.heads.filter(opts.appliesTo) : ctx.heads;
       return heads.map((head) => {
         const detection = detect(head, opts.match);
-        const message =
-          detection.presence === 'none'
+        const misspelled =
+          detection.presence === 'none' && opts.misspelled && head.tags.some(opts.misspelled.match)
+            ? opts.misspelled
+            : undefined;
+        const message = misspelled
+          ? misspelled.label
+          : detection.presence === 'none'
             ? `Missing ${opts.label}`
             : detection.value === 'absent'
               ? `Empty ${opts.label}`
@@ -65,7 +84,7 @@ export function headTagRule(opts: HeadTagRuleOptions): Rule {
           route: head.route,
           location: head.file,
           message,
-          recommendation: opts.recommendation,
+          recommendation: misspelled?.recommendation ?? opts.recommendation,
           docsUrl,
           // Copy per finding: opts.fix is a rule-level template shared across all
           // results this rule emits; a fresh object keeps findings independent.

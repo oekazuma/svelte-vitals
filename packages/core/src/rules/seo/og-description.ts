@@ -1,10 +1,11 @@
-import { headTagRule } from './head-tag-rule.js';
+import { headTagRule, ogMisspelled } from './head-tag-rule.js';
 
 export const seoOgDescription = headTagRule({
   id: 'seo/og-description',
   title: 'Open Graph description',
   severity: 'info',
   match: (t) => t.kind === 'meta' && t.property === 'og:description',
+  misspelled: ogMisspelled('og:description'),
   label: '<meta property="og:description">',
   recommendation: 'Add <meta property="og:description">, or set openGraph.description on your meta component.',
   rationale:
