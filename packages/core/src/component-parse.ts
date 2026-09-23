@@ -2007,7 +2007,8 @@ function collectPropMutations(
   legacy: Set<string>
 ): void {
   if (propNames.size === 0) return;
-  // Legacy idiom `items.push(x); items = items;`: a reassignment in the same function invalidates the mutation.
+  // Legacy idiom `items.push(x); items = items;` (or `delete items[k]`): a reassignment in the same
+  // function, closures included, invalidates the mutation.
   const exemptCalls = new Set<Node>();
   if (legacy.size > 0) {
     walkEstree(root, (fn: Node) => {
@@ -2017,7 +2018,12 @@ function collectPropMutations(
         if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier') assigned.add(m.left.name);
       });
       walkEstree(fn.body, (m: Node) => {
-        const r = m.type === 'CallExpression' ? rootObjectName(m.callee?.object) : undefined;
+        const r =
+          m.type === 'CallExpression'
+            ? rootObjectName(m.callee?.object)
+            : m.type === 'UnaryExpression' && m.operator === 'delete'
+              ? rootObjectName(m.argument)
+              : undefined;
         if (r && legacy.has(r) && assigned.has(r)) exemptCalls.add(m);
       });
     });

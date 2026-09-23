@@ -532,6 +532,13 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
       )
     ).toEqual([]);
   });
+  it('does not flag a legacy delete whose function (or an enclosing one) reassigns the prop', () => {
+    expect(
+      names(
+        '<script>export let m; export let h; function a(k) { delete m[k]; m = { ...m }; } function b(ids) { ids.forEach((id) => { delete h.x[id]; }); h = h; }</script>'
+      )
+    ).toEqual([]);
+  });
   it('still flags a legacy mutating call when only another function reassigns the prop', () => {
     expect(
       names('<script>export let items; function add(x) { items.push(x); } function bump() { items = items; }</script>')
