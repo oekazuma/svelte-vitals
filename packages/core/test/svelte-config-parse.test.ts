@@ -4,7 +4,8 @@ import {
   findKitPathsBaseInViteConfig,
   resolveKitPathsBase,
   findKitAliasesInSvelteConfig,
-  resolveKitAliases
+  resolveKitAliases,
+  withPackageImports
 } from '../src/svelte-config-parse.js';
 
 describe('findKitPathsBaseInSvelteConfig', () => {
@@ -329,5 +330,31 @@ describe('resolveKitAliases', () => {
     expect(resolveKitAliases(vite, svelte(`{ alias: { '$a': 'src/a' } }`))!.slice(1)).toEqual([
       { find: '$a', replacement: 'src/a', match: 'prefix' }
     ]);
+  });
+});
+
+describe('withPackageImports', () => {
+  const pkg = (imports: unknown) => JSON.stringify({ imports });
+
+  it('appends subpath and exact entries after the Kit aliases', () => {
+    const kit = resolveKitAliases(undefined, { source: `export default { kit: { alias: { $x: 'src/x' } } };` });
+    expect(withPackageImports(kit, pkg({ '#lib/*': './src/lib/*', '#lib': './src/lib/index.js' }))).toEqual([
+      ...kit!,
+      { find: '#lib', replacement: 'src/lib', match: 'contents' },
+      { find: '#lib', replacement: 'src/lib/index.js', match: 'exact' }
+    ]);
+  });
+
+  it('starts from the default $lib alias when no Kit config was read', () => {
+    expect(withPackageImports(undefined, pkg({ '#ui/*': { default: './src/ui/*' } }))).toEqual([
+      { find: '$lib', replacement: 'src/lib', match: 'prefix' },
+      { find: '#ui', replacement: 'src/ui', match: 'contents' }
+    ]);
+  });
+
+  it('skips package targets, mid-key wildcards and unreadable package.json', () => {
+    expect(withPackageImports(undefined, pkg({ '#dep': 'some-package', '#a/*/b': './a/*/b' }))).toBeUndefined();
+    expect(withPackageImports(undefined, '{ not json')).toBeUndefined();
+    expect(withPackageImports(undefined, undefined)).toBeUndefined();
   });
 });

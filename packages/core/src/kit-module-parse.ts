@@ -534,7 +534,7 @@ function normalizePosix(path: string): string | undefined {
  * What `resolveRepoLocalPath` assumes when no config was read: SvelteKit's own `$lib`, at the
  * default `src/lib`. This single entry is the whole of this analyzer's pre-alias behaviour.
  */
-const DEFAULT_KIT_ALIASES: readonly KitAlias[] = [{ find: '$lib', replacement: 'src/lib', match: 'prefix' }];
+export const DEFAULT_KIT_ALIASES: readonly KitAlias[] = [{ find: '$lib', replacement: 'src/lib', match: 'prefix' }];
 
 /**
  * Whether one compiled alias entry matches a specifier. The `prefix` arm is Vite's own

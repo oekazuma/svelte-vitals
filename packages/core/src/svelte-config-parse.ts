@@ -7,7 +7,7 @@
  */
 import type { Expression, ObjectExpression, Program, Property } from 'estree';
 import { collectNamedImportAliases, parseModuleProgram, unwrapTs, type TsExpression } from './module-ast.js';
-import { collectTopLevelBindings } from './kit-module-parse.js';
+import { DEFAULT_KIT_ALIASES, collectTopLevelBindings } from './kit-module-parse.js';
 import { propOf, resolveConfigObject, unwrapToObjectExpression } from './config-object.js';
 import type { KitAlias } from './types.js';
 
@@ -182,6 +182,39 @@ export function resolveKitAliases(
   if (viteConfig && findKitPathsBaseInViteConfig(viteConfig.source).kind !== 'no-plugin-config') return undefined;
   if (!svelteConfig) return undefined;
   return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
+}
+
+/**
+ * `aliases` followed by the project's package.json `imports` entries (`"#lib/*": "./src/lib/*"`),
+ * after Kit's own: Vite's alias plugin resolves before Node-style subpath imports. Only a
+ * project-relative string target counts (a conditions object's `default`/`import`); anything else
+ * is skipped, which leaves the specifier unresolved as before.
+ */
+export function withPackageImports(
+  aliases: KitAlias[] | undefined,
+  packageJsonSource: string | undefined
+): KitAlias[] | undefined {
+  let imports: unknown;
+  try {
+    imports = (JSON.parse(packageJsonSource ?? '') as { imports?: unknown }).imports;
+  } catch {
+    return aliases;
+  }
+  if (!imports || typeof imports !== 'object') return aliases;
+  const entries: KitAlias[] = [];
+  for (const [key, raw] of Object.entries(imports)) {
+    const conditions = raw && typeof raw === 'object' ? (raw as Record<string, unknown>) : undefined;
+    const target = conditions ? (conditions.default ?? conditions.import) : raw;
+    if (typeof target !== 'string' || !target.startsWith('./')) continue;
+    const star = key.endsWith('/*');
+    if (star !== target.endsWith('/*') || key.slice(0, star ? -2 : undefined).includes('*')) continue;
+    entries.push({
+      find: star ? key.slice(0, -2) : key,
+      replacement: normalizeAliasValue(target.slice(2)),
+      match: star ? 'contents' : 'exact'
+    });
+  }
+  return entries.length > 0 ? [...(aliases ?? DEFAULT_KIT_ALIASES), ...entries] : aliases;
 }
 
 /** Parse a config source to a program, or undefined when it cannot be parsed. */
