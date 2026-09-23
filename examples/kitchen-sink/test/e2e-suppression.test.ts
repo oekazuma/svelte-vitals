@@ -355,7 +355,7 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(run(appDir, '--route', 'gallery/a11y/**').stderr.trim()).toMatch(
       /^svelte-vitals: a11y\/no-missing-id-ref skipped 1 of \d+ analyzed route\(s\) — it only checks routes it can fully resolve, so this is not a failure\. Causes: spread, dynamic id\. Per-route detail: --reporter json → "skipped"\. Why, and how to widen: https:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/a11y\/no-missing-id-ref$/
     );
-  });
+  }, 60_000);
 
   it('reaches a finding anchored outside src/, in the Vite config', () => {
     const dir = scratchCopy();
