@@ -258,14 +258,29 @@ function containsReturn(node: Node): boolean {
 function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
   const load = locals.size > 0 ? findLoadFunction(program) : undefined;
   if (!load?.body) return false;
+  // A parameter or a declaration in the body named like the import is a different function.
+  const shadowed = new Set<string>();
+  for (const p of load.params ?? []) addBoundNames(p, shadowed);
+  for (const stmt of load.body.type === 'BlockStatement' ? (load.body.body ?? []) : []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type === 'VariableDeclaration') for (const d of decl.declarations ?? []) addBoundNames(d?.id, shadowed);
+    else if ((decl?.type === 'FunctionDeclaration' || decl?.type === 'ClassDeclaration') && decl.id)
+      addBoundNames(decl.id, shadowed);
+  }
   const isRedirect = (expr: Node): boolean => {
     const e = unwrapTs(expr);
-    return e?.type === 'CallExpression' && e.callee?.type === 'Identifier' && locals.has(e.callee.name);
+    return (
+      e?.type === 'CallExpression' &&
+      e.callee?.type === 'Identifier' &&
+      locals.has(e.callee.name) &&
+      !shadowed.has(e.callee.name)
+    );
   };
   if (load.body.type !== 'BlockStatement') return isRedirect(load.body);
   for (const stmt of load.body.body ?? []) {
     if (stmt?.type === 'ExpressionStatement' && isRedirect(stmt.expression)) return true;
-    if (stmt?.type === 'ThrowStatement' && isRedirect(stmt.argument)) return true;
+    // Kit 2's redirect() throws, so `return redirect(…)` never returns either.
+    if ((stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') && isRedirect(stmt.argument)) return true;
     if (containsReturn(stmt)) return false;
   }
   return false;
