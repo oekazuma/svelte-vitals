@@ -392,6 +392,22 @@ describe('correctness/server-browser-global browser global in server module code
     });
     expect(fails(rs).map((r) => r.route)).toEqual(['src/lib/store.svelte.ts', 'src/routes/a/+page.server.ts']);
   });
+  it('still flags module scope of a universal file under a root-layout ssr = false', async () => {
+    const rs = await correctnessServerBrowserGlobal.check({
+      ...ctx([]),
+      kitModules: [
+        kitFacts({ file: 'src/routes/+layout.ts', ssrDisabled: { line: 1 } }),
+        kitFacts({
+          file: 'src/routes/a/+page.ts',
+          browserGlobalRefs: [
+            { name: 'window', line: 2, inHandler: false },
+            { name: 'localStorage', line: 5, inHandler: true }
+          ]
+        })
+      ]
+    });
+    expect(fails(rs).map((r) => r.line)).toEqual([2]);
+  });
 });
 
 describe('correctness/instance-browser-global browser global during component initialisation', () => {

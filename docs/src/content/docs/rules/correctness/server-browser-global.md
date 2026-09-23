@@ -19,7 +19,7 @@ Not flagged:
 - A bare `typeof window`, which never throws.
 - Names you imported or declared yourself (`const document = …`).
 - Closures nested inside handlers, typically client callbacks.
-- Files that export `ssr = false` themselves, and universal `+page.ts`/`+layout.ts` files when SSR is off app-wide: a root `src/routes/+layout.ts` (or `+layout.server.ts`) that exports `ssr = false`, as long as no other `+page`/`+layout` file exports `ssr` with any other value. Server files (`+page.server.ts`, `+server.ts`, `hooks.server.ts`) and runes modules are still checked.
+- Files that export `ssr = false` themselves, and the `load` functions of universal `+page.ts`/`+layout.ts` files when SSR is off app-wide (their module scope is still checked: SvelteKit imports the file on the server when it cannot read the page options statically): a root `src/routes/+layout.ts` (or `+layout.server.ts`) that exports `ssr = false`, as long as no other `+page`/`+layout` file exports `ssr` with any other value. Server files (`+page.server.ts`, `+server.ts`, `hooks.server.ts`) and runes modules are still checked.
 
 ## Why it matters
 

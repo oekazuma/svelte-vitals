@@ -82,8 +82,11 @@ export const correctnessServerBrowserGlobal: Rule = {
       );
     }
     for (const m of ctx.kitModules ?? []) {
-      const refs = m.browserGlobalRefs ?? [];
-      if (refs.length === 0 || universalNeverSsr(m, ctx.kitModules)) continue;
+      // Module scope still runs on the server when SvelteKit imports the file to read page options it
+      // cannot analyze statically; only load/handler bodies are client-only.
+      const neverSsr = universalNeverSsr(m, ctx.kitModules);
+      const refs = (m.browserGlobalRefs ?? []).filter((r) => !(neverSsr && r.inHandler));
+      if (refs.length === 0) continue;
       emitFile(
         out,
         m.file,
