@@ -5,7 +5,8 @@ import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { parseFile } from './parse.js';
 
-const HEADING_TAG_VALUE = /^h[1-6]$/i;
+/** Props a heading component conventionally takes its element from (`<Heading tag="h1">`, `as`, `element`, `is`). */
+const HEADING_TAG_PROPS = new Set(['tag', 'as', 'element', 'is']);
 
 interface ResolveResult {
   tags: ParsedTag[];
@@ -169,8 +170,13 @@ export async function resolveFileTags(
     }
 
     // A component we cannot follow may render its heading from a prop (`<Heading tag="h1">`), so,
-    // like an undeterminable `<svelte:element>`, it rules out the "no <h1>" claim.
-    if (use.attributes.some((a) => a.type === 'Attribute' && HEADING_TAG_VALUE.test(attrTextOf(a) ?? ''))) {
+    // like an undeterminable `<svelte:element>`, it rules out the "no <h1>" claim. Only element props and
+    // only h1: `value="h1"` on a toolbar button, or `tag="h3"`, says nothing about the page's <h1>.
+    if (
+      use.attributes.some(
+        (a) => a.type === 'Attribute' && HEADING_TAG_PROPS.has(a.name) && attrTextOf(a)?.trim().toLowerCase() === 'h1'
+      )
+    ) {
       dynamicHeading = true;
     }
 

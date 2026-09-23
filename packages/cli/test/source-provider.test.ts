@@ -218,8 +218,13 @@ describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
     expect(await check(headings)).toEqual([]);
   });
 
-  it('still reports an unresolvable component whose heading prop is not a literal heading tag', async () => {
-    for (const usage of ['<Heading tag={level}>W</Heading>', '<Heading size="h1-ish">W</Heading>']) {
+  it('still reports an unresolvable component whose element prop is not a literal h1', async () => {
+    for (const usage of [
+      '<Heading tag={level}>W</Heading>',
+      '<Heading size="h1-ish">W</Heading>',
+      '<Heading tag="h3">W</Heading>',
+      '<Toggle value="h1">H1</Toggle>'
+    ]) {
       const headings = await headingsFor(`<script>import { Heading } from '@immich/ui';</script>${usage}`);
       expect(headings[0]!.dynamicHeading).toBeUndefined();
       expect(await check(headings)).toEqual(['Missing <h1>']);
