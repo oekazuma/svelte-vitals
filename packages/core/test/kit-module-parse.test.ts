@@ -350,6 +350,21 @@ describe('parseKitModuleFacts — browser-global refs (correctness/server-browse
     ].join('\n');
     expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
   });
+  it('does not treat browser as a guard when its falsy side still runs the read', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'export function load() {',
+      "  if (browser || location.hash === '#x') return { h: true };",
+      '  const a = browser || navigator.userAgent;',
+      '  const b = !browser || navigator.language;',
+      '  return { a, b };',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'location', line: 3, inHandler: true },
+      { name: 'navigator', line: 4, inHandler: true }
+    ]);
+  });
   it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {
     const ssrOff =
       'export const ssr = false;\nconst w = window.innerWidth;\nexport function load() {\n  return { t: document.title };\n}';

@@ -423,6 +423,10 @@ function guardTerminates(consequent: Node): boolean {
  * Over-matching here only widens the skip — a conservative miss, never a false positive.
  */
 function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
+  // `a || b` is truthy on the server whenever `b` is, so it only guards when both sides do.
+  if (test?.type === 'LogicalExpression' && test.operator !== '&&') {
+    return isBrowserGuardTest(test.left, guardBindings) && isBrowserGuardTest(test.right, guardBindings);
+  }
   let guarded = false;
   walkEstree(test, (n) => {
     if (n.type === 'Identifier' && guardBindings.has(n.name)) guarded = true;
@@ -506,7 +510,14 @@ export function collectBrowserGlobalRefs(
     if (EVAL_SCOPE_BOUNDARIES.has(n.type)) return;
 
     if ((n.type === 'IfStatement' || n.type === 'ConditionalExpression') && isBrowserGuardTest(n.test, guards)) return;
-    if (n.type === 'LogicalExpression' && isBrowserGuardTest(n.left, guards)) return;
+    // `browser && x` evaluates `x` only in the browser; `!browser || x` likewise. `browser || x` evaluates `x` on the server.
+    if (
+      n.type === 'LogicalExpression' &&
+      (n.operator === '&&'
+        ? isBrowserGuardTest(n.left, guards)
+        : n.left?.type === 'UnaryExpression' && n.left.operator === '!' && isBrowserGuardTest(n.left.argument, guards))
+    )
+      return;
 
     const introduced = scopeIntroducedNames(n);
     const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
