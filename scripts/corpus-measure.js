@@ -181,7 +181,10 @@ function run({ cli, cache }) {
     const result = measureTarget(target, cli, cache);
     const seconds = ((Date.now() - started) / 1000).toFixed(1);
     if (result.error) console.error(`FAIL  ${result.app} (${seconds}s): ${result.error}`);
-    else console.error(`ok    ${result.app} — exit ${result.exit}, ${result.findings.length} findings (${seconds}s)`);
+    else {
+      const distinct = new Set(result.findings.map((f) => f.key)).size;
+      console.error(`ok    ${result.app} — exit ${result.exit}, ${distinct} distinct findings (${seconds}s)`);
+    }
     apps.push(result);
   }
   return { apps };

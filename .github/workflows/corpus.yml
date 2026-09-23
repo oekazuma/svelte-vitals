@@ -26,8 +26,8 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    # A real run measures the corpus twice in a few minutes; this is a backstop above the
-    # script's own per-app limits.
+    # A normal run measures both sides in minutes. This backstops a hung job; it is not sized for
+    # every app hitting the script's per-app limit on both sides.
     timeout-minutes: 45
     outputs:
       report: ${{ steps.report.outputs.report }}
