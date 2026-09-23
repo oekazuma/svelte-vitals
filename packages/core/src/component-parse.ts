@@ -1273,10 +1273,13 @@ function hasNamingAttr(attributes: Node[]): boolean {
   return ['aria-label', 'aria-labelledby', 'title'].some((name) => hasNamingValue(attributes, name));
 }
 
-/** A tag name with a hyphen is a custom element: it may be form-associated, and its shadow root may
- *  supply content, neither of which is visible here. Treated as unknowable by both a11y scanners. */
+/** A custom element may be form-associated and its shadow root may supply content; a namespaced tag
+ *  (`<enhanced:img>`) is rewritten by a preprocessor into markup not visible here. Treated as
+ *  unknowable by both a11y scanners. */
 function isCustomElement(node: Node): boolean {
-  return node.type === 'RegularElement' && typeof node.name === 'string' && node.name.includes('-');
+  if (node.type !== 'RegularElement' || typeof node.name !== 'string') return false;
+  const tag = node.name.toLowerCase();
+  return tag.includes('-') || !KNOWN_TAGS.has(tag);
 }
 
 /** Named/unknowable verdict for a candidate interactive element's descendant subtree

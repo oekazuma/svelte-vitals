@@ -1507,7 +1507,7 @@ describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', ()
     ].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
   });
-  it('accepts an expression alt, the two label routes, slots and custom elements', () => {
+  it('accepts an expression alt, the two label routes, slots, custom elements and preprocessor tags', () => {
     const src = [
       '<a href="/about"><img src="/l.png" alt={siteName} /></a>',
       '<input type="image" src="/s.png" alt={t} />',
@@ -1515,7 +1515,8 @@ describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', ()
       '<label for="b">Save</label><button id="b"></button>',
       '<button><slot /></button>',
       '<a href="/x"><svelte:fragment /></a>',
-      '<button><my-icon></my-icon></button>'
+      '<button><my-icon></my-icon></button>',
+      '<a href="/s"><enhanced:img src="./s.png" alt="Survey" /></a>'
     ].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
   });
