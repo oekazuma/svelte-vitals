@@ -78,6 +78,7 @@ describe('parse: image loading/srcset capture (performance/lcp-image, performanc
     expect(svg('<img src="/rss.svg?v=2" />')).toBe(true);
     expect(svg('<img src="{base}/icons/rss.svg" />')).toBe(true);
     expect(svg("<script>import logo from '$lib/logo.svg';</script><img src={logo} />")).toBe(true);
+    expect(svg("<img src={'/rss.svg'} />")).toBe(true);
     expect(svg('<img src="/a.jpg" />')).toBeUndefined();
     expect(svg("<script>import hero from '$lib/hero.png';</script><img src={hero} />")).toBeUndefined();
     expect(svg('<img src={url} />')).toBeUndefined();

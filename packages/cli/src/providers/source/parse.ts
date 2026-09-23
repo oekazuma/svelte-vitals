@@ -228,13 +228,17 @@ interface ParsedHeading {
 
 /**
  * Whether an <img> src is known to be an SVG. A mixed value's trailing literal carries the
- * extension (`src="{base}/rss.svg"`), and `src={logo}` resolves through a `*.svg` import.
+ * extension (`src="{base}/rss.svg"`), `src={'/rss.svg'}` is a literal, and `src={logo}` resolves through a
+ * `*.svg` import.
  */
 function isSvgImage(attrs: AST.Attribute[], imports: ImportMap): boolean {
   const value = findAttr(attrs, 'src')?.value;
   if (Array.isArray(value)) {
     const last = value.at(-1);
     return last?.type === 'Text' && isSvgSrc(last.data);
+  }
+  if (value && value !== true && value.expression.type === 'Literal') {
+    return typeof value.expression.value === 'string' && isSvgSrc(value.expression.value);
   }
   if (value && value !== true && value.expression.type === 'Identifier') {
     const from = imports.get(value.expression.name)?.source;
