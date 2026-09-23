@@ -56,7 +56,7 @@ Measured on 16 apps, each pinned to a commit:
 - [sveltejs/realworld](https://github.com/sveltejs/realworld/tree/df796708040f5200ec572b28ab7f88ecee5794dd) (`df79670`)
 - [sveltejs/svelte.dev/apps/svelte.dev](https://github.com/sveltejs/svelte.dev/tree/1c5ddf9ab29dc9c6544bcde40ca53b51b6374532/apps/svelte.dev) (`1c5ddf9`)
 
-5669 of 5669 corpus findings have a verdict.
+5665 of 5665 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision      | Design share  |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | -------------- | ------------- |
@@ -110,7 +110,7 @@ Measured on 16 apps, each pinned to a commit:
 | [`correctness/nonreactive-builtin-state`](../../docs/src/content/docs/rules/correctness/nonreactive-builtin-state.md) | 0               | 0    | —                                     | —              | —             |
 | [`correctness/orphan-effect`](../../docs/src/content/docs/rules/correctness/orphan-effect.md)                         | 0               | 0    | —                                     | —              | —             |
 | [`correctness/orphan-lifecycle`](../../docs/src/content/docs/rules/correctness/orphan-lifecycle.md)                   | 0               | 0    | —                                     | —              | —             |
-| [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 36              | 6    | 16 / 4 / 16 / 0                       | 80% (16/20)    | 44% (16/36)   |
+| [`correctness/prop-mutation`](../../docs/src/content/docs/rules/correctness/prop-mutation.md)                         | 32              | 6    | 16 / 0 / 16 / 0                       | 100% (16/16)   | 50% (16/32)   |
 | [`correctness/server-browser-global`](../../docs/src/content/docs/rules/correctness/server-browser-global.md)         | 0               | 0    | —                                     | —              | —             |
 | [`correctness/stale-prop-derivation`](../../docs/src/content/docs/rules/correctness/stale-prop-derivation.md)         | 27              | 4    | 6 / 0 / 21 / 0                        | 100% (6/6)     | 78% (21/27)   |
 | [`correctness/unmutated-state`](../../docs/src/content/docs/rules/correctness/unmutated-state.md)                     | 23              | 4    | 23 / 0 / 0 / 0                        | 100% (23/23)   | 0% (0/23)     |

@@ -12,7 +12,7 @@
 
   let { data } = $props();
 
-  const compact = Object.keys(data.stats).length > 3;
+  const compact = $derived(Object.keys(data.stats).length > 3);
 
   // Mutated only through the {#each} item below — still a mutation of `settings`.
   let settings = $state([
