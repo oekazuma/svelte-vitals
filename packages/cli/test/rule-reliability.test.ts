@@ -1,12 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { allRules } from '@svelte-vitals/core/internal';
-import { LOCALES, digest, extractBlock, normalizeBlock, pagePath, renderBlock } from '../scripts/rule-reliability.js';
+import { digest, extractBlock, normalizeBlock, renderBlock, reportPath } from '../scripts/rule-reliability.js';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
-const docsRoot = join(repoRoot, 'docs', 'src', 'content', 'docs');
 const corpusDir = join(repoRoot, 'scripts', 'corpus');
 const readJson = (name: string) => JSON.parse(readFileSync(join(corpusDir, name), 'utf8'));
 const REGENERATE =
@@ -15,7 +14,7 @@ const REGENERATE =
 const measurement = readJson('measurement.json');
 const targets = readJson('targets.json');
 
-describe('docs: the rule reliability pages match the committed corpus measurement', () => {
+describe('scripts/corpus/README.md matches the committed corpus measurement', () => {
   it('measures every registered rule', () => {
     const missing = allRules.map((rule) => rule.id).filter((id) => !(id in measurement.rules));
     expect(missing, REGENERATE).toEqual([]);
@@ -26,13 +25,8 @@ describe('docs: the rule reliability pages match the committed corpus measuremen
     expect(measurement.verdicts, REGENERATE).toBe(digest(readJson('verdicts.json')));
   });
 
-  for (const locale of LOCALES) {
-    const file = pagePath(docsRoot, locale);
-    it(`matches the generator: ${relative(docsRoot, file)}`, () => {
-      const committed = extractBlock(readFileSync(file, 'utf8'));
-      expect(normalizeBlock(committed), REGENERATE).toBe(
-        normalizeBlock(renderBlock(locale, allRules, measurement, targets))
-      );
-    });
-  }
+  it('matches the generator', () => {
+    const committed = extractBlock(readFileSync(reportPath(repoRoot), 'utf8'));
+    expect(normalizeBlock(committed), REGENERATE).toBe(normalizeBlock(renderBlock(allRules, measurement, targets)));
+  });
 });

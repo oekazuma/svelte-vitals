@@ -15,11 +15,10 @@ import { tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
 import { parseArgs } from 'node:util';
 import {
-  LOCALES,
   VERDICTS,
   appId,
   digest,
-  pagePath,
+  reportPath,
   renderBlock,
   replaceBlock
 } from '../packages/cli/scripts/rule-reliability.js';
@@ -259,21 +258,50 @@ function diff(before, after, verdicts, measurement) {
   const rows = [];
   const added = new Map();
   const removed = new Map();
+  const precisionOf = (keys) => {
+    let tp = 0;
+    let fp = 0;
+    for (const key of keys.keys()) {
+      const verdict = verdicts.get(key)?.verdict;
+      if (verdict === 'tp') tp++;
+      else if (verdict === 'fp') fp++;
+    }
+    return tp + fp === 0 ? '—' : `${Math.round((100 * tp) / (tp + fp))}% (${tp}/${tp + fp})`;
+  };
   for (const rule of [...new Set([...a.keys(), ...b.keys()])].sort()) {
     const was = a.get(rule) ?? new Map();
     const now = b.get(rule) ?? new Map();
     const plus = [...now.values()].filter((f) => !was.has(f.key));
     const minus = [...was.values()].filter((f) => !now.has(f.key));
-    if (plus.length === 0 && minus.length === 0) continue;
+    const [p0, p1] = [precisionOf(was), precisionOf(now)];
+    if (plus.length === 0 && minus.length === 0 && p0 === p1) continue;
     const net = plus.length - minus.length;
     rows.push(
-      `| \`${rule}\` | ${was.size} | ${now.size} | +${plus.length} | -${minus.length} | ${net > 0 ? '+' : ''}${net} |`
+      `| \`${rule}\` | ${was.size} | ${now.size} | +${plus.length} | -${minus.length} | ${net > 0 ? '+' : ''}${net} | ${p0 === p1 ? p1 : `${p0} → ${p1}`} |`
     );
     if (plus.length) added.set(rule, plus);
     if (minus.length) removed.set(rule, minus);
   }
 
+  // The gate: a change may not silently drop a finding already judged real, or bring back one
+  // judged false. Changing the verdict in verdicts.json in the same PR is the explicit way through.
+  const lostTp = [...removed.values()].flat().filter((f) => verdicts.get(f.key)?.verdict === 'tp');
+  const backFp = [...added.values()].flat().filter((f) => verdicts.get(f.key)?.verdict === 'fp');
+  const failures = [];
+  if (lostTp.length)
+    failures.push(
+      `${lostTp.length} finding(s) with a \`tp\` verdict are no longer reported (a real defect is now missed)`
+    );
+  if (backFp.length) failures.push(`${backFp.length} finding(s) with an \`fp\` verdict are reported again`);
+
   const out = ['## Corpus findings', ''];
+  const stale =
+    measurement &&
+    !after.apps.some((app) => app.error) &&
+    JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules);
+  if (stale) failures.push('`scripts/corpus/measurement.json` is stale — run `pnpm corpus update`');
+  if (failures.length) out.push('**❌ Corpus gate failed**', '', ...failures.map((f) => `- ${f}`), '');
+  else out.push('**✅ Corpus gate passed**', '');
   for (const [label, measured] of [
     ['base', before],
     ['head', after]
@@ -292,8 +320,8 @@ function diff(before, after, verdicts, measurement) {
     out.push(
       `Distinct findings (\`app::rule::file:line::claim\`) on ${targets.length} pinned apps. ${unlabeled} added finding(s) have no verdict in \`scripts/corpus/verdicts.json\`.`,
       '',
-      '| rule | base | head | added | removed | net |',
-      '| --- | ---: | ---: | ---: | ---: | ---: |',
+      '| rule | base | head | added | removed | net | precision |',
+      '| --- | ---: | ---: | ---: | ---: | ---: | --- |',
       ...rows,
       '',
       ...listFindings('Added', added, verdicts, true),
@@ -301,12 +329,7 @@ function diff(before, after, verdicts, measurement) {
     );
   }
 
-  if (measurement && !after.apps.some((app) => app.error)) {
-    const now = aggregate(after, verdicts, Object.keys(measurement.rules));
-    if (JSON.stringify(now) !== JSON.stringify(measurement.rules))
-      out.push('`scripts/corpus/measurement.json` is stale — run `pnpm corpus update`.', '');
-  }
-  return out.join('\n');
+  return { text: out.join('\n'), failures };
 }
 
 async function update({ cache }) {
@@ -328,11 +351,8 @@ async function update({ cache }) {
   };
   writeFileSync(measurementFile, `${JSON.stringify(measurement, null, 2)}\n`);
 
-  const docsRoot = join(root, 'docs/src/content/docs');
-  for (const locale of LOCALES) {
-    const file = pagePath(docsRoot, locale);
-    writeFileSync(file, replaceBlock(readFileSync(file, 'utf8'), renderBlock(locale, allRules, measurement, targets)));
-  }
+  const report = reportPath(root);
+  writeFileSync(report, replaceBlock(readFileSync(report, 'utf8'), renderBlock(allRules, measurement, targets)));
 
   const found = new Set(measured.apps.flatMap((a) => a.findings.map((f) => f.key)));
   const orphans = ledger.filter((e) => !found.has(e.key));
@@ -341,16 +361,11 @@ async function update({ cache }) {
   );
   if (orphans.length) {
     console.log(
-      `${orphans.length} verdict(s) match no finding (fixed, or moved lines) — drop them from verdicts.json:`
+      `${orphans.length} verdict(s) match no finding. Keep an \`fp\` one: it fails the gate if that false positive returns. Drop the rest:`
     );
     for (const o of orphans) console.log(`  ${o.key} (${o.verdict})`);
   }
-  // The en page's raw text is what the translation ledger hashes, and both halves were just
-  // regenerated from the same data, so re-stamping here is an honest assertion.
-  console.log(
-    '\nUpdated scripts/corpus/measurement.json and the Rule reliability pages (en + ja). Now run:\n' +
-      '  pnpm format && pnpm --filter docs run translate:stamp "src/content/docs/guides/(reporting)/rule-reliability.md"'
-  );
+  console.log('\nUpdated scripts/corpus/measurement.json and scripts/corpus/README.md. Now run: pnpm format');
 }
 
 async function main() {
@@ -373,7 +388,10 @@ async function main() {
   } else if (command === 'diff' && files.length === 2) {
     const [before, after] = files.map(readJson);
     const measurement = values.measurement ? readJson(values.measurement) : undefined;
-    console.log(diff(before, after, verdictMap(), measurement));
+    const { text, failures } = diff(before, after, verdictMap(), measurement);
+    console.log(text);
+    // Distinct from 1, which an uncaught error also exits with.
+    if (failures.length) process.exitCode = 3;
   } else if (command === 'update') {
     await update({ cache });
   } else {

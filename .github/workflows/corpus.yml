@@ -3,8 +3,10 @@ name: Corpus
 # Measures the PR's findings on the pinned third-party corpus against its base and reports what
 # changed. Design: docs/superpowers/specs/2026-09-23-corpus-precision-design.md
 #
-# Never PR-blocking and not a required check: it reports what a change adds or removes on real
-# code, and the reviewer decides. The docs drift test in `test` is the only gate on this data.
+# Reports what a change adds or removes on real code, like a coverage comment. The `gate` job fails
+# when a finding with a `tp` verdict disappears, one with an `fp` verdict comes back, or
+# measurement.json is stale; editing the verdict in scripts/corpus/verdicts.json is the explicit way
+# through. Whether `gate` blocks merging is the ruleset's call, not this file's.
 on:
   pull_request:
     paths:
@@ -31,6 +33,7 @@ jobs:
     timeout-minutes: 45
     outputs:
       report: ${{ steps.report.outputs.report }}
+      failed: ${{ steps.report.outputs.failed }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -61,7 +64,11 @@ jobs:
       - name: Diff
         id: report
         run: |
-          node scripts/corpus-measure.js diff "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" --measurement scripts/corpus/measurement.json > "$RUNNER_TEMP/report.md"
+          status=0
+          node scripts/corpus-measure.js diff "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" --measurement scripts/corpus/measurement.json > "$RUNNER_TEMP/report.md" || status=$?
+          # 3 is the gate failing; anything else non-zero is the script itself failing.
+          if [ "$status" -ne 0 ] && [ "$status" -ne 3 ]; then exit "$status"; fi
+          echo "failed=$([ "$status" -eq 3 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
           cat "$RUNNER_TEMP/report.md" >> "$GITHUB_STEP_SUMMARY"
           # A PR comment holds 65536 characters; the summary above keeps the full report.
           if [ "$(wc -c < "$RUNNER_TEMP/report.md")" -gt 60000 ]; then
@@ -97,3 +104,15 @@ jobs:
           else
             gh api "repos/$REPO/issues/$PR/comments" -F body=@body.md > /dev/null
           fi
+
+  gate:
+    needs: measure
+    permissions: {}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fail on a lost true positive, a returning false positive, or a stale measurement
+        if: needs.measure.outputs.failed == 'true'
+        run: |
+          echo "::error::Corpus gate failed — see the PR comment or the measure job summary."
+          exit 1
