@@ -747,6 +747,7 @@ export function parseKitModuleFacts(
   // local name -> exported name, so arbitration can look up the right export of the target
   // module when the import is aliased (`import { db as store }`).
   const importedNames = new Map<string, string>();
+  const namespaceImports = new Set<string>();
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
     const spec = typeof stmt.source?.value === 'string' ? stmt.source.value : '';
@@ -755,6 +756,7 @@ export function parseKitModuleFacts(
       if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
       names.push(s.local.name);
       importedSpecifiers.set(s.local.name, spec);
+      if (s.type === 'ImportNamespaceSpecifier') namespaceImports.add(s.local.name);
       importedNames.set(
         s.local.name,
         s.type === 'ImportSpecifier' && s.imported?.type === 'Identifier' ? s.imported.name : s.local.name
@@ -857,7 +859,10 @@ export function parseKitModuleFacts(
       if (r) write = { name: r, via: 'assignment' };
     } else if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
       const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
-      if (method === 'set' || method === 'update') {
+      // `ns.update(...)` on `import * as ns` calls the module's exported function; a store on it
+      // would be `ns.store.update(...)`.
+      const nsFunction = n.callee.object?.type === 'Identifier' && namespaceImports.has(n.callee.object.name);
+      if ((method === 'set' || method === 'update') && !nsFunction) {
         const r = importedRoot(n.callee.object);
         const spec = r ? importedSpecifiers.get(r)! : undefined;
         if (r && spec !== undefined) {
