@@ -182,6 +182,11 @@ function dedupeCauses(causes: A11ySkipCause[]): A11ySkipCause[] {
 }
 
 /** Paths are shared across every route that uses a parsed file — re-address by copying. */
+/** Every robots meta renders and crawlers obey the most restrictive one, so none may override another. */
+function isRobotsMeta(tag: { kind: string; name?: string }): boolean {
+  return tag.kind === 'meta' && tag.name === 'robots';
+}
+
 function offsetPath(path: BranchStep[], base: number): BranchStep[] {
   return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
 }
@@ -350,7 +355,12 @@ async function resolveRoute(
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
       const stamped: HeadTag = { ...tag, presence: isPage ? 'own' : 'inherited', file: rel };
-      if (tag.kind === 'jsonld' || tag.kind === 'script' || (tag.kind === 'link' && tag.rel !== 'canonical'))
+      if (
+        tag.kind === 'jsonld' ||
+        tag.kind === 'script' ||
+        (tag.kind === 'link' && tag.rel !== 'canonical') ||
+        isRobotsMeta(tag)
+      )
         additiveTags.push(stamped);
       else composed.set(tagKey(tag), stamped);
     }
@@ -372,8 +382,9 @@ async function resolveRoute(
   }
   // After the broad fill: an opaque meta component may override the shell's literal.
   for (const tag of appHtmlHeadTags ?? []) {
-    const key = tagKey(tag);
-    if (!composed.has(key)) composed.set(key, { ...tag, presence: 'inherited', file: 'src/app.html' });
+    const stamped: HeadTag = { ...tag, presence: 'inherited', file: 'src/app.html' };
+    if (isRobotsMeta(tag)) additiveTags.push(stamped);
+    else if (!composed.has(tagKey(tag))) composed.set(tagKey(tag), stamped);
   }
 
   const idNodes = a11yNodes.filter((n) => n.kind === 'id');

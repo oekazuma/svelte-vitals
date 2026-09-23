@@ -135,4 +135,19 @@ describe('collectAll: app.html head tags', () => {
     // An opaque meta component may set the title, so the shell's literal must not stand in for it.
     expect(tagsOf('/c').find((t) => t.kind === 'title')).toEqual({ kind: 'title', value: 'dynamic', presence: 'own' });
   });
+  it('keeps every robots meta — the shell, layout and page ones all render', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': APP_HTML.replace('%sveltekit.head%', '<meta name="robots" content="noindex" />\n    %sveltekit.head%'),
+      'src/routes/+layout.svelte': `<svelte:head><meta name="robots" content="noindex" /></svelte:head><slot />`,
+      'src/routes/a/+page.svelte': `<svelte:head><meta name="robots" content="index, follow" /></svelte:head><h1>A</h1>`
+    });
+
+    const { heads } = await collectAll(rt, '', defaultConfig);
+    const robots = heads.find((h) => h.route === '/a')!.tags.filter((t) => t.kind === 'meta' && t.name === 'robots');
+    expect(robots.map((t) => [t.file, t.noindex === true])).toEqual([
+      ['src/routes/+layout.svelte', true],
+      ['src/routes/a/+page.svelte', false],
+      ['src/app.html', true]
+    ]);
+  });
 });
