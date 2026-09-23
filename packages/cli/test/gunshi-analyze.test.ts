@@ -75,14 +75,14 @@ describe('unknown flags never swallow the analyzed path', () => {
   // positional as its own value — unlike node:util's parseArgs(strict:false), which treats the
   // same shape as boolean and leaves the positional alone (verified against both parsers).
   // gunshi/analyze.ts's stripUnknownFlags removes the unrecognized token before gunshi ever sees
-  // it, so the follower always survives. cli-contract.test.ts's own 'unknown flag is silently
-  // ignored' cell already pins the flag-before-path shape end to end; these add the reverse order
+  // it, so the follower always survives. cli-contract.test.ts's own 'unknown flag is ignored
+  // with a warning' cell already pins the flag-before-path shape end to end; these add the reverse order
   // and a short-flag typo.
   it('an unknown flag after the path leaves the path alone', async () => {
     const dir = tmpProjectDir();
     const { code, err } = await run([dir, '--nonsense-flag']);
     expect(code).toBe(2);
-    expect(err).not.toContain('nonsense-flag');
+    expect(err).toContain('unknown flag --nonsense-flag ignored');
     expect(err).toContain('No SvelteKit project found');
   });
 
