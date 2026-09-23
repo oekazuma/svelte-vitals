@@ -209,6 +209,32 @@ describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
     expect(headings[0]!.dynamicHeading).toBe(true);
     expect(await check(headings)).toEqual([]);
   });
+
+  it('skips the route when an unresolvable component is given a literal heading tag', async () => {
+    const headings = await headingsFor(
+      `<script>import { Heading } from '@immich/ui';</script><Heading tag="h1" size="large">Welcome</Heading>`
+    );
+    expect(headings[0]!.dynamicHeading).toBe(true);
+    expect(await check(headings)).toEqual([]);
+  });
+
+  it('still reports an unresolvable component whose heading prop is not a literal heading tag', async () => {
+    for (const usage of ['<Heading tag={level}>W</Heading>', '<Heading size="h1-ish">W</Heading>']) {
+      const headings = await headingsFor(`<script>import { Heading } from '@immich/ui';</script>${usage}`);
+      expect(headings[0]!.dynamicHeading).toBeUndefined();
+      expect(await check(headings)).toEqual(['Missing <h1>']);
+    }
+  });
+
+  it('follows a resolvable component instead of trusting its heading prop', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<script>import Heading from '$lib/Heading.svelte';</script><Heading tag="h1" />`,
+      'src/lib/Heading.svelte': '<p>not a heading</p>'
+    });
+    const { headings } = await collectRoutes(rt, '');
+    expect(headings[0]!.dynamicHeading).toBeUndefined();
+    expect(await check(headings)).toEqual(['Missing <h1>']);
+  });
 });
 
 describe('collectRoutes componentHeadings (issue #425)', () => {

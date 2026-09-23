@@ -1,9 +1,11 @@
 import type { Config } from '@svelte-vitals/core';
 import type { HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
-import { resolveRepoLocalPath } from '@svelte-vitals/core/internal';
+import { attrTextOf, resolveRepoLocalPath } from '@svelte-vitals/core/internal';
 import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { parseFile } from './parse.js';
+
+const HEADING_TAG_VALUE = /^h[1-6]$/i;
 
 interface ResolveResult {
   tags: ParsedTag[];
@@ -14,7 +16,7 @@ interface ResolveResult {
    * including them here too would double-count).
    */
   headings: HeadingInfo[];
-  /** Any strict descendant has a `<svelte:element>` that may render a heading of an undetermined level. */
+  /** A heading of an undetermined level may render: a descendant's `<svelte:element>`, or an unfollowable component given a literal heading tag. */
   dynamicHeading: boolean;
 }
 
@@ -164,6 +166,12 @@ export async function resolveFileTags(
         dynamicHeading = dynamicHeading || childParsed.dynamicHeading || child.dynamicHeading;
         continue;
       }
+    }
+
+    // A component we cannot follow may render its heading from a prop (`<Heading tag="h1">`), so,
+    // like an undeterminable `<svelte:element>`, it rules out the "no <h1>" claim.
+    if (use.attributes.some((a) => a.type === 'Attribute' && HEADING_TAG_VALUE.test(attrTextOf(a) ?? ''))) {
+      dynamicHeading = true;
     }
 
     // Layer 4, a fallback, never an override: a declared meta component is only credited as a
