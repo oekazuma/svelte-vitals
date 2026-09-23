@@ -427,6 +427,22 @@ describe('parseKitModuleFacts — ssrDisabled (seo/ssr-disabled)', () => {
   });
 });
 
+describe('parseKitModuleFacts — ssrEnabled (app-wide ssr = false override)', () => {
+  it('is set when ssr is exported as anything but literal false', () => {
+    expect(facts('export const ssr = true;', 'src/routes/+page.ts').ssrEnabled).toBe(true);
+    expect(
+      facts("import { dev } from '$app/environment';\nexport const ssr = dev;", 'src/routes/+page.ts').ssrEnabled
+    ).toBe(true);
+    expect(facts('const ssr = true;\nexport { ssr };', 'src/routes/+page.server.ts').ssrEnabled).toBe(true);
+    expect(facts("export { ssr } from './options';", 'src/routes/+layout.ts').ssrEnabled).toBe(true);
+  });
+  it('is absent for a literal ssr = false and when ssr is not exported', () => {
+    expect(facts('export const ssr = false;', 'src/routes/+page.ts').ssrEnabled).toBeUndefined();
+    expect(facts('const ssr = false;\nexport { ssr };', 'src/routes/+page.ts').ssrEnabled).toBeUndefined();
+    expect(facts('export const csr = true;\nconst ssr = true;', 'src/routes/+page.ts').ssrEnabled).toBeUndefined();
+  });
+});
+
 const prefix = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'prefix' });
 const contents = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'contents' });
 const exact = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'exact' });

@@ -42,6 +42,8 @@ export interface KitModuleFacts {
   basePathLinks: BasePathLinkFact[];
   /** Set when this file disables SSR via `export const ssr = false` (inline or same-file alias export) — the declaration's line (seo/ssr-disabled). */
   ssrDisabled?: { line: number };
+  /** Set when this file exports `ssr` as anything but a literal `false` (`true`, a computed value, a re-export) — it may turn SSR back on under a root layout's `ssr = false` (see `appSsrDisabled`). */
+  ssrEnabled?: true;
   /** Set when this file disables client-side rendering via `export const csr = false` (inline or same-file alias export). With no client runtime, a universal load only runs during SSR — performance/load-waterfall's browser-waterfall premise doesn't hold. */
   csrDisabled?: { line: number };
   /** Sequential-await analysis of the exported `load` function (performance/load-waterfall, performance/sequential-awaits): 1-based lines of await sites that depend on an earlier await's result, and of sites independent of all earlier awaits. Set only when at least one list is non-empty. */
@@ -52,4 +54,34 @@ export interface KitModuleFacts {
   parseFailed?: true;
   /** Set when the file could not be READ — an environment problem, not a malformed module. */
   readFailed?: true;
+}
+
+/** The root layout — its page options cover the whole app. */
+export const ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
+
+/** Files whose `ssr` export is a page option — it has no effect in `+server` endpoints or hooks files. */
+export const PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
+
+const appSsrCache = new WeakMap<readonly KitModuleFacts[], boolean>();
+
+/**
+ * Whether no page is ever server-rendered: the root layout exports `ssr = false` and no page-option
+ * file might turn it back on. Universal loads and components then run only in the browser; server
+ * files (`+page.server`, `+server`, hooks) still run on the server.
+ */
+export function appSsrDisabled(kitModules: readonly KitModuleFacts[] | undefined): boolean {
+  if (!kitModules) return false;
+  let hit = appSsrCache.get(kitModules);
+  if (hit === undefined) {
+    hit =
+      kitModules.some((m) => m.ssrDisabled && ROOT_LAYOUT_RE.test(m.file)) &&
+      !kitModules.some((m) => PAGE_OPTION_FILE_RE.test(m.file) && (m.ssrEnabled || m.parseFailed));
+    appSsrCache.set(kitModules, hit);
+  }
+  return hit;
+}
+
+/** Whether a universal `+page`/`+layout` module never runs on the server — its own `ssr = false` or an app-wide one. */
+export function universalNeverSsr(m: KitModuleFacts, kitModules: readonly KitModuleFacts[] | undefined): boolean {
+  return m.kind === 'universal' && (m.ssrDisabled !== undefined || appSsrDisabled(kitModules));
 }

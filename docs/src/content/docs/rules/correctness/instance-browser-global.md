@@ -15,6 +15,8 @@ Flags reads of browser-only globals (the same list as [correctness/server-browse
 
 This is a **warning**, not critical: a component that is only ever rendered behind a parent's `{#if browser}` (or dynamically imported on the client) legitimately never runs on the server, and that cannot be proven from the component file alone. If that is your case, add `// svelte-vitals-disable-next-line correctness/instance-browser-global` above the line.
 
+Nothing is flagged when SSR is off app-wide, meaning a root `src/routes/+layout.ts` (or `+layout.server.ts`) that exports `ssr = false`, as long as no other `+page`/`+layout` file exports `ssr` with any other value. No component is then rendered on the server.
+
 A browser global used only as a `$props()` destructuring default (`let { width = window.innerWidth } = $props()`) is not flagged either. The default only evaluates when the prop is absent, including during SSR, but the scanner doesn't visit destructuring defaults. This is a silent conservative miss, not a guard.
 
 ## How to fix

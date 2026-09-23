@@ -1,10 +1,5 @@
 import { kitModuleRule } from '../kit-module-rule.js';
-
-/** The root layout — disabling SSR there turns the whole app into an SPA. */
-const ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
-
-/** `ssr` is a page option — it has no effect in `+server` endpoints or hooks files. */
-const PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
+import { PAGE_OPTION_FILE_RE, ROOT_LAYOUT_RE } from '../../kit-module.js';
 
 export const seoSsrDisabled = kitModuleRule({
   id: 'seo/ssr-disabled',

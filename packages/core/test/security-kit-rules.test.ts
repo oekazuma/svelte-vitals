@@ -86,6 +86,26 @@ describe('security/handler-state-write handler writes imported state', () => {
     );
     expect(fails(server)).toHaveLength(1);
   });
+  it('treats a root-layout ssr = false as app-wide, for universal files only', async () => {
+    const writes: KitModuleFacts['importedStateWrites'] = [{ name: 'user', line: 3, via: 'set-call' }];
+    const rootOff = kit({ file: 'src/routes/+layout.ts', kind: 'universal', ssrDisabled: { line: 1 } });
+    const files = [
+      rootOff,
+      kit({ file: 'src/routes/a/+page.ts', kind: 'universal', importedStateWrites: writes }),
+      kit({ file: 'src/routes/a/+page.server.ts', kind: 'server', importedStateWrites: writes }),
+      kit({ file: 'src/hooks.server.ts', kind: 'server', importedStateWrites: writes })
+    ];
+    const rs = await securityHandlerStateWrite.check(ctx(files));
+    expect(fails(rs).map((r) => r.route)).toEqual(['src/routes/a/+page.server.ts', 'src/hooks.server.ts']);
+    const reEnabled = await securityHandlerStateWrite.check(
+      ctx([...files, kit({ file: 'src/routes/b/+page.server.ts', kind: 'server', ssrEnabled: true })])
+    );
+    expect(fails(reEnabled)).toHaveLength(3);
+    const nestedOff = await securityHandlerStateWrite.check(
+      ctx([{ ...rootOff, file: 'src/routes/(app)/+layout.ts' }, ...files.slice(1)])
+    );
+    expect(fails(nestedOff)).toHaveLength(3);
+  });
 });
 
 describe('security/server-module-state server module-scope state', () => {
@@ -189,6 +209,16 @@ describe('security/shared-state-import shared runes-state import on the server',
       )
     );
     expect(fails(server)).toHaveLength(1);
+  });
+  it('treats a root +layout.server ssr = false as app-wide unless a page file may re-enable it', async () => {
+    const components = [stateModule('src/lib/quiz.svelte.js')];
+    const files = [
+      kit({ file: 'src/routes/+layout.server.ts', kind: 'server', ssrDisabled: { line: 1 } }),
+      kit({ file: 'src/routes/+page.ts', kind: 'universal', runesModuleImports: [imp] })
+    ];
+    expect(fails(await securitySharedStateImport.check(ctx(files, { components })))).toHaveLength(0);
+    const unparsed = kit({ file: 'src/routes/x/+layout.ts', kind: 'universal', parseFailed: true });
+    expect(fails(await securitySharedStateImport.check(ctx([...files, unparsed], { components })))).toHaveLength(1);
   });
 });
 
