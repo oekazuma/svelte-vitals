@@ -1962,6 +1962,8 @@ function collectLegacyPropNames(program: Node): Set<string> {
   const names = new Set<string>();
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ExportNamedDeclaration' || stmt.declaration?.type !== 'VariableDeclaration') continue;
+    // `export const` is a read-only instance export, not a prop — in runes mode too.
+    if (stmt.declaration.kind === 'const') continue;
     for (const d of stmt.declaration.declarations ?? []) {
       if (d?.id?.type === 'Identifier') names.add(d.id.name);
     }
@@ -1994,20 +1996,20 @@ const MUTATING_METHODS = new Set([
  * reassignment for ephemeral state; only mutation is prohibited. Run over the instance
  * program AND the template fragment (inline handlers can mutate props in the template).
  * Scope-aware (issue #140): a local that shadows the prop's name is not flagged.
- * `legacy` (export let props) flags only `delete` and mutating method calls — the legacy compiler
- * turns a member write or update into an invalidating assignment (`prop(prop().x = …, true)`).
+ * A `legacy` (export let) prop is flagged only for `delete` and mutating method calls — the legacy
+ * compiler turns a member write or update into an invalidating assignment (`prop(prop().x = …, true)`).
  */
 function collectPropMutations(
   root: Node,
   propNames: Set<string>,
   source: string,
   acc: { name: string; line: number }[],
-  legacy: boolean
+  legacy: Set<string>
 ): void {
   if (propNames.size === 0) return;
   // Legacy idiom `items.push(x); items = items;`: a reassignment in the same function invalidates the mutation.
   const reassignedInFn = new Set<Node>();
-  if (legacy) {
+  if (legacy.size > 0) {
     walkEstree(root, (fn: Node) => {
       if (!isDeferredBody(fn)) return;
       const assigned = new Set<string>();
@@ -2016,7 +2018,7 @@ function collectPropMutations(
       });
       walkEstree(fn.body, (m: Node) => {
         const r = m.type === 'CallExpression' ? rootObjectName(m.callee?.object) : undefined;
-        if (r && assigned.has(r)) reassignedInFn.add(m);
+        if (r && legacy.has(r) && assigned.has(r)) reassignedInFn.add(m);
       });
     });
   }
@@ -2024,12 +2026,13 @@ function collectPropMutations(
     const flag = (r: string | undefined) => {
       if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
     };
-    if (legacy && (n.type === 'AssignmentExpression' || n.type === 'UpdateExpression')) return;
     if (reassignedInFn.has(n)) return;
     if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
-      flag(rootObjectName(n.left));
+      const r = rootObjectName(n.left);
+      if (r && !legacy.has(r)) flag(r);
     } else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
-      flag(rootObjectName(n.argument));
+      const r = rootObjectName(n.argument);
+      if (r && !legacy.has(r)) flag(r);
     } else if (n.type === 'UnaryExpression' && n.operator === 'delete') {
       flag(rootObjectName(n.argument));
     } else if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
@@ -2524,9 +2527,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     const legacyPropNames = collectLegacyPropNames(program);
     const nonBindableProps = new Set([...collectPropNames(program, false), ...legacyPropNames]);
     const rawMutations: { name: string; line: number }[] = [];
+    collectPropMutations(program, nonBindableProps, source, rawMutations, legacyPropNames);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations, legacyPropNames);
     const isLegacy = legacyPropNames.size > 0;
-    collectPropMutations(program, nonBindableProps, source, rawMutations, isLegacy);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations, isLegacy);
     for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
     const allPropNames = new Set([...collectPropNames(program, true), ...legacyPropNames]);
     if (allPropNames.size > 0) {

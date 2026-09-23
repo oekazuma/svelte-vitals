@@ -542,6 +542,11 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
       names('<script>let { items } = $props(); function add(x) { items.push(x); items = items; }</script>')
     ).toEqual(['items']);
   });
+  it('treats an `export const` in a runes component as an instance export, not a legacy prop', () => {
+    const src =
+      '<script>let { sel } = $props(); export const reset = () => {}; function f() { sel.all = true; }</script>';
+    expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'sel', line: 1 }]);
+  });
 });
 
 describe('parseComponentFacts — suppression directives (issue #92)', () => {
