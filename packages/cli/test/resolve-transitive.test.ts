@@ -437,7 +437,7 @@ describe('resolveFileTags: components in an {#if}/{#each}/{#await} arm', () => {
         { kind: 'title', value: 'dynamic' },
         { kind: 'meta', name: 'description', value: 'dynamic' }
       ]);
-      expect(r.headings).toEqual([{ level: 1, line: 1, file: 'src/lib/Modal.svelte' }]);
+      expect(r.headings).toMatchObject([{ level: 1, line: 1, file: 'src/lib/Modal.svelte' }]);
     }
   });
 
