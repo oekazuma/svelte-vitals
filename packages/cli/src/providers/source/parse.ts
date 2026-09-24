@@ -251,37 +251,81 @@ function isSvgImage(attrs: AST.Attribute[], imports: ImportMap): boolean {
   return false;
 }
 
-function collectImages(
+/** Each name's first `{#snippet}` definition, and every name some `{@render name(…)}` calls. */
+function indexSnippets(
   node: WalkNode | WalkNode[] | null | undefined,
-  source: string,
-  imports: ImportMap,
-  acc: ParsedImage[]
+  acc: { snippets: Map<string, AST.SnippetBlock>; rendered: Set<string> }
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectImages(child, source, imports, acc);
+    for (const child of node) indexSnippets(child, acc);
     return;
   }
   if (!node || typeof node !== 'object') return;
-  if (node.type === 'RegularElement' && node.name === 'img') {
-    // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
-    // are filtered out internally, so this widening cast is safe.
-    const attrs = node.attributes as AST.Attribute[];
-    const hasSpread = node.attributes.some((a) => a.type === 'SpreadAttribute');
-    acc.push({
-      hasWidth: hasSpread || Boolean(findAttr(attrs, 'width')),
-      hasHeight: hasSpread || Boolean(findAttr(attrs, 'height')),
-      hasLoading: hasSpread || Boolean(findAttr(attrs, 'loading')),
-      hasAlt: hasSpread || Boolean(findAttr(attrs, 'alt')),
-      // A literal loading="lazy" only — a spread or dynamic loading={…} must not be flagged.
-      lazy: attrText(attrs, 'loading') === 'lazy',
-      hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')),
-      ...(isSvgImage(attrs, imports) ? { svg: true } : {}),
-      line: lineOf(source, node.start)
-    });
+  if (node.type === 'SnippetBlock' && !acc.snippets.has(node.expression.name))
+    acc.snippets.set(node.expression.name, node);
+  if (node.type === 'RenderTag') {
+    const name = renderCallee(node);
+    if (name) acc.rendered.add(name);
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectImages(childOf(node, key), source, imports, acc);
+    if (key in node) indexSnippets(childOf(node, key), acc);
   }
+}
+
+/**
+ * `<img>` elements in render order (performance/lcp-image reads the first): a snippet's images
+ * sit at its first in-file `{@render}`, not at its definition. A snippet this file never renders
+ * (passed to a component) keeps its definition position, since where it renders is unknown.
+ */
+function collectImages(fragment: AST.Fragment, source: string, imports: ImportMap): ParsedImage[] {
+  const acc: ParsedImage[] = [];
+  const index = { snippets: new Map<string, AST.SnippetBlock>(), rendered: new Set<string>() };
+  indexSnippets(fragment, index);
+  const emitted = new Set<AST.SnippetBlock>();
+  const walk = (node: WalkNode | WalkNode[] | null | undefined): void => {
+    if (Array.isArray(node)) {
+      for (const child of node) walk(child);
+      return;
+    }
+    if (!node || typeof node !== 'object') return;
+    if (node.type === 'SnippetBlock') {
+      const name = node.expression.name;
+      if (index.snippets.get(name) === node && index.rendered.has(name)) return;
+      emitted.add(node);
+    }
+    if (node.type === 'RenderTag') {
+      const snippet = index.snippets.get(renderCallee(node) ?? '');
+      if (snippet && !emitted.has(snippet)) {
+        emitted.add(snippet);
+        walk(snippet.body);
+      }
+      return;
+    }
+    if (node.type === 'RegularElement' && node.name === 'img') {
+      // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
+      // are filtered out internally, so this widening cast is safe.
+      const attrs = node.attributes as AST.Attribute[];
+      const hasSpread = node.attributes.some((a) => a.type === 'SpreadAttribute');
+      acc.push({
+        hasWidth: hasSpread || Boolean(findAttr(attrs, 'width')),
+        hasHeight: hasSpread || Boolean(findAttr(attrs, 'height')),
+        hasLoading: hasSpread || Boolean(findAttr(attrs, 'loading')),
+        hasAlt: hasSpread || Boolean(findAttr(attrs, 'alt')),
+        // A literal loading="lazy" only — a spread or dynamic loading={…} must not be flagged.
+        lazy: attrText(attrs, 'loading') === 'lazy',
+        hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')),
+        ...(isSvgImage(attrs, imports) ? { svg: true } : {}),
+        line: lineOf(source, node.start)
+      });
+    }
+    for (const key of CHILD_NODE_KEYS) {
+      if (key in node) walk(childOf(node, key));
+    }
+  };
+  walk(fragment);
+  // A snippet whose only {@render} sits somewhere never walked (inside itself) is still collected.
+  for (const snippet of index.snippets.values()) if (!emitted.has(snippet)) walk(snippet.body);
+  return acc;
 }
 
 /**
@@ -486,7 +530,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         walk(node.fragment, ctx);
         return;
       case 'RenderTag':
-        if (isChildrenRender(node)) slotInLandmark ??= ctx.landmarks.at(-1);
+        if (renderCallee(node) === 'children') slotInLandmark ??= ctx.landmarks.at(-1);
         return;
       default:
         noteSpread(node);
@@ -586,9 +630,10 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   };
 }
 
-function isChildrenRender(node: AST.RenderTag): boolean {
+/** The name a `{@render name(…)}` / `{@render name?.(…)}` calls, when the callee is a plain identifier. */
+function renderCallee(node: AST.RenderTag): string | undefined {
   const call = node.expression.type === 'ChainExpression' ? node.expression.expression : node.expression;
-  return call.callee.type === 'Identifier' && call.callee.name === 'children';
+  return call.callee.type === 'Identifier' ? call.callee.name : undefined;
 }
 
 export interface ParsedFile {
@@ -614,15 +659,13 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components);
   const imports = collectImports(ast);
-  const images: ParsedImage[] = [];
-  collectImages(ast.fragment, source, imports, images);
   const headingAcc = { headings: [] as ParsedHeading[], dynamic: false };
   collectHeadings(ast.fragment, source, headingAcc);
   return {
     headTags: heads.flatMap((h) => tagsFromHead(h, source)),
     components,
     imports,
-    images,
+    images: collectImages(ast.fragment, source, imports),
     headings: headingAcc.headings,
     dynamicHeading: headingAcc.dynamic,
     a11y: collectA11y(ast.fragment, source),

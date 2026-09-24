@@ -7,7 +7,7 @@ description: The first (likely LCP) image should not be lazy-loaded.
 
 ## What it checks
 
-Flags the first `<img>` in a route's markup when it has `loading="lazy"`. Static analysis approximates the Largest Contentful Paint image as the first image in document order.
+Flags the first `<img>` in a route's markup when it has `loading="lazy"`. Static analysis approximates the Largest Contentful Paint image as the first image in document order. An image inside a `{#snippet}` is placed where the file first `{@render}`s the snippet, not where it is defined; a snippet the file only passes to a component stays at its definition.
 
 ## Why it matters
 
