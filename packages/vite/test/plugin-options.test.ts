@@ -60,6 +60,31 @@ describe('svelteVitals options', () => {
     }
   });
 
+  it('gates the source scan and says route analysis was skipped when the SSR build prerendered nothing', async () => {
+    const spa = await mkdtemp(join(tmpdir(), 'sv-opt-spa-'));
+    try {
+      await mkdir(join(spa, 'src/routes'), { recursive: true });
+      await writeFile(join(spa, 'src/routes/+page.svelte'), '<a href="javascript:void(0)">x</a>\n');
+      await writeFile(
+        join(spa, 'src/app.html'),
+        '<!doctype html><html lang="en"><head>%sveltekit.head%</head><body>%sveltekit.body%</body></html>'
+      );
+      const p = svelteVitals({ cwd: spa, ui: false, rules: { 'security/javascript-url': 'critical' } }) as Plugin;
+      const configResolved = typeof p.configResolved === 'function' ? p.configResolved : p.configResolved?.handler;
+      (configResolved as (c: unknown) => void).call({}, { root: spa, build: { ssr: true } });
+      await expect(closeBundleOf(p)()).rejects.toThrow(/svelte-vitals: build failed/);
+      expect(warnSpy.mock.calls.map((c: unknown[]) => String(c[0])).join('\n')).toMatch(
+        /no prerendered pages found .* route analysis skipped/
+      );
+      const report = logSpy.mock.calls.map((c: unknown[]) => String(c[0])).join('\n');
+      expect(report).toContain('security/javascript-url');
+      // No rendered page means no <html> to read; app.html's lang must not be reported missing.
+      expect(report).not.toContain('seo/html-lang');
+    } finally {
+      await rm(spa, { recursive: true, force: true });
+    }
+  });
+
   it('respects an absolute outFile path unchanged', async () => {
     const abs = join(cwd, 'absolute-report.json');
     const p = svelteVitals({ cwd, ui: false, report: false, failOn: 'info', outFile: abs }) as Plugin;

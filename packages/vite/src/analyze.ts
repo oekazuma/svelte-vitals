@@ -165,7 +165,8 @@ export async function analyze(
     .filter((h) => isShell(h.route))
     .map((h) => h.route)
     .sort();
-  const selected = selectRules(allRules, config);
+  // With no page read there is no rendered <html> to take `lang` from, so "missing" would be a guess.
+  const selected = selectRules(allRules, config).filter((r) => rendered.heads.length > 0 || r.id !== 'seo/html-lang');
   if (shells.length > 0) {
     const shown = shells.slice(0, 10);
     const list =
@@ -234,8 +235,8 @@ export async function analyze(
     results,
     consoleReport,
     jsonReport,
-    // Prerendered files found, shells included: plugin.ts reads 0 as "no build output yet", and
-    // an all-shell SPA still needs its source-rule findings gated.
+    // Prerendered files found, shells included: plugin.ts warns on 0 that route analysis was skipped,
+    // which an all-shell SPA (whose pages were read, then skipped) must not trigger.
     routeCount: rendered.heads.length,
     failed,
     failOn: scoringConfig.failOn,
