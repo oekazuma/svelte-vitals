@@ -13,15 +13,16 @@ export interface HeadingInfo {
   /** Source file the heading came from. */
   file: string;
   /**
-   * The `{#if}`/`{#await}` arms of its own file it sits in (source mode; absent when unconditional).
-   * Group numbers are per file, so only headings of one file can be exclusive.
+   * The `{#if}`/`{#await}`/`<svelte:boundary>` arms it sits in (source mode; absent when
+   * unconditional), including those of the component usages and layout `{@render children()}`
+   * above it. Group numbers are route-wide: each file instance has its own range.
    */
   path?: BranchStep[];
 }
 
-/** Two headings can never render together: different arms of one block in the same file. */
+/** Two headings can never render together: different arms of one block. */
 export function exclusiveHeadings(a: HeadingInfo, b: HeadingInfo): boolean {
-  if (a.file !== b.file || !a.path || !b.path) return false;
+  if (!a.path || !b.path) return false;
   return a.path.some((s) => b.path!.some((t) => s.group === t.group && s.branch !== t.branch));
 }
 

@@ -1,5 +1,5 @@
 import type { Config } from '@svelte-vitals/core';
-import type { HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
+import type { BranchStep, HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
 import { attrTextOf, parseModuleProgram, resolveRepoLocalPath } from '@svelte-vitals/core/internal';
 import type { ParsedFile, ParsedTag, PropArgs } from './parse.js';
 import { findAdapter } from './adapters/index.js';
@@ -15,9 +15,12 @@ interface ResolveResult {
   /**
    * Headings belonging to STRICT descendants reached via layer 3 — never `fileRel`'s
    * own headings (routes.ts already collects those from the chain file directly;
-   * including them here too would double-count).
+   * including them here too would double-count). Paths are addressed in `fileRel`'s space:
+   * groups below `parsed.headingGroups` are its own blocks, each component instance above them.
    */
   headings: HeadingInfo[];
+  /** Group numbers `headings` and `fileRel`'s own headings use together. */
+  groupSpan: number;
   /** A heading of an undetermined level may render: a descendant's `<svelte:element>`, or an unfollowable component given a literal heading tag. */
   dynamicHeading: boolean;
 }
@@ -192,6 +195,17 @@ export async function resolveComponentFiles(
   return { files: [...files], complete };
 }
 
+export function offsetPath(path: BranchStep[], base: number): BranchStep[] {
+  return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
+}
+
+/** `heading` re-addressed below `prefix`, its own group numbers shifted up by `base`. */
+export function nestHeading(heading: HeadingInfo, prefix: BranchStep[], base: number): HeadingInfo {
+  const { path: own, ...rest } = heading;
+  const path = [...prefix, ...offsetPath(own ?? [], base)];
+  return path.length > 0 ? { ...rest, path } : rest;
+}
+
 /** A tag one of several exclusive components renders: it may render, with no literal claim (as in `conditionalTags`). */
 function maybeTag(tag: ParsedTag): ParsedTag {
   const { text: _text, noindex: _noindex, jsonld: _jsonld, hreflang: _hreflang, ...shape } = tag;
@@ -253,6 +267,7 @@ export async function resolveFileTags(
 ): Promise<ResolveResult> {
   const tags: ParsedTag[] = [...parsed.headTags, ...(inHead ? tagsInHead(parsed, inHead) : [])];
   const headings: HeadingInfo[] = [];
+  let groupSpan = parsed.headingGroups;
   let dynamicHeading = false;
   let broad = false;
   const ctx: ResolveCtx = { rt, cwd, cache, aliases };
@@ -295,12 +310,14 @@ export async function resolveFileTags(
         broad = broad || child.broad;
         const childHeadings = [...childParsed.headings.map((h) => ({ ...h, file: childRel })), ...child.headings];
         const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
-        // A component in an `{#if}` arm still counts toward headings as if it rendered (seo/single-h1's
-        // documented approximation), but its head tags make no literal claim, like `conditionalTags`.
+        // A component in an `{#if}` arm competes for headings through its arm path, and its head tags
+        // make no literal claim, like `conditionalTags`.
         if (!exclusive && !use.conditional) tags.push(...child.tags);
         else for (const tag of child.tags.map(maybeTag)) maybe.set(JSON.stringify(tag), tag);
         if (!exclusive) {
-          headings.push(...childHeadings);
+          // Each instance gets its own group range, so two instances' arms never fold as one block.
+          headings.push(...childHeadings.map((h) => nestHeading(h, use.path, groupSpan)));
+          groupSpan += child.groupSpan;
           dynamicHeading = dynamicHeading || childDynamic;
           continue;
         }
@@ -334,5 +351,5 @@ export async function resolveFileTags(
     // Unresolved & undeclared components contribute nothing (strict).
   }
 
-  return { tags, broad, headings, dynamicHeading };
+  return { tags, broad, headings, groupSpan, dynamicHeading };
 }

@@ -17,6 +17,8 @@ import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/co
 import type { A11yNode, ParsedFile, ParsedTag } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {
+  nestHeading,
+  offsetPath,
   resolveComponentFiles,
   resolveFileTags,
   readAndParse,
@@ -178,14 +180,9 @@ function dedupeCauses(causes: A11ySkipCause[]): A11ySkipCause[] {
   return [...seen.values()];
 }
 
-/** Paths are shared across every route that uses a parsed file — re-address by copying. */
 /** Every robots meta renders and crawlers obey the most restrictive one, so none may override another. */
 function isRobotsMeta(tag: { kind: string; name?: string }): boolean {
   return tag.kind === 'meta' && tag.name === 'robots';
-}
-
-function offsetPath(path: BranchStep[], base: number): BranchStep[] {
-  return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
 }
 
 /**
@@ -311,6 +308,10 @@ async function resolveRoute(
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
   let dynamicHeading = false;
+  // Heading paths are route-wide: each chain file gets its own group range, and a file renders
+  // below its parent layout's `{@render children()}` arm.
+  let headingGroup = 0;
+  let childrenAt: BranchStep[] = [];
   const a11yCtx: ComposeCtx = {
     rt,
     cwd,
@@ -353,7 +354,7 @@ async function resolveRoute(
       images.push({ ...img, file: rel });
     }
     for (const heading of parsed.headings) {
-      headings.push({ ...heading, file: rel });
+      headings.push(nestHeading({ ...heading, file: rel }, childrenAt, headingGroup));
     }
     dynamicHeading = dynamicHeading || parsed.dynamicHeading;
 
@@ -373,8 +374,10 @@ async function resolveRoute(
       if (isPage) broadOwn = true;
       else broadInherited = true;
     }
-    componentHeadings.push(...resolved.headings);
+    componentHeadings.push(...resolved.headings.map((h) => nestHeading(h, childrenAt, headingGroup)));
     dynamicHeading = dynamicHeading || resolved.dynamicHeading;
+    if (parsed.childrenPath) childrenAt = [...childrenAt, ...offsetPath(parsed.childrenPath, headingGroup)];
+    headingGroup += resolved.groupSpan;
   }
 
   // Broad (opaque) meta source: fill only kinds not already set specifically.

@@ -175,8 +175,22 @@ describe('seo/single-h1 heading hierarchy', () => {
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.line).toBe(7);
 
-    const twoFiles = [h1('x', [{ group: 0, branch: 0 }]), h1('y', [{ group: 0, branch: 1 }])];
+    const twoFiles = [h1('x', [{ group: 0, branch: 0 }]), h1('y', [{ group: 1, branch: 1 }])];
     expect(fails(await seoSingleH1.check(headingsCtx([{ route: '/a', headings: twoFiles }])))).toHaveLength(1);
+  });
+  it('folds a component <h1> against the arm of the file that places it (route-wide groups)', async () => {
+    const h1 = (file: string, path: HeadingInfo['path']): HeadingInfo => ({ level: 1, line: 1, file, path });
+    // page: {#if a}<h1>{:else}<Card />{/if}, Card renders <h1>
+    const rs = await seoSingleH1.check(
+      headingsCtx([
+        {
+          route: '/a',
+          headings: [h1('page', [{ group: 0, branch: 0 }])],
+          componentHeadings: [h1('card', [{ group: 0, branch: 1 }])]
+        }
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
   });
   it('keeps the Missing arm locationless when only componentHeadings carry non-h1 headings', async () => {
     // Attribution must stay chain-only: a component-file location would change the

@@ -25,13 +25,13 @@ const multipleRecommendation =
  * severity (design, `applyRuleSeverities`).
  */
 /**
- * The <h1>s that can render together, in input order: per file, the arms of one `{#if}`/`{#await}`
- * contribute only their largest arm. Separate blocks still sum, since both may be true.
+ * The <h1>s that can render together, in input order: the arms of one `{#if}`/`{#await}`/
+ * `<svelte:boundary>` contribute only their largest arm. Separate blocks still sum, since both may be true.
  */
 function renderableH1s(headings: HeadingInfo[]): HeadingInfo[] {
   const nodes = headings
     .filter((h) => h.level === 1)
-    .map((heading) => ({ key: heading.file, path: heading.path ?? [], repeatable: false, heading }));
+    .map((heading) => ({ key: 'h1', path: heading.path ?? [], repeatable: false, heading }));
   const kept = new Set([...foldOccurrences(nodes).values()].flat().map((n) => n.heading));
   return headings.filter((h) => kept.has(h));
 }

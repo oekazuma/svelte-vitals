@@ -111,8 +111,13 @@ describe('seo/heading-level-skip heading order', () => {
     const rs = await seoHeadingLevelSkip.check(headingsCtx([route([at(1), at(2, 0), at(4, 1)])]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('<h1> to <h4>');
-    // Group numbers are per file: a layout's arm and a page's arm both render.
-    expect(fails(await seoHeadingLevelSkip.check(headingsCtx([route([at(1, 0, 'l'), at(3, 1)])])))).toHaveLength(1);
+    // Separate blocks both render, in whichever file they sit.
+    const other = { ...at(3, 1), path: [{ group: 1, branch: 1 }] };
+    expect(fails(await seoHeadingLevelSkip.check(headingsCtx([route([at(1, 0, 'l'), other])])))).toHaveLength(1);
+    // Route-wide groups: a layout's {@render children()} arm excludes its error arm from the page's outline.
+    expect(fails(await seoHeadingLevelSkip.check(headingsCtx([route([at(1, 1, 'l'), at(3, 0, 'p')])])))).toHaveLength(
+      0
+    );
   });
   it('ignores componentHeadings (no reliable document-order position, issue #425)', async () => {
     // Chain outline h1->h2->h3 is well-ordered; a componentHeadings h6 would create

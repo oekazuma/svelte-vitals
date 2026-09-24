@@ -196,6 +196,8 @@ export interface ComponentUse {
   conditional?: true;
   /** Inside `<svelte:head>`: its markup renders into the head. */
   inHead?: true;
+  /** The `{#if}`/`{#await}`/`<svelte:boundary>` arms of its file it sits in, numbered as the file's heading paths. */
+  path: BranchStep[];
 }
 
 /** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
@@ -216,10 +218,11 @@ function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSel
 function collectComponents(
   node: WalkNode | WalkNode[] | null | undefined,
   acc: ComponentUse[],
+  paths: Map<WalkNode, BranchStep[]>,
   at: Pick<ComponentUse, 'conditional' | 'inHead'> = {}
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectComponents(child, acc, at);
+    for (const child of node) collectComponents(child, acc, paths, at);
     return;
   }
   if (!node || typeof node !== 'object') return;
@@ -229,6 +232,7 @@ function collectComponents(
       name: componentName(node),
       attributes,
       hasSpread: attributes.some((a) => a.type === 'SpreadAttribute'),
+      path: paths.get(node) ?? [],
       ...at
     });
   }
@@ -239,7 +243,7 @@ function collectComponents(
         ? { ...at, inHead: true as const }
         : at;
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectComponents(childOf(node, key), acc, inner);
+    if (key in node) collectComponents(childOf(node, key), acc, paths, inner);
   }
 }
 
@@ -473,14 +477,32 @@ function headingLevelOf(tags: string[]): number | undefined {
   return levels.size === 1 ? [...levels][0] : undefined;
 }
 
+/** Longest shared leading run of two branch paths. */
+function commonPrefix(a: BranchStep[], b: BranchStep[]): BranchStep[] {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i]!.group === b[i]!.group && a[i]!.branch === b[i]!.branch) i++;
+  return a.slice(0, i);
+}
+
+/** `<svelte:boundary>` arms: its `failed`/`pending` snippets replace the children, never render beside them. */
+const BOUNDARY_SNIPPET_ARMS = new Map([
+  ['failed', 1],
+  ['pending', 2]
+]);
+
 /**
  * Collect page-body headings (<h1>–<h6>) anywhere in the template (seo/single-h1), each with
- * the `{#if}`/`{#await}` arms it sits in so exclusive arms are not counted together.
+ * the `{#if}`/`{#await}`/`<svelte:boundary>` arms it sits in so exclusive arms are not counted
+ * together; component tags get the same address (`componentPaths`), and `childrenPath` is where
+ * `<slot />`/`{@render children()}` renders the next layout or page (the common prefix when it
+ * renders in several places). `groups` is how many group numbers the file uses.
  * `dynamic` records a `<svelte:element>` that may render a heading but whose level is not
  * statically determinable — a route carrying one cannot be reported as having no <h1>.
  */
 function collectHeadings(fragment: AST.Fragment, source: string) {
   const headings: ParsedHeading[] = [];
+  const componentPaths = new Map<WalkNode, BranchStep[]>();
+  let childrenPath: BranchStep[] | undefined;
   let dynamic = false;
   let groups = 0;
   const push = (level: number, node: WalkNode & { start: number }, path: BranchStep[]): void => {
@@ -500,6 +522,21 @@ function collectHeadings(fragment: AST.Fragment, source: string) {
       arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }]));
       return;
     }
+    if (node.type === 'SvelteBoundary') {
+      const group = groups++;
+      for (const child of node.fragment.nodes) {
+        const branch = child.type === 'SnippetBlock' ? (BOUNDARY_SNIPPET_ARMS.get(child.expression.name) ?? 0) : 0;
+        walk(child, [...path, { group, branch }]);
+      }
+      return;
+    }
+    if (node.type === 'Component' || node.type === 'SvelteComponent') componentPaths.set(node, path);
+    if (
+      (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) ||
+      (node.type === 'RenderTag' && renderCallee(node) === 'children')
+    ) {
+      childrenPath = childrenPath ? commonPrefix(childrenPath, path) : path;
+    }
     if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
       push(Number(node.name[1]), node, path);
     } else if (node.type === 'SvelteElement') {
@@ -515,7 +552,7 @@ function collectHeadings(fragment: AST.Fragment, source: string) {
     }
   };
   walk(fragment, []);
-  return { headings, dynamic };
+  return { headings, dynamic, componentPaths, childrenPath, groups };
 }
 
 /** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */
@@ -790,6 +827,10 @@ export interface ParsedFile {
   componentBindings: Map<string, string[]>;
   images: ParsedImage[];
   headings: ParsedHeading[];
+  /** How many branch-group numbers this file's heading and component paths use. */
+  headingGroups: number;
+  /** Branch path of this file's `<slot />`/`{@render children()}`, when it has one. */
+  childrenPath?: BranchStep[];
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
   dynamicHeading: boolean;
   a11y: ParsedA11y;
@@ -806,10 +847,10 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
-  const components: ComponentUse[] = [];
-  collectComponents(ast.fragment, components);
-  const imports = collectImports(ast);
   const headingAcc = collectHeadings(ast.fragment, source);
+  const components: ComponentUse[] = [];
+  collectComponents(ast.fragment, components, headingAcc.componentPaths);
+  const imports = collectImports(ast);
   return {
     headTags: heads.flatMap((h) => tagsFromHead(h, source)),
     components,
@@ -817,6 +858,8 @@ export function parseFile(source: string, filename: string): ParsedFile {
     componentBindings: collectComponentBindings(ast),
     images: collectImages(ast.fragment, source, imports),
     headings: headingAcc.headings,
+    headingGroups: headingAcc.groups,
+    ...(headingAcc.childrenPath ? { childrenPath: headingAcc.childrenPath } : {}),
     dynamicHeading: headingAcc.dynamic,
     a11y: collectA11y(ast.fragment, source),
     template: { source, filename, props: collectProps(ast) },

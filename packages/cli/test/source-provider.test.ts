@@ -6,6 +6,7 @@ import {
   performancePreconnect,
   performanceRenderBlockingScript,
   seoHreflang,
+  seoHeadingLevelSkip,
   seoJsonLdValidity,
   seoSingleH1,
   seoTitlePresence,
@@ -275,6 +276,71 @@ describe('collectRoutes componentHeadings (issue #425)', () => {
       { level: 3, line: expect.any(Number), file: 'src/routes/+page.svelte' }
     ]);
     expect(route.componentHeadings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/Card.svelte' }]);
+  });
+});
+
+describe('collectRoutes: <h1>s in exclusive arms across files', () => {
+  const singleH1 = async (files: Record<string, string>, route = '/') => {
+    const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+    const rs = await seoSingleH1.check({
+      heads: [],
+      headings: headings.filter((h) => h.route === route),
+      project: defaultProject,
+      config: defaultConfig
+    });
+    return rs.map((r) => r.message);
+  };
+  const header = `<h1>Header</h1>`;
+
+  it('counts a component in one {#if} arm against the <h1> of the other arm', async () => {
+    const page = `<script>import Header from '$lib/Header.svelte';</script>{#if a}<h1>Own</h1>{:else}<Header />{/if}`;
+    expect(await singleH1({ 'src/routes/+page.svelte': page, 'src/lib/Header.svelte': header })).toEqual([
+      'Heading hierarchy'
+    ]);
+  });
+
+  it('keeps each instance of a component its own block: one per arm renders once', async () => {
+    const page = `<script>import Header from '$lib/Header.svelte';</script>{#if a}<Header />{:else}<div><Header /></div>{/if}`;
+    expect(await singleH1({ 'src/routes/+page.svelte': page, 'src/lib/Header.svelte': header })).toEqual([
+      'Heading hierarchy'
+    ]);
+  });
+
+  it('counts a component in an {#await} arm against the <h1> of another arm', async () => {
+    const page = `<script>import Header from '$lib/Header.svelte';</script>{#await p}<h1>Loading</h1>{:then}<Header />{/await}`;
+    expect(await singleH1({ 'src/routes/+page.svelte': page, 'src/lib/Header.svelte': header })).toEqual([
+      'Heading hierarchy'
+    ]);
+  });
+
+  it('follows arms through nested components', async () => {
+    const page = `<script>import View from '$lib/View.svelte';</script>{#if a}<h1>Own</h1>{:else}<View />{/if}`;
+    const view = `<script>import Header from '$lib/Header.svelte';</script>{#if b}<Header />{:else}<h1>Other</h1>{/if}`;
+    expect(
+      await singleH1({ 'src/routes/+page.svelte': page, 'src/lib/View.svelte': view, 'src/lib/Header.svelte': header })
+    ).toEqual(['Heading hierarchy']);
+  });
+
+  it('still adds up a component outside any arm and the page <h1>', async () => {
+    const page = `<script>import Header from '$lib/Header.svelte';</script>{#if a}<h1>Own</h1>{/if}<Header />`;
+    expect(await singleH1({ 'src/routes/+page.svelte': page, 'src/lib/Header.svelte': header })).toEqual([
+      'Multiple <h1> (2); a single <h1> is the conventional signal'
+    ]);
+  });
+
+  it("does not add a layout's <svelte:boundary> failed <h1> to the page's", async () => {
+    const layout = `<svelte:boundary><slot />{#snippet failed(e)}<h1>Something went wrong</h1>{/snippet}</svelte:boundary>`;
+    expect(await singleH1({ 'src/routes/+layout.svelte': layout, 'src/routes/+page.svelte': `<h1>Page</h1>` })).toEqual(
+      ['Heading hierarchy']
+    );
+  });
+
+  it('places the page inside the layout arm that renders {@render children()}', async () => {
+    const layout = `{#if user}{@render children()}{:else}<h1>Sign in</h1>{/if}`;
+    const files = { 'src/routes/+layout.svelte': layout, 'src/routes/+page.svelte': `<h3>Card</h3>` };
+    const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+    const rs = await seoHeadingLevelSkip.check({ heads: [], headings, project: defaultProject, config: defaultConfig });
+    expect(rs.map((r) => r.message)).toEqual(['Heading order']);
   });
 });
 
