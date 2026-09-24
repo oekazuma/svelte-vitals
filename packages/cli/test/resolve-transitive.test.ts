@@ -99,6 +99,28 @@ describe('resolveComponentFiles', () => {
     expect(await filesOf(`import { X } from '$lib/broken';`, 'X', files)).toEqual({ files: [], complete: false });
   });
 
+  it('visits each barrel state once in branching export * cycles', async () => {
+    const files = {
+      'src/lib/a.ts': "export * from './b';\nexport * from './c';",
+      'src/lib/b.ts': "export * from './a';\nexport * from './c';",
+      'src/lib/c.ts': "export * from './a';\nexport * from './b';"
+    };
+    const entry = 'src/routes/+page.svelte';
+    const source = `<script>import { X } from '$lib/a';</script><X />`;
+    const rt = createMemoryRuntime({ ...files, [entry]: source });
+    let probes = 0;
+    const counted = { ...rt, exists: (p: string) => (probes++, rt.exists(p)) };
+    const r = await resolveComponentFiles(
+      { rt: counted, cwd: '', cache: new Map(), aliases: undefined },
+      'X',
+      parseFile(source, entry),
+      entry
+    );
+    expect(r).toEqual({ files: [], complete: false });
+    // 3 modules × 9 hop depths, ≤ 5 probes each; unmemoised this is 2^9 visits.
+    expect(probes).toBeLessThanOrEqual(3 * 9 * 5);
+  });
+
   it('resolves through a declared alias, first match by position ($lib before $li)', async () => {
     const aliases: KitAlias[] = [
       { find: '$lib', replacement: 'src/lib', match: 'prefix' },
@@ -140,7 +162,8 @@ describe('resolveFileTags through barrels, namespaces and runtime-chosen compone
     for (const files of [
       page(`import { Seo } from '$lib'; const C = $derived(Seo);`, '<C />'),
       page(`import { Seo } from '$lib';`, '{#if x}{@const C = Seo}<C />{/if}'),
-      page(`import { Seo } from '$lib';`, '<svelte:component this={Seo} />')
+      page(`import { Seo } from '$lib';`, '<svelte:component this={Seo} />'),
+      page(`import * as Ui from '$lib';`, '<svelte:component this={Ui.Seo} />')
     ]) {
       const r = await resolveWith(files, 'src/routes/+page.svelte');
       expect(r.tags).toEqual([{ kind: 'title', text: 'Seo', value: 'static' }]);
@@ -154,6 +177,20 @@ describe('resolveFileTags through barrels, namespaces and runtime-chosen compone
       'src/routes/+page.svelte'
     );
     expect(r.tags).toEqual([{ kind: 'title', value: 'dynamic' }]);
+    expect(r.headings).toEqual([]);
+    expect(r.dynamicHeading).toBe(true);
+  });
+
+  it('reads a {@const} name bound to a different component per arm as one of several', async () => {
+    const r = await resolveWith(
+      page(`import { Seo, Other } from '$lib';`, '{#if x}{@const C = Seo}<C />{:else}{@const C = Other}<C />{/if}'),
+      'src/routes/+page.svelte'
+    );
+    // One dynamic title per `<C />`, never Other's static one.
+    expect(r.tags).toEqual([
+      { kind: 'title', value: 'dynamic' },
+      { kind: 'title', value: 'dynamic' }
+    ]);
     expect(r.headings).toEqual([]);
     expect(r.dynamicHeading).toBe(true);
   });

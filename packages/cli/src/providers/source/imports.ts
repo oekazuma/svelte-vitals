@@ -76,8 +76,8 @@ function addBinding(decl: VariableDeclarator, out: Map<string, string[]>): void 
     init.arguments.length === 1
       ? (init.arguments[0] as Expression)
       : init;
-  const candidates = [...new Set(candidatesOf(derived))];
-  if (candidates.some((c) => c !== '')) out.set(decl.id.name, candidates);
+  // `{@const}` is block-scoped, so one name can hold a different component in each arm.
+  out.set(decl.id.name, [...new Set([...(out.get(decl.id.name) ?? []), ...candidatesOf(derived)])]);
 }
 
 type TemplateNode = { type?: string; declaration?: AST.ConstTag['declaration'] } & Record<string, unknown>;
@@ -107,5 +107,6 @@ export function collectComponentBindings(ast: AST.Root): Map<string, string[]> {
     }
   }
   addConstTags(ast.fragment, out);
+  for (const [name, candidates] of out) if (candidates.every((c) => c === '')) out.delete(name);
   return out;
 }

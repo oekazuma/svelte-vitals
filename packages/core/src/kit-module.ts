@@ -102,7 +102,7 @@ function resetTarget(dir: string | undefined, segment: string): string | undefin
   return undefined;
 }
 
-const routeSsrCache = new WeakMap<readonly KitModuleFacts[], Map<string, boolean>>();
+const routeSsrCache = new WeakMap<SsrScope, Map<string, boolean>>();
 
 /**
  * Per route directory, whether its page (`page:<dir>`) or layout (`layout:<dir>`) is never
@@ -113,7 +113,7 @@ const routeSsrCache = new WeakMap<readonly KitModuleFacts[], Map<string, boolean
  */
 function routeSsrOff(scope: SsrScope): Map<string, boolean> {
   const kitModules = scope.kitModules ?? [];
-  let hit = routeSsrCache.get(kitModules);
+  let hit = routeSsrCache.get(scope);
   if (hit) return hit;
   const pages = new Map<string, string | undefined>();
   const layouts = new Map<string, string | undefined>();
@@ -150,7 +150,7 @@ function routeSsrOff(scope: SsrScope): Map<string, boolean> {
     for (const l of chain) hit.set(`layout:${l}`, (hit.get(`layout:${l}`) ?? true) && off);
   }
   if (option.get(`layout:${ROUTES_DIR}`) !== 'off') hit.delete(`layout:${ROUTES_DIR}`);
-  routeSsrCache.set(kitModules, hit);
+  routeSsrCache.set(scope, hit);
   return hit;
 }
 

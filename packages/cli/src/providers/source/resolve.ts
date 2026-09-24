@@ -121,11 +121,31 @@ async function resolveExport(
   spec: string,
   fromRel: string,
   name: string,
-  hops = 0
+  hops = 0,
+  // Per lookup, not in the shared ParseCache: the dev dashboard invalidates that per file, which
+  // a memo of results spanning several files would outlive. Without it, branching `export *`
+  // cycles revisit the same states until the hop limit.
+  memo = new Map<string, Promise<string | undefined>>()
 ): Promise<string | undefined> {
   if (name === '*' || hops > MAX_REEXPORT_HOPS) return undefined;
   const path = resolveRepoLocalPath(spec, fromRel, ctx.aliases);
   if (path === undefined) return undefined;
+  const key = `${path}#${name}#${hops}`;
+  let hit = memo.get(key);
+  if (!hit) {
+    hit = resolveExportAt(ctx, path, name, hops, memo);
+    memo.set(key, hit);
+  }
+  return hit;
+}
+
+async function resolveExportAt(
+  ctx: ResolveCtx,
+  path: string,
+  name: string,
+  hops: number,
+  memo: Map<string, Promise<string | undefined>>
+): Promise<string | undefined> {
   const exists = (rel: string) => ctx.rt.exists(ctx.rt.join(ctx.cwd, rel));
   const ext = /\.[^./]+$/.exec(path)?.[0];
   let modules: string[];
@@ -140,10 +160,10 @@ async function resolveExport(
     if (!(await exists(mod))) continue;
     const exports = await readModuleExports(ctx, mod);
     const hit = exports.named.get(name);
-    if (hit) return resolveExport(ctx, hit.source, mod, hit.imported, hops + 1);
+    if (hit) return resolveExport(ctx, hit.source, mod, hit.imported, hops + 1, memo);
     if (name === 'default') return undefined; // `export *` never forwards a default
     for (const star of exports.stars) {
-      const found = await resolveExport(ctx, star, mod, name, hops + 1);
+      const found = await resolveExport(ctx, star, mod, name, hops + 1, memo);
       if (found) return found;
     }
     return undefined;

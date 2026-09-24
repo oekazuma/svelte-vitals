@@ -193,7 +193,17 @@ export interface ComponentUse {
 
 /** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
 function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSelf): string {
-  return node.type === 'SvelteComponent' && node.expression.type === 'Identifier' ? node.expression.name : node.name;
+  if (node.type !== 'SvelteComponent') return node.name;
+  const e = node.expression;
+  if (e.type === 'Identifier') return e.name;
+  if (
+    e.type === 'MemberExpression' &&
+    !e.computed &&
+    e.object.type === 'Identifier' &&
+    e.property.type === 'Identifier'
+  )
+    return `${e.object.name}.${e.property.name}`;
+  return node.name;
 }
 
 function collectComponents(node: WalkNode | WalkNode[] | null | undefined, acc: ComponentUse[]): void {

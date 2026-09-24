@@ -89,6 +89,10 @@ function isLengthOnlyArrayCall(expr: TsExpression): boolean {
     e.callee.property.type === 'Identifier' &&
     (e.callee.property.name === 'fill' || e.callee.property.name === 'keys')
   ) {
+    const receiver = unwrapTs(e.callee.object);
+    if (receiver?.type === 'ArrayExpression') {
+      return receiver.elements.every((el: Node) => el?.type !== 'SpreadElement' || isLengthOnlyArrayCall(el.argument));
+    }
     return isLengthOnlyArrayCall(e.callee.object);
   }
   if (

@@ -461,4 +461,12 @@ describe('correctness/instance-browser-global browser global during component in
       'src/lib/Widget.svelte'
     ]);
   });
+  it('reads the layout chain per run when the same kit modules meet a different route inventory', async () => {
+    const refs: ComponentFacts['browserGlobalRefs'] = [{ name: 'navigator', line: 2, context: 'instance' }];
+    const kitModules = [kitFacts({ file: 'src/routes/(app)/+layout.ts', ssrDisabled: { line: 1 } })];
+    const run = (file: string) =>
+      correctnessInstanceBrowserGlobal.check({ ...ctx([comp({ file, browserGlobalRefs: refs })]), kitModules });
+    expect(fails(await run('src/routes/(app)/about/+page.svelte'))).toHaveLength(0);
+    expect(fails(await run('src/routes/(app)/about/+page@.svelte'))).toHaveLength(1);
+  });
 });

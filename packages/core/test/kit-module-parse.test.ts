@@ -534,6 +534,16 @@ describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', (
     ).toBeUndefined();
     expect(always("export function load({ redirect }) {\n  redirect(301, '/');\n}")).toBeUndefined();
     expect(always("export function load() {\n  const redirect = log;\n  redirect('x');\n}")).toBeUndefined();
+    expect(
+      always(
+        "export function load({ url }) {\n  if (url.search) {\n    const redirect = log;\n    redirect('x');\n  } else redirect(303, '/');\n  return {};\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      always(
+        "export function load() {\n  try {\n    redirect(303, '/');\n  } catch (redirect) {\n    redirect();\n  }\n}"
+      )
+    ).toBeUndefined();
   });
   it('is absent when the redirect is conditional, nested, preceded by a return, or not the kit redirect', () => {
     expect(always("export function load({ url }) {\n  if (url.search) redirect(301, '/');\n}")).toBeUndefined();
