@@ -7,7 +7,7 @@ description: Prefer named imports over import * as for tree-shaking.
 
 ## What it checks
 
-Flags a value `import * as X from '<package>'` from a bare (node_modules) package. Type-only imports (`import type * as T`) and non-bare specifiers (relative, `$lib`, `$app`, `$env`, `#…`) are not flagged.
+Flags a value `import * as X from '<package>'` from a bare (node_modules) package when `X` is used as a whole somewhere in the file: indexed by a variable (`X[key]`), passed on (`fn(X)`), spread, or enumerated (`Object.keys(X)`). A namespace read only through static member access (`X.foo()`, `X['foo']`, `{X.foo}` or `<X.Component />` in markup) tree-shakes like named imports and is not flagged. Type-only imports (`import type * as T`) and non-bare specifiers (relative, `$lib`, `$app`, `$env`, `#…`) are not flagged.
 
 ## Why it matters
 

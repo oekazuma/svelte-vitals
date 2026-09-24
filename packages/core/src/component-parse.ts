@@ -2123,13 +2123,55 @@ function isBareSpecifier(s: string): boolean {
   return !/^[./$#]/.test(s);
 }
 
-/** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — performance/namespace-import. */
-function collectNamespaceImports(program: Node, source: string, acc: { source: string; line: number }[]): void {
+/**
+ * Whether `name` is used anywhere in `roots` other than as the object of a static member access
+ * (`X.foo`, `X['foo']`) — passing `X` on, spreading it or indexing it by a variable is what makes
+ * a bundler keep the whole module. `<X.Foo />` in markup is a component name, not an identifier,
+ * so it counts as static. A same-named local elsewhere reads as dynamic: a conservative report.
+ */
+function namespaceUsedDynamically(name: string, roots: Node[]): boolean {
+  const staticOrDeclaring = new Set<Node>();
+  for (const root of roots) {
+    walkEstree(root, (n) => {
+      if (n.type === 'MemberExpression') {
+        const literalKey = n.computed && n.property?.type === 'Literal' && typeof n.property.value === 'string';
+        if (n.object?.type === 'Identifier' && n.object.name === name && (!n.computed || literalKey)) {
+          staticOrDeclaring.add(n.object);
+        }
+        if (!n.computed) staticOrDeclaring.add(n.property);
+      } else if (n.type === 'Property' && !n.computed && !n.shorthand) {
+        staticOrDeclaring.add(n.key);
+      } else if (n.type === 'ImportNamespaceSpecifier') {
+        staticOrDeclaring.add(n.local);
+      }
+    });
+  }
+  let dynamic = false;
+  for (const root of roots) {
+    walkEstree(root, (n) => {
+      if (n.type === 'Identifier' && n.name === name && !staticOrDeclaring.has(n)) dynamic = true;
+    });
+  }
+  return dynamic;
+}
+
+/**
+ * Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) that `roots` (every
+ * program and template of the file) use dynamically — performance/namespace-import. Static member
+ * accesses tree-shake like named imports, so a namespace used only that way is not reported.
+ */
+function collectNamespaceImports(
+  program: Node,
+  source: string,
+  acc: { source: string; line: number }[],
+  roots: Node[]
+): void {
   walkEstree(program, (n) => {
     if (n.type !== 'ImportDeclaration' || n.importKind === 'type') return;
     const spec = n.source?.value;
     if (typeof spec !== 'string' || !isBareSpecifier(spec)) return;
-    if (Array.isArray(n.specifiers) && n.specifiers.some((s: Node) => s?.type === 'ImportNamespaceSpecifier')) {
+    const ns = (n.specifiers ?? []).find((s: Node) => s?.type === 'ImportNamespaceSpecifier');
+    if (ns?.local?.type === 'Identifier' && namespaceUsedDynamically(ns.local.name, roots)) {
       acc.push({ source: spec, line: lineOf(source, n.start) });
     }
   });
@@ -2428,7 +2470,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     collectImportSources(program, wrapped, rawImportSpans);
     for (const s of rawImportSpans) importSpans.push({ ...s, line: shift(s.line) });
     const rawNamespaceImports: { source: string; line: number }[] = [];
-    collectNamespaceImports(program, wrapped, rawNamespaceImports);
+    collectNamespaceImports(program, wrapped, rawNamespaceImports, [program]);
     for (const n of rawNamespaceImports) namespaceImports.push({ ...n, line: shift(n.line) });
   }
   const imports = importSpans.map((s) => s.source);
@@ -2515,9 +2557,10 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const moduleProgram = ast.module?.content;
   const importSpans: { source: string; line: number; type?: true }[] = [];
   const namespaceImports: { source: string; line: number }[] = [];
+  const usageRoots = [moduleProgram, ast.instance?.content, ast.fragment].filter(Boolean) as Node[];
   if (moduleProgram) {
     collectImportSources(moduleProgram, source, importSpans);
-    collectNamespaceImports(moduleProgram, source, namespaceImports);
+    collectNamespaceImports(moduleProgram, source, namespaceImports, usageRoots);
   }
   const orphanEffects: OrphanEffectFact[] = moduleProgram ? collectOrphanEffects(moduleProgram, source) : [];
   const orphanLifecycleCalls: OrphanLifecycleCallFact[] = moduleProgram
@@ -2543,7 +2586,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const program = ast.instance?.content;
   if (program) {
     collectImportSources(program, source, importSpans);
-    collectNamespaceImports(program, source, namespaceImports);
+    collectNamespaceImports(program, source, namespaceImports, usageRoots);
     propCount = countProps(program);
     // A component is either runes-mode ($props()) or legacy-mode (export let), never both —
     // Svelte rejects mixing them — so at most one of these two sets is ever non-empty.
