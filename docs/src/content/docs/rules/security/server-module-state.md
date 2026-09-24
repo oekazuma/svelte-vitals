@@ -15,6 +15,7 @@ Not flagged:
 - Mutation-style caches (`const cache = new Map()` + `cache.set(…)`), a deliberate memoisation pattern, though putting request-derived data in one carries the same risk.
 - Anything under `src/lib/server/**`, which is not scanned at all, since legitimate singletons live there.
 - Assignments inside SvelteKit's `init` hook, which runs once at server startup.
+- A universal `+page.ts`/`+layout.ts` whose route never renders on the server (decided as in [security/shared-state-import](/rules/security/shared-state-import)). Its `load` runs only in the browser, so its module variables belong to one visitor's tab, not a shared server process. Server files are still checked.
 
 ## Why it matters
 

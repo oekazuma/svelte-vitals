@@ -11,7 +11,7 @@ export const securityHandlerStateWrite = kitModuleRule({
     'Return the data from load (or the action) and pass it via page data instead of writing it to module state; per-user data belongs in cookies/locals plus a database. Caches and rate limiters keyed by non-personal data are the benign shape — if that describes this write, add an inline suppression.',
   rationale:
     "SvelteKit's docs mark this NEVER-DO-THIS: the server is one long-lived process shared by every user, so module state written during a request is visible to ALL later requests.",
-  applies: (m, ctx) => m.importedStateWrites.length > 0 && !universalNeverSsr(m, ctx.kitModules),
+  applies: (m, ctx) => m.importedStateWrites.length > 0 && !universalNeverSsr(m, ctx),
   bad: (m) =>
     m.importedStateWrites.map((w) => ({
       line: w.line,

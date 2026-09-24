@@ -13,7 +13,7 @@ universal な `+page.ts`/`+layout.ts` の load も対象です。SSR 時はサ�
 
 検出しないもの:
 
-- 同じファイルで `ssr = false` を export している universal な `+page.ts`/`+layout.ts`。アプリ全体で SSR が無効な場合は、すべての universal ファイルが対象外です。アプリ全体で無効とみなすのは、ルートの `src/routes/+layout.ts`（または `+layout.server.ts`）が `ssr = false` を export し、ほかのどの `+page`/`+layout` ファイルも `ssr` を別の値で export していない場合です。その load はサーバーで実行されないため、リークする共有インスタンスがそもそも存在しません。`+page.server.ts` は `ssr` の値に関わらず常にサーバーで実行されるため、server 系のファイルはこの除外の対象外です。
+- 同じファイルで `ssr = false` を export している universal な `+page.ts`/`+layout.ts`。ルートがサーバーでレンダリングされない universal ファイルも対象外です。ページ自身の `+page` ファイル、続いてレイアウトチェーン（`+page@`/`+layout@` によるリセットに従います）の順にたどり、最も近い `ssr` の export が `ssr = false` なら、そのルートはサーバーでレンダリングされません。リテラルの `false` 以外で export された `ssr` は、SSR を再び有効にするものとみなします。レイアウトは配下のすべてのページがこれに当たる場合に限り、ルートレイアウトは自身が `ssr = false` を export する場合に限り対象外です。その load はサーバーで実行されないため、リークする共有インスタンスがそもそも存在しません。`+page.server.ts` は `ssr` の値に関わらず常にサーバーで実行されるため、server 系のファイルはこの除外の対象外です。
 - 読み取り、その他のメソッド呼び出し（`logger.info(…)`）、ローカル変数への書き込み。
 - インストール済みパッケージからの import への `.set()`/`.update()`。
 - 解決先が `src/lib/server` になる **永続化クライアント**への `.set()`/`.update()`。ディレクトリエントリポイント（`import { db } from '$lib/server'`）と `src/lib/server/**` 配下が該当します。Drizzle の `db.update(...).set(...)` のような呼び出しは永続化であり、共有状態への書き込みではないためです。

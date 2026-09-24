@@ -98,13 +98,58 @@ describe('security/handler-state-write handler writes imported state', () => {
     const rs = await securityHandlerStateWrite.check(ctx(files));
     expect(fails(rs).map((r) => r.route)).toEqual(['src/routes/a/+page.server.ts', 'src/hooks.server.ts']);
     const reEnabled = await securityHandlerStateWrite.check(
-      ctx([...files, kit({ file: 'src/routes/b/+page.server.ts', kind: 'server', ssrEnabled: true })])
+      ctx([...files, kit({ file: 'src/routes/a/+layout.ts', kind: 'universal', ssrEnabled: true })])
     );
     expect(fails(reEnabled)).toHaveLength(3);
+    const reEnabledElsewhere = await securityHandlerStateWrite.check(
+      ctx([...files, kit({ file: 'src/routes/b/+page.server.ts', kind: 'server', ssrEnabled: true })])
+    );
+    expect(fails(reEnabledElsewhere)).toHaveLength(2);
     const nestedOff = await securityHandlerStateWrite.check(
       ctx([{ ...rootOff, file: 'src/routes/(app)/+layout.ts' }, ...files.slice(1)])
     );
     expect(fails(nestedOff)).toHaveLength(3);
+  });
+  it('follows a nested layout ssr = false down the layout chain, for universal files only', async () => {
+    const writes: KitModuleFacts['importedStateWrites'] = [{ name: 'user', line: 3, via: 'set-call' }];
+    const u = (file: string, over: Partial<KitModuleFacts> = {}) =>
+      kit({ file, kind: 'universal', importedStateWrites: writes, ...over });
+    const flagged = async (kitModules: KitModuleFacts[], sourceFiles: string[] = []) =>
+      fails(await securityHandlerStateWrite.check(ctx(kitModules, { sourceFiles })))
+        .map((r) => r.route)
+        .sort();
+    const groupOff = kit({ file: 'src/routes/(app)/+layout.ts', kind: 'universal', ssrDisabled: { line: 1 } });
+    const files = [
+      groupOff,
+      u('src/routes/(app)/x/+page.ts'),
+      u('src/routes/(app)/x/+layout.ts'),
+      u('src/routes/(app)/(inner)/y/+page.js'),
+      kit({ file: 'src/routes/(app)/x/+page.server.ts', importedStateWrites: writes }),
+      u('src/routes/other/+page.ts'),
+      u('src/routes/+layout.ts')
+    ];
+    expect(await flagged(files)).toEqual([
+      'src/routes/(app)/x/+page.server.ts',
+      'src/routes/+layout.ts',
+      'src/routes/other/+page.ts'
+    ]);
+
+    // A child that exports ssr as anything but false turns it back on for itself and the layouts it uses.
+    const reEnabled = [...files, kit({ file: 'src/routes/(app)/x/z/+page.ts', kind: 'universal', ssrEnabled: true })];
+    expect(await flagged(reEnabled)).toContain('src/routes/(app)/x/+layout.ts');
+    expect(await flagged(reEnabled)).not.toContain('src/routes/(app)/x/+page.ts');
+
+    // A layout reset skips the ssr = false layout, so that page (and its load) is server-rendered.
+    const reset = await flagged(
+      [groupOff, u('src/routes/(app)/+page.ts'), u('src/routes/(app)/x/+page.ts')],
+      ['src/routes/(app)/+page@.svelte', 'src/routes/(app)/x/+page.svelte']
+    );
+    expect(reset).toEqual(['src/routes/(app)/+page.ts']);
+    const resetToGroup = await flagged(
+      [groupOff, u('src/routes/(app)/x/y/+page.ts')],
+      ['src/routes/(app)/x/y/+page@(app).svelte']
+    );
+    expect(resetToGroup).toEqual([]);
   });
 });
 
@@ -122,6 +167,18 @@ describe('security/server-module-state server module-scope state', () => {
       ctx([kit({ moduleStateReassignments: [{ name: 'last', line: 3, inHandler: false }] })])
     );
     expect(fails(rs)[0]!.message).toContain('from a function');
+  });
+  it('skips a universal file that is never server-rendered, but not a server file', async () => {
+    const reassigned: KitModuleFacts['moduleStateReassignments'] = [{ name: 'memo', line: 5, inHandler: true }];
+    const rs = await securityServerModuleState.check(
+      ctx([
+        kit({ file: 'src/routes/(app)/+layout.ts', kind: 'universal', ssrDisabled: { line: 1 } }),
+        kit({ file: 'src/routes/(app)/x/+page.ts', kind: 'universal', moduleStateReassignments: reassigned }),
+        kit({ file: 'src/routes/(app)/x/+page.server.ts', moduleStateReassignments: reassigned }),
+        kit({ file: 'src/routes/y/+page.ts', kind: 'universal', moduleStateReassignments: reassigned })
+      ])
+    );
+    expect(fails(rs).map((r) => r.route)).toEqual(['src/routes/(app)/x/+page.server.ts', 'src/routes/y/+page.ts']);
   });
 });
 
@@ -217,7 +274,7 @@ describe('security/shared-state-import shared runes-state import on the server',
       kit({ file: 'src/routes/+page.ts', kind: 'universal', runesModuleImports: [imp] })
     ];
     expect(fails(await securitySharedStateImport.check(ctx(files, { components })))).toHaveLength(0);
-    const unparsed = kit({ file: 'src/routes/x/+layout.ts', kind: 'universal', parseFailed: true });
+    const unparsed = kit({ file: 'src/routes/+page.server.ts', kind: 'server', parseFailed: true });
     expect(fails(await securitySharedStateImport.check(ctx([...files, unparsed], { components })))).toHaveLength(1);
   });
 });

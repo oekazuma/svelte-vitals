@@ -17,7 +17,7 @@ export const securitySharedStateImport = kitModuleRule({
     'Keep module-scope $state out of server-executed code: return data from load and share it via page data or the context API. If the module is genuinely client-only, restructure so server files do not import it, or add an inline suppression.',
   rationale:
     'A .svelte.ts module with module-scope $state is one shared instance on the server: mutated, it leaks data between users; read-only, every request sees the same boot-time value instead of per-user data.',
-  applies: (m, ctx) => m.runesModuleImports.length > 0 && !universalNeverSsr(m, ctx.kitModules),
+  applies: (m, ctx) => m.runesModuleImports.length > 0 && !universalNeverSsr(m, ctx),
   bad: (m, ctx) => {
     const stateFiles = new Set((ctx.components ?? []).filter((c) => c.moduleStateDecls.length > 0).map((c) => c.file));
     const writtenOutside = new Set(m.importedStateWritesOutsideHandlers.map((w) => w.name));

@@ -444,4 +444,21 @@ describe('correctness/instance-browser-global browser global during component in
       fails(await correctnessInstanceBrowserGlobal.check({ ...ctx(components), kitModules: [rootOff, reEnabled] }))
     ).toHaveLength(1);
   });
+  it('is silent for a route component under a nested ssr = false layout, but not for a shared component', async () => {
+    const refs: ComponentFacts['browserGlobalRefs'] = [{ name: 'navigator', line: 2, context: 'instance' }];
+    const components = [
+      comp({ file: 'src/routes/(app)/about/+page.svelte', browserGlobalRefs: refs }),
+      comp({ file: 'src/routes/(app)/+layout.svelte', browserGlobalRefs: refs }),
+      comp({ file: 'src/routes/(app)/+page@.svelte', browserGlobalRefs: refs }),
+      comp({ file: 'src/routes/(app)/Widget.svelte', browserGlobalRefs: refs }),
+      comp({ file: 'src/lib/Widget.svelte', browserGlobalRefs: refs })
+    ];
+    const groupOff = kitFacts({ file: 'src/routes/(app)/+layout.ts', ssrDisabled: { line: 1 } });
+    const rs = await correctnessInstanceBrowserGlobal.check({ ...ctx(components), kitModules: [groupOff] });
+    expect(fails(rs).map((r) => r.route)).toEqual([
+      'src/routes/(app)/+page@.svelte',
+      'src/routes/(app)/Widget.svelte',
+      'src/lib/Widget.svelte'
+    ]);
+  });
 });

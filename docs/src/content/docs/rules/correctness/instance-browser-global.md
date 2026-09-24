@@ -15,7 +15,7 @@ Flags reads of browser-only globals (the same list as [correctness/server-browse
 
 This is a **warning**, not critical: a component that is only ever rendered behind a parent's `{#if browser}` (or dynamically imported on the client) legitimately never runs on the server, and that cannot be proven from the component file alone. If that is your case, add `// svelte-vitals-disable-next-line correctness/instance-browser-global` above the line.
 
-Nothing is flagged when SSR is off app-wide, meaning a root `src/routes/+layout.ts` (or `+layout.server.ts`) that exports `ssr = false`, as long as no other `+page`/`+layout` file exports `ssr` with any other value. No component is then rendered on the server.
+Nothing is flagged in a `+page`/`+layout` component whose route never renders on the server. A route never renders on the server when the nearest `ssr` export, looking first at the page's own `+page` files and then up its layout chain (following `+page@`/`+layout@` resets), is `ssr = false`. An `ssr` exported as anything but a literal `false` counts as turning SSR back on. A layout qualifies only when every page under it does, and the root layout only when it exports `ssr = false` itself. Other components, such as shared ones under `src/lib`, are skipped only when SSR is off app-wide: a root `src/routes/+layout.ts` (or `+layout.server.ts`) exports `ssr = false` and no other `+page`/`+layout` file exports `ssr` with any other value.
 
 A browser global used only as a `$props()` destructuring default (`let { width = window.innerWidth } = $props()`) is not flagged either. The default only evaluates when the prop is absent, including during SSR, but the scanner doesn't visit destructuring defaults. This is a silent conservative miss, not a guard.
 
