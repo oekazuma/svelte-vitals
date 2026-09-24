@@ -524,6 +524,29 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.landmarks.main).toEqual([{ file: 'src/lib/A.svelte', line: 1 }]);
   });
 
+  it('composes a component reached through a barrel or a namespace import, keeping the world closed', async () => {
+    for (const script of [`import { A } from '$lib';`, `import * as Ui from '$lib';`]) {
+      const tag = script.includes('*') ? 'Ui.A' : 'A';
+      const a11y = await a11yOf({
+        'src/routes/+page.svelte': `<script>${script}</script><${tag} />`,
+        'src/lib/index.ts': `export { default as A } from './A.svelte';`,
+        'src/lib/A.svelte': `<main id="m">a</main>`
+      });
+      expect(a11y.landmarks.main).toEqual([{ file: 'src/lib/A.svelte', line: 1 }]);
+      expect(a11y.fullyResolved).toBe(true);
+    }
+  });
+
+  it('composes the candidates of a runtime-chosen component as exclusive arms', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+page.svelte': `<script>import A from '$lib/A.svelte';import B from '$lib/B.svelte';const C = $derived(x ? A : B);</script><C />`,
+      'src/lib/A.svelte': `<main>a</main>`,
+      'src/lib/B.svelte': `<main>b</main>`
+    });
+    expect(a11y.landmarks.main).toEqual([{ file: 'src/lib/A.svelte', line: 1 }]);
+    expect(a11y.fullyResolved).toBe(true);
+  });
+
   it('keeps the conditionals of two components apart instead of folding them as one block', async () => {
     // Both <main>s render together; they are exclusive only if the two files' block
     // numbering is allowed to collide (A's branch 0 vs B's branch 1 of "group 0").

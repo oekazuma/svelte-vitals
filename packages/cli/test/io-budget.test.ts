@@ -23,7 +23,7 @@ const MAX_READS_PER_FILE = 2;
 
 /**
  * A SvelteKit-shaped project as a path→source map: `routeCount` pages that all
- * inherit one root layout, which itself pulls in one shared $lib component. The
+ * inherit one root layout, which itself pulls in one shared $lib component through a barrel. The
  * sharing is the point — it is what a broken parse cache would read repeatedly.
  *
  * Also includes one kit-module file of each shape `collectKitModuleFacts` looks
@@ -43,7 +43,8 @@ function project(routeCount: number) {
     'svelte.config.js': `export default { kit: {} };\n`,
     'vite.config.ts': `export default { plugins: [] };\n`,
     'src/app.html': `<!doctype html><html lang="en"><body></body></html>\n`,
-    'src/routes/+layout.svelte': `<script>\n  import Card from '$lib/Card.svelte';\n  let { children } = $props();\n</script>\n\n<Card title="shared" />\n{@render children()}\n`,
+    'src/routes/+layout.svelte': `<script>\n  import { Card } from '$lib';\n  let { children } = $props();\n</script>\n\n<Card title="shared" />\n{@render children()}\n`,
+    'src/lib/index.ts': `export { default as Card } from './Card.svelte';\n`,
     'src/lib/Card.svelte': `<script>\n  let { title = '' } = $props();\n</script>\n\n<svelte:head><meta name="description" content="shared" /></svelte:head>\n<h3>{title}</h3>\n`,
     'src/hooks.server.ts': `export async function handle({ event, resolve }) {\n  return resolve(event);\n}\n`,
     'src/routes/p0/+page.server.ts': `export async function load() {\n  return {};\n}\n`
@@ -92,7 +93,7 @@ describe('I/O budget for the collection phase', () => {
     // 6x the routes must not mean more reads of the files they share. This is the
     // primary parse-cache-breakage detector: per-file budgets alone stay green if
     // the cache dies but every file happens to stay under the cap.
-    for (const shared of ['src/routes/+layout.svelte', 'src/lib/Card.svelte']) {
+    for (const shared of ['src/routes/+layout.svelte', 'src/lib/Card.svelte', 'src/lib/index.ts']) {
       // Guard against a vacuous pass: Map#get returns undefined for a file that was
       // never read at all, and undefined === undefined would satisfy the equality
       // below just as well as a real match would.

@@ -23,7 +23,7 @@ import {
   IDREF_ATTRS,
   isSvgSrc
 } from '@svelte-vitals/core/internal';
-import { collectImports, type ImportMap } from './imports.js';
+import { collectComponentBindings, collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
 export type ParsedTag = Omit<HeadTag, 'presence' | 'file'>;
@@ -191,16 +191,21 @@ export interface ComponentUse {
   hasSpread: boolean;
 }
 
+/** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
+function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSelf): string {
+  return node.type === 'SvelteComponent' && node.expression.type === 'Identifier' ? node.expression.name : node.name;
+}
+
 function collectComponents(node: WalkNode | WalkNode[] | null | undefined, acc: ComponentUse[]): void {
   if (Array.isArray(node)) {
     for (const child of node) collectComponents(child, acc);
     return;
   }
   if (!node || typeof node !== 'object') return;
-  if (node.type === 'Component') {
+  if (node.type === 'Component' || node.type === 'SvelteComponent') {
     const attributes = node.attributes;
     acc.push({
-      name: node.name,
+      name: componentName(node),
       attributes,
       hasSpread: attributes.some((a) => a.type === 'SpreadAttribute')
     });
@@ -546,7 +551,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
       case 'SvelteComponent':
       case 'SvelteSelf':
         noteSpread(node);
-        emit(ctx, { kind: 'component', key: node.name, line: lineOf(source, node.start) });
+        emit(ctx, { kind: 'component', key: componentName(node), line: lineOf(source, node.start) });
         walk(node.fragment, { ...ctx, elementDepth: ctx.elementDepth + 1 });
         return;
       case 'SlotElement':
@@ -655,6 +660,8 @@ export interface ParsedFile {
   headTags: ParsedTag[];
   components: ComponentUse[];
   imports: ImportMap;
+  /** Locals holding a component chosen at runtime → the identifiers they can hold (`''`: anything else). */
+  componentBindings: Map<string, string[]>;
   images: ParsedImage[];
   headings: ParsedHeading[];
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
@@ -679,6 +686,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
     headTags: heads.flatMap((h) => tagsFromHead(h, source)),
     components,
     imports,
+    componentBindings: collectComponentBindings(ast),
     images: collectImages(ast.fragment, source, imports),
     headings: headingAcc.headings,
     dynamicHeading: headingAcc.dynamic,
