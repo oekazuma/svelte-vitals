@@ -1,9 +1,9 @@
-// Renders the generated block of the docs site's "Rule reliability" page from the committed corpus
-// measurement (scripts/corpus/). Pure apart from hashing: gen-rule-reliability.js and
+// Renders the generated block of scripts/corpus/README.md (the internal rule-reliability report) from
+// the committed corpus measurement. Pure apart from hashing: gen-rule-reliability.js and
 // scripts/corpus-measure.js do the I/O. Design: docs/superpowers/specs/2026-09-23-corpus-precision-design.md
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
-import { localeHref, normalizeBlock } from './rules-index.js';
+import { normalizeBlock } from './rules-index.js';
 
 export { normalizeBlock };
 
@@ -12,27 +12,11 @@ export const END_MARKER = '<!-- rule-reliability:end -->';
 
 export const VERDICTS = ['tp', 'fp', 'design', 'unclear'];
 
-const TEXT = {
-  en: {
-    header: ['Rule', 'Corpus findings', 'Apps', 'Reviewed (tp / fp / design / unclear)', 'Precision'],
-    notReviewed: 'not yet reviewed',
-    corpus: (n) => `Measured on ${n} apps, each pinned to a commit:`,
-    coverage: (reviewed, total) => `${reviewed} of ${total} corpus findings have a verdict.`
-  },
-  ja: {
-    header: ['ルール', 'コーパスでの検出数', 'アプリ数', 'レビュー済み (tp / fp / design / unclear)', '適合率'],
-    notReviewed: '未レビュー',
-    corpus: (n) => `計測対象は次の ${n} 個のアプリです。どれもコミットを固定しています。`,
-    coverage: (reviewed, total) => `コーパスでの検出 ${total} 件のうち、判定済みは ${reviewed} 件です。`
-  }
-};
+const HEADER = ['Rule', 'Corpus findings', 'Apps', 'Reviewed (tp / fp / design / unclear)', 'Precision'];
 
-export const LOCALES = Object.keys(TEXT);
-
-/** Page path per locale, relative to docs/src/content/docs. */
-export function pagePath(docsRoot, locale) {
-  const page = join('guides', '(reporting)', 'rule-reliability.md');
-  return locale === 'en' ? join(docsRoot, page) : join(docsRoot, locale, page);
+/** The report file, relative to the repo root. */
+export function reportPath(repoRoot) {
+  return join(repoRoot, 'scripts', 'corpus', 'README.md');
 }
 
 /** Of the parsed value, so reformatting a committed JSON file never reads as an edit. */
@@ -57,9 +41,8 @@ function precision({ tp, fp }) {
  * Throws when a rule has no row in the measurement: a rule added without `pnpm corpus update`
  * must fail the drift test rather than render as an empty row nobody measured.
  */
-export function renderBlock(locale, rules, measurement, targets) {
-  const text = TEXT[locale];
-  const lines = [text.corpus(targets.length), ''];
+export function renderBlock(rules, measurement, targets) {
+  const lines = [`Measured on ${targets.length} apps, each pinned to a commit:`, ''];
   for (const target of targets)
     lines.push(`- [${appId(target).replace(':', '/')}](${repoUrl(target)}) (\`${target.sha.slice(0, 7)}\`)`);
 
@@ -72,13 +55,14 @@ export function renderBlock(locale, rules, measurement, targets) {
     const labeled = VERDICTS.reduce((sum, v) => sum + m[v], 0);
     total += m.findings;
     reviewed += labeled;
-    const verdicts = m.findings === 0 ? '—' : labeled === 0 ? text.notReviewed : VERDICTS.map((v) => m[v]).join(' / ');
+    const verdicts =
+      m.findings === 0 ? '—' : labeled === 0 ? 'not yet reviewed' : VERDICTS.map((v) => m[v]).join(' / ');
     rows.push(
-      `| [\`${rule.id}\`](${localeHref(locale, rule.id)}) | ${m.findings} | ${m.apps} | ${verdicts} | ${precision(m)} |`
+      `| [\`${rule.id}\`](../../docs/src/content/docs/rules/${rule.id}.md) | ${m.findings} | ${m.apps} | ${verdicts} | ${precision(m)} |`
     );
   }
-  lines.push('', text.coverage(reviewed, total), '');
-  lines.push(`| ${text.header.join(' | ')} |`, `| ${text.header.map(() => '---').join(' | ')} |`, ...rows);
+  lines.push('', `${reviewed} of ${total} corpus findings have a verdict.`, '');
+  lines.push(`| ${HEADER.join(' | ')} |`, `| ${HEADER.map(() => '---').join(' | ')} |`, ...rows);
   return lines.join('\n');
 }
 

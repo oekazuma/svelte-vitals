@@ -1,7 +1,8 @@
 # Corpus precision — design
 
-Measured precision of every rule on real third-party SvelteKit apps, visible per PR and on the docs
-site. The v1.0 blocker is trust: false positives and wrong claims are what keep the tool from being
+Measured precision of every rule on real third-party SvelteKit apps, visible per PR and in an
+internal report (`scripts/corpus/README.md`). It is a development aid, not a user-facing claim, so it
+is deliberately not on the docs site. The v1.0 blocker is trust: false positives and wrong claims are what keep the tool from being
 relied on, and until now nothing measured them. A 2026-09-23 sweep over 15 real apps found 17
 false-positive classes that the unit tests, the kitchen-sink gallery and the ecosystem smoke had all
 passed — every one of them visible only by reading findings on code nobody wrote for the tool.
@@ -10,14 +11,13 @@ passed — every one of them visible only by reading findings on code nobody wro
 
 - **Not the ecosystem smoke.** `2026-08-16-ecosystem-smoke-design.md` asserts only "no crash" and
   deliberately never reads findings, so a moving upstream cannot turn it into a muted job. That stays
-  true. This is a separate instrument that reads findings, on a **pinned** corpus, and never gates a
-  merge.
-- **Not a correctness gate.** No count is asserted. The PR job reports; the only blocking check is
-  the docs drift test below, which asserts that the committed measurement covers every rule — not
-  what it says.
+  true. This is a separate instrument that reads findings, on a **pinned** corpus.
+- **Not a count gate.** No finding count or precision threshold is asserted. The PR gate (below)
+  fails only on verdict-backed regressions, and the drift test only asserts that the committed
+  measurement covers every rule — not what it says.
 - **Not a claim about unread findings.** Precision is computed over findings a human (or an agent,
   reviewed) has given a verdict. An unlabeled finding is "unknown", never assumed a true positive.
-  The page always shows how many findings the number rests on.
+  The report always shows how many findings the number rests on.
 
 ## Corpus
 
@@ -67,29 +67,32 @@ dropping a verdict is a decision, not a side effect of re-measuring.
 1. **`pnpm corpus`** (`scripts/corpus-measure.js`, manual, needs `pnpm build`): `run` (full
    findings per app, deduplicated by key and title with a route count), `diff <a> <b>`, `update`
    (re-measure with the local build and rewrite `scripts/corpus/measurement.json` plus the generated
-   docs tables). `update` refuses to write when any app fails, since a missing app would silently
+   table in `scripts/corpus/README.md`). `update` refuses to write when any app fails, since a missing app would silently
    read as findings removed. `measurement.json` is per-rule aggregates plus digests of the
    `targets.json` and `verdicts.json` it was computed from, so editing either without re-measuring
-   fails the drift test. The docs page's raw text feeds the en/ja translation ledger, so an update
-   ends with `pnpm format` and a re-stamp of the page — legitimate, because the generator wrote both
-   halves.
-2. **PR job** (`.github/workflows/corpus.yml`, non-blocking, when `packages/**` or the corpus files
-   change): builds the base and head, measures both with the head's script, and posts one sticky PR
-   comment — per-rule added/removed counts, the added and removed findings with their verdicts, and
-   which added findings have none. An app that fails on either side is named and left out of the
+   fails the drift test. An update ends with `pnpm format`.
+2. **PR job** (`.github/workflows/corpus.yml`, when `packages/**` or the corpus files change): builds
+   the base and head, measures both with the head's script, and posts one sticky PR comment, like a
+   coverage report — per-rule added/removed counts and precision before → after, the added and
+   removed findings with their verdicts, and which added findings have none. A separate `gate` job
+   fails when a finding with a `tp` verdict disappears (a real defect is now missed), a finding with
+   an `fp` verdict comes back, or `measurement.json` is stale. Unreviewed new findings are listed, not
+   failed: requiring a verdict for every one would make a detection change cost hundreds of
+   verdicts. An intended change goes through by editing the verdict in the same PR, which puts the
+   decision in the diff. `fp` verdicts are kept after the fix for exactly this reason. Whether `gate`
+   blocks merging is the ruleset's decision. An app that fails on either side is named and left out of the
    comparison. Two jobs: the one that runs the PR's code over cloned third-party repos has only
    `contents: read`; the comment job holds `pull-requests: write` and runs neither. Fork PRs get the
    report in the job summary only.
-3. **Docs page** "Rule reliability" (en/ja): per rule, corpus findings, apps, verdict counts and
-   precision, generated from `measurement.json` + `verdicts.json` between markers, like the CLI
-   flag reference.
+3. **Internal report** `scripts/corpus/README.md`: per rule, corpus findings, apps, verdict counts
+   and precision, generated from `measurement.json` + `verdicts.json` between markers.
 
 ## Keeping it honest when rules are added
 
-The docs table is generated from `allRules`, and a drift test fails the build when the committed
+The report table is generated from `allRules`, and a drift test fails the build when the committed
 table differs from the generator's output — so a new rule cannot ship without re-running
-`pnpm corpus update`, and it appears as "not yet reviewed" until verdicts are added. The PR comment
-flags `measurement.json` as stale whenever the head measurement differs from it.
+`pnpm corpus update`, and it appears as "not yet reviewed" until verdicts are added. The PR gate
+fails while `measurement.json` differs from the head measurement.
 
 ## Failed runs
 
