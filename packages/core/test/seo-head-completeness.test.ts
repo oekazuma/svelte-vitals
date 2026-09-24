@@ -95,6 +95,7 @@ describe('og:* written with name= instead of property=', () => {
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toBe('<meta name="og:url"> should be <meta property="og:url">');
     expect(rs[0]!.recommendation).toContain('change name="og:url" to property="og:url"');
+    expect(rs[0]!.fix?.description).toBe('Change name="og:url" to property="og:url" on the existing tag.');
   });
   it('still says Missing when no og:* tag is written at all', async () => {
     const rs = await seoOgDescription.check(ctx(headWith([])));

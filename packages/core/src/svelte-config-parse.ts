@@ -184,11 +184,31 @@ export function resolveKitAliases(
   return compileKitAliases(findKitAliasesInSvelteConfig(svelteConfig.source));
 }
 
+/** Conditions every Vite build of a Svelte app matches; `types`/`require` never apply to an ESM import. */
+const MATCHED_CONDITIONS = new Set(['svelte', 'import', 'module', 'default']);
+const IGNORED_CONDITIONS = new Set(['types', 'require']);
+
+/**
+ * The target a package `imports` value resolves to, walking conditions in declaration order as Node
+ * does. A condition that depends on the environment (`node`, `browser`, `development`, …) makes the
+ * answer unknowable here, so it resolves to nothing rather than to a branch that may not apply.
+ */
+function importTarget(value: unknown): string | undefined {
+  if (typeof value === 'string') return value;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  for (const [condition, branch] of Object.entries(value)) {
+    if (IGNORED_CONDITIONS.has(condition)) continue;
+    return MATCHED_CONDITIONS.has(condition) ? importTarget(branch) : undefined;
+  }
+  return undefined;
+}
+
 /**
  * `aliases` followed by the project's package.json `imports` entries (`"#lib/*": "./src/lib/*"`),
- * after Kit's own: Vite's alias plugin resolves before Node-style subpath imports. Only a
- * project-relative string target counts (a conditions object's `default`/`import`); anything else
- * is skipped, which leaves the specifier unresolved as before.
+ * after Kit's own: Vite's alias plugin resolves before Node-style subpath imports. The entries are
+ * ordered by Node's precedence — exact keys, then patterns by longest prefix — because the alias
+ * resolver takes the first match. Only a project-relative target counts; anything else is skipped,
+ * which leaves the specifier unresolved as before.
  */
 export function withPackageImports(
   aliases: KitAlias[] | undefined,
@@ -203,9 +223,8 @@ export function withPackageImports(
   if (!imports || typeof imports !== 'object') return aliases;
   const entries: KitAlias[] = [];
   for (const [key, raw] of Object.entries(imports)) {
-    const conditions = raw && typeof raw === 'object' ? (raw as Record<string, unknown>) : undefined;
-    const target = conditions ? (conditions.default ?? conditions.import) : raw;
-    if (typeof target !== 'string' || !target.startsWith('./')) continue;
+    const target = importTarget(raw);
+    if (target === undefined || !target.startsWith('./')) continue;
     const star = key.endsWith('/*');
     if (star !== target.endsWith('/*') || key.slice(0, star ? -2 : undefined).includes('*')) continue;
     entries.push({
@@ -214,6 +233,9 @@ export function withPackageImports(
       match: star ? 'contents' : 'exact'
     });
   }
+  entries.sort((a, b) =>
+    a.match === b.match ? (a.match === 'exact' ? 0 : b.find.length - a.find.length) : a.match === 'exact' ? -1 : 1
+  );
   return entries.length > 0 ? [...(aliases ?? DEFAULT_KIT_ALIASES), ...entries] : aliases;
 }
 

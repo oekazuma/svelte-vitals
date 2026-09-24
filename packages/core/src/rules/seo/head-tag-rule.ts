@@ -26,7 +26,7 @@ export interface HeadTagRuleOptions {
    * A tag that carries the right key under the wrong attribute (`<meta name="og:image">`). Its
    * presence turns "Missing" into a pointer at the attribute, since the author did try.
    */
-  misspelled?: { match: (tag: HeadTag) => boolean; label: string; recommendation: string };
+  misspelled?: { match: (tag: HeadTag) => boolean; label: string; recommendation: string; fix: Fix };
 }
 
 /** Open Graph keys are read from `property=`; `name="og:*"` is the common slip. */
@@ -34,7 +34,13 @@ export function ogMisspelled(key: string): NonNullable<HeadTagRuleOptions['missp
   return {
     match: (t) => t.kind === 'meta' && t.name === key && t.property === undefined,
     label: `<meta name="${key}"> should be <meta property="${key}">`,
-    recommendation: `Open Graph reads ${key} from the property attribute: change name="${key}" to property="${key}".`
+    recommendation: `Open Graph reads ${key} from the property attribute: change name="${key}" to property="${key}".`,
+    // Edit the existing tag; the rule's own fix adds one, which would leave the name= copy behind.
+    fix: {
+      description: `Change name="${key}" to property="${key}" on the existing tag.`,
+      snippet: `<meta property="${key}" content="…" />`,
+      lang: 'svelte'
+    }
   };
 }
 
@@ -88,7 +94,7 @@ export function headTagRule(opts: HeadTagRuleOptions): Rule {
           docsUrl,
           // Copy per finding: opts.fix is a rule-level template shared across all
           // results this rule emits; a fresh object keeps findings independent.
-          ...(opts.fix ? { fix: { ...opts.fix } } : {})
+          ...(misspelled ? { fix: { ...misspelled.fix } } : opts.fix ? { fix: { ...opts.fix } } : {})
         } satisfies Result;
       });
     }

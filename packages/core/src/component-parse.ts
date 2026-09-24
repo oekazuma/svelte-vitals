@@ -2014,8 +2014,11 @@ function collectPropMutations(
     walkEstree(root, (fn: Node) => {
       if (!isDeferredBody(fn)) return;
       const assigned = new Set<string>();
-      walkEstree(fn.body, (m: Node) => {
-        if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier') assigned.add(m.left.name);
+      // Scoped: `function helper(flags) { flags = {} }` reassigns a parameter, not the prop.
+      walkScoped(fn.body, (m: Node, scope: Set<string>) => {
+        if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier' && !scope.has(m.left.name)) {
+          assigned.add(m.left.name);
+        }
       });
       walkEstree(fn.body, (m: Node) => {
         const r =
@@ -2028,11 +2031,19 @@ function collectPropMutations(
       });
     });
   }
-  // `value = value.set({ … })`: the result goes straight back into the prop, the shape of an
-  // immutable API (@internationalized/date, Immutable.js) whose `set`/`add` return a new value.
+  // `value = value.set({ hour: 15 })`: a single patch object whose result goes straight back into
+  // the prop is the immutable date/time shape (@internationalized/date). `map = map.set(k, v)` is
+  // not exempt: Map#set mutates and returns the same map.
   walkEstree(root, (m: Node) => {
     const call = m.type === 'AssignmentExpression' && m.left?.type === 'Identifier' ? m.right : undefined;
-    if (call?.type === 'CallExpression' && rootObjectName(call.callee?.object) === m.left.name) exemptCalls.add(call);
+    if (
+      call?.type === 'CallExpression' &&
+      rootObjectName(call.callee?.object) === m.left.name &&
+      call.arguments?.length === 1 &&
+      call.arguments[0]?.type === 'ObjectExpression'
+    ) {
+      exemptCalls.add(call);
+    }
   });
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const flag = (r: string | undefined) => {
