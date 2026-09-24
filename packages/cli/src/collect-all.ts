@@ -21,7 +21,7 @@ import {
   type SuppressionDirective
 } from '@svelte-vitals/core/internal';
 import { collectProjectFacts } from './providers/source/project.js';
-import type { ParseCache } from './providers/source/resolve.js';
+import { dropConstantListEachBlocks, type ParseCache } from './providers/source/resolve.js';
 import { collectRoutes, deriveRoute } from './providers/source/routes.js';
 import { routeMatcher } from './route-matcher.js';
 
@@ -91,7 +91,11 @@ export async function collectAll(
     ),
     // Component (Correctness) facts are file-scoped with no route attribution yet, so a
     // route-filtered run skips them rather than reporting unrelated components (#68 review).
-    opts.route ? [] : collectComponentFacts(rt, cwd),
+    opts.route
+      ? []
+      : collectComponentFacts(rt, cwd).then((facts) =>
+          dropConstantListEachBlocks({ rt, cwd, cache: parseCache, aliases: project.kitAliases }, facts)
+        ),
     // Read under `--route` too, for the redirect-only gate below; the rules still get none then.
     collectKitModuleFacts(rt, cwd, project.kitAliases),
     // Unlike its two neighbours above, the --route branch gets `undefined` here, not `[]`: an empty

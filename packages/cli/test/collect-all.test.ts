@@ -175,3 +175,49 @@ describe('collectAll: app.html head tags', () => {
     ]);
   });
 });
+
+describe('collectAll — {#each} over an imported constant list', () => {
+  const each = (script: string, list = 'xs') =>
+    `<script lang="ts">${script}</script>{#each ${list} as x}<b>{x}</b>{/each}`;
+  const MODULES = {
+    'src/lib/data.ts': `export const xs = ['a', 'b'];\nexport const typed = [{ id: 1 }] as const satisfies readonly { id: number }[];\nexport const pushed = [1];\npushed.push(2);\nexport const computed = [1, 2].map((n) => n * 2);\nconst local = ['c'];\nexport { local as renamed };\n`,
+    'src/lib/index.ts': `export * from './data';\nexport { xs as viaBarrel } from './data.js';\n`,
+    'src/lib/data.json': `["a", "b"]`
+  };
+  const COMPONENTS = {
+    'src/lib/Alias.svelte': each("import { xs } from '$lib/data';"),
+    'src/lib/Relative.svelte': each("import { xs } from './data.js';"),
+    'src/lib/Barrel.svelte': each("import { viaBarrel as xs } from '$lib';"),
+    'src/lib/Star.svelte': each("import { xs } from '$lib/index';"),
+    'src/lib/AsConst.svelte': each("import { typed as xs } from '$lib/data';"),
+    'src/lib/Renamed.svelte': each("import { renamed as xs } from '$lib/data';"),
+    'src/lib/Namespace.svelte': each("import * as data from '$lib/data';", 'data.xs'),
+    'src/lib/Pushed.svelte': each("import { pushed as xs } from '$lib/data';"),
+    'src/lib/Computed.svelte': each("import { computed as xs } from '$lib/data';"),
+    'src/lib/Package.svelte': each("import { xs } from 'some-package';"),
+    'src/lib/Json.svelte': each("import xs from '$lib/data.json';"),
+    'src/lib/JsonNamed.svelte': each("import { xs } from '$lib/data.json';"),
+    'src/lib/Missing.svelte': each("import { xs } from '$lib/missing';")
+  };
+
+  it('drops the block only when the export is a repo-local constant list', async () => {
+    const rt = createMemoryRuntime({ ...PROJECT, ...MODULES, ...COMPONENTS });
+
+    const { components } = await collectAll(rt, '', defaultConfig);
+
+    const scanned = components.filter((c) => c.file in COMPONENTS && !c.parseFailed);
+    expect(scanned).toHaveLength(Object.keys(COMPONENTS).length);
+    const reported = components
+      .filter((c) => c.file in COMPONENTS && c.eachBlocks.length > 0)
+      .map((c) => c.file)
+      .sort();
+    expect(reported).toEqual([
+      'src/lib/Computed.svelte',
+      'src/lib/Json.svelte',
+      'src/lib/JsonNamed.svelte',
+      'src/lib/Missing.svelte',
+      'src/lib/Package.svelte',
+      'src/lib/Pushed.svelte'
+    ]);
+  });
+});

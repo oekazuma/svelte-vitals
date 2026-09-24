@@ -15,6 +15,12 @@ export interface EachBlockFact {
   line: number;
   /** Set when the block's key expression is its index binding or a trivial coercion of it — `(i)`, `(String(i))`, `(Number(i))`, `` (`${i}`) ``, `(i.toString())`, `(i + '')` — correctness/each-index-key. */
   indexKey?: boolean;
+  /**
+   * The import the block iterates, set on an unkeyed or index-keyed block over an imported binding
+   * (`xs`, or `ns.xs` of `import * as ns`) the component only reads. Core cannot see the module
+   * behind it; a collector that can drops the block when that export is a constant list.
+   */
+  importedList?: { source: string; imported: string };
 }
 
 /** An `$effect(...)` / `$effect.pre(...)` call in a component's instance script. */

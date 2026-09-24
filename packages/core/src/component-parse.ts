@@ -209,16 +209,44 @@ const TS_VALUE_NODES = new Set([
   'TSTypeAssertion'
 ]);
 
+/** A value import a component iterates: `imported` is the export name, `'*'` for a namespace. */
+type ImportBinding = EachBlockFact['importedList'] & {};
+
 /**
- * Names of `const X = [ … ]` array literals (script top level, not exported) that nothing can
- * reorder: every other mention of `X` in the file is a member read or an `{#each X …}`. Such a
- * list is the inline literal the each rules already skip, just given a name. Anything else — a
- * mutating call, an assignment through it, passing or spreading `X` — keeps the list keyed.
+ * Names of `const X = [ … ]` array literals (script top level) that nothing can reorder: every
+ * other mention of `X` in the file is a member read or an `{#each X …}`. Such a list is the inline
+ * literal the each rules already skip, just given a name. Anything else — a mutating call, an
+ * assignment through it, passing or spreading `X` — keeps the list keyed. A component's value
+ * imports are held to the same uses (`imports`), since the module behind one may be such a list;
+ * a module's `export const` is a candidate only with `exported`, because a component's `export`
+ * is written by its parent.
  */
-function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
+function collectConstantLists(
+  programs: Node[],
+  fragment: Node,
+  opts: { exported?: boolean; imports?: Map<string, ImportBinding> } = {}
+): Set<string> {
   const candidates = new Map<string, Node>();
+  const safe = new Set<Node>();
+  // Only imports an `{#each}` iterates, so a component that iterates none skips both walks below.
+  const iterated = opts.imports ? eachListRoots(fragment) : undefined;
   for (const program of programs) {
-    for (const stmt of program.body ?? []) {
+    for (const top of program.body ?? []) {
+      if (iterated?.size && top?.type === 'ImportDeclaration' && top.importKind !== 'type') {
+        for (const s of top.specifiers ?? []) {
+          if (s?.importKind === 'type' || s?.type === 'ImportDefaultSpecifier' || !iterated.has(s?.local?.name))
+            continue;
+          const imported = s.type === 'ImportNamespaceSpecifier' ? '*' : (s.imported?.name ?? s.imported?.value);
+          if (typeof imported !== 'string') continue;
+          opts.imports!.set(s.local.name, { source: String(top.source.value), imported });
+          candidates.set(s.local.name, s.local);
+          safe.add(s.imported);
+        }
+      }
+      if (opts.exported && top?.type === 'ExportNamedDeclaration' && !top.source) {
+        for (const s of top.specifiers ?? []) safe.add(s.local).add(s.exported);
+      }
+      const stmt = opts.exported ? unwrapExport(top) : top;
       if (stmt?.type !== 'VariableDeclaration' || stmt.kind !== 'const') continue;
       for (const d of stmt.declarations ?? []) {
         const init = unwrapTs(d?.init);
@@ -230,23 +258,34 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
     }
   }
   if (candidates.size === 0) return new Set();
-  const safe = new Set<Node>(candidates.values());
+  for (const node of candidates.values()) safe.add(node);
+  const namespaces = new Set([...(opts.imports ?? [])].filter(([, b]) => b.imported === '*').map(([local]) => local));
   const unsafe = new Set<string>();
   const roots = [...programs, fragment];
   const listOf = (n: Node): string | undefined =>
     n?.type === 'Identifier' && candidates.has(n.name) ? n.name : undefined;
+  // `ns.xs` of a namespace import is the list, held to the uses a plain `xs` is under the key `ns.xs`.
+  const nsMember = (n: Node): string | undefined =>
+    n?.type === 'MemberExpression' && !n.computed && namespaces.has(listOf(n.object)!)
+      ? `${n.object.name}.${n.property.name}`
+      : undefined;
+  const members = new Set<string>();
   for (const root of roots) {
     walkEstree(root, (n: Node) => {
-      if (n.type === 'EachBlock' && listOf(n.expression)) safe.add(n.expression);
+      if (n.type === 'EachBlock' && (listOf(n.expression) || nsMember(n.expression))) safe.add(n.expression);
+      if (nsMember(n)) members.add(nsMember(n)!);
       if (n.type === 'MemberExpression') {
-        if (listOf(n.object)) safe.add(n.object);
+        if (listOf(n.object) && !(n.computed && namespaces.has(n.object.name))) safe.add(n.object);
+        if (nsMember(n.object)) safe.add(n.object);
         if (!n.computed) safe.add(n.property);
       }
       const target =
         n.type === 'AssignmentExpression' ? n.left : n.type === 'UpdateExpression' ? n.argument : undefined;
       if (target?.type === 'MemberExpression' && listOf(rootObjectNode(target)))
         unsafe.add(listOf(rootObjectNode(target))!);
-      if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' && listOf(n.callee.object)) {
+      const called = n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' ? n.callee.object : undefined;
+      const calledList = listOf(called) ?? nsMember(called);
+      if (calledList) {
         const { computed, property } = n.callee;
         // `xs['sort']()` names the method as a string; `xs[m]()` could be any of them.
         const method = !computed
@@ -255,7 +294,7 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
             ? property.value
             : undefined;
         if ((computed && method === undefined) || (method !== undefined && MUTATING_METHODS.has(method))) {
-          unsafe.add(n.callee.object.name);
+          unsafe.add(calledList);
         }
       }
       if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression)))
@@ -269,7 +308,7 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
       (n: Node) => {
         // Type positions are erased and can change nothing: `typeof X`, `(X: T) => void`.
         if (n.type.startsWith('TS') && !TS_VALUE_NODES.has(n.type)) return true;
-        const name = listOf(n);
+        const name = listOf(n) ?? nsMember(n);
         if (name && !safe.has(n)) unsafe.add(name);
         return false;
       },
@@ -277,7 +316,43 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
       new Set()
     );
   }
-  return new Set([...candidates.keys()].filter((name) => !unsafe.has(name)));
+  return new Set(
+    [...candidates.keys(), ...members].filter((key) => !unsafe.has(key) && !unsafe.has(key.split('.')[0]!))
+  );
+}
+
+/**
+ * Export names of a module's constant lists — `export const X = [ … ]`, or a local one exported by
+ * name — that the module itself never writes (correctness/each-key, correctness/each-index-key).
+ */
+export function collectConstantListExports(program: Node): Set<string> {
+  const lists = collectConstantLists([program], undefined, { exported: true });
+  const out = new Set<string>();
+  for (const top of program?.body ?? []) {
+    if (top?.type !== 'ExportNamedDeclaration' || top.exportKind === 'type') continue;
+    for (const d of top.declaration?.declarations ?? []) {
+      if (d?.id?.type === 'Identifier' && lists.has(d.id.name)) out.add(d.id.name);
+    }
+    for (const s of top.source ? [] : (top.specifiers ?? [])) {
+      if (lists.has(s.local.name)) out.add(s.exported.name ?? s.exported.value);
+    }
+  }
+  return out;
+}
+
+/** The root names `{#each}` blocks iterate: `xs` for both `{#each xs …}` and `{#each xs.ys …}`. */
+function eachListRoots(node: Node, acc = new Set<string>()): Set<string> {
+  if (Array.isArray(node)) {
+    for (const child of node) eachListRoots(child, acc);
+    return acc;
+  }
+  if (!node || typeof node !== 'object') return acc;
+  if (node.type === 'EachBlock') {
+    const expr = node.expression?.type === 'MemberExpression' ? node.expression.object : node.expression;
+    if (expr?.type === 'Identifier') acc.add(expr.name);
+  }
+  for (const key of CHILD_NODE_KEYS) if (key in node) eachListRoots(node[key], acc);
+  return acc;
 }
 
 /** The innermost object of a member chain (`a` for `a.b[c].d`), or the node itself. */
@@ -288,26 +363,47 @@ function rootObjectNode(n: Node): Node {
 }
 
 /** Recursively collect every `{#each}` block in the template (correctness/each-key). */
-function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[], constantLists: Set<string>): void {
+function collectEachBlocks(
+  node: Node,
+  source: string,
+  acc: EachBlockFact[],
+  lists: Set<string>,
+  imports: Map<string, ImportBinding>
+): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectEachBlocks(child, source, acc, constantLists);
+    for (const child of node) collectEachBlocks(child, source, acc, lists, imports);
     return;
   }
   if (!node || typeof node !== 'object') return;
   // Itemless each (`{#each { length: 8 }, i}` — the docs' "render N times" pattern,
   // e.g. a chess board) has no item identity to key on; the only possible key is
   // the index itself, which is a no-op. Flagging it would be a false positive.
-  const constantList =
-    node.type === 'EachBlock' && node.expression?.type === 'Identifier' && constantLists.has(node.expression.name);
-  if (node.type === 'EachBlock' && node.context != null && !isIdentityFreeEach(node) && !constantList) {
-    acc.push({
-      hasKey: node.key != null,
-      line: lineOf(source, node.start),
-      ...(isIndexKey(node) ? { indexKey: true } : {})
-    });
+  if (node.type === 'EachBlock' && node.context != null && !isIdentityFreeEach(node)) {
+    const expr = node.expression;
+    const list =
+      expr?.type === 'Identifier'
+        ? expr.name
+        : expr?.type === 'MemberExpression' && !expr.computed && expr.object?.type === 'Identifier'
+          ? `${expr.object.name}.${expr.property.name}`
+          : undefined;
+    const constant = list !== undefined && lists.has(list);
+    const [local, member] = list?.split('.') ?? [];
+    const binding = constant ? imports.get(local!) : undefined;
+    const indexKey = isIndexKey(node);
+    // A local constant list is settled here; an imported one only once its module is read.
+    if (!constant || binding) {
+      acc.push({
+        hasKey: node.key != null,
+        line: lineOf(source, node.start),
+        ...(indexKey ? { indexKey: true } : {}),
+        ...(binding && (indexKey || node.key == null)
+          ? { importedList: member ? { source: binding.source, imported: member } : binding }
+          : {})
+      });
+    }
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectEachBlocks(node[key], source, acc, constantLists);
+    if (key in node) collectEachBlocks(node[key], source, acc, lists, imports);
   }
 }
 
@@ -2652,7 +2748,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const ast = parseSvelte(source, filename) as Node;
   const eachBlocks: EachBlockFact[] = [];
   const scriptPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
-  collectEachBlocks(ast.fragment ?? ast, source, eachBlocks, collectConstantLists(scriptPrograms, ast.fragment ?? ast));
+  const listImports = new Map<string, ImportBinding>();
+  const lists = collectConstantLists(scriptPrograms, ast.fragment ?? ast, { imports: listImports });
+  collectEachBlocks(ast.fragment ?? ast, source, eachBlocks, lists, listImports);
   const htmlTags: SourceSpan[] = [];
   const javascriptUrls: SourceSpan[] = [];
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
