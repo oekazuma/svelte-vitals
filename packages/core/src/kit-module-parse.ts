@@ -366,12 +366,35 @@ function refsTainted(node: Node, tainted: Set<string>): boolean {
 }
 
 /**
+ * Awaits that only run when a tainted value says so — `a ?? await x`, `t ? await x : y` — and so
+ * cannot start before the earlier await that decides them.
+ */
+function guardedAwaits(node: Node, tainted: Set<string>, out = new Set<Node>()): Set<Node> {
+  if (Array.isArray(node)) {
+    for (const child of node) guardedAwaits(child, tainted, out);
+    return out;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string' || isFunctionNode(node)) return out;
+  if (node.type === 'LogicalExpression' && refsTainted(node.left, tainted)) {
+    for (const a of collectAwaits(node.right)) out.add(a);
+  } else if (node.type === 'ConditionalExpression' && refsTainted(node.test, tainted)) {
+    for (const a of collectAwaits([node.consequent, node.alternate])) out.add(a);
+  }
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    guardedAwaits(node[key], tainted, out);
+  }
+  return out;
+}
+
+/**
  * performance/load-waterfall, performance/sequential-awaits — forward-taint analysis of the exported `load`'s straight-line
  * statements (direct `try` blocks inlined; `if`/loops/`switch` are not classified
  * but still propagate taint from their assignments; nested functions are never
  * entered). One await site per statement; a site whose awaits' argument subtrees
  * reference an earlier site's bindings (transitively, through intermediate consts
- * and assignments — member-expression targets taint their root object) is
+ * and assignments — member-expression targets taint their root object), or that a
+ * tainted `??`/`&&`/`||`/`?:` guard decides (`guardedAwaits`), is
  * dependent, anchored at the first dependent await; otherwise independent when a
  * prior site exists, unless every await merely resumes an already-created promise
  * (a bare identifier argument starts no request). `await parent()` and
@@ -438,7 +461,8 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
       ) {
         const sites = collectAwaits(stmt).filter((a) => !isParentCall(a.argument) && !isBodyParseCall(a.argument));
         if (sites.length > 0) {
-          const dependent = sites.filter((a) => refsTainted(a.argument, tainted));
+          const guarded = guardedAwaits(stmt, tainted);
+          const dependent = sites.filter((a) => guarded.has(a) || refsTainted(a.argument, tainted));
           if (dependent.length > 0) {
             const anchor = dependent.reduce((m, a) => (a.start < m.start ? a : m));
             dependentLines.push(line(anchor.start));
