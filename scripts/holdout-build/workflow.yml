@@ -1,0 +1,117 @@
+# Inactive copy of the C2 harness. To rerun, commit it as .github/workflows/holdout-build.yml with
+# run-app.sh at .github/holdout-build/ on a throwaway `holdout-build/**` branch, then delete the branch.
+name: Holdout build mode
+
+# Runs only on throwaway `holdout-build/**` branches: it installs and builds third-party apps, so it
+# runs on ephemeral runners with no token scopes and no secrets, and never on main or a PR.
+on:
+  push:
+    branches:
+      - 'holdout-build/**'
+
+permissions: {}
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      apps: ${{ steps.apps.outputs.apps }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - run: pnpm build
+      - name: Pack core, cli and vite
+        run: |
+          mkdir -p "$RUNNER_TEMP/tgz"
+          for p in @svelte-vitals/core svelte-vitals @svelte-vitals/vite; do
+            pnpm --filter "$p" pack --pack-destination "$RUNNER_TEMP/tgz"
+          done
+          ls "$RUNNER_TEMP/tgz"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tgz
+          path: ${{ runner.temp }}/tgz
+      - id: apps
+        run: echo "apps=$(node -e 'console.log(JSON.stringify(require("./scripts/corpus/holdout.json")))')" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: pack
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        app: ${{ fromJSON(needs.pack.outputs.apps) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/holdout-build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/download-artifact@v4
+        with:
+          name: tgz
+          path: ${{ runner.temp }}/tgz
+      - name: Install the packed plugin in isolation
+        run: |
+          d="$RUNNER_TEMP/sv"; mkdir -p "$d"; cd "$d"
+          t="$RUNNER_TEMP/tgz"
+          core=$(ls "$t"/svelte-vitals-core-*.tgz); cli=$(ls "$t"/svelte-vitals-[0-9]*.tgz); vite=$(ls "$t"/svelte-vitals-vite-*.tgz)
+          cat > package.json <<JSON
+          { "name": "sv-plugin", "private": true,
+            "dependencies": { "@svelte-vitals/core": "file:$core", "svelte-vitals": "file:$cli", "@svelte-vitals/vite": "file:$vite" },
+            "overrides": { "@svelte-vitals/core": "file:$core", "svelte-vitals": "file:$cli" } }
+          JSON
+          npm install --no-audit --no-fund --legacy-peer-deps
+          ls node_modules/@svelte-vitals
+      - name: Build the app with the plugin
+        env:
+          REPO: ${{ matrix.app.repo }}
+          APP_PATH: ${{ matrix.app.path }}
+          SHA: ${{ matrix.app.sha }}
+          PLUGIN_DIR: ${{ runner.temp }}/sv
+          OUT: ${{ runner.temp }}/out
+          CI: 'true'
+        run: bash .github/holdout-build/run-app.sh
+      - name: Name the artifact
+        id: name
+        env:
+          REPO: ${{ matrix.app.repo }}
+        run: echo "name=${REPO//\//__}" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: out-${{ steps.name.outputs.name }}
+          path: ${{ runner.temp }}/out
+
+  summary:
+    needs: build
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: out-*
+          path: out
+      - run: |
+          node -e '
+            const fs = require("fs");
+            const rows = fs.readdirSync("out").map((d) => {
+              try { return JSON.parse(fs.readFileSync(`out/${d}/result.json`, "utf8")); } catch { return { app: d, stage: "missing" }; }
+            });
+            fs.writeFileSync("summary.json", JSON.stringify(rows, null, 1));
+            const lines = ["| app | stage | status | exit | gate | plugin | report |", "| --- | --- | --- | --- | --- | --- | --- |"];
+            for (const r of rows) lines.push(`| ${r.app} | ${r.stage} | ${r.status ?? ""} | ${r.exit ?? ""} | ${r.gate ?? ""} | ${r.pluginLine ?? ""} | ${r.report ?? ""} |`);
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join("\n") + "\n");
+            console.log(lines.join("\n"));
+          '
+      - uses: actions/upload-artifact@v4
+        with:
+          name: summary
+          path: summary.json

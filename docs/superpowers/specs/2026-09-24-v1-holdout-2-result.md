@@ -52,7 +52,7 @@ the claim, not the cause.
 
 ## C2 in detail
 
-Run on GitHub-hosted runners with no token scopes (Actions run 35974926651, from the throwaway `holdout-build/h2` branch): each app installed with its own package manager,
+Run on GitHub-hosted runners with no token scopes (Actions run 35974926651; the harness is kept in `scripts/holdout-build/`): each app installed with its own package manager,
 its `vite.config` wrapped to add the packed plugin, and its own `build` script run. The plugin ran
 and wrote its report on 11 apps and crashed on none. Nine builds completed. Two (WelcometoMyGarden,
 freehire) failed after the plugin reported, on missing env variables and a workspace dependency the
