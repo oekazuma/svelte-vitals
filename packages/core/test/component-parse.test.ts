@@ -1264,6 +1264,13 @@ describe('parseComponentFacts — runes behind TS casts (as/satisfies/!)', () =>
     expect(parseComponentFacts(src, 'C.svelte').rawableStates).toEqual([{ name: 'big', line: 1 }]);
   });
 
+  it('keeps a same-named local $state in an {#each} handler from tainting the iterated list', () => {
+    const src =
+      '<script>let items = $state([{ x: 0 }]);\nfunction reset() {\n  items = [];\n}</script>' +
+      '{#each items as item}<button onclick={() => { let item = $state({ x: 0 }); item.x = 1; }}>{item.x}</button>{/each}';
+    expect(parseComponentFacts(src, 'C.svelte').rawableStates).toEqual([{ name: 'items', line: 1 }]);
+  });
+
   it('recognizes a non-null-asserted $state module declaration (moduleStateDecls)', () => {
     const src = 'export const user = $state({ name: "" })!;';
     expect(parseComponentFacts(src, 'src/lib/store.svelte.ts').moduleStateDecls).toEqual([{ name: 'user', line: 1 }]);

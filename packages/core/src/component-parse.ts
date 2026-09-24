@@ -396,7 +396,8 @@ function collectStateWrites(
   root: Node,
   stateNames: Set<string>,
   acc: Set<string>,
-  kinds?: Map<string, Set<WriteKind>>
+  kinds?: Map<string, Set<WriteKind>>,
+  localStates = false
 ): void {
   const record = (name: string, kind: WriteKind): void => {
     acc.add(name);
@@ -446,7 +447,10 @@ function collectStateWrites(
   };
   walkScoped(root, visit(stateNames));
   // A `$state` declared inside a function is shadowed by its own block in the walk above, so
-  // that block's statements are walked again with only its own state declarations in play.
+  // that block's statements are walked again with only its own state declarations in play. Writes
+  // are recorded by name, so only unmutated-state opts in: for the other callers a same-named
+  // local would stand in for the binding they track.
+  if (!localStates) return;
   walkEstree(root, (n: Node) => {
     if (n.type !== 'BlockStatement') return;
     const own = new Set<string>();
@@ -2788,9 +2792,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       });
     });
     const writtenOrEscaped = new Set<string>();
-    collectStateWrites(program, stateNames, writtenOrEscaped);
+    collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true);
     if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);

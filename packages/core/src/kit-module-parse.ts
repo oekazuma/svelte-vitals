@@ -371,6 +371,15 @@ function startsWork(arg: Node): boolean {
   return WORK_STARTING.has(e?.type);
 }
 
+/** Whether evaluating `node` may start work: a work-starting expression anywhere outside a nested function. */
+function containsWork(node: Node): boolean {
+  if (Array.isArray(node)) return node.some(containsWork);
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return false;
+  if (isFunctionNode(node)) return false;
+  if (WORK_STARTING.has(node.type)) return true;
+  return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && containsWork(node[key]));
+}
+
 /**
  * Whether the expression references any tainted name. Threads nested-function
  * shadowing (`scopeIntroducedNames`) so a callback parameter that shadows a
@@ -449,9 +458,10 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
 
   const line = (start: number) => Math.max(0, lineOf(wrapped, start) - 1);
   const tainted = new Set<string>();
-  // Tainted names bound without an await: they can hold a request started after the earlier
-  // await (`const p = fetch(user.url)`). A name bound straight from an await result holds only
-  // what that await produced, e.g. a promise an ancestor load already started (`deferred.state`).
+  // Tainted names that can hold a request started after the earlier await: bound without an await
+  // from an expression that starts work (`const p = fetch(user.url)`) or from such a name. A name
+  // bound from an await result or a plain read (`const p = deferred.state`) holds only a promise
+  // that is already in flight.
   const syncTainted = new Set<string>();
   let sawAwaitSite = false;
 
@@ -467,7 +477,7 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
     }
     for (const name of names) {
       tainted.add(name);
-      if (!awaited) syncTainted.add(name);
+      if (!awaited && (containsWork(rhs) || refsTainted(rhs, syncTainted))) syncTainted.add(name);
     }
   };
 
