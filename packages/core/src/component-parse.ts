@@ -243,7 +243,7 @@ function collectConstantLists(
           safe.add(s.imported);
         }
       }
-      if (top?.type === 'ExportNamedDeclaration' && !top.source) {
+      if (opts.exported && top?.type === 'ExportNamedDeclaration' && !top.source) {
         for (const s of top.specifiers ?? []) safe.add(s.local).add(s.exported);
       }
       const stmt = opts.exported ? unwrapExport(top) : top;

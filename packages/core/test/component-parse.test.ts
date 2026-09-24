@@ -51,6 +51,7 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     expect(reported('const xs = [1, 2]; sort(xs);')).toBe(1);
     expect(reported('const xs = [1, 2]; const ys = [...xs];')).toBe(1);
     expect(reported('export const xs = [1, 2];')).toBe(1);
+    expect(reported('const xs = [1, 2]; export { xs };')).toBe(1);
     expect(reported('let xs = [1, 2];')).toBe(1);
     expect(reported('const xs = $state([1, 2]);')).toBe(1);
     expect(reported('const xs = [1, 2]; const ys = xs as number[]; ys.push(3);')).toBe(1);

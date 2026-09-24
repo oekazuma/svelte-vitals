@@ -99,6 +99,24 @@ describe('resolveComponentFiles', () => {
     expect(await filesOf(`import { X } from '$lib/broken';`, 'X', files)).toEqual({ files: [], complete: false });
   });
 
+  it('resolves nothing, without rejecting, when a module exists but cannot be read', async () => {
+    const entry = 'src/routes/+page.svelte';
+    const source = `<script>import { X } from '$lib/a';</script><X />`;
+    const rt = createMemoryRuntime({ 'src/lib/a.ts': '', [entry]: source });
+    const unreadable = {
+      ...rt,
+      readFile: (p: string) => (p.endsWith('a.ts') ? Promise.reject(new Error('EACCES')) : rt.readFile(p))
+    };
+    expect(
+      await resolveComponentFiles(
+        { rt: unreadable, cwd: '', cache: new Map(), aliases: undefined },
+        'X',
+        parseFile(source, entry),
+        entry
+      )
+    ).toEqual({ files: [], complete: false });
+  });
+
   it('visits each barrel state once in branching export * cycles', async () => {
     const files = {
       'src/lib/a.ts': "export * from './b';\nexport * from './c';",

@@ -113,7 +113,11 @@ export interface ResolveCtx {
 function readModuleExports(ctx: ResolveCtx, rel: string): Promise<ModuleExports> {
   let hit = ctx.cache.get(rel) as Promise<ModuleExports> | undefined;
   if (!hit) {
-    hit = ctx.rt.readFile(ctx.rt.join(ctx.cwd, rel)).then((source) => moduleExportsOf(source, rel));
+    // A module that exists but cannot be read exports nothing, like one that does not parse.
+    hit = ctx.rt.readFile(ctx.rt.join(ctx.cwd, rel)).then(
+      (source) => moduleExportsOf(source, rel),
+      (): ModuleExports => ({ named: new Map(), stars: [], lists: new Set() })
+    );
     ctx.cache.set(rel, hit);
   }
   return hit;
