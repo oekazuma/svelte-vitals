@@ -1,5 +1,6 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { fileURLToPath } from 'node:url';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -8,6 +9,10 @@ const config = {
     adapter: adapter({
       fallback: '404.html'
     }),
+    // Computed rather than a string literal, as real apps write it: /clean/alias imports through it.
+    alias: {
+      '$clean-real-world': fileURLToPath(new URL('./src/lib/clean/real-world', import.meta.url))
+    },
     prerender: {
       // Several gallery routes reference asset/route paths that don't exist
       // (e.g. /img/hero.jpg, /fonts/inter.woff2, a nested-button anchor's href)

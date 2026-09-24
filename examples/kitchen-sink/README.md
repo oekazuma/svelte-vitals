@@ -12,8 +12,10 @@ A real SvelteKit app used four ways:
   route-level analysis at all. `/clean/real-world` collects code shapes from real apps that
   svelte-vitals once misreported (head tags in `{#if}`, legacy `export let` writes, `{#each}`
   item writes, a page `<header>` under the layout's `<main>`, and more), and `/clean/subpath` renders its
-  `<h1>` through a package.json `imports` entry (`#clean/*`): when a real app turns up
-  a false positive, add its shape here along with the fix.
+  `<h1>` through a package.json `imports` entry (`#clean/*`). `/clean/resolution` gets every head
+  tag and its `<h1>` through a barrel, a namespace import and a runtime-chosen component, and
+  `/clean/alias` renders its `<h1>` through a `kit.alias` built with `fileURLToPath`. When a real
+  app turns up a false positive, add its shape here along with the fix.
 - Live-dashboard dogfood — `@svelte-vitals/vite`'s `svelteVitals()` plugin runs against this
   app's own `vite build`, exercising the same rendered-HTML analysis path and dashboard
   (`/__svelte-vitals/`) that real consumers use.
