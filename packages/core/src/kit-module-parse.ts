@@ -251,9 +251,10 @@ function containsReturn(node: Node): boolean {
 }
 
 /**
- * Whether the exported `load` redirects on every call: a statement directly in its body is a
- * `redirect(…)` / `throw redirect(…)` and no earlier statement can `return` first. A redirect
- * under a condition, in a `try`, or in a helper function does not count.
+ * Whether the exported `load` redirects on every call: every path through its body reaches a
+ * `redirect(…)` / `throw redirect(…)` before any `return` — through both arms of an `if`/`else`,
+ * and through a `try` whose `catch` redirects or rethrows. A redirect under an `if` without an
+ * `else`, in a loop, or in a helper function does not count.
  */
 function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
   const load = locals.size > 0 ? findLoadFunction(program) : undefined;
@@ -277,13 +278,36 @@ function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
     );
   };
   if (load.body.type !== 'BlockStatement') return isRedirect(load.body);
-  for (const stmt of load.body.body ?? []) {
-    if (stmt?.type === 'ExpressionStatement' && isRedirect(stmt.expression)) return true;
+  // `rethrow` is the enclosing catch parameter: rethrowing it passes on the redirect its try block threw.
+  const redirects = (stmt: Node, rethrow?: string): boolean => {
+    if (stmt?.type === 'ExpressionStatement') return isRedirect(stmt.expression);
     // Kit 2's redirect() throws, so `return redirect(…)` never returns either.
-    if ((stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') && isRedirect(stmt.argument)) return true;
-    if (containsReturn(stmt)) return false;
-  }
-  return false;
+    if (stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') {
+      if (isRedirect(stmt.argument)) return true;
+      return stmt.type === 'ThrowStatement' && stmt.argument?.type === 'Identifier' && stmt.argument.name === rethrow;
+    }
+    if (stmt?.type === 'BlockStatement') return always(stmt.body, rethrow);
+    if (stmt?.type === 'IfStatement') {
+      return !!stmt.alternate && redirects(stmt.consequent, rethrow) && redirects(stmt.alternate, rethrow);
+    }
+    if (stmt?.type === 'TryStatement') {
+      const param = stmt.handler?.param?.type === 'Identifier' ? stmt.handler.param.name : undefined;
+      return (
+        always(stmt.block?.body) &&
+        (!stmt.handler || always(stmt.handler.body?.body, param)) &&
+        !containsReturn(stmt.finalizer)
+      );
+    }
+    return false;
+  };
+  const always = (body: Node[] | undefined, rethrow?: string): boolean => {
+    for (const stmt of body ?? []) {
+      if (redirects(stmt, rethrow)) return true;
+      if (containsReturn(stmt)) return false;
+    }
+    return false;
+  };
+  return always(load.body.body);
 }
 
 /**
