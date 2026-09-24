@@ -23426,8 +23426,8 @@
   },
   {
     "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "script-verified: page+layout chain+transitive imports+app.html contain no ld+json/jsonld/SeoHead render"
+    "verdict": "fp",
+    "basis": "corrected: +page.server.ts load redirects on every path (if/else + try/catch rethrow) and the page never renders, so route-level claims on it are false; previous label only checked the tag was absent"
   },
   {
     "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/embed/[org_slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -24106,8 +24106,8 @@
   },
   {
     "key": "letsrevel/revel-frontend::seo/og-description::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:description\">",
-    "verdict": "tp",
-    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og/twitter tags exist only in src/lib/seo/SeoHead.svelte, which no layout and no lib component renders and this route never reaches; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+    "verdict": "fp",
+    "basis": "corrected: +page.server.ts load redirects on every path (if/else + try/catch rethrow) and the page never renders, so route-level claims on it are false; previous label only checked the tag was absent"
   },
   {
     "key": "letsrevel/revel-frontend::seo/og-description::src/routes/embed/[org_slug]/+page.svelte::Missing <meta property=\"og:description\">",
@@ -24786,8 +24786,8 @@
   },
   {
     "key": "letsrevel/revel-frontend::seo/og-image::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og/twitter tags exist only in src/lib/seo/SeoHead.svelte, which no layout and no lib component renders and this route never reaches; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+    "verdict": "fp",
+    "basis": "corrected: +page.server.ts load redirects on every path (if/else + try/catch rethrow) and the page never renders, so route-level claims on it are false; previous label only checked the tag was absent"
   },
   {
     "key": "letsrevel/revel-frontend::seo/og-image::src/routes/embed/[org_slug]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -25466,8 +25466,8 @@
   },
   {
     "key": "letsrevel/revel-frontend::seo/og-title::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:title\">",
-    "verdict": "tp",
-    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og/twitter tags exist only in src/lib/seo/SeoHead.svelte, which no layout and no lib component renders and this route never reaches; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+    "verdict": "fp",
+    "basis": "corrected: +page.server.ts load redirects on every path (if/else + try/catch rethrow) and the page never renders, so route-level claims on it are false; previous label only checked the tag was absent"
   },
   {
     "key": "letsrevel/revel-frontend::seo/og-title::src/routes/embed/[org_slug]/+page.svelte::Missing <meta property=\"og:title\">",
@@ -26146,8 +26146,8 @@
   },
   {
     "key": "letsrevel/revel-frontend::seo/og-url::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og/twitter tags exist only in src/lib/seo/SeoHead.svelte, which no layout and no lib component renders and this route never reaches; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+    "verdict": "fp",
+    "basis": "corrected: +page.server.ts load redirects on every path (if/else + try/catch rethrow) and the page never renders, so route-level claims on it are false; previous label only checked the tag was absent"
   },
   {
     "key": "letsrevel/revel-frontend::seo/og-url::src/routes/embed/[org_slug]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -26176,8 +26176,8 @@
   },
   {
     "key": "letsrevel/revel-frontend::seo/single-h1::/auth/callback::Missing <h#>",
-    "verdict": "tp",
-    "basis": "walker-verified: embed/auth-callback/impersonate chain+components have no <h1> (only package components ModeWatcher/QueryClientProvider/Toaster unfollowed)"
+    "verdict": "fp",
+    "basis": "corrected: +page.server.ts load redirects on every path (if/else + try/catch rethrow) and the page never renders, so route-level claims on it are false"
   },
   {
     "key": "letsrevel/revel-frontend::seo/single-h1::/club-membership-management::Missing <h#>",
@@ -27451,8 +27451,8 @@
   },
   {
     "key": "letsrevel/revel-frontend::seo/twitter-card::src/routes/auth/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
-    "verdict": "tp",
-    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; og/twitter tags exist only in src/lib/seo/SeoHead.svelte, which no layout and no lib component renders and this route never reaches; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+    "verdict": "fp",
+    "basis": "corrected: +page.server.ts load redirects on every path (if/else + try/catch rethrow) and the page never renders, so route-level claims on it are false; previous label only checked the tag was absent"
   },
   {
     "key": "letsrevel/revel-frontend::seo/twitter-card::src/routes/embed/[org_slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
