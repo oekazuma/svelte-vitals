@@ -1,8 +1,8 @@
 <script lang="ts">
-  // OpaqueSeo is unresolvable statically (see $lib/clean/seo/index.ts) and carries this route's
-  // entire meta family; only the `metaComponents: ['OpaqueSeo']` declaration keeps this route
-  // clean. If the lever ever becomes a no-op, the clean-canary e2e fails with missing-title here.
-  import OpaqueSeo from '$lib/clean/seo';
+  // OpaqueSeo comes through a Vite-only alias the static analyzer cannot follow and carries this
+  // route's entire meta family; only the `metaComponents: ['OpaqueSeo']` declaration keeps this
+  // route clean (e2e-suppression removes the declaration and expects findings here).
+  import OpaqueSeo from '@opaque-seo';
   // JsonLd is resolvable AND declared in metaComponents — the declaration must stay a no-op:
   // broad credit never covers JSON-LD, so this route's seo/json-ld pass proves the analyzer
   // still followed the wrapper (issue #584).

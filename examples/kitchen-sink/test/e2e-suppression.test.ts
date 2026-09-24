@@ -113,6 +113,21 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(issuesOn(baseline, '/gallery/a11y', 'a11y/')).toBeGreaterThan(0);
   });
 
+  it('metaComponents credits an unresolvable meta component; without it /clean/opaque reports a missing title', () => {
+    expect(issuesOn(baseline, '/clean/opaque', 'seo/')).toBe(0);
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const cfgPath = join(dir, 'svelte-vitals.config.ts');
+    const cfg = readFileSync(cfgPath, 'utf8');
+    const without = cfg.replace("metaComponents: ['OpaqueSeo', 'JsonLd']", "metaComponents: ['JsonLd']");
+    expect(without).not.toBe(cfg);
+    writeFileSync(cfgPath, without);
+    const { report } = run(dir);
+    expect(
+      report.routes.find((rt) => rt.route === '/clean/opaque')?.issues.some((i) => i.id === 'seo/title-presence')
+    ).toBe(true);
+  });
+
   it('seo: { indexable: false } turns off the search-result rules, and an explicit entry wins (issue #702)', () => {
     const dir = scratchCopy();
     scratch.push(dir);
