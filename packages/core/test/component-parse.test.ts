@@ -288,6 +288,10 @@ describe('parseComponentFacts — namespace imports (performance/namespace-impor
     expect(facts(`<script>import * as b from 'b'; const x = { ...b };</script>`)).toEqual(['b']);
     expect(facts(`<script>import * as c from 'c';</script>{fn(c)}`)).toEqual(['c']);
     expect(facts(`<script>import * as d from 'd';</script>{d[name]}`)).toEqual(['d']);
+    // Type positions are erased before bundling.
+    expect(
+      facts(`<script lang="ts">import * as F from 'f'; let { p }: { p: F.F } = $props(); const t: typeof F | null = null; F.run();</script><F.Label />`)
+    ).toEqual([]);
     // A property named like the namespace is not a use of it.
     expect(facts(`<script>import * as e from 'e'; const o = { e: 1 }; o.e; e.x();</script>`)).toEqual([]);
   });

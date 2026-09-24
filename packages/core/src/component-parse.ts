@@ -2204,6 +2204,11 @@ function namespaceUsedDynamically(name: string, roots: Node[]): boolean {
         staticOrDeclaring.add(n.key);
       } else if (n.type === 'ImportNamespaceSpecifier') {
         staticOrDeclaring.add(n.local);
+      } else if (n.type === 'TSQualifiedName' || n.type === 'TSTypeQuery') {
+        // Type positions (`X.Props`, `typeof X`) are erased before bundling.
+        const id = n.type === 'TSQualifiedName' ? n.left : n.exprName;
+        if (id?.type === 'Identifier') staticOrDeclaring.add(id);
+        if (n.type === 'TSQualifiedName') staticOrDeclaring.add(n.right);
       }
     });
   }
