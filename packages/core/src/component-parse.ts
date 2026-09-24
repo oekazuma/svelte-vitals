@@ -200,7 +200,7 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
     }
   }
   if (candidates.size === 0) return new Set();
-  const safe = new Set<Node>([...candidates.values()]);
+  const safe = new Set<Node>(candidates.values());
   const unsafe = new Set<string>();
   const roots = [...programs, fragment];
   const listOf = (n: Node): string | undefined =>
@@ -214,13 +214,18 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
       }
       const target =
         n.type === 'AssignmentExpression' ? n.left : n.type === 'UpdateExpression' ? n.argument : undefined;
-      if (target?.type === 'MemberExpression' && listOf(rootObjectNode(target))) unsafe.add(listOf(rootObjectNode(target))!);
+      if (target?.type === 'MemberExpression' && listOf(rootObjectNode(target)))
+        unsafe.add(listOf(rootObjectNode(target))!);
       if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' && listOf(n.callee.object)) {
         const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
         if (method && MUTATING_METHODS.has(method)) unsafe.add(n.callee.object.name);
       }
-      if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression))) unsafe.add(listOf(rootObjectNode(n.expression))!);
+      if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression)))
+        unsafe.add(listOf(rootObjectNode(n.expression))!);
       if (n.type === 'Property' && !n.computed && !n.shorthand) safe.add(n.key);
+      // `typeof X` / `X.y` in a type position is erased and can change nothing.
+      if (n.type === 'TSTypeQuery' && listOf(n.exprName)) safe.add(n.exprName);
+      if (n.type === 'TSQualifiedName') safe.add(n.left);
     });
   }
   for (const root of roots) {
@@ -249,7 +254,8 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[], con
   // Itemless each (`{#each { length: 8 }, i}` — the docs' "render N times" pattern,
   // e.g. a chess board) has no item identity to key on; the only possible key is
   // the index itself, which is a no-op. Flagging it would be a false positive.
-  const constantList = node.type === 'EachBlock' && node.expression?.type === 'Identifier' && constantLists.has(node.expression.name);
+  const constantList =
+    node.type === 'EachBlock' && node.expression?.type === 'Identifier' && constantLists.has(node.expression.name);
   if (node.type === 'EachBlock' && node.context != null && !isIdentityFreeEach(node) && !constantList) {
     acc.push({
       hasKey: node.key != null,

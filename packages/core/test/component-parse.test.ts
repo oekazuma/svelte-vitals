@@ -7,18 +7,32 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     const script = (body: string, markup: string) => `<script lang="ts">${body}</script>${markup}`;
     // Read only: member reads and the each itself.
     expect(
-      blocks(script("const tabs = [{ id: 'a' }, { id: 'b' }] as const; const n = tabs.length;", '{#each tabs as t}<b>{t.id}</b>{/each}'))
+      blocks(
+        script(
+          "const tabs = [{ id: 'a' }, { id: 'b' }] as const; const n = tabs.length;",
+          '{#each tabs as t}<b>{t.id}</b>{/each}'
+        )
+      )
     ).toEqual([]);
     expect(blocks(script("const days = ['Mo', 'Tu'];", '{#each days as d, i (i)}<i>{d}</i>{/each}'))).toEqual([]);
+    // A type position (`typeof examples`) is erased and cannot change the list.
+    expect(
+      blocks(
+        script(
+          'const examples = [{ a: 1 }]; let picked: (typeof examples)[0] | null = null;',
+          '{#each examples as e, i (i)}<i>{e.a}</i>{/each}'
+        )
+      )
+    ).toEqual([]);
     // Anything that can change the list keeps it reported.
     const reported = (body: string, markup = '{#each xs as x}<b>{x}</b>{/each}') => blocks(script(body, markup)).length;
-    expect(reported("const xs = [1, 2]; xs.push(3);")).toBe(1);
-    expect(reported("const xs = [1, 2]; xs[0] = 5;")).toBe(1);
-    expect(reported("const xs = [1, 2]; sort(xs);")).toBe(1);
-    expect(reported("const xs = [1, 2]; const ys = [...xs];")).toBe(1);
-    expect(reported("export const xs = [1, 2];")).toBe(1);
-    expect(reported("let xs = [1, 2];")).toBe(1);
-    expect(reported("const xs = $state([1, 2]);")).toBe(1);
+    expect(reported('const xs = [1, 2]; xs.push(3);')).toBe(1);
+    expect(reported('const xs = [1, 2]; xs[0] = 5;')).toBe(1);
+    expect(reported('const xs = [1, 2]; sort(xs);')).toBe(1);
+    expect(reported('const xs = [1, 2]; const ys = [...xs];')).toBe(1);
+    expect(reported('export const xs = [1, 2];')).toBe(1);
+    expect(reported('let xs = [1, 2];')).toBe(1);
+    expect(reported('const xs = $state([1, 2]);')).toBe(1);
   });
   const facts = (src: string) => parseComponentFacts(src, 'C.svelte');
   it('detects keyed vs unkeyed {#each}', () => {
@@ -290,7 +304,9 @@ describe('parseComponentFacts — namespace imports (performance/namespace-impor
     expect(facts(`<script>import * as d from 'd';</script>{d[name]}`)).toEqual(['d']);
     // Type positions are erased before bundling.
     expect(
-      facts(`<script lang="ts">import * as F from 'f'; let { p }: { p: F.F } = $props(); const t: typeof F | null = null; F.run();</script><F.Label />`)
+      facts(
+        `<script lang="ts">import * as F from 'f'; let { p }: { p: F.F } = $props(); const t: typeof F | null = null; F.run();</script><F.Label />`
+      )
     ).toEqual([]);
     // A property named like the namespace is not a use of it.
     expect(facts(`<script>import * as e from 'e'; const o = { e: 1 }; o.e; e.x();</script>`)).toEqual([]);
