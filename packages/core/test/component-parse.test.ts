@@ -2,6 +2,24 @@ import { describe, it, expect } from 'vitest';
 import { parseComponentFacts } from '../src/component-parse.js';
 
 describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
+  it('skips a local constant list that nothing can reorder, like an inline literal', () => {
+    const blocks = (src: string) => parseComponentFacts(src, 'C.svelte').eachBlocks;
+    const script = (body: string, markup: string) => `<script lang="ts">${body}</script>${markup}`;
+    // Read only: member reads and the each itself.
+    expect(
+      blocks(script("const tabs = [{ id: 'a' }, { id: 'b' }] as const; const n = tabs.length;", '{#each tabs as t}<b>{t.id}</b>{/each}'))
+    ).toEqual([]);
+    expect(blocks(script("const days = ['Mo', 'Tu'];", '{#each days as d, i (i)}<i>{d}</i>{/each}'))).toEqual([]);
+    // Anything that can change the list keeps it reported.
+    const reported = (body: string, markup = '{#each xs as x}<b>{x}</b>{/each}') => blocks(script(body, markup)).length;
+    expect(reported("const xs = [1, 2]; xs.push(3);")).toBe(1);
+    expect(reported("const xs = [1, 2]; xs[0] = 5;")).toBe(1);
+    expect(reported("const xs = [1, 2]; sort(xs);")).toBe(1);
+    expect(reported("const xs = [1, 2]; const ys = [...xs];")).toBe(1);
+    expect(reported("export const xs = [1, 2];")).toBe(1);
+    expect(reported("let xs = [1, 2];")).toBe(1);
+    expect(reported("const xs = $state([1, 2]);")).toBe(1);
+  });
   const facts = (src: string) => parseComponentFacts(src, 'C.svelte');
   it('detects keyed vs unkeyed {#each}', () => {
     const keyed = parseComponentFacts('{#each items as item (item.id)}<li>{item.name}</li>{/each}', 'C.svelte');

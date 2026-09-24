@@ -179,17 +179,78 @@ function isIndexKey(each: AST.EachBlock): boolean {
   return isIndexExpression(each.key, each.index);
 }
 
+/**
+ * Names of `const X = [ … ]` array literals (script top level, not exported) that nothing can
+ * reorder: every other mention of `X` in the file is a member read or an `{#each X …}`. Such a
+ * list is the inline literal the each rules already skip, just given a name. Anything else — a
+ * mutating call, an assignment through it, passing or spreading `X` — keeps the list keyed.
+ */
+function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
+  const candidates = new Map<string, Node>();
+  for (const program of programs) {
+    for (const stmt of program.body ?? []) {
+      if (stmt?.type !== 'VariableDeclaration' || stmt.kind !== 'const') continue;
+      for (const d of stmt.declarations ?? []) {
+        const init = unwrapTs(d?.init);
+        if (d?.id?.type === 'Identifier' && init?.type === 'ArrayExpression') {
+          const spreads = (init.elements ?? []).some((el: Node) => el?.type === 'SpreadElement');
+          if (!spreads) candidates.set(d.id.name, d.id);
+        }
+      }
+    }
+  }
+  if (candidates.size === 0) return new Set();
+  const safe = new Set<Node>([...candidates.values()]);
+  const unsafe = new Set<string>();
+  const roots = [...programs, fragment];
+  const listOf = (n: Node): string | undefined =>
+    n?.type === 'Identifier' && candidates.has(n.name) ? n.name : undefined;
+  for (const root of roots) {
+    walkEstree(root, (n: Node) => {
+      if (n.type === 'EachBlock' && listOf(n.expression)) safe.add(n.expression);
+      if (n.type === 'MemberExpression' && listOf(n.object)) {
+        safe.add(n.object);
+        if (!n.computed) safe.add(n.property);
+      }
+      const target =
+        n.type === 'AssignmentExpression' ? n.left : n.type === 'UpdateExpression' ? n.argument : undefined;
+      if (target?.type === 'MemberExpression' && listOf(rootObjectNode(target))) unsafe.add(listOf(rootObjectNode(target))!);
+      if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' && listOf(n.callee.object)) {
+        const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
+        if (method && MUTATING_METHODS.has(method)) unsafe.add(n.callee.object.name);
+      }
+      if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression))) unsafe.add(listOf(rootObjectNode(n.expression))!);
+      if (n.type === 'Property' && !n.computed && !n.shorthand) safe.add(n.key);
+    });
+  }
+  for (const root of roots) {
+    walkEstree(root, (n: Node) => {
+      const name = listOf(n);
+      if (name && !safe.has(n)) unsafe.add(name);
+    });
+  }
+  return new Set([...candidates.keys()].filter((name) => !unsafe.has(name)));
+}
+
+/** The innermost object of a member chain (`a` for `a.b[c].d`), or the node itself. */
+function rootObjectNode(n: Node): Node {
+  let cur = n;
+  while (cur?.type === 'MemberExpression') cur = cur.object;
+  return cur;
+}
+
 /** Recursively collect every `{#each}` block in the template (correctness/each-key). */
-function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): void {
+function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[], constantLists: Set<string>): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectEachBlocks(child, source, acc);
+    for (const child of node) collectEachBlocks(child, source, acc, constantLists);
     return;
   }
   if (!node || typeof node !== 'object') return;
   // Itemless each (`{#each { length: 8 }, i}` — the docs' "render N times" pattern,
   // e.g. a chess board) has no item identity to key on; the only possible key is
   // the index itself, which is a no-op. Flagging it would be a false positive.
-  if (node.type === 'EachBlock' && node.context != null && !isIdentityFreeEach(node)) {
+  const constantList = node.type === 'EachBlock' && node.expression?.type === 'Identifier' && constantLists.has(node.expression.name);
+  if (node.type === 'EachBlock' && node.context != null && !isIdentityFreeEach(node) && !constantList) {
     acc.push({
       hasKey: node.key != null,
       line: lineOf(source, node.start),
@@ -197,7 +258,7 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
     });
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectEachBlocks(node[key], source, acc);
+    if (key in node) collectEachBlocks(node[key], source, acc, constantLists);
   }
 }
 
@@ -2510,7 +2571,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
 
   const ast = parseSvelte(source, filename) as Node;
   const eachBlocks: EachBlockFact[] = [];
-  collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
+  const scriptPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
+  collectEachBlocks(ast.fragment ?? ast, source, eachBlocks, collectConstantLists(scriptPrograms, ast.fragment ?? ast));
   const htmlTags: SourceSpan[] = [];
   const javascriptUrls: SourceSpan[] = [];
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);

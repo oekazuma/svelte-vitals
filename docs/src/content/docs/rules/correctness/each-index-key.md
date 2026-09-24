@@ -15,6 +15,7 @@ Not flagged:
 
 - **Composite keys** carrying the index alongside item data (`(item.id + '-' + i)`, ``(`${item.id}-${i}`)``). Appending an index is sometimes a deliberate workaround for duplicate items, where a bare item key would throw Svelte's duplicate-key error. The trade-off: such a key still changes when an item moves, so moved items are destroyed and recreated rather than tracked. Prefer a truly unique id where you can.
 - **Length-only placeholder lists** (`{#each [...Array(n)] as _, i (i)}` and friends), which have no item identity at all.
+- **Constant lists** (an inline array literal, or a `const` array literal in the component's own script that nothing in the file can change; see `correctness/each-key`), which never reorder, so the index is a stable identity.
 
 ## Why it matters
 
