@@ -160,10 +160,10 @@ interface ComposeCtx extends ResolveCtx {
 }
 
 /** Group ids a file occupies, so the next file instance can start above them. */
-function groupSpan(nodes: A11yNode[]): number {
+function groupSpan(a11y: ParsedFile['a11y']): number {
   let max = -1;
-  for (const node of nodes) {
-    for (const step of node.path) if (step.group > max) max = step.group;
+  for (const path of [...a11y.nodes.map((n) => n.path), a11y.slotPath ?? []]) {
+    for (const step of path) if (step.group > max) max = step.group;
   }
   return max + 1;
 }
@@ -212,7 +212,7 @@ async function composeA11y(
   for (const t of parsed.a11y.elementTags) state.elementTags.add(t);
   if (parsed.a11y.elementsUnknowable) state.elementsClosed = false;
   const base = state.nextGroup;
-  state.nextGroup += groupSpan(parsed.a11y.nodes);
+  state.nextGroup += groupSpan(parsed.a11y);
 
   const composed: ComposedNode[] = [];
   for (const node of parsed.a11y.nodes) {
@@ -328,12 +328,16 @@ async function resolveRoute(
   const nestedLandmarks: ResolvedA11y['nestedLandmarks'] = [];
   /** Landmark the layouts above the current chain file render their children inside. */
   let slotLandmark: string | undefined;
+  /** Branch address the layouts above the current chain file render their children at. */
+  let slotPrefix: BranchStep[] = [];
 
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
 
+    const base = a11yCtx.state.nextGroup;
     const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true);
     for (const node of contributed) {
+      if (slotPrefix.length > 0) node.path = [...slotPrefix, ...node.path];
       // The layout's main/aside is this file's sectioning ancestor, so a top-level <header>/<footer>
       // here is no landmark (HTML-AAM) — for any rule, not just nesting.
       if (node.topLevel && (slotLandmark === 'main' || slotLandmark === 'complementary')) node.topLevel = false;
@@ -342,6 +346,7 @@ async function resolveRoute(
       if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
     }
     slotLandmark = parsed.a11y.slotInLandmark ?? slotLandmark;
+    if (parsed.a11y.slotPath) slotPrefix = [...slotPrefix, ...offsetPath(parsed.a11y.slotPath, base)];
     a11yNodes.push(...contributed);
 
     for (const img of parsed.images) {

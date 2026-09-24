@@ -7,7 +7,7 @@ description: Every id in a route should be unique.
 
 ## What it checks
 
-Flags a literal `id` value that occurs more than once across a route's composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`) and its resolved local components. Detection is branch-aware: within an `{#if}`/`{#await}` block only the arm with the most occurrences counts (ties break to the first arm in document order), so the arms of one `{#if}` are not summed. Two _separate_ `{#if}` blocks are independent, though: `{#if a}…{/if}{#if !a}…{/if}` is counted as both rendering, since nothing here evaluates `a`.
+Flags a literal `id` value that occurs more than once across a route's composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`) and its resolved local components. Detection is branch-aware: within an `{#if}`/`{#await}` block only the arm with the most occurrences counts (ties break to the first arm in document order), so the arms of one `{#if}` are not summed. Two _separate_ `{#if}` blocks are independent, though: `{#if a}…{/if}{#if !a}…{/if}` is counted as both rendering, since nothing here evaluates `a`. The page (and each inner layout) is placed where its parent layout renders `{@render children()}` or `<slot />`, so a layout's other arms are exclusive with the page too.
 
 Ids are detected cross-file. An `id="search"` in `+layout.svelte` plus another `id="search"` in `+page.svelte` (or in an imported `$lib` component) is one duplicate, even though neither file alone looks wrong. A file-scoped markup linter cannot see this, since the duplication only exists once the layout and the page are composed.
 

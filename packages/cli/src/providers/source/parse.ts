@@ -453,6 +453,11 @@ export interface ParsedA11y {
   nodes: A11yNode[];
   /** landmark ancestor of this file's <slot>/{@render children()} position, if any */
   slotInLandmark?: string;
+  /**
+   * Branch address of this file's <slot>/{@render children()} — the longest prefix all such
+   * positions share, so content rendered in two arms is placed above both. Absent: no slot.
+   */
+  slotPath?: BranchStep[];
   /** {@html} tags and spread attributes, located — each poisons the closed world for no-missing-id-ref */
   unknowable: { kind: 'spread' | 'html'; line: number }[];
   /** Distinct lowercased tag names of the body's `RegularElement`s (a11y/required-element's presence set). */
@@ -493,6 +498,16 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   const nodes: A11yNode[] = [];
   let groups = 0;
   let slotInLandmark: string | undefined;
+  let slotPath: BranchStep[] | undefined;
+  const noteSlot = (ctx: A11yCtx): void => {
+    slotInLandmark ??= ctx.landmarks.at(-1);
+    if (!slotPath) slotPath = ctx.path;
+    else {
+      let n = 0;
+      while (n < slotPath.length && n < ctx.path.length && sameStep(slotPath[n]!, ctx.path[n]!)) n++;
+      slotPath = slotPath.slice(0, n);
+    }
+  };
   const unknowable: ParsedA11y['unknowable'] = [];
   const elementTags = new Set<string>();
   let elementsUnknowable = false;
@@ -566,11 +581,11 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         return;
       case 'SlotElement':
         noteSpread(node);
-        slotInLandmark ??= ctx.landmarks.at(-1);
+        noteSlot(ctx);
         walk(node.fragment, ctx);
         return;
       case 'RenderTag':
-        if (renderCallee(node) === 'children') slotInLandmark ??= ctx.landmarks.at(-1);
+        if (renderCallee(node) === 'children') noteSlot(ctx);
         return;
       default:
         noteSpread(node);
@@ -654,10 +669,15 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   return {
     nodes,
     ...(slotInLandmark ? { slotInLandmark } : {}),
+    ...(slotPath ? { slotPath } : {}),
     unknowable,
     elementTags: [...elementTags],
     elementsUnknowable
   };
+}
+
+function sameStep(a: BranchStep, b: BranchStep): boolean {
+  return a.group === b.group && a.branch === b.branch;
 }
 
 /** The name a `{@render name(…)}` / `{@render name?.(…)}` calls, when the callee is a plain identifier. */

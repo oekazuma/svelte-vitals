@@ -623,6 +623,51 @@ describe('collectRoutes a11y composition', () => {
     ]);
   });
 
+  it('places the page inside the layout arm that renders children', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `<script>import F from '$lib/F.svelte';</script>{#if a}<F />{:else if b}<main>l</main>{:else}{@render children()}{/if}`,
+      'src/routes/+page.svelte': `<main><F /></main>`,
+      'src/lib/F.svelte': `<div id="x"></div>`
+    });
+    expect(a11y.ids.x).toHaveLength(1);
+    expect(a11y.landmarks.main).toHaveLength(1);
+  });
+
+  it('places the page through nested layouts, each at its own slot arm', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `{#if a}<div id="x"></div>{:else}<slot />{/if}`,
+      'src/routes/(g)/+layout.svelte': `{#if b}<slot />{:else}<div id="y"></div>{/if}`,
+      'src/routes/(g)/+page.svelte': `<div id="x"></div><div id="y"></div>`
+    });
+    expect(a11y.ids.x).toHaveLength(1);
+    expect(a11y.ids.y).toHaveLength(1);
+  });
+
+  it('still sums the page with layout content in the arm that renders children', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `{#if a}<p></p>{:else}<div id="x"></div>{@render children()}{/if}`,
+      'src/routes/+page.svelte': `<div id="x"></div>`
+    });
+    expect(a11y.ids.x).toHaveLength(2);
+  });
+
+  it('places the page above the arms when every arm renders children', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `{#if a}{@render children()}{:else}<div id="x"></div>{@render children()}{/if}`,
+      'src/routes/+page.svelte': `<div id="x"></div>`
+    });
+    expect(a11y.ids.x).toHaveLength(2);
+  });
+
+  it('keeps an element-free slot block from sharing its group id with a layout component', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `<script>import C from '$lib/C.svelte';</script>{#if a}<slot />{/if}<C />`,
+      'src/routes/+page.svelte': `<div id="x"></div>`,
+      'src/lib/C.svelte': `{#if c}<p></p>{:else}<div id="x"></div>{/if}`
+    });
+    expect(a11y.ids.x).toHaveLength(2);
+  });
+
   it('satisfies a layout id reference with a page id, and with an app.html id', async () => {
     const a11y = await a11yOf(
       {
