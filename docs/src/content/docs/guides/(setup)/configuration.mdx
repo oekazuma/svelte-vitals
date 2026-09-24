@@ -260,8 +260,11 @@ therefore sees content the same way regardless of which alias reached it.
 
 The following cases are not resolved:
 
-- an alias whose value is computed (`path.resolve(...)`, a template literal) rather than a plain string;
-  svelte-vitals treats the specifier as one it cannot see, so nothing is reported for it;
+- an alias whose value is computed from anything but string literals (a template literal, a variable,
+  `path.resolve(dir)`); svelte-vitals treats the specifier as one it cannot see, so nothing is reported
+  for it. `resolve(...)`/`path.join(...)` of string literals (optionally led by `__dirname`,
+  `import.meta.dirname` or `process.cwd()`) and `fileURLToPath(new URL('./src/x', import.meta.url))` are
+  read as paths relative to the project root;
 - an alias whose value is a literal absolute path, such as a POSIX path like `/opt/shared/src` or a
   Windows drive-letter path like `C:\shared\src`, since that names a file outside the analyzed project;
 - a `kit.files.lib` that is itself computed rather than a plain string, which makes `$lib` unresolvable

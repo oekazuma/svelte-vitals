@@ -43,15 +43,16 @@ function basePathOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpress
 export type RawKitAliases = {
   /**
    * `kit.alias` entries in declaration order, `value: null` where the config's value is not a
-   * string literal. **Undefined means the key set is unknowable** — a spread or a computed key
-   * puts an unknown key at a known position, and an unknown key could shadow anything after it,
-   * with no `find` to record that with. The caller then discards every user entry.
+   * readable path (`pathValueOf`). **Undefined means the key set is unknowable** — a spread or a
+   * computed key puts an unknown key at a known position, and an unknown key could shadow
+   * anything after it, with no `find` to record that with. The caller then discards every user
+   * entry.
    */
   entries?: { key: string; value: string | null }[];
   /**
    * `kit.files.lib`, in three distinct states: **absent** (`undefined`) — there is no `lib`
-   * property, or `files` itself does not resolve to an object literal; a **literal** (the
-   * string) — `files.lib` is a string literal; **present but unreadable** (`null`) — the `lib`
+   * property, or `files` itself does not resolve to an object literal; a **path** (the
+   * string) — `files.lib` is a readable path (`pathValueOf`); **present but unreadable** (`null`) — the `lib`
    * property exists but its value is not statically a string (e.g. a computed expression). The
    * `null` state must not collapse into "absent": the caller cannot fall back to `src/lib`
    * without risking a wrong answer, because the project may have moved `$lib` to something this
@@ -68,10 +69,63 @@ function keyNameOf(p: Property): string | undefined {
   return undefined;
 }
 
-/** A property's value when it is a string literal, else undefined. */
+function stringLiteralOf(expr: Expression | undefined): string | undefined {
+  return expr?.type === 'Literal' && typeof expr.value === 'string' ? expr.value : undefined;
+}
+
+/** `__dirname`, `import.meta.dirname` or `process.cwd()`: the config's directory, which is the project root. */
+function isRootDir(expr: Expression): boolean {
+  if (expr.type === 'Identifier') return expr.name === '__dirname';
+  if (expr.type === 'MemberExpression' && expr.property.type === 'Identifier') {
+    return expr.object.type === 'MetaProperty' && expr.property.name === 'dirname';
+  }
+  return (
+    expr.type === 'CallExpression' &&
+    expr.callee.type === 'MemberExpression' &&
+    expr.callee.object.type === 'Identifier' &&
+    expr.callee.object.name === 'process' &&
+    expr.callee.property.type === 'Identifier' &&
+    expr.callee.property.name === 'cwd'
+  );
+}
+
+/**
+ * A config path value, relative to the project root: a string literal, `resolve(…)`/`join(…)`
+ * (bare or `path.`-qualified) of string literals led by an optional root directory, or
+ * `fileURLToPath(new URL('<literal>', import.meta.url))`. Anything else is unreadable.
+ */
+function pathValueOf(value: Expression): string | undefined {
+  const v = unwrapTs(value);
+  if (v.type !== 'CallExpression') return stringLiteralOf(v);
+  const callee = v.callee.type === 'MemberExpression' && !v.callee.computed ? v.callee.property : v.callee;
+  const name = callee.type === 'Identifier' ? callee.name : undefined;
+  const args = v.arguments as Expression[];
+  if (name === 'fileURLToPath') {
+    const url = args[0];
+    if (url?.type !== 'NewExpression') return undefined;
+    const [href, base] = url.arguments as Expression[];
+    const fromConfig =
+      base?.type === 'MemberExpression' &&
+      base.object.type === 'MetaProperty' &&
+      base.property.type === 'Identifier' &&
+      base.property.name === 'url';
+    return fromConfig ? stringLiteralOf(href) : undefined;
+  }
+  if (name !== 'resolve' && name !== 'join') return undefined;
+  const parts: string[] = [];
+  for (const [i, arg] of args.entries()) {
+    if (i === 0 && isRootDir(arg)) continue;
+    const part = stringLiteralOf(arg);
+    if (part === undefined) return undefined;
+    if (name === 'resolve' && part.startsWith('/')) parts.length = 0;
+    parts.push(part);
+  }
+  return parts.join('/');
+}
+
+/** A property's value as a config path (see `pathValueOf`), else undefined. */
 function stringValueOf(p: Property): string | undefined {
-  const v = unwrapTs(p.value as Expression);
-  return v.type === 'Literal' && typeof v.value === 'string' ? v.value : undefined;
+  return pathValueOf(p.value as Expression);
 }
 
 /**
@@ -137,7 +191,8 @@ export function findKitAliasesInSvelteConfig(source: string): RawKitAliases {
  * same irregularities available to it.
  */
 function normalizeAliasValue(value: string): string {
-  const posix = value.replace(/\\/g, '/');
+  // A leading `./` would defeat textual prefix checks (`libServerRoot`) against normalized paths.
+  const posix = value.replace(/\\/g, '/').replace(/^(\.\/)+/, '');
   const noStar = posix.endsWith('/*') ? posix.slice(0, -2) : posix;
   return noStar.replace(/\/+$/, '');
 }

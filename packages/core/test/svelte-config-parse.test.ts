@@ -175,11 +175,49 @@ describe('findKitAliasesInSvelteConfig', () => {
   it('records a non-literal value as null while its literal siblings keep theirs', () => {
     const src = [
       `import path from 'node:path';`,
-      `export default { kit: { alias: { '$a': path.resolve('x'), '$b': 'src/b' } } };`
+      `export default { kit: { alias: { '$a': path.resolve(dir), '$b': 'src/b' } } };`
     ].join('\n');
     expect(findKitAliasesInSvelteConfig(src).entries).toEqual([
       { key: '$a', value: null },
       { key: '$b', value: 'src/b' }
+    ]);
+  });
+
+  it('reads resolve/join of literals and fileURLToPath(new URL(literal, import.meta.url)) as root-relative paths', () => {
+    const src = [
+      `import path, { resolve } from 'node:path';`,
+      `import { fileURLToPath } from 'node:url';`,
+      `export default { kit: { alias: {`,
+      `  $a: resolve('./src/features'),`,
+      `  $b: path.resolve(__dirname, 'src', 'b'),`,
+      `  $c: path.join(import.meta.dirname, './src/c/*'),`,
+      `  $d: fileURLToPath(new URL('./src/d', import.meta.url)),`,
+      `  $e: path.resolve('/opt/shared'),`,
+      `  $f: path.resolve(root, 'src'),`,
+      `  $g: fileURLToPath(new URL('./src/g', base))`,
+      `}, files: { lib: path.resolve('./src/library') } } };`
+    ].join('\n');
+    expect(findKitAliasesInSvelteConfig(src)).toEqual({
+      entries: [
+        { key: '$a', value: './src/features' },
+        { key: '$b', value: 'src/b' },
+        { key: '$c', value: './src/c/*' },
+        { key: '$d', value: './src/d' },
+        { key: '$e', value: '/opt/shared' },
+        { key: '$f', value: null },
+        { key: '$g', value: null }
+      ],
+      filesLib: './src/library'
+    });
+    expect(resolveKitAliases(undefined, { source: src })!.map((a) => a.replacement)).toEqual([
+      'src/library',
+      'src/features',
+      'src/b',
+      'src/c',
+      'src/d',
+      '/opt/shared',
+      null,
+      null
     ]);
   });
 
@@ -276,7 +314,7 @@ describe('resolveKitAliases', () => {
   it('assigns exact from the declared key set even when the /* value is unreadable', () => {
     const src = [
       `import path from 'node:path';`,
-      `export default { kit: { alias: { '$a': 'src/plain', '$a/*': path.resolve('x') } } };`
+      `export default { kit: { alias: { '$a': 'src/plain', '$a/*': path.resolve(dir) } } };`
     ].join('\n');
     expect(resolveKitAliases(undefined, { source: src })!.slice(1)).toEqual([
       { find: '$a', replacement: 'src/plain', match: 'exact' },

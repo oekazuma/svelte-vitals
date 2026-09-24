@@ -612,7 +612,7 @@ function aliasMatches(entry: KitAlias, spec: string): boolean {
  * Exported from the package's public barrel because `architecture/private-scope-import`
  * and `architecture/route-component-import` (inside `packages/core`) both need resolution
  * that is not restricted to runes modules, unlike `resolveRunesModuleSpecifier` — and
- * because `resolveComponentPath` (`packages/cli/src/providers/source/resolve.ts`), which
+ * because component resolution (`packages/cli/src/providers/source/resolve.ts`), which
  * drives transitive `<head>`/heading resolution, delegates its alias/`$lib`/relative
  * mapping here too, rather than duplicating it. This is the single site for every
  * repo-local specifier resolution in the repo.
@@ -632,8 +632,8 @@ export function resolveRepoLocalPath(
     // but carries no readable value stops here rather than letting a later entry answer.
     const entry = aliases.find((a) => aliasMatches(a, spec));
     if (entry?.replacement == null) return undefined;
-    // An absolute replacement (a literal `/opt/shared/src`, not `path.resolve(...)` — that
-    // form is non-literal and already opaque) is outside the project by definition. Left
+    // An absolute replacement (`/opt/shared/src`, written literally or as `path.resolve('/opt/…')`)
+    // is outside the project by definition. Left
     // unchecked, `normalizePosix` drops the leading empty segment from `/opt/...` and
     // answers `opt/shared/src/...` — a project-relative path that names a different file.
     // A Windows drive-letter path (`C:/shared/src`, posixified from `C:\shared\src`) is the
