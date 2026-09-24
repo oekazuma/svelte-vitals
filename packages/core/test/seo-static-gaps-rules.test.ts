@@ -3,7 +3,7 @@ import { seoCharset, seoImageAlt, seoHreflang, seoSingleH1 } from '../src/intern
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { ImageInfo, ResolvedImages } from '../src/images.js';
-import type { ResolvedHeadings } from '../src/headings.js';
+import type { HeadingInfo, ResolvedHeadings } from '../src/headings.js';
 import type { RuleContext } from '../src/rule.js';
 
 const config = defineConfig({});
@@ -161,6 +161,22 @@ describe('seo/single-h1 heading hierarchy', () => {
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('Multiple');
     expect(rs[0]!.severity).toBe('info');
+  });
+  it('counts one <h1> per exclusive {#if} block, and sums separate blocks and files', async () => {
+    const h1 = (file: string, path: HeadingInfo['path'], line = 0): HeadingInfo => ({ level: 1, line, file, path });
+    const exclusive = [h1('x', [{ group: 0, branch: 0 }]), h1('x', [{ group: 0, branch: 1 }])];
+    expect(fails(await seoSingleH1.check(headingsCtx([{ route: '/a', headings: exclusive }])))).toHaveLength(0);
+    expect(
+      fails(await seoSingleH1.check(headingsCtx([{ route: '/a', headings: [], componentHeadings: exclusive }])))
+    ).toHaveLength(0);
+
+    const separate = [h1('x', [{ group: 0, branch: 0 }], 3), h1('x', [{ group: 1, branch: 1 }], 7)];
+    const rs = await seoSingleH1.check(headingsCtx([{ route: '/a', headings: separate }]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.line).toBe(7);
+
+    const twoFiles = [h1('x', [{ group: 0, branch: 0 }]), h1('y', [{ group: 0, branch: 1 }])];
+    expect(fails(await seoSingleH1.check(headingsCtx([{ route: '/a', headings: twoFiles }])))).toHaveLength(1);
   });
   it('keeps the Missing arm locationless when only componentHeadings carry non-h1 headings', async () => {
     // Attribution must stay chain-only: a component-file location would change the

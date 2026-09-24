@@ -1,6 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from '../detection.js';
+import { exclusiveHeadings } from '../../headings.js';
 
 const docsUrl = docsUrlFor('seo/heading-level-skip');
 const recommendation = 'Increase heading levels one step at a time (do not jump, e.g. from <h2> straight to <h4>).';
@@ -23,15 +24,15 @@ export const seoHeadingLevelSkip: Rule = {
     const out: Result[] = [];
     for (const route of ctx.headings ?? []) {
       if (route.headings.length === 0) continue; // no headings → no outline signal
-      let prev = route.headings[0]!.level;
       let skip: { level: number; prev: number; line: number; file: string } | undefined;
-      for (let i = 1; i < route.headings.length; i++) {
+      for (let i = 1; i < route.headings.length && !skip; i++) {
         const h = route.headings[i]!;
-        if (h.level > prev + 1) {
-          skip = { level: h.level, prev, line: h.line, file: h.file };
-          break;
-        }
-        prev = h.level;
+        // The heading before it in a rendering that contains it: an arm exclusive with h's never is.
+        const prev = route.headings
+          .slice(0, i)
+          .reverse()
+          .find((p) => !exclusiveHeadings(p, h));
+        if (prev && h.level > prev.level + 1) skip = { level: h.level, prev: prev.level, line: h.line, file: h.file };
       }
       out.push(
         skip

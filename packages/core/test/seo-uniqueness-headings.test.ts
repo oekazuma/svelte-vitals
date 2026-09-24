@@ -97,6 +97,23 @@ describe('seo/heading-level-skip heading order', () => {
   it('emits nothing for a route with no headings', async () => {
     expect(await seoHeadingLevelSkip.check(headingsCtx([headings([])]))).toHaveLength(0);
   });
+  it('walks each arm of an exclusive block on its own', async () => {
+    const at = (level: number, branch?: number, file = 'x') => ({
+      level,
+      line: level,
+      file,
+      ...(branch !== undefined ? { path: [{ group: 0, branch }] } : {})
+    });
+    const route = (hs: ReturnType<typeof at>[]): ResolvedHeadings => ({ route: '/a', headings: hs });
+    // {#if}<h1>{:else}<h3>{/if}: the <h3> is never preceded by the <h1>.
+    expect(fails(await seoHeadingLevelSkip.check(headingsCtx([route([at(1, 0), at(3, 1)])])))).toHaveLength(0);
+    // <h1>{#if}<h2>{:else}<h4>{/if}: the else arm still skips from the <h1>.
+    const rs = await seoHeadingLevelSkip.check(headingsCtx([route([at(1), at(2, 0), at(4, 1)])]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('<h1> to <h4>');
+    // Group numbers are per file: a layout's arm and a page's arm both render.
+    expect(fails(await seoHeadingLevelSkip.check(headingsCtx([route([at(1, 0, 'l'), at(3, 1)])])))).toHaveLength(1);
+  });
   it('ignores componentHeadings (no reliable document-order position, issue #425)', async () => {
     // Chain outline h1->h2->h3 is well-ordered; a componentHeadings h6 would create
     // a skip (h3 -> h6) if it were appended to the walk, but it must not be.
