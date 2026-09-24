@@ -1,10 +1,11 @@
-import { headTagRule } from './head-tag-rule.js';
+import { headTagRule, ogMisspelled } from './head-tag-rule.js';
 
 export const seoOgUrl = headTagRule({
   id: 'seo/og-url',
   title: 'Open Graph URL',
   severity: 'warning',
   match: (t) => t.kind === 'meta' && t.property === 'og:url',
+  misspelled: ogMisspelled('og:url'),
   label: '<meta property="og:url">',
   recommendation: 'Add <meta property="og:url"> with the canonical URL, or set openGraph.url on your meta component.',
   rationale:

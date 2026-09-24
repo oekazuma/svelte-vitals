@@ -2007,26 +2007,49 @@ function collectPropMutations(
   legacy: Set<string>
 ): void {
   if (propNames.size === 0) return;
-  // Legacy idiom `items.push(x); items = items;`: a reassignment in the same function invalidates the mutation.
-  const reassignedInFn = new Set<Node>();
+  // Legacy idiom `items.push(x); items = items;` (or `delete items[k]`): a reassignment in the same
+  // function, closures included, invalidates the mutation.
+  const exemptCalls = new Set<Node>();
   if (legacy.size > 0) {
     walkEstree(root, (fn: Node) => {
       if (!isDeferredBody(fn)) return;
       const assigned = new Set<string>();
-      walkEstree(fn.body, (m: Node) => {
-        if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier') assigned.add(m.left.name);
+      // Scoped: `function helper(flags) { flags = {} }` reassigns a parameter, not the prop.
+      walkScoped(fn.body, (m: Node, scope: Set<string>) => {
+        if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier' && !scope.has(m.left.name)) {
+          assigned.add(m.left.name);
+        }
       });
       walkEstree(fn.body, (m: Node) => {
-        const r = m.type === 'CallExpression' ? rootObjectName(m.callee?.object) : undefined;
-        if (r && legacy.has(r) && assigned.has(r)) reassignedInFn.add(m);
+        const r =
+          m.type === 'CallExpression'
+            ? rootObjectName(m.callee?.object)
+            : m.type === 'UnaryExpression' && m.operator === 'delete'
+              ? rootObjectName(m.argument)
+              : undefined;
+        if (r && legacy.has(r) && assigned.has(r)) exemptCalls.add(m);
       });
     });
   }
+  // `value = value.set({ hour: 15 })`: a single patch object whose result goes straight back into
+  // the prop is the immutable date/time shape (@internationalized/date). `map = map.set(k, v)` is
+  // not exempt: Map#set mutates and returns the same map.
+  walkEstree(root, (m: Node) => {
+    const call = m.type === 'AssignmentExpression' && m.left?.type === 'Identifier' ? m.right : undefined;
+    if (
+      call?.type === 'CallExpression' &&
+      rootObjectName(call.callee?.object) === m.left.name &&
+      call.arguments?.length === 1 &&
+      call.arguments[0]?.type === 'ObjectExpression'
+    ) {
+      exemptCalls.add(call);
+    }
+  });
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const flag = (r: string | undefined) => {
       if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
     };
-    if (reassignedInFn.has(n)) return;
+    if (exemptCalls.has(n)) return;
     if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
       const r = rootObjectName(n.left);
       if (r && !legacy.has(r)) flag(r);

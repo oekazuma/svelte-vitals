@@ -7,11 +7,12 @@
 <script lang="ts">
   import alert from '$lib/clean/real-world/notify';
   import LegacyCard from '$lib/clean/real-world/LegacyCard.svelte';
+  import Clock from '$lib/clean/real-world/Clock.svelte';
   import JsonLd from '$lib/clean/jsonld/RealWorldPage.svelte';
 
   let { data } = $props();
 
-  const compact = Object.keys(data.stats).length > 3;
+  const compact = $derived(Object.keys(data.stats).length > 3);
 
   // Mutated only through the {#each} item below — still a mutation of `settings`.
   let settings = $state([
@@ -72,3 +73,5 @@
 </fieldset>
 
 <LegacyCard card={{ title: 'Legacy card', opened: 0 }} tags={['a']} />
+
+<Clock />

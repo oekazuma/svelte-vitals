@@ -9,6 +9,7 @@ import {
   findMinifyDisabled,
   lineOf,
   resolveKitAliases,
+  withPackageImports,
   resolveKitPathsBase,
   servesRootFile,
   type Project,
@@ -298,12 +299,13 @@ async function readFirstConfig(
  * not a number edit (AGENTS.md).
  */
 async function detectKitConfigFacts(rt: Runtime, cwd: string): Promise<Pick<Project, 'kitPathsBase' | 'kitAliases'>> {
-  const [viteConfig, svelteConfig] = await Promise.all([
+  const [viteConfig, svelteConfig, packageJson] = await Promise.all([
     readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
-    readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES)
+    readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES),
+    readFirstConfig(rt, cwd, ['package.json'])
   ]);
   const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
-  const kitAliases = resolveKitAliases(viteConfig, svelteConfig);
+  const kitAliases = withPackageImports(resolveKitAliases(viteConfig, svelteConfig), packageJson?.source);
   return {
     ...(kitPathsBase ? { kitPathsBase } : {}),
     ...(kitAliases ? { kitAliases } : {})

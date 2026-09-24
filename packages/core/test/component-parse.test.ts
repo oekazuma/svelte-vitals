@@ -532,6 +532,20 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
       )
     ).toEqual([]);
   });
+  it('still flags a legacy delete when only a shadowing parameter is reassigned', () => {
+    expect(
+      names(
+        '<script>export let flags; function unpin() { delete flags.pinned; function helper(flags) { flags = {}; } }</script>'
+      )
+    ).toEqual(['flags']);
+  });
+  it('does not flag a legacy delete whose function (or an enclosing one) reassigns the prop', () => {
+    expect(
+      names(
+        '<script>export let m; export let h; function a(k) { delete m[k]; m = { ...m }; } function b(ids) { ids.forEach((id) => { delete h.x[id]; }); h = h; }</script>'
+      )
+    ).toEqual([]);
+  });
   it('still flags a legacy mutating call when only another function reassigns the prop', () => {
     expect(
       names('<script>export let items; function add(x) { items.push(x); } function bump() { items = items; }</script>')
@@ -541,6 +555,15 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
     expect(
       names('<script>let { items } = $props(); function add(x) { items.push(x); items = items; }</script>')
     ).toEqual(['items']);
+  });
+  it('does not flag a patch-object set() whose result is assigned straight back to the prop', () => {
+    const src =
+      '<script>let { value, items } = $props(); function f() { value = value.set({ hour: 15 }); items.push(1); }</script>';
+    expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'items', line: 1 }]);
+  });
+  it('still flags Map#set reassigned to itself — it mutates and returns the same map', () => {
+    const src = "<script>let { map } = $props(); function f() { map = map.set('k', 1); }</script>";
+    expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'map', line: 1 }]);
   });
   it('treats an `export const` in a runes component as an instance export, not a legacy prop', () => {
     const src =

@@ -43,3 +43,22 @@ describe('kit.alias resolution, end to end', () => {
     expect(await findings(`export default { kit: {} };`)).toEqual([]);
   });
 });
+
+describe('package.json imports resolution, end to end', () => {
+  it('follows a #lib/* subpath import to the component that renders the page <h1>', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+        'svelte.config.js': `export default {};`,
+        'package.json': JSON.stringify({ imports: { '#lib': './src/lib/index.js', '#lib/*': './src/lib/*' } }),
+        'src/lib/heading.svelte': `<h1><slot /></h1>`,
+        'src/routes/+page.svelte': `<script>import Heading from '#lib/heading.svelte';</script><Heading>Hi</Heading>`
+      }),
+      '',
+      defaultConfig
+    );
+    expect(facts.project.kitAliases).toContainEqual({ find: '#lib', replacement: 'src/lib', match: 'contents' });
+    const route = facts.headings.find((h) => h.route === '/')!;
+    expect(route.componentHeadings?.map((h) => h.level)).toContain(1);
+  });
+});

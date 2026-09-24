@@ -47,7 +47,7 @@ export type { KitModuleFacts } from './kit-module.js';
 export { resolveRepoLocalPath } from './kit-module-parse.js';
 export { collectKitModuleFacts } from './kit-module-collect.js';
 export { findMinifyDisabled } from './vite-config-parse.js';
-export { resolveKitPathsBase, resolveKitAliases } from './svelte-config-parse.js';
+export { resolveKitPathsBase, resolveKitAliases, withPackageImports } from './svelte-config-parse.js';
 export {
   CHILD_NODE_KEYS,
   lineOf,

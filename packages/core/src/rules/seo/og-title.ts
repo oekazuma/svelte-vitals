@@ -1,11 +1,12 @@
 import type { HeadTag } from '../../head.js';
-import { headTagRule } from './head-tag-rule.js';
+import { headTagRule, ogMisspelled } from './head-tag-rule.js';
 
 export const seoOgTitle = headTagRule({
   id: 'seo/og-title',
   title: 'Open Graph title',
   severity: 'warning',
   match: (t: HeadTag) => t.kind === 'meta' && t.property === 'og:title',
+  misspelled: ogMisspelled('og:title'),
   label: '<meta property="og:title">',
   recommendation: 'Add <meta property="og:title">, or set openGraph.title on your meta component.',
   rationale:

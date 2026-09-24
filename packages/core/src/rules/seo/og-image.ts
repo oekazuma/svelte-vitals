@@ -1,11 +1,12 @@
 import type { HeadTag } from '../../head.js';
-import { headTagRule } from './head-tag-rule.js';
+import { headTagRule, ogMisspelled } from './head-tag-rule.js';
 
 export const seoOgImage = headTagRule({
   id: 'seo/og-image',
   title: 'Open Graph image',
   severity: 'warning',
   match: (t: HeadTag) => t.kind === 'meta' && t.property === 'og:image',
+  misspelled: ogMisspelled('og:image'),
   label: '<meta property="og:image">',
   recommendation: 'Add <meta property="og:image">, or set openGraph.images on your meta component.',
   rationale:

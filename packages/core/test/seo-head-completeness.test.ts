@@ -88,3 +88,17 @@ describe('seo/sitemap-in-robots sitemap-in-robots', () => {
     expect(rs).toHaveLength(0);
   });
 });
+
+describe('og:* written with name= instead of property=', () => {
+  it('points at the attribute instead of calling the tag missing', async () => {
+    const rs = await seoOgUrl.check(ctx(headWith([{ kind: 'meta', name: 'og:url' }])));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toBe('<meta name="og:url"> should be <meta property="og:url">');
+    expect(rs[0]!.recommendation).toContain('change name="og:url" to property="og:url"');
+    expect(rs[0]!.fix?.description).toBe('Change name="og:url" to property="og:url" on the existing tag.');
+  });
+  it('still says Missing when no og:* tag is written at all', async () => {
+    const rs = await seoOgDescription.check(ctx(headWith([])));
+    expect(rs[0]!.message).toBe('Missing <meta property="og:description">');
+  });
+});

@@ -7,6 +7,7 @@ import {
   SVELTE_CONFIG_FILES,
   VITE_CONFIG_FILES,
   resolveKitAliases,
+  withPackageImports,
   resolveKitPathsBase,
   servesRootFile,
   type Project
@@ -62,16 +63,17 @@ async function readFirstConfig(
 
 /** Project facts for plugin mode: robots/sitemap from source, htmlLang from rendered HTML. */
 export async function collectRenderedProject(cwd: string, htmlLang: Detection): Promise<Project> {
-  const [hasRobotsFile, hasSitemapFile, endpoints, viteConfig, svelteConfig] = await Promise.all([
+  const [hasRobotsFile, hasSitemapFile, endpoints, viteConfig, svelteConfig, packageJson] = await Promise.all([
     existsAny(cwd, ROBOTS_SOURCE_PATHS),
     existsAny(cwd, SITEMAP_SOURCE_PATHS),
     routeEndpoints(cwd),
     readFirstConfig(cwd, VITE_CONFIG_FILES),
-    readFirstConfig(cwd, SVELTE_CONFIG_FILES)
+    readFirstConfig(cwd, SVELTE_CONFIG_FILES),
+    readFirstConfig(cwd, ['package.json'])
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(cwd);
   const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
-  const kitAliases = resolveKitAliases(viteConfig, svelteConfig);
+  const kitAliases = withPackageImports(resolveKitAliases(viteConfig, svelteConfig), packageJson?.source);
   return {
     hasRobotsTxt: hasRobotsFile || endpoints.some((p) => servesRootFile(p, 'robots.txt')),
     hasSitemap: hasSitemapFile || endpoints.some((p) => servesRootFile(p, 'sitemap.xml')),
