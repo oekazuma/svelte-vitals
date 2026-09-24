@@ -1,9 +1,13 @@
+<script module lang="ts">
+  export const sectionName = 'Clean canary section';
+</script>
+
 <script lang="ts">
   let { children } = $props();
 </script>
 
 <header>
-  <p>Clean canary section</p>
+  <p>{sectionName}</p>
 </header>
 
 <main>

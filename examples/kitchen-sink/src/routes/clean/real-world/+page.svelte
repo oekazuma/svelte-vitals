@@ -9,6 +9,8 @@
   import LegacyCard from '$lib/clean/real-world/LegacyCard.svelte';
   import Clock from '$lib/clean/real-world/Clock.svelte';
   import JsonLd from '$lib/clean/jsonld/RealWorldPage.svelte';
+  // Binds only a <script module> export, so the layout component is never rendered here.
+  import { sectionName } from '../+layout.svelte';
 
   let { data } = $props();
 
@@ -48,13 +50,29 @@
 
 <JsonLd />
 
+<!-- Defined above the logo but rendered below it: the logo is the first image on the page. -->
+{#snippet thumbnail()}
+  <img src="/logo.svg" alt="Kitchen sink logo, small" width="60" height="20" loading="lazy" />
+{/snippet}
+
 <!-- The layout renders this page inside <main>, so this header is not a banner landmark. -->
 <header>
-  <h1>Real-world canary</h1>
+  {#if compact}
+    <h1>Real-world canary, compact view</h1>
+  {:else}
+    <h1>Real-world canary</h1>
+  {/if}
+  <p>Part of the {sectionName}.</p>
   <p>{banner}</p>
 </header>
 
 <img src="/logo.svg" alt="Kitchen sink logo" width="120" height="40" loading="eager" />
+
+<ol aria-label="Loading placeholders">
+  {#each Array(3).fill(null) as _}
+    <li>Loading…</li>
+  {/each}
+</ol>
 
 <ul>
   {#each { length: 3 } as _, i (i)}
@@ -75,3 +93,5 @@
 <LegacyCard card={{ title: 'Legacy card', opened: 0 }} tags={['a']} />
 
 <Clock />
+
+{@render thumbnail()}
