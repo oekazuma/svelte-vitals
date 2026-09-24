@@ -3,8 +3,9 @@
   // dependency, so this namespace import is safe to keep on a real route (it
   // resolves fine in `vite build`) — unlike the heavy-import specimen, which
   // needs an uninstalled specifier and lives in a never-imported file instead.
+  // Enumerating the namespace is the dynamic use that keeps the whole module.
   import * as kit from '@sveltejs/kit';
-  const kitErrorType = typeof kit.error;
+  const kitExportCount = Object.keys(kit).length;
 
   // performance/state-raw: reassigned wholesale on refresh, never mutated in place.
   let items = $state<string[]>([]);
@@ -60,4 +61,4 @@
   {/each}
 </ul>
 <button onclick={refresh}>Refresh</button>
-<p>Namespace import typeof check: {kitErrorType}</p>
+<p>Namespace import exports: {kitExportCount}</p>

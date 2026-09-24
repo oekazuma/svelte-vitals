@@ -2,6 +2,41 @@ import { describe, it, expect } from 'vitest';
 import { parseComponentFacts } from '../src/component-parse.js';
 
 describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
+  it('skips a local constant list that nothing can reorder, like an inline literal', () => {
+    const blocks = (src: string) => parseComponentFacts(src, 'C.svelte').eachBlocks;
+    const script = (body: string, markup: string) => `<script lang="ts">${body}</script>${markup}`;
+    // Read only: member reads and the each itself.
+    expect(
+      blocks(
+        script(
+          "const tabs = [{ id: 'a' }, { id: 'b' }] as const; const n = tabs.length;",
+          '{#each tabs as t}<b>{t.id}</b>{/each}'
+        )
+      )
+    ).toEqual([]);
+    expect(blocks(script("const days = ['Mo', 'Tu'];", '{#each days as d, i (i)}<i>{d}</i>{/each}'))).toEqual([]);
+    // A type position (`typeof examples`) is erased and cannot change the list.
+    expect(
+      blocks(
+        script(
+          'const examples = [{ a: 1 }]; let picked: (typeof examples)[0] | null = null;',
+          '{#each examples as e, i (i)}<i>{e.a}</i>{/each}'
+        )
+      )
+    ).toEqual([]);
+    // Anything that can change the list keeps it reported.
+    const reported = (body: string, markup = '{#each xs as x}<b>{x}</b>{/each}') => blocks(script(body, markup)).length;
+    expect(reported('const xs = [1, 2]; xs.push(3);')).toBe(1);
+    expect(reported("const xs = [1, 2]; xs['reverse']();")).toBe(1);
+    expect(reported("const xs = [1, 2]; const m = 'sort'; xs[m]();")).toBe(1);
+    expect(reported("const xs = [1, 2]; const n = xs['at'](0);", '{#each xs as x}<b>{x}{n}</b>{/each}')).toBe(0);
+    expect(reported('const xs = [1, 2]; xs[0] = 5;')).toBe(1);
+    expect(reported('const xs = [1, 2]; sort(xs);')).toBe(1);
+    expect(reported('const xs = [1, 2]; const ys = [...xs];')).toBe(1);
+    expect(reported('export const xs = [1, 2];')).toBe(1);
+    expect(reported('let xs = [1, 2];')).toBe(1);
+    expect(reported('const xs = $state([1, 2]);')).toBe(1);
+  });
   const facts = (src: string) => parseComponentFacts(src, 'C.svelte');
   it('detects keyed vs unkeyed {#each}', () => {
     const keyed = parseComponentFacts('{#each items as item (item.id)}<li>{item.name}</li>{/each}', 'C.svelte');
@@ -255,11 +290,33 @@ describe('parseComponentFacts — namespace imports (performance/namespace-impor
   const ns = (script: string) => parseComponentFacts(`<script>${script}</script>`, 'C.svelte').namespaceImports;
 
   it('captures a bare value namespace import with its source', () => {
-    expect(ns("import * as _ from 'lodash';").map((n) => n.source)).toEqual(['lodash']);
+    expect(ns("import * as _ from 'lodash'; const f = _[key];").map((n) => n.source)).toEqual(['lodash']);
+  });
+  it('reports only a namespace used as a whole, not one read through static member access', () => {
+    const facts = (src: string) => parseComponentFacts(src, 'C.svelte').namespaceImports.map((n) => n.source);
+    // Static: script member access (dotted or string-keyed), template reads, and <X.Component />.
+    expect(
+      facts(
+        `<script>import * as _ from 'lodash'; import * as Icons from 'icons'; const d = _.debounce(f); const m = _['merge'];</script>{_.upperFirst(t)}<Icons.Home />`
+      )
+    ).toEqual([]);
+    // Dynamic: indexed by a variable, passed on, spread, enumerated — in script or markup.
+    expect(facts(`<script>import * as a from 'a'; Object.keys(a);</script>`)).toEqual(['a']);
+    expect(facts(`<script>import * as b from 'b'; const x = { ...b };</script>`)).toEqual(['b']);
+    expect(facts(`<script>import * as c from 'c';</script>{fn(c)}`)).toEqual(['c']);
+    expect(facts(`<script>import * as d from 'd';</script>{d[name]}`)).toEqual(['d']);
+    // Type positions are erased before bundling.
+    expect(
+      facts(
+        `<script lang="ts">import * as F from 'f'; let { p }: { p: F.F } = $props(); const t: typeof F | null = null; F.run();</script><F.Label />`
+      )
+    ).toEqual([]);
+    // A property named like the namespace is not a use of it.
+    expect(facts(`<script>import * as e from 'e'; const o = { e: 1 }; o.e; e.x();</script>`)).toEqual([]);
   });
   it('captures namespace imports from a module script too', () => {
     const c = parseComponentFacts(
-      `<script module>import * as a from 'apkg';</script><script>import * as b from 'bpkg';</script>`,
+      `<script module>import * as a from 'apkg';</script><script>import * as b from 'bpkg'; use(a, b);</script>`,
       'C.svelte'
     );
     expect(c.namespaceImports.map((n) => n.source).sort()).toEqual(['apkg', 'bpkg']);
@@ -275,7 +332,7 @@ describe('parseComponentFacts — namespace imports (performance/namespace-impor
   });
   it('records a 1-based line', () => {
     const [only] = parseComponentFacts(
-      `<script>\nimport * as _ from 'lodash';\n</script>`,
+      `<script>\nimport * as _ from 'lodash';\nuse(_);\n</script>`,
       'C.svelte'
     ).namespaceImports;
     expect(only!.line).toBeGreaterThan(0);
@@ -867,7 +924,7 @@ describe('parseComponentFacts — imports in runes modules (.svelte.ts/.svelte.j
   });
 
   it('collects namespace imports with shifted lines too', () => {
-    const src = "import * as _ from 'lodash';\nlet c = $state(0);";
+    const src = "import * as _ from 'lodash';\nlet c = $state(0);\nexport const all = _;";
     expect(facts(src).namespaceImports).toEqual([{ source: 'lodash', line: 1 }]);
   });
 
