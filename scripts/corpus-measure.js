@@ -3,7 +3,7 @@
 // Measures every rule's findings on real third-party SvelteKit apps pinned in scripts/corpus/targets.json
 // and joins them with the human verdicts in scripts/corpus/verdicts.json. Reports; never gates.
 //
-//   node scripts/corpus-measure.js run [--cli <bin.js>] [--cache <dir>] --out <file>
+//   node scripts/corpus-measure.js run [--cli <bin.js>] [--cache <dir>] [--targets <file>] --out <file>
 //   node scripts/corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <file>]
 //   node scripts/corpus-measure.js update [--cache <dir>]
 //
@@ -31,7 +31,8 @@ const LIST_CAP = 20;
 const root = join(import.meta.dirname, '..');
 const corpusDir = join(root, 'scripts/corpus');
 const readJson = (file) => JSON.parse(readFileSync(file, 'utf8'));
-const targets = readJson(join(corpusDir, 'targets.json'));
+// `--targets` swaps in another pinned list (the v1 holdout) for `run`; everything else uses the corpus.
+let targets = readJson(join(corpusDir, 'targets.json'));
 const verdictsFile = join(corpusDir, 'verdicts.json');
 const measurementFile = join(corpusDir, 'measurement.json');
 
@@ -385,13 +386,15 @@ async function main() {
       cache: { type: 'string', default: join(tmpdir(), 'svelte-vitals-corpus') },
       out: { type: 'string' },
       measurement: { type: 'string' },
-      'base-verdicts': { type: 'string' }
+      'base-verdicts': { type: 'string' },
+      targets: { type: 'string' }
     }
   });
   const [command, ...files] = positionals;
   const cache = resolve(values.cache);
   if (command === 'run') {
     if (!values.out) throw new Error('run needs --out <file>');
+    if (values.targets) targets = readJson(resolve(values.targets));
     const measured = run({ cli: resolve(values.cli), cache });
     writeFileSync(values.out, JSON.stringify(measured));
     if (measured.apps.some((a) => a.error)) process.exitCode = 1;
@@ -408,7 +411,7 @@ async function main() {
   } else if (command === 'update') {
     await update({ cache });
   } else {
-    console.error('usage: corpus-measure.js run [--cli <bin.js>] [--cache <dir>] --out <file>');
+    console.error('usage: corpus-measure.js run [--cli <bin.js>] [--cache <dir>] [--targets <file>] --out <file>');
     console.error(
       '       corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <file>]'
     );
