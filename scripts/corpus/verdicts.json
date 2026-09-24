@@ -19970,11 +19970,6 @@
     "basis": "h1 IS rendered: src/lib/features/widget/components/widget-editor-header.svelte:74 via WidgetEditorPage@+page.svelte:60>WidgetEditorHeader@widget-editor.svelte:34 — Page.Title (@cio/ui/base/page, namespace import from an index.ts barrel whose alias targets node_modules/@cio/ui) renders <h1> in normal page flow"
   },
   {
-    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/course/components/lesson/delete-lesson-confirmation.svelte:30::Multiple <h#> (#); a single <h#> is the conventional signal",
-    "verdict": "design",
-    "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
-  },
-  {
     "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/course/components/lesson/lesson-version-history.svelte:340::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "design",
     "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
@@ -25205,19 +25200,9 @@
     "basis": "script-verified: header '{#each points as p, i (i)}' keyed by its index binding; positional list (grid/table cells, text/diff/markdown segments, stars, samples, calendar days/segments): items have no identity beyond position; pattern read in source"
   },
   {
-    "key": "huntabyte/shadcn-svelte:docs::correctness/each-index-key::src/lib/registry/blocks/demo-sidebar-menu-collapsible.svelte:141::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each items as item, index (index)}' keyed by its index binding; static list (const-literal): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "huntabyte/shadcn-svelte:docs::correctness/each-index-key::src/lib/registry/blocks/demo-sidebar-menu-collapsible.svelte:156::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
     "verdict": "design",
     "basis": "script-verified: header '{#each item.items as subItem, subIndex (subIndex)}' keyed by its index binding; static list (template-scope): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "huntabyte/shadcn-svelte:docs::correctness/each-index-key::src/lib/registry/blocks/demo-sidebar-menu-sub.svelte:139::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each items as item, index (index)}' keyed by its index binding; static list (const-literal): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
     "key": "huntabyte/shadcn-svelte:docs::correctness/each-index-key::src/lib/registry/blocks/demo-sidebar-menu-sub.svelte:149::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
@@ -32910,11 +32895,6 @@
     "basis": "title text verified in source: the flagged static <title> in the page's own svelte:head (checkout/payment: default {:else} branch payment.svelte:65) is the winning title, no SeoHeader on the route; length matches"
   },
   {
-    "key": "itswadesh/svelte-commerce::seo/title-length::src/routes/(www)/checkout/payment/+page.svelte::Title is too short (# chars; aim for #–#)",
-    "verdict": "tp",
-    "basis": "title text verified in source: the flagged static <title> in the page's own svelte:head (checkout/payment: default {:else} branch payment.svelte:65) is the winning title, no SeoHeader on the route; length matches"
-  },
-  {
     "key": "itswadesh/svelte-commerce::seo/title-length::src/routes/(www)/checkout/success/+page.svelte::Title is too short (# chars; aim for #–#)",
     "verdict": "tp",
     "basis": "title text verified in source: the flagged static <title> in the page's own svelte:head (checkout/payment: default {:else} branch payment.svelte:65) is the winning title, no SeoHeader on the route; length matches"
@@ -34318,6 +34298,11 @@
     "key": "johanohly/AirTrail::seo/single-h1::src/lib/components/modals/settings/pages/security-page/CreateKey.svelte:85::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "design",
     "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
+  },
+  {
+    "key": "johanohly/AirTrail::seo/single-h1::src/lib/components/modals/statistics/charts/BarChartDrillDown.svelte:34::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "/: the page's own <h1> (+page.svelte:262) is only in the no-flight-access {:else} arm and folds out; the two counted are CreateKey.svelte:85 (settings modal, {:else} of {#if !key}, shown only after the user creates an API key) and BarChartDrillDown.svelte:34 (StatisticsModal:218 {#if activeContinent} inside <Modal>, shown only after drilling into a continent). Both need a user-opened modal, and the default page renders no <h1> (AirTrail modal design precedent)"
   },
   {
     "key": "johanohly/AirTrail::seo/single-h1::src/lib/components/modals/visited-countries/SetupVisitedCountries.svelte:41::Multiple <h#> (#); a single <h#> is the conventional signal",
@@ -45077,12 +45062,37 @@
   {
     "key": "letsrevel/revel-frontend::seo/single-h1::src/lib/components/common/PageHeader.svelte:90::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "fp",
-    "basis": "the two PageHeader <h1>s are in {#if rejection} (:133) and {:else if token} (:168) -> exclusive"
+    "basis": "all 78 routes: one PageHeader <h1> (:90) per route. The old reason no longer applies: the exclusive {#if rejection}/{:else if token} arms now fold to one (/account/confirm-email-change shows :90 at arms 105.0/.1/.2, counted once). the only other counted <h1>s are EmptyState.svelte:101's {#if level === 1} branch: the one on every route comes from PublicLayout/AuthLayout -> Header -> NotificationDropdown (Header.svelte:113) -> NotificationList.svelte:270/:284, which pass no level (default 3, EmptyState.svelte:42) so it renders <h3>; script-verified: all 71 <EmptyState> call sites, none spread, only verify-contact-email and unsubscribe pass level={1}, and neither route is in this key; probe with the analyzer's own fold (EmptyState removed) leaves exactly one <h1> on all 78 route(s)"
+  },
+  {
+    "key": "letsrevel/revel-frontend::seo/single-h1::src/lib/components/event-series/admin/SeriesHeaderCard.svelte:75::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "SeriesHeaderCard.svelte:75 <h1> is the route's real one; the only other counted <h1>s are EmptyState.svelte:101's {#if level === 1} branch: the one on every route comes from PublicLayout/AuthLayout -> Header -> NotificationDropdown (Header.svelte:113) -> NotificationList.svelte:270/:284, which pass no level (default 3, EmptyState.svelte:42) so it renders <h3>; script-verified: all 71 <EmptyState> call sites, none spread, only verify-contact-email and unsubscribe pass level={1}, and neither route is in this key; probe with the analyzer's own fold (EmptyState removed) leaves exactly one <h1> on the route"
+  },
+  {
+    "key": "letsrevel/revel-frontend::seo/single-h1::src/lib/components/events/ConfirmationResult.svelte:141::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "ConfirmationResult <h1>s :141/:155/:204 sit in exclusive {#if isLoading}/{:else if result.success}/{:else} arms, which fold to one; the only other counted <h1>s are EmptyState.svelte:101's {#if level === 1} branch: the one on every route comes from PublicLayout/AuthLayout -> Header -> NotificationDropdown (Header.svelte:113) -> NotificationList.svelte:270/:284, which pass no level (default 3, EmptyState.svelte:42) so it renders <h3>; script-verified: all 71 <EmptyState> call sites, none spread, only verify-contact-email and unsubscribe pass level={1}, and neither route is in this key; probe with the analyzer's own fold (EmptyState removed) leaves exactly one <h1> on the route"
   },
   {
     "key": "letsrevel/revel-frontend::seo/single-h1::src/lib/components/events/ConfirmationResult.svelte:155::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "fp",
     "basis": "ConfirmationResult.svelte <h1>s at :141/:155/:204 are in {#if isLoading}/{:else if result.success}/{:else} -> exactly one renders"
+  },
+  {
+    "key": "letsrevel/revel-frontend::seo/single-h1::src/lib/components/events/EventHeader.svelte:124::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "both routes (/events/[id], /events/[org_slug]/[event_slug]): EventHeader.svelte:124 <h1> is the real one; the only other counted <h1>s are EmptyState.svelte:101's {#if level === 1} branch: the one on every route comes from PublicLayout/AuthLayout -> Header -> NotificationDropdown (Header.svelte:113) -> NotificationList.svelte:270/:284, which pass no level (default 3, EmptyState.svelte:42) so it renders <h3>; script-verified: all 71 <EmptyState> call sites, none spread, only verify-contact-email and unsubscribe pass level={1}, and neither route is in this key; probe with the analyzer's own fold (EmptyState removed) leaves exactly one <h1> on all 2 route(s)"
+  },
+  {
+    "key": "letsrevel/revel-frontend::seo/single-h1::src/lib/components/landing/LandingPageTemplate.svelte:169::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "all 42 landing routes (en + de/es/fr/it/pt): LandingPageTemplate.svelte:169 <h1> is the real one; the only other counted <h1>s are EmptyState.svelte:101's {#if level === 1} branch: the one on every route comes from PublicLayout/AuthLayout -> Header -> NotificationDropdown (Header.svelte:113) -> NotificationList.svelte:270/:284, which pass no level (default 3, EmptyState.svelte:42) so it renders <h3>; script-verified: all 71 <EmptyState> call sites, none spread, only verify-contact-email and unsubscribe pass level={1}, and neither route is in this key; probe with the analyzer's own fold (EmptyState removed) leaves exactly one <h1> on all 42 route(s)"
+  },
+  {
+    "key": "letsrevel/revel-frontend::seo/single-h1::src/lib/components/landing/poster/HeroPanel.svelte:82::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "/: HeroPanel.svelte:82 <h1> is the real one; the only other counted <h1>s are EmptyState.svelte:101's {#if level === 1} branch: the one on every route comes from PublicLayout/AuthLayout -> Header -> NotificationDropdown (Header.svelte:113) -> NotificationList.svelte:270/:284, which pass no level (default 3, EmptyState.svelte:42) so it renders <h3>; script-verified: all 71 <EmptyState> call sites, none spread, only verify-contact-email and unsubscribe pass level={1}, and neither route is in this key; probe with the analyzer's own fold (EmptyState removed) leaves exactly one <h1> on the route"
   },
   {
     "key": "letsrevel/revel-frontend::seo/single-h1::src/routes/(public)/account/confirm-deletion/+page.svelte:85::Multiple <h#> (#); a single <h#> is the conventional signal",
@@ -62375,9 +62385,9 @@
     "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
   },
   {
-    "key": "open-webui/open-webui::seo/single-h1::src/lib/components/chat/Settings/Interface/ManageImageCompressionModal.svelte:30::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "key": "open-webui/open-webui::seo/single-h1::src/lib/components/AddToolServerModal.svelte:492::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "design",
-    "basis": "every <h1> reachable from this route sits inside Modal {#if show} (or OnBoarding {#if show}); the docs document conditional-branch over-count, rendered page has no co-rendered h1s"
+    "basis": "all 43 routes (counts 4-5): every counted <h1> is inside a <Modal bind:show> (AddToolServerModal:489, AddConnectionModal:285, AddTerminalServerModal:429, Manage*Modal, AttachWebpageModal:40, admin Events:396 / ExternalKnowledge:413), and Modal.svelte:123 wraps its content in {#if show}; script-verified that no non-modal <h1> (OnBoarding, s/[id]) is counted on these routes. They co-render only when modals are opened, same as the existing open-webui design verdict"
   },
   {
     "key": "open-webui/open-webui::seo/sitemap-xml::(site)::Missing sitemap.xml",
