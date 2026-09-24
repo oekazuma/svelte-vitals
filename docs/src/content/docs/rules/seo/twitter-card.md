@@ -7,7 +7,7 @@ description: Pages should declare a twitter:card for rich sharing on X/Twitter.
 
 ## What it checks
 
-Every route should include a `<meta name="twitter:card">` tag (own or inherited). A missing or empty tag is flagged.
+Every route should include a `<meta name="twitter:card">` tag (own or inherited). A missing or empty tag is flagged. `<meta property="twitter:card">` counts too: X reads `property=` as a fallback, so the card still renders.
 
 ## Why it matters
 

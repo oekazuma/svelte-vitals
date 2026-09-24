@@ -7,7 +7,7 @@ description: X/Twitter で大きなカード表示にするため、twitter:card
 
 ## チェック内容
 
-すべてのルートは `<meta name="twitter:card">` を持つべきです（直接指定でも継承でも構いません）。欠けている、または空のルートを検出します。
+すべてのルートは `<meta name="twitter:card">` を持つべきです（直接指定でも継承でも構いません）。欠けている、または空のルートを検出します。`<meta property="twitter:card">` も有効とみなします。X は `property=` もフォールバックとして読むため、カードは表示されます。
 
 ## なぜ重要か
 
