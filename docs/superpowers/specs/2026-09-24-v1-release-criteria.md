@@ -17,8 +17,9 @@ labelled, and judged against the criteria below **before anything is fixed**.
 1. **Select** at least 10 apps against the checklist below, and record why each one was picked and
    which rule gap it targets. Do this before running the CLI on any of them.
 2. **Pin** them in `scripts/corpus/holdout.json` (same shape as `targets.json`).
-3. **First look.** Run the current `main` build once (`pnpm corpus run`) and commit the raw result
-   as `scripts/corpus/holdout-<date>.json`. The criteria are evaluated on that file only.
+3. **First look.** Run the current `main` build once
+   (`pnpm corpus run --targets scripts/corpus/holdout.json --out scripts/corpus/holdout-<date>.json`)
+   and commit that raw result. The criteria are evaluated on that file only.
 4. **Label** every finding with the verdict protocol that was used for the tuning corpus: independent
    checks over the source, one pattern read per group, and an assertion that the output covers every
    input key. No finding may be left without a verdict.
@@ -69,6 +70,10 @@ Notes on the choices:
   the first run, which is the failure that loses a user for good.
 - **C6 exists because an aggregate can hide a systemic bug.** Precision of 98% with the 2% all from
   one class that hits every app means every user meets it.
+- **C7 skips a rule with no `tp` or `fp`.** When every finding of a rule is `design`, its precision
+  has no denominator. Such a rule is outside C7 and is governed by C8. Holdout 1 was judged this way
+  (`performance/load-waterfall` and `seo/ssr-disabled`); this note was added after it, and it does
+  not change that result.
 - **C8 governs noise, not falsehood.** A `design` finding is not wrong, but a warning rule that mostly
   reports things that are not defects trains people to ignore warnings. It is measured on critical
   and warning only; info findings are opt-out advice.

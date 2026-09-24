@@ -7,18 +7,18 @@ fix, and judged against `2026-09-24-v1-release-criteria.md`. Raw first look:
 
 **Result: not ready.** Six of ten criteria fail.
 
-| #   | Criterion                          | Threshold      | Measured                                  | Result |
-| --- | ---------------------------------- | -------------- | ----------------------------------------- | ------ |
-| C1  | CLI crashes                        | 0              | 0 of 12 apps                              | pass   |
-| C2  | Build-mode crashes                 | 0, on ≥ 3 apps | 0; analysis ran on 4 of 9 apps that build | pass   |
-| C3  | `fp` from critical rules           | 0              | 95 (`seo/title-presence`, 2 apps)         | fail   |
-| C4  | Warning precision                  | ≥ 98%          | 71.3% (1,160 / 1,628)                     | fail   |
-| C5  | Info precision                     | ≥ 95%          | 90.2% (2,126 / 2,358)                     | fail   |
-| C6  | fp class shared by ≥ 2 apps        | none           | 5 classes (below)                         | fail   |
-| C7  | Per-rule precision (≥ 10 findings) | ≥ 90%          | 12 rules below                            | fail   |
-| C8  | Design share of critical + warning | ≤ 30%          | 25.3% (586 / 2,317)                       | pass   |
-| C9  | Unlabelled / unclear               | 0 / ≤ 1%       | 0 / 0                                     | pass   |
-| C10 | Rules with real-app evidence       | ≥ 70 of 105    | 63                                        | fail   |
+| #   | Criterion                          | Threshold      | Measured                                     | Result |
+| --- | ---------------------------------- | -------------- | -------------------------------------------- | ------ |
+| C1  | CLI crashes                        | 0              | 0 of 12 apps                                 | pass   |
+| C2  | Build-mode crashes                 | 0, on ≥ 3 apps | 0; analysis ran on 4 of 9 apps that build    | pass   |
+| C3  | `fp` from critical rules           | 0              | 95 (`seo/title-presence`, 2 apps)            | fail   |
+| C4  | Warning precision                  | ≥ 98%          | 71.3% (1,160 / 1,628)                        | fail   |
+| C5  | Info precision                     | ≥ 95%          | 90.2% (2,126 / 2,358)                        | fail   |
+| C6  | fp class shared by ≥ 2 apps        | none           | 5 classes (below)                            | fail   |
+| C7  | Per-rule precision (≥ 10 findings) | ≥ 90%          | 12 rules below; 2 all-`design` rules skipped | fail   |
+| C8  | Design share of critical + warning | ≤ 30%          | 25.3% (586 / 2,317)                          | pass   |
+| C9  | Unlabelled / unclear               | 0 / ≤ 1%       | 0 / 0                                        | pass   |
+| C10 | Rules with real-app evidence       | ≥ 70 of 105    | 63                                           | fail   |
 
 The stricter reading is used for one judgement call: `<meta property="twitter:card">` (27 findings,
 2 apps) is counted as `fp`, because X's parser reads `property=` and the card does render.
