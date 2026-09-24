@@ -27,6 +27,9 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     // Anything that can change the list keeps it reported.
     const reported = (body: string, markup = '{#each xs as x}<b>{x}</b>{/each}') => blocks(script(body, markup)).length;
     expect(reported('const xs = [1, 2]; xs.push(3);')).toBe(1);
+    expect(reported("const xs = [1, 2]; xs['reverse']();")).toBe(1);
+    expect(reported("const xs = [1, 2]; const m = 'sort'; xs[m]();")).toBe(1);
+    expect(reported("const xs = [1, 2]; const n = xs['at'](0);", '{#each xs as x}<b>{x}{n}</b>{/each}')).toBe(0);
     expect(reported('const xs = [1, 2]; xs[0] = 5;')).toBe(1);
     expect(reported('const xs = [1, 2]; sort(xs);')).toBe(1);
     expect(reported('const xs = [1, 2]; const ys = [...xs];')).toBe(1);

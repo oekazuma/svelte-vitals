@@ -217,8 +217,16 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
       if (target?.type === 'MemberExpression' && listOf(rootObjectNode(target)))
         unsafe.add(listOf(rootObjectNode(target))!);
       if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' && listOf(n.callee.object)) {
-        const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
-        if (method && MUTATING_METHODS.has(method)) unsafe.add(n.callee.object.name);
+        const { computed, property } = n.callee;
+        // `xs['sort']()` names the method as a string; `xs[m]()` could be any of them.
+        const method = !computed
+          ? property?.name
+          : property?.type === 'Literal' && typeof property.value === 'string'
+            ? property.value
+            : undefined;
+        if ((computed && method === undefined) || (method !== undefined && MUTATING_METHODS.has(method))) {
+          unsafe.add(n.callee.object.name);
+        }
       }
       if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression)))
         unsafe.add(listOf(rootObjectNode(n.expression))!);
