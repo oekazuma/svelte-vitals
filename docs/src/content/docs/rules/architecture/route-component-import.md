@@ -57,6 +57,10 @@ export default {
   files and `.svelte.ts` / `.svelte.js` modules only.
 - A type-only import (`import type P from './+page.svelte'`, or one whose every specifier is inline-typed).
   It is erased at build, so nothing renders.
+- An import of named exports only (`import { theme } from './+layout.svelte'`, reading what the route
+  entry's `<script module>` exports). It never takes the component, so nothing renders. A default
+  import, `{ default as Page }`, and a namespace import (`import * as Page`, which carries the
+  component as `Page.default`) are still reported.
 - A project whose routes live somewhere other than `src/routes`.
 
 ## Mode differences

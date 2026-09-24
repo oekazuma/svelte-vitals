@@ -2190,18 +2190,24 @@ function isTypeOnlyImport(n: Node): boolean {
   return Array.isArray(specs) && specs.length > 0 && specs.every((s: Node) => s?.importKind === 'type');
 }
 
+/** Whether an import declaration binds only named exports — no default, `default as`, or namespace (see `ComponentFacts.importSpans`). */
+function isNamedOnlyImport(n: Node): boolean {
+  const specs = n.specifiers;
+  return (
+    Array.isArray(specs) &&
+    specs.length > 0 &&
+    specs.every((s: Node) => s?.type === 'ImportSpecifier' && (s.imported?.name ?? s.imported?.value) !== 'default')
+  );
+}
+
 /** Module specifiers of every `import`, each with its source line (see `ComponentFacts.importSpans`). */
-function collectImportSources(
-  program: Node,
-  source: string,
-  acc: { source: string; line: number; type?: true }[]
-): void {
+function collectImportSources(program: Node, source: string, acc: ComponentFacts['importSpans']): void {
   walkEstree(program, (n) => {
     if (n.type === 'ImportDeclaration' && typeof n.source?.value === 'string') {
       acc.push({
         source: n.source.value,
         line: lineOf(source, n.start),
-        ...(isTypeOnlyImport(n) ? { type: true as const } : {})
+        ...(isTypeOnlyImport(n) ? { type: true as const } : isNamedOnlyImport(n) ? { named: true as const } : {})
       });
     }
   });
@@ -2557,10 +2563,10 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     for (const l of raw) basePathLinks.push({ ...l, line: shift(l.line) });
     basePathLinks.sort((a, b) => a.line - b.line);
   }
-  const importSpans: { source: string; line: number; type?: true }[] = [];
+  const importSpans: ComponentFacts['importSpans'] = [];
   const namespaceImports: { source: string; line: number }[] = [];
   if (program) {
-    const rawImportSpans: { source: string; line: number; type?: true }[] = [];
+    const rawImportSpans: ComponentFacts['importSpans'] = [];
     collectImportSources(program, wrapped, rawImportSpans);
     for (const s of rawImportSpans) importSpans.push({ ...s, line: shift(s.line) });
     const rawNamespaceImports: { source: string; line: number }[] = [];
@@ -2650,7 +2656,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
 
   // Imports live in either the instance (<script>) or module (<script module>) program.
   const moduleProgram = ast.module?.content;
-  const importSpans: { source: string; line: number; type?: true }[] = [];
+  const importSpans: ComponentFacts['importSpans'] = [];
   const namespaceImports: { source: string; line: number }[] = [];
   const usageRoots = [moduleProgram, ast.instance?.content, ast.fragment].filter(Boolean) as Node[];
   if (moduleProgram) {

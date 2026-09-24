@@ -1312,6 +1312,20 @@ describe('parseComponentFacts — type-only imports in importSpans', () => {
     ]);
   });
 
+  it('marks a value import that binds only named exports', () => {
+    expect(spans(`<script>import { a, b as c } from './+layout.svelte';</script>`)).toEqual([
+      { source: './+layout.svelte', line: 1, named: true }
+    ]);
+  });
+
+  it('leaves a default, `default as`, or namespace import unmarked as named', () => {
+    for (const clause of ['L, { a }', '{ default as L }', "{ 'default' as L }", '* as L']) {
+      expect(spans(`<script>import ${clause} from './+layout.svelte';</script>`), clause).toEqual([
+        { source: './+layout.svelte', line: 1 }
+      ]);
+    }
+  });
+
   it('leaves a side-effect import unmarked', () => {
     // No specifiers at all is NOT a type import — the module is loaded for its side effects.
     expect(spans(`<script>import './setup.js';</script>`)).toEqual([{ source: './setup.js', line: 1 }]);
