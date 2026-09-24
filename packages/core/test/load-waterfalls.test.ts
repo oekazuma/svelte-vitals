@@ -329,6 +329,21 @@ describe('collectLoadWaterfalls — exclusions and scope', () => {
     expect(wf(src)).toEqual({ dependentLines: [], independentLines: [4] });
   });
 
+  it('counts an await guarded by an earlier result as dependent', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const list = await fetch("/api/list").then((r) => r.json());',
+      '  const org = list[0]?.org ?? (await fetch("/api/org"));',
+      '  const isFirst = await fetch("/api/first").then((r) => r.json());',
+      '  const extra = isFirst ? await fetch("/api/extra") : null;',
+      '  const more = isFirst && (await fetch("/api/more"));',
+      '  const other = ok ? null : await fetch("/api/other");',
+      '  return { org, extra, more, other };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [3, 5, 6], independentLines: [4, 7] });
+  });
+
   it('records the csr=false opt-out', () => {
     const src = 'export const csr = false;\nexport async function load({ fetch }) {\n  return {};\n}';
     expect(parseKitModuleFacts(src, 'src/routes/+page.ts').csrDisabled).toEqual({ line: 1 });

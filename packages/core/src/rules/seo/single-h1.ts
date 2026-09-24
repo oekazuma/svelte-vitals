@@ -1,6 +1,8 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from '../detection.js';
+import { foldOccurrences } from '../../a11y.js';
+import type { HeadingInfo } from '../../headings.js';
 
 const docsUrl = docsUrlFor('seo/single-h1');
 const passRecommendation =
@@ -22,6 +24,18 @@ const multipleRecommendation =
  * global `rules: { 'seo/single-h1': <severity> }` override flattens both arms to one
  * severity (design, `applyRuleSeverities`).
  */
+/**
+ * The <h1>s that can render together, in input order: per file, the arms of one `{#if}`/`{#await}`
+ * contribute only their largest arm. Separate blocks still sum, since both may be true.
+ */
+function renderableH1s(headings: HeadingInfo[]): HeadingInfo[] {
+  const nodes = headings
+    .filter((h) => h.level === 1)
+    .map((heading) => ({ key: heading.file, path: heading.path ?? [], repeatable: false, heading }));
+  const kept = new Set([...foldOccurrences(nodes).values()].flat().map((n) => n.heading));
+  return headings.filter((h) => kept.has(h));
+}
+
 export const seoSingleH1: Rule = {
   id: 'seo/single-h1',
   title: 'Heading hierarchy',
@@ -34,7 +48,7 @@ export const seoSingleH1: Rule = {
     const out: Result[] = [];
     for (const route of ctx.headings ?? []) {
       const combined = [...route.headings, ...(route.componentHeadings ?? [])];
-      const h1 = combined.filter((h) => h.level === 1);
+      const h1 = renderableH1s(combined);
       let problem: { message: string; severity: 'warning' | 'info'; recommendation: string } | undefined;
       let where: Pick<Result, 'location' | 'line'> = {};
       if (h1.length === 0) {

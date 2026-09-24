@@ -59,6 +59,10 @@ export default {
   `.svelte.ts` / `.svelte.js` モジュールからのみ収集します。
 - 型のみの import（`import type P from './+page.svelte'`、またはすべての指定子がインラインで型
   指定されているもの）。ビルド時に消えるため、何も描画されません。
+- 名前付き export だけの import（`import { theme } from './+layout.svelte'` のように、ルートエントリの
+  `<script module>` が export する値を読むもの）。コンポーネント自体を受け取らないため、何も描画されません。
+  default import、`{ default as Page }`、名前空間 import（`import * as Page`。コンポーネントを
+  `Page.default` として持つ）は引き続き報告します。
 - ルートが `src/routes` 以外の場所にあるプロジェクト。
 
 ## モードによる違い

@@ -4,7 +4,8 @@ export const seoTwitterCard = headTagRule({
   id: 'seo/twitter-card',
   title: 'Twitter Card',
   severity: 'info',
-  match: (t) => t.kind === 'meta' && t.name === 'twitter:card',
+  // X's parser falls back to property= (the Open Graph attribute), so either renders the card.
+  match: (t) => t.kind === 'meta' && (t.name === 'twitter:card' || t.property === 'twitter:card'),
   label: '<meta name="twitter:card">',
   recommendation: 'Add <meta name="twitter:card" content="summary_large_image"> so X/Twitter renders a rich card.',
   rationale:

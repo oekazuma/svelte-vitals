@@ -15,7 +15,7 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 
 これが critical ではなく **warning** なのは、親の `{#if browser}` の内側でのみレンダリングされる（またはクライアントで動的 import される）コンポーネントは、そもそもサーバーで実行されることがなく、それ自体は正当な作りだからです。ただし、そのことはコンポーネントファイル単体からは証明できません。該当する場合は対象行の直前に `// svelte-vitals-disable-next-line correctness/instance-browser-global` を書いてください。
 
-アプリ全体で SSR が無効な場合は何も検出しません。アプリ全体で無効とみなすのは、ルートの `src/routes/+layout.ts`（または `+layout.server.ts`）が `ssr = false` を export し、ほかのどの `+page`/`+layout` ファイルも `ssr` を別の値で export していない場合です。このときサーバーでレンダリングされるコンポーネントはありません。
+ルートがサーバーでレンダリングされない `+page`/`+layout` コンポーネントでは何も検出しません。ページ自身の `+page` ファイル、続いてレイアウトチェーン（`+page@`/`+layout@` によるリセットに従います）の順にたどり、最も近い `ssr` の export が `ssr = false` なら、そのルートはサーバーでレンダリングされません。リテラルの `false` 以外で export された `ssr` は、SSR を再び有効にするものとみなします。レイアウトは配下のすべてのページがこれに当たる場合に限り、ルートレイアウトは自身が `ssr = false` を export する場合に限り対象外です。`src/lib` の共有コンポーネントなど、それ以外のコンポーネントを対象外にするのはアプリ全体で SSR が無効な場合だけです。アプリ全体で無効とみなすのは、ルートの `src/routes/+layout.ts`（または `+layout.server.ts`）が `ssr = false` を export し、ほかのどの `+page`/`+layout` ファイルも `ssr` を別の値で export していない場合です。
 
 `$props()` の分割代入デフォルト値としてのみ使われる browser global（`let { width = window.innerWidth } = $props()`）も検出されません。デフォルト値は prop が渡されなかった場合にのみ評価され、その評価は SSR 時にも起こり得ますが、スキャナーは分割代入のデフォルト値を走査しません。ガードによる除外ではなく、静かな見逃し（conservative miss）です。
 

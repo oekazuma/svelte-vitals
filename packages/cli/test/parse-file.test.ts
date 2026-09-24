@@ -219,4 +219,19 @@ describe('parseFile images', () => {
     expect(pf.images).toHaveLength(1);
     expect(pf.images[0]).toMatchObject({ hasWidth: false, hasHeight: false, hasLoading: false });
   });
+
+  it('orders a snippet image at its first {@render} site, keeping its definition line', () => {
+    const src = `{#snippet row()}\n  <img src="/thumb.jpg" loading="lazy" />\n{/snippet}\n<img src="/hero.jpg" />\n{@render row()}\n{@render row()}`;
+    const pf = parseFile(src, 'x.svelte');
+    expect(pf.images.map((i) => ({ lazy: i.lazy, line: i.line }))).toEqual([
+      { lazy: false, line: 4 },
+      { lazy: true, line: 2 }
+    ]);
+  });
+
+  it('keeps a snippet image rendered before its definition, and one never rendered in-file, once each', () => {
+    const src = `{@render row?.()}\n{#snippet row()}<img src="/a.jpg" />{/snippet}\n<Table>{#snippet cell()}<img src="/b.jpg" />{/snippet}</Table>`;
+    const pf = parseFile(src, 'x.svelte');
+    expect(pf.images.map((i) => i.line)).toEqual([2, 3]);
+  });
 });

@@ -41,8 +41,9 @@ function isRouteEntry(path: string): boolean {
 /** The route entries this component imports, with the line each import sits on. */
 function routeEntryImports(c: ComponentFacts, ctx: RuleContext): { line: number; target: string }[] {
   const out: { line: number; target: string }[] = [];
-  for (const { source, line, type } of c.importSpans ?? []) {
-    if (type) continue; // erased at build: nothing renders, so the harm cannot occur
+  for (const { source, line, type, named } of c.importSpans ?? []) {
+    // Erased at build, or binding only `<script module>` exports: the component never renders.
+    if (type || named) continue;
     const target = resolveRepoLocalPath(source, c.file, ctx.project.kitAliases);
     if (target !== undefined && isRouteEntry(target)) out.push({ line, target });
   }

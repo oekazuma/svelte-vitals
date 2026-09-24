@@ -9,7 +9,7 @@ sidebar:
 
 svelte-vitals is a static code-health checker for SvelteKit. It scores your app per route and site-wide, before you deploy, across six categories: SEO, Performance, Correctness, Security, Architecture, and Accessibility.
 
-The CLI works entirely from source. It resolves every route's effective `<head>` by walking the layout chain and parsing `<svelte:head>` blocks, and it reads component bodies for the rules that live there. A page whose own `load` always redirects (a `redirect()` directly in the body of `load` in its `+page.ts` or `+page.server.ts`, not under a condition) never renders, so the route-level checks skip it; the component rules still read its files. No running site and no browser are involved. For prerendered pages, the [Vite plugin](/guides/plugin-mode) runs the same rules against the HTML your build actually ships. That is the more accurate of the two checks, since nothing is left dynamic.
+The CLI works entirely from source. It resolves every route's effective `<head>` by walking the layout chain and parsing `<svelte:head>` blocks, and it reads component bodies for the rules that live there. A page whose own `load` always redirects (every path through `load` in its `+page.ts` or `+page.server.ts` reaches a `redirect()`, counting both arms of an `if`/`else` and a `try` whose `catch` redirects or rethrows) never renders, so the route-level checks skip it; the component rules still read its files. No running site and no browser are involved. For prerendered pages, the [Vite plugin](/guides/plugin-mode) runs the same rules against the HTML your build actually ships. That is the more accurate of the two checks, since nothing is left dynamic.
 
 ## Prerequisites
 

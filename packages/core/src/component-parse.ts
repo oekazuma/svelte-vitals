@@ -73,10 +73,28 @@ import {
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
-/** Whether `expr` is a length-only list constructor: `Array(n)` / `new Array(n)` (single argument = length semantics) or `Array.from({ length: n }, …)`. */
+/**
+ * Whether `expr` is a length-only list constructor: `Array(n)` / `new Array(n)` (single argument =
+ * length semantics) or `Array.from({ length: n }, …)`, optionally followed by `.fill(x)` (every
+ * item the same value) or `.keys()` (the indices themselves).
+ */
 function isLengthOnlyArrayCall(expr: TsExpression): boolean {
   const e = unwrapTs(expr);
   if (!e) return false;
+  if (
+    e.type === 'CallExpression' &&
+    e.callee?.type === 'MemberExpression' &&
+    !e.callee.computed &&
+    e.callee.object.type !== 'Super' &&
+    e.callee.property.type === 'Identifier' &&
+    (e.callee.property.name === 'fill' || e.callee.property.name === 'keys')
+  ) {
+    const receiver = unwrapTs(e.callee.object);
+    if (receiver?.type === 'ArrayExpression') {
+      return receiver.elements.every((el: Node) => el?.type !== 'SpreadElement' || isLengthOnlyArrayCall(el.argument));
+    }
+    return isLengthOnlyArrayCall(e.callee.object);
+  }
   if (
     (e.type === 'CallExpression' || e.type === 'NewExpression') &&
     e.callee?.type === 'Identifier' &&
@@ -106,7 +124,7 @@ function isLengthProperty(p: Node): boolean {
 /**
  * Whether the each expression yields no item identity to key on: a constant
  * inline array literal (fixed length, never reorders), a length-only list
- * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`, `{ length: n }` —
+ * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`, `Array(n).fill(x)`, `{ length: n }` —
  * placeholder/skeleton lists), or a spread array whose every element spreads a
  * length-only list. Such blocks are skipped entirely — neither each-key nor
  * each-index-key can give useful advice on them.
@@ -2176,18 +2194,24 @@ function isTypeOnlyImport(n: Node): boolean {
   return Array.isArray(specs) && specs.length > 0 && specs.every((s: Node) => s?.importKind === 'type');
 }
 
+/** Whether an import declaration binds only named exports — no default, `default as`, or namespace (see `ComponentFacts.importSpans`). */
+function isNamedOnlyImport(n: Node): boolean {
+  const specs = n.specifiers;
+  return (
+    Array.isArray(specs) &&
+    specs.length > 0 &&
+    specs.every((s: Node) => s?.type === 'ImportSpecifier' && (s.imported?.name ?? s.imported?.value) !== 'default')
+  );
+}
+
 /** Module specifiers of every `import`, each with its source line (see `ComponentFacts.importSpans`). */
-function collectImportSources(
-  program: Node,
-  source: string,
-  acc: { source: string; line: number; type?: true }[]
-): void {
+function collectImportSources(program: Node, source: string, acc: ComponentFacts['importSpans']): void {
   walkEstree(program, (n) => {
     if (n.type === 'ImportDeclaration' && typeof n.source?.value === 'string') {
       acc.push({
         source: n.source.value,
         line: lineOf(source, n.start),
-        ...(isTypeOnlyImport(n) ? { type: true as const } : {})
+        ...(isTypeOnlyImport(n) ? { type: true as const } : isNamedOnlyImport(n) ? { named: true as const } : {})
       });
     }
   });
@@ -2543,10 +2567,10 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     for (const l of raw) basePathLinks.push({ ...l, line: shift(l.line) });
     basePathLinks.sort((a, b) => a.line - b.line);
   }
-  const importSpans: { source: string; line: number; type?: true }[] = [];
+  const importSpans: ComponentFacts['importSpans'] = [];
   const namespaceImports: { source: string; line: number }[] = [];
   if (program) {
-    const rawImportSpans: { source: string; line: number; type?: true }[] = [];
+    const rawImportSpans: ComponentFacts['importSpans'] = [];
     collectImportSources(program, wrapped, rawImportSpans);
     for (const s of rawImportSpans) importSpans.push({ ...s, line: shift(s.line) });
     const rawNamespaceImports: { source: string; line: number }[] = [];
@@ -2636,7 +2660,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
 
   // Imports live in either the instance (<script>) or module (<script module>) program.
   const moduleProgram = ast.module?.content;
-  const importSpans: { source: string; line: number; type?: true }[] = [];
+  const importSpans: ComponentFacts['importSpans'] = [];
   const namespaceImports: { source: string; line: number }[] = [];
   const usageRoots = [moduleProgram, ast.instance?.content, ast.fragment].filter(Boolean) as Node[];
   if (moduleProgram) {

@@ -1,8 +1,9 @@
 import type { Config } from '@svelte-vitals/core';
 import type { HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
-import { attrTextOf, resolveRepoLocalPath } from '@svelte-vitals/core/internal';
+import { attrTextOf, parseModuleProgram, resolveRepoLocalPath } from '@svelte-vitals/core/internal';
 import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
+import { addImportsFromProgram, importOf, type ImportMap } from './imports.js';
 import { parseFile } from './parse.js';
 
 /** Props a heading component conventionally takes its element from (`<Heading tag="h1">`, `as`, `element`, `is`). */
@@ -21,12 +22,19 @@ interface ResolveResult {
   dynamicHeading: boolean;
 }
 
+/** What a `.ts`/`.js` barrel forwards: export name → the binding behind it, plus its `export *` sources. */
+export interface ModuleExports {
+  named: ImportMap;
+  stars: string[];
+}
+
 /**
  * Per-run read+parse memo, keyed by project-root-relative path (as normalized by
- * chainFiles / resolveComponentPath). Shared across routes so a file imported by
+ * chainFiles / resolveExport). Shared across routes so a file imported by
  * many pages (a root layout, a common $lib component) is only parsed once per run.
+ * Barrel modules share it so the dev dashboard's per-file invalidation reaches them too.
  */
-export type ParseCache = Map<string, Promise<ParsedFile>>;
+export type ParseCache = Map<string, Promise<ParsedFile | ModuleExports>>;
 
 /**
  * Read and parse `rel` at most once per cache. The cached value is a Promise (not
@@ -40,12 +48,154 @@ export type ParseCache = Map<string, Promise<ParsedFile>>;
  * Plan 002's characterization tests) — the cache does not change that contract.
  */
 export function readAndParse(rt: Runtime, cwd: string, rel: string, cache: ParseCache): Promise<ParsedFile> {
-  let hit = cache.get(rel);
+  // `.svelte` keys only ever hold a ParsedFile; barrels are `.ts`/`.js`.
+  let hit = cache.get(rel) as Promise<ParsedFile> | undefined;
   if (!hit) {
     hit = rt.readFile(rt.join(cwd, rel)).then((source) => parseFile(source, rel));
     cache.set(rel, hit);
   }
   return hit;
+}
+
+function nameOf(node: { type: string; name?: string; value?: unknown }): string {
+  return node.type === 'Identifier' ? node.name! : String(node.value);
+}
+
+/** A barrel's value re-exports. A module that does not parse forwards nothing, so its components stay unresolved. */
+function moduleExportsOf(source: string, rel: string): ModuleExports {
+  const out: ModuleExports = { named: new Map(), stars: [] };
+  let program;
+  try {
+    program = parseModuleProgram(source, rel).program;
+  } catch {
+    return out;
+  }
+  const imports: ImportMap = new Map();
+  addImportsFromProgram(program, imports);
+  for (const node of program?.body ?? []) {
+    if (node.exportKind === 'type') continue;
+    if (node.type === 'ExportAllDeclaration') {
+      if (!node.exported) out.stars.push(String(node.source.value));
+    } else if (node.type === 'ExportNamedDeclaration') {
+      for (const spec of node.specifiers) {
+        if (spec.exportKind === 'type') continue;
+        const local = nameOf(spec.local);
+        const binding = node.source ? { source: String(node.source.value), imported: local } : imports.get(local);
+        if (binding) out.named.set(nameOf(spec.exported), binding);
+      }
+    } else if (node.type === 'ExportDefaultDeclaration' && node.declaration.type === 'Identifier') {
+      const binding = imports.get(node.declaration.name);
+      if (binding) out.named.set('default', binding);
+    }
+  }
+  return out;
+}
+
+/** What component resolution reads through: the run's runtime, parse cache and compiled Kit aliases. */
+export interface ResolveCtx {
+  rt: Runtime;
+  cwd: string;
+  cache: ParseCache;
+  aliases: readonly KitAlias[] | undefined;
+}
+
+function readModuleExports(ctx: ResolveCtx, rel: string): Promise<ModuleExports> {
+  let hit = ctx.cache.get(rel) as Promise<ModuleExports> | undefined;
+  if (!hit) {
+    hit = ctx.rt.readFile(ctx.rt.join(ctx.cwd, rel)).then((source) => moduleExportsOf(source, rel));
+    ctx.cache.set(rel, hit);
+  }
+  return hit;
+}
+
+/** Re-export hops followed before giving up; also what ends an `export *` cycle. */
+const MAX_REEXPORT_HOPS = 8;
+
+/**
+ * The existing `.svelte` file behind export `name` of module `spec`, following barrel re-exports.
+ * Extensionless specifiers try `.svelte` first (projects that add it to `resolve.extensions`),
+ * then Vite's own `.js`/`.ts` and `index` lookups; an explicit `.js` may name its `.ts` source.
+ */
+async function resolveExport(
+  ctx: ResolveCtx,
+  spec: string,
+  fromRel: string,
+  name: string,
+  hops = 0,
+  // Per lookup, not in the shared ParseCache: the dev dashboard invalidates that per file, which
+  // a memo of results spanning several files would outlive. Without it, branching `export *`
+  // cycles revisit the same states until the hop limit.
+  memo = new Map<string, Promise<string | undefined>>()
+): Promise<string | undefined> {
+  if (name === '*' || hops > MAX_REEXPORT_HOPS) return undefined;
+  const path = resolveRepoLocalPath(spec, fromRel, ctx.aliases);
+  if (path === undefined) return undefined;
+  const key = `${path}#${name}#${hops}`;
+  let hit = memo.get(key);
+  if (!hit) {
+    hit = resolveExportAt(ctx, path, name, hops, memo);
+    memo.set(key, hit);
+  }
+  return hit;
+}
+
+async function resolveExportAt(
+  ctx: ResolveCtx,
+  path: string,
+  name: string,
+  hops: number,
+  memo: Map<string, Promise<string | undefined>>
+): Promise<string | undefined> {
+  const exists = (rel: string) => ctx.rt.exists(ctx.rt.join(ctx.cwd, rel));
+  const ext = /\.[^./]+$/.exec(path)?.[0];
+  let modules: string[];
+  if (ext === '.svelte') return name === 'default' && (await exists(path)) ? path : undefined;
+  if (ext === undefined) {
+    if (name === 'default' && (await exists(`${path}.svelte`))) return `${path}.svelte`;
+    modules = ['.js', '.ts', '/index.js', '/index.ts'].map((suffix) => path + suffix);
+  } else if (ext === '.js') modules = [path, `${path.slice(0, -3)}.ts`];
+  else if (ext === '.ts') modules = [path];
+  else return undefined;
+  for (const mod of modules) {
+    if (!(await exists(mod))) continue;
+    const exports = await readModuleExports(ctx, mod);
+    const hit = exports.named.get(name);
+    if (hit) return resolveExport(ctx, hit.source, mod, hit.imported, hops + 1, memo);
+    if (name === 'default') return undefined; // `export *` never forwards a default
+    for (const star of exports.stars) {
+      const found = await resolveExport(ctx, star, mod, name, hops + 1, memo);
+      if (found) return found;
+    }
+    return undefined;
+  }
+  return undefined;
+}
+
+/**
+ * The `.svelte` files a component tag may render — several when a local holds one of several
+ * components (`parsed.componentBindings`) — and whether that list is everything it may render.
+ */
+export async function resolveComponentFiles(
+  ctx: ResolveCtx,
+  name: string,
+  parsed: ParsedFile,
+  fileRel: string
+): Promise<{ files: string[]; complete: boolean }> {
+  const files = new Set<string>();
+  let complete = true;
+  for (const candidate of parsed.componentBindings.get(name) ?? [name]) {
+    const info = candidate ? importOf(parsed.imports, candidate) : undefined;
+    const file = info ? await resolveExport(ctx, info.source, fileRel, info.imported) : undefined;
+    if (file) files.add(file);
+    else complete = false;
+  }
+  return { files: [...files], complete };
+}
+
+/** A tag one of several exclusive components renders: it may render, with no literal claim (as in `conditionalTags`). */
+function maybeTag(tag: ParsedTag): ParsedTag {
+  const { text: _text, noindex: _noindex, jsonld: _jsonld, hreflang: _hreflang, ...shape } = tag;
+  return { ...shape, value: 'dynamic' };
 }
 
 /** Tag kinds a broad (opaque) meta source is assumed to possibly set, all dynamic. */
@@ -80,32 +230,6 @@ export function tagKey(tag: ParsedTag): string {
 }
 
 /**
- * Map a local component import to a project-root-relative .svelte path, or undefined.
- * `aliases` (the project's compiled `Project.kitAliases`, omitted for the `$lib`-only
- * default) is forwarded to core's `resolveRepoLocalPath`, the single site for repo-local
- * specifier resolution — this function only adds the `.svelte`-extension guessing/guarding
- * on top, so a custom `svelte.config` alias (`$components`, `$ui`, …) resolves here exactly
- * as it does for the kit-module and rule-time resolution sites.
- */
-export function resolveComponentPath(
-  source: string,
-  fromFileRel: string,
-  aliases?: readonly KitAlias[]
-): string | undefined {
-  // Bare `$lib` (no slash) names the lib directory itself, never a component.
-  if (source === '$lib') return undefined;
-  const path = resolveRepoLocalPath(source, fromFileRel, aliases);
-  if (path === undefined) return undefined; // bare specifier, unmatched alias, or an escaping relative path
-  if (path.endsWith('.svelte')) return path;
-  // A non-.svelte extension (.ts/.js/...) is not a component file we parse.
-  if (/\.[^/]+$/.test(path)) return undefined;
-  // Extensionless local import (e.g. `$lib/Seo`) — resolve to its .svelte file.
-  // Projects that add `.svelte` to resolve.extensions import this way; the caller
-  // guards with rt.exists, so a wrong guess is simply skipped (no false resolution).
-  return `${path}.svelte`;
-}
-
-/**
  * Resolve a file's specific head tags (layer 1 + component layers 2/3/4) and whether
  * a broad (opaque) meta source is present. Includes transitive recursion (depth-limited, cycle-guarded).
  */
@@ -121,7 +245,7 @@ export async function resolveFileTags(
   // tests exercising this function in isolation) don't need to pass one; real
   // callers (routes.ts) always pass the shared per-run cache explicitly.
   cache: ParseCache = new Map(),
-  // The project's compiled `kitAliases` (undefined -> resolveComponentPath's $lib-only
+  // The project's compiled `kitAliases` (undefined -> the `$lib`-only
   // default), forwarded to every layer-3 component resolution, including recursive calls.
   aliases?: readonly KitAlias[]
 ): Promise<ResolveResult> {
@@ -129,9 +253,10 @@ export async function resolveFileTags(
   const headings: HeadingInfo[] = [];
   let dynamicHeading = false;
   let broad = false;
+  const ctx: ResolveCtx = { rt, cwd, cache, aliases };
 
   for (const use of parsed.components) {
-    const info = parsed.imports.get(use.name);
+    const info = importOf(parsed.imports, use.name);
 
     // Layer 2: known-package adapter.
     const adapter = info ? findAdapter(info) : undefined;
@@ -143,10 +268,13 @@ export async function resolveFileTags(
     }
 
     // Layer 3: transitively resolve a user component in src/.
-    const childRel = info ? resolveComponentPath(info.source, fileRel, aliases) : undefined;
-    if (childRel && depth > 0 && !visited.has(childRel)) {
-      const abs = rt.join(cwd, childRel);
-      if (await rt.exists(abs)) {
+    const found = depth > 0 ? await resolveComponentFiles(ctx, use.name, parsed, fileRel) : undefined;
+    const files = found?.files.filter((f) => !visited.has(f)) ?? [];
+    if (found && files.length > 0) {
+      // Which of several components renders, or whether one renders at all, is runtime state.
+      const exclusive = files.length > 1 || !found.complete || files.length < found.files.length;
+      const maybe = new Map<string, ParsedTag>();
+      for (const childRel of files) {
         const childParsed = await readAndParse(rt, cwd, childRel, cache);
         const childVisited = new Set(visited).add(childRel);
         const child = await resolveFileTags(
@@ -160,13 +288,21 @@ export async function resolveFileTags(
           cache,
           aliases
         );
-        tags.push(...child.tags);
         broad = broad || child.broad;
-        for (const h of childParsed.headings) headings.push({ ...h, file: childRel });
-        headings.push(...child.headings);
-        dynamicHeading = dynamicHeading || childParsed.dynamicHeading || child.dynamicHeading;
-        continue;
+        const childHeadings = [...childParsed.headings.map((h) => ({ ...h, file: childRel })), ...child.headings];
+        const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
+        if (!exclusive) {
+          tags.push(...child.tags);
+          headings.push(...childHeadings);
+          dynamicHeading = dynamicHeading || childDynamic;
+          continue;
+        }
+        for (const tag of child.tags.map(maybeTag)) maybe.set(JSON.stringify(tag), tag);
+        // Counting each candidate's <h1> would invent a second one; any of them may be the page's.
+        if (childDynamic || childHeadings.some((h) => h.level === 1)) dynamicHeading = true;
       }
+      tags.push(...maybe.values());
+      continue;
     }
 
     // A component we cannot follow may render its heading from a prop (`<Heading tag="h1">`), so,

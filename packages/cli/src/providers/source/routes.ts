@@ -17,12 +17,13 @@ import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/co
 import type { A11yNode, ParsedFile, ParsedTag } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {
-  resolveComponentPath,
+  resolveComponentFiles,
   resolveFileTags,
   readAndParse,
   BROAD_KINDS,
   tagKey,
-  type ParseCache
+  type ParseCache,
+  type ResolveCtx
 } from './resolve.js';
 
 const ROUTES_DIR = 'src/routes';
@@ -154,11 +155,7 @@ interface ComposeState {
   elementsClosed: boolean;
 }
 
-interface ComposeCtx {
-  rt: Runtime;
-  cwd: string;
-  cache: ParseCache;
-  aliases: readonly KitAlias[] | undefined;
+interface ComposeCtx extends ResolveCtx {
   state: ComposeState;
 }
 
@@ -194,9 +191,10 @@ function offsetPath(path: BranchStep[], base: number): BranchStep[] {
 /**
  * One file's contribution to the route: its own occurrences plus, inline at each component
  * usage, that component's contribution carrying the usage's branch address and repeatability.
- * Anything that cannot be followed (package/adapter import, `<svelte:component>`,
+ * Anything that cannot be followed (package/adapter import, an unresolvable dynamic component,
  * a cycle, MAX_DEPTH) contributes nothing and opens the world — existential rules stay sound,
- * `no-missing-id-ref` skips the route.
+ * `no-missing-id-ref` skips the route. A tag that may render one of several components composes
+ * each as an arm of one exclusive block.
  */
 async function composeA11y(
   ctx: ComposeCtx,
@@ -223,22 +221,24 @@ async function composeA11y(
       composed.push({ ...node, path, file: fileRel, chain });
       continue;
     }
-    const info = parsed.imports.get(node.key);
-    // Package (incl. adapter) imports and the dynamic `<svelte:component>`/`<svelte:self>` names
-    // resolve to no repo-local path, so they fall into the unresolved branch below.
-    const childRel = info ? resolveComponentPath(info.source, fileRel, ctx.aliases) : undefined;
-    if (!childRel || depth <= 0 || visited.has(childRel) || !(await rt.exists(rt.join(cwd, childRel)))) {
+    // Package (incl. adapter) imports and `<svelte:self>` resolve to no repo-local file.
+    const found = depth > 0 ? await resolveComponentFiles(ctx, node.key, parsed, fileRel) : undefined;
+    const files = found?.files.filter((f) => !visited.has(f)) ?? [];
+    if (!found?.complete || files.length < found.files.length) {
       state.fullyResolved = false;
       state.causes.push({ kind: 'component', detail: node.key, file: fileRel, line: node.line });
       // A cycle-cut (`visited`) hides no tag — that file's tags are already in the union — but this
       // branch is shared with the cases that do (unresolved, truncated), and it stays conservative.
       state.elementsClosed = false;
-      continue;
     }
-    const childParsed = await readAndParse(rt, cwd, childRel, ctx.cache);
-    const child = await composeA11y(ctx, childRel, childParsed, depth - 1, new Set(visited).add(childRel), false);
-    for (const inner of child) {
-      composed.push({ ...inner, path: [...path, ...inner.path], repeatable: node.repeatable || inner.repeatable });
+    const group = files.length > 1 ? state.nextGroup++ : undefined;
+    for (const [branch, childRel] of files.entries()) {
+      const childParsed = await readAndParse(rt, cwd, childRel, ctx.cache);
+      const child = await composeA11y(ctx, childRel, childParsed, depth - 1, new Set(visited).add(childRel), false);
+      const at = group === undefined ? path : [...path, { group, branch }];
+      for (const inner of child) {
+        composed.push({ ...inner, path: [...at, ...inner.path], repeatable: node.repeatable || inner.repeatable });
+      }
     }
   }
   return composed;
@@ -454,8 +454,8 @@ export async function collectRoutes(
   cwd: string,
   config: Config = defaultConfig,
   cache: ParseCache = new Map(),
-  // The project's compiled `Project.kitAliases` (undefined -> resolveComponentPath's
-  // $lib-only default), forwarded to transitive <head>/heading resolution.
+  // The project's compiled `Project.kitAliases` (undefined -> the `$lib`-only default),
+  // forwarded to transitive <head>/heading resolution.
   aliases?: readonly KitAlias[],
   // The shell's literal ids (`Project.appHtmlIds`): part of every rendered document, so they
   // satisfy a route's id references.

@@ -106,6 +106,24 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     expect(facts('{#each { length: 3 } as _}<li></li>{/each}').eachBlocks).toEqual([]);
   });
 
+  it('skips a length-only list filled with one value or spread from its keys', () => {
+    for (const list of [
+      'Array(5).fill(null)',
+      'new Array(8).fill(0)',
+      '[...Array(n).fill(null)]',
+      '[...Array(6).keys()]',
+      '[...Array(5)].fill(0)'
+    ]) {
+      expect(facts(`{#each ${list} as _}<li></li>{/each}`).eachBlocks, list).toEqual([]);
+    }
+  });
+
+  it('still collects a fill over data or a map over a length-only list', () => {
+    for (const list of ['xs.fill(0)', 'Array(5).fill(null).map(f)', 'Array(1, 2).fill(0)', '[...xs].fill(0)']) {
+      expect(facts(`{#each ${list} as x}<li>{x}</li>{/each}`).eachBlocks, list).toEqual([{ hasKey: false, line: 1 }]);
+    }
+  });
+
   it('still collects an object literal with properties besides length', () => {
     const c = facts('{#each { length: n, 0: a } as item}<li>{item}</li>{/each}');
     expect(c.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
@@ -1293,6 +1311,20 @@ describe('parseComponentFacts — type-only imports in importSpans', () => {
     expect(spans(`<script lang="ts">import X, { type A } from './X.svelte';</script>`)).toEqual([
       { source: './X.svelte', line: 1 }
     ]);
+  });
+
+  it('marks a value import that binds only named exports', () => {
+    expect(spans(`<script>import { a, b as c } from './+layout.svelte';</script>`)).toEqual([
+      { source: './+layout.svelte', line: 1, named: true }
+    ]);
+  });
+
+  it('leaves a default, `default as`, or namespace import unmarked as named', () => {
+    for (const clause of ['L, { a }', '{ default as L }', "{ 'default' as L }", '* as L']) {
+      expect(spans(`<script>import ${clause} from './+layout.svelte';</script>`), clause).toEqual([
+        { source: './+layout.svelte', line: 1 }
+      ]);
+    }
   });
 
   it('leaves a side-effect import unmarked', () => {

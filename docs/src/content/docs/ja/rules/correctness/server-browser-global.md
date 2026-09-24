@@ -19,7 +19,7 @@ description: モジュールスコープや load・ハンドラで window や do
 - 裸の `typeof window`（throw しない）。
 - 自分で import/宣言した名前（`const document = …`）。
 - handler 内にネストしたクロージャ（典型的にはクライアント側コールバック）。
-- 自身が `ssr = false` を export するファイル。アプリ全体で SSR が無効な場合は、universal な `+page.ts`/`+layout.ts` の `load` 関数も対象外です（モジュールスコープは引き続き検査します。ページオプションを静的に読めないとき、SvelteKit はそのファイルをサーバーで import するためです）。アプリ全体で無効とみなすのは、ルートの `src/routes/+layout.ts`（または `+layout.server.ts`）が `ssr = false` を export し、ほかのどの `+page`/`+layout` ファイルも `ssr` を別の値で export していない場合です。サーバー側のファイル（`+page.server.ts`、`+server.ts`、`hooks.server.ts`）と runes モジュールは引き続き検査します。
+- 自身が `ssr = false` を export するファイル。ルートがサーバーでレンダリングされない universal な `+page.ts`/`+layout.ts` の `load` 関数も対象外です（モジュールスコープは引き続き検査します。ページオプションを静的に読めないとき、SvelteKit はそのファイルをサーバーで import するためです）。ページ自身の `+page` ファイル、続いてレイアウトチェーン（`+page@`/`+layout@` によるリセットに従います）の順にたどり、最も近い `ssr` の export が `ssr = false` なら、そのルートはサーバーでレンダリングされません。リテラルの `false` 以外で export された `ssr` は、SSR を再び有効にするものとみなします。レイアウトは配下のすべてのページがこれに当たる場合に限り、ルートレイアウトは自身が `ssr = false` を export する場合に限り対象外です。サーバー側のファイル（`+page.server.ts`、`+server.ts`、`hooks.server.ts`）と runes モジュールは引き続き検査します。
 
 ## なぜ重要か
 

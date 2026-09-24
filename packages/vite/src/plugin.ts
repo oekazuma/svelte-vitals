@@ -222,6 +222,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
   let root = options.cwd ?? process.cwd();
   let minify: unknown;
   let configFile: string | undefined;
+  let ssrBuild = false;
   const buildPlugin: Plugin = {
     name: 'svelte-vitals',
     apply: 'build',
@@ -237,16 +238,17 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
     configResolved(config) {
       if (!options.cwd) root = config.root;
       configFile = config.configFile;
+      ssrBuild = Boolean(config.build?.ssr);
     },
     async closeBundle() {
       const pagesDir = options.prerenderDir ? options.prerenderDir : join(root, DEFAULT_PRERENDER_DIR);
       const resolved = isAbsolute(pagesDir) ? pagesDir : join(root, pagesDir);
 
-      // SvelteKit calls closeBundle TWICE: once during the JS bundle phase
-      // (before prerendering, dir absent) and once after the adapter writes
-      // prerendered HTML (Task 2 spike). Skip the early/empty invocation so we
-      // don't emit a spurious "0 routes" report or gate on nothing.
-      if (!existsSync(resolved)) return;
+      // SvelteKit's client build is a nested `vite.build` with its own plugin instance whose
+      // closeBundle runs before prerendering. Only the outer SSR build's closeBundle runs after it
+      // (Kit gates its adapter on the same flag), so only there does an absent dir mean "nothing
+      // was prerendered" rather than "not yet".
+      if (!ssrBuild && !existsSync(resolved)) return;
 
       // Resolved OUTSIDE the try: a config-file validation error or a malformed
       // suppressions file must fail the build (same stance as the CLI's exit 2) — the
@@ -273,7 +275,13 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         return;
       }
       for (const w of result.warnings) warn(`svelte-vitals: ${w}`);
-      if (result.routeCount === 0) return;
+      if (result.routeCount === 0) {
+        if (!ssrBuild) return;
+        warn(
+          `svelte-vitals: no prerendered pages found in ${options.prerenderDir ?? DEFAULT_PRERENDER_DIR} — route analysis skipped; ` +
+            'the source scan still ran. Prerender routes to check their HTML, or run `npx svelte-vitals` to check every route from source.'
+        );
+      }
 
       if (options.report !== false) {
         const out = options.report === 'json' ? result.jsonReport : result.consoleReport;

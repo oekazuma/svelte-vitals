@@ -96,6 +96,10 @@ describe('architecture/route-component-import — the mechanism', () => {
     expect(fails(await run([{ source: '../routes/a/+page.svelte', line: 1, type: true }]))).toEqual([]);
   });
 
+  it('skips an import that binds only named exports, since nothing renders the component', async () => {
+    expect(await run([{ source: '../routes/a/+layout.svelte', line: 1, named: true }])).toEqual([]);
+  });
+
   it('emits nothing at all for a file importing no route entry', async () => {
     // Neither a penalty nor a seeded pass: no signal in the file.
     expect(await run([{ source: './Button.svelte', line: 1 }])).toEqual([]);
@@ -110,6 +114,7 @@ describe('architecture/route-component-import — the mechanism', () => {
       '<script lang="ts">',
       "import Layout from '../routes/a/+layout.svelte';",
       "import type Page from '../routes/a/+page.svelte';",
+      "import { theme } from '../routes/a/+page.svelte';",
       '</script>'
     ].join('\n');
     const facts = parseComponentFacts(src, IMPORTER);

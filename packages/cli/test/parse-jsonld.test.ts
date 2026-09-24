@@ -31,3 +31,20 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
     expect(jsonldTags('{@html themeCss}')).toEqual([]);
   });
 });
+
+describe('parse: <svelte:element this="script"> JSON-LD in <svelte:head>', () => {
+  const jsonldTags = (inner: string) => parseHeadTags(head(inner), 'x.svelte').filter((t) => t.kind === 'jsonld');
+
+  it('reads a literal-tag svelte:element as the <script> it renders', () => {
+    expect(
+      jsonldTags('<svelte:element this={"script"} type="application/ld+json">{JSON.stringify(ld)}</svelte:element>')
+    ).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    expect(jsonldTags('<svelte:element this="script" type="application/ld+json">{ld}</svelte:element>')).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+  });
+
+  it('leaves a svelte:element whose tag is not determinable unmatched', () => {
+    expect(jsonldTags('<svelte:element this={tag} type="application/ld+json">{ld}</svelte:element>')).toEqual([]);
+  });
+});

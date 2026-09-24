@@ -15,6 +15,7 @@ SvelteKit のルート/フックファイル（`+page(.server).ts`、`+layout(.s
 - 変異型キャッシュ（`const cache = new Map()` + `cache.set(…)`）。意図的なメモ化パターンです。ただしリクエスト由来のデータを入れれば同じリスクがあります。
 - `src/lib/server/**` 配下。正当なシングルトンを置く場所のためスキャンしません。
 - SvelteKit の `init` フック内の代入。サーバー起動時に一度だけ実行されるためです。
+- ルートがサーバーでレンダリングされない universal な `+page.ts`/`+layout.ts`（判定は [security/shared-state-import](/ja/rules/security/shared-state-import) と同じです）。その `load` はブラウザでしか実行されないため、モジュール変数は訪問者ひとりのタブのもので、共有されるサーバープロセスのものではありません。サーバー側のファイルは引き続き検査します。
 
 ## なぜ重要か
 

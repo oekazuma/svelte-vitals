@@ -1,3 +1,5 @@
+import type { BranchStep } from './a11y.js';
+
 /**
  * A normalized page-body heading occurrence — the mode-independent boundary for
  * the heading-hierarchy rule (mirrors images.ts). Both providers collect these
@@ -10,6 +12,17 @@ export interface HeadingInfo {
   line: number;
   /** Source file the heading came from. */
   file: string;
+  /**
+   * The `{#if}`/`{#await}` arms of its own file it sits in (source mode; absent when unconditional).
+   * Group numbers are per file, so only headings of one file can be exclusive.
+   */
+  path?: BranchStep[];
+}
+
+/** Two headings can never render together: different arms of one block in the same file. */
+export function exclusiveHeadings(a: HeadingInfo, b: HeadingInfo): boolean {
+  if (a.file !== b.file || !a.path || !b.path) return false;
+  return a.path.some((s) => b.path!.some((t) => s.group === t.group && s.branch !== t.branch));
 }
 
 /** Resolved page-body headings for a single route (page + layout chain). */

@@ -484,12 +484,66 @@ describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', (
     ).toBe(true);
     expect(always("export function load() {\n  return redirect(307, '/');\n}")).toBe(true);
   });
+  it('is set when every if/else and try/catch path ends in a redirect', () => {
+    expect(
+      always(
+        [
+          'export const load = async ({ url }) => {',
+          "  if (!url.search) throw redirect(303, '/login');",
+          '  try {',
+          '    const r = await exchange();',
+          "    if (!r.ok) throw redirect(303, '/login');",
+          "    throw redirect(303, '/');",
+          '  } catch (err) {',
+          '    if (isRedirect(err)) throw err;',
+          "    throw redirect(303, '/login');",
+          '  }',
+          '};'
+        ].join('\n')
+      )
+    ).toBe(true);
+    expect(
+      always("export function load({ url }) {\n  if (url.search) redirect(301, '/a');\n  else redirect(301, '/b');\n}")
+    ).toBe(true);
+    expect(
+      always("export function load() {\n  try {\n    redirect(301, '/');\n  } catch (e) {\n    throw e;\n  }\n}")
+    ).toBe(true);
+  });
+  it('is absent when some if/else or try/catch path can finish without redirecting', () => {
+    expect(
+      always("export function load({ url }) {\n  if (url.search) redirect(301, '/a');\n  else log();\n}")
+    ).toBeUndefined();
+    expect(
+      always("export function load() {\n  try {\n    redirect(301, '/');\n  } catch (e) {\n    log(e);\n  }\n}")
+    ).toBeUndefined();
+    expect(
+      always("export function load() {\n  try {\n    redirect(301, '/');\n  } catch (e) {\n    throw other;\n  }\n}")
+    ).toBeUndefined();
+    expect(
+      always(
+        "export function load() {\n  try {\n    redirect(301, '/');\n  } catch (e) {\n    throw e;\n  } finally {\n    return {};\n  }\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      always("export function load({ url }) {\n  if (url.search) return {};\n  else redirect(301, '/');\n}")
+    ).toBeUndefined();
+  });
   it('is absent when load shadows the imported redirect with its own binding', () => {
     expect(
       always('export function load() {\n  function redirect() {}\n  redirect();\n  return { ok: true };\n}')
     ).toBeUndefined();
     expect(always("export function load({ redirect }) {\n  redirect(301, '/');\n}")).toBeUndefined();
     expect(always("export function load() {\n  const redirect = log;\n  redirect('x');\n}")).toBeUndefined();
+    expect(
+      always(
+        "export function load({ url }) {\n  if (url.search) {\n    const redirect = log;\n    redirect('x');\n  } else redirect(303, '/');\n  return {};\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      always(
+        "export function load() {\n  try {\n    redirect(303, '/');\n  } catch (redirect) {\n    redirect();\n  }\n}"
+      )
+    ).toBeUndefined();
   });
   it('is absent when the redirect is conditional, nested, preceded by a return, or not the kit redirect', () => {
     expect(always("export function load({ url }) {\n  if (url.search) redirect(301, '/');\n}")).toBeUndefined();

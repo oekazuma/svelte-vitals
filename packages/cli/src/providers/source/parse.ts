@@ -23,7 +23,7 @@ import {
   IDREF_ATTRS,
   isSvgSrc
 } from '@svelte-vitals/core/internal';
-import { collectImports, type ImportMap } from './imports.js';
+import { collectComponentBindings, collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
 export type ParsedTag = Omit<HeadTag, 'presence' | 'file'>;
@@ -105,12 +105,16 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedT
         tags.push({ kind: 'jsonld', value: 'dynamic' });
       continue;
     }
-    if (node.type !== 'RegularElement') continue;
+    if (node.type !== 'RegularElement' && node.type !== 'SvelteElement') continue;
+    // A `<svelte:element this="script">` with a determinable tag renders exactly that element.
+    const resolved = node.type === 'RegularElement' ? [node.name] : svelteElementTags(node.tag);
+    if (resolved?.length !== 1) continue;
+    const element = resolved[0];
     // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
     // are filtered out internally, so this widening cast is safe.
     const attributes = node.attributes as AST.Attribute[];
 
-    if (node.name === 'meta') {
+    if (element === 'meta') {
       const charset = attrValue(attributes, 'charset');
       if (charset !== 'absent') {
         // <meta charset="…"> carries neither name nor property; model it as name:'charset' (seo/charset).
@@ -133,7 +137,7 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedT
         ...(noindex ? { noindex: true } : {}),
         ...(descText !== undefined ? { text: descText } : {})
       });
-    } else if (node.name === 'link') {
+    } else if (element === 'link') {
       // rel/as keywords are ASCII case-insensitive per the HTML spec; rules and the head
       // composition compare them literally, so normalize once here.
       const rel = attrText(attributes, 'rel')?.toLowerCase();
@@ -153,7 +157,7 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedT
         ...(hreflang !== undefined ? { hreflang } : {}),
         ...(href ? { href } : {})
       });
-    } else if (node.name === 'script') {
+    } else if (element === 'script') {
       const type = attrText(attributes, 'type');
       if (type === 'application/ld+json') {
         // A JSON-LD <script>'s fragment only ever contains literal text and {expr} tags.
@@ -187,16 +191,31 @@ export interface ComponentUse {
   hasSpread: boolean;
 }
 
+/** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
+function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSelf): string {
+  if (node.type !== 'SvelteComponent') return node.name;
+  const e = node.expression;
+  if (e.type === 'Identifier') return e.name;
+  if (
+    e.type === 'MemberExpression' &&
+    !e.computed &&
+    e.object.type === 'Identifier' &&
+    e.property.type === 'Identifier'
+  )
+    return `${e.object.name}.${e.property.name}`;
+  return node.name;
+}
+
 function collectComponents(node: WalkNode | WalkNode[] | null | undefined, acc: ComponentUse[]): void {
   if (Array.isArray(node)) {
     for (const child of node) collectComponents(child, acc);
     return;
   }
   if (!node || typeof node !== 'object') return;
-  if (node.type === 'Component') {
+  if (node.type === 'Component' || node.type === 'SvelteComponent') {
     const attributes = node.attributes;
     acc.push({
-      name: node.name,
+      name: componentName(node),
       attributes,
       hasSpread: attributes.some((a) => a.type === 'SpreadAttribute')
     });
@@ -224,6 +243,8 @@ interface ParsedHeading {
   level: number;
   /** 1-based source line, or 0 if unknown. */
   line: number;
+  /** The `{#if}`/`{#await}` arms it sits in; absent when unconditional. */
+  path?: BranchStep[];
 }
 
 /**
@@ -247,37 +268,81 @@ function isSvgImage(attrs: AST.Attribute[], imports: ImportMap): boolean {
   return false;
 }
 
-function collectImages(
+/** Each name's first `{#snippet}` definition, and every name some `{@render name(…)}` calls. */
+function indexSnippets(
   node: WalkNode | WalkNode[] | null | undefined,
-  source: string,
-  imports: ImportMap,
-  acc: ParsedImage[]
+  acc: { snippets: Map<string, AST.SnippetBlock>; rendered: Set<string> }
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectImages(child, source, imports, acc);
+    for (const child of node) indexSnippets(child, acc);
     return;
   }
   if (!node || typeof node !== 'object') return;
-  if (node.type === 'RegularElement' && node.name === 'img') {
-    // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
-    // are filtered out internally, so this widening cast is safe.
-    const attrs = node.attributes as AST.Attribute[];
-    const hasSpread = node.attributes.some((a) => a.type === 'SpreadAttribute');
-    acc.push({
-      hasWidth: hasSpread || Boolean(findAttr(attrs, 'width')),
-      hasHeight: hasSpread || Boolean(findAttr(attrs, 'height')),
-      hasLoading: hasSpread || Boolean(findAttr(attrs, 'loading')),
-      hasAlt: hasSpread || Boolean(findAttr(attrs, 'alt')),
-      // A literal loading="lazy" only — a spread or dynamic loading={…} must not be flagged.
-      lazy: attrText(attrs, 'loading') === 'lazy',
-      hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')),
-      ...(isSvgImage(attrs, imports) ? { svg: true } : {}),
-      line: lineOf(source, node.start)
-    });
+  if (node.type === 'SnippetBlock' && !acc.snippets.has(node.expression.name))
+    acc.snippets.set(node.expression.name, node);
+  if (node.type === 'RenderTag') {
+    const name = renderCallee(node);
+    if (name) acc.rendered.add(name);
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectImages(childOf(node, key), source, imports, acc);
+    if (key in node) indexSnippets(childOf(node, key), acc);
   }
+}
+
+/**
+ * `<img>` elements in render order (performance/lcp-image reads the first): a snippet's images
+ * sit at its first in-file `{@render}`, not at its definition. A snippet this file never renders
+ * (passed to a component) keeps its definition position, since where it renders is unknown.
+ */
+function collectImages(fragment: AST.Fragment, source: string, imports: ImportMap): ParsedImage[] {
+  const acc: ParsedImage[] = [];
+  const index = { snippets: new Map<string, AST.SnippetBlock>(), rendered: new Set<string>() };
+  indexSnippets(fragment, index);
+  const emitted = new Set<AST.SnippetBlock>();
+  const walk = (node: WalkNode | WalkNode[] | null | undefined): void => {
+    if (Array.isArray(node)) {
+      for (const child of node) walk(child);
+      return;
+    }
+    if (!node || typeof node !== 'object') return;
+    if (node.type === 'SnippetBlock') {
+      const name = node.expression.name;
+      if (index.snippets.get(name) === node && index.rendered.has(name)) return;
+      emitted.add(node);
+    }
+    if (node.type === 'RenderTag') {
+      const snippet = index.snippets.get(renderCallee(node) ?? '');
+      if (snippet && !emitted.has(snippet)) {
+        emitted.add(snippet);
+        walk(snippet.body);
+      }
+      return;
+    }
+    if (node.type === 'RegularElement' && node.name === 'img') {
+      // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
+      // are filtered out internally, so this widening cast is safe.
+      const attrs = node.attributes as AST.Attribute[];
+      const hasSpread = node.attributes.some((a) => a.type === 'SpreadAttribute');
+      acc.push({
+        hasWidth: hasSpread || Boolean(findAttr(attrs, 'width')),
+        hasHeight: hasSpread || Boolean(findAttr(attrs, 'height')),
+        hasLoading: hasSpread || Boolean(findAttr(attrs, 'loading')),
+        hasAlt: hasSpread || Boolean(findAttr(attrs, 'alt')),
+        // A literal loading="lazy" only — a spread or dynamic loading={…} must not be flagged.
+        lazy: attrText(attrs, 'loading') === 'lazy',
+        hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')),
+        ...(isSvgImage(attrs, imports) ? { svg: true } : {}),
+        line: lineOf(source, node.start)
+      });
+    }
+    for (const key of CHILD_NODE_KEYS) {
+      if (key in node) walk(childOf(node, key));
+    }
+  };
+  walk(fragment);
+  // A snippet whose only {@render} sits somewhere never walked (inside itself) is still collected.
+  for (const snippet of index.snippets.values()) if (!emitted.has(snippet)) walk(snippet.body);
+  return acc;
 }
 
 /**
@@ -313,35 +378,56 @@ function headingLevelOf(tags: string[]): number | undefined {
 }
 
 /**
- * Recursively collect page-body headings (<h1>–<h6>) anywhere in the template (seo/single-h1).
- * `acc.dynamic` records a `<svelte:element>` that may render a heading but whose level is not
+ * Collect page-body headings (<h1>–<h6>) anywhere in the template (seo/single-h1), each with
+ * the `{#if}`/`{#await}` arms it sits in so exclusive arms are not counted together.
+ * `dynamic` records a `<svelte:element>` that may render a heading but whose level is not
  * statically determinable — a route carrying one cannot be reported as having no <h1>.
  */
-function collectHeadings(
-  node: WalkNode | WalkNode[] | null | undefined,
-  source: string,
-  acc: { headings: ParsedHeading[]; dynamic: boolean }
-): void {
-  if (Array.isArray(node)) {
-    for (const child of node) collectHeadings(child, source, acc);
-    return;
-  }
-  if (!node || typeof node !== 'object') return;
-  // Body headings only — a stray <h1> inside <svelte:head> is not a page heading.
-  if (node.type === 'SvelteHead') return;
-  if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
-    acc.headings.push({ level: Number(node.name[1]), line: lineOf(source, node.start) });
-  } else if (node.type === 'SvelteElement') {
-    const tags = svelteElementTags(node.tag);
-    const level = tags ? headingLevelOf(tags) : undefined;
-    if (level !== undefined) acc.headings.push({ level, line: lineOf(source, node.start) });
-    // An unresolvable tag may be a heading; two different heading levels is a heading whose
-    // level is unknown. A resolved non-heading set (`cond ? 'span' : 'em'`) is neither.
-    else if (!tags || tags.some((t) => HEADING_TAG.test(t.toLowerCase()))) acc.dynamic = true;
-  }
-  for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectHeadings(childOf(node, key), source, acc);
-  }
+function collectHeadings(fragment: AST.Fragment, source: string) {
+  const headings: ParsedHeading[] = [];
+  let dynamic = false;
+  let groups = 0;
+  const push = (level: number, node: WalkNode & { start: number }, path: BranchStep[]): void => {
+    headings.push({ level, line: lineOf(source, node.start), ...(path.length > 0 ? { path } : {}) });
+  };
+  const walk = (node: WalkNode | WalkNode[] | null | undefined, path: BranchStep[]): void => {
+    if (Array.isArray(node)) {
+      for (const child of node) walk(child, path);
+      return;
+    }
+    if (!node || typeof node !== 'object') return;
+    // Body headings only — a stray <h1> inside <svelte:head> is not a page heading.
+    if (node.type === 'SvelteHead') return;
+    if (node.type === 'IfBlock' || node.type === 'AwaitBlock') {
+      const group = groups++;
+      const arms = node.type === 'IfBlock' ? ifArms(node) : [node.pending, node.then, node.catch];
+      arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }]));
+      return;
+    }
+    if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
+      push(Number(node.name[1]), node, path);
+    } else if (node.type === 'SvelteElement') {
+      const tags = svelteElementTags(node.tag);
+      const level = tags ? headingLevelOf(tags) : undefined;
+      if (level !== undefined) push(level, node, path);
+      // An unresolvable tag may be a heading; two different heading levels is a heading whose
+      // level is unknown. A resolved non-heading set (`cond ? 'span' : 'em'`) is neither.
+      else if (!tags || tags.some((t) => HEADING_TAG.test(t.toLowerCase()))) dynamic = true;
+    }
+    for (const key of CHILD_NODE_KEYS) {
+      if (key in node) walk(childOf(node, key), path);
+    }
+  };
+  walk(fragment, []);
+  return { headings, dynamic };
+}
+
+/** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */
+function ifArms(node: AST.IfBlock): Array<AST.Fragment | null> {
+  if (!node.alternate) return [node.consequent];
+  const rest = node.alternate.nodes.filter((n) => n.type !== 'Text' || n.data.trim() !== '');
+  const chained = rest.length === 1 && rest[0]!.type === 'IfBlock' && rest[0]!.elseif ? rest[0] : undefined;
+  return [node.consequent, ...(chained ? ifArms(chained) : [node.alternate])];
 }
 
 export type { BranchStep };
@@ -437,9 +523,11 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         unknowable.push({ kind: 'html', line: lineOf(source, node.start) });
         elementsUnknowable = true;
         return;
-      case 'IfBlock':
-        walkIfChain(node, ctx, groups++, 0);
+      case 'IfBlock': {
+        const group = groups++;
+        ifArms(node).forEach((arm, branch) => walk(arm, { ...ctx, path: [...ctx.path, { group, branch }] }));
         return;
+      }
       case 'AwaitBlock': {
         const group = groups++;
         walk(node.pending, { ...ctx, path: [...ctx.path, { group, branch: 0 }] });
@@ -473,7 +561,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
       case 'SvelteComponent':
       case 'SvelteSelf':
         noteSpread(node);
-        emit(ctx, { kind: 'component', key: node.name, line: lineOf(source, node.start) });
+        emit(ctx, { kind: 'component', key: componentName(node), line: lineOf(source, node.start) });
         walk(node.fragment, { ...ctx, elementDepth: ctx.elementDepth + 1 });
         return;
       case 'SlotElement':
@@ -482,7 +570,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         walk(node.fragment, ctx);
         return;
       case 'RenderTag':
-        if (isChildrenRender(node)) slotInLandmark ??= ctx.landmarks.at(-1);
+        if (renderCallee(node) === 'children') slotInLandmark ??= ctx.landmarks.at(-1);
         return;
       default:
         noteSpread(node);
@@ -490,16 +578,6 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
           if (key in node) walk(childOf(node, key), ctx);
         }
     }
-  };
-
-  /** `{:else if}` nests as an IfBlock in `alternate`; flatten the chain into branches of one group. */
-  const walkIfChain = (node: AST.IfBlock, ctx: A11yCtx, group: number, branch: number): void => {
-    walk(node.consequent, { ...ctx, path: [...ctx.path, { group, branch }] });
-    if (!node.alternate) return;
-    const rest = node.alternate.nodes.filter((n) => n.type !== 'Text' || n.data.trim() !== '');
-    const chained = rest.length === 1 && rest[0]!.type === 'IfBlock' && rest[0]!.elseif ? rest[0] : undefined;
-    if (chained) walkIfChain(chained, ctx, group, branch + 1);
-    else walk(node.alternate, { ...ctx, path: [...ctx.path, { group, branch: branch + 1 }] });
   };
 
   const walkElement = (node: AST.RegularElement | AST.SvelteElement, ctx: A11yCtx): void => {
@@ -582,15 +660,18 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   };
 }
 
-function isChildrenRender(node: AST.RenderTag): boolean {
+/** The name a `{@render name(…)}` / `{@render name?.(…)}` calls, when the callee is a plain identifier. */
+function renderCallee(node: AST.RenderTag): string | undefined {
   const call = node.expression.type === 'ChainExpression' ? node.expression.expression : node.expression;
-  return call.callee.type === 'Identifier' && call.callee.name === 'children';
+  return call.callee.type === 'Identifier' ? call.callee.name : undefined;
 }
 
 export interface ParsedFile {
   headTags: ParsedTag[];
   components: ComponentUse[];
   imports: ImportMap;
+  /** Locals holding a component chosen at runtime → the identifiers they can hold (`''`: anything else). */
+  componentBindings: Map<string, string[]>;
   images: ParsedImage[];
   headings: ParsedHeading[];
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
@@ -610,15 +691,13 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components);
   const imports = collectImports(ast);
-  const images: ParsedImage[] = [];
-  collectImages(ast.fragment, source, imports, images);
-  const headingAcc = { headings: [] as ParsedHeading[], dynamic: false };
-  collectHeadings(ast.fragment, source, headingAcc);
+  const headingAcc = collectHeadings(ast.fragment, source);
   return {
     headTags: heads.flatMap((h) => tagsFromHead(h, source)),
     components,
     imports,
-    images,
+    componentBindings: collectComponentBindings(ast),
+    images: collectImages(ast.fragment, source, imports),
     headings: headingAcc.headings,
     dynamicHeading: headingAcc.dynamic,
     a11y: collectA11y(ast.fragment, source),

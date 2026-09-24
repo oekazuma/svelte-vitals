@@ -251,9 +251,10 @@ function containsReturn(node: Node): boolean {
 }
 
 /**
- * Whether the exported `load` redirects on every call: a statement directly in its body is a
- * `redirect(…)` / `throw redirect(…)` and no earlier statement can `return` first. A redirect
- * under a condition, in a `try`, or in a helper function does not count.
+ * Whether the exported `load` redirects on every call: every path through its body reaches a
+ * `redirect(…)` / `throw redirect(…)` before any `return` — through both arms of an `if`/`else`,
+ * and through a `try` whose `catch` redirects or rethrows. A redirect under an `if` without an
+ * `else`, in a loop, or in a helper function does not count.
  */
 function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
   const load = locals.size > 0 ? findLoadFunction(program) : undefined;
@@ -267,23 +268,60 @@ function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
     else if ((decl?.type === 'FunctionDeclaration' || decl?.type === 'ClassDeclaration') && decl.id)
       addBoundNames(decl.id, shadowed);
   }
-  const isRedirect = (expr: Node): boolean => {
+  const isRedirect = (expr: Node, shadow: Set<string>): boolean => {
     const e = unwrapTs(expr);
     return (
       e?.type === 'CallExpression' &&
       e.callee?.type === 'Identifier' &&
       locals.has(e.callee.name) &&
-      !shadowed.has(e.callee.name)
+      !shadow.has(e.callee.name)
     );
   };
-  if (load.body.type !== 'BlockStatement') return isRedirect(load.body);
-  for (const stmt of load.body.body ?? []) {
-    if (stmt?.type === 'ExpressionStatement' && isRedirect(stmt.expression)) return true;
+  if (load.body.type !== 'BlockStatement') return isRedirect(load.body, shadowed);
+  // A block's own declarations shadow the import for that block, as the load body's do for all of it.
+  const within = (body: Node[] | undefined, outer: Set<string>, param?: Node): Set<string> => {
+    const own = new Set<string>();
+    addBoundNames(param, own);
+    for (const stmt of body ?? []) {
+      if (stmt?.type === 'VariableDeclaration') for (const d of stmt.declarations ?? []) addBoundNames(d?.id, own);
+      else if ((stmt?.type === 'FunctionDeclaration' || stmt?.type === 'ClassDeclaration') && stmt.id)
+        addBoundNames(stmt.id, own);
+    }
+    return own.size === 0 ? outer : new Set([...outer, ...own]);
+  };
+  // `rethrow` is the enclosing catch parameter: rethrowing it passes on the redirect its try block threw.
+  const redirects = (stmt: Node, shadow: Set<string>, rethrow?: string): boolean => {
+    if (stmt?.type === 'ExpressionStatement') return isRedirect(stmt.expression, shadow);
     // Kit 2's redirect() throws, so `return redirect(…)` never returns either.
-    if ((stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') && isRedirect(stmt.argument)) return true;
-    if (containsReturn(stmt)) return false;
-  }
-  return false;
+    if (stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') {
+      if (isRedirect(stmt.argument, shadow)) return true;
+      return stmt.type === 'ThrowStatement' && stmt.argument?.type === 'Identifier' && stmt.argument.name === rethrow;
+    }
+    if (stmt?.type === 'BlockStatement') return always(stmt.body, shadow, rethrow);
+    if (stmt?.type === 'IfStatement') {
+      return (
+        !!stmt.alternate && redirects(stmt.consequent, shadow, rethrow) && redirects(stmt.alternate, shadow, rethrow)
+      );
+    }
+    if (stmt?.type === 'TryStatement') {
+      const param = stmt.handler?.param?.type === 'Identifier' ? stmt.handler.param.name : undefined;
+      return (
+        always(stmt.block?.body, shadow) &&
+        (!stmt.handler || always(stmt.handler.body?.body, within([], shadow, stmt.handler.param), param)) &&
+        !containsReturn(stmt.finalizer)
+      );
+    }
+    return false;
+  };
+  const always = (body: Node[] | undefined, outer: Set<string>, rethrow?: string): boolean => {
+    const shadow = within(body, outer);
+    for (const stmt of body ?? []) {
+      if (redirects(stmt, shadow, rethrow)) return true;
+      if (containsReturn(stmt)) return false;
+    }
+    return false;
+  };
+  return always(load.body.body, shadowed);
 }
 
 /**
@@ -366,12 +404,35 @@ function refsTainted(node: Node, tainted: Set<string>): boolean {
 }
 
 /**
+ * Awaits that only run when a tainted value says so — `a ?? await x`, `t ? await x : y` — and so
+ * cannot start before the earlier await that decides them.
+ */
+function guardedAwaits(node: Node, tainted: Set<string>, out = new Set<Node>()): Set<Node> {
+  if (Array.isArray(node)) {
+    for (const child of node) guardedAwaits(child, tainted, out);
+    return out;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string' || isFunctionNode(node)) return out;
+  if (node.type === 'LogicalExpression' && refsTainted(node.left, tainted)) {
+    for (const a of collectAwaits(node.right)) out.add(a);
+  } else if (node.type === 'ConditionalExpression' && refsTainted(node.test, tainted)) {
+    for (const a of collectAwaits([node.consequent, node.alternate])) out.add(a);
+  }
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    guardedAwaits(node[key], tainted, out);
+  }
+  return out;
+}
+
+/**
  * performance/load-waterfall, performance/sequential-awaits — forward-taint analysis of the exported `load`'s straight-line
  * statements (direct `try` blocks inlined; `if`/loops/`switch` are not classified
  * but still propagate taint from their assignments; nested functions are never
  * entered). One await site per statement; a site whose awaits' argument subtrees
  * reference an earlier site's bindings (transitively, through intermediate consts
- * and assignments — member-expression targets taint their root object) is
+ * and assignments — member-expression targets taint their root object), or that a
+ * tainted `??`/`&&`/`||`/`?:` guard decides (`guardedAwaits`), is
  * dependent, anchored at the first dependent await; otherwise independent when a
  * prior site exists, unless every await merely resumes an already-created promise
  * (a bare identifier argument starts no request). `await parent()` and
@@ -438,7 +499,8 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
       ) {
         const sites = collectAwaits(stmt).filter((a) => !isParentCall(a.argument) && !isBodyParseCall(a.argument));
         if (sites.length > 0) {
-          const dependent = sites.filter((a) => refsTainted(a.argument, tainted));
+          const guarded = guardedAwaits(stmt, tainted);
+          const dependent = sites.filter((a) => guarded.has(a) || refsTainted(a.argument, tainted));
           if (dependent.length > 0) {
             const anchor = dependent.reduce((m, a) => (a.start < m.start ? a : m));
             dependentLines.push(line(anchor.start));
@@ -564,7 +626,7 @@ function aliasMatches(entry: KitAlias, spec: string): boolean {
  * Exported from the package's public barrel because `architecture/private-scope-import`
  * and `architecture/route-component-import` (inside `packages/core`) both need resolution
  * that is not restricted to runes modules, unlike `resolveRunesModuleSpecifier` — and
- * because `resolveComponentPath` (`packages/cli/src/providers/source/resolve.ts`), which
+ * because component resolution (`packages/cli/src/providers/source/resolve.ts`), which
  * drives transitive `<head>`/heading resolution, delegates its alias/`$lib`/relative
  * mapping here too, rather than duplicating it. This is the single site for every
  * repo-local specifier resolution in the repo.
@@ -584,8 +646,8 @@ export function resolveRepoLocalPath(
     // but carries no readable value stops here rather than letting a later entry answer.
     const entry = aliases.find((a) => aliasMatches(a, spec));
     if (entry?.replacement == null) return undefined;
-    // An absolute replacement (a literal `/opt/shared/src`, not `path.resolve(...)` — that
-    // form is non-literal and already opaque) is outside the project by definition. Left
+    // An absolute replacement (`/opt/shared/src`, written literally or as `path.resolve('/opt/…')`)
+    // is outside the project by definition. Left
     // unchecked, `normalizePosix` drops the leading empty segment from `/opt/...` and
     // answers `opt/shared/src/...` — a project-relative path that names a different file.
     // A Windows drive-letter path (`C:/shared/src`, posixified from `C:\shared\src`) is the

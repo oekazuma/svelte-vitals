@@ -113,6 +113,23 @@ describe('parse: heading capture (seo/single-h1)', () => {
     const headings = parseFile('<svelte:head><h1>X</h1></svelte:head><h1>Real</h1>', 'x.svelte').headings;
     expect(headings.map((h) => h.level)).toEqual([1]);
   });
+  it('records the {#if}/{:else if}/{:else} and {#await} arm each heading sits in', () => {
+    const src =
+      '<h2>top</h2>{#if a}<h1>A</h1>{:else if b}<h1>B</h1>{:else}<h1>C</h1>{/if}' +
+      '{#await p}<h3>wait</h3>{:then}{#if c}<h4>D</h4>{/if}{/await}';
+    const paths = parseFile(src, 'x.svelte').headings.map((h) => h.path);
+    expect(paths).toEqual([
+      undefined,
+      [{ group: 0, branch: 0 }],
+      [{ group: 0, branch: 1 }],
+      [{ group: 0, branch: 2 }],
+      [{ group: 1, branch: 0 }],
+      [
+        { group: 1, branch: 1 },
+        { group: 2, branch: 0 }
+      ]
+    ]);
+  });
 });
 
 describe('parse: head tags inside blocks', () => {

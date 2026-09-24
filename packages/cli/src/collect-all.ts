@@ -118,7 +118,8 @@ export async function collectAll(
   // only the file the watcher named, so a stale rejection outlives the edit that fixed it.
   for (const [file, parsed] of parseCache) {
     const suppressions = await parsed.then(
-      (parsedFile) => parsedFile.suppressions,
+      // A barrel's entry holds its re-exports only; no finding is ever located in one.
+      (entry) => ('suppressions' in entry ? entry.suppressions : undefined),
       () => undefined
     );
     if (suppressions) directives.set(file, suppressions);

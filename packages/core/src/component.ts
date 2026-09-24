@@ -209,9 +209,11 @@ export interface ComponentFacts {
    * architecture/route-component-import). `type` marks a declaration that contributes **no runtime
    * value binding** — either `import type …`, or one whose every specifier is inline-typed
    * (`import { type A } from …`). A specifier-less side-effect import is not marked: it still loads
-   * the module. Optional, so existing external constructors of `ComponentFacts` are unaffected.
+   * the module. `named` marks a value declaration binding only named exports — no default,
+   * `default as`, or namespace — so it cannot render an imported component. Both optional, so
+   * existing external constructors of `ComponentFacts` are unaffected.
    */
-  importSpans: { source: string; line: number; type?: true }[];
+  importSpans: { source: string; line: number; type?: true; named?: true }[];
   /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — performance/namespace-import. */
   namespaceImports: { source: string; line: number }[];
   /** `$state` declarations never written or escaped anywhere in the component — candidates for const (correctness/unmutated-state). */
