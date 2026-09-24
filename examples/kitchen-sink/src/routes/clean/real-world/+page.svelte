@@ -8,6 +8,8 @@
   import alert from '$lib/clean/real-world/notify';
   import LegacyCard from '$lib/clean/real-world/LegacyCard.svelte';
   import Clock from '$lib/clean/real-world/Clock.svelte';
+  import { SORT_ORDERS } from '$lib/clean/real-world/options';
+  import * as options from '$lib/clean/real-world/options';
   import JsonLd from '$lib/clean/jsonld/RealWorldPage.svelte';
   // Binds only a <script module> export, so the layout component is never rendered here.
   import { sectionName } from '../+layout.svelte';
@@ -89,6 +91,18 @@
     </label>
   {/each}
 </fieldset>
+
+<!-- Constant lists from a repo-local module: fixed order, nothing to key on. -->
+<select aria-label="Sort order">
+  {#each SORT_ORDERS as order}
+    <option value={order.value}>{order.label}</option>
+  {/each}
+</select>
+<select aria-label="Density">
+  {#each options.DENSITIES as density, i (i)}
+    <option>{density}</option>
+  {/each}
+</select>
 
 <LegacyCard card={{ title: 'Legacy card', opened: 0 }} tags={['a']} />
 

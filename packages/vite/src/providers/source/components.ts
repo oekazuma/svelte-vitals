@@ -6,7 +6,7 @@ import {
   type KitAlias,
   type KitModuleFacts
 } from '@svelte-vitals/core/internal';
-import { createNodeRuntime } from 'svelte-vitals';
+import { createNodeRuntime, dropConstantListEachBlocks as drop } from 'svelte-vitals';
 
 const nodeRuntime = createNodeRuntime();
 
@@ -17,6 +17,15 @@ const nodeRuntime = createNodeRuntime();
  */
 export function collectComponentFacts(root: string): Promise<ComponentFacts[]> {
   return collect(nodeRuntime, root);
+}
+
+/** `facts` without the `{#each}` blocks over an imported constant list (correctness/each-key, correctness/each-index-key). */
+export function dropConstantListEachBlocks(
+  root: string,
+  facts: ComponentFacts[],
+  aliases?: readonly KitAlias[]
+): Promise<ComponentFacts[]> {
+  return drop({ rt: nodeRuntime, cwd: root, cache: new Map(), aliases }, facts);
 }
 
 /** Scan SvelteKit route/hooks files for SSR shared-state facts (security/handler-state-write, security/server-module-state, security/shared-state-import; build mode only). */

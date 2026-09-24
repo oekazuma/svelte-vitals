@@ -21,7 +21,12 @@ import { loadConfigFile, loadSuppressions, type SuppressionEntry } from 'svelte-
 import type { SvelteVitalsOptions } from './plugin.js';
 import { collectRenderedHeads } from './providers/rendered/collect.js';
 import { collectRenderedProject } from './providers/rendered/project.js';
-import { collectComponentFacts, collectKitModuleFacts, collectSourceFiles } from './providers/source/components.js';
+import {
+  collectComponentFacts,
+  collectKitModuleFacts,
+  collectSourceFiles,
+  dropConstantListEachBlocks
+} from './providers/source/components.js';
 import { applySourceSuppressions } from './suppressions.js';
 import { readPackageVersion } from './version.js';
 
@@ -144,7 +149,7 @@ export async function analyze(
 
   // collectRenderedProject needs htmlLang out of the rendered-head parse pass, so it can't
   // join the Promise.all below; components/sourceFiles have no such dependency and do.
-  const [rendered, components, sourceFiles] = await Promise.all([
+  const [rendered, componentFacts, sourceFiles] = await Promise.all([
     collectRenderedHeads(prerenderPagesDir),
     collectComponentFacts(cwd),
     collectSourceFiles(cwd)
@@ -153,7 +158,10 @@ export async function analyze(
     ...(await collectRenderedProject(cwd, rendered.htmlLang)),
     ...extraProjectFacts
   };
-  const kitModules = await collectKitModuleFacts(cwd, project.kitAliases);
+  const [kitModules, components] = await Promise.all([
+    collectKitModuleFacts(cwd, project.kitAliases),
+    dropConstantListEachBlocks(cwd, componentFacts, project.kitAliases)
+  ]);
   // The shell's `<html lang>` is still app.html's, so htmlLang above keeps reading every file.
   const isShell = ssrDisabledRouteMatcher(kitModules);
   const keep = <T extends { route: string }>(items: T[]): T[] => items.filter((i) => !isShell(i.route));

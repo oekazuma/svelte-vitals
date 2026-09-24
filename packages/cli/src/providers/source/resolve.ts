@@ -1,6 +1,11 @@
 import type { Config } from '@svelte-vitals/core';
-import type { BranchStep, HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
-import { attrTextOf, parseModuleProgram, resolveRepoLocalPath } from '@svelte-vitals/core/internal';
+import type { BranchStep, ComponentFacts, HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
+import {
+  attrTextOf,
+  collectConstantListExports,
+  parseModuleProgram,
+  resolveRepoLocalPath
+} from '@svelte-vitals/core/internal';
 import type { ParsedFile, ParsedTag, PropArgs } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { addImportsFromProgram, importOf, type ImportMap } from './imports.js';
@@ -29,6 +34,8 @@ interface ResolveResult {
 export interface ModuleExports {
   named: ImportMap;
   stars: string[];
+  /** Exports that are constant lists the module never writes (correctness/each-key). */
+  lists: Set<string>;
 }
 
 /**
@@ -66,13 +73,14 @@ function nameOf(node: { type: string; name?: string; value?: unknown }): string 
 
 /** A barrel's value re-exports. A module that does not parse forwards nothing, so its components stay unresolved. */
 function moduleExportsOf(source: string, rel: string): ModuleExports {
-  const out: ModuleExports = { named: new Map(), stars: [] };
+  const out: ModuleExports = { named: new Map(), stars: [], lists: new Set() };
   let program;
   try {
     program = parseModuleProgram(source, rel).program;
   } catch {
     return out;
   }
+  out.lists = collectConstantListExports(program);
   const imports: ImportMap = new Map();
   addImportsFromProgram(program, imports);
   for (const node of program?.body ?? []) {
@@ -115,7 +123,8 @@ function readModuleExports(ctx: ResolveCtx, rel: string): Promise<ModuleExports>
 const MAX_REEXPORT_HOPS = 8;
 
 /**
- * The existing `.svelte` file behind export `name` of module `spec`, following barrel re-exports.
+ * The existing `.svelte` file behind export `name` of module `spec`, following barrel re-exports
+ * — or, for `target: 'list'`, the module declaring it when it is a constant list.
  * Extensionless specifiers try `.svelte` first (projects that add it to `resolve.extensions`),
  * then Vite's own `.js`/`.ts` and `index` lookups; an explicit `.js` may name its `.ts` source.
  */
@@ -124,6 +133,7 @@ async function resolveExport(
   spec: string,
   fromRel: string,
   name: string,
+  target: 'component' | 'list' = 'component',
   hops = 0,
   // Per lookup, not in the shared ParseCache: the dev dashboard invalidates that per file, which
   // a memo of results spanning several files would outlive. Without it, branching `export *`
@@ -136,7 +146,7 @@ async function resolveExport(
   const key = `${path}#${name}#${hops}`;
   let hit = memo.get(key);
   if (!hit) {
-    hit = resolveExportAt(ctx, path, name, hops, memo);
+    hit = resolveExportAt(ctx, path, name, target, hops, memo);
     memo.set(key, hit);
   }
   return hit;
@@ -146,15 +156,17 @@ async function resolveExportAt(
   ctx: ResolveCtx,
   path: string,
   name: string,
+  target: 'component' | 'list',
   hops: number,
   memo: Map<string, Promise<string | undefined>>
 ): Promise<string | undefined> {
   const exists = (rel: string) => ctx.rt.exists(ctx.rt.join(ctx.cwd, rel));
   const ext = /\.[^./]+$/.exec(path)?.[0];
+  const component = target === 'component' && name === 'default';
   let modules: string[];
-  if (ext === '.svelte') return name === 'default' && (await exists(path)) ? path : undefined;
+  if (ext === '.svelte') return component && (await exists(path)) ? path : undefined;
   if (ext === undefined) {
-    if (name === 'default' && (await exists(`${path}.svelte`))) return `${path}.svelte`;
+    if (component && (await exists(`${path}.svelte`))) return `${path}.svelte`;
     modules = ['.js', '.ts', '/index.js', '/index.ts'].map((suffix) => path + suffix);
   } else if (ext === '.js') modules = [path, `${path.slice(0, -3)}.ts`];
   else if (ext === '.ts') modules = [path];
@@ -162,11 +174,12 @@ async function resolveExportAt(
   for (const mod of modules) {
     if (!(await exists(mod))) continue;
     const exports = await readModuleExports(ctx, mod);
+    if (target === 'list' && exports.lists.has(name)) return mod;
     const hit = exports.named.get(name);
-    if (hit) return resolveExport(ctx, hit.source, mod, hit.imported, hops + 1, memo);
+    if (hit) return resolveExport(ctx, hit.source, mod, hit.imported, target, hops + 1, memo);
     if (name === 'default') return undefined; // `export *` never forwards a default
     for (const star of exports.stars) {
-      const found = await resolveExport(ctx, star, mod, name, hops + 1, memo);
+      const found = await resolveExport(ctx, star, mod, name, target, hops + 1, memo);
       if (found) return found;
     }
     return undefined;
@@ -193,6 +206,27 @@ export async function resolveComponentFiles(
     else complete = false;
   }
   return { files: [...files], complete };
+}
+
+/**
+ * `components` without the `{#each}` blocks whose imported list (`EachBlockFact.importedList`)
+ * resolves to a repo-local constant list — the same exemption a same-file constant gets.
+ */
+export async function dropConstantListEachBlocks(
+  ctx: ResolveCtx,
+  components: ComponentFacts[]
+): Promise<ComponentFacts[]> {
+  return Promise.all(
+    components.map(async (c) => {
+      if (!c.eachBlocks.some((e) => e.importedList)) return c;
+      const constant = await Promise.all(
+        c.eachBlocks.map(async ({ importedList: list }) =>
+          list ? (await resolveExport(ctx, list.source, c.file, list.imported, 'list')) !== undefined : false
+        )
+      );
+      return { ...c, eachBlocks: c.eachBlocks.filter((_, i) => !constant[i]) };
+    })
+  );
 }
 
 export function offsetPath(path: BranchStep[], base: number): BranchStep[] {

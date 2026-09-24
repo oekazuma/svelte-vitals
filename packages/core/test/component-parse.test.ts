@@ -56,6 +56,31 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     expect(reported('const xs = [1, 2]; const ys = xs as number[]; ys.push(3);')).toBe(1);
     expect(reported('const xs = [1, 2]; (<number[]>xs).push(3);')).toBe(1);
   });
+  it('records the import an unkeyed or index-keyed each iterates, when the component only reads it', () => {
+    const blocks = (script: string, markup = '{#each xs as x}<b>{x}</b>{/each}') =>
+      parseComponentFacts(`<script lang="ts">${script}</script>${markup}`, 'C.svelte').eachBlocks;
+    const list = { source: '$lib/data', imported: 'items' };
+    expect(blocks("import { items as xs } from '$lib/data';")).toEqual([
+      { hasKey: false, line: 1, importedList: list }
+    ]);
+    expect(blocks("import * as data from '$lib/data';", '{#each data.items as x, i (i)}<b>{x}</b>{/each}')).toEqual([
+      { hasKey: true, line: 1, indexKey: true, importedList: list }
+    ]);
+    expect(blocks("import { xs } from '$lib/data';", '{#each xs as x (x.id)}<b>{x}</b>{/each}')).toEqual([
+      { hasKey: true, line: 1 }
+    ]);
+    const bare = [{ hasKey: false, line: 1 }];
+    expect(blocks("import { xs } from '$lib/data'; xs.push(3);")).toEqual(bare);
+    expect(blocks("import { xs } from '$lib/data'; sort(xs);")).toEqual(bare);
+    expect(blocks("import xs from '$lib/data.json';")).toEqual(bare);
+    expect(blocks("import type { xs } from '$lib/data';")).toEqual(bare);
+    expect(
+      blocks("import * as data from '$lib/data'; data.items.sort();", '{#each data.items as x}<b>{x}</b>{/each}')
+    ).toEqual(bare);
+    expect(blocks("import * as data from '$lib/data'; use(data);", '{#each data.items as x}<b>{x}</b>{/each}')).toEqual(
+      bare
+    );
+  });
   const facts = (src: string) => parseComponentFacts(src, 'C.svelte');
   it('detects keyed vs unkeyed {#each}', () => {
     const keyed = parseComponentFacts('{#each items as item (item.id)}<li>{item.name}</li>{/each}', 'C.svelte');
