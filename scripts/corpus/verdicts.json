@@ -5695,11 +5695,6 @@
     "basis": "read: literal title identical to its lms/<->org/[slug] twin (same feature page for student vs admin view); both behind hooks.server.ts login redirect (not in PUBLIC_ROUTES), so no search competition"
   },
   {
-    "key": "classroomio/classroomio:apps/dashboard::seo/duplicate-title::src/routes/(app)/lms/community/[slug]/+page.svelte::Title is duplicated across # routes",
-    "verdict": "design",
-    "basis": "read: literal title identical to its lms/<->org/[slug] twin (same feature page for student vs admin view); both behind hooks.server.ts login redirect (not in PUBLIC_ROUTES), so no search competition"
-  },
-  {
     "key": "classroomio/classroomio:apps/dashboard::seo/duplicate-title::src/routes/(app)/lms/community/ask/+page.svelte::Title is duplicated across # routes",
     "verdict": "design",
     "basis": "read: literal title identical to its lms/<->org/[slug] twin (same feature page for student vs admin view); both behind hooks.server.ts login redirect (not in PUBLIC_ROUTES), so no search competition"
@@ -5716,11 +5711,6 @@
   },
   {
     "key": "classroomio/classroomio:apps/dashboard::seo/duplicate-title::src/routes/(app)/org/[slug]/community/+page.svelte::Title is duplicated across # routes",
-    "verdict": "design",
-    "basis": "read: literal title identical to its lms/<->org/[slug] twin (same feature page for student vs admin view); both behind hooks.server.ts login redirect (not in PUBLIC_ROUTES), so no search competition"
-  },
-  {
-    "key": "classroomio/classroomio:apps/dashboard::seo/duplicate-title::src/routes/(app)/org/[slug]/community/[cslug]/+page.svelte::Title is duplicated across # routes",
     "verdict": "design",
     "basis": "read: literal title identical to its lms/<->org/[slug] twin (same feature page for student vs admin view); both behind hooks.server.ts login redirect (not in PUBLIC_ROUTES), so no search competition"
   },
@@ -6608,6 +6598,21 @@
     "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::/widgets/[widgetId]::Missing <h#>",
     "verdict": "fp",
     "basis": "h1 IS rendered: src/lib/features/widget/components/widget-editor-header.svelte:74 via WidgetEditorPage@+page.svelte:60>WidgetEditorHeader@widget-editor.svelte:34 — Page.Title (@cio/ui/base/page, namespace import from an index.ts barrel whose alias targets node_modules/@cio/ui) renders <h1> in normal page flow"
+  },
+  {
+    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/course/components/lesson/delete-lesson-confirmation.svelte:30::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
+  },
+  {
+    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/course/components/lesson/lesson-version-history.svelte:340::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
+  },
+  {
+    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/org/components/quiz/delete-modal.svelte:44::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
   },
   {
     "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/routes/(app)/cohorts/[id]/settings/+page.svelte:106::Missing <h#>",
@@ -9105,6 +9110,186 @@
     "basis": "fp barrel-reexport: PageView/TabbedPageView/HtmlHead imported via $lib/components(/views) index.ts; HtmlHead.svelte renders a static <meta name=\"description\">. hsp-check reach + read"
   },
   {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/about/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/classes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/classes/base/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/individuals/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/appearances/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/instances/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/subclasses/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/iris/detail/superclasses/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/metadata/domains/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/metadata/labels/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/metadata/ranges/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/named-graphs/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/properties/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/explore/triples/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/logs/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/policy/a11y/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/policy/cookies/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/policy/privacy/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/settings/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/settings/prefixes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/settings/terms/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/shacl-ui/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sitemap/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/[id]/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/catalog/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/local/[id]/edit/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/local/[id]/import/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/local/add/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/remote/[id]/edit/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sources/remote/add/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
+    "key": "gchq/LD-Explorer::seo/duplicate-description::src/routes/sparql-ui/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: HtmlHead.svelte renders one literal description on every route; now followed through the components barrel"
+  },
+  {
     "key": "gchq/LD-Explorer::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
     "verdict": "tp",
     "basis": "script-verified: no ld+json/<script> JSON-LD in chain/imports/app.html; only hits are the jsonld-streaming-parser import and prefix data (app feature, not page markup)"
@@ -10010,72 +10195,12 @@
     "basis": "find/grep: no robots.txt in static/ or routes; public site"
   },
   {
-    "key": "gchq/LD-Explorer::seo/single-h1::/::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
     "key": "gchq/LD-Explorer::seo/single-h1::/about::Missing <h#>",
     "verdict": "tp",
     "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
   },
   {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/classes/base::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/classes::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
     "key": "gchq/LD-Explorer::seo/single-h1::/explore/individuals::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/iris/detail/appearances::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/iris/detail/instances::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/iris/detail/subclasses::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/iris/detail/superclasses::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/iris/detail::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/iris::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/metadata/domains::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/metadata/labels::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore/metadata/ranges::Missing <h#>",
     "verdict": "tp",
     "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
   },
@@ -10095,37 +10220,7 @@
     "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
   },
   {
-    "key": "gchq/LD-Explorer::seo/single-h1::/explore::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
     "key": "gchq/LD-Explorer::seo/single-h1::/logs::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/policy/a11y::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/policy/cookies::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/policy/privacy::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/settings/prefixes::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/settings/terms::Missing <h#>",
     "verdict": "tp",
     "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
   },
@@ -10135,17 +10230,7 @@
     "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
   },
   {
-    "key": "gchq/LD-Explorer::seo/single-h1::/shacl-ui::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
     "key": "gchq/LD-Explorer::seo/single-h1::/sitemap::Missing <h#>",
-    "verdict": "tp",
-    "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
-  },
-  {
-    "key": "gchq/LD-Explorer::seo/single-h1::/sources/[id]::Missing <h#>",
     "verdict": "tp",
     "basis": "grep-verified: no <h1> element anywhere in src; Heading.svelte only allows tag h2-h5 (variant=\"h1\" is styling of an <h2>); layout content is web components"
   },
@@ -11348,6 +11433,11 @@
     "key": "huntabyte/bits-ui:tests::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
     "verdict": "tp",
     "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "huntabyte/shadcn-svelte:docs::a11y/duplicate-landmark::src/lib/registry/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: route renders two <main> elements (layout main plus the component main now resolved)"
   },
   {
     "key": "huntabyte/shadcn-svelte:docs::a11y/interactive-nesting::src/lib/registry/examples/create/github/assign-issue.svelte:80::<button> is nested inside interactive <div role=\"button\">",
@@ -15545,6 +15635,11 @@
     "basis": "script-verified (h-a11y/dap.mjs): literal <div> at this line carries the attribute with no role attribute, no spread, not in svg; generic/paragraph prohibit naming in ARIA 1.2/1.3"
   },
   {
+    "key": "johanohly/AirTrail::a11y/duplicate-landmark::src/lib/components/ui/globe/Globe.svelte:115::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: route renders two <main> elements (layout main plus the component main now resolved)"
+  },
+  {
     "key": "johanohly/AirTrail::a11y/permitted-contents::src/lib/components/airport-details/AirportFlightsCard.svelte:120::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
     "verdict": "tp",
     "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
@@ -16640,9 +16735,14 @@
     "basis": "find/grep: no robots.txt file or endpoint; self-hosted private instance"
   },
   {
-    "key": "johanohly/AirTrail::seo/single-h1::/visited-countries::Missing <h#>",
-    "verdict": "tp",
-    "basis": "page has no headings; only <h1>s are dialog titles in SetupVisitedCountries (Modal open only when countries.length===0) and settings modals -> no primary <h1>"
+    "key": "johanohly/AirTrail::seo/single-h1::src/lib/components/modals/settings/pages/security-page/CreateKey.svelte:85::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
+  },
+  {
+    "key": "johanohly/AirTrail::seo/single-h1::src/lib/components/modals/visited-countries/SetupVisitedCountries.svelte:41::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
   },
   {
     "key": "johanohly/AirTrail::seo/single-h1::src/routes/share/[slug]/+page.svelte:199::Multiple <h#> (#); a single <h#> is the conventional signal",
@@ -23290,21 +23390,6 @@
     "basis": "JSON-LD IS emitted: page renders SeoHead (imported via barrel '$lib/seo' index.ts re-export, not followed) whose {#each config.jsonLd}{@html '<script type=\"application/ld+json\">'} gets a non-empty array from buildSeo kind 'landing' (src/lib/seo/build.ts)"
   },
   {
-    "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/legal/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "page renders SeoHead but buildSeo kind 'legal' goes through plainPageSeo with jsonLd: [] (src/lib/seo/plain-page.ts:75) -> no JSON-LD rendered"
-  },
-  {
-    "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/legal/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "page renders SeoHead but buildSeo kind 'legal' goes through plainPageSeo with jsonLd: [] (src/lib/seo/plain-page.ts:75) -> no JSON-LD rendered"
-  },
-  {
-    "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "page renders SeoHead but buildSeo kind 'auth' goes through plainPageSeo with jsonLd: [] (src/lib/seo/plain-page.ts:75) -> no JSON-LD rendered"
-  },
-  {
     "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/login/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
     "verdict": "tp",
     "basis": "script-verified: page+layout chain+transitive imports+app.html contain no ld+json/jsonld/SeoHead render"
@@ -23343,11 +23428,6 @@
     "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/organizations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
     "verdict": "fp",
     "basis": "JSON-LD IS emitted: page renders SeoHead (imported via barrel '$lib/seo' index.ts re-export, not followed) whose {#each config.jsonLd}{@html '<script type=\"application/ld+json\">'} gets a non-empty array from buildSeo kind 'orgs-listing' (src/lib/seo/build.ts)"
-  },
-  {
-    "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/password-reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "page renders SeoHead but buildSeo kind 'auth' goes through plainPageSeo with jsonLd: [] (src/lib/seo/plain-page.ts:75) -> no JSON-LD rendered"
   },
   {
     "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/privacy-focused-events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -23395,16 +23475,6 @@
     "basis": "JSON-LD IS emitted: page renders SeoHead (imported via barrel '$lib/seo' index.ts re-export, not followed) whose {#each config.jsonLd}{@html '<script type=\"application/ld+json\">'} gets a non-empty array from buildSeo kind 'landing' (src/lib/seo/build.ts)"
   },
   {
-    "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/referral/apply/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "page renders SeoHead but buildSeo kind 'referral-apply' goes through plainPageSeo with jsonLd: [] (src/lib/seo/plain-page.ts:75) -> no JSON-LD rendered"
-  },
-  {
-    "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "page renders SeoHead but buildSeo kind 'auth' goes through plainPageSeo with jsonLd: [] (src/lib/seo/plain-page.ts:75) -> no JSON-LD rendered"
-  },
-  {
     "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/register/check-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
     "verdict": "tp",
     "basis": "script-verified: page+layout chain+transitive imports+app.html contain no ld+json/jsonld/SeoHead render"
@@ -23413,16 +23483,6 @@
     "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/self-hosted-event-platform/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
     "verdict": "fp",
     "basis": "JSON-LD IS emitted: page renders SeoHead (imported via barrel '$lib/seo' index.ts re-export, not followed) whose {#each config.jsonLd}{@html '<script type=\"application/ld+json\">'} gets a non-empty array from buildSeo kind 'landing' (src/lib/seo/build.ts)"
-  },
-  {
-    "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/unsubscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "page renders SeoHead but buildSeo kind 'auth' goes through plainPageSeo with jsonLd: [] (src/lib/seo/plain-page.ts:75) -> no JSON-LD rendered"
-  },
-  {
-    "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/(public)/verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "tp",
-    "basis": "page renders SeoHead but buildSeo kind 'auth' goes through plainPageSeo with jsonLd: [] (src/lib/seo/plain-page.ts:75) -> no JSON-LD rendered"
   },
   {
     "key": "letsrevel/revel-frontend::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -38590,6 +38650,11 @@
     "basis": "script-verified (svelte parse): literal <iframe> at this line carries a static frameborder attribute; not in SVG"
   },
   {
+    "key": "rajnandan1/kener::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: route renders two <main> elements (layout main plus the component main now resolved)"
+  },
+  {
     "key": "rajnandan1/kener::a11y/permitted-contents::src/routes/(kener)/+page.svelte:166::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
     "verdict": "tp",
     "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <h2> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
@@ -41463,6 +41528,11 @@
     "key": "rivenmedia/riven-frontend::performance/lcp-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:252::First image (likely LCP) is loading=\"lazy\"",
     "verdict": "fp",
     "basis": "script-verified: <img> has literal loading=\"lazy\"; read: img sits in {#snippet episodeBody} (def. line 241) rendered only at lines 821/840 inside the episode accordion; the first rendered <img> is the backdrop at line 369 — analyzer took snippet-definition order as document order. Line misattribution, not a clean route: the real first img (369) is also loading=\"lazy\" and would be the correct finding"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/lcp-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:369::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "read: first rendered <img> (fixed backdrop) is loading=lazy; replaces the misplaced snippet-definition finding"
   },
   {
     "key": "rivenmedia/riven-frontend::performance/lcp-image::src/routes/(protected)/explore/+page.svelte:127::First image (likely LCP) is loading=\"lazy\"",
@@ -46575,24 +46645,9 @@
     "basis": "AST render-condition walk: only conditional/separate-{#if} h1s beyond the page title: modal h1s (AboutModal/MobileQR in layout Navbar, page modals) render only when opened; page h1s are separate {#if notFound}/{#if lodging}"
   },
   {
-    "key": "seanmorley15/AdventureLog:frontend::seo/single-h1::src/routes/profile/[uuid]/+page.svelte:349::Multiple <h#> (#); a single <h#> is the conventional signal",
-    "verdict": "design",
-    "basis": "AST render-condition walk: only conditional/separate-{#if} h1s beyond the page title: modal h1s (AboutModal/MobileQR in layout Navbar, page modals) render only when opened; page h1s 342/349 are exclusive if/else"
-  },
-  {
-    "key": "seanmorley15/AdventureLog:frontend::seo/single-h1::src/routes/signup/+page.svelte:199::Multiple <h#> (#); a single <h#> is the conventional signal",
-    "verdict": "design",
-    "basis": "AST render-condition walk: only conditional/separate-{#if} h1s beyond the page title: modal h1s (AboutModal/MobileQR in layout Navbar, page modals) render only when opened; page h1s 48/199 are exclusive if/else"
-  },
-  {
     "key": "seanmorley15/AdventureLog:frontend::seo/single-h1::src/routes/transportations/[id]/+page.svelte:417::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "design",
     "basis": "AST render-condition walk: only conditional/separate-{#if} h1s beyond the page title: modal h1s (AboutModal/MobileQR in layout Navbar, page modals) render only when opened; page h1s are separate {#if notFound}/{#if transportation}"
-  },
-  {
-    "key": "seanmorley15/AdventureLog:frontend::seo/single-h1::src/routes/user/verify-email/[key]/+page.svelte:18::Multiple <h#> (#); a single <h#> is the conventional signal",
-    "verdict": "design",
-    "basis": "AST render-condition walk: only conditional/separate-{#if} h1s beyond the page title: modal h1s (AboutModal/MobileQR in layout Navbar, page modals) render only when opened; page h1s 11/18 are exclusive if/else"
   },
   {
     "key": "seanmorley15/AdventureLog:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
