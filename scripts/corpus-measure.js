@@ -233,9 +233,12 @@ function aggregate(measured, verdicts, ruleIds) {
 
 const escapeHtml = (text) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
+/** A collapsed section; GitHub renders the markdown inside only when blank lines surround it. */
+const details = (summary, body) => [`<details><summary>${summary}</summary>`, '', ...body, '</details>', ''];
+
 function listFindings(title, byRule, verdicts, tagUnlabeled) {
   if (byRule.size === 0) return [];
-  const lines = [`### ${title}`, ''];
+  const lines = [];
   for (const [rule, findings] of byRule) {
     lines.push(`**\`${rule}\`** (${findings.length})`, '');
     for (const f of findings.slice(0, LIST_CAP)) {
@@ -247,7 +250,8 @@ function listFindings(title, byRule, verdicts, tagUnlabeled) {
     if (findings.length > LIST_CAP) lines.push(`- …and ${findings.length - LIST_CAP} more`);
     lines.push('');
   }
-  return lines;
+  const total = [...byRule.values()].reduce((n, findings) => n + findings.length, 0);
+  return details(`${title} findings (${total})`, lines);
 }
 
 /**
@@ -327,13 +331,16 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   if (rows.length === 0) out.push('No finding was added or removed on the pinned corpus.', '');
   else {
     const unlabeled = [...added.values()].flat().filter((f) => !verdicts.has(f.key)).length;
+    const count = (byRule) => [...byRule.values()].reduce((n, findings) => n + findings.length, 0);
     out.push(
-      `Distinct findings (\`app::rule::file:line::claim\`) on ${targets.length} pinned apps. ${unlabeled} added finding(s) have no verdict in \`scripts/corpus/verdicts.json\`.`,
+      `Distinct findings (\`app::rule::file:line::claim\`) on ${targets.length} pinned apps: +${count(added)} added, -${count(removed)} removed across ${rows.length} rule(s). ${unlabeled} added finding(s) have no verdict in \`scripts/corpus/verdicts.json\`.`,
       '',
-      '| rule | base | head | added | removed | net | precision |',
-      '| --- | ---: | ---: | ---: | ---: | ---: | --- |',
-      ...rows,
-      '',
+      ...details(`Per-rule changes (${rows.length})`, [
+        '| rule | base | head | added | removed | net | precision |',
+        '| --- | ---: | ---: | ---: | ---: | ---: | --- |',
+        ...rows,
+        ''
+      ]),
       ...listFindings('Added', added, verdicts, true),
       ...listFindings('Removed', removed, verdicts, false)
     );
