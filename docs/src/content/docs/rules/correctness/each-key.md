@@ -12,7 +12,7 @@ Flags an `{#each}` block with no key. A few shapes are ignored:
 - A constant inline array literal (`{#each [1, 2, 3] as n}`): it has a fixed length and never reorders, so a key cannot help.
 - The same literal given a name in the component's own script (`const tabs = [ … ]`, not exported), when nothing in the file can change it: every other mention is a member read (`tabs.length`) or an `{#each tabs …}`. A mutating call (`tabs.push`), an assignment through it, or passing or spreading `tabs` keeps it reported. A list imported from another file is still reported.
 - An itemless each (`{#each { length: 8 }, i}`, the "render N times" pattern): there is no item identity to key on; the only possible key is the index itself, which is a no-op.
-- Length-only lists (`Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`, `{ length: n }` with an item binding such as `as _`): placeholder and skeleton lists with a fixed, order-free shape a key cannot help.
+- Length-only lists (`Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`, the same followed by `.fill(x)` or `.keys()`, `{ length: n }` with an item binding such as `as _`): placeholder and skeleton lists with a fixed, order-free shape a key cannot help.
 
 ## Why it matters
 

@@ -73,10 +73,24 @@ import {
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
-/** Whether `expr` is a length-only list constructor: `Array(n)` / `new Array(n)` (single argument = length semantics) or `Array.from({ length: n }, …)`. */
+/**
+ * Whether `expr` is a length-only list constructor: `Array(n)` / `new Array(n)` (single argument =
+ * length semantics) or `Array.from({ length: n }, …)`, optionally followed by `.fill(x)` (every
+ * item the same value) or `.keys()` (the indices themselves).
+ */
 function isLengthOnlyArrayCall(expr: TsExpression): boolean {
   const e = unwrapTs(expr);
   if (!e) return false;
+  if (
+    e.type === 'CallExpression' &&
+    e.callee?.type === 'MemberExpression' &&
+    !e.callee.computed &&
+    e.callee.object.type !== 'Super' &&
+    e.callee.property.type === 'Identifier' &&
+    (e.callee.property.name === 'fill' || e.callee.property.name === 'keys')
+  ) {
+    return isLengthOnlyArrayCall(e.callee.object);
+  }
   if (
     (e.type === 'CallExpression' || e.type === 'NewExpression') &&
     e.callee?.type === 'Identifier' &&
@@ -106,7 +120,7 @@ function isLengthProperty(p: Node): boolean {
 /**
  * Whether the each expression yields no item identity to key on: a constant
  * inline array literal (fixed length, never reorders), a length-only list
- * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`, `{ length: n }` —
+ * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`, `Array(n).fill(x)`, `{ length: n }` —
  * placeholder/skeleton lists), or a spread array whose every element spreads a
  * length-only list. Such blocks are skipped entirely — neither each-key nor
  * each-index-key can give useful advice on them.
