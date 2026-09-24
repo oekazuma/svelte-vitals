@@ -441,6 +441,15 @@ describe('resolveFileTags: components in an {#if}/{#each}/{#await} arm', () => {
     }
   });
 
+  it("reads a known meta component's tags in an arm as dynamic too", async () => {
+    const entry = 'src/routes/+page.svelte';
+    const tags = async (body: string) =>
+      (await resolveWith({ [entry]: `<script>import { MetaTags } from 'svelte-meta-tags';</script>${body}` }, entry))
+        .tags;
+    expect(await tags('<MetaTags title="Short" />')).toContainEqual({ kind: 'title', text: 'Short', value: 'static' });
+    expect(await tags('{#if x}<MetaTags title="Short" />{/if}')).toContainEqual({ kind: 'title', value: 'dynamic' });
+  });
+
   it('keeps the literal of a component that always renders', async () => {
     const r = await resolveWith(files('{#key k}<Modal />{/key}'), 'src/routes/+layout.svelte');
     expect(r.tags).toContainEqual({ kind: 'title', text: 'Forgot Password', value: 'static' });

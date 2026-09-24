@@ -298,12 +298,22 @@ function bindProps(props: ReadonlyMap<string, string>, args: PropArgs): Bind {
     });
 }
 
+// Re-parsed on demand rather than kept on every ParsedFile: the dev dashboard's ParseCache lives
+// as long as the server, and few components are ever rendered inside <svelte:head>.
+const headRendered = new WeakMap<ParsedFile, AST.Fragment>();
+
 /**
  * The tags `parsed`'s markup yields when a parent renders it inside `<svelte:head>` (its own
  * `<svelte:head>` is already in `headTags`), with its props bound to the call site's `args`.
  */
 export function tagsInHead(parsed: ParsedFile, args: PropArgs): ParsedTag[] {
-  return tagsFromNodes(parsed.template.fragment.nodes, parsed.template.source, bindProps(parsed.template.props, args));
+  const { source, filename, props } = parsed.template;
+  let fragment = headRendered.get(parsed);
+  if (!fragment) {
+    fragment = parseSvelte(source, filename).fragment;
+    headRendered.set(parsed, fragment);
+  }
+  return tagsFromNodes(fragment.nodes, source, bindProps(props, args));
 }
 
 /** The literal props `use` passes, after `parsed`'s own props are bound to the args it was called with. */
@@ -784,7 +794,7 @@ export interface ParsedFile {
   dynamicHeading: boolean;
   a11y: ParsedA11y;
   /** What `tagsInHead` re-reads when a parent renders this file inside `<svelte:head>`. */
-  template: { fragment: AST.Fragment; source: string; props: ReadonlyMap<string, string> };
+  template: { source: string; filename: string; props: ReadonlyMap<string, string> };
   /** Inline `svelte-vitals-disable-next-line` directives in this file, for the central
    *  suppression pass. Collected here because a route-scoped finding can be located in any file
    *  the composition reads, including ones no component-fact collection visited (`--route`). */
@@ -809,7 +819,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
     headings: headingAcc.headings,
     dynamicHeading: headingAcc.dynamic,
     a11y: collectA11y(ast.fragment, source),
-    template: { fragment: ast.fragment, source, props: collectProps(ast) },
+    template: { source, filename, props: collectProps(ast) },
     suppressions: collectSuppressions(source)
   };
 }
