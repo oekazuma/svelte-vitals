@@ -105,12 +105,16 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedT
         tags.push({ kind: 'jsonld', value: 'dynamic' });
       continue;
     }
-    if (node.type !== 'RegularElement') continue;
+    if (node.type !== 'RegularElement' && node.type !== 'SvelteElement') continue;
+    // A `<svelte:element this="script">` with a determinable tag renders exactly that element.
+    const resolved = node.type === 'RegularElement' ? [node.name] : svelteElementTags(node.tag);
+    if (resolved?.length !== 1) continue;
+    const element = resolved[0];
     // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
     // are filtered out internally, so this widening cast is safe.
     const attributes = node.attributes as AST.Attribute[];
 
-    if (node.name === 'meta') {
+    if (element === 'meta') {
       const charset = attrValue(attributes, 'charset');
       if (charset !== 'absent') {
         // <meta charset="…"> carries neither name nor property; model it as name:'charset' (seo/charset).
@@ -133,7 +137,7 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedT
         ...(noindex ? { noindex: true } : {}),
         ...(descText !== undefined ? { text: descText } : {})
       });
-    } else if (node.name === 'link') {
+    } else if (element === 'link') {
       // rel/as keywords are ASCII case-insensitive per the HTML spec; rules and the head
       // composition compare them literally, so normalize once here.
       const rel = attrText(attributes, 'rel')?.toLowerCase();
@@ -153,7 +157,7 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedT
         ...(hreflang !== undefined ? { hreflang } : {}),
         ...(href ? { href } : {})
       });
-    } else if (node.name === 'script') {
+    } else if (element === 'script') {
       const type = attrText(attributes, 'type');
       if (type === 'application/ld+json') {
         // A JSON-LD <script>'s fragment only ever contains literal text and {expr} tags.
