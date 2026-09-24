@@ -1,10 +1,10 @@
 import type { Config } from '@svelte-vitals/core';
 import type { HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
 import { attrTextOf, parseModuleProgram, resolveRepoLocalPath } from '@svelte-vitals/core/internal';
-import type { ParsedFile, ParsedTag } from './parse.js';
+import type { ParsedFile, ParsedTag, PropArgs } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { addImportsFromProgram, importOf, type ImportMap } from './imports.js';
-import { parseFile } from './parse.js';
+import { argsOf, parseFile, tagsInHead } from './parse.js';
 
 /** Props a heading component conventionally takes its element from (`<Heading tag="h1">`, `as`, `element`, `is`). */
 const HEADING_TAG_PROPS = new Set(['tag', 'as', 'element', 'is']);
@@ -247,9 +247,11 @@ export async function resolveFileTags(
   cache: ParseCache = new Map(),
   // The project's compiled `kitAliases` (undefined -> the `$lib`-only
   // default), forwarded to every layer-3 component resolution, including recursive calls.
-  aliases?: readonly KitAlias[]
+  aliases?: readonly KitAlias[],
+  // Set when a parent renders this file inside `<svelte:head>`: the literal props it passes.
+  inHead?: PropArgs
 ): Promise<ResolveResult> {
-  const tags: ParsedTag[] = [...parsed.headTags];
+  const tags: ParsedTag[] = [...parsed.headTags, ...(inHead ? tagsInHead(parsed, inHead) : [])];
   const headings: HeadingInfo[] = [];
   let dynamicHeading = false;
   let broad = false;
@@ -262,7 +264,7 @@ export async function resolveFileTags(
     const adapter = info ? findAdapter(info) : undefined;
     if (adapter) {
       const result = adapter.resolve(use);
-      tags.push(...result.tags);
+      tags.push(...(use.conditional ? result.tags.map(maybeTag) : result.tags));
       broad = broad || result.broad;
       continue;
     }
@@ -273,6 +275,7 @@ export async function resolveFileTags(
     if (found && files.length > 0) {
       // Which of several components renders, or whether one renders at all, is runtime state.
       const exclusive = files.length > 1 || !found.complete || files.length < found.files.length;
+      const childHead = inHead || use.inHead ? argsOf(parsed, use, inHead ?? new Map()) : undefined;
       const maybe = new Map<string, ParsedTag>();
       for (const childRel of files) {
         const childParsed = await readAndParse(rt, cwd, childRel, cache);
@@ -286,18 +289,21 @@ export async function resolveFileTags(
           depth - 1,
           childVisited,
           cache,
-          aliases
+          aliases,
+          childHead
         );
         broad = broad || child.broad;
         const childHeadings = [...childParsed.headings.map((h) => ({ ...h, file: childRel })), ...child.headings];
         const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
+        // A component in an `{#if}` arm still counts toward headings as if it rendered (seo/single-h1's
+        // documented approximation), but its head tags make no literal claim, like `conditionalTags`.
+        if (!exclusive && !use.conditional) tags.push(...child.tags);
+        else for (const tag of child.tags.map(maybeTag)) maybe.set(JSON.stringify(tag), tag);
         if (!exclusive) {
-          tags.push(...child.tags);
           headings.push(...childHeadings);
           dynamicHeading = dynamicHeading || childDynamic;
           continue;
         }
-        for (const tag of child.tags.map(maybeTag)) maybe.set(JSON.stringify(tag), tag);
         // Counting each candidate's <h1> would invent a second one; any of them may be the page's.
         if (childDynamic || childHeadings.some((h) => h.level === 1)) dynamicHeading = true;
       }

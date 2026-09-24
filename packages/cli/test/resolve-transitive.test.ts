@@ -161,7 +161,7 @@ describe('resolveFileTags through barrels, namespaces and runtime-chosen compone
   it('follows a component held by a $derived or a {@const}, or passed to <svelte:component>', async () => {
     for (const files of [
       page(`import { Seo } from '$lib'; const C = $derived(Seo);`, '<C />'),
-      page(`import { Seo } from '$lib';`, '{#if x}{@const C = Seo}<C />{/if}'),
+      page(`import { Seo } from '$lib';`, '<svelte:boundary>{@const C = Seo}<C /></svelte:boundary>'),
       page(`import { Seo } from '$lib';`, '<svelte:component this={Seo} />'),
       page(`import * as Ui from '$lib';`, '<svelte:component this={Ui.Seo} />')
     ]) {
@@ -352,5 +352,97 @@ describe('resolveFileTags transitive with kit.alias (2608-TEST-05)', () => {
       ALIASES
     );
     expect(r.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/components/Header.svelte' }]);
+  });
+});
+
+describe('resolveFileTags: components rendered into <svelte:head>', () => {
+  const meta = (script: string, markup = '<meta {name} {property} content={text} />') => ({
+    'src/lib/Meta.svelte': `<script>${script}</script>${markup}`
+  });
+  const runes = 'let { name = undefined, property = undefined, text } = $props();';
+  const layout = (head: string, files: Record<string, string>) =>
+    resolveWith(
+      {
+        ...files,
+        'src/routes/+layout.svelte': `<script>import Meta from '$lib/Meta.svelte';</script><svelte:head>${head}</svelte:head>`
+      },
+      'src/routes/+layout.svelte'
+    );
+
+  it("reads a head-rendered component's markup, binding bare props to the call site's literals", async () => {
+    const r = await layout('<Meta name="description" text={t} /><Meta property="og:title" text="Home" />', meta(runes));
+    expect(r.tags).toEqual([
+      { kind: 'meta', name: 'description', value: 'dynamic' },
+      { kind: 'meta', property: 'og:title', value: 'static' }
+    ]);
+  });
+
+  it('binds `attr={prop}`, a renamed prop, a legacy `export let` and a literal content', async () => {
+    const shapes = [
+      meta('let { name: n } = $props();', '<meta name={n} content="Home page" />'),
+      meta('export let name;', '<meta name="{name}" content="Home page" />')
+    ];
+    for (const files of shapes) {
+      const r = await layout('<Meta name="description" />', files);
+      expect(r.tags).toEqual([{ kind: 'meta', name: 'description', value: 'static', text: 'Home page' }]);
+    }
+  });
+
+  it('leaves a prop dynamic when the call site passes an expression, nothing, or a spread', async () => {
+    for (const call of ['<Meta name={kind} />', '<Meta />', '<Meta name="description" {...rest} />']) {
+      const r = await layout(call, meta(runes));
+      expect(r.tags).toEqual([{ kind: 'meta', value: 'dynamic' }]);
+    }
+  });
+
+  it("threads a head-rendered component's props into the components it renders", async () => {
+    const r = await resolveWith(
+      {
+        ...meta(runes),
+        'src/lib/Seo.svelte': `<script>import Meta from './Meta.svelte'; let { kind } = $props();</script><Meta name={kind} />`,
+        'src/routes/+layout.svelte': `<script>import Seo from '$lib/Seo.svelte';</script><svelte:head><Seo kind="description" /></svelte:head>`
+      },
+      'src/routes/+layout.svelte'
+    );
+    expect(r.tags).toEqual([{ kind: 'meta', name: 'description', value: 'dynamic' }]);
+  });
+
+  it('ignores a component rendered in the body, whose markup never reaches the head', async () => {
+    const r = await resolveWith(
+      {
+        ...meta(runes),
+        'src/routes/+page.svelte': `<script>import Meta from '$lib/Meta.svelte';</script><Meta name="description" />`
+      },
+      'src/routes/+page.svelte'
+    );
+    expect(r.tags).toEqual([]);
+  });
+});
+
+describe('resolveFileTags: components in an {#if}/{#each}/{#await} arm', () => {
+  const files = (body: string) => ({
+    'src/lib/Modal.svelte': `<svelte:head><title>Forgot Password</title><meta name="description" content="Reset" /></svelte:head><h1>Reset</h1>`,
+    'src/routes/+layout.svelte': `<script>import Modal from '$lib/Modal.svelte';</script>${body}`
+  });
+
+  it('reads the head tags of a component that may not render as dynamic, but still counts its heading', async () => {
+    for (const body of [
+      "{#if type === 'login'}<p>login</p>{:else if type === 'forgot'}<Modal />{/if}",
+      '{#each items as item}<Modal />{/each}',
+      '{#await p then v}<Modal />{/await}',
+      '<svelte:head>{#if open}<Modal />{/if}</svelte:head>'
+    ]) {
+      const r = await resolveWith(files(body), 'src/routes/+layout.svelte');
+      expect(r.tags).toEqual([
+        { kind: 'title', value: 'dynamic' },
+        { kind: 'meta', name: 'description', value: 'dynamic' }
+      ]);
+      expect(r.headings).toEqual([{ level: 1, line: 1, file: 'src/lib/Modal.svelte' }]);
+    }
+  });
+
+  it('keeps the literal of a component that always renders', async () => {
+    const r = await resolveWith(files('{#key k}<Modal />{/key}'), 'src/routes/+layout.svelte');
+    expect(r.tags).toContainEqual({ kind: 'title', text: 'Forgot Password', value: 'static' });
   });
 });

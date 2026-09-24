@@ -1,0 +1,7 @@
+---
+'svelte-vitals': patch
+---
+
+Source analysis now reads the markup of a repo-local component placed inside `<svelte:head>`, since all of it renders into the head. An attribute written as a bare prop (`<meta {name} {property} content={…} />`, `name={name}`) takes the literal the call site passes (`<Meta name="description" />`); a prop passed as an expression, left out, or given alongside a spread stays unknown. A layout that sets its description and Open Graph tags through such a wrapper was reported as missing them on every route (`seo/description-presence`, `seo/og-title`, `seo/og-description`, `seo/og-image`). What those wrappers render now also counts toward the other head rules, so a literal they emit can surface length or duplicate findings.
+
+A component placed in an `{#if}`, `{#each}` or `{#await}` block may not render, so the head tags it sets are now read as dynamic, the same way as a tag written directly in such a block. A `<title>` from a login modal's `{:else if}` arm had defined the title of every route under the layout, producing `seo/title-length` and `seo/duplicate-title` findings about a value those routes never render. The tags still count as present, and the component's headings still count toward `seo/single-h1` as before. A literal title or description that only such a component sets is no longer measured, even when every arm of an `{:else}` chain sets one.
