@@ -4,7 +4,7 @@
 // and joins them with the human verdicts in scripts/corpus/verdicts.json. Reports; never gates.
 //
 //   node scripts/corpus-measure.js run [--cli <bin.js>] [--cache <dir>] --out <file>
-//   node scripts/corpus-measure.js diff <before.json> <after.json> [--measurement <file>]
+//   node scripts/corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <file>]
 //   node scripts/corpus-measure.js update [--cache <dir>]
 //
 // Node builtins plus `git`, like ecosystem-smoke.js: no dev dependency may leak in here.
@@ -193,9 +193,9 @@ function run({ cli, cache }) {
   return { apps };
 }
 
-function verdictMap() {
+function verdictMap(file = verdictsFile) {
   const map = new Map();
-  for (const entry of readJson(verdictsFile)) {
+  for (const entry of readJson(file)) {
     if (!VERDICTS.includes(entry.verdict)) throw new Error(`${entry.key}: unknown verdict ${entry.verdict}`);
     if (map.has(entry.key)) throw new Error(`${entry.key}: duplicate verdict`);
     map.set(entry.key, entry);
@@ -249,7 +249,11 @@ function listFindings(title, byRule, verdicts, tagUnlabeled) {
   return lines;
 }
 
-function diff(before, after, verdicts, measurement) {
+/**
+ * `verdicts` is the head's ledger: the gate judges against it, so changing a verdict in the PR is
+ * how an intended change goes through. `baseVerdicts` only gives the base column its precision.
+ */
+function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   // An app that failed on either side has no findings there; comparing it would list them all as moved.
   const failed = new Set([...before.apps, ...after.apps].filter((app) => app.error).map((app) => app.app));
   const comparable = (measured) => ({ apps: measured.apps.filter((app) => !failed.has(app.app)) });
@@ -258,11 +262,11 @@ function diff(before, after, verdicts, measurement) {
   const rows = [];
   const added = new Map();
   const removed = new Map();
-  const precisionOf = (keys) => {
+  const precisionOf = (keys, ledger) => {
     let tp = 0;
     let fp = 0;
     for (const key of keys.keys()) {
-      const verdict = verdicts.get(key)?.verdict;
+      const verdict = ledger.get(key)?.verdict;
       if (verdict === 'tp') tp++;
       else if (verdict === 'fp') fp++;
     }
@@ -273,7 +277,7 @@ function diff(before, after, verdicts, measurement) {
     const now = b.get(rule) ?? new Map();
     const plus = [...now.values()].filter((f) => !was.has(f.key));
     const minus = [...was.values()].filter((f) => !now.has(f.key));
-    const [p0, p1] = [precisionOf(was), precisionOf(now)];
+    const [p0, p1] = [precisionOf(was, baseVerdicts), precisionOf(now, verdicts)];
     if (plus.length === 0 && minus.length === 0 && p0 === p1) continue;
     const net = plus.length - minus.length;
     rows.push(
@@ -294,11 +298,16 @@ function diff(before, after, verdicts, measurement) {
     );
   if (backFp.length) failures.push(`${backFp.length} finding(s) with an \`fp\` verdict are reported again`);
 
+  // An app left out of the comparison is unverified, not passed.
+  if (failed.size) failures.push(`${failed.size} app(s) failed to measure, so the comparison is incomplete`);
+
   const out = ['## Corpus findings', ''];
   const stale =
     measurement &&
     !after.apps.some((app) => app.error) &&
-    JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules);
+    (measurement.targets !== digest(targets) ||
+      measurement.verdicts !== digest(readJson(verdictsFile)) ||
+      JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules));
   if (stale) failures.push('`scripts/corpus/measurement.json` is stale — run `pnpm corpus update`');
   if (failures.length) out.push('**❌ Corpus gate failed**', '', ...failures.map((f) => `- ${f}`), '');
   else out.push('**✅ Corpus gate passed**', '');
@@ -375,7 +384,8 @@ async function main() {
       cli: { type: 'string', default: join(root, 'packages/cli/dist/bin.js') },
       cache: { type: 'string', default: join(tmpdir(), 'svelte-vitals-corpus') },
       out: { type: 'string' },
-      measurement: { type: 'string' }
+      measurement: { type: 'string' },
+      'base-verdicts': { type: 'string' }
     }
   });
   const [command, ...files] = positionals;
@@ -388,7 +398,10 @@ async function main() {
   } else if (command === 'diff' && files.length === 2) {
     const [before, after] = files.map(readJson);
     const measurement = values.measurement ? readJson(values.measurement) : undefined;
-    const { text, failures } = diff(before, after, verdictMap(), measurement);
+    const baseLedger = values['base-verdicts'];
+    const verdicts = verdictMap();
+    const baseVerdicts = baseLedger && existsSync(baseLedger) ? verdictMap(baseLedger) : verdicts;
+    const { text, failures } = diff(before, after, verdicts, measurement, baseVerdicts);
     console.log(text);
     // Distinct from 1, which an uncaught error also exits with.
     if (failures.length) process.exitCode = 3;
@@ -396,7 +409,9 @@ async function main() {
     await update({ cache });
   } else {
     console.error('usage: corpus-measure.js run [--cli <bin.js>] [--cache <dir>] --out <file>');
-    console.error('       corpus-measure.js diff <before.json> <after.json> [--measurement <file>]');
+    console.error(
+      '       corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <file>]'
+    );
     console.error('       corpus-measure.js update [--cache <dir>]');
     process.exitCode = 2;
   }

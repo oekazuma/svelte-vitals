@@ -65,7 +65,7 @@ jobs:
         id: report
         run: |
           status=0
-          node scripts/corpus-measure.js diff "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" --measurement scripts/corpus/measurement.json > "$RUNNER_TEMP/report.md" || status=$?
+          node scripts/corpus-measure.js diff "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" --measurement scripts/corpus/measurement.json --base-verdicts .corpus-base/scripts/corpus/verdicts.json > "$RUNNER_TEMP/report.md" || status=$?
           # 3 is the gate failing; anything else non-zero is the script itself failing.
           if [ "$status" -ne 0 ] && [ "$status" -ne 3 ]; then exit "$status"; fi
           echo "failed=$([ "$status" -eq 3 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
@@ -107,12 +107,18 @@ jobs:
 
   gate:
     needs: measure
+    # Runs even when measure fails: a skipped required job counts as passing.
+    if: always()
     permissions: {}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Fail on a lost true positive, a returning false positive, or a stale measurement
-        if: needs.measure.outputs.failed == 'true'
+      - name: Pass only on a completed measurement that reported no failure
+        env:
+          RESULT: ${{ needs.measure.result }}
+          FAILED: ${{ needs.measure.outputs.failed }}
         run: |
-          echo "::error::Corpus gate failed — see the PR comment or the measure job summary."
-          exit 1
+          if [ "$RESULT" != "success" ] || [ "$FAILED" != "false" ]; then
+            echo "::error::Corpus gate failed (measure: $RESULT, failed: ${FAILED:-unset}) — see the PR comment or the measure job summary."
+            exit 1
+          fi

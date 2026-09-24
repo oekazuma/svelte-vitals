@@ -21,7 +21,7 @@ less trustworthy. Design: `docs/superpowers/specs/2026-09-23-corpus-precision-de
 
 - **Precision** is `tp / (tp + fp)` over findings that have a verdict, with the sample size next to it. A finding nobody has read is not assumed to be correct; `design` and `unclear` count toward neither side.
 - **"not yet reviewed"** means the rule fired on the corpus but none of its findings has a verdict yet. Add verdicts to `verdicts.json` to move it.
-- **—** means the rule reported nothing on the corpus. That says nothing about its quality.
+- **—** in the Reviewed column means the rule reported nothing on the corpus, which says nothing about its quality. In the Precision column it means no finding has a `tp` or `fp` verdict (for example, all are `design`), so there is nothing to compute.
 - Findings are counted once per code location and claim: a component finding on forty routes is one finding.
 - This measures false positives, not misses, on a small sample of SvelteKit code.
 
