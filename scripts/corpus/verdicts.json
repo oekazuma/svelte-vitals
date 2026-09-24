@@ -5585,16 +5585,6 @@
     "basis": "read: src/routes/(app)/+page.svelte:230 header '{#each CAPTURE_SURFACE_OPTIONS as option}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (CAPTURE_SURFACE_OPTIONS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
-    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/_components/BottomNav.svelte:11::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/(app)/_components/BottomNav.svelte:11 header '{#each NAV_ITEMS as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (NAV_ITEMS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/_components/VerticalNav.svelte:54::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/(app)/_components/VerticalNav.svelte:54 header '{#each NAV_ITEMS as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (NAV_ITEMS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "EpicenterHQ/epicenter:apps/whispering::correctness/prop-mutation::src/lib/components/settings/SettingSelect.svelte:49::Prop \"store\" is mutated, but it is not declared $bindable",
     "verdict": "design",
     "basis": "read: src/lib/components/settings/SettingSelect.svelte:49; store is the settings/deviceConfig store object with get/set methods (callers pass app.settings / deviceConfig); store.set is its persistence API, the docs' class-instance limitation"
@@ -6650,11 +6640,6 @@
     "basis": "read: src/lib/components/docs/DocsSearch.svelte:169 header '{#each results as result, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: results), items can be inserted/removed/reordered, so the rule's claim holds"
   },
   {
-    "key": "JuiceBoxxGames/utsuwa::correctness/each-key::src/lib/components/docs/DocsSidebar.svelte:31::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/lib/components/docs/DocsSidebar.svelte:31 header '{#each docsNav as section}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (docsNav imported from $lib/config/docs-nav (static config)): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "JuiceBoxxGames/utsuwa::correctness/each-key::src/lib/components/docs/DocsSidebarSection.svelte:20::{#each} block has no key",
     "verdict": "design",
     "basis": "read: src/lib/components/docs/DocsSidebarSection.svelte:20 header '{#each section.items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (section.items of the static docsNav config): fixed at author time, never reorders/inserts, so a key cannot help"
@@ -6703,11 +6688,6 @@
     "key": "JuiceBoxxGames/utsuwa::correctness/each-key::src/lib/components/ui/CompanionStateSummary.svelte:48::{#each} block has no key",
     "verdict": "design",
     "basis": "read: src/lib/components/ui/CompanionStateSummary.svelte:48 header '{#each activity as stat}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list ($derived fixed-shape literal list (values change, entries/order fixed)): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "JuiceBoxxGames/utsuwa::correctness/each-key::src/lib/components/ui/ContextSizeSlider.svelte:61::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/lib/components/ui/ContextSizeSlider.svelte:61 header '{#each CONTEXT_SIZE_STEPS as step}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (CONTEXT_SIZE_STEPS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
     "key": "JuiceBoxxGames/utsuwa::correctness/each-key::src/lib/components/ui/ProviderDropdown.svelte:123::{#each} block has no key",
@@ -7693,11 +7673,6 @@
     "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/communities/CommunitiesList.svelte:92::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: header '{#each sortedNationalities as nationality}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
-  },
-  {
-    "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/contact-us/+page.svelte:259::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each partnershipOptions as option}' has no key; not an exempt shape; static list (imported partnershipOptions): never reorders/inserts, a key cannot help"
   },
   {
     "key": "PauseAI/pauseai-website::correctness/each-key::src/routes/dear-sir-demis-2025/+page.svelte:298::{#each} block has no key",
@@ -10543,11 +10518,6 @@
     "key": "WelcometoMyGarden/welcometomygarden::correctness/each-key::src/lib/components/Membership/MembershipPricing.svelte:172::{#each} block has no key",
     "verdict": "design",
     "basis": "read: src/lib/components/Membership/MembershipPricing.svelte:172 header '{#each visibleLevels as level, index}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (constant superfanLevels, optionally prefixed by a constant free level): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "WelcometoMyGarden/welcometomygarden::correctness/each-key::src/routes/+layout.svelte:381::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/+layout.svelte:381 header '{#each SUPPORTED_LANGUAGES as lang}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (SUPPORTED_LANGUAGES imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
     "key": "WelcometoMyGarden/welcometomygarden::correctness/each-key::src/routes/[[lang]]/(stateful)/become-member/payment/LevelSummary.svelte:42::{#each} block has no key",
@@ -18790,11 +18760,6 @@
     "basis": "read: header '{#each invites as invite}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
   },
   {
-    "key": "classroomio/classroomio:apps/dashboard::correctness/each-key::src/lib/features/course/components/people/invite-settings-section.svelte:23::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each INVITE_PRESET_OPTIONS as option}' has no key; not an exempt shape; static list (imported INVITE_PRESET_OPTIONS): never reorders/inserts, a key cannot help"
-  },
-  {
     "key": "classroomio/classroomio:apps/dashboard::correctness/each-key::src/lib/features/course/components/people/tutor-select-section.svelte:30::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: header '{#each selectedTutors as tutor}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
@@ -18913,26 +18878,6 @@
     "key": "classroomio/classroomio:apps/dashboard::correctness/each-key::src/routes/(app)/org/[slug]/quiz/[slug]/+page.svelte:260::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: header '{#each $quizStore.questions as question, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — editable quiz questions; source read"
-  },
-  {
-    "key": "classroomio/classroomio:apps/dashboard::correctness/each-key::src/routes/(app)/org/[slug]/quiz/[slug]/+page.svelte:394::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each allThemes as _theme}' has no key; not an exempt shape; static list (imported allThemes): never reorders/inserts, a key cannot help"
-  },
-  {
-    "key": "classroomio/classroomio:apps/dashboard::correctness/each-key::src/routes/(auth)/onboarding/+page.svelte:124::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each GOALS as goal}' has no key; not an exempt shape; static list (imported GOALS): never reorders/inserts, a key cannot help"
-  },
-  {
-    "key": "classroomio/classroomio:apps/dashboard::correctness/each-key::src/routes/(auth)/onboarding/+page.svelte:145::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each SOURCES as source}' has no key; not an exempt shape; static list (imported SOURCES): never reorders/inserts, a key cannot help"
-  },
-  {
-    "key": "classroomio/classroomio:apps/dashboard::correctness/each-key::src/routes/(auth)/onboarding/+page.svelte:167::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each DROPDOWN_ITEMS as item}' has no key; not an exempt shape; static list (imported DROPDOWN_ITEMS): never reorders/inserts, a key cannot help"
   },
   {
     "key": "classroomio/classroomio:apps/dashboard::correctness/effect-as-derived::src/lib/features/ai-assistant/plan-view.svelte:91::$effect only assigns state — use $derived instead",
@@ -20355,19 +20300,9 @@
     "basis": "read: header '{#each Array(2) .fill(shuffleArray(CAPSULE_PALETTE)) .flat() as color, index}' has no key; not an exempt shape; static list (palette shuffled once): never reorders/inserts, a key cannot help"
   },
   {
-    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/gachapon/ui/tabs.svelte:23::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each TABS as tab}' has no key; not an exempt shape; static list (imported TABS): never reorders/inserts, a key cannot help"
-  },
-  {
     "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/gachapon/views/inventory/inventory-item.svelte:155::{#each} block has no key",
     "verdict": "design",
     "basis": "read: header '{#each details as detail, i}' has no key; not an exempt shape; static list (fixed metadata rows of one item): never reorders/inserts, a key cannot help"
-  },
-  {
-    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:182::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each RARITIES as rarity}' has no key; not an exempt shape; static list (imported RARITIES): never reorders/inserts, a key cannot help"
   },
   {
     "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:212::{#each} block has no key",
@@ -25180,11 +25115,6 @@
     "basis": "script-verified: header '{#each item.children as subItem, key (key)}' keyed by its index binding; list source resolves to runtime data (prop: item), not shown static; sheet-read"
   },
   {
-    "key": "huntabyte/shadcn-svelte:docs::correctness/each-index-key::src/lib/components/mobile-nav.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each mainNavItems as item, i (i)}' keyed by its index binding; static list (import:$lib/navigation.js): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "huntabyte/shadcn-svelte:docs::correctness/each-index-key::src/lib/components/mobile-nav.svelte:97::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
     "verdict": "design",
     "basis": "script-verified: header '{#each group.items as item, i (i)}' keyed by its index binding; static list (template-scope): fixed at author time, never reorders/inserts, so a key cannot help"
@@ -26383,11 +26313,6 @@
     "key": "immich-app/immich:web::correctness/each-index-key::src/lib/components/admin-settings/SupportedDatetimePanel.svelte:21::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
     "verdict": "tp",
     "basis": "script-verified: header '{#each options as format, index (index)}' keyed by its index binding; list source resolves to runtime data (prop: options), not shown static; sheet-read"
-  },
-  {
-    "key": "immich-app/immich:web::correctness/each-index-key::src/lib/components/album-page/AlbumsTable.svelte:29::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each sortOptionsMetadata as option, index (index)}' keyed by its index binding; static list (import:$lib/utils/album-utils): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
     "key": "immich-app/immich:web::correctness/each-index-key::src/lib/components/layouts/UserPageLayout.svelte:88::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
@@ -28540,54 +28465,9 @@
     "basis": "script-verified: header '{#each Object.entries(donate.other) as [name, address]}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/env): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/appearance/+page.svelte:26::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each themeOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/audio/+page.svelte:19::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each audioFormatOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/audio/+page.svelte:37::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each audioBitrateOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/debug/+page.svelte:62::{#each} block has no key",
     "verdict": "design",
     "basis": "script-verified: header '{#each sections as { title, data }, i}' has no key and is not an inline literal/length-only/itemless shape; static list ($: rebuilds a fixed 3-entry list): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/local/+page.svelte:14::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each localProcessingOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/metadata/+page.svelte:21::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each filenameStyleOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/metadata/+page.svelte:40::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each savingMethodOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/video/+page.svelte:26::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each videoQualityOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/video/+page.svelte:46::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each youtubeVideoCodecOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/video/+page.svelte:66::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each youtubeVideoContainerOptions as value}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/types/settings): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
     "key": "imputnet/cobalt:web::correctness/effect-as-derived::src/components/save/OmniboxIcon.svelte:13::$effect only assigns state — use $derived instead",
@@ -29823,16 +29703,6 @@
     "key": "itswadesh/svelte-commerce::correctness/each-key::src/lib/components/product-catalogue/featured-products-grid.svelte:18::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: src/lib/components/product-catalogue/featured-products-grid.svelte:18 header '{#each data || [] as p}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (data: data), items can be inserted/removed/reordered, so the rule's claim holds"
-  },
-  {
-    "key": "itswadesh/svelte-commerce::correctness/each-key::src/lib/components/product-catalogue/listing-header.svelte:63::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/lib/components/product-catalogue/listing-header.svelte:63 header '{#each sortOptions as option}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (sortOptions imported from $lib/config): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "itswadesh/svelte-commerce::correctness/each-key::src/lib/components/product-catalogue/mobile-filter.svelte:115::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/lib/components/product-catalogue/mobile-filter.svelte:115 header '{#each sortOptions as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (sortOptions imported from $lib/config): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
     "key": "itswadesh/svelte-commerce::correctness/each-key::src/lib/components/product-catalogue/mobile-filter.svelte:173::{#each} block has no key",
@@ -33815,11 +33685,6 @@
     "basis": "read: header '{#each selectableMonths as month}' has no key; not an exempt shape; positional list (derived month range): items have no identity beyond position"
   },
   {
-    "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/form-fields/DateTimeField.svelte:284::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each MONTHS as month, index}' has no key; not an exempt shape; static list (imported MONTHS constant): never reorders/inserts, a key cannot help"
-  },
-  {
     "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/form-fields/DateTimeField.svelte:358::{#each} block has no key",
     "verdict": "design",
     "basis": "read: header '{#each segments as { part, value }}' has no key; not an exempt shape; positional list (date-field segments): items have no identity beyond position"
@@ -33833,11 +33698,6 @@
     "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/modals/flight-form/FlightNumber.svelte:340::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: header '{#each lookupResults as r}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
-  },
-  {
-    "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/modals/flight-form/PassengerInformation.svelte:227::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each SeatTypes as type}' has no key; not an exempt shape; static list (imported SeatTypes enum list): never reorders/inserts, a key cannot help"
   },
   {
     "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/modals/flight-form/PassengerInformation.svelte:73::{#each} block has no key",
@@ -33855,24 +33715,9 @@
     "basis": "read: header '{#each cells as cell}' has no key; not an exempt shape; positional list (InputOTP cells): items have no identity beyond position"
   },
   {
-    "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/modals/settings/pages/data-page/airport/AirportFormFields.svelte:55::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each AirportTypes as type}' has no key; not an exempt shape; static list (imported AirportTypes): never reorders/inserts, a key cannot help"
-  },
-  {
     "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/modals/settings/pages/data-page/airport/AirportFormFields.svelte:85::{#each} block has no key",
     "verdict": "design",
     "basis": "read: header '{#each cells as cell}' has no key; not an exempt shape; positional list (InputOTP cells): items have no identity beyond position"
-  },
-  {
-    "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/modals/settings/pages/data-page/airport/LocationField.svelte:121::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each COUNTRIES as country}' has no key; not an exempt shape; static list (imported COUNTRIES): never reorders/inserts, a key cannot help"
-  },
-  {
-    "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/modals/settings/pages/data-page/airport/LocationField.svelte:145::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each Continents as continent}' has no key; not an exempt shape; static list (imported Continents): never reorders/inserts, a key cannot help"
   },
   {
     "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/modals/settings/pages/data-page/airport/TimezoneField.svelte:107::{#each} block has no key",
@@ -55380,11 +55225,6 @@
     "basis": "read: src/routes/repeater-commands/+page.svelte:269 header '{#each c.flags ?? [] as flag}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (template-scope: c), items can be inserted/removed/reordered, so the rule's claim holds"
   },
   {
-    "key": "meshcore-ninja/meshcore-ninja::correctness/each-key::src/routes/repeater-commands/+page.svelte:297::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/repeater-commands/+page.svelte:297 header '{#each SOURCE_FILES as src}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (SOURCE_FILES imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "meshcore-ninja/meshcore-ninja::correctness/each-key::src/routes/schemas/+page.svelte:108::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: src/routes/schemas/+page.svelte:108 header '{#each topProps as [key, child]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: topProps), items can be inserted/removed/reordered, so the rule's claim holds"
@@ -66400,11 +66240,6 @@
     "basis": "script-verified: header '{#each sortedBlogPosts as post}' has no key and is not an inline literal/length-only/itemless shape; static list (import:./posts): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
-    "key": "scosman/CMSaasStarter::correctness/each-key::src/routes/(marketing)/pricing/pricing_module.svelte:25::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each pricingPlans as plan}' has no key and is not an inline literal/length-only/itemless shape; static list (import:./pricing_plans): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "scosman/CMSaasStarter::correctness/each-key::src/routes/(marketing)/pricing/pricing_module.svelte:39::{#each} block has no key",
     "verdict": "design",
     "basis": "script-verified: header '{#each plan.features as feature}' has no key and is not an inline literal/length-only/itemless shape; static list (template-scope): fixed at author time, never reorders/inserts, so a key cannot help"
@@ -68775,11 +68610,6 @@
     "basis": "script-verified: header '{#each toastList as { type, message, id }}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (let-literal-unassigned: toastList), not shown static; sheet-read"
   },
   {
-    "key": "seanmorley15/AdventureLog:frontend::correctness/each-key::src/lib/components/calendar/CalendarSidebar.svelte:118::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each CALENDAR_EVENT_TYPES as type}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/calendar/events): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "seanmorley15/AdventureLog:frontend::correctness/each-key::src/lib/components/cards/ChecklistCard.svelte:206::{#each} block has no key",
     "verdict": "tp",
     "basis": "script-verified: header '{#each checklist.items as item}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: checklist), not shown static; sheet-read"
@@ -69223,11 +69053,6 @@
     "key": "seanmorley15/AdventureLog:frontend::correctness/each-key::src/routes/settings/+page.svelte:592::{#each} block has no key",
     "verdict": "design",
     "basis": "script-verified: header '{#each CURRENCY_OPTIONS as code}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/money): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "seanmorley15/AdventureLog:frontend::correctness/each-key::src/routes/settings/+page.svelte:616::{#each} block has no key",
-    "verdict": "design",
-    "basis": "script-verified: header '{#each basemapOptions as option}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
     "key": "seanmorley15/AdventureLog:frontend::correctness/each-key::src/routes/transportations/[id]/+page.svelte:384::{#each} block has no key",
@@ -73700,334 +73525,9 @@
     "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): code, lang, theme, base, rounded, shadow, classes, preBase, prePadding, preClasses"
   },
   {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsBackgrounds.svelte:49::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsBackgrounds.svelte:55::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsBackgrounds.svelte:69::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsBackgrounds.svelte:75::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsBrand.svelte:41::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsBrand.svelte:46::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsBrand.svelte:55::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsBrand.svelte:60::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
     "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsColors.svelte:121::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: rxShadeArray = $derived(showAllShades ? shadesAll : shades3x) toggles between 3 shades [50,500,950] and all 11, so 500/950 move position and 8 rows are inserted mid-list; the list is runtime-dynamic with mid-list inserts, which is what the docs target (bound values follow the shade key, so no visible corruption was found — the claim rests on the list changing)"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsColorsContrast.svelte:57::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsColorsContrast.svelte:63::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsColorsContrast.svelte:77::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsColorsContrast.svelte:83::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:212::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:218::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:232::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:238::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:248::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontFamilies from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:263::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontSizes from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:271::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.lineHeights from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:279::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontWeights from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:287::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontStyles from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:295::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.letterSpacings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:303::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.wordSpacings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:311::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontStretches from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:319::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontKernings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:327::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.hyphensOptions from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:335::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.textTransforms from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:343::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.textShadows from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:364::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:370::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:387::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:393::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:403::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontFamilies from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:418::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontWeights from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:426::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontStyles from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:434::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.letterSpacings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:442::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.wordSpacings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:450::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontStretches from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:458::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontKernings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:466::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.hyphensOptions from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:474::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.textTransforms from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:482::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.textShadows from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:502::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:508::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:524::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:530::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:540::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontFamilies from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:555::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontSizes from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:563::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.lineHeights from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:571::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontWeights from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:579::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontStyles from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:587::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.letterSpacings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:595::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.wordSpacings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:603::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontStretches from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:611::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.fontKernings from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:619::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.hyphensOptions from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:627::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.textTransforms from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:635::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.textShadows from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:657::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.textDecorations from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:666::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorNames from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:672::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.colorShades from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:681::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.decorationStyles from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:689::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.decorationThicknesses from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:697::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.underlineOffsets from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
-  },
-  {
-    "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::correctness/each-key::src/lib/components/generator/Controls/ControlsTypography.svelte:705::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read + grep: iterates constants.underlinePositions from `import * as constants from '$lib/constants/generator'` (`export const` array literals, no mutating call or reassignment anywhere in src); docs say imported lists are still reported, but the list never changes"
   },
   {
     "key": "skeletonlabs/skeleton:sites/themes.skeleton.dev::security/raw-html::src/lib/components/common/CodeBlock/CodeBlock.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",

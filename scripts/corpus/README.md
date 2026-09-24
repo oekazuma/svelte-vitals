@@ -82,7 +82,7 @@ Measured on 42 apps, each pinned to a commit:
 - [krmanik/Anki-xiehanzi](https://github.com/krmanik/Anki-xiehanzi/tree/6da570ecf92056f796c50b9ede103df9d94af0ad) (`6da570e`)
 - [EpicenterHQ/epicenter/apps/whispering](https://github.com/EpicenterHQ/epicenter/tree/20e9f3b4af6166c71484575c93a1047e95f157e4/apps/whispering) (`20e9f3b`)
 
-15625 of 15625 corpus findings have a verdict.
+15525 of 15525 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision        | Design share   |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ---------------- | -------------- |
@@ -128,8 +128,8 @@ Measured on 42 apps, each pinned to a commit:
 | [`correctness/autoplay-muted`](../../docs/src/content/docs/rules/correctness/autoplay-muted.md)                       | 4               | 2    | 3 / 0 / 1 / 0                         | 100% (3/3)       | 25% (1/4)      |
 | [`correctness/base-path-navigation`](../../docs/src/content/docs/rules/correctness/base-path-navigation.md)           | 37              | 3    | 37 / 0 / 0 / 0                        | 100% (37/37)     | 0% (0/37)      |
 | [`correctness/checkable-bind-value`](../../docs/src/content/docs/rules/correctness/checkable-bind-value.md)           | 0               | 0    | —                                     | —                | —              |
-| [`correctness/each-index-key`](../../docs/src/content/docs/rules/correctness/each-index-key.md)                       | 489             | 27   | 267 / 0 / 222 / 0                     | 100% (267/267)   | 45% (222/489)  |
-| [`correctness/each-key`](../../docs/src/content/docs/rules/correctness/each-key.md)                                   | 1297            | 28   | 843 / 0 / 453 / 1                     | 100% (843/843)   | 35% (453/1297) |
+| [`correctness/each-index-key`](../../docs/src/content/docs/rules/correctness/each-index-key.md)                       | 487             | 27   | 267 / 0 / 220 / 0                     | 100% (267/267)   | 45% (220/487)  |
+| [`correctness/each-key`](../../docs/src/content/docs/rules/correctness/each-key.md)                                   | 1199            | 28   | 843 / 0 / 355 / 1                     | 100% (843/843)   | 30% (355/1199) |
 | [`correctness/effect-as-derived`](../../docs/src/content/docs/rules/correctness/effect-as-derived.md)                 | 55              | 16   | 49 / 0 / 6 / 0                        | 100% (49/49)     | 11% (6/55)     |
 | [`correctness/effect-as-onmount`](../../docs/src/content/docs/rules/correctness/effect-as-onmount.md)                 | 15              | 9    | 11 / 0 / 4 / 0                        | 100% (11/11)     | 27% (4/15)     |
 | [`correctness/instance-browser-global`](../../docs/src/content/docs/rules/correctness/instance-browser-global.md)     | 4               | 4    | 0 / 0 / 4 / 0                         | —                | 100% (4/4)     |
