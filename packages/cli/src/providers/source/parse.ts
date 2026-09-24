@@ -60,10 +60,10 @@ function collectSvelteHeads(node: WalkNode | WalkNode[] | null | undefined, acc:
  * — picking one branch's literal would judge a value that may never render — and a tag repeated
  * across exclusive branches counts once.
  */
-function conditionalTags(branches: Array<AST.Fragment | null | undefined>, source: string): ParsedTag[] {
+function conditionalTags(branches: Array<AST.Fragment | null | undefined>, source: string, bind: Bind): ParsedTag[] {
   const unique = new Map<string, ParsedTag>();
   for (const fragment of branches) {
-    for (const tag of tagsFromNodes(fragment?.nodes ?? [], source)) {
+    for (const tag of tagsFromNodes(fragment?.nodes ?? [], source, bind)) {
       const { text: _text, noindex: _noindex, jsonld: _jsonld, hreflang: _hreflang, ...shape } = tag;
       const dynamic: ParsedTag = { ...shape, value: 'dynamic' };
       unique.set(JSON.stringify(dynamic), dynamic);
@@ -72,11 +72,14 @@ function conditionalTags(branches: Array<AST.Fragment | null | undefined>, sourc
   return [...unique.values()];
 }
 
-function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedTag[] {
+/** Rewrites an element's attributes before they are read (binds prop references to call-site literals). */
+type Bind = (attributes: AST.RegularElement['attributes']) => AST.RegularElement['attributes'];
+
+function tagsFromNodes(children: AST.Fragment['nodes'], source: string, bind: Bind = (a) => a): ParsedTag[] {
   const tags: ParsedTag[] = [];
   for (const node of children) {
     if (node.type === 'KeyBlock') {
-      tags.push(...tagsFromNodes(node.fragment.nodes, source));
+      tags.push(...tagsFromNodes(node.fragment.nodes, source, bind));
       continue;
     }
     const branches =
@@ -88,7 +91,7 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedT
             ? [node.pending, node.then, node.catch]
             : undefined;
     if (branches) {
-      tags.push(...conditionalTags(branches, source));
+      tags.push(...conditionalTags(branches, source, bind));
       continue;
     }
     if (node.type === 'TitleElement') {
@@ -112,7 +115,7 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string): ParsedT
     const element = resolved[0];
     // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
     // are filtered out internally, so this widening cast is safe.
-    const attributes = node.attributes as AST.Attribute[];
+    const attributes = bind(node.attributes) as AST.Attribute[];
 
     if (element === 'meta') {
       const charset = attrValue(attributes, 'charset');
@@ -189,6 +192,12 @@ export interface ComponentUse {
   name: string;
   attributes: AST.Component['attributes'];
   hasSpread: boolean;
+  /** Inside an `{#if}`/`{#each}`/`{#await}` arm: whether it renders at all is runtime state. */
+  conditional?: true;
+  /** Inside `<svelte:head>`: its markup renders into the head. */
+  inHead?: true;
+  /** The `{#if}`/`{#await}`/`<svelte:boundary>` arms of its file it sits in, numbered as the file's heading paths. */
+  path: BranchStep[];
 }
 
 /** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
@@ -206,9 +215,14 @@ function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSel
   return node.name;
 }
 
-function collectComponents(node: WalkNode | WalkNode[] | null | undefined, acc: ComponentUse[]): void {
+function collectComponents(
+  node: WalkNode | WalkNode[] | null | undefined,
+  acc: ComponentUse[],
+  paths: Map<WalkNode, BranchStep[]>,
+  at: Pick<ComponentUse, 'conditional' | 'inHead'> = {}
+): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectComponents(child, acc);
+    for (const child of node) collectComponents(child, acc, paths, at);
     return;
   }
   if (!node || typeof node !== 'object') return;
@@ -217,12 +231,98 @@ function collectComponents(node: WalkNode | WalkNode[] | null | undefined, acc: 
     acc.push({
       name: componentName(node),
       attributes,
-      hasSpread: attributes.some((a) => a.type === 'SpreadAttribute')
+      hasSpread: attributes.some((a) => a.type === 'SpreadAttribute'),
+      path: paths.get(node) ?? [],
+      ...at
     });
   }
+  const inner =
+    node.type === 'IfBlock' || node.type === 'EachBlock' || node.type === 'AwaitBlock'
+      ? { ...at, conditional: true as const }
+      : node.type === 'SvelteHead'
+        ? { ...at, inHead: true as const }
+        : at;
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectComponents(childOf(node, key), acc);
+    if (key in node) collectComponents(childOf(node, key), acc, paths, inner);
   }
+}
+
+/** A component use's literal props by name. A spread may override any of them, so it leaves none. */
+export type PropArgs = ReadonlyMap<string, AST.Text[]>;
+
+function literalArgs(attributes: AST.Component['attributes']): PropArgs {
+  const args = new Map<string, AST.Text[]>();
+  if (attributes.some((a) => a.type === 'SpreadAttribute')) return args;
+  for (const a of attributes) {
+    if (a.type === 'Attribute' && Array.isArray(a.value) && a.value.every((n) => n.type === 'Text'))
+      args.set(a.name, a.value as AST.Text[]);
+  }
+  return args;
+}
+
+/**
+ * Local name → prop name for `let { a, b: local = x } = $props()` and legacy `export let a`.
+ * Nested patterns and computed keys are skipped: such a local simply stays unbound (dynamic).
+ */
+function collectProps(ast: AST.Root): Map<string, string> {
+  const props = new Map<string, string>();
+  for (const stmt of ast.instance?.content.body ?? []) {
+    const exported = stmt.type === 'ExportNamedDeclaration';
+    const decl = exported ? stmt.declaration : stmt;
+    if (decl?.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations) {
+      if (exported && decl.kind !== 'const' && d.id.type === 'Identifier') props.set(d.id.name, d.id.name);
+      const init = d.init;
+      const isProps =
+        init?.type === 'CallExpression' && init.callee.type === 'Identifier' && init.callee.name === '$props';
+      if (!isProps || d.id.type !== 'ObjectPattern') continue;
+      for (const p of d.id.properties) {
+        if (p.type !== 'Property' || p.computed) continue;
+        const key =
+          p.key.type === 'Identifier' ? p.key.name : p.key.type === 'Literal' ? String(p.key.value) : undefined;
+        const local = p.value.type === 'AssignmentPattern' ? p.value.left : p.value;
+        if (key !== undefined && local.type === 'Identifier') props.set(local.name, key);
+      }
+    }
+  }
+  return props;
+}
+
+/** `attr={local}`, `attr="{local}"` and `{local}` where `local` is a prop the call site passes literally take that literal. */
+function bindProps(props: ReadonlyMap<string, string>, args: PropArgs): Bind {
+  return (attributes) =>
+    attributes.map((attr) => {
+      if (attr.type !== 'Attribute') return attr;
+      const v = attr.value;
+      const tag = Array.isArray(v) ? (v.length === 1 ? v[0] : undefined) : v === true ? undefined : v;
+      if (tag?.type !== 'ExpressionTag' || tag.expression.type !== 'Identifier') return attr;
+      const prop = props.get(tag.expression.name);
+      const literal = prop === undefined ? undefined : args.get(prop);
+      return literal ? { ...attr, value: literal } : attr;
+    });
+}
+
+// Re-parsed on demand rather than kept on every ParsedFile: the dev dashboard's ParseCache lives
+// as long as the server, and few components are ever rendered inside <svelte:head>.
+const headRendered = new WeakMap<ParsedFile, AST.Fragment>();
+
+/**
+ * The tags `parsed`'s markup yields when a parent renders it inside `<svelte:head>` (its own
+ * `<svelte:head>` is already in `headTags`), with its props bound to the call site's `args`.
+ */
+export function tagsInHead(parsed: ParsedFile, args: PropArgs): ParsedTag[] {
+  const { source, filename, props } = parsed.template;
+  let fragment = headRendered.get(parsed);
+  if (!fragment) {
+    fragment = parseSvelte(source, filename).fragment;
+    headRendered.set(parsed, fragment);
+  }
+  return tagsFromNodes(fragment.nodes, source, bindProps(props, args));
+}
+
+/** The literal props `use` passes, after `parsed`'s own props are bound to the args it was called with. */
+export function argsOf(parsed: ParsedFile, use: ComponentUse, args: PropArgs): PropArgs {
+  return literalArgs(bindProps(parsed.template.props, args)(use.attributes));
 }
 
 interface ParsedImage {
@@ -377,14 +477,32 @@ function headingLevelOf(tags: string[]): number | undefined {
   return levels.size === 1 ? [...levels][0] : undefined;
 }
 
+/** Longest shared leading run of two branch paths. */
+function commonPrefix(a: BranchStep[], b: BranchStep[]): BranchStep[] {
+  let i = 0;
+  while (i < a.length && i < b.length && a[i]!.group === b[i]!.group && a[i]!.branch === b[i]!.branch) i++;
+  return a.slice(0, i);
+}
+
+/** `<svelte:boundary>` arms: its `failed`/`pending` snippets replace the children, never render beside them. */
+const BOUNDARY_SNIPPET_ARMS = new Map([
+  ['failed', 1],
+  ['pending', 2]
+]);
+
 /**
  * Collect page-body headings (<h1>–<h6>) anywhere in the template (seo/single-h1), each with
- * the `{#if}`/`{#await}` arms it sits in so exclusive arms are not counted together.
+ * the `{#if}`/`{#await}`/`<svelte:boundary>` arms it sits in so exclusive arms are not counted
+ * together; component tags get the same address (`componentPaths`), and `childrenPath` is where
+ * `<slot />`/`{@render children()}` renders the next layout or page (the common prefix when it
+ * renders in several places). `groups` is how many group numbers the file uses.
  * `dynamic` records a `<svelte:element>` that may render a heading but whose level is not
  * statically determinable — a route carrying one cannot be reported as having no <h1>.
  */
 function collectHeadings(fragment: AST.Fragment, source: string) {
   const headings: ParsedHeading[] = [];
+  const componentPaths = new Map<WalkNode, BranchStep[]>();
+  let childrenPath: BranchStep[] | undefined;
   let dynamic = false;
   let groups = 0;
   const push = (level: number, node: WalkNode & { start: number }, path: BranchStep[]): void => {
@@ -404,6 +522,21 @@ function collectHeadings(fragment: AST.Fragment, source: string) {
       arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }]));
       return;
     }
+    if (node.type === 'SvelteBoundary') {
+      const group = groups++;
+      for (const child of node.fragment.nodes) {
+        const branch = child.type === 'SnippetBlock' ? (BOUNDARY_SNIPPET_ARMS.get(child.expression.name) ?? 0) : 0;
+        walk(child, [...path, { group, branch }]);
+      }
+      return;
+    }
+    if (node.type === 'Component' || node.type === 'SvelteComponent') componentPaths.set(node, path);
+    if (
+      (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) ||
+      (node.type === 'RenderTag' && renderCallee(node) === 'children')
+    ) {
+      childrenPath = childrenPath ? commonPrefix(childrenPath, path) : path;
+    }
     if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
       push(Number(node.name[1]), node, path);
     } else if (node.type === 'SvelteElement') {
@@ -419,7 +552,7 @@ function collectHeadings(fragment: AST.Fragment, source: string) {
     }
   };
   walk(fragment, []);
-  return { headings, dynamic };
+  return { headings, dynamic, componentPaths, childrenPath, groups };
 }
 
 /** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */
@@ -453,6 +586,11 @@ export interface ParsedA11y {
   nodes: A11yNode[];
   /** landmark ancestor of this file's <slot>/{@render children()} position, if any */
   slotInLandmark?: string;
+  /**
+   * Branch address of this file's <slot>/{@render children()} — the longest prefix all such
+   * positions share, so content rendered in two arms is placed above both. Absent: no slot.
+   */
+  slotPath?: BranchStep[];
   /** {@html} tags and spread attributes, located — each poisons the closed world for no-missing-id-ref */
   unknowable: { kind: 'spread' | 'html'; line: number }[];
   /** Distinct lowercased tag names of the body's `RegularElement`s (a11y/required-element's presence set). */
@@ -493,6 +631,16 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   const nodes: A11yNode[] = [];
   let groups = 0;
   let slotInLandmark: string | undefined;
+  let slotPath: BranchStep[] | undefined;
+  const noteSlot = (ctx: A11yCtx): void => {
+    slotInLandmark ??= ctx.landmarks.at(-1);
+    if (!slotPath) slotPath = ctx.path;
+    else {
+      let n = 0;
+      while (n < slotPath.length && n < ctx.path.length && sameStep(slotPath[n]!, ctx.path[n]!)) n++;
+      slotPath = slotPath.slice(0, n);
+    }
+  };
   const unknowable: ParsedA11y['unknowable'] = [];
   const elementTags = new Set<string>();
   let elementsUnknowable = false;
@@ -566,11 +714,11 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         return;
       case 'SlotElement':
         noteSpread(node);
-        slotInLandmark ??= ctx.landmarks.at(-1);
+        noteSlot(ctx);
         walk(node.fragment, ctx);
         return;
       case 'RenderTag':
-        if (renderCallee(node) === 'children') slotInLandmark ??= ctx.landmarks.at(-1);
+        if (renderCallee(node) === 'children') noteSlot(ctx);
         return;
       default:
         noteSpread(node);
@@ -654,10 +802,15 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   return {
     nodes,
     ...(slotInLandmark ? { slotInLandmark } : {}),
+    ...(slotPath ? { slotPath } : {}),
     unknowable,
     elementTags: [...elementTags],
     elementsUnknowable
   };
+}
+
+function sameStep(a: BranchStep, b: BranchStep): boolean {
+  return a.group === b.group && a.branch === b.branch;
 }
 
 /** The name a `{@render name(…)}` / `{@render name?.(…)}` calls, when the callee is a plain identifier. */
@@ -674,9 +827,15 @@ export interface ParsedFile {
   componentBindings: Map<string, string[]>;
   images: ParsedImage[];
   headings: ParsedHeading[];
+  /** How many branch-group numbers this file's heading and component paths use. */
+  headingGroups: number;
+  /** Branch path of this file's `<slot />`/`{@render children()}`, when it has one. */
+  childrenPath?: BranchStep[];
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
   dynamicHeading: boolean;
   a11y: ParsedA11y;
+  /** What `tagsInHead` re-reads when a parent renders this file inside `<svelte:head>`. */
+  template: { source: string; filename: string; props: ReadonlyMap<string, string> };
   /** Inline `svelte-vitals-disable-next-line` directives in this file, for the central
    *  suppression pass. Collected here because a route-scoped finding can be located in any file
    *  the composition reads, including ones no component-fact collection visited (`--route`). */
@@ -688,10 +847,10 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
-  const components: ComponentUse[] = [];
-  collectComponents(ast.fragment, components);
-  const imports = collectImports(ast);
   const headingAcc = collectHeadings(ast.fragment, source);
+  const components: ComponentUse[] = [];
+  collectComponents(ast.fragment, components, headingAcc.componentPaths);
+  const imports = collectImports(ast);
   return {
     headTags: heads.flatMap((h) => tagsFromHead(h, source)),
     components,
@@ -699,8 +858,11 @@ export function parseFile(source: string, filename: string): ParsedFile {
     componentBindings: collectComponentBindings(ast),
     images: collectImages(ast.fragment, source, imports),
     headings: headingAcc.headings,
+    headingGroups: headingAcc.groups,
+    ...(headingAcc.childrenPath ? { childrenPath: headingAcc.childrenPath } : {}),
     dynamicHeading: headingAcc.dynamic,
     a11y: collectA11y(ast.fragment, source),
+    template: { source, filename, props: collectProps(ast) },
     suppressions: collectSuppressions(source)
   };
 }

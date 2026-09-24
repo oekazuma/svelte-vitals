@@ -24,6 +24,23 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
         )
       )
     ).toEqual([]);
+    // A same-named property of another object or a type-position parameter is a different binding.
+    expect(
+      blocks(
+        script(
+          "const levels = ['info', 'warn']; let { config, onChange }: { config: { levels: string[] }; onChange: (levels: string[]) => void } = $props(); const on = new Set(config.levels);",
+          '{#each levels as l}<b class:on={on.has(l) && config.levels.length}>{l}</b>{/each}'
+        )
+      )
+    ).toEqual([]);
+    expect(
+      blocks(
+        script(
+          "interface Props { onStatusChange: (statuses: string[]) => void } let { onStatusChange }: Props = $props(); const statuses = [{ value: 'open' }];",
+          '{#each statuses as s}<b>{s.value}</b>{/each}'
+        )
+      )
+    ).toEqual([]);
     // Anything that can change the list keeps it reported.
     const reported = (body: string, markup = '{#each xs as x}<b>{x}</b>{/each}') => blocks(script(body, markup)).length;
     expect(reported('const xs = [1, 2]; xs.push(3);')).toBe(1);
@@ -36,6 +53,8 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     expect(reported('export const xs = [1, 2];')).toBe(1);
     expect(reported('let xs = [1, 2];')).toBe(1);
     expect(reported('const xs = $state([1, 2]);')).toBe(1);
+    expect(reported('const xs = [1, 2]; const ys = xs as number[]; ys.push(3);')).toBe(1);
+    expect(reported('const xs = [1, 2]; (<number[]>xs).push(3);')).toBe(1);
   });
   const facts = (src: string) => parseComponentFacts(src, 'C.svelte');
   it('detects keyed vs unkeyed {#each}', () => {
@@ -442,6 +461,13 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
     expect(names('<script>let o = $state({}); o.x = 1;</script>')).toEqual([]);
     expect(names('<script>let a = $state([]); a.push(1);</script>')).toEqual([]);
     expect(names('<script>let x = $state(0); use(x);</script>')).toEqual([]);
+  });
+  it('sees writes to a $state declared inside a function', () => {
+    const factory = (write: string) =>
+      `<script>function create() { let current = $state.raw(0); return { get current() { return current; }, refresh() { ${write} } }; } const m = create();</script><p>{m.current}</p>`;
+    expect(names(factory('current = 1;'))).toEqual([]);
+    expect(names(factory('return 1;'))).toEqual(['current']);
+    expect(names(factory('let current = 2; current = 3;'))).toEqual(['current']);
   });
   it('does not flag a $state mutated in an inline handler', () => {
     expect(names('<script>let n = $state(0);</script><button onclick={() => n++}>+</button>')).toEqual([]);
@@ -1236,6 +1262,13 @@ describe('parseComponentFacts — runes behind TS casts (as/satisfies/!)', () =>
     const src =
       '<script lang="ts">let big = $state({ x: 1 }) as Record<string, number>;\nfunction refresh(next: Record<string, number>) {\n  big = next;\n}</script>';
     expect(parseComponentFacts(src, 'C.svelte').rawableStates).toEqual([{ name: 'big', line: 1 }]);
+  });
+
+  it('keeps a same-named local $state in an {#each} handler from tainting the iterated list', () => {
+    const src =
+      '<script>let items = $state([{ x: 0 }]);\nfunction reset() {\n  items = [];\n}</script>' +
+      '{#each items as item}<button onclick={() => { let item = $state({ x: 0 }); item.x = 1; }}>{item.x}</button>{/each}';
+    expect(parseComponentFacts(src, 'C.svelte').rawableStates).toEqual([{ name: 'items', line: 1 }]);
   });
 
   it('recognizes a non-null-asserted $state module declaration (moduleStateDecls)', () => {

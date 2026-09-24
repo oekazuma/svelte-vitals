@@ -371,6 +371,15 @@ function startsWork(arg: Node): boolean {
   return WORK_STARTING.has(e?.type);
 }
 
+/** Whether evaluating `node` may start work: a work-starting expression anywhere outside a nested function. */
+function containsWork(node: Node): boolean {
+  if (Array.isArray(node)) return node.some(containsWork);
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return false;
+  if (isFunctionNode(node)) return false;
+  if (WORK_STARTING.has(node.type)) return true;
+  return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && containsWork(node[key]));
+}
+
 /**
  * Whether the expression references any tainted name. Threads nested-function
  * shadowing (`scopeIntroducedNames`) so a callback parameter that shadows a
@@ -433,9 +442,11 @@ function guardedAwaits(node: Node, tainted: Set<string>, out = new Set<Node>()):
  * reference an earlier site's bindings (transitively, through intermediate consts
  * and assignments — member-expression targets taint their root object), or that a
  * tainted `??`/`&&`/`||`/`?:` guard decides (`guardedAwaits`), is
- * dependent, anchored at the first dependent await; otherwise independent when a
- * prior site exists, unless every await merely resumes an already-created promise
- * (a bare identifier argument starts no request). `await parent()` and
+ * dependent, anchored at the first dependent await — unless it starts no work and its
+ * promise came straight from an await result (`await deferred.state` after
+ * `await parent()`); otherwise independent when a prior site exists, unless every
+ * await merely resumes an already-created promise (a bare identifier argument starts
+ * no request). `await parent()` and
  * response-body reads are never sites, but their bindings taint. Lines are
  * returned in ORIGINAL-source coordinates (the −1 wrap shift is applied here).
  */
@@ -447,14 +458,26 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
 
   const line = (start: number) => Math.max(0, lineOf(wrapped, start) - 1);
   const tainted = new Set<string>();
+  // Tainted names that can hold a request started after the earlier await: bound without an await
+  // from an expression that starts work (`const p = fetch(user.url)`) or from such a name. A name
+  // bound from an await result or a plain read (`const p = deferred.state`) holds only a promise
+  // that is already in flight.
+  const syncTainted = new Set<string>();
   let sawAwaitSite = false;
 
-  const taintAssignTarget = (left: Node): void => {
-    if (left?.type === 'MemberExpression') {
-      const root = rootObjectName(left);
-      if (root) tainted.add(root);
+  const taintTarget = (target: Node, rhs: Node): void => {
+    const awaited = collectAwaits(rhs).length > 0;
+    if (!awaited && !refsTainted(rhs, tainted)) return;
+    const names = new Set<string>();
+    if (target?.type === 'MemberExpression') {
+      const root = rootObjectName(target);
+      if (root) names.add(root);
     } else {
-      addBoundNames(left, tainted);
+      addBoundNames(target, names);
+    }
+    for (const name of names) {
+      tainted.add(name);
+      if (!awaited && (containsWork(rhs) || refsTainted(rhs, syncTainted))) syncTainted.add(name);
     }
   };
 
@@ -469,12 +492,10 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
     if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
     if (isFunctionNode(node)) return;
     if (node.type === 'AssignmentExpression') {
-      if (collectAwaits(node.right).length > 0 || refsTainted(node.right, tainted)) taintAssignTarget(node.left);
+      taintTarget(node.left, node.right);
     } else if (node.type === 'VariableDeclaration') {
       for (const d of node.declarations ?? []) {
-        if (d?.id && d.init && (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted))) {
-          addBoundNames(d.id, tainted);
-        }
+        if (d?.id && d.init) taintTarget(d.id, d.init);
       }
     }
     for (const key of Object.keys(node)) {
@@ -500,7 +521,12 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
         const sites = collectAwaits(stmt).filter((a) => !isParentCall(a.argument) && !isBodyParseCall(a.argument));
         if (sites.length > 0) {
           const guarded = guardedAwaits(stmt, tainted);
-          const dependent = sites.filter((a) => guarded.has(a) || refsTainted(a.argument, tainted));
+          // A dependent await that starts no request only resumes a promise already in flight.
+          const dependent = sites.filter(
+            (a) =>
+              (guarded.has(a) || refsTainted(a.argument, tainted)) &&
+              (startsWork(a.argument) || refsTainted(a.argument, syncTainted))
+          );
           if (dependent.length > 0) {
             const anchor = dependent.reduce((m, a) => (a.start < m.start ? a : m));
             dependentLines.push(line(anchor.start));
@@ -517,14 +543,11 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
         }
         if (stmt.type === 'VariableDeclaration') {
           for (const d of stmt.declarations ?? []) {
-            if (!d?.id || !d.init) continue;
-            if (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted)) addBoundNames(d.id, tainted);
+            if (d?.id && d.init) taintTarget(d.id, d.init);
           }
         } else if (stmt.type === 'ExpressionStatement') {
           const expr = unwrapTs(stmt.expression);
-          if (expr?.type === 'AssignmentExpression') {
-            if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) taintAssignTarget(expr.left);
-          }
+          if (expr?.type === 'AssignmentExpression') taintTarget(expr.left, expr.right);
         }
       } else {
         taintOnly(stmt);

@@ -95,7 +95,15 @@ describe('kitchen-sink e2e (build mode)', () => {
   });
 
   it('analyzes the real-world canary and finds it clean', () => {
-    for (const route of ['/clean/real-world', '/clean/subpath', '/clean/resolution', '/clean/alias']) {
+    for (const route of [
+      '/clean/real-world',
+      '/clean/subpath',
+      '/clean/resolution',
+      '/clean/alias',
+      '/clean/arms',
+      '/clean/branches',
+      '/clean/boundary'
+    ]) {
       const canary = report.routes.find((r) => r.route === route);
       expect(canary, route).toBeDefined();
       expect(canary!.issues, route).toEqual([]);

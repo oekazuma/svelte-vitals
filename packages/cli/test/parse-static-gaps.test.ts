@@ -132,6 +132,40 @@ describe('parse: heading capture (seo/single-h1)', () => {
   });
 });
 
+describe('parse: heading arms beyond {#if}/{#await}', () => {
+  it('reads <svelte:boundary> children, failed and pending as arms of one block', () => {
+    const src =
+      '<svelte:boundary><h1>A</h1>{#snippet failed(e)}<h1>B</h1>{/snippet}' +
+      '{#snippet pending()}<h1>C</h1>{/snippet}<h2>D</h2></svelte:boundary>';
+    const paths = parseFile(src, 'x.svelte').headings.map((h) => h.path);
+    expect(paths).toEqual([
+      [{ group: 0, branch: 0 }],
+      [{ group: 0, branch: 1 }],
+      [{ group: 0, branch: 2 }],
+      [{ group: 0, branch: 0 }]
+    ]);
+  });
+  it('addresses component tags with the arm they sit in, numbered like the headings', () => {
+    const parsed = parseFile('{#if a}<h1>A</h1>{/if}{#await p}{:then}<B />{:catch}<C />{/await}<D />', 'x.svelte');
+    expect(parsed.components.map((c) => [c.name, c.path])).toEqual([
+      ['B', [{ group: 1, branch: 1 }]],
+      ['C', [{ group: 1, branch: 2 }]],
+      ['D', []]
+    ]);
+    expect(parsed.headingGroups).toBe(2);
+  });
+  it('records where the layout renders its children, as the common prefix of each place', () => {
+    expect(parseFile('<slot />', 'x.svelte').childrenPath).toEqual([]);
+    expect(parseFile('<slot name="aside" />', 'x.svelte').childrenPath).toBeUndefined();
+    expect(parseFile('{#if a}{@render children?.()}{:else}<h1>E</h1>{/if}', 'x.svelte').childrenPath).toEqual([
+      { group: 0, branch: 0 }
+    ]);
+    expect(
+      parseFile('{#if a}{#if b}{@render children()}{/if}{:else}{@render children()}{/if}', 'x.svelte').childrenPath
+    ).toEqual([]);
+  });
+});
+
 describe('parse: head tags inside blocks', () => {
   it('reads a title set in every branch of an if/else as one dynamic title', () => {
     const tags = parseHeadTags(

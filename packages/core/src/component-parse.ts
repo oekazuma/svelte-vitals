@@ -198,6 +198,18 @@ function isIndexKey(each: AST.EachBlock): boolean {
 }
 
 /**
+ * TS nodes that wrap value-space code; every other `TS*` node is a type position. Enums,
+ * namespaces and parameter properties are left out: Svelte's own TS support rejects them.
+ */
+const TS_VALUE_NODES = new Set([
+  'TSAsExpression',
+  'TSSatisfiesExpression',
+  'TSNonNullExpression',
+  'TSInstantiationExpression',
+  'TSTypeAssertion'
+]);
+
+/**
  * Names of `const X = [ … ]` array literals (script top level, not exported) that nothing can
  * reorder: every other mention of `X` in the file is a member read or an `{#each X …}`. Such a
  * list is the inline literal the each rules already skip, just given a name. Anything else — a
@@ -226,8 +238,8 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
   for (const root of roots) {
     walkEstree(root, (n: Node) => {
       if (n.type === 'EachBlock' && listOf(n.expression)) safe.add(n.expression);
-      if (n.type === 'MemberExpression' && listOf(n.object)) {
-        safe.add(n.object);
+      if (n.type === 'MemberExpression') {
+        if (listOf(n.object)) safe.add(n.object);
         if (!n.computed) safe.add(n.property);
       }
       const target =
@@ -249,16 +261,21 @@ function collectConstantLists(programs: Node[], fragment: Node): Set<string> {
       if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression)))
         unsafe.add(listOf(rootObjectNode(n.expression))!);
       if (n.type === 'Property' && !n.computed && !n.shorthand) safe.add(n.key);
-      // `typeof X` / `X.y` in a type position is erased and can change nothing.
-      if (n.type === 'TSTypeQuery' && listOf(n.exprName)) safe.add(n.exprName);
-      if (n.type === 'TSQualifiedName') safe.add(n.left);
     });
   }
   for (const root of roots) {
-    walkEstree(root, (n: Node) => {
-      const name = listOf(n);
-      if (name && !safe.has(n)) unsafe.add(name);
-    });
+    walkEvalScope(
+      root,
+      (n: Node) => {
+        // Type positions are erased and can change nothing: `typeof X`, `(X: T) => void`.
+        if (n.type.startsWith('TS') && !TS_VALUE_NODES.has(n.type)) return true;
+        const name = listOf(n);
+        if (name && !safe.has(n)) unsafe.add(name);
+        return false;
+      },
+      new Set(),
+      new Set()
+    );
   }
   return new Set([...candidates.keys()].filter((name) => !unsafe.has(name)));
 }
@@ -379,7 +396,8 @@ function collectStateWrites(
   root: Node,
   stateNames: Set<string>,
   acc: Set<string>,
-  kinds?: Map<string, Set<WriteKind>>
+  kinds?: Map<string, Set<WriteKind>>,
+  localStates = false
 ): void {
   const record = (name: string, kind: WriteKind): void => {
     acc.add(name);
@@ -389,7 +407,7 @@ function collectStateWrites(
       set.add(kind);
     }
   };
-  walkScoped(root, (n: Node, scope: Set<string>) => {
+  const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     if (n?.type === 'AssignmentExpression') {
       if (n.left?.type === 'Identifier' && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
@@ -426,6 +444,25 @@ function collectStateWrites(
         if (r && stateNames.has(r) && !shadowed(r)) record(r, 'escape'); // f(x), f(x.a), f(...x)
       }
     }
+  };
+  walkScoped(root, visit(stateNames));
+  // A `$state` declared inside a function is shadowed by its own block in the walk above, so
+  // that block's statements are walked again with only its own state declarations in play. Writes
+  // are recorded by name, so only unmutated-state opts in: for the other callers a same-named
+  // local would stand in for the binding they track.
+  if (!localStates) return;
+  walkEstree(root, (n: Node) => {
+    if (n.type !== 'BlockStatement') return;
+    const own = new Set<string>();
+    for (const stmt of n.body ?? []) {
+      if (stmt?.type !== 'VariableDeclaration') continue;
+      for (const d of stmt.declarations ?? []) {
+        if (d?.id?.type === 'Identifier' && stateNames.has(d.id.name) && isStateDeclaration(unwrapTs(d.init))) {
+          own.add(d.id.name);
+        }
+      }
+    }
+    if (own.size > 0) walkScoped(n.body, visit(own));
   });
 }
 
@@ -2755,9 +2792,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       });
     });
     const writtenOrEscaped = new Set<string>();
-    collectStateWrites(program, stateNames, writtenOrEscaped);
+    collectStateWrites(program, stateNames, writtenOrEscaped, undefined, true);
     if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped, undefined, true);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
       collectEachContextTaint(ast.fragment, stateNames, writtenOrEscaped, new Set(), false);

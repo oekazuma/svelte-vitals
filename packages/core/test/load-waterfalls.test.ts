@@ -290,6 +290,56 @@ describe('collectLoadWaterfalls — exclusions and scope', () => {
     expect(wf(src)).toBeUndefined();
   });
 
+  it('does not count an await of a promise an ancestor load already started as a hop', () => {
+    const src = [
+      'export async function load({ parent }) {',
+      '  const { deferred } = await parent();',
+      '  const state = await deferred.state;',
+      '  const more = await fetch(`/api/${state.id}`);',
+      '  return { state, more };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+
+  it('does not count an await of an in-flight promise copied to a local as a hop', () => {
+    const src = [
+      'export async function load({ parent }) {',
+      '  const { deferred } = await parent();',
+      '  const p = deferred.state;',
+      '  const state = await p;',
+      '  const more = await fetch(`/api/${state.id}`);',
+      '  return { state, more };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [5], independentLines: [] });
+  });
+
+  it('counts an await of a local copied from a promise started from an earlier result', () => {
+    const src = [
+      'export async function load({ fetch, parent }) {',
+      '  const { id } = await parent();',
+      '  const started = id ? fetch(`/api/${id}`) : null;',
+      '  const p = started;',
+      '  const r = await p;',
+      '  return { r };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [5], independentLines: [] });
+  });
+
+  it('still counts an await of a promise started from an earlier result', () => {
+    const src = [
+      'export async function load({ fetch, parent }) {',
+      '  const { id } = await parent();',
+      '  const p = fetch(`/api/${id}`);',
+      '  const r = await p;',
+      '  return { r };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+
   it('does not flag an await of a promise held in a member expression', () => {
     const src = [
       "import { mgr } from '$lib/mgr';",

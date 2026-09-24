@@ -17,6 +17,8 @@ import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/co
 import type { A11yNode, ParsedFile, ParsedTag } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {
+  nestHeading,
+  offsetPath,
   resolveComponentFiles,
   resolveFileTags,
   readAndParse,
@@ -160,10 +162,10 @@ interface ComposeCtx extends ResolveCtx {
 }
 
 /** Group ids a file occupies, so the next file instance can start above them. */
-function groupSpan(nodes: A11yNode[]): number {
+function groupSpan(a11y: ParsedFile['a11y']): number {
   let max = -1;
-  for (const node of nodes) {
-    for (const step of node.path) if (step.group > max) max = step.group;
+  for (const path of [...a11y.nodes.map((n) => n.path), a11y.slotPath ?? []]) {
+    for (const step of path) if (step.group > max) max = step.group;
   }
   return max + 1;
 }
@@ -178,14 +180,9 @@ function dedupeCauses(causes: A11ySkipCause[]): A11ySkipCause[] {
   return [...seen.values()];
 }
 
-/** Paths are shared across every route that uses a parsed file — re-address by copying. */
 /** Every robots meta renders and crawlers obey the most restrictive one, so none may override another. */
 function isRobotsMeta(tag: { kind: string; name?: string }): boolean {
   return tag.kind === 'meta' && tag.name === 'robots';
-}
-
-function offsetPath(path: BranchStep[], base: number): BranchStep[] {
-  return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
 }
 
 /**
@@ -212,7 +209,7 @@ async function composeA11y(
   for (const t of parsed.a11y.elementTags) state.elementTags.add(t);
   if (parsed.a11y.elementsUnknowable) state.elementsClosed = false;
   const base = state.nextGroup;
-  state.nextGroup += groupSpan(parsed.a11y.nodes);
+  state.nextGroup += groupSpan(parsed.a11y);
 
   const composed: ComposedNode[] = [];
   for (const node of parsed.a11y.nodes) {
@@ -311,6 +308,10 @@ async function resolveRoute(
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
   let dynamicHeading = false;
+  // Heading paths are route-wide: each chain file gets its own group range, and a file renders
+  // below its parent layout's `{@render children()}` arm.
+  let headingGroup = 0;
+  let childrenAt: BranchStep[] = [];
   const a11yCtx: ComposeCtx = {
     rt,
     cwd,
@@ -328,12 +329,16 @@ async function resolveRoute(
   const nestedLandmarks: ResolvedA11y['nestedLandmarks'] = [];
   /** Landmark the layouts above the current chain file render their children inside. */
   let slotLandmark: string | undefined;
+  /** Branch address the layouts above the current chain file render their children at. */
+  let slotPrefix: BranchStep[] = [];
 
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
 
+    const base = a11yCtx.state.nextGroup;
     const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true);
     for (const node of contributed) {
+      if (slotPrefix.length > 0) node.path = [...slotPrefix, ...node.path];
       // The layout's main/aside is this file's sectioning ancestor, so a top-level <header>/<footer>
       // here is no landmark (HTML-AAM) — for any rule, not just nesting.
       if (node.topLevel && (slotLandmark === 'main' || slotLandmark === 'complementary')) node.topLevel = false;
@@ -342,13 +347,14 @@ async function resolveRoute(
       if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
     }
     slotLandmark = parsed.a11y.slotInLandmark ?? slotLandmark;
+    if (parsed.a11y.slotPath) slotPrefix = [...slotPrefix, ...offsetPath(parsed.a11y.slotPath, base)];
     a11yNodes.push(...contributed);
 
     for (const img of parsed.images) {
       images.push({ ...img, file: rel });
     }
     for (const heading of parsed.headings) {
-      headings.push({ ...heading, file: rel });
+      headings.push(nestHeading({ ...heading, file: rel }, childrenAt, headingGroup));
     }
     dynamicHeading = dynamicHeading || parsed.dynamicHeading;
 
@@ -368,8 +374,10 @@ async function resolveRoute(
       if (isPage) broadOwn = true;
       else broadInherited = true;
     }
-    componentHeadings.push(...resolved.headings);
+    componentHeadings.push(...resolved.headings.map((h) => nestHeading(h, childrenAt, headingGroup)));
     dynamicHeading = dynamicHeading || resolved.dynamicHeading;
+    if (parsed.childrenPath) childrenAt = [...childrenAt, ...offsetPath(parsed.childrenPath, headingGroup)];
+    headingGroup += resolved.groupSpan;
   }
 
   // Broad (opaque) meta source: fill only kinds not already set specifically.

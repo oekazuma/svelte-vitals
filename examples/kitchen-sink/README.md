@@ -14,7 +14,10 @@ A real SvelteKit app used four ways:
   item writes, a page `<header>` under the layout's `<main>`, and more), and `/clean/subpath` renders its
   `<h1>` through a package.json `imports` entry (`#clean/*`). `/clean/resolution` gets every head
   tag and its `<h1>` through a barrel, a namespace import and a runtime-chosen component, and
-  `/clean/alias` renders its `<h1>` through a `kit.alias` built with `fileURLToPath`. When a real
+  `/clean/alias` renders its `<h1>` through a `kit.alias` built with `fileURLToPath`. `/clean/arms`,
+  `/clean/branches` and `/clean/boundary` put a second `<h1>`, a duplicate id or a modal's `<title>` in
+  an arm that never renders with the page's own, and set head tags through a component placed inside
+  `<svelte:head>`. When a real
   app turns up a false positive, add its shape here along with the fix.
 - Live-dashboard dogfood — `@svelte-vitals/vite`'s `svelteVitals()` plugin runs against this
   app's own `vite build`, exercising the same rendered-HTML analysis path and dashboard
