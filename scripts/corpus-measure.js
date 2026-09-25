@@ -233,9 +233,12 @@ function aggregate(measured, verdicts, ruleIds) {
 
 const escapeHtml = (text) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
+/** A collapsed section; GitHub renders the markdown inside only when blank lines surround it. */
+const details = (summary, body) => [`<details><summary>${summary}</summary>`, '', ...body, '</details>', ''];
+
 function listFindings(title, byRule, verdicts, tagUnlabeled) {
   if (byRule.size === 0) return [];
-  const lines = [`### ${title}`, ''];
+  const lines = [];
   for (const [rule, findings] of byRule) {
     lines.push(`**\`${rule}\`** (${findings.length})`, '');
     for (const f of findings.slice(0, LIST_CAP)) {
@@ -247,7 +250,8 @@ function listFindings(title, byRule, verdicts, tagUnlabeled) {
     if (findings.length > LIST_CAP) lines.push(`- …and ${findings.length - LIST_CAP} more`);
     lines.push('');
   }
-  return lines;
+  const total = [...byRule.values()].reduce((n, findings) => n + findings.length, 0);
+  return details(`${title} findings (${total})`, lines);
 }
 
 /**
@@ -295,23 +299,29 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   const failures = [];
   if (lostTp.length)
     failures.push(
-      `${lostTp.length} finding(s) with a \`tp\` verdict are no longer reported (a real defect is now missed)`
+      `${lostTp.length} real defect(s) (\`tp\`) are no longer reported. If that is intended, change or remove their verdicts in \`scripts/corpus/verdicts.json\` in this PR`
     );
-  if (backFp.length) failures.push(`${backFp.length} finding(s) with an \`fp\` verdict are reported again`);
+  if (backFp.length)
+    failures.push(
+      `${backFp.length} finding(s) labelled a false positive (\`fp\`) are reported: a fixed false positive came back, or one moved to a new location`
+    );
 
   // An app left out of the comparison is unverified, not passed.
   if (failed.size) failures.push(`${failed.size} app(s) failed to measure, so the comparison is incomplete`);
 
-  const out = ['## Corpus findings', ''];
   const stale =
     measurement &&
     !after.apps.some((app) => app.error) &&
     (measurement.targets !== digest(targets) ||
       measurement.verdicts !== digest(readJson(verdictsFile)) ||
       JSON.stringify(aggregate(after, verdicts, Object.keys(measurement.rules))) !== JSON.stringify(measurement.rules));
-  if (stale) failures.push('`scripts/corpus/measurement.json` is stale — run `pnpm corpus update`');
-  if (failures.length) out.push('**❌ Corpus gate failed**', '', ...failures.map((f) => `- ${f}`), '');
-  else out.push('**✅ Corpus gate passed**', '');
+  if (stale) failures.push('`scripts/corpus/measurement.json` is out of date: run `pnpm corpus update && pnpm format`');
+
+  const out = [`## Corpus findings — ${failures.length ? '❌ gate failed' : '✅ gate passed'}`, ''];
+  out.push(
+    `Measured on ${targets.length} real SvelteKit apps (\`scripts/corpus/targets.json\`), base vs this PR. Verdicts come from \`scripts/corpus/verdicts.json\`: **tp** a real defect, **fp** a false positive, **design** reported as documented but not a defect; a finding without one counts under "unclear or no verdict".`,
+    ''
+  );
   for (const [label, measured] of [
     ['base', before],
     ['head', after]
@@ -324,18 +334,62 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
           ''
         );
 
-  if (rows.length === 0) out.push('No finding was added or removed on the pinned corpus.', '');
+  const tally = (byRule, ledger) => {
+    const t = { findings: 0, tp: 0, fp: 0, design: 0, other: 0 };
+    for (const keys of byRule.values())
+      for (const key of keys.keys()) {
+        t.findings++;
+        const verdict = ledger.get(key)?.verdict;
+        if (verdict === 'tp' || verdict === 'fp' || verdict === 'design') t[verdict]++;
+        else t.other++;
+      }
+    return t;
+  };
+  const [t0, t1] = [tally(a, baseVerdicts), tally(b, verdicts)];
+  const pct = (t) => (t.tp + t.fp === 0 ? '—' : `${((100 * t.tp) / (t.tp + t.fp)).toFixed(1)}%`);
+  const delta = (x, y) => (y === x ? '±0' : `${y > x ? '+' : '−'}${Math.abs(y - x).toLocaleString('en-US')}`);
+  const n = (x) => x.toLocaleString('en-US');
+  const row = (name, key) => `| ${name} | ${n(t0[key])} | ${n(t1[key])} | ${delta(t0[key], t1[key])} |`;
+  out.push(
+    '| | base | this PR | change |',
+    '| --- | ---: | ---: | ---: |',
+    row('Findings', 'findings'),
+    row('tp — real defects', 'tp'),
+    row('fp — false positives', 'fp'),
+    row('design — not a defect', 'design'),
+    row('unclear or no verdict', 'other'),
+    `| Precision, tp / (tp + fp) | ${pct(t0)} | ${pct(t1)} | |`,
+    ''
+  );
+
+  // A removed finding's verdict may leave the ledger in the same PR, so fall back to the base's.
+  const either = { get: (key) => verdicts.get(key) ?? baseVerdicts.get(key), has: (key) => verdicts.has(key) };
+  const byVerdict = (byRule, ledger) => {
+    const t = tally(new Map([...byRule].map(([rule, fs]) => [rule, new Map(fs.map((f) => [f.key, f]))])), ledger);
+    const parts = ['tp', 'fp', 'design'].filter((v) => t[v]).map((v) => `${t[v]} ${v}`);
+    if (t.other) parts.push(`${t.other} unclear or without a verdict`);
+    return `${t.findings}${parts.length ? ` (${parts.join(', ')})` : ''}`;
+  };
+  out.push('**What changed**', '');
+  if (rows.length === 0) out.push('- No finding was added or removed.');
   else {
+    out.push(`- Added: ${byVerdict(added, verdicts)}`, `- Removed: ${byVerdict(removed, either)}`);
     const unlabeled = [...added.values()].flat().filter((f) => !verdicts.has(f.key)).length;
+    if (unlabeled) out.push(`- ⚠️ ${unlabeled} added finding(s) have no verdict yet: label them in \`verdicts.json\``);
+  }
+  for (const f of failures) out.push(`- ❌ ${f}`);
+  out.push('');
+
+  if (rows.length) {
     out.push(
-      `Distinct findings (\`app::rule::file:line::claim\`) on ${targets.length} pinned apps. ${unlabeled} added finding(s) have no verdict in \`scripts/corpus/verdicts.json\`.`,
-      '',
-      '| rule | base | head | added | removed | net | precision |',
-      '| --- | ---: | ---: | ---: | ---: | ---: | --- |',
-      ...rows,
-      '',
+      ...details(`Per-rule changes (${rows.length} rules)`, [
+        '| rule | base | this PR | added | removed | net | precision |',
+        '| --- | ---: | ---: | ---: | ---: | ---: | --- |',
+        ...rows,
+        ''
+      ]),
       ...listFindings('Added', added, verdicts, true),
-      ...listFindings('Removed', removed, verdicts, false)
+      ...listFindings('Removed', removed, either, false)
     );
   }
 
