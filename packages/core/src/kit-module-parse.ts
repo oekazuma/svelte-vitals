@@ -250,6 +250,8 @@ function containsReturn(node: Node): boolean {
   return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && containsReturn(node[key]));
 }
 
+type Frame = { seen: Set<Node>; observed: boolean };
+
 /**
  * Whether the exported `load` redirects on every call: every path through its body reaches a
  * `redirect(…)` / `throw redirect(…)` before any `return` — through both arms of an `if`/`else`,
@@ -262,25 +264,26 @@ function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
   if (!load?.body) return false;
   const topLevel = collectTopLevelBindings(program);
   // A parameter or a declaration in the body named like the import is a different function. A helper
-  // sees only its own scope, never its caller's; `visiting` stops mutually recursive helpers.
-  const fnRedirects = (fn: Node, visiting: Set<Node>): boolean => {
+  // sees only its own scope, never its caller's; `seen` stops mutually recursive helpers. `observed`
+  // says whether the caller awaits or returns what this function returns: an async helper's redirect
+  // is a rejected promise, and one nobody awaits leaves `load` running on to render.
+  const fnRedirects = (fn: Node, seen: Set<Node>, observed: boolean): boolean => {
     const shadow = new Set<string>();
     for (const p of fn.params ?? []) addBoundNames(p, shadow);
-    const inner = new Set([...visiting, fn]);
+    const frame: Frame = { seen: new Set([...seen, fn]), observed };
     return fn.body?.type === 'BlockStatement'
-      ? always(fn.body.body, shadow, undefined, inner)
-      : isRedirect(fn.body, shadow, inner, true);
+      ? always(fn.body.body, shadow, undefined, frame)
+      : isRedirect(fn.body, shadow, frame, observed);
   };
-  // An async helper called without `await` or `return` rejects unobserved, and `load` carries on.
-  const isRedirect = (expr: Node, shadow: Set<string>, visiting: Set<Node>, returned = false): boolean => {
+  const isRedirect = (expr: Node, shadow: Set<string>, frame: Frame, returned = false): boolean => {
     let e: Node = unwrapTs(expr);
     const awaited = e?.type === 'AwaitExpression';
     if (awaited) e = unwrapTs(e.argument);
     if (e?.type !== 'CallExpression' || e.callee?.type !== 'Identifier' || shadow.has(e.callee.name)) return false;
     if (locals.has(e.callee.name)) return true;
     const fn = topLevel.get(e.callee.name);
-    if (!isFunctionNode(fn) || fn.generator || visiting.has(fn) || (fn.async && !awaited && !returned)) return false;
-    return fnRedirects(fn, visiting);
+    if (!isFunctionNode(fn) || fn.generator || frame.seen.has(fn) || (fn.async && !awaited && !returned)) return false;
+    return fnRedirects(fn, frame.seen, awaited || returned);
   };
   // A block's own declarations shadow the import for that block, as the load body's do for all of it.
   const within = (body: Node[] | undefined, outer: Set<string>, param?: Node): Set<string> => {
@@ -294,45 +297,40 @@ function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
     return own.size === 0 ? outer : new Set([...outer, ...own]);
   };
   // `rethrow` is the enclosing catch parameter: rethrowing it passes on the redirect its try block threw.
-  const redirects = (stmt: Node, shadow: Set<string>, rethrow: string | undefined, visiting: Set<Node>): boolean => {
-    if (stmt?.type === 'ExpressionStatement') return isRedirect(stmt.expression, shadow, visiting);
+  const redirects = (stmt: Node, shadow: Set<string>, rethrow: string | undefined, frame: Frame): boolean => {
+    if (stmt?.type === 'ExpressionStatement') return isRedirect(stmt.expression, shadow, frame);
     // Kit 2's redirect() throws, so `return redirect(…)` never returns either.
     if (stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') {
-      if (isRedirect(stmt.argument, shadow, visiting, stmt.type === 'ReturnStatement')) return true;
+      if (isRedirect(stmt.argument, shadow, frame, stmt.type === 'ReturnStatement' && frame.observed)) return true;
       return stmt.type === 'ThrowStatement' && stmt.argument?.type === 'Identifier' && stmt.argument.name === rethrow;
     }
-    if (stmt?.type === 'BlockStatement') return always(stmt.body, shadow, rethrow, visiting);
+    if (stmt?.type === 'BlockStatement') return always(stmt.body, shadow, rethrow, frame);
     if (stmt?.type === 'IfStatement') {
       return (
         !!stmt.alternate &&
-        redirects(stmt.consequent, shadow, rethrow, visiting) &&
-        redirects(stmt.alternate, shadow, rethrow, visiting)
+        redirects(stmt.consequent, shadow, rethrow, frame) &&
+        redirects(stmt.alternate, shadow, rethrow, frame)
       );
     }
     if (stmt?.type === 'TryStatement') {
       const param = stmt.handler?.param?.type === 'Identifier' ? stmt.handler.param.name : undefined;
       return (
-        always(stmt.block?.body, shadow, undefined, visiting) &&
-        (!stmt.handler || always(stmt.handler.body?.body, within([], shadow, stmt.handler.param), param, visiting)) &&
+        always(stmt.block?.body, shadow, undefined, frame) &&
+        (!stmt.handler || always(stmt.handler.body?.body, within([], shadow, stmt.handler.param), param, frame)) &&
         !containsReturn(stmt.finalizer)
       );
     }
     return false;
   };
-  const always = (
-    body: Node[] | undefined,
-    outer: Set<string>,
-    rethrow: string | undefined,
-    visiting: Set<Node>
-  ): boolean => {
+  const always = (body: Node[] | undefined, outer: Set<string>, rethrow: string | undefined, frame: Frame): boolean => {
     const shadow = within(body, outer);
     for (const stmt of body ?? []) {
-      if (redirects(stmt, shadow, rethrow, visiting)) return true;
+      if (redirects(stmt, shadow, rethrow, frame)) return true;
       if (containsReturn(stmt)) return false;
     }
     return false;
   };
-  return fnRedirects(load, new Set());
+  return fnRedirects(load, new Set(), true);
 }
 
 /**

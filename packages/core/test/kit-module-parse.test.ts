@@ -561,6 +561,11 @@ describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', (
     expect(always("async function go() {\n  redirect(301, '/');\n}\nexport function load() {\n  return go();\n}")).toBe(
       true
     );
+    expect(
+      always(
+        "async function run() {\n  redirect(301, '/');\n}\nconst go = () => run();\nexport async function load() {\n  await go();\n}"
+      )
+    ).toBe(true);
   });
   it('is absent when the called function can return, is async and not awaited, or is not the module one', () => {
     expect(
@@ -579,6 +584,16 @@ describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', (
     ).toBeUndefined();
     expect(
       always("function go(redirect) {\n  redirect(301, '/');\n}\nexport function load() {\n  go(log);\n}")
+    ).toBeUndefined();
+    expect(
+      always(
+        "async function run() {\n  redirect(301, '/');\n}\nconst go = () => run();\nexport function load() {\n  go();\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      always(
+        "async function run() {\n  redirect(301, '/');\n}\nfunction go() {\n  return run();\n}\nexport function load() {\n  go();\n}"
+      )
     ).toBeUndefined();
     expect(always("function* go() {\n  redirect(301, '/');\n}\nexport function load() {\n  go();\n}")).toBeUndefined();
     expect(
