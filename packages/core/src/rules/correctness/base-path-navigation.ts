@@ -24,14 +24,27 @@ function messageFor(link: BasePathLinkFact): string {
   return `redirect(…, '${link.path}') is root-relative — the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
 }
 
+/**
+ * A literal that already carries a statically known base is correct as written; only a dynamic
+ * base (no `value`) leaves every root-relative literal suspect.
+ */
+function startsWithBase(path: string, base: string | undefined): boolean {
+  if (base === undefined || !path.startsWith(base)) return false;
+  const next = path.charAt(base.length);
+  return next === '' || next === '/' || next === '?' || next === '#';
+}
+
 /** Emit one file's PASS/PENALIZED results — same shapes as componentRule/kitModuleRule. */
 function emitFile(
   out: Result[],
   file: string,
   links: BasePathLinkFact[],
-  suppressions: SuppressionDirective[] | undefined
+  suppressions: SuppressionDirective[] | undefined,
+  base: string | undefined
 ): void {
-  const bad = links.filter((l) => !(l.line > 0 && isSuppressed(suppressions, ID, l.line)));
+  const bad = links.filter(
+    (l) => !startsWithBase(l.path, base) && !(l.line > 0 && isSuppressed(suppressions, ID, l.line))
+  );
   if (bad.length === 0) {
     out.push({
       id: ID,
@@ -82,16 +95,17 @@ export const correctnessBasePathNavigation: Rule = {
   fix: { ...FIX },
   async check(ctx: RuleContext): Promise<Result[]> {
     if (!ctx.project.kitPathsBase) return [];
+    const base = ctx.project.kitPathsBase.value;
     const out: Result[] = [];
     for (const c of ctx.components ?? []) {
       const links = c.basePathLinks ?? [];
       if (links.length === 0) continue;
-      emitFile(out, c.file, links, c.suppressions);
+      emitFile(out, c.file, links, c.suppressions, base);
     }
     for (const m of ctx.kitModules ?? []) {
       const links = m.basePathLinks ?? [];
       if (links.length === 0) continue;
-      emitFile(out, m.file, links, m.suppressions);
+      emitFile(out, m.file, links, m.suppressions, base);
     }
     return out;
   }
