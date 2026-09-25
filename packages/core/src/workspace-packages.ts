@@ -53,8 +53,9 @@ export function pnpmWorkspaceGlobs(yaml: string): string[] {
       continue;
     }
     if (!inPackages) continue;
-    if (/^\S/.test(line)) break;
-    const entry = /^\s+-\s*(.*?)\s*(?:\s#.*)?$/.exec(line);
+    // YAML allows a block sequence at the key's own indentation (`packages:` then `- 'apps/*'`).
+    if (/^[^\s-]/.test(line)) break;
+    const entry = /^\s*-\s*(.*?)\s*(?:\s#.*)?$/.exec(line);
     if (entry) item(entry[1]!);
   }
   return out;

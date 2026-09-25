@@ -44,6 +44,13 @@ describe('workspace globs', () => {
     expect(pnpmWorkspaceGlobs(yaml)).toEqual(['apps/*', 'packages/*', '!apps/db-agent']);
   });
 
+  it("reads pnpm-workspace.yaml block items at the key's own indentation", () => {
+    expect(pnpmWorkspaceGlobs(`packages:\n- 'apps/*'\n- packages/*\ncatalog:\n  svelte: ^5\n`)).toEqual([
+      'apps/*',
+      'packages/*'
+    ]);
+  });
+
   it('reads pnpm-workspace.yaml packages in flow form', () => {
     expect(pnpmWorkspaceGlobs(`packages: ['apps/*', "packages/*"]\n`)).toEqual(['apps/*', 'packages/*']);
   });
