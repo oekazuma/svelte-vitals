@@ -9,6 +9,7 @@ import {
   findMinifyDisabled,
   lineOf,
   resolveKitAliases,
+  withInstalledPackages,
   withPackageImports,
   withWorkspacePackages,
   resolveKitPathsBase,
@@ -17,7 +18,7 @@ import {
   type Runtime
 } from '@svelte-vitals/core/internal';
 import { parseHeadTags, type ParsedTag } from './parse.js';
-import { findWorkspacePackages } from './workspace.js';
+import { findInstalledPackages, findWorkspacePackages } from './workspace.js';
 
 /** Thrown when the target directory is not a SvelteKit project (CLI maps to exit 2). */
 export class ProjectError extends Error {
@@ -303,7 +304,7 @@ async function readFirstConfig(
 async function detectKitConfigFacts(
   rt: Runtime,
   cwd: string
-): Promise<Pick<Project, 'kitPathsBase' | 'kitAliases' | 'componentAliases'>> {
+): Promise<Pick<Project, 'kitPathsBase' | 'kitAliases' | 'componentAliases' | 'headAliases'>> {
   const [viteConfig, svelteConfig, packageJson] = await Promise.all([
     readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
     readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES),
@@ -311,11 +312,17 @@ async function detectKitConfigFacts(
   ]);
   const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
   const kitAliases = withPackageImports(resolveKitAliases(viteConfig, svelteConfig), packageJson?.source);
-  const componentAliases = withWorkspacePackages(kitAliases, await findWorkspacePackages(rt, cwd, packageJson?.source));
+  const [workspacePackages, installedPackages] = await Promise.all([
+    findWorkspacePackages(rt, cwd, packageJson?.source),
+    findInstalledPackages(rt, cwd, packageJson?.source)
+  ]);
+  const componentAliases = withWorkspacePackages(kitAliases, workspacePackages);
+  const headAliases = withInstalledPackages(componentAliases, installedPackages);
   return {
     ...(kitPathsBase ? { kitPathsBase } : {}),
     ...(kitAliases ? { kitAliases } : {}),
-    ...(componentAliases !== kitAliases ? { componentAliases } : {})
+    ...(componentAliases !== kitAliases ? { componentAliases } : {}),
+    ...(headAliases !== componentAliases ? { headAliases } : {})
   };
 }
 

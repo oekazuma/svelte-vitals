@@ -89,7 +89,8 @@ export async function collectAll(
       componentAliases,
       project.appHtmlIds,
       project.appHtmlBodyTags,
-      project.appHtmlHeadTags
+      project.appHtmlHeadTags,
+      project.headAliases
     ),
     // Component (Correctness) facts are file-scoped with no route attribution yet, so a
     // route-filtered run skips them rather than reporting unrelated components (#68 review).

@@ -83,16 +83,18 @@ is not the one the bundler imports. Each bound keeps a wrong answer out.
 ## What is not followed
 
 - **npm packages in `node_modules`.** Their source is a build artifact of someone else's project. Rules
-  about it are not actionable here, and reading it costs the I/O budget.
+  about it are not actionable here, and reading it costs the I/O budget. (Superseded for the
+  `<head>`/heading walk by `2026-09-25-node-modules-components.md`.)
 - **Rules that resolve imports** (`architecture/private-scope-import`, `architecture/route-component-import`,
   `security/shared-state-import`, `security/handler-state-write`). They keep reading `kitAliases`.
   Widening them is a separate decision, with its own measurement. `security/handler-state-write`
   would start reporting `.set()` on a workspace package's store, which may be right, but nothing
   measured it.
 - **`workspace:` ranges that rename or name a path, npm-style plain version ranges across workspaces,
-  and the `main`/`module`/`svelte` fields of a package without `exports`.** Each is rare in the
-  corpus. A package without `exports` still resolves subpaths
-  through its layout. The bare name resolves only to an `index` file.
+  and the `main`/`module` fields of a package without `exports`** (its `svelte` field is read; see
+  `2026-09-25-node-modules-components.md`). Each is rare in the corpus. A package without `exports`
+  still resolves subpaths through its layout. Without a `svelte` field, the bare name resolves only
+  to an `index` file.
 - **`exports` patterns with a `*` that is not the last character** (`./icons/*.svelte`). Kept opaque
   (see above) rather than approximated.
 

@@ -57,9 +57,9 @@ in `.js` behaves identically and needs no dependency. Both are ESM, so the proje
 average; setting every category to `0` is an error (exit `2`).
 
 `metaComponents` names head-metadata components the analyzer cannot resolve (e.g. from an npm
-package without an adapter). Components the analyzer can resolve in your own repo are followed
-automatically, so declaring one of those is a no-op; the declaration only kicks in when
-resolution fails.
+package without an adapter, in a checkout that is not installed). Components the analyzer can
+resolve, including those of installed Svelte packages, are followed automatically, so declaring
+one of those is a no-op; the declaration only kicks in when resolution fails.
 
 ## Turning a rule off or down
 

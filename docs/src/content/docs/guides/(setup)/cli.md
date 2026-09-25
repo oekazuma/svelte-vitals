@@ -307,7 +307,7 @@ above the target. A blank line in between breaks the match.
 
 ### `--meta-components <names>`
 
-Comma-separated list of component names that emit `<head>` metadata but that the analyzer cannot resolve, typically components imported from an npm package without a built-in adapter. The analyzer follows components it can resolve in your own repo automatically, so declaring one of those is a no-op. The declaration only takes effect when resolution fails.
+Comma-separated list of component names that emit `<head>` metadata but that the analyzer cannot resolve, typically components imported from an npm package without a built-in adapter in a checkout that is not installed. The analyzer follows components it can resolve automatically, including those of installed Svelte packages, so declaring one of those is a no-op. The declaration only takes effect when resolution fails.
 
 ```bash
 svelte-vitals --meta-components "SeoHead,PageMeta"

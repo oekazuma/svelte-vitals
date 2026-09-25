@@ -92,10 +92,16 @@ export interface Project {
   kitAliases?: KitAlias[];
   /**
    * `kitAliases` plus the workspace packages the app's package.json declares, which component
-   * resolution (a route's `<head>` and headings) follows. Absent when the app declares none. Rules
-   * that resolve imports read `kitAliases`.
+   * resolution (a route's composition, and each-key's imported lists) follows. Absent when the app
+   * declares none. Rules that resolve imports read `kitAliases`.
    */
   componentAliases?: KitAlias[];
+  /**
+   * `componentAliases` (else `kitAliases`) plus the Svelte packages installed in `node_modules` that
+   * the app declares. Only the `<head>`/heading walk reads it, so the a11y composition and each-key
+   * stay on `componentAliases`. Absent when no such package is installed.
+   */
+  headAliases?: KitAlias[];
   /**
    * Whether `src/app.html` opens with `<!doctype html>` (a11y/doctype). Set from the same read
    * as `htmlLang`; absent when the file wasn't read (missing or unreadable) — the rule stays

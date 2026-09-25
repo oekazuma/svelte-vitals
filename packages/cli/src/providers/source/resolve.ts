@@ -73,6 +73,20 @@ export function readAndParse(rt: Runtime, cwd: string, rel: string, cache: Parse
   return hit;
 }
 
+/**
+ * `readAndParse`, except that an installed package's file that does not parse is undefined, so its
+ * usage reads as unfollowed: a dependency's source must not fail the run the way the app's own does.
+ */
+async function readPackageAware(
+  rt: Runtime,
+  cwd: string,
+  rel: string,
+  cache: ParseCache
+): Promise<ParsedFile | undefined> {
+  const parsed = readAndParse(rt, cwd, rel, cache);
+  return rel.split('/').includes('node_modules') ? parsed.catch(() => undefined) : parsed;
+}
+
 function nameOf(node: { type: string; name?: string; value?: unknown }): string {
   return node.type === 'Identifier' ? node.name! : String(node.value);
 }
@@ -343,13 +357,14 @@ export async function resolveFileTags(
     // Layer 3: transitively resolve a user component in src/.
     const found = depth > 0 ? await resolveComponentFiles(ctx, use.name, parsed, fileRel) : undefined;
     const files = found?.files.filter((f) => !visited.has(f)) ?? [];
-    if (found && files.length > 0) {
+    const parsedFiles = await Promise.all(files.map((f) => readPackageAware(rt, cwd, f, cache)));
+    if (found && files.length > 0 && parsedFiles.every((p) => p !== undefined)) {
       // Which of several components renders, or whether one renders at all, is runtime state.
       const exclusive = files.length > 1 || !found.complete || files.length < found.files.length;
       const childHead = inHead || use.inHead ? argsOf(parsed, use, inHead ?? new Map()) : undefined;
       const maybe = new Map<string, ParsedTag>();
-      for (const childRel of files) {
-        const childParsed = await readAndParse(rt, cwd, childRel, cache);
+      for (const [i, childRel] of files.entries()) {
+        const childParsed = parsedFiles[i]!;
         const childVisited = new Set(visited).add(childRel);
         const child = await resolveFileTags(
           rt,
