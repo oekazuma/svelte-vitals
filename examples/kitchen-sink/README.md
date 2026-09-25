@@ -6,7 +6,7 @@ A real SvelteKit app used four ways:
   `@svelte-vitals/core`'s `allRules` has a concrete, reviewable specimen instead of a synthetic
   fixture. `expected-findings.json` pins the exact finding count per rule; a meta-test enforces
   that every rule in `allRules` has an entry.
-- False-positive canary — `/clean/**` and `src/lib/clean/**` are written to be finding-free.
+- False-positive canary — `/clean/**`, `src/lib/clean/**` and `src/lib/server/**` are written to be finding-free.
   If a rule change makes them fail, that's a regression in the rule, not the example.
   `/clean/redirect` is a page whose `load` always redirects: both e2e suites assert it gets no
   route-level analysis at all. `/clean/real-world` collects code shapes from real apps that
@@ -21,7 +21,12 @@ A real SvelteKit app used four ways:
   in a head `{#each}`, puts a named `<aside>` in a `<section><header>` outside `<main>` (its `+page@` skips the
   canary layout), and has a `<picture>` whose `<source>` carries the `srcset`, unkeyed `{#each}` over constant lists
   from a `.svelte.ts` runes module and a module that reads its list with `for…of`, and an `{#each}` item named like
-  an `import * as` namespace. When a real
+  an `import * as` namespace. `/clean/wrapped`'s layout renders the page through an error-boundary component whose
+  failed screen has its own `<h1>`. `/clean/snippets` renders its `<h1>` from one of two snippets chosen in `{#if}`
+  arms, above a list with an unkeyed `{#each Array.from(new Array(3))}`, a `use:` action that sets the role of a
+  labelled `<span>`, a `typeof matchMedia === 'function'` guard, and an `$effect` reading `$state` through a local
+  alias of an imported instance. `/clean/redirect-helper` is a second redirect-only page, whose `load` redirects
+  through a same-file helper. `/clean/drafts` writes through a `$lib/server` facade built from spreads. When a real
   app turns up a false positive, add its shape here along with the fix.
 - Live-dashboard dogfood — `@svelte-vitals/vite`'s `svelteVitals()` plugin runs against this
   app's own `vite build`, exercising the same rendered-HTML analysis path and dashboard

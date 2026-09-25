@@ -89,9 +89,11 @@ describe('kitchen-sink e2e (build mode)', () => {
 
   it('skips the redirect stub Kit prerenders for a page whose load always redirects', () => {
     expect(existsSync(join(appDir, '.svelte-kit/output/prerendered/pages/clean/redirect.html'))).toBe(true);
+    expect(existsSync(join(appDir, '.svelte-kit/output/prerendered/pages/clean/redirect-helper.html'))).toBe(true);
     const routes = report.routes.map((r) => r.route);
     expect(routes).toContain('/clean');
     expect(routes).not.toContain('/clean/redirect');
+    expect(routes).not.toContain('/clean/redirect-helper');
   });
 
   it('analyzes the real-world canary and finds it clean', () => {
@@ -103,7 +105,9 @@ describe('kitchen-sink e2e (build mode)', () => {
       '/clean/arms',
       '/clean/branches',
       '/clean/boundary',
-      '/clean/catalog'
+      '/clean/catalog',
+      '/clean/wrapped',
+      '/clean/snippets'
     ]) {
       const canary = report.routes.find((r) => r.route === route);
       expect(canary, route).toBeDefined();

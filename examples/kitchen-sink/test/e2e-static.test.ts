@@ -93,7 +93,10 @@ describe('kitchen-sink e2e (static mode)', () => {
       ...report.siteIssues.map((i) => i.location)
     ].filter((location): location is string => location !== undefined);
     const offenders = locations.filter(
-      (location) => location.startsWith('src/routes/clean/') || location.startsWith('src/lib/clean/')
+      (location) =>
+        location.startsWith('src/routes/clean/') ||
+        location.startsWith('src/lib/clean/') ||
+        location.startsWith('src/lib/server/')
     );
     const cleanRoutes = report.routes.filter((r) => r.route.startsWith('/clean') && r.issues.length > 0);
     expect(offenders).toEqual([]);
@@ -109,7 +112,9 @@ describe('kitchen-sink e2e (static mode)', () => {
       '/clean/arms',
       '/clean/branches',
       '/clean/boundary',
-      '/clean/catalog'
+      '/clean/catalog',
+      '/clean/wrapped',
+      '/clean/snippets'
     ]) {
       const canary = report.routes.find((r) => r.route === route);
       expect(canary, route).toBeDefined();
@@ -120,6 +125,7 @@ describe('kitchen-sink e2e (static mode)', () => {
   it('gives a page whose load always redirects no route-level findings', () => {
     expect(report.routes.map((r) => r.route)).toContain('/clean');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect');
+    expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-helper');
   });
 
   it('--by-route adds the per-route breakdown to console output', () => {
