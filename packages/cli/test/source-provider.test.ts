@@ -670,6 +670,44 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.nestedLandmarks).toEqual([]);
   });
 
+  it('places a landmark inside a non-landmark <header>/<footer> in the landmark around it', async () => {
+    const nested = async (layout: string, page: string) =>
+      (await a11yOf({ 'src/routes/+layout.svelte': layout, 'src/routes/+page.svelte': page })).nestedLandmarks.map(
+        (n) => `${n.kind} in ${n.within}`
+      );
+    const aside = '<aside aria-label="Sources">s</aside>';
+    // Below the top level, and at the top level of a page the layout renders inside <main>.
+    expect(await nested('<main><slot /></main>', `<section><header>${aside}</header></section>`)).toEqual([
+      'complementary in main'
+    ]);
+    expect(await nested('<main><slot /></main>', `<header>${aside}</header>`)).toEqual(['complementary in main']);
+    expect(await nested('<slot />', `<section><footer>${aside}</footer></section>`)).toEqual([]);
+    // A banner reached through the layout's slot is demoted the same way.
+    const viaSlot = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': '<main><slot /></main>',
+        'src/routes/a/+layout.svelte': '<header><slot /></header>',
+        'src/routes/a/+page.svelte': aside
+      }),
+      ''
+    );
+    expect(viaSlot.a11y.find((a) => a.route === '/a')!.nestedLandmarks.map((n) => n.within)).toEqual(['main']);
+    // Past the header, the nearest in-file landmark still wraps the content.
+    expect(await nested('<main><slot /></main>', `<div role="complementary"><header>${aside}</header></div>`)).toEqual([
+      'complementary in main',
+      'complementary in complementary'
+    ]);
+    // A header or footer outside any sectioning content is a landmark and contains what it wraps.
+    expect(await nested('<slot />', `<header>${aside}</header>`)).toEqual(['complementary in banner']);
+    expect(await nested('<slot />', '<div><footer><aside>a</aside></footer></div>')).toEqual([
+      'complementary in contentinfo'
+    ]);
+    expect(await nested('<main><slot /></main>', `<div role="banner">${aside}</div>`)).toEqual([
+      'banner in main',
+      'complementary in banner'
+    ]);
+  });
+
   it('does not report a landmark inside {#each} as nested — it may render zero times', async () => {
     const a11y = await a11yOf({
       'src/routes/+layout.svelte': `<main><slot /></main>`,

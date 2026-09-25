@@ -91,8 +91,9 @@ describe('parseFile — a11y occurrences', () => {
 
   it('maps roles and header/footer with nesting flags, literal values only', () => {
     const parsed = parseIt(
-      '<header /><section><footer /></section><div role="complementary" /><div role={r} /><main role="presentation" />'
+      '<header /><div><footer /></div><section><footer /></section><div role="complementary" /><div role={r} /><main role="presentation" />'
     );
+    // A footer inside in-file sectioning content is no landmark at all.
     expect(parsed.a11y.nodes).toEqual([
       expect.objectContaining({ kind: 'landmark', key: 'banner', topLevel: true }),
       expect.objectContaining({ kind: 'landmark', key: 'contentinfo', topLevel: false }),

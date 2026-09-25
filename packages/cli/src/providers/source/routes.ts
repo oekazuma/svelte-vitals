@@ -337,16 +337,17 @@ async function resolveRoute(
 
     const base = a11yCtx.state.nextGroup;
     const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true);
+    // The layout's main/aside is this file's sectioning ancestor, so a <header>/<footer> here is no
+    // landmark (HTML-AAM) — for any rule, not just nesting — nor the landmark its content sits in.
+    const scoped = slotLandmark === 'main' || slotLandmark === 'complementary';
     for (const node of contributed) {
       if (slotPrefix.length > 0) node.path = [...slotPrefix, ...node.path];
-      // The layout's main/aside is this file's sectioning ancestor, so a top-level <header>/<footer>
-      // here is no landmark (HTML-AAM) — for any rule, not just nesting.
-      if (node.topLevel && (slotLandmark === 'main' || slotLandmark === 'complementary')) node.topLevel = false;
+      if (node.topLevel && scoped) node.topLevel = false;
       if (!node.chain || node.kind !== 'landmark' || !countsAsLandmark(node) || node.repeatable) continue;
-      const within = node.inLandmark ?? slotLandmark;
+      const within = (scoped ? node.inFixedLandmark : node.inLandmark) ?? slotLandmark;
       if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
     }
-    slotLandmark = parsed.a11y.slotInLandmark ?? slotLandmark;
+    slotLandmark = (scoped ? parsed.a11y.slotInFixedLandmark : parsed.a11y.slotInLandmark) ?? slotLandmark;
     if (parsed.a11y.slotPath) slotPrefix = [...slotPrefix, ...offsetPath(parsed.a11y.slotPath, base)];
     a11yNodes.push(...contributed);
 
