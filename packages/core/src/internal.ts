@@ -50,6 +50,13 @@ export { collectKitModuleFacts } from './kit-module-collect.js';
 export { findMinifyDisabled } from './vite-config-parse.js';
 export { resolveKitPathsBase, resolveKitAliases, withPackageImports } from './svelte-config-parse.js';
 export {
+  declaredLocalPackages,
+  packageJsonWorkspaceGlobs,
+  pnpmWorkspaceGlobs,
+  withWorkspacePackages,
+  type WorkspacePackage
+} from './workspace-packages.js';
+export {
   CHILD_NODE_KEYS,
   lineOf,
   findAttr,

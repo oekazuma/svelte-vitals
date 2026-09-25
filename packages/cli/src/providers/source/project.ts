@@ -10,12 +10,14 @@ import {
   lineOf,
   resolveKitAliases,
   withPackageImports,
+  withWorkspacePackages,
   resolveKitPathsBase,
   servesRootFile,
   type Project,
   type Runtime
 } from '@svelte-vitals/core/internal';
 import { parseHeadTags, type ParsedTag } from './parse.js';
+import { findWorkspacePackages } from './workspace.js';
 
 /** Thrown when the target directory is not a SvelteKit project (CLI maps to exit 2). */
 export class ProjectError extends Error {
@@ -298,7 +300,10 @@ async function readFirstConfig(
  * reads and move `packages/cli/test/io-budget.test.ts`'s numbers — which is a design decision,
  * not a number edit (AGENTS.md).
  */
-async function detectKitConfigFacts(rt: Runtime, cwd: string): Promise<Pick<Project, 'kitPathsBase' | 'kitAliases'>> {
+async function detectKitConfigFacts(
+  rt: Runtime,
+  cwd: string
+): Promise<Pick<Project, 'kitPathsBase' | 'kitAliases' | 'componentAliases'>> {
   const [viteConfig, svelteConfig, packageJson] = await Promise.all([
     readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
     readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES),
@@ -306,9 +311,11 @@ async function detectKitConfigFacts(rt: Runtime, cwd: string): Promise<Pick<Proj
   ]);
   const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
   const kitAliases = withPackageImports(resolveKitAliases(viteConfig, svelteConfig), packageJson?.source);
+  const componentAliases = withWorkspacePackages(kitAliases, await findWorkspacePackages(rt, cwd, packageJson?.source));
   return {
     ...(kitPathsBase ? { kitPathsBase } : {}),
-    ...(kitAliases ? { kitAliases } : {})
+    ...(kitAliases ? { kitAliases } : {}),
+    ...(componentAliases !== kitAliases ? { componentAliases } : {})
   };
 }
 

@@ -160,7 +160,7 @@ export async function analyze(
   };
   const [kitModules, components] = await Promise.all([
     collectKitModuleFacts(cwd, project.kitAliases),
-    dropConstantListEachBlocks(cwd, componentFacts, project.kitAliases)
+    dropConstantListEachBlocks(cwd, componentFacts, project.componentAliases ?? project.kitAliases)
   ]);
   // The shell's `<html lang>` is still app.html's, so htmlLang above keeps reading every file.
   const isShell = ssrDisabledRouteMatcher(kitModules);

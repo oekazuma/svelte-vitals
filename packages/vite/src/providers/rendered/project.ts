@@ -8,10 +8,12 @@ import {
   VITE_CONFIG_FILES,
   resolveKitAliases,
   withPackageImports,
+  withWorkspacePackages,
   resolveKitPathsBase,
   servesRootFile,
   type Project
 } from '@svelte-vitals/core/internal';
+import { createNodeRuntime, findWorkspacePackages } from 'svelte-vitals';
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -74,12 +76,17 @@ export async function collectRenderedProject(cwd: string, htmlLang: Detection): 
   const robotsReferencesSitemap = await robotsRefsSitemap(cwd);
   const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
   const kitAliases = withPackageImports(resolveKitAliases(viteConfig, svelteConfig), packageJson?.source);
+  const componentAliases = withWorkspacePackages(
+    kitAliases,
+    await findWorkspacePackages(createNodeRuntime(), cwd, packageJson?.source)
+  );
   return {
     hasRobotsTxt: hasRobotsFile || endpoints.some((p) => servesRootFile(p, 'robots.txt')),
     hasSitemap: hasSitemapFile || endpoints.some((p) => servesRootFile(p, 'sitemap.xml')),
     htmlLang,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
     ...(kitPathsBase ? { kitPathsBase } : {}),
-    ...(kitAliases ? { kitAliases } : {})
+    ...(kitAliases ? { kitAliases } : {}),
+    ...(componentAliases !== kitAliases ? { componentAliases } : {})
   };
 }

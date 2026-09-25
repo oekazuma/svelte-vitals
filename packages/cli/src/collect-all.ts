@@ -79,13 +79,14 @@ export async function collectAll(
   // project is resolved first: collectKitModuleFacts needs project.kitAliases, so
   // everything else that's independent of it runs alongside it in one Promise.all.
   const project = await collectProjectFacts(rt, cwd);
+  const componentAliases = project.componentAliases ?? project.kitAliases;
   const [collected, components, allKitModules, sourceFiles] = await Promise.all([
     collectRoutes(
       rt,
       cwd,
       config,
       parseCache,
-      project.kitAliases,
+      componentAliases,
       project.appHtmlIds,
       project.appHtmlBodyTags,
       project.appHtmlHeadTags
@@ -95,7 +96,7 @@ export async function collectAll(
     opts.route
       ? []
       : collectComponentFacts(rt, cwd).then((facts) =>
-          dropConstantListEachBlocks({ rt, cwd, cache: parseCache, aliases: project.kitAliases }, facts)
+          dropConstantListEachBlocks({ rt, cwd, cache: parseCache, aliases: componentAliases }, facts)
         ),
     // Read under `--route` too, for the redirect-only gate below; the rules still get none then.
     collectKitModuleFacts(rt, cwd, project.kitAliases),

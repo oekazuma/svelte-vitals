@@ -190,7 +190,7 @@ export function findKitAliasesInSvelteConfig(source: string): RawKitAliases {
  * too, which Kit builds with neither step: `kit.files.lib` is a user-written string with the
  * same irregularities available to it.
  */
-function normalizeAliasValue(value: string): string {
+export function normalizeAliasValue(value: string): string {
   // A leading `./` would defeat textual prefix checks (`libServerRoot`) against normalized paths.
   const posix = value.replace(/\\/g, '/').replace(/^(\.\/)+/, '');
   const noStar = posix.endsWith('/*') ? posix.slice(0, -2) : posix;
@@ -248,7 +248,7 @@ const IGNORED_CONDITIONS = new Set(['types', 'require']);
  * does. A condition that depends on the environment (`node`, `browser`, `development`, …) makes the
  * answer unknowable here, so it resolves to nothing rather than to a branch that may not apply.
  */
-function importTarget(value: unknown): string | undefined {
+export function importTarget(value: unknown): string | undefined {
   if (typeof value === 'string') return value;
   if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
   for (const [condition, branch] of Object.entries(value)) {

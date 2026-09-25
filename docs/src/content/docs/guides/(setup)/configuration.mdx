@@ -263,6 +263,17 @@ followed too: svelte-vitals reads files inside the directory it names, and relat
 them, because your config says the app builds from there. Nothing else above the project root is
 read. A relative import that leaves the root anywhere but into such a directory stays unresolved.
 
+In a monorepo, the walk also follows a package of the same repository that the app's `package.json`
+declares with a `workspace:` range (`"@repo/ui": "workspace:*"`), or with a `link:`/`file:` path
+inside the repository. svelte-vitals finds the package through the nearest `pnpm-workspace.yaml` or
+`package.json` `workspaces` above the app, by its `name`, and resolves the import through the
+package's `exports` (its file layout when it has none). A `kit.alias` into
+`node_modules/<that package>` reads the package's directory, so the result does not depend on whether
+the checkout was installed. The search stops at the directory holding `.git`. Packages the app does
+not declare this way, npm packages in `node_modules`, and anything outside the repository are not
+read. This applies to the `<head>`/heading walk only; the rules listed at the top of this section
+resolve imports as before.
+
 The following cases are not resolved:
 
 - an alias whose value is computed from anything but string literals (a template literal, a variable,

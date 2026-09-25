@@ -45,6 +45,14 @@ npx svelte-vitals@latest install --client vite-plugin,config-file --app apps/web
 
 `--app` pointing at a directory that is not a SvelteKit app is an error (exit `2`).
 
+## Workspace packages
+
+Components the app imports from a package of the same repository are followed when the app's
+`package.json` declares it with `workspace:` (or a `link:`/`file:` path inside the repository):
+their `<title>`, meta tags and headings count for the routes that render them. The package is found
+through the nearest `pnpm-workspace.yaml` or `package.json` `workspaces` above the app, and the
+import resolves through its `exports`. npm packages in `node_modules` are not read.
+
 ## Related
 
 - `svelte-vitals docs show output`: what exit `2` means versus exit `1`

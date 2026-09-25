@@ -639,8 +639,9 @@ function aliasMatches(entry: KitAlias, spec: string): boolean {
  * be resolved to a project-local path at all). A path above the project root (a leading `../`
  * run) resolves only inside a directory a `kit.alias` value itself names above the root
  * (`$plugins: '../../plugins'` in a monorepo app): the user's config says the app builds from
- * there, so it is read like `src/` — anywhere else above the root is undefined, as nothing
- * says the app reaches it. Also undefined when a
+ * there, so it is read like `src/` — likewise inside a workspace package's directory an entry
+ * names as its `root` — and anywhere else above the root is undefined, as nothing says the app
+ * reaches it. Also undefined when a
  * matched alias's value is itself absolute (e.g. `/opt/shared/src`, or a posixified Windows
  * drive-letter path like `C:/shared/src`): an absolute target is outside the analyzed project by
  * definition, and without this check `normalizePosix` would quietly drop the leading empty
@@ -682,7 +683,8 @@ export function resolveRepoLocalPath(
   const normalized = normalizePosix(path);
   if (!escapesRoot(normalized)) return normalized;
   return aliases.some((a) => {
-    const dir = a.replacement === null ? '' : normalizePosix(a.replacement);
+    const named = a.root ?? a.replacement;
+    const dir = named === null ? '' : normalizePosix(named);
     return escapesRoot(dir) && (normalized === dir || normalized.startsWith(`${dir}/`));
   })
     ? normalized
