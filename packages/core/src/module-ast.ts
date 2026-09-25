@@ -467,8 +467,11 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
           s.argument?.type === 'Identifier' &&
           BROWSER_GLOBALS.has(s.argument.name)
       );
-      const hasTypeString = sides.some((s: Node) => s?.type === 'Literal' && typeof s.value === 'string');
-      if (hasTypeofGlobal && hasTypeString) guarded = true;
+      const type = sides.find((s: Node) => s?.type === 'Literal' && typeof s.value === 'string')?.value;
+      // `'undefined'` guards either way (`if (typeof window === 'undefined') return;`); any other type only
+      // when compared equal — `typeof matchMedia !== 'function'` is true on the server.
+      const positive = n.operator === '===' || n.operator === '==';
+      if (hasTypeofGlobal && type !== undefined && (type === 'undefined' || positive)) guarded = true;
     }
   });
   return guarded;

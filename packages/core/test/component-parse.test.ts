@@ -1181,6 +1181,10 @@ describe('parseComponentFacts — browser-global refs (correctness/server-browse
     expect(refs(src)).toEqual([]);
     expect(parseComponentFacts(`<script>${src}</script>`, 'C.svelte').browserGlobalRefs).toEqual([]);
   });
+  it('still flags a call behind a negated typeof against a non-undefined type', () => {
+    const src = "const bad = typeof matchMedia !== 'function' && matchMedia('(x)').matches;";
+    expect(refs(src).map((r) => r.name)).toEqual(['matchMedia']);
+  });
   it('does not flag reads inside functions, onMount, or $effect', () => {
     const src = [
       "import { onMount } from 'svelte';",
