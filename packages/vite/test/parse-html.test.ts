@@ -186,6 +186,16 @@ describe('parse-html: image capture (rendered image-rule parity)', () => {
     expect(images[1]!).toMatchObject({ hasWidth: false, hasAlt: false, lazy: false, hasSrcset: false });
   });
 
+  it('records hasSrcset for a <picture> fallback whose <source> carries one', () => {
+    const { images } = parseHtmlHead(
+      doc(
+        '<picture><source srcset="/a-640.avif 640w" sizes="100vw"><img src="/a.jpg"></picture>' +
+          '<picture><source media="(min-width: 1px)"><img src="/b.jpg"></picture><img src="/c.jpg">'
+      )
+    );
+    expect(images.map((i) => i.hasSrcset)).toEqual([true, false, false]);
+  });
+
   it('marks an <img> whose src is an SVG', () => {
     const { images } = parseHtmlHead(
       doc(

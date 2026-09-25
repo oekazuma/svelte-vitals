@@ -73,6 +73,20 @@ describe('parse: image loading/srcset capture (performance/lcp-image, performanc
     expect(parseFile('<img src="/a.jpg" srcset="/a-2x.jpg 2x" />', 'x.svelte').images[0]!.hasSrcset).toBe(true);
     expect(parseFile('<img src="/a.jpg" />', 'x.svelte').images[0]!.hasSrcset).toBe(false);
   });
+  it('records hasSrcset for a <picture> fallback whose <source> carries one', () => {
+    const srcset = (src: string) => parseFile(src, 'x.svelte').images.map((i) => i.hasSrcset);
+    expect(srcset('<picture><source srcset="/a-640.avif 640w" sizes="100vw" /><img src="/a.jpg" /></picture>')).toEqual(
+      [true]
+    );
+    expect(srcset('<picture>{#if x}<source {...s} />{/if}<img src="/a.jpg" /></picture>')).toEqual([true]);
+    expect(
+      srcset('<picture><source media="(min-width: 1px)" /><img src="/a.jpg" /></picture><img src="/b.jpg" />')
+    ).toEqual([false, false]);
+    expect(srcset('<picture><source srcset="/a.avif" /><img src="/a.jpg" /></picture><img src="/b.jpg" />')).toEqual([
+      true,
+      false
+    ]);
+  });
   it('marks an SVG source: a literal or base-prefixed .svg path, or an imported .svg', () => {
     const svg = (src: string) => parseFile(src, 'x.svelte').images[0]!.svg;
     expect(svg('<img src="/rss.svg?v=2" />')).toBe(true);

@@ -11,7 +11,7 @@ export interface ImageInfo {
   hasAlt: boolean;
   /** True when the <img> has a literal `loading="lazy"` (performance/lcp-image). Dynamic/spread → false. */
   lazy: boolean;
-  /** True when the <img> has a `srcset` attribute (performance/responsive-image). */
+  /** True when the <img>, or a `<source>` of its `<picture>`, has a `srcset` attribute (performance/responsive-image). */
   hasSrcset: boolean;
   /** True when the <img>'s src is known to be an SVG (`isSvgSrc`; performance/responsive-image). */
   svg?: boolean;

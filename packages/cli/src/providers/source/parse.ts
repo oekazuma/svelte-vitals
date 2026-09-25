@@ -399,9 +399,12 @@ function collectImages(fragment: AST.Fragment, source: string, imports: ImportMa
   const index = { snippets: new Map<string, AST.SnippetBlock>(), rendered: new Set<string>() };
   indexSnippets(fragment, index);
   const emitted = new Set<AST.SnippetBlock>();
-  const walk = (node: WalkNode | WalkNode[] | null | undefined): void => {
+  // The nearest open `<picture>`: its `<source>`s precede its `<img>` (HTML content model), so
+  // whether one carries a srcset is known by the time the walk reaches the `<img>`.
+  type Picture = { srcset: boolean } | undefined;
+  const walk = (node: WalkNode | WalkNode[] | null | undefined, picture?: Picture): void => {
     if (Array.isArray(node)) {
-      for (const child of node) walk(child);
+      for (const child of node) walk(child, picture);
       return;
     }
     if (!node || typeof node !== 'object') return;
@@ -414,9 +417,15 @@ function collectImages(fragment: AST.Fragment, source: string, imports: ImportMa
       const snippet = index.snippets.get(renderCallee(node) ?? '');
       if (snippet && !emitted.has(snippet)) {
         emitted.add(snippet);
-        walk(snippet.body);
+        walk(snippet.body, picture);
       }
       return;
+    }
+    if (node.type === 'RegularElement' && node.name === 'picture') picture = { srcset: false };
+    if (node.type === 'RegularElement' && node.name === 'source' && picture) {
+      picture.srcset ||= node.attributes.some(
+        (a) => a.type === 'SpreadAttribute' || (a.type === 'Attribute' && a.name === 'srcset')
+      );
     }
     if (node.type === 'RegularElement' && node.name === 'img') {
       // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
@@ -430,13 +439,13 @@ function collectImages(fragment: AST.Fragment, source: string, imports: ImportMa
         hasAlt: hasSpread || Boolean(findAttr(attrs, 'alt')),
         // A literal loading="lazy" only — a spread or dynamic loading={…} must not be flagged.
         lazy: attrText(attrs, 'loading') === 'lazy',
-        hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')),
+        hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')) || picture?.srcset === true,
         ...(isSvgImage(attrs, imports) ? { svg: true } : {}),
         line: lineOf(source, node.start)
       });
     }
     for (const key of CHILD_NODE_KEYS) {
-      if (key in node) walk(childOf(node, key));
+      if (key in node) walk(childOf(node, key), picture);
     }
   };
   walk(fragment);

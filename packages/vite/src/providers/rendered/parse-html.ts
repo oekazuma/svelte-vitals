@@ -15,6 +15,15 @@ import {
   IDREF_ATTRS
 } from '@svelte-vitals/core/internal';
 
+/** The <img> is its `<picture>`'s fallback and a sibling `<source>` carries the srcset. */
+function pictureOffersSrcset(img: HTMLElement): boolean {
+  const parent = img.parentNode;
+  return (
+    parent?.rawTagName?.toLowerCase() === 'picture' &&
+    parent.children.some((c) => c.rawTagName.toLowerCase() === 'source' && c.hasAttribute('srcset'))
+  );
+}
+
 function attrValue(v: string | undefined): Value {
   return v !== undefined && v.trim().length > 0 ? 'static' : 'absent';
 }
@@ -234,7 +243,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     hasLoading: img.hasAttribute('loading'),
     hasAlt: img.hasAttribute('alt'),
     lazy: img.getAttribute('loading') === 'lazy',
-    hasSrcset: img.hasAttribute('srcset'),
+    hasSrcset: img.hasAttribute('srcset') || pictureOffersSrcset(img),
     ...(isSvgSrc(img.getAttribute('src') ?? '') ? { svg: true } : {}),
     line: 0
   }));
