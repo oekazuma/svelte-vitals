@@ -36,7 +36,7 @@ export default {
 
 ## Mode differences
 
-**Source analysis** (the CLI, the dashboard's static baseline) measures the literal content you wrote in your source (or a static `description` prop on `svelte-meta-tags`/`svelte-seo`). A description inside an `{#if}`, `{#each}` or `{#await}` block, or in a component placed in one, may not render, so it is not measured. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) measures the shipped content; the build pass covers prerendered routes only. The dashboard's live layer runs on the hook's own options, so a `min`/`max` set in the config file applies to the static baseline only.
+**Source analysis** (the CLI, the dashboard's static baseline) measures the literal content you wrote in your source (or a static `description` prop on `svelte-meta-tags`/`svelte-seo`, or a static `description` in svead's `seo_config`). A description inside an `{#if}`, `{#each}` or `{#await}` block, or in a component placed in one, may not render, so it is not measured. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) measures the shipped content; the build pass covers prerendered routes only. The dashboard's live layer runs on the hook's own options, so a `min`/`max` set in the config file applies to the static baseline only.
 
 ## Disabling
 

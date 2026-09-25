@@ -136,15 +136,15 @@ Ask nothing yet. Read:
 | Read                          | Where                                                                              | What it decides                                                                            |
 | ----------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | SvelteKit shape               | \`svelte.config.js\` (adapter), \`prerender\` / \`ssr\` exports in \`+page\`/\`+layout\`      | the recommended \`treatDynamicAs\`                                                            |
-| dependencies                  | \`package.json\`                                                                     | \`svelte-seo\`, \`svelte-meta-tags\`, local meta components → \`metaComponents\`                  |
+| dependencies                  | \`package.json\`                                                                     | \`svelte-seo\`, \`svelte-meta-tags\`, \`svead\`, local meta components → \`metaComponents\`       |
 | existing svelte-vitals config | \`svelte-vitals.config.{js,ts}\`, \`svelte-vitals-suppressions.json\`                   | what Phase 3 merges into, and what Phase 5 must not overwrite                               |
 | markuplint                    | \`markuplint.config.*\`, \`.markuplintrc*\`, a \`markuplint\` key in \`package.json\`        | the markuplint table below                                                                  |
 | eslint-plugin-check-file      | \`eslint.config.*\` (\`check-file/*\` entries)                                          | the check-file table below                                                                  |
 | naming distribution           | the actual child directory names under \`src/lib\` and \`src/routes\`                   | the tree inference below                                                                    |
 | what is already installed     | \`vite.config.*\`, \`src/hooks.*\`, \`.github/workflows/*\`                               | which targets Phase 5 hands to \`svelte-vitals install\`                                      |
 
-\`svelte-seo\` and \`svelte-meta-tags\` are already understood by the source provider — it ships an
-adapter for each, so they need no \`metaComponents\` entry. \`metaComponents\` is for this project's own
+\`svelte-seo\`, \`svelte-meta-tags\` and \`svead\` are already understood by the source provider — it
+ships an adapter for each, so they need no \`metaComponents\` entry. \`metaComponents\` is for this project's own
 components that emit \`<head>\` metadata: find the local wrapper (\`<Seo>\`, \`<Meta>\`, a
 \`$lib/components/Head.svelte\`) and name it.
 
