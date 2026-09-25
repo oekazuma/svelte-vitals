@@ -27,6 +27,18 @@ case "$lock" in
   *) npm install >>"$log" 2>&1 ;;
 esac || { result install failed $?; exit 0; }
 cd "$app" || exit 1
+# A `link:`/`file:` dependency outside the installed workspace keeps its own dependencies, which
+# the install above never reaches.
+node -e 'const p=require("./package.json");for(const d of Object.values({...p.dependencies,...p.devDependencies}))if(/^(link|file):/.test(d))console.log(d.replace(/^(link|file):/,""))' |
+  while read -r dep; do
+    [ -f "$dep/package.json" ] && [ ! -d "$dep/node_modules" ] || continue
+    echo "installing linked package $dep" >>"$log"
+    (cd "$dep" && case "$lock" in
+      pnpm-lock.yaml) pnpm install --ignore-workspace >>"$log" 2>&1 ;;
+      bun.lock|bun.lockb) bun install >>"$log" 2>&1 ;;
+      *) npm install --no-audit --no-fund >>"$log" 2>&1 ;;
+    esac) || echo "linked package $dep failed to install" >>"$log"
+  done
 cfg=""; for e in ts mts js mjs; do [ -f "vite.config.$e" ] && cfg="vite.config.$e" && break; done
 [ -n "$cfg" ] || { echo "no vite.config" >>"$log"; result wrap failed; exit 0; }
 ext="${cfg##*.}"; mv "$cfg" "vite.config.orig.$ext"

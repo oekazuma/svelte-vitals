@@ -1,6 +1,6 @@
 # v1 holdout 2 — result (2026-09-24)
 
-Measured with `main` at 5414a0d8 on the 14 apps pinned in `scripts/corpus/holdout.json` (chosen in
+Measured with `main` at 5414a0d8 on the 14 apps then pinned in `scripts/corpus/holdout.json`, now in `targets.json` (chosen in
 `2026-09-24-v1-holdout-2-selection.md` before any run), and judged against
 `2026-09-24-v1-release-criteria.md`. Raw first look: `scripts/corpus/holdout-2-2026-09-24.json`;
 verdicts: `scripts/corpus/holdout-2-2026-09-24-verdicts.json` (6,203 findings, every one labelled by
