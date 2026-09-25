@@ -446,7 +446,8 @@ function guardTerminates(consequent: Node): boolean {
 /**
  * Whether a guard-clause test establishes a browser environment: it references the
  * `$app/environment` `browser` binding, or contains a
- * `typeof <tracked-global> === | !== 'undefined'` comparison (correctness/server-browser-global, correctness/instance-browser-global).
+ * `typeof <tracked-global>` comparison against any type string (`'undefined'`, `'function'`, …)
+ * (correctness/server-browser-global, correctness/instance-browser-global).
  * Over-matching here only widens the skip — a conservative miss, never a false positive.
  */
 function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
@@ -466,8 +467,11 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
           s.argument?.type === 'Identifier' &&
           BROWSER_GLOBALS.has(s.argument.name)
       );
-      const hasUndefinedString = sides.some((s: Node) => s?.type === 'Literal' && s.value === 'undefined');
-      if (hasTypeofGlobal && hasUndefinedString) guarded = true;
+      const type = sides.find((s: Node) => s?.type === 'Literal' && typeof s.value === 'string')?.value;
+      // `'undefined'` guards either way (`if (typeof window === 'undefined') return;`); any other type only
+      // when compared equal — `typeof matchMedia !== 'function'` is true on the server.
+      const positive = n.operator === '===' || n.operator === '==';
+      if (hasTypeofGlobal && type !== undefined && (type === 'undefined' || positive)) guarded = true;
     }
   });
   return guarded;

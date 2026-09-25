@@ -250,34 +250,41 @@ function containsReturn(node: Node): boolean {
   return Object.keys(node).some((key) => !WALK_IGNORED_KEYS.has(key) && containsReturn(node[key]));
 }
 
+type Frame = { seen: Set<Node>; observed: boolean };
+
 /**
  * Whether the exported `load` redirects on every call: every path through its body reaches a
  * `redirect(…)` / `throw redirect(…)` before any `return` — through both arms of an `if`/`else`,
- * and through a `try` whose `catch` redirects or rethrows. A redirect under an `if` without an
- * `else`, in a loop, or in a helper function does not count.
+ * through a `try` whose `catch` redirects or rethrows, and through a call to a top-level function
+ * of the same file that itself always redirects. A redirect under an `if` without an `else`, in a
+ * loop, or in a function declared inside `load` does not count.
  */
 function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
   const load = locals.size > 0 ? findLoadFunction(program) : undefined;
   if (!load?.body) return false;
-  // A parameter or a declaration in the body named like the import is a different function.
-  const shadowed = new Set<string>();
-  for (const p of load.params ?? []) addBoundNames(p, shadowed);
-  for (const stmt of load.body.type === 'BlockStatement' ? (load.body.body ?? []) : []) {
-    const decl = unwrapExport(stmt);
-    if (decl?.type === 'VariableDeclaration') for (const d of decl.declarations ?? []) addBoundNames(d?.id, shadowed);
-    else if ((decl?.type === 'FunctionDeclaration' || decl?.type === 'ClassDeclaration') && decl.id)
-      addBoundNames(decl.id, shadowed);
-  }
-  const isRedirect = (expr: Node, shadow: Set<string>): boolean => {
-    const e = unwrapTs(expr);
-    return (
-      e?.type === 'CallExpression' &&
-      e.callee?.type === 'Identifier' &&
-      locals.has(e.callee.name) &&
-      !shadow.has(e.callee.name)
-    );
+  const topLevel = collectTopLevelBindings(program);
+  // A parameter or a declaration in the body named like the import is a different function. A helper
+  // sees only its own scope, never its caller's; `seen` stops mutually recursive helpers. `observed`
+  // says whether the caller awaits or returns what this function returns: an async helper's redirect
+  // is a rejected promise, and one nobody awaits leaves `load` running on to render.
+  const fnRedirects = (fn: Node, seen: Set<Node>, observed: boolean): boolean => {
+    const shadow = new Set<string>();
+    for (const p of fn.params ?? []) addBoundNames(p, shadow);
+    const frame: Frame = { seen: new Set([...seen, fn]), observed };
+    return fn.body?.type === 'BlockStatement'
+      ? always(fn.body.body, shadow, undefined, frame)
+      : isRedirect(fn.body, shadow, frame, observed);
   };
-  if (load.body.type !== 'BlockStatement') return isRedirect(load.body, shadowed);
+  const isRedirect = (expr: Node, shadow: Set<string>, frame: Frame, returned = false): boolean => {
+    let e: Node = unwrapTs(expr);
+    const awaited = e?.type === 'AwaitExpression';
+    if (awaited) e = unwrapTs(e.argument);
+    if (e?.type !== 'CallExpression' || e.callee?.type !== 'Identifier' || shadow.has(e.callee.name)) return false;
+    if (locals.has(e.callee.name)) return true;
+    const fn = topLevel.get(e.callee.name);
+    if (!isFunctionNode(fn) || fn.generator || frame.seen.has(fn) || (fn.async && !awaited && !returned)) return false;
+    return fnRedirects(fn, frame.seen, awaited || returned);
+  };
   // A block's own declarations shadow the import for that block, as the load body's do for all of it.
   const within = (body: Node[] | undefined, outer: Set<string>, param?: Node): Set<string> => {
     const own = new Set<string>();
@@ -290,38 +297,40 @@ function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
     return own.size === 0 ? outer : new Set([...outer, ...own]);
   };
   // `rethrow` is the enclosing catch parameter: rethrowing it passes on the redirect its try block threw.
-  const redirects = (stmt: Node, shadow: Set<string>, rethrow?: string): boolean => {
-    if (stmt?.type === 'ExpressionStatement') return isRedirect(stmt.expression, shadow);
+  const redirects = (stmt: Node, shadow: Set<string>, rethrow: string | undefined, frame: Frame): boolean => {
+    if (stmt?.type === 'ExpressionStatement') return isRedirect(stmt.expression, shadow, frame);
     // Kit 2's redirect() throws, so `return redirect(…)` never returns either.
     if (stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') {
-      if (isRedirect(stmt.argument, shadow)) return true;
+      if (isRedirect(stmt.argument, shadow, frame, stmt.type === 'ReturnStatement' && frame.observed)) return true;
       return stmt.type === 'ThrowStatement' && stmt.argument?.type === 'Identifier' && stmt.argument.name === rethrow;
     }
-    if (stmt?.type === 'BlockStatement') return always(stmt.body, shadow, rethrow);
+    if (stmt?.type === 'BlockStatement') return always(stmt.body, shadow, rethrow, frame);
     if (stmt?.type === 'IfStatement') {
       return (
-        !!stmt.alternate && redirects(stmt.consequent, shadow, rethrow) && redirects(stmt.alternate, shadow, rethrow)
+        !!stmt.alternate &&
+        redirects(stmt.consequent, shadow, rethrow, frame) &&
+        redirects(stmt.alternate, shadow, rethrow, frame)
       );
     }
     if (stmt?.type === 'TryStatement') {
       const param = stmt.handler?.param?.type === 'Identifier' ? stmt.handler.param.name : undefined;
       return (
-        always(stmt.block?.body, shadow) &&
-        (!stmt.handler || always(stmt.handler.body?.body, within([], shadow, stmt.handler.param), param)) &&
+        always(stmt.block?.body, shadow, undefined, frame) &&
+        (!stmt.handler || always(stmt.handler.body?.body, within([], shadow, stmt.handler.param), param, frame)) &&
         !containsReturn(stmt.finalizer)
       );
     }
     return false;
   };
-  const always = (body: Node[] | undefined, outer: Set<string>, rethrow?: string): boolean => {
+  const always = (body: Node[] | undefined, outer: Set<string>, rethrow: string | undefined, frame: Frame): boolean => {
     const shadow = within(body, outer);
     for (const stmt of body ?? []) {
-      if (redirects(stmt, shadow, rethrow)) return true;
+      if (redirects(stmt, shadow, rethrow, frame)) return true;
       if (containsReturn(stmt)) return false;
     }
     return false;
   };
-  return always(load.body.body, shadowed);
+  return fnRedirects(load, new Set(), true);
 }
 
 /**
@@ -678,7 +687,7 @@ export function resolveRepoLocalPath(
     // same failure in different clothing: it doesn't start with `/`, but it is just as absolute
     // and just as outside the project.
     if (entry.replacement.startsWith('/') || /^[A-Za-z]:\//.test(entry.replacement)) return undefined;
-    path = entry.replacement + spec.slice(entry.find.length);
+    path = entry.replacement + spec.slice(entry.find.length) + (entry.suffix ?? '');
   }
   const normalized = normalizePosix(path);
   if (!escapesRoot(normalized)) return normalized;
@@ -769,16 +778,26 @@ function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: rea
 /** Container constructors whose instances hold data in process memory. */
 const IN_MEMORY_CTORS = new Set(['Map', 'Set', 'WeakMap', 'WeakSet']);
 
-/** Whether an initializer positively identifies an in-memory container. */
+/**
+ * Whether an initializer positively identifies an in-memory container. An object literal with a
+ * spread is a composite of values this parse cannot see — typically a facade over clients and
+ * imported modules (`{ ...prismaModels, ...handlers }`) — so it counts only when one of its own
+ * properties is itself a container.
+ */
 function isInMemoryInit(init: Node | undefined): boolean {
   if (!init) return false;
-  if (init.type === 'ObjectExpression' || init.type === 'ArrayExpression') return true;
+  if (init.type === 'ArrayExpression') return true;
+  if (init.type === 'ObjectExpression') {
+    const props: Node[] = init.properties ?? [];
+    if (!props.some((p) => p?.type === 'SpreadElement')) return true;
+    return props.some((p) => p?.type === 'Property' && isInMemoryInit(p.value));
+  }
   return init.type === 'NewExpression' && init.callee?.type === 'Identifier' && IN_MEMORY_CTORS.has(init.callee.name);
 }
 
 /**
  * The exported bindings of a module that are initialized to an in-memory container — an object
- * or array literal, or `new Map`/`Set`/`WeakMap`/`WeakSet`. Used to arbitrate a `.set()` call on
+ * or array literal (a spread literal only as `isInMemoryInit` allows), or `new Map`/`Set`/`WeakMap`/`WeakSet`. Used to arbitrate a `.set()` call on
  * an import from under the `$lib` server root, where the call shape alone cannot separate a
  * hand-rolled store from a database client.
  *

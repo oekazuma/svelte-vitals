@@ -528,6 +528,78 @@ describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', (
       always("export function load({ url }) {\n  if (url.search) return {};\n  else redirect(301, '/');\n}")
     ).toBeUndefined();
   });
+  it('is set when load calls a same-file function that always redirects', () => {
+    const run = [
+      'async function run(code) {',
+      "  if (!code) throw new Error('code');",
+      '  const r = await exchange(code);',
+      "  redirect(302, r.next ?? '/');",
+      '}'
+    ].join('\n');
+    expect(
+      always(
+        [
+          run,
+          'export const load = async ({ url }) => {',
+          "  if (!url.search) redirect(302, '/login');",
+          '  try {',
+          '    await run(url.searchParams.get("code"));',
+          '  } catch (e) {',
+          '    if (isRedirect(e)) throw e;',
+          "    redirect(302, '/login');",
+          '  }',
+          '};'
+        ].join('\n'),
+        'src/routes/old/+page.server.ts'
+      )
+    ).toBe(true);
+    expect(always("function go() {\n  redirect(301, '/');\n}\nexport function load() {\n  go();\n}")).toBe(true);
+    expect(
+      always("const go = async () => {\n  redirect(301, '/');\n};\nexport async function load() {\n  await go();\n}")
+    ).toBe(true);
+    expect(always("const go = () => redirect(301, '/');\nexport const load = () => go();")).toBe(true);
+    expect(always("async function go() {\n  redirect(301, '/');\n}\nexport function load() {\n  return go();\n}")).toBe(
+      true
+    );
+    expect(
+      always(
+        "async function run() {\n  redirect(301, '/');\n}\nconst go = () => run();\nexport async function load() {\n  await go();\n}"
+      )
+    ).toBe(true);
+  });
+  it('is absent when the called function can return, is async and not awaited, or is not the module one', () => {
+    expect(
+      always("async function go() {\n  redirect(301, '/');\n}\nexport async function load() {\n  go();\n}")
+    ).toBeUndefined();
+    expect(
+      always(
+        "function go(x) {\n  if (x) return;\n  redirect(301, '/');\n}\nexport function load({ url }) {\n  go(url.search);\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      always("function go() {\n  redirect(301, '/');\n}\nexport function load({ go }) {\n  go();\n}")
+    ).toBeUndefined();
+    expect(
+      always("function go() {\n  redirect(301, '/');\n}\nexport function load() {\n  const go = log;\n  go();\n}")
+    ).toBeUndefined();
+    expect(
+      always("function go(redirect) {\n  redirect(301, '/');\n}\nexport function load() {\n  go(log);\n}")
+    ).toBeUndefined();
+    expect(
+      always(
+        "async function run() {\n  redirect(301, '/');\n}\nconst go = () => run();\nexport function load() {\n  go();\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      always(
+        "async function run() {\n  redirect(301, '/');\n}\nfunction go() {\n  return run();\n}\nexport function load() {\n  go();\n}"
+      )
+    ).toBeUndefined();
+    expect(always("function* go() {\n  redirect(301, '/');\n}\nexport function load() {\n  go();\n}")).toBeUndefined();
+    expect(
+      always('function a() {\n  b();\n}\nfunction b() {\n  a();\n}\nexport function load() {\n  a();\n}')
+    ).toBeUndefined();
+  });
   it('is absent when load shadows the imported redirect with its own binding', () => {
     expect(
       always('export function load() {\n  function redirect() {}\n  redirect();\n  return { ok: true };\n}')

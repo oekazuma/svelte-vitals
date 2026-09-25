@@ -21,7 +21,7 @@ Three things, judged against the ARIA 1.3 tables in component source.
 <div aria-grabbed="true">…</div>
 ```
 
-Not flagged: an attribute `a11y/unknown-aria-attribute` already reports. The per-role arm makes no judgment on a DPUB-ARIA role, an expression role, or a spread with no literal role, since the role is unknown there, while the deprecated role and the two global attributes are reported regardless.
+Not flagged: an attribute `a11y/unknown-aria-attribute` already reports. The per-role arm makes no judgment on a DPUB-ARIA role, an expression role, or a spread or `use:` action with no literal role, since the role is unknown there, while the deprecated role and the two global attributes are reported regardless.
 
 **Overlap with the Svelte compiler.** For explicit roles the compiler reports the per-role case as _not supported_ (`a11y_role_supports_aria_props`), at warning, because its ARIA data dropped the deprecated attributes rather than flagging them. The verdict is the same; the label and severity differ. On a bare `<div>`/`<span>`, the common real case with `aria-disabled`, the compiler is silent. It is also silent on `role="directory"` and on the two global attributes.
 

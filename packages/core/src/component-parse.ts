@@ -75,8 +75,8 @@ type Node = any;
 
 /**
  * Whether `expr` is a length-only list constructor: `Array(n)` / `new Array(n)` (single argument =
- * length semantics) or `Array.from({ length: n }, …)`, optionally followed by `.fill(x)` (every
- * item the same value) or `.keys()` (the indices themselves).
+ * length semantics), `Array.from({ length: n }, …)`, or `Array.from(<any of these>, …)`, optionally
+ * followed by `.fill(x)` (every item the same value) or `.keys()` (the indices themselves).
  */
 function isLengthOnlyArrayCall(expr: TsExpression): boolean {
   const e = unwrapTs(expr);
@@ -109,10 +109,11 @@ function isLengthOnlyArrayCall(expr: TsExpression): boolean {
     e.callee.object?.type === 'Identifier' &&
     e.callee.object.name === 'Array' &&
     e.callee.property.type === 'Identifier' &&
-    e.callee.property.name === 'from' &&
-    e.arguments?.[0]?.type === 'ObjectExpression'
+    e.callee.property.name === 'from'
   ) {
-    return (e.arguments[0].properties ?? []).some(isLengthProperty);
+    const source = e.arguments?.[0];
+    if (source?.type === 'ObjectExpression') return (source.properties ?? []).some(isLengthProperty);
+    return source !== undefined && source.type !== 'SpreadElement' && isLengthOnlyArrayCall(source);
   }
   return false;
 }
@@ -1083,6 +1084,31 @@ function collectNewExprLocalNames(program: Node, acc: Set<string>): void {
 }
 
 /**
+ * Top-level locals declared as a plain alias of an imported binding or a `new …()` local
+ * (`const p = presenter`, `const p = presenter as Presenter`), to a fixed point so alias chains resolve in any order
+ * (correctness/effect-as-onmount). Top level only: names match by text, not scope, so a
+ * function-local `const id = presenter` would otherwise mark every `id` in the component reactive.
+ * Runs before rune names are added: an alias of a `$state` primitive is a non-reactive snapshot.
+ */
+function collectAliasLocalNames(program: Node, acc: Set<string>): void {
+  const declarators = (program?.body ?? []).flatMap((stmt: Node) => {
+    const decl = unwrapExport(stmt);
+    return decl?.type === 'VariableDeclaration' ? decl.declarations : [];
+  });
+  for (let grew = true; grew;) {
+    grew = false;
+    for (const d of declarators) {
+      if (d.id?.type !== 'Identifier' || !d.init || acc.has(d.id.name)) continue;
+      const init = unwrapTs(d.init);
+      if (init.type === 'Identifier' && acc.has(init.name)) {
+        acc.add(d.id.name);
+        grew = true;
+      }
+    }
+  }
+}
+
+/**
  * Whether an $effect callback body reads a reactive value (correctness/effect-as-onmount, conservative):
  * a reactive name (rune declarator, imported binding, or a local declared with a `new …()`
  * initializer — see `collectImportedLocalNames`/`collectNewExprLocalNames`), a `$`-prefixed
@@ -1329,10 +1355,12 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
       const hasList = tag === 'input' && findAttr(node.attributes, 'list') !== undefined;
       const selectKind = tag === 'select' ? selectNativeRole(node.attributes) : undefined;
       const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
+      const hasAction = node.attributes.some((a: Node) => a?.type === 'UseDirective');
       acc.push({
         tag,
         line: lineOf(source, node.start),
         ...(roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {}),
+        ...(hasAction ? { hasAction: true as const } : {}),
         ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
         ...(hasList ? { hasList: true as const } : {}),
         ...(selectKind ? { selectKind } : {}),
@@ -2869,7 +2897,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     if (moduleProgram) {
       collectImportedLocalNames(moduleProgram, reactiveNames);
       collectNewExprLocalNames(moduleProgram, reactiveNames);
+      collectAliasLocalNames(moduleProgram, reactiveNames);
     }
+    collectAliasLocalNames(program, reactiveNames);
     const stateDecls: { name: string; line: number }[] = [];
     walkEstree(program, (n) => {
       if (n.type !== 'VariableDeclarator' || !n.init) return;

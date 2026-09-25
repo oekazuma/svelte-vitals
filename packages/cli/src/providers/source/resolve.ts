@@ -9,7 +9,7 @@ import {
 import type { ParsedFile, ParsedTag, PropArgs } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { addImportsFromProgram, importOf, type ImportMap } from './imports.js';
-import { argsOf, parseFile, tagsInHead } from './parse.js';
+import { argsOf, HOLE, parseFile, tagsInHead } from './parse.js';
 
 /** Props a heading component conventionally takes its element from (`<Heading tag="h1">`, `as`, `element`, `is`). */
 const HEADING_TAG_PROPS = new Set(['tag', 'as', 'element', 'is']);
@@ -17,6 +17,10 @@ const HEADING_TAG_PROPS = new Set(['tag', 'as', 'element', 'is']);
 interface ResolveResult {
   tags: ParsedTag[];
   broad: boolean;
+  /** `fileRel`'s own headings, content it passes to a resolved component placed where that component renders it. */
+  ownHeadings: HeadingInfo[];
+  /** `parsed.renderPaths`, placed the same way. */
+  renderPaths: ReadonlyMap<string, BranchStep[]>;
   /**
    * Headings belonging to STRICT descendants reached via layer 3 — never `fileRel`'s
    * own headings (routes.ts already collects those from the chain file directly;
@@ -314,7 +318,10 @@ export async function resolveFileTags(
   inHead?: PropArgs
 ): Promise<ResolveResult> {
   const tags: ParsedTag[] = [...parsed.headTags, ...(inHead ? tagsInHead(parsed, inHead) : [])];
-  const headings: HeadingInfo[] = [];
+  const nested: { headings: HeadingInfo[]; at: BranchStep[]; base: number }[] = [];
+  // HOLE id → where the component it was passed to renders it, in this file's group space.
+  const holes = new Map<number, BranchStep[]>();
+  const place = (path: BranchStep[]) => path.flatMap((s) => (s.branch === HOLE ? (holes.get(s.group) ?? []) : [s]));
   let groupSpan = parsed.headingGroups;
   let dynamicHeading = false;
   let clientOnlyHeading = false;
@@ -362,7 +369,7 @@ export async function resolveFileTags(
           ? [...child.tags, ...(child.broad ? BROAD_KINDS : [])].map((t) => ({ ...t, clientOnly: true as const }))
           : child.tags;
         broad = broad || (child.broad && !clientOnly);
-        const childHeadings = [...childParsed.headings.map((h) => ({ ...h, file: childRel })), ...child.headings];
+        const childHeadings = [...child.ownHeadings, ...child.headings];
         const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
         clientOnlyHeading = clientOnlyHeading || child.clientOnlyHeading;
         // A component in an `{#if}` arm competes for headings through its arm path, and its head tags
@@ -371,7 +378,11 @@ export async function resolveFileTags(
         else for (const tag of childTags.map(maybeTag)) maybe.set(JSON.stringify(tag), tag);
         if (!exclusive) {
           // Each instance gets its own group range, so two instances' arms never fold as one block.
-          headings.push(...childHeadings.map((h) => nestHeading(h, use.path, groupSpan)));
+          nested.push({ headings: childHeadings, at: use.path, base: groupSpan });
+          for (const [name, id] of use.holes ?? []) {
+            const rendered = child.renderPaths.get(name);
+            if (rendered) holes.set(id, offsetPath(rendered, groupSpan));
+          }
           groupSpan += child.groupSpan;
           dynamicHeading = dynamicHeading || childDynamic;
           continue;
@@ -409,5 +420,19 @@ export async function resolveFileTags(
     // Unresolved & undeclared components contribute nothing (strict).
   }
 
-  return { tags, broad, headings, groupSpan, dynamicHeading, clientOnlyHeading };
+  // Placed after the loop: a use can sit in the hole of a component that comes after it in `components`.
+  const placeHeading = <T extends { path?: BranchStep[] }>({ path, ...rest }: T) => {
+    const placed = place(path ?? []);
+    return placed.length > 0 ? { ...rest, path: placed } : rest;
+  };
+  return {
+    tags,
+    broad,
+    ownHeadings: parsed.headings.map((h) => placeHeading({ ...h, file: fileRel })),
+    renderPaths: new Map([...parsed.renderPaths].map(([name, path]) => [name, place(path)])),
+    headings: nested.flatMap(({ headings, at, base }) => headings.map((h) => nestHeading(h, place(at), base))),
+    groupSpan,
+    dynamicHeading,
+    clientOnlyHeading
+  };
 }

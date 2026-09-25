@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseHeadTags, parseFile } from '../src/providers/source/parse.js';
+import { HOLE, parseHeadTags, parseFile } from '../src/providers/source/parse.js';
 
 const head = (inner: string) => `<svelte:head>${inner}</svelte:head>`;
 
@@ -169,14 +169,52 @@ describe('parse: heading arms beyond {#if}/{#await}', () => {
     expect(parsed.headingGroups).toBe(2);
   });
   it('records where the layout renders its children, as the common prefix of each place', () => {
-    expect(parseFile('<slot />', 'x.svelte').childrenPath).toEqual([]);
-    expect(parseFile('<slot name="aside" />', 'x.svelte').childrenPath).toBeUndefined();
-    expect(parseFile('{#if a}{@render children?.()}{:else}<h1>E</h1>{/if}', 'x.svelte').childrenPath).toEqual([
-      { group: 0, branch: 0 }
+    const children = (src: string) => parseFile(src, 'x.svelte').renderPaths.get('children');
+    expect(children('<slot />')).toEqual([]);
+    expect(children('<slot name="aside" />')).toBeUndefined();
+    expect(children('{#if a}{@render children?.()}{:else}<h1>E</h1>{/if}')).toEqual([{ group: 0, branch: 0 }]);
+    expect(children('{#if a}{#if b}{@render children()}{/if}{:else}{@render children()}{/if}')).toEqual([]);
+  });
+  it('records where each snippet prop renders, under its prop name', () => {
+    const src =
+      '<script>let { children: kids, fallback } = $props();</script>' +
+      '{#if ok}{@render kids()}{:else if fallback}{@render fallback()}{/if}';
+    expect([...parseFile(src, 'x.svelte').renderPaths]).toEqual([
+      ['children', [{ group: 0, branch: 0 }]],
+      ['fallback', [{ group: 0, branch: 1 }]]
     ]);
-    expect(
-      parseFile('{#if a}{#if b}{@render children()}{/if}{:else}{@render children()}{/if}', 'x.svelte').childrenPath
-    ).toEqual([]);
+  });
+  it('reads a snippet this file renders at each {@render} of it, not where it is defined', () => {
+    const src =
+      '{#if a}{@render hero()}{:else if b}{@render wrapped()}{:else}<h1>Own</h1>{/if}' +
+      '{#snippet wrapped()}<div>{@render hero()}</div>{/snippet}' +
+      '{#snippet hero()}<h1>Hero</h1>{/snippet}';
+    const headings = parseFile(src, 'x.svelte').headings.map((h) => [h.line, h.path]);
+    expect(headings).toEqual([
+      [1, [{ group: 0, branch: 0 }]],
+      [1, [{ group: 0, branch: 1 }]],
+      [1, [{ group: 0, branch: 2 }]]
+    ]);
+  });
+  it('still reads a snippet that is never rendered, or only from inside itself, once', () => {
+    const src = '{#snippet a()}<h1>A</h1>{/snippet}{#snippet b()}<h2>B</h2>{@render b()}{/snippet}';
+    expect(parseFile(src, 'x.svelte').headings.map((h) => h.level)).toEqual([1, 2]);
+  });
+  it('marks content passed to a component with the hole of the snippet prop it is passed in', () => {
+    const parsed = parseFile(
+      '{#if a}<Guard><h1>Page</h1>{#snippet fallback()}<h1>Off</h1><Inner />{/snippet}</Guard>{/if}',
+      'x.svelte'
+    );
+    const guard = parsed.components.find((c) => c.name === 'Guard')!;
+    const hole = (name: string) => ({ group: guard.holes!.get(name)!, branch: HOLE });
+    expect(parsed.headings.map((h) => h.path)).toEqual([
+      [{ group: 0, branch: 0 }, hole('children')],
+      [{ group: 0, branch: 0 }, hole('fallback')]
+    ]);
+    expect(parsed.components.find((c) => c.name === 'Inner')!.path).toEqual([
+      { group: 0, branch: 0 },
+      hole('fallback')
+    ]);
   });
 });
 

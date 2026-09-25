@@ -81,10 +81,11 @@ function inDir(dir: string, rel: string): string {
 
 /**
  * One package's entries, as Node resolves a bare specifier against its `exports`: a key without
- * `*` matches exactly, a `./x/*` key matches the directory's contents; exact keys come first, then
+ * `*` matches exactly, a `./x/*` key matches the directory's contents (its target may add a suffix
+ * after `*`: `./src/*.js`); exact keys come first, then
  * patterns by longest prefix. The condition walk is `importTarget`'s, in declaration order over
  * `svelte`/`import`/`module`/`default`. A target this cannot follow — an environment condition,
- * a `null` exclusion, a `*` mid-pattern, a path leaving the package — stays as an opaque entry so
+ * a `null` exclusion, a `*` mid-pattern or mid-segment, a path leaving the package — stays as an opaque entry so
  * a shorter pattern cannot answer in its place. Without `exports`, the package's file layout is
  * read directly.
  */
@@ -112,11 +113,16 @@ function entriesOf({ name, dir, manifest }: WorkspacePackage): KitAlias[] {
     }
     const head = key.slice(1, star);
     const trailing = star === key.length - 1 && head.endsWith('/');
-    const replacement =
-      trailing && local?.endsWith('/*') && local.indexOf('*') === local.length - 1
-        ? inDir(dir, local.slice(0, -2))
-        : null;
-    out.push({ find: name + head.slice(0, head.lastIndexOf('/')), replacement, match: 'contents', root: dir });
+    const at = local?.indexOf('*') ?? -1;
+    const follows = trailing && at > 0 && local![at - 1] === '/' && !local!.includes('*', at + 1);
+    const suffix = follows ? local!.slice(at + 1) : '';
+    out.push({
+      find: name + head.slice(0, head.lastIndexOf('/')),
+      replacement: follows ? inDir(dir, local!.slice(0, at - 1)) : null,
+      match: 'contents',
+      root: dir,
+      ...(suffix ? { suffix } : {})
+    });
   }
   return out.sort((a, b) =>
     a.match === b.match ? (a.match === 'exact' ? 0 : b.find.length - a.find.length) : a.match === 'exact' ? -1 : 1

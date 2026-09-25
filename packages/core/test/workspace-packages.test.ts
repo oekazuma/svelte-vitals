@@ -104,10 +104,15 @@ describe('withWorkspacePackages', () => {
   });
 
   it('keeps an unfollowable pattern as a blocking entry rather than letting a shorter one answer', () => {
-    const manifest = { exports: { './*': './src/*', './icons/*': './src/icons/*.svelte', './internal/*': null } };
+    const manifest = { exports: { './*': './src/*', './icons/*': './src/icons/x-*.svelte', './internal/*': null } };
     expect(resolve('@repo/ui/button.svelte', manifest)).toBe('../../packages/ui/src/button.svelte');
     expect(resolve('@repo/ui/icons/x', manifest)).toBeUndefined();
     expect(resolve('@repo/ui/internal/x', manifest)).toBeUndefined();
+  });
+
+  it("appends the text after a pattern target's `*` to the matched subpath", () => {
+    const manifest = { exports: { './*': { types: './src/lib/*.d.ts', default: './src/lib/*.js' } } };
+    expect(resolve('@repo/ui/client/ui', manifest)).toBe('../../packages/ui/src/lib/client/ui.js');
   });
 
   it('refuses an exports target that leaves the package directory', () => {

@@ -21,10 +21,19 @@ export type ViteKitConfigResult =
   /** `sveltekit({…})` resolved. `base` is unset when the config declares no non-empty base. */
   | { kind: 'resolved'; base?: { value?: string } };
 
+/** Whether every branch of a `?:` / `||` / `&&` / `??` tree is the literal `''`. */
+function alwaysEmptyString(expr: Expression): boolean {
+  const e = unwrapTs(expr);
+  if (e.type === 'Literal') return e.value === '';
+  if (e.type === 'ConditionalExpression') return alwaysEmptyString(e.consequent) && alwaysEmptyString(e.alternate);
+  if (e.type === 'LogicalExpression') return alwaysEmptyString(e.left) && alwaysEmptyString(e.right);
+  return false;
+}
+
 /**
  * `paths.base` off a resolved Kit-config object: `{ value }` for a non-empty string literal,
  * `{}` for any other expression (base exists, value unknowable — the `dev ? '' : '/repo'`
- * deploy form), and undefined when absent or an explicit empty string.
+ * deploy form), and undefined when absent or when every value it can take is the empty string.
  */
 function basePathOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpression>): { value?: string } | undefined {
   const paths = propOf(kitConfig, 'paths');
@@ -36,7 +45,7 @@ function basePathOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpress
   if (value.type === 'Literal') {
     return typeof value.value === 'string' && value.value !== '' ? { value: value.value } : undefined;
   }
-  return {};
+  return alwaysEmptyString(value) ? undefined : {};
 }
 
 /** `kit.alias` and `kit.files.lib` as written, before Kit compiles them into ordered entries. */

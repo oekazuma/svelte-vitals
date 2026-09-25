@@ -20,7 +20,7 @@ universal な `+page.ts`/`+layout.ts` の load も対象です。SSR 時はサ�
 
 `src/lib/server` の除外は解決後のパスに対して働くので、`$lib/server/` alias 経由でも相対パス（`../../lib/server/db`）経由でも同じように適用されます。`..` でプロジェクトルートの外へ抜ける specifier は、保守的にリポジトリ内の共有状態としては扱いません。
 
-ただし除外の条件はディレクトリだけではありません。svelte-vitals は対象モジュールを読み、export がインメモリコンテナで**ない**場合にのみ除外します。`new Map`/`Set`/`WeakMap`/`WeakSet`、あるいはオブジェクト・配列リテラルで初期化された export は自作ストア（リクエストごとに上書きされる単一の共有インスタンス）なので、`src/lib/server` 配下でも検出します。
+ただし除外の条件はディレクトリだけではありません。svelte-vitals は対象モジュールを読み、export がインメモリコンテナで**ない**場合にのみ除外します。`new Map`/`Set`/`WeakMap`/`WeakSet`、あるいはオブジェクト・配列リテラルで初期化された export は自作ストア（リクエストごとに上書きされる単一の共有インスタンス）なので、`src/lib/server` 配下でも検出します。ただし spread で組み立てたオブジェクトリテラル（`{ ...models, ...handlers }`）は例外です。たいていはデータベースクライアントや import したモジュールをまとめたファサードなので、自身のプロパティのどれかがコンテナである場合（`{ ...defaults, hits: new Map() }`）に限りストアとみなします。
 
 ```ts src/lib/server/store.ts
 export const db = new Map(); // handler から db.set(...) すると検出

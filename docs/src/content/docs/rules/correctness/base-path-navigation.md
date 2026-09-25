@@ -22,7 +22,7 @@ Under `base: '/docs'` these target `/about`, `/dashboard`, and `/login` on the d
 
 The base path is read the way SvelteKit reads it: from `sveltekit({ paths: { base } })` in your Vite config when present (which makes `svelte.config` irrelevant, as SvelteKit itself warns), otherwise from `kit.paths.base` in `svelte.config.js`/`.ts`.
 
-A computed base, such as the common `base: dev ? '' : '/repo'` deploy form, still opens the gate, since the app is served under a base in at least one environment. No base, or an explicit `base: ''`, keeps the rule silent.
+A computed base, such as the common `base: dev ? '' : '/repo'` deploy form, still opens the gate, since the app is served under a base in at least one environment. No base, an explicit `base: ''`, or a computed base whose every branch is the literal `''` (`dev ? '' : ''`) keeps the rule silent.
 
 A literal that already starts with a literal base, such as `href="/docs/about"` under `base: '/docs'`, points inside the app and is not reported. It still breaks if the base ever changes, so `resolve()` remains the portable form. Under a computed base the prefix cannot be checked, so every root-relative literal is reported.
 

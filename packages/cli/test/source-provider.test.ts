@@ -392,6 +392,65 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     );
   });
 
+  const boundary = `<script>import Error from './Error.svelte'; let { children } = $props();</script>
+<svelte:boundary>{@render children?.()}{#snippet failed(e)}<Error />{/snippet}</svelte:boundary>`;
+  const wrapped = {
+    'src/lib/ErrorBoundary.svelte': boundary,
+    'src/lib/Error.svelte': `<h1>Something went wrong</h1>`,
+    'src/routes/+page.svelte': `<h1>Page</h1>`
+  };
+
+  it("places a page passed to a component's <svelte:boundary> in the boundary's children arm", async () => {
+    const layout = `<script>import ErrorBoundary from '$lib/ErrorBoundary.svelte'; let { children } = $props();</script>
+<ErrorBoundary>{@render children()}</ErrorBoundary>`;
+    expect(await singleH1({ ...wrapped, 'src/routes/+layout.svelte': layout })).toEqual(['Heading hierarchy']);
+  });
+
+  it('follows the hole through a snippet the layout passes to another component', async () => {
+    const layout = `<script>import Shell from '$lib/Shell.svelte'; import ErrorBoundary from '$lib/ErrorBoundary.svelte'; let { children } = $props();</script>
+<Shell>{#snippet main()}<ErrorBoundary>{@render children()}</ErrorBoundary>{/snippet}</Shell>`;
+    const shell = `<script>let { main } = $props();</script><div>{@render main()}</div>`;
+    expect(await singleH1({ ...wrapped, 'src/routes/+layout.svelte': layout, 'src/lib/Shell.svelte': shell })).toEqual([
+      'Heading hierarchy'
+    ]);
+  });
+
+  it('keeps a snippet prop in the arm the component renders it in, apart from its children', async () => {
+    const layout = `<script>import Guard from '$lib/Guard.svelte'; import Off from '$lib/Off.svelte'; let { children } = $props();</script>
+<Guard>{@render children()}{#snippet fallback()}<Off />{/snippet}</Guard>`;
+    const guard = `<script>let { children, fallback } = $props();</script>{#if ok}{@render children()}{:else if fallback}{@render fallback()}{/if}`;
+    const files = {
+      'src/routes/+layout.svelte': layout,
+      'src/lib/Guard.svelte': guard,
+      'src/lib/Off.svelte': `<h1>Disabled</h1>`,
+      'src/routes/+page.svelte': `<h1>Page</h1>`
+    };
+    expect(await singleH1(files)).toEqual(['Heading hierarchy']);
+  });
+
+  it('still adds up content passed to a component that renders it beside its own <h1>', async () => {
+    const layout = `<script>import Card from '$lib/Card.svelte'; let { children } = $props();</script><Card>{@render children()}</Card>`;
+    const card = `<script>let { children } = $props();</script><h1>Card</h1>{@render children()}`;
+    const files = {
+      'src/routes/+layout.svelte': layout,
+      'src/lib/Card.svelte': card,
+      'src/routes/+page.svelte': `<h1>Page</h1>`
+    };
+    expect(await singleH1(files)).toEqual(['Multiple <h1> (2); a single <h1> is the conventional signal']);
+  });
+
+  it('adds up content passed to a component it cannot follow, as before', async () => {
+    const layout = `<script>import Boundary from 'some-package'; import Error from '$lib/Error.svelte'; let { children } = $props();</script>
+<Boundary>{@render children()}</Boundary><Error />`;
+    const files = { ...wrapped, 'src/routes/+layout.svelte': layout };
+    expect(await singleH1(files)).toEqual(['Multiple <h1> (2); a single <h1> is the conventional signal']);
+  });
+
+  it("counts a snippet's <h1> in each {#if} arm that renders it, not where it is defined", async () => {
+    const page = `{#if a}{@render hero()}{:else if b}<h1>Other</h1>{:else}{@render hero()}{/if}{#snippet hero()}<h1>Hero</h1>{/snippet}`;
+    expect(await singleH1({ 'src/routes/+page.svelte': page })).toEqual(['Heading hierarchy']);
+  });
+
   it('places the page inside the layout arm that renders {@render children()}', async () => {
     const layout = `{#if user}{@render children()}{:else}<h1>Sign in</h1>{/if}`;
     const files = { 'src/routes/+layout.svelte': layout, 'src/routes/+page.svelte': `<h3>Card</h3>` };

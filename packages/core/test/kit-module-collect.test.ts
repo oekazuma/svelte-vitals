@@ -80,6 +80,26 @@ describe('collectKitModuleFacts — $lib/server store arbitration', () => {
     ).toHaveLength(1);
   });
 
+  it('leaves an object literal composed from spreads exempt', async () => {
+    const facade =
+      "import * as stores from './Stores';\nimport prisma from './prisma';\nconst models = { user: prisma.user };\nexport const DatabaseWrites = { ...models, ...{ stores } };";
+    expect(
+      await writes({
+        'src/lib/server/database/index.ts': facade,
+        'src/routes/+page.server.ts': handler('$lib/server/database', 'DatabaseWrites.stores.update(1, locals.user)')
+      })
+    ).toEqual([]);
+  });
+
+  it('still flags a spread literal that holds its own container', async () => {
+    expect(
+      await writes({
+        'src/lib/server/store.ts': 'export const state = { ...defaults, hits: new Map() };',
+        'src/routes/+page.server.ts': handler('$lib/server/store', "state.hits.set('u', locals.user)")
+      })
+    ).toEqual([{ name: 'state', line: 3, via: 'set-call' }]);
+  });
+
   it('follows a NodeNext `.js` specifier to the `.ts` source', async () => {
     expect(
       await writes({
