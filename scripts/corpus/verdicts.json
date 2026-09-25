@@ -7715,11 +7715,6 @@
     "basis": "read: src/routes/app/settings/+layout.svelte:55 header '{#each filteredItems as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: filteredItems), items can be inserted/removed/reordered, so the rule's claim holds"
   },
   {
-    "key": "JuiceBoxxGames/utsuwa::correctness/each-key::src/routes/app/settings/developer/+page.svelte:387::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/app/settings/developer/+page.svelte:387 header '{#each testEvents as event}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (testEvents is an exported const literal in debugEvents.svelte.ts): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "JuiceBoxxGames/utsuwa::correctness/each-key::src/routes/app/settings/developer/+page.svelte:415::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: src/routes/app/settings/developer/+page.svelte:415 header '{#each availableExpressions as expr}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: availableExpressions), items can be inserted/removed/reordered, so the rule's claim holds"
@@ -18095,16 +18090,6 @@
     "basis": "read: src/routes/(authed)/dash/sessions/create/+page.svelte:184 header '{#each data.timezones as timezone}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (data.timezones = getTimeZones() static list): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
-    "key": "ZTL-ARTCC/scheddy::correctness/each-key::src/routes/(authed)/dash/types/add/+page.svelte:76::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/(authed)/dash/types/add/+page.svelte:76 header '{#each RATINGS as rating}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (RATINGS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "ZTL-ARTCC/scheddy::correctness/each-key::src/routes/(authed)/dash/types/edit/[typeId]/+page.svelte:78::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/(authed)/dash/types/edit/[typeId]/+page.svelte:78 header '{#each RATINGS as rating}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (RATINGS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "ZTL-ARTCC/scheddy::correctness/each-key::src/routes/(authed)/schedule/+page.svelte:115::{#each} block has no key",
     "verdict": "design",
     "basis": "read: src/routes/(authed)/schedule/+page.svelte:115 header '{#each data.timezones as timezone}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (data.timezones = getTimeZones() static list): fixed at author time, never reorders/inserts, so a key cannot help"
@@ -20540,9 +20525,19 @@
     "basis": "library/+page.svelte:155 <aside aria-label> sits in <header class=\"head\"> (135) inside <section aria-labelledby> (134), rendered inside the root layout <main>; a header scoped by section/main is not a banner (HTML-AAM, and the docs count header only at a chain file's top level), yet the parser pushed it onto the landmark stack, so 'nested inside banner' is false (the aside is nested in the layout's main, a different claim)"
   },
   {
+    "key": "chipi/orrery::a11y/top-level-landmark::src/routes/library/+page.svelte:155::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "named <aside aria-label> (:155) renders inside the root layout's <main> via the page; a complementary landmark should be top-level"
+  },
+  {
     "key": "chipi/orrery::a11y/top-level-landmark::src/routes/library/+page.svelte:165::complementary landmark is nested inside banner",
     "verdict": "fp",
     "basis": "library/+page.svelte:165 <aside aria-label> sits in <header class=\"head\"> (135) inside <section aria-labelledby> (134), rendered inside the root layout <main>; a header scoped by section/main is not a banner (HTML-AAM, and the docs count header only at a chain file's top level), yet the parser pushed it onto the landmark stack, so 'nested inside banner' is false (the aside is nested in the layout's main, a different claim)"
+  },
+  {
+    "key": "chipi/orrery::a11y/top-level-landmark::src/routes/library/+page.svelte:165::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "named <aside aria-label> (:165) renders inside the root layout's <main> via the page; a complementary landmark should be top-level"
   },
   {
     "key": "chipi/orrery::a11y/top-level-landmark::src/routes/plan/+page.svelte:1102::complementary landmark is nested inside main",
@@ -31165,16 +31160,6 @@
     "basis": "read: src/routes/my/exp/+page.svelte:306 header '{#each getPageNumbers(data.page, expHistory.total_pages) as pageNum}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (pagination page numbers): items have no identity beyond position"
   },
   {
-    "key": "damoang/angple:apps/web::correctness/each-key::src/routes/my/memos/+page.svelte:324::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/my/memos/+page.svelte:324 header '{#each COLOR_OPTIONS as color}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (same-file const array literal also iterated by a for-of loop, which is neither a member read nor an {#each}, so the docs keep it reported): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
-    "key": "damoang/angple:apps/web::correctness/each-key::src/routes/my/memos/+page.svelte:337::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/routes/my/memos/+page.svelte:337 header '{#each COLOR_OPTIONS as color}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (same-file const array literal also iterated by a for-of loop, which is neither a member read nor an {#each}, so the docs keep it reported): fixed at author time, never reorders/inserts, so a key cannot help"
-  },
-  {
     "key": "damoang/angple:apps/web::correctness/each-key::src/routes/my/memos/+page.svelte:616::{#each} block has no key",
     "verdict": "design",
     "basis": "read: src/routes/my/memos/+page.svelte:616 header '{#each getPageNumbers(data.page, data.totalPages) as pageNum}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (pagination page numbers): items have no identity beyond position"
@@ -32670,6 +32655,11 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal <link rel=\"canonical\"> in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide; publicly reachable, rendered route"
   },
   {
+    "key": "damoang/angple:apps/web::seo/description-length::src/routes/ad-free/refund-policy/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "plugins/ad-free/views/RefundPolicy.svelte (via the $plugins alias) sets a literal 19-character description"
+  },
+  {
     "key": "damoang/angple:apps/web::seo/description-length::src/routes/api-docs/+page.svelte::Description is too short (# chars; aim for #–#)",
     "verdict": "tp",
     "basis": "read: the flagged literal <meta name=\"description\"> is in the page's unconditional svelte:head (page does not render SeoHead); grapheme length matches (root layout/theme descriptions are separate earlier tags)"
@@ -32743,6 +32733,11 @@
     "key": "damoang/angple:apps/web::seo/heading-level-skip::src/routes/tags/[tag]/+page.svelte:53::Heading level skipped (<h#> to <h#>)",
     "verdict": "tp",
     "basis": "<h1> (:32) then Card/CardContent (no headings) then <h3> (:53) post titles -> real h1->h3 skip"
+  },
+  {
+    "key": "damoang/angple:apps/web::seo/indexability::src/routes/ad-free/checkout/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "plugins/ad-free/views/Checkout.svelte (via the $plugins alias) renders a literal robots noindex meta"
   },
   {
     "key": "damoang/angple:apps/web::seo/indexability::src/routes/login/review/+page.svelte::Route is noindex — verify this is intentional",
@@ -33915,19 +33910,9 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:description in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
   },
   {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:74); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/2nd-anniversary/+page.svelte::Missing <meta property=\"og:image\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 300 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/[boardId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:1076 (the {:else} arm of {#if boardTypeComponent}, i.e. every regular board)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
   },
   {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/[boardId]/[postId]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -34150,11 +34135,6 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 2 layout(s) [src/routes/admin/+layout@.svelte, src/routes/+layout.svelte], 303 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
   },
   {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/advertising/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/angtt/[slug=entityslug]/+page.svelte::Missing <meta property=\"og:image\">",
     "verdict": "fp",
     "basis": "route renders SeoHead (+page.svelte:250); og.image = entity.posterUrl || undefined at +page.svelte:232; meta-helper.ts:70-71 emits og:image whenever it is set (conditional on data, like the canonical the analyzer accepted); lib/seo/seo-head.svelte emits Open Graph/Twitter tags as <meta {property} {content} /> / <meta {name} {content} /> inside {#each Object.entries(buildOgTags(...)/buildTwitterTags(...))}, so no literal key for the analyzer (it did follow the $lib/seo barrel: the literal <link rel=\"canonical\"> in the same component was accepted)"
@@ -34168,11 +34148,6 @@
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/api-test/+page.svelte::Missing <meta property=\"og:image\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/car/hub/[topic]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:62); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
   },
   {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/cart/+page.svelte::Missing <meta property=\"og:image\">",
@@ -34198,11 +34173,6 @@
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/content-market/+page.svelte::Missing <meta property=\"og:image\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/content/[coId]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
   },
   {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/content/advertisement/+page.svelte::Missing <meta property=\"og:image\">",
@@ -34245,11 +34215,6 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 333 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
   },
   {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/explore/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:173); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/faq/+page.svelte::Missing <meta property=\"og:image\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 299 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
@@ -34258,41 +34223,6 @@
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/feed/+page.svelte::Missing <meta property=\"og:image\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 327 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/games/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:36); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/games/janggi/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:13); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/games/omok/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:11); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/games/snake/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:6); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/groups/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:124); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/guide/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/info/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
   },
   {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/install/+page.svelte::Missing <meta property=\"og:image\">",
@@ -34450,41 +34380,6 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
   },
   {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/policy/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/privacy/compare/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:28); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/privacy/history/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:43); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/privacy/preview/[id]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/privacy/versions/[id]/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/refund/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 299 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
@@ -34533,11 +34428,6 @@
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/tags/[tag]/+page.svelte::Missing <meta property=\"og:image\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:image in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-image::src/routes/terms/+page.svelte::Missing <meta property=\"og:image\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets no og.image, so buildOgTags (meta-helper.ts:70) emits no og:image; no other emitter in the chain (a1a_reach.py)"
   },
   {
     "key": "damoang/angple:apps/web::seo/og-image::src/routes/wiki/[...path]/+page.svelte::Missing <meta property=\"og:image\">",
@@ -35430,11 +35320,6 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 2 layout(s) [src/routes/admin/+layout@.svelte, src/routes/+layout.svelte], 303 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
   },
   {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/advertising/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
     "key": "damoang/angple:apps/web::seo/og-url::src/routes/angtt/[slug=entityslug]/+page.svelte::Missing <meta property=\"og:url\">",
     "verdict": "fp",
     "basis": "route renders SeoHead (+page.svelte:250); config sets og.url/meta.canonicalUrl, so meta-helper.ts:67-68 emits og:url; lib/seo/seo-head.svelte emits Open Graph/Twitter tags as <meta {property} {content} /> / <meta {name} {content} /> inside {#each Object.entries(buildOgTags(...)/buildTwitterTags(...))}, so no literal key for the analyzer (it did follow the $lib/seo barrel: the literal <link rel=\"canonical\"> in the same component was accepted)"
@@ -35480,11 +35365,6 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
   },
   {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/content/[coId]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
     "key": "damoang/angple:apps/web::seo/og-url::src/routes/content/advertisement/+page.svelte::Missing <meta property=\"og:url\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
@@ -35525,11 +35405,6 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 1 layout(s) [src/routes/+layout.svelte], 333 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
   },
   {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/explore/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:173); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
     "key": "damoang/angple:apps/web::seo/og-url::src/routes/faq/+page.svelte::Missing <meta property=\"og:url\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 1 layout(s) [src/routes/+layout.svelte], 299 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
@@ -35538,41 +35413,6 @@
     "key": "damoang/angple:apps/web::seo/og-url::src/routes/feed/+page.svelte::Missing <meta property=\"og:url\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 1 layout(s) [src/routes/+layout.svelte], 327 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/games/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:36); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/games/janggi/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:13); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/games/omok/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:11); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/games/snake/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:6); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/groups/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:124); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/guide/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/info/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
   },
   {
     "key": "damoang/angple:apps/web::seo/og-url::src/routes/install/+page.svelte::Missing <meta property=\"og:url\">",
@@ -35730,41 +35570,6 @@
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
   },
   {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/policy/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/privacy/compare/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:28); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/privacy/history/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (+page.svelte:43); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/privacy/preview/[id]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/privacy/versions/[id]/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/refund/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
-  },
-  {
     "key": "damoang/angple:apps/web::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 1 layout(s) [src/routes/+layout.svelte], 299 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
@@ -35813,11 +35618,6 @@
     "key": "damoang/angple:apps/web::seo/og-url::src/routes/tags/[tag]/+page.svelte::Missing <meta property=\"og:url\">",
     "verdict": "tp",
     "basis": "script-verified (a1a_reach.py, comments stripped): no literal og:url in page, 1 layout(s) [src/routes/+layout.svelte], 297 transitively imported local files (aliases/barrels/workspace pkgs); repo-wide the only og/twitter/canonical emitter is lib/seo/seo-head.svelte and this route renders no <SeoHead>/<ContentPage>; app.html/hooks transformPageChunk add none; no meta-tag library in any package.json and no svelte-meta-tags/svelte-seo/MetaTags usage repo-wide"
-  },
-  {
-    "key": "damoang/angple:apps/web::seo/og-url::src/routes/terms/+page.svelte::Missing <meta property=\"og:url\">",
-    "verdict": "tp",
-    "basis": "route renders SeoHead (<ContentPage> -> lib/components/features/content/content-page.svelte:30 <SeoHead config={defaultSeo}> (meta.title+description, og.title/type only)); but its config sets neither og.url nor meta.canonicalUrl, so buildOgTags (meta-helper.ts:67) emits no og:url; no other emitter in the chain (a1a_reach.py)"
   },
   {
     "key": "damoang/angple:apps/web::seo/og-url::src/routes/wiki/[...path]/+page.svelte::Missing <meta property=\"og:url\">",
@@ -36058,6 +35858,11 @@
     "key": "damoang/angple:apps/web::seo/ssr-disabled::src/routes/invite/[token]/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
     "verdict": "design",
     "basis": "read: literal export const ssr = false at invite/[token]/+page.ts:1; invite-token landing that only passes params.token to the client, not content for search"
+  },
+  {
+    "key": "damoang/angple:apps/web::seo/title-length::src/routes/ad-free/refund-policy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "plugins/ad-free/views/RefundPolicy.svelte (via the $plugins alias) sets a literal 16-character title, under the documented minimum as counted by the rule"
   },
   {
     "key": "damoang/angple:apps/web::seo/title-length::src/routes/admin/board-groups/+page.svelte::Title is too short (# chars; aim for #–#)",
@@ -41681,23 +41486,23 @@
   },
   {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "fp",
-    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+    "verdict": "tp",
+    "basis": "SSR route: its only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount, so the server-rendered HTML has none; same reading as the other SSR routes"
   },
   {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/docs/[...slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "fp",
-    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+    "verdict": "tp",
+    "basis": "SSR route: its only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount, so the server-rendered HTML has none; same reading as the other SSR routes"
   },
   {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/docs/api/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "fp",
-    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+    "verdict": "tp",
+    "basis": "SSR route: its only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount, so the server-rendered HTML has none; same reading as the other SSR routes"
   },
   {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/oauth/revolut-business/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
-    "verdict": "fp",
-    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+    "verdict": "tp",
+    "basis": "SSR route: its only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount, so the server-rendered HTML has none; same reading as the other SSR routes"
   },
   {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/plans/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
@@ -69615,11 +69420,6 @@
     "basis": "read: header '{#each options as opt}' has no key; not an exempt shape; static list (FIELD_OPTIONS constant): never reorders/inserts, a key cannot help"
   },
   {
-    "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/preferences/PresetPicker.svelte:66::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: header '{#each presetList as preset}' has no key; not an exempt shape; static list (imported presetList constant): never reorders/inserts, a key cannot help"
-  },
-  {
     "key": "johanohly/AirTrail::correctness/each-key::src/lib/components/ui/button/button.svelte:116::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: header '{#each ripples as { diameter, left, top, id }}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — ripples appended/removed, each has an id; source read"
@@ -87918,11 +87718,6 @@
     "key": "logtide-dev/logtide:packages/frontend::correctness/each-key::src/lib/components/metrics/GoldenSignalsPanel.svelte:129::{#each} block has no key",
     "verdict": "tp",
     "basis": "read: src/lib/components/metrics/GoldenSignalsPanel.svelte:129 header '{#each displayServices as service}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: displayServices), items can be inserted/removed/reordered, so the rule's claim holds"
-  },
-  {
-    "key": "logtide-dev/logtide:packages/frontend::correctness/each-key::src/lib/components/metrics/GoldenSignalsPanel.svelte:148::{#each} block has no key",
-    "verdict": "design",
-    "basis": "read: src/lib/components/metrics/GoldenSignalsPanel.svelte:148 header '{#each SIGNAL_CONFIGS as config}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (SIGNAL_CONFIGS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
   },
   {
     "key": "logtide-dev/logtide:packages/frontend::correctness/each-key::src/lib/components/metrics/OverviewPanel.svelte:54::{#each} block has no key",
