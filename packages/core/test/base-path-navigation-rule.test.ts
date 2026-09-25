@@ -79,6 +79,38 @@ describe('correctness/base-path-navigation', () => {
     expect(results.filter((r) => r.detection.presence === 'none')).toHaveLength(1);
   });
 
+  it('does not report literals that already start with a statically known base', async () => {
+    const results = await correctnessBasePathNavigation.check(
+      ctx(
+        withBase,
+        [
+          comp('src/lib/Nav.svelte', [
+            { kind: 'href', path: '/docs', line: 1 },
+            { kind: 'href', path: '/docs/intro', line: 2 },
+            { kind: 'goto', path: '/docs?tab=api', line: 3 },
+            { kind: 'goto', path: '/docs#top', line: 4 },
+            { kind: 'href', path: '/docsearch', line: 5 },
+            { kind: 'href', path: '/about', line: 6 }
+          ])
+        ],
+        [kit('src/routes/+page.server.ts', [{ kind: 'redirect', path: '/docs/login', line: 7 }])]
+      )
+    );
+    const penalized = results.filter((r) => r.detection.presence === 'none');
+    expect(penalized.map((r) => r.line)).toEqual([5, 6]);
+    expect(results.filter((r) => r.detection.presence === 'own').map((r) => r.location)).toEqual([
+      'src/routes/+page.server.ts'
+    ]);
+  });
+
+  it('still reports a base-prefixed literal when the base is dynamic', async () => {
+    const dynamic: Project = { ...defaultProject, kitPathsBase: { file: 'svelte.config.js' } };
+    const results = await correctnessBasePathNavigation.check(
+      ctx(dynamic, [comp('src/lib/Nav.svelte', [{ kind: 'goto', path: '/docs/intro', line: 1 }])])
+    );
+    expect(results.filter((r) => r.detection.presence === 'none')).toHaveLength(1);
+  });
+
   it('reports both channels in one run', async () => {
     const results = await correctnessBasePathNavigation.check(
       ctx(

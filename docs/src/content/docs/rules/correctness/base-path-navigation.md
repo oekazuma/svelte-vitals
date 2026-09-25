@@ -24,6 +24,8 @@ The base path is read the way SvelteKit reads it: from `sveltekit({ paths: { bas
 
 A computed base, such as the common `base: dev ? '' : '/repo'` deploy form, still opens the gate, since the app is served under a base in at least one environment. No base, or an explicit `base: ''`, keeps the rule silent.
 
+A literal that already starts with a literal base, such as `href="/docs/about"` under `base: '/docs'`, points inside the app and is not reported. It still breaks if the base ever changes, so `resolve()` remains the portable form. Under a computed base the prefix cannot be checked, so every root-relative literal is reported.
+
 Detection is literal-only, which means the correct forms are never flagged: `href="{base}/about"`, `href={resolve('/about')}`, `goto(resolve('/about'))`, and ``goto(`${base}/about`)`` are all dynamic expressions, not string literals.
 
 ## Why it matters
