@@ -30,6 +30,8 @@ function messageFor(link: BasePathLinkFact): string {
  */
 function startsWithBase(path: string, base: string | undefined): boolean {
   if (base === undefined || !path.startsWith(base)) return false;
+  // A `..` segment (`/docs/../about`, also percent-encoded) can resolve out of the base.
+  if (/(^|\/)(\.|%2e){2}(\/|$)/i.test(path.split(/[?#]/)[0]!)) return false;
   const next = path.charAt(base.length);
   return next === '' || next === '/' || next === '?' || next === '#';
 }

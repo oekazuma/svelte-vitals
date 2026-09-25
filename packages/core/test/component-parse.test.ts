@@ -394,6 +394,9 @@ describe('parseComponentFacts — namespace imports (performance/namespace-impor
     // Outside the shadowing scope the namespace is still the one used.
     expect(facts('{#each xs as x}{f(_)}{/each}')).toEqual(['lodash']);
     expect(facts('{#each xs as _}{_}{/each}{f(_)}')).toEqual(['lodash']);
+    // The each source and a component's attributes are evaluated outside the binding they introduce.
+    expect(facts('{#each Object.keys(_) as _}{_}{/each}')).toEqual(['lodash']);
+    expect(facts('<List items={f(_)} let:_>{_}</List>')).toEqual(['lodash']);
   });
   it('captures namespace imports from a module script too', () => {
     const c = parseComponentFacts(

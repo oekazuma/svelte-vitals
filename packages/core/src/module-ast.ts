@@ -167,8 +167,8 @@ export function scopeIntroducedNames(node: Node): Set<string> {
     if (node.value) addBoundNames(node.value, introduced);
     if (node.error) addBoundNames(node.error, introduced);
   } else if (Array.isArray(node.attributes) && node.fragment) {
-    // A `let:` directive binds its slot prop for the element or component it sits on — including,
-    // imprecisely, a component's own attribute expressions, which really see the outer binding.
+    // A `let:` directive binds its slot prop for the element or component's content; its attribute
+    // expressions still see the outer binding (`OUTER_SCOPE_KEYS`).
     for (const attr of node.attributes) {
       if (attr?.type !== 'LetDirective') continue;
       const e = attr.expression;
@@ -249,11 +249,26 @@ export function walkEvalScope(
   const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
   if (visit(node, scope)) return;
   if (boundaries.has(node.type)) return;
+  const outer = introduced.size > 0 ? outerScopeKeys(node) : undefined;
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    walkEvalScope(node[key], visit, scope, boundaries);
+    if (!outer?.has(key)) walkEvalScope(node[key], visit, scope, boundaries);
+    else if (!Array.isArray(node[key])) walkEvalScope(node[key], visit, shadowed, boundaries);
+    // A `let:` directive's own pattern is the binding, not a read of the outer name.
+    else
+      for (const child of node[key])
+        walkEvalScope(child, visit, child?.type === 'LetDirective' ? scope : shadowed, boundaries);
   }
 }
+
+/** Children of a binding construct that are evaluated before its bindings exist. */
+function outerScopeKeys(node: Node): Set<string> | undefined {
+  if (node.type === 'EachBlock' || node.type === 'AwaitBlock') return OUTER_SCOPE_KEYS;
+  if (Array.isArray(node.attributes) && node.fragment) return ATTRIBUTE_KEYS;
+  return undefined;
+}
+const OUTER_SCOPE_KEYS = new Set(['expression']);
+const ATTRIBUTE_KEYS = new Set(['attributes']);
 
 /**
  * Unwrap a top-level statement's `export`/`export default` wrapper to the declaration

@@ -312,7 +312,13 @@ async function resolveRoute(
   const additiveTags: HeadTag[] = [];
   let broadOwn = false;
   let broadInherited = false;
-  const dynamicKeys = { own: { name: false, property: false }, inherited: { name: false, property: false } };
+  // Keyed by origin too: a client-only dynamic key is dropped on server-rendered routes like any
+  // client-only tag, and must not stand in for a server-rendered one.
+  const noKeys = () => ({ name: false, property: false });
+  const dynamicKeys = {
+    own: { server: noKeys(), client: noKeys() },
+    inherited: { server: noKeys(), client: noKeys() }
+  };
   const images: ImageInfo[] = [];
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
@@ -372,7 +378,7 @@ async function resolveRoute(
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
       if (tag.dynamicKey) {
-        const seen = dynamicKeys[isPage ? 'own' : 'inherited'];
+        const seen = dynamicKeys[isPage ? 'own' : 'inherited'][tag.clientOnly ? 'client' : 'server'];
         seen.name ||= tag.dynamicKey.name;
         seen.property ||= tag.dynamicKey.property;
         continue;
@@ -408,12 +414,16 @@ async function resolveRoute(
   }
   // A <meta> with a dynamic key may be any meta of that attribute: the same fill, limited to it.
   for (const presence of ['own', 'inherited'] as const) {
-    const { name, property } = dynamicKeys[presence];
-    for (const tag of BROAD_KINDS) {
-      // X reads twitter:card from property= too.
-      const couldBe = (name && tag.name) || (property && (tag.property || tag.name === 'twitter:card'));
-      const key = tagKey(tag);
-      if (couldBe && !composed.has(key)) composed.set(key, { ...tag, presence });
+    for (const origin of ['server', 'client'] as const) {
+      const { name, property } = dynamicKeys[presence][origin];
+      for (const tag of BROAD_KINDS) {
+        // X reads twitter:card from property= too.
+        const couldBe = (name && tag.name) || (property && (tag.property || tag.name === 'twitter:card'));
+        const key = tagKey(tag);
+        if (!couldBe) continue;
+        if (origin === 'server' && !serverRendered(composed.get(key))) composed.set(key, { ...tag, presence });
+        else if (origin === 'client' && !composed.has(key)) composed.set(key, { ...tag, presence, clientOnly: true });
+      }
     }
   }
   // After the broad fill: an opaque meta component may override the shell's literal.
