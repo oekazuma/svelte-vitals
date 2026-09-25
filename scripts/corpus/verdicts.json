@@ -27360,6 +27360,16 @@
     "basis": "script-verified (h-a11y/dap.mjs): literal <span> at this line carries the attribute with no role attribute, no spread, not in svg; generic/paragraph prohibit naming in ARIA 1.2/1.3"
   },
   {
+    "key": "classroomio/classroomio:apps/dashboard::a11y/duplicate-landmark::../../packages/ui/src/base/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: @cio/ui sidebar-inset.svelte:13 is an unconditional <main>; both routes nest a second Sidebar.Inset inside the layout's: courses/[id]/+layout.svelte <Sidebar.Inset> wraps children and landingpage/+page.svelte renders another <Sidebar.Inset> (under {#if courseApi.course}); org/[slug]/+layout.svelte <Sidebar.Inset> wraps children and landingpage/edit/+page.svelte renders another. The page's overlay is a plain fixed div (no role=dialog/inert/aria-hidden), so both <main>s are in the AT tree"
+  },
+  {
+    "key": "classroomio/classroomio:apps/dashboard::a11y/duplicate-landmark::src/lib/features/course/components/lesson/lesson-version-history.svelte:336::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: the <main> at :336 is inside {#if open} of an <aside role=\"dialog\" aria-modal=\"true\"> overlay; pages/lesson.svelte:668 mounts it only when ?history=open (isVersionDrawerOpen, :92), closed by default; same file's :340 <h1> is already design; counted per documented semantics, not a demonstrable defect"
+  },
+  {
     "key": "classroomio/classroomio:apps/dashboard::a11y/no-autofocus::src/lib/features/ai-assistant/plan-view.svelte:173::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
     "verdict": "design",
     "basis": "reported as documented; input/textarea rendered only under {#if editingField === ...} (null initially, set by the user clicking edit); Svelte focuses it on mount, i.e. on user action, not page load; docs only carve out <dialog>/popover"
@@ -29255,6 +29265,11 @@
     "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
   },
   {
+    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::../../packages/ui/src/base/page/page-title.svelte:13::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "11 routes, two shapes. 10 /org/[slug]/settings/* routes (settings, ai-credits, ai-tutor, auth, auth/sso, auth/token-auth, billing, integrations, notifications, workspaces): the 2 counted are settings/+layout.svelte:25 Page.Title, under {#if showOrgSettingsTabs} (:13-18, pathname endsWith /settings/org|customize-lms|domains|teams, so false on all 10), plus the page's own single Page.Title -> exactly one <h1> renders (pathname-decidable, fp per damoang/joco). /courses/[id]/exercises/[exerciseId]: the page title plus the extra exercise.svelte:894 <h1> in the closed delete Dialog.Content (design shape). Majority fp"
+  },
+  {
     "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::/404::Missing <h#>",
     "verdict": "tp",
     "basis": "walker-verified: page+layouts+followed components (incl. @cio/ui barrels) render no <h1>/{@html}; unfollowed are Button/Input/Dialog/Tooltip primitives"
@@ -29348,11 +29363,6 @@
     "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::/courses/[id]/marks::Missing <h#>",
     "verdict": "fp",
     "basis": "h1 IS rendered: packages/ui/src/base/page/page-title.svelte:13 via Page.Title@+page.svelte:51 — Page.Title (@cio/ui/base/page, namespace import from an index.ts barrel whose alias targets node_modules/@cio/ui) renders <h1> in normal page flow"
-  },
-  {
-    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::/courses/[id]/people/[personId]::Missing <h#>",
-    "verdict": "tp",
-    "basis": "only <h1> candidate is the layout Page.Title inside {#if !data.personId}; personId is set on this route (+layout.ts) and no other h1 is reachable -> none rendered"
   },
   {
     "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::/courses/[id]/people::Missing <h#>",
@@ -29660,9 +29670,19 @@
     "basis": "h1 IS rendered: src/lib/features/widget/components/widget-editor-header.svelte:74 via WidgetEditorPage@+page.svelte:60>WidgetEditorHeader@widget-editor.svelte:34 — Page.Title (@cio/ui/base/page, namespace import from an index.ts barrel whose alias targets node_modules/@cio/ui) renders <h1> in normal page flow"
   },
   {
-    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/course/components/lesson/lesson-version-history.svelte:340::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/course/components/exercise/mark-exercise-modal.svelte:246::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "design",
-    "basis": "read: the extra <h1> sits inside a dialog/modal that is closed by default; counted per documented semantics, not a demonstrable defect"
+    "basis": "read: the extra <h1> at :246 is inside Dialog.Content (bind:open, default false) and further inside {#if openDeletePrompt}; the other counted <h1> is the page's Page.Title; closed-by-default modal, counted per documented semantics"
+  },
+  {
+    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/course/components/lesson/delete-lesson-confirmation.svelte:30::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the extra <h1> at :30 is inside Dialog.Content bound to openDeleteModal (default false); on /courses/[id]/lessons/[lessonId] the third counted is lesson-version-history.svelte:340 (also a closed dialog); the other is the Page.Title; closed-by-default modals, counted per documented semantics"
+  },
+  {
+    "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/course/components/newsfeed/card/delete-confirmation.svelte:25::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the extra <h1> at :25 is inside Dialog.Content bound to openDeleteModal (default false); the other counted <h1> is the page's Page.Title; closed-by-default modal, counted per documented semantics"
   },
   {
     "key": "classroomio/classroomio:apps/dashboard::seo/single-h1::src/lib/features/org/components/quiz/delete-modal.svelte:44::Multiple <h#> (#); a single <h#> is the conventional signal",
@@ -40565,6 +40585,16 @@
     "basis": "script-verified (svelte parse, ctx.mjs) + read: literal <div> at +page.svelte:115 carries aria-label, no role attribute, no spread, not in svg; generic role prohibits naming"
   },
   {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::../../packages/ui/src/components/newsroom/NewsroomSurface.svelte:280::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (publications)/+layout@.svelte resets to the root layout and adds no wrapper; routes/+layout.svelte:395-397 renders children inside an unconditional <main>; page -> PublicationRoute.svelte:73 <NewsroomSurface> unconditionally, which has a <main> in both arms of {#if view === \"social-post\"} (:280 / :341) -> two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::../../packages/ui/src/components/projects/ProjectsPage.svelte:879::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: authenticated arm of projects/+page.svelte renders <ProjectsPage /> whose {#if selectedProject} arm has <main class=\"project-main\"> (:879), inside root +layout.svelte:395-397 unconditional <main> -> two main landmarks when a project is selected. The reported \"3 of 3\" is an over-count: the second instance is <ProjectsPage variant=\"sidebar\">, which renders the <aside> arm (:858) and never this <main>"
+  },
+  {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(minimal)/status/+page.svelte:62::Duplicate main landmark (# of #)",
     "verdict": "tp",
     "basis": "read: +page.svelte:62 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
@@ -40625,11 +40655,6 @@
     "basis": "read: +page.svelte:40 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
   },
   {
-    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/projects/+page.svelte:26::Duplicate main landmark (# of #)",
-    "verdict": "tp",
-    "basis": "read: +page.svelte:26 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
-  },
-  {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/share/workflow-template/[templateId]/+page.svelte:76::Duplicate main landmark (# of #)",
     "verdict": "tp",
     "basis": "read: +page.svelte:76 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
@@ -40648,6 +40673,11 @@
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/workflows/+page.svelte:679::Duplicate main landmark (# of #)",
     "verdict": "tp",
     "basis": "read: +page.svelte:679 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/id-duplication::../../packages/ui/src/components/AppSettingsMemoriesPermissionDialog.svelte:179::Duplicate id \"permission-dialog-title\"",
+    "verdict": "design",
+    "basis": "read: span#permission-dialog-title (:179) is under {#if dialogVisible && displayedRequest}; copies come from ChatHistory.svelte:3001 {#if shouldShowPermissionDialog} (live permission request) and LandingPrivacySafetyDemo.svelte:201 previewMode (DailyInspirationBanner.svelte:1814, only under isGuestIntroVariant, a stage of the guest story); on /projects and /tasks the banner is never given variant=\"guest-intro\" (WorkspaceHomeShell:175, TasksPage:663) so its copies never render; separately-toggled UI, documented separate-{#if} co-render model (cobalt/kite convention)"
   },
   {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/interactive-nesting::src/routes/(seo)/announcements/[slug]/+page.svelte:173::<video> is nested inside interactive <div role=\"button\">",
@@ -41558,6 +41588,21 @@
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/workflows/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
     "verdict": "fp",
     "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::../../packages/ui/src/components/DailyInspirationBanner.svelte:1643::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "only zero or one <h1> can render: the anchored <h1> (:1643) is under {#if isGuestIntroVariant} (variant === 'guest-intro', :166), and every instance on /projects, /tasks, /tasks/[task_id] comes from WorkspaceHomeShell.svelte:175 / TasksPage.svelte:663, which pass no variant (default 'default'); TasksPage.svelte:673 <h1> is under {#if !compact && !isCentralTasksWorkspace} (:661), false for ProjectsPage's compact use (:847) and for /tasks (focus defaults to 'tasks' -> isCentralTasksWorkspace); the one left is ChatSettingsHeader:86, a closed Settings sub-view"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::../../packages/ui/src/components/settings/ChatSettingsHeader.svelte:86::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "3 routes, two shapes. /plans and /plans/[plan_id]: the 2 counted are DailyInspirationBanner.svelte:1643 (under {#if isGuestIntroVariant}; WorkspaceHomeShell/TasksPage never pass variant='guest-intro', so it never renders) plus this <h1>, rendered only when Settings.svelte:3354 isChatSettingsPage (activeSettingsView starts 'main') -> at most one <h1>, fp. /: a guest/login-time <h1> plus this closed Settings sub-view <h1> (design shape). Majority fp"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::../../packages/ui/src/components/workflows/WorkflowDetailPage.svelte:51::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "this key exists only because of a misread: workflows/+page.svelte authenticated arm counts DailyInspirationBanner.svelte:1643 (via WorkspaceHomeShell in {#if !showManageView}, variant never 'guest-intro' -> never renders) as h1[0], putting WorkflowDetailPage:51 (in the separate {#if showManageView} / {#if selectedWorkflow}) at h1[1]; the other counted is ChatSettingsHeader:86 (closed Settings sub-view). Rendered: WorkflowDetailPage's <h1> is the page's single one; correctly analysed, the anchor would move to ChatSettingsHeader:86"
   },
   {
     "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::/::Missing <h#>",
@@ -126683,6 +126728,11 @@
     "key": "sveltejs/svelte.dev:apps/svelte.dev::a11y/disallowed-aria-props::src/routes/packages/Category.svelte:38::`aria-label` is prohibited on <span> — its role does not take a name",
     "verdict": "tp",
     "basis": "script-verified (svelte parse): literal <span> with aria-label, no role attribute, no spread, not in SVG; generic role prohibits naming"
+  },
+  {
+    "key": "sveltejs/svelte.dev:apps/svelte.dev::a11y/duplicate-landmark::../../packages/site-kit/src/lib/components/Shell.svelte:44::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: site-kit Shell.svelte:44 renders an unconditional <main id=\"main\"> around {@render children()} (root +layout.svelte:52 wraps every route in <Shell>); search/+page.svelte:11 renders its own unconditional <main>, nested inside it -> two main landmarks on /search"
   },
   {
     "key": "sveltejs/svelte.dev:apps/svelte.dev::a11y/permitted-contents::src/routes/docs/[topic]/[...path=documentation]/OnThisPage.svelte:48::`<h#>` is not permitted content here — `<label>`'s content model is phrasing content",
