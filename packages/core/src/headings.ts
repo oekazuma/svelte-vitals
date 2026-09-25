@@ -44,4 +44,6 @@ export interface ResolvedHeadings {
    * Counting stays as-is; only the "no <h1> anywhere" claim becomes unsafe to make.
    */
   dynamicHeading?: boolean;
+  /** `dynamicHeading`, but from a component loaded with `import()` — source-mode collection folds it in only on routes never server-rendered. */
+  clientOnlyHeading?: boolean;
 }

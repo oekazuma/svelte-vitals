@@ -24,7 +24,7 @@ import {
   IDREF_ATTRS,
   isSvgSrc
 } from '@svelte-vitals/core/internal';
-import { collectComponentBindings, collectImports, type ImportMap } from './imports.js';
+import { collectComponentBindings, collectImports, type ComponentCandidate, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
 export type ParsedTag = Omit<HeadTag, 'presence' | 'file'> & {
@@ -879,8 +879,8 @@ export interface ParsedFile {
   headTags: ParsedTag[];
   components: ComponentUse[];
   imports: ImportMap;
-  /** Locals holding a component chosen at runtime → the identifiers they can hold (`''`: anything else). */
-  componentBindings: Map<string, string[]>;
+  /** Locals holding a component chosen at runtime → what they can hold (see `ComponentCandidate`). */
+  componentBindings: Map<string, ComponentCandidate[]>;
   images: ParsedImage[];
   headings: ParsedHeading[];
   /** How many branch-group numbers this file's heading and component paths use. */

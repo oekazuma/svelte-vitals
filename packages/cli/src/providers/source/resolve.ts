@@ -28,6 +28,8 @@ interface ResolveResult {
   groupSpan: number;
   /** A heading of an undetermined level may render: a descendant's `<svelte:element>`, or an unfollowable component given a literal heading tag. */
   dynamicHeading: boolean;
+  /** What `dynamicHeading` means, from a component loaded with `import()`: it holds only where the route is never server-rendered. */
+  clientOnlyHeading: boolean;
 }
 
 /** What a `.ts`/`.js` barrel forwards: export name → the binding behind it, plus its `export *` sources. */
@@ -196,23 +198,28 @@ async function resolveExportAt(
 
 /**
  * The `.svelte` files a component tag may render — several when a local holds one of several
- * components (`parsed.componentBindings`) — and whether that list is everything it may render.
+ * components (`parsed.componentBindings`) — whether that list is everything it may render, and
+ * which of them only ever mount in the browser (loaded with `import()` in a function).
  */
 export async function resolveComponentFiles(
   ctx: ResolveCtx,
   name: string,
   parsed: ParsedFile,
   fileRel: string
-): Promise<{ files: string[]; complete: boolean }> {
+): Promise<{ files: string[]; complete: boolean; clientOnly?: Set<string> }> {
   const files = new Set<string>();
+  const loaded = new Set<string>();
   let complete = true;
   for (const candidate of parsed.componentBindings.get(name) ?? [name]) {
-    const info = candidate ? importOf(parsed.imports, candidate) : undefined;
+    const info =
+      typeof candidate !== 'string' ? candidate : candidate ? importOf(parsed.imports, candidate) : undefined;
     const file = info ? await resolveExport(ctx, info.source, fileRel, info.imported) : undefined;
-    if (file) files.add(file);
-    else complete = false;
+    if (!file) complete = false;
+    else if (typeof candidate === 'string') files.add(file);
+    else loaded.add(file);
   }
-  return { files: [...files], complete };
+  const clientOnly = new Set([...loaded].filter((f) => !files.has(f)));
+  return { files: [...files, ...clientOnly], complete, ...(clientOnly.size > 0 ? { clientOnly } : {}) };
 }
 
 /**
@@ -310,6 +317,7 @@ export async function resolveFileTags(
   const headings: HeadingInfo[] = [];
   let groupSpan = parsed.headingGroups;
   let dynamicHeading = false;
+  let clientOnlyHeading = false;
   let broad = false;
   const ctx: ResolveCtx = { rt, cwd, cache, aliases };
 
@@ -348,13 +356,19 @@ export async function resolveFileTags(
           aliases,
           childHead
         );
-        broad = broad || child.broad;
+        const clientOnly = found.clientOnly?.has(childRel) === true;
+        // An opaque source it renders is client-only too, so it becomes may-render tags, not route-wide broad.
+        const childTags = clientOnly
+          ? [...child.tags, ...(child.broad ? BROAD_KINDS : [])].map((t) => ({ ...t, clientOnly: true as const }))
+          : child.tags;
+        broad = broad || (child.broad && !clientOnly);
         const childHeadings = [...childParsed.headings.map((h) => ({ ...h, file: childRel })), ...child.headings];
         const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
+        clientOnlyHeading = clientOnlyHeading || child.clientOnlyHeading;
         // A component in an `{#if}` arm competes for headings through its arm path, and its head tags
         // make no literal claim, like `conditionalTags`.
-        if (!exclusive && !use.conditional) tags.push(...child.tags);
-        else for (const tag of child.tags.map(maybeTag)) maybe.set(JSON.stringify(tag), tag);
+        if (!exclusive && !use.conditional) tags.push(...childTags);
+        else for (const tag of childTags.map(maybeTag)) maybe.set(JSON.stringify(tag), tag);
         if (!exclusive) {
           // Each instance gets its own group range, so two instances' arms never fold as one block.
           headings.push(...childHeadings.map((h) => nestHeading(h, use.path, groupSpan)));
@@ -363,7 +377,10 @@ export async function resolveFileTags(
           continue;
         }
         // Counting each candidate's <h1> would invent a second one; any of them may be the page's.
-        if (childDynamic || childHeadings.some((h) => h.level === 1)) dynamicHeading = true;
+        if (childDynamic || childHeadings.some((h) => h.level === 1)) {
+          if (clientOnly) clientOnlyHeading = true;
+          else dynamicHeading = true;
+        }
       }
       tags.push(...maybe.values());
       continue;
@@ -392,5 +409,5 @@ export async function resolveFileTags(
     // Unresolved & undeclared components contribute nothing (strict).
   }
 
-  return { tags, broad, headings, groupSpan, dynamicHeading };
+  return { tags, broad, headings, groupSpan, dynamicHeading, clientOnlyHeading };
 }

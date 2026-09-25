@@ -180,6 +180,14 @@ function dedupeCauses(causes: A11ySkipCause[]): A11ySkipCause[] {
   return [...seen.values()];
 }
 
+/**
+ * A server-rendered tag is never overridden by a client-only one: on a server-rendered route the
+ * client-only tag is dropped later (collect-all), and the one it overrode must still be there.
+ */
+function serverRendered(tag: HeadTag | undefined): boolean {
+  return tag !== undefined && !tag.clientOnly;
+}
+
 /** Every robots meta renders and crawlers obey the most restrictive one, so none may override another. */
 function isRobotsMeta(tag: { kind: string; name?: string }): boolean {
   return tag.kind === 'meta' && tag.name === 'robots';
@@ -309,6 +317,7 @@ async function resolveRoute(
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
   let dynamicHeading = false;
+  let clientOnlyHeading = false;
   // Heading paths are route-wide: each chain file gets its own group range, and a file renders
   // below its parent layout's `{@render children()}` arm.
   let headingGroup = 0;
@@ -376,7 +385,7 @@ async function resolveRoute(
         isRobotsMeta(tag)
       )
         additiveTags.push(stamped);
-      else composed.set(tagKey(tag), stamped);
+      else if (!(stamped.clientOnly && serverRendered(composed.get(tagKey(tag))))) composed.set(tagKey(tag), stamped);
     }
     if (resolved.broad) {
       if (isPage) broadOwn = true;
@@ -384,6 +393,7 @@ async function resolveRoute(
     }
     componentHeadings.push(...resolved.headings.map((h) => nestHeading(h, childrenAt, headingGroup)));
     dynamicHeading = dynamicHeading || resolved.dynamicHeading;
+    clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
     if (parsed.childrenPath) childrenAt = [...childrenAt, ...offsetPath(parsed.childrenPath, headingGroup)];
     headingGroup += resolved.groupSpan;
   }
@@ -393,7 +403,7 @@ async function resolveRoute(
     const presence = broadOwn ? 'own' : 'inherited';
     for (const tag of BROAD_KINDS) {
       const key = tagKey(tag);
-      if (!composed.has(key)) composed.set(key, { ...tag, presence });
+      if (!serverRendered(composed.get(key))) composed.set(key, { ...tag, presence });
     }
   }
   // A <meta> with a dynamic key may be any meta of that attribute: the same fill, limited to it.
@@ -410,7 +420,7 @@ async function resolveRoute(
   for (const tag of appHtmlHeadTags ?? []) {
     const stamped: HeadTag = { ...tag, presence: 'inherited', file: 'src/app.html' };
     if (isRobotsMeta(tag)) additiveTags.push(stamped);
-    else if (!composed.has(tagKey(tag))) composed.set(tagKey(tag), stamped);
+    else if (!serverRendered(composed.get(tagKey(tag)))) composed.set(tagKey(tag), stamped);
   }
 
   const idNodes = a11yNodes.filter((n) => n.kind === 'id');
@@ -439,7 +449,13 @@ async function resolveRoute(
   return {
     head: { route, source: 'static', tags: [...composed.values(), ...additiveTags], file: pageRel },
     images: { route, images },
-    headings: { route, headings, componentHeadings, ...(dynamicHeading ? { dynamicHeading: true } : {}) },
+    headings: {
+      route,
+      headings,
+      componentHeadings,
+      ...(dynamicHeading ? { dynamicHeading: true } : {}),
+      ...(clientOnlyHeading ? { clientOnlyHeading: true } : {})
+    },
     a11y: {
       route,
       landmarks: representatives(
@@ -495,6 +511,8 @@ export async function collectRoutes(
   images: ResolvedImages[];
   headings: ResolvedHeadings[];
   a11y: ResolvedA11y[];
+  /** Every `+page`/`+layout` `.svelte` file, for resolving which routes are server-rendered. */
+  routeFiles: string[];
 }> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
   const facts = await Promise.all(
@@ -506,6 +524,7 @@ export async function collectRoutes(
     heads: facts.map((f) => f.head),
     images: facts.map((f) => f.images),
     headings: facts.map((f) => f.headings),
-    a11y: facts.map((f) => f.a11y)
+    a11y: facts.map((f) => f.a11y),
+    routeFiles: [...pages, ...layouts.values()]
   };
 }

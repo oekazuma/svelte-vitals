@@ -113,6 +113,96 @@ describe('collectAll — kit aliases', () => {
   });
 });
 
+describe('collectAll — a component loaded with import()', () => {
+  const TREE = {
+    'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+    'src/routes/+layout.svelte': `<script>
+  import { onMount } from 'svelte';
+  let { children } = $props();
+  let Meta = $state(null);
+  onMount(async () => {
+    Meta = (await import('$lib/Meta.svelte')).default;
+  });
+</script>
+{#if Meta}<Meta />{/if}
+{@render children()}`,
+    'src/lib/Meta.svelte': `<svelte:head><title>Site</title><link rel="canonical" href="https://x.test/" /></svelte:head><h1>Site</h1>`,
+    'src/routes/spa/+page.svelte': `<p>spa</p>`,
+    'src/routes/spa/+page.ts': `export const ssr = false;\n`,
+    'src/routes/ssr/+page.svelte': `<p>ssr</p>`,
+    'src/routes/own/+page.svelte': `<svelte:head><title>Own</title></svelte:head>`
+  };
+  const head = (facts: Awaited<ReturnType<typeof collectAll>>, route: string) =>
+    facts.heads.find((h) => h.route === route)!.tags.map(({ kind, value, text }) => ({ kind, value, text }));
+
+  it('credits its tags, as may-render, only on routes that are never server-rendered', async () => {
+    const facts = await collectAll(createMemoryRuntime(TREE), '', defaultConfig);
+
+    expect(head(facts, '/spa')).toEqual([
+      { kind: 'title', value: 'dynamic', text: undefined },
+      { kind: 'link', value: 'dynamic', text: undefined }
+    ]);
+    expect(head(facts, '/ssr')).toEqual([]);
+    expect(head(facts, '/own')).toEqual([{ kind: 'title', value: 'static', text: 'Own' }]);
+    const dynamicHeading = (route: string) => facts.headings.find((h) => h.route === route)!.dynamicHeading;
+    expect(dynamicHeading('/spa')).toBe(true);
+    expect(dynamicHeading('/ssr')).toBeUndefined();
+  });
+
+  it('keeps the server-rendered route free of them under --route too', async () => {
+    const rt = createMemoryRuntime(TREE);
+    const spa = await collectAll(rt, '', defaultConfig, { route: '/spa' });
+    const ssr = await collectAll(rt, '', defaultConfig, { route: '/ssr' });
+
+    expect(head(spa, '/spa').map((t) => t.kind)).toEqual(['title', 'link']);
+    expect(head(ssr, '/ssr')).toEqual([]);
+  });
+
+  it('never lets a client-only tag hide a server-rendered one an outer layout sets', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        ...TREE,
+        'src/routes/ssr/+layout.svelte': `<svelte:head><title>Server</title></svelte:head>{@render children()}`,
+        'src/routes/ssr/+page.svelte': `<script>
+  import { onMount } from 'svelte';
+  let Meta = $state(null);
+  onMount(async () => {
+    const [meta] = await Promise.all([import('$lib/Meta.svelte')]);
+    Meta = meta.default;
+  });
+</script>
+<Meta />`
+      }),
+      '',
+      defaultConfig
+    );
+
+    expect(head(facts, '/ssr')).toEqual([{ kind: 'title', value: 'static', text: 'Server' }]);
+  });
+});
+
+describe('collectAll — a kit.alias above the project root', () => {
+  const TREE = {
+    // The memory runtime globs from its root, so the project sits there and the plugins above it.
+    'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+    'svelte.config.js': `export default { kit: { alias: { $plugins: '../plugins' } } };`,
+    'src/routes/shop/+page.svelte': `<script>import Landing from '$plugins/shop/Landing.svelte';</script><Landing />`,
+    '../plugins/shop/Landing.svelte': `<script>import Hero from './Hero.svelte';</script><svelte:head><title>Shop</title></svelte:head><Hero />`,
+    '../plugins/shop/Hero.svelte': `<h1>Shop</h1>`
+  };
+
+  it('follows components inside the directory the alias names', async () => {
+    const facts = await collectAll(createMemoryRuntime(TREE), '', defaultConfig);
+
+    expect(facts.heads[0]!.tags.map((t) => [t.kind, t.text, t.file])).toEqual([
+      ['title', 'Shop', 'src/routes/shop/+page.svelte']
+    ]);
+    expect(facts.headings[0]!.componentHeadings?.map((h) => [h.level, h.file])).toEqual([
+      [1, '../plugins/shop/Hero.svelte']
+    ]);
+  });
+});
+
 describe('collectAll: app.html head tags', () => {
   const APP_HTML = `<!doctype html>
 <html>

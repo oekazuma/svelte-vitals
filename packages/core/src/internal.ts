@@ -44,6 +44,7 @@ export { skippedFileWarnings } from './component.js';
 export { collectComponentFacts, emptyComponentFacts } from './component.js';
 export { collectSourceFiles } from './source-files.js';
 export type { KitModuleFacts } from './kit-module.js';
+export { routeNeverSsr } from './kit-module.js';
 export { resolveRepoLocalPath } from './kit-module-parse.js';
 export { collectKitModuleFacts } from './kit-module-collect.js';
 export { findMinifyDisabled } from './vite-config-parse.js';

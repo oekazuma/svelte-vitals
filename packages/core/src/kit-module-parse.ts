@@ -597,23 +597,20 @@ function walkKit(
 }
 
 /**
- * Normalize a posix path, resolving `.` and `..` segments — string-only, no I/O.
- * Returns undefined when a `..` segment pops an empty stack, i.e. the path escapes
- * its root (e.g. `../../../../src/lib/server/db` from a shallow route file): the
- * real target lies outside the project tree we can see, so there is no
- * project-relative path to return at all.
+ * Normalize a posix path, resolving `.` and `..` segments — string-only, no I/O. `..` segments
+ * that climb above the root are kept as a leading `../` run (`../../plugins/x`).
  */
-function normalizePosix(path: string): string | undefined {
+function normalizePosix(path: string): string {
   const out: string[] = [];
   for (const seg of path.split('/')) {
     if (seg === '' || seg === '.') continue;
-    if (seg === '..') {
-      if (out.length === 0) return undefined;
-      out.pop();
-    } else out.push(seg);
+    if (seg === '..' && out.length > 0 && out[out.length - 1] !== '..') out.pop();
+    else out.push(seg);
   }
   return out.join('/');
 }
+
+const escapesRoot = (path: string): boolean => path === '..' || path.startsWith('../');
 
 /**
  * What `resolveRepoLocalPath` assumes when no config was read: SvelteKit's own `$lib`, at the
@@ -639,8 +636,11 @@ function aliasMatches(entry: KitAlias, spec: string): boolean {
  * be a project-local module: the caller's `aliases` list decides which non-relative
  * specifiers resolve, defaulting to `$lib` → `src/lib`; `./`/`../` resolve against the
  * importing file's directory; bare packages and other aliases are skipped (they can't
- * be resolved to a project-local path at all). Also undefined when a relative
- * specifier's `..` segments escape the project root (see `normalizePosix`), or when a
+ * be resolved to a project-local path at all). A path above the project root (a leading `../`
+ * run) resolves only inside a directory a `kit.alias` value itself names above the root
+ * (`$plugins: '../../plugins'` in a monorepo app): the user's config says the app builds from
+ * there, so it is read like `src/` — anywhere else above the root is undefined, as nothing
+ * says the app reaches it. Also undefined when a
  * matched alias's value is itself absolute (e.g. `/opt/shared/src`, or a posixified Windows
  * drive-letter path like `C:/shared/src`): an absolute target is outside the analyzed project by
  * definition, and without this check `normalizePosix` would quietly drop the leading empty
@@ -679,7 +679,14 @@ export function resolveRepoLocalPath(
     if (entry.replacement.startsWith('/') || /^[A-Za-z]:\//.test(entry.replacement)) return undefined;
     path = entry.replacement + spec.slice(entry.find.length);
   }
-  return normalizePosix(path);
+  const normalized = normalizePosix(path);
+  if (!escapesRoot(normalized)) return normalized;
+  return aliases.some((a) => {
+    const dir = a.replacement === null ? '' : normalizePosix(a.replacement);
+    return escapesRoot(dir) && (normalized === dir || normalized.startsWith(`${dir}/`));
+  })
+    ? normalized
+    : undefined;
 }
 
 /**
@@ -688,7 +695,7 @@ export function resolveRepoLocalPath(
  * `aliases` (defaulting to `$lib` → `src/lib` when omitted), so a project's declared
  * `kit.alias`/`kit.files.lib` resolve here exactly as they do at rule time; `./`/`../`
  * resolve against the importing file's directory; bare packages, unmatched aliases, and
- * a relative specifier whose `..` segments escape the repo root are skipped. An
+ * a path above the project root outside every `kit.alias` directory are skipped. An
  * extensionless `…/x.svelte` specifier canonicalises to `….svelte.ts` (security/shared-state-import also
  * tries the `.js` sibling when matching).
  */
@@ -730,8 +737,8 @@ function libServerRoot(aliases?: readonly KitAlias[]): string | undefined {
  * an equivalent relative path, resolving to exactly that directory — importing the
  * index file rather than a named submodule) is exempt too. A specifier that
  * resolves to undefined — a bare package, an alias that can't map to a repo path, or
- * a relative specifier whose `..` segments escape the repo root (see
- * `normalizePosix`) — is conservatively NOT local state: we can't see that file, so
+ * a relative specifier whose `..` segments escape the project root (outside every
+ * `kit.alias` directory, see `resolveRepoLocalPath`) — is conservatively NOT local state: we can't see that file, so
  * we don't flag writes to it. Installed packages (drizzle, redis, @vercel/kv, …) are
  * excluded: `.set()`/`.update()` on those is persistence, not shared-module-state
  * mutation. When the `$lib` entry is opaque (`libServerRoot` returns undefined — an unreadable
