@@ -687,7 +687,7 @@ export function resolveRepoLocalPath(
     // same failure in different clothing: it doesn't start with `/`, but it is just as absolute
     // and just as outside the project.
     if (entry.replacement.startsWith('/') || /^[A-Za-z]:\//.test(entry.replacement)) return undefined;
-    path = entry.replacement + spec.slice(entry.find.length);
+    path = entry.replacement + spec.slice(entry.find.length) + (entry.suffix ?? '');
   }
   const normalized = normalizePosix(path);
   if (!escapesRoot(normalized)) return normalized;

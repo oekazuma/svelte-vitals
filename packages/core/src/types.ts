@@ -49,6 +49,8 @@ export interface KitAlias {
    *   is how Kit stops the plain key from swallowing the nested specifiers.
    */
   match: 'prefix' | 'contents' | 'exact';
+  /** Appended after the matched rest of a `contents` specifier: the text after `*` in an exports pattern target (`./src/*.js`). */
+  suffix?: string;
   /**
    * The directory the entry's targets belong to, when it is wider than `replacement`: a workspace
    * package's directory, so relative imports between its files resolve above the project root.

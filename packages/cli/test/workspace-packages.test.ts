@@ -47,6 +47,23 @@ describe('collectAll — workspace packages', () => {
     expect(h1Files(facts)).toEqual(['../../packages/ui/src/components/Hero.svelte']);
   });
 
+  it('follows a `./*` → `./src/lib/*.js` pattern to the `.ts` barrel it names, as Vite does', async () => {
+    const facts = await collect({
+      '../../.git': '',
+      '../../pnpm-workspace.yaml': `packages:\n  - 'apps/*'\n  - 'packages/*'\n`,
+      '../../packages/core/package.json': json({
+        name: '@repo/core',
+        exports: { './*': { types: './src/lib/*.d.ts', default: './src/lib/*.js' } }
+      }),
+      '../../packages/core/src/lib/client/ui.ts': `export { default as ActivityView } from '../components/ActivityView.svelte';`,
+      '../../packages/core/src/lib/components/ActivityView.svelte': `<h1>Activity</h1>`,
+      ...app({ '@repo/core': 'workspace:*' }),
+      'src/routes/+page.svelte': `<script>import { ActivityView } from '@repo/core/client/ui';</script><ActivityView />`
+    });
+
+    expect(h1Files(facts)).toEqual(['../../packages/core/src/lib/components/ActivityView.svelte']);
+  });
+
   it('follows a workspace component a layout mounts with import() on a client-rendered route', async () => {
     const facts = await collect({
       ...PNPM_UI,
