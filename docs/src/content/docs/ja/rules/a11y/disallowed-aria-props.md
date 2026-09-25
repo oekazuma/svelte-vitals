@@ -13,7 +13,7 @@ description: 要素の role が対応しない aria-* 属性は無視され、ro
 
 - 明示的な `role`。ブラウザが `role="switch checkbox"` を解決するのと同じく、最初の具体的なトークンを使います。ARIA が定義しない role は `a11y/invalid-role` の検出であってこのルールのものではありません。DPUB-ARIA の role（`doc-toc` など）は判定されません。このルールが読む role 表は DPUB を含まないためです。
 - それ以外は要素の implicit role。そして implicit role が文脈で変わる要素（`<a>` は `href` があるときだけ `link`、`<img alt="">` は `presentation`、`<input>` は `type` 次第）については、**その要素が取り得るすべての role**。判定はそのすべての下で成立するときにだけ行います。したがって `<div aria-label>` は発火し（`<div>` はどこでも `generic` で、`generic` は名前を取らない）、`<a aria-label>`、`<img aria-label>`、`<input aria-checked>` は発火しません。`<input>` はグローバルでない属性については事実上このルールで判定できません。`<input type="text" aria-checked>` は Svelte コンパイラの `a11y_role_supports_aria_props_implicit` がカバーします。
-- 式による role、または literal な role のない spread は role を不明にします: 検出なし。
+- 式による role、または literal な role のない spread や `use:` アクションは role を不明にします: 検出なし。アクションは実行時に `role` を設定できるためです（ドラッグハンドルを `role="button"` にするなど）。
 
 検出は 2 種類で、メッセージが異なります。
 

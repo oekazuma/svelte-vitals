@@ -33,6 +33,11 @@ describe('roleCandidates', () => {
     expect(roleCandidates(el('<div {...p} aria-label="x">x</div>'))).toBeUndefined();
   });
 
+  it('is undefined for a use: action with no literal role, which may set one at runtime', () => {
+    expect(roleCandidates(el('<span use:dragHandle aria-label="x">x</span>'))).toBeUndefined();
+    expect(roleCandidates(el('<span role="button" use:a aria-label="x">x</span>'))?.explicit).toBe(true);
+  });
+
   it('keeps judging the explicit role when a spread is also present', () => {
     expect(roleCandidates(el('<div role="checkbox" {...p} aria-checked="true">x</div>'))?.explicit).toBe(true);
   });
@@ -121,6 +126,7 @@ describe('a11y/disallowed-aria-props', () => {
     expect(await disallowed('<div role="doc-toc" aria-checked="true">x</div>')).toEqual([]);
     expect(await disallowed('<div role={r} aria-checked="true">x</div>')).toEqual([]);
     expect(await disallowed('<div {...p} aria-checked="true">x</div>')).toEqual([]);
+    expect(await disallowed('<span use:dragHandle aria-label="x">x</span>')).toEqual([]);
   });
 
   it('anchors every finding at the start tag so a directive above a multi-line element reaches it', async () => {

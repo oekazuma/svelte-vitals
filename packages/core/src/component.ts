@@ -151,6 +151,8 @@ export interface AriaElementFact {
   /** Set when the element also carries a spread attribute — its full attribute set is
    *  unknowable, so required-prop presence checks must treat it as satisfied (a11y/required-aria-props). */
   hasSpread?: true;
+  /** Set when the element carries a `use:` action, which may set `role` at runtime (svelte-dnd-action's handles do). */
+  hasAction?: true;
 }
 
 /**

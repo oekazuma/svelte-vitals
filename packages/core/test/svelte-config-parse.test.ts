@@ -27,6 +27,21 @@ describe('findKitPathsBaseInSvelteConfig', () => {
     expect(findKitPathsBaseInSvelteConfig(src)).toEqual({});
   });
 
+  it('ignores a computed base whose every outcome is the empty string', () => {
+    for (const base of [`process.env.NODE_ENV === 'production' ? '' : ''`, `a ? '' : b ? '' : ''`, `'' || ''`]) {
+      expect(
+        findKitPathsBaseInSvelteConfig(`export default { kit: { paths: { base: ${base} } } };`),
+        base
+      ).toBeUndefined();
+    }
+  });
+
+  it('keeps a computed base with a non-empty or non-literal outcome as present-but-unknown', () => {
+    for (const base of [`x ? '' : '/repo'`, `x ? '' : y`, `process.env.BASE ?? ''`]) {
+      expect(findKitPathsBaseInSvelteConfig(`export default { kit: { paths: { base: ${base} } } };`), base).toEqual({});
+    }
+  });
+
   it('ignores an empty-string base', () => {
     expect(findKitPathsBaseInSvelteConfig(`export default { kit: { paths: { base: '' } } };`)).toBeUndefined();
   });

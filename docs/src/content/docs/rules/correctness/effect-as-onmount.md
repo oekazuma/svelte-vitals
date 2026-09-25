@@ -29,7 +29,7 @@ If the effect runs in response to a user interaction, prefer an event handler ov
 
 ## Known limitations
 
-This check recognizes a reactive read through a name it can trace back to a rune declarator (`$state`/`$derived`/`$props`), an imported binding, or a local declared with a `new …()` initializer (`const x = new Foo()`), which covers class `$state` fields, `SvelteMap`/`SvelteSet`, an imported runes-module state object, and `svelte/reactivity/window`. Two shapes have no such name to trace, so a genuinely reactive effect built either way can still be flagged:
+This check recognizes a reactive read through a name it can trace back to a rune declarator (`$state`/`$derived`/`$props`), an imported binding, or a local declared with a `new …()` initializer (`const x = new Foo()`), including through a plain alias of one (`const p = presenter`, `const p = presenter as Presenter`), which covers class `$state` fields, `SvelteMap`/`SvelteSet`, an imported runes-module state object, and `svelte/reactivity/window`. Two shapes have no such name to trace, so a genuinely reactive effect built either way can still be flagged:
 
 - A reactive value reached only through a plain function's return value (`const c = createCounter()`).
 - A local assigned `new …()` after its declaration instead of at it (`let m; m = new SvelteMap();`): only the declarator-init form is recognized.

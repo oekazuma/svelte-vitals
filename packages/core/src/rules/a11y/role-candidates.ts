@@ -34,7 +34,7 @@ export interface RoleCandidates {
 
 /**
  * The role(s) an `AriaElementFact` may have. Explicit first: a literal role's first concrete token
- * (`resolveRole`); an expression role, or a spread with no literal role, makes the role unknowable
+ * (`resolveRole`); an expression role, or a spread or `use:` action with no literal role, makes the role unknowable
  * and yields `undefined`. Otherwise the element's implicit role — never one role but the set of
  * candidates the dataset's conditional outcomes leave open, since the selectors that decide between
  * them are not evaluated (design 2026-08-19-aria-role-table-rules, "Which role an element has").
@@ -45,7 +45,7 @@ export function roleCandidates(e: AriaElementFact): RoleCandidates | undefined {
     const role = resolveRole(e.role.literal.trim().split(/\s+/));
     return role ? { explicit: true, roles: [role], namingProhibited: false } : undefined;
   }
-  if (e.hasSpread) return undefined;
+  if (e.hasSpread || e.hasAction) return undefined;
   // JSON.parse output and object literals inherit Object.prototype, and e.tag is an author-
   // controlled tag name (e.g. `constructor`) — an unguarded index would return Object's
   // function instead of undefined.

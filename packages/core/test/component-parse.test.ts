@@ -153,6 +153,15 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     expect(facts('{#each { length: 3 } as _}<li></li>{/each}').eachBlocks).toEqual([]);
   });
 
+  it('skips Array.from over a length-only list', () => {
+    for (const list of ['Array.from(new Array(n))', 'Array.from(Array(n).keys())', 'Array.from(Array(n), f)']) {
+      expect(facts(`{#each ${list} as _row}<li></li>{/each}`).eachBlocks, list).toEqual([]);
+    }
+    expect(facts('{#each Array.from(items) as item}<li>{item}</li>{/each}').eachBlocks).toEqual([
+      { hasKey: false, line: 1 }
+    ]);
+  });
+
   it('skips a length-only list filled with one value or spread from its keys', () => {
     for (const list of [
       'Array(5).fill(null)',
@@ -430,6 +439,18 @@ describe('parseComponentFacts — mount-only $effect (correctness/effect-as-onmo
     expect(facts('$effect(() => { document.title = "Home"; });')[0]!.mountOnly).toBe(true);
     expect(facts('$effect(() => { el.focus(); });')[0]!.mountOnly).toBe(true);
     expect(facts('$effect(() => analytics.pageView());')[0]!.mountOnly).toBe(true);
+  });
+  it('is not mountOnly when the body reads an alias of an imported binding', () => {
+    expect(
+      facts("import { presenter } from './p'; const p = presenter; $effect(() => { p.sync(); });")[0]!.mountOnly
+    ).toBe(false);
+    const ts = `<script lang="ts">import { presenter } from './p'; const q = p; const p = presenter as T & U; $effect(() => { q.open; });</script>`;
+    expect(parseComponentFacts(ts, 'C.svelte').effects[0]!.mountOnly).toBe(false);
+    expect(facts('const local = {}; const p = local; $effect(() => { p.sync(); });')[0]!.mountOnly).toBe(true);
+    const nested =
+      "import { x } from './x'; function f() { const id = x; } $effect(() => { const id = 1; el.id = id; });";
+    expect(facts(nested)[0]!.mountOnly).toBe(true);
+    expect(facts('let n = $state(0); const c = n; $effect(() => { el.textContent = c; });')[0]!.mountOnly).toBe(true);
   });
   it('is not mountOnly when the body reads reactive state/derived/props', () => {
     expect(facts('let count = $state(0); $effect(() => { console.log(count); });')[0]!.mountOnly).toBe(false);
@@ -1154,6 +1175,11 @@ describe('parseComponentFacts — browser-global refs (correctness/server-browse
     const src =
       "if (typeof window !== 'undefined') {\n  window.addEventListener('x', f);\n}\nconst s = typeof localStorage === 'undefined' ? null : localStorage.getItem('k');";
     expect(refs(src)).toEqual([]);
+  });
+  it('skips a clause guarded by typeof against any type string', () => {
+    const src = "const reduced = typeof matchMedia === 'function' && matchMedia('(x)').matches;";
+    expect(refs(src)).toEqual([]);
+    expect(parseComponentFacts(`<script>${src}</script>`, 'C.svelte').browserGlobalRefs).toEqual([]);
   });
   it('does not flag reads inside functions, onMount, or $effect', () => {
     const src = [
