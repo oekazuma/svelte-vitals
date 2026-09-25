@@ -17,7 +17,11 @@ A real SvelteKit app used four ways:
   `/clean/alias` renders its `<h1>` through a `kit.alias` built with `fileURLToPath`. `/clean/arms`,
   `/clean/branches` and `/clean/boundary` put a second `<h1>`, a duplicate id or a modal's `<title>` in
   an arm that never renders with the page's own, and set head tags through a component placed inside
-  `<svelte:head>`. When a real
+  `<svelte:head>`. `/clean/catalog` sets its Open Graph and Twitter tags through `<meta {property} {content} />`
+  in a head `{#each}`, puts a named `<aside>` in a `<section><header>` outside `<main>` (its `+page@` skips the
+  canary layout), and has a `<picture>` whose `<source>` carries the `srcset`, unkeyed `{#each}` over constant lists
+  from a `.svelte.ts` runes module and a module that reads its list with `for…of`, and an `{#each}` item named like
+  an `import * as` namespace. When a real
   app turns up a false positive, add its shape here along with the fix.
 - Live-dashboard dogfood — `@svelte-vitals/vite`'s `svelteVitals()` plugin runs against this
   app's own `vite build`, exercising the same rendered-HTML analysis path and dashboard
