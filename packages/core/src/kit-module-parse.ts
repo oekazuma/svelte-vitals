@@ -769,16 +769,26 @@ function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: rea
 /** Container constructors whose instances hold data in process memory. */
 const IN_MEMORY_CTORS = new Set(['Map', 'Set', 'WeakMap', 'WeakSet']);
 
-/** Whether an initializer positively identifies an in-memory container. */
+/**
+ * Whether an initializer positively identifies an in-memory container. An object literal with a
+ * spread is a composite of values this parse cannot see — typically a facade over clients and
+ * imported modules (`{ ...prismaModels, ...handlers }`) — so it counts only when one of its own
+ * properties is itself a container.
+ */
 function isInMemoryInit(init: Node | undefined): boolean {
   if (!init) return false;
-  if (init.type === 'ObjectExpression' || init.type === 'ArrayExpression') return true;
+  if (init.type === 'ArrayExpression') return true;
+  if (init.type === 'ObjectExpression') {
+    const props: Node[] = init.properties ?? [];
+    if (!props.some((p) => p?.type === 'SpreadElement')) return true;
+    return props.some((p) => p?.type === 'Property' && isInMemoryInit(p.value));
+  }
   return init.type === 'NewExpression' && init.callee?.type === 'Identifier' && IN_MEMORY_CTORS.has(init.callee.name);
 }
 
 /**
  * The exported bindings of a module that are initialized to an in-memory container — an object
- * or array literal, or `new Map`/`Set`/`WeakMap`/`WeakSet`. Used to arbitrate a `.set()` call on
+ * or array literal (a spread literal only as `isInMemoryInit` allows), or `new Map`/`Set`/`WeakMap`/`WeakSet`. Used to arbitrate a `.set()` call on
  * an import from under the `$lib` server root, where the call shape alone cannot separate a
  * hand-rolled store from a database client.
  *

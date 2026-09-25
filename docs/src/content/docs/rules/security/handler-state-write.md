@@ -18,7 +18,7 @@ Not flagged:
 
 The `src/lib/server` exemption applies to the **resolved** path, so it holds however the module is imported, via the `$lib/server/` alias or a relative path (`../../lib/server/db`). A specifier whose `..` segments escape the project root is conservatively never treated as repo-local state.
 
-The exemption is not the directory alone. svelte-vitals reads the target module and keeps the call exempt only when the export is _not_ an in-memory container. An export initialized to `new Map`/`Set`/`WeakMap`/`WeakSet`, or to an object or array literal, is a hand-rolled store, one shared instance overwritten per request, and is reported even under `src/lib/server`:
+The exemption is not the directory alone. svelte-vitals reads the target module and keeps the call exempt only when the export is _not_ an in-memory container. An export initialized to `new Map`/`Set`/`WeakMap`/`WeakSet`, or to an object or array literal, is a hand-rolled store, one shared instance overwritten per request, and is reported even under `src/lib/server`. An object literal built with spreads (`{ ...models, ...handlers }`) is the exception: it is usually a facade over database clients and imported modules, so it counts as a store only when one of its own properties is itself a container (`{ ...defaults, hits: new Map() }`):
 
 ```ts src/lib/server/store.ts
 export const db = new Map(); // reported when a handler calls db.set(...)
