@@ -182,7 +182,10 @@ describe('collectAll — {#each} over an imported constant list', () => {
   const MODULES = {
     'src/lib/data.ts': `export const xs = ['a', 'b'];\nexport const typed = [{ id: 1 }] as const satisfies readonly { id: number }[];\nexport const pushed = [1];\npushed.push(2);\nexport const computed = [1, 2].map((n) => n * 2);\nconst local = ['c'];\nexport { local as renamed };\n`,
     'src/lib/index.ts': `export * from './data';\nexport { xs as viaBarrel } from './data.js';\n`,
-    'src/lib/data.json': `["a", "b"]`
+    'src/lib/data.json': `["a", "b"]`,
+    'src/lib/state.svelte.ts': `export const runes = ['a'];\n`,
+    'src/lib/looped.ts': `export const looped = ['a'];\nfor (const x of looped) console.log(x);\n`,
+    'src/lib/Widget.svelte': `<script module>export const xs = ['a'];</script>`
   };
   const COMPONENTS = {
     'src/lib/Alias.svelte': each("import { xs } from '$lib/data';"),
@@ -197,7 +200,11 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/Package.svelte': each("import { xs } from 'some-package';"),
     'src/lib/Json.svelte': each("import xs from '$lib/data.json';"),
     'src/lib/JsonNamed.svelte': each("import { xs } from '$lib/data.json';"),
-    'src/lib/Missing.svelte': each("import { xs } from '$lib/missing';")
+    'src/lib/Missing.svelte': each("import { xs } from '$lib/missing';"),
+    'src/lib/RunesModule.svelte': each("import { runes as xs } from './state.svelte';"),
+    'src/lib/RunesModuleJs.svelte': each("import { runes as xs } from '$lib/state.svelte.js';"),
+    'src/lib/ForOf.svelte': each("import { looped as xs } from '$lib/looped';"),
+    'src/lib/ComponentExport.svelte': each("import { xs } from './Widget.svelte';")
   };
 
   it('drops the block only when the export is a repo-local constant list', async () => {
@@ -212,6 +219,7 @@ describe('collectAll — {#each} over an imported constant list', () => {
       .map((c) => c.file)
       .sort();
     expect(reported).toEqual([
+      'src/lib/ComponentExport.svelte',
       'src/lib/Computed.svelte',
       'src/lib/Json.svelte',
       'src/lib/JsonNamed.svelte',
