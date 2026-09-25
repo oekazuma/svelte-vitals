@@ -18,6 +18,7 @@ import {
   isClassicScriptType,
   resolveLandmark,
   ASIDE_DEMOTING_TAGS,
+  SECTIONING_TAGS,
   ANCESTRY_DEPENDENT_TAGS,
   NAMING_ATTRS,
   IDREF_ATTRS,
@@ -587,6 +588,8 @@ export interface A11yNode {
   attr?: string;
   /** the landmark ancestor element within this file, if any */
   inLandmark?: string;
+  /** the landmark ancestor within this file that is no `<header>`/`<footer>`, whose landmark-ness the layout above can revoke */
+  inFixedLandmark?: string;
   /** for kind 'landmark' from <header>/<footer>: at template top level in this file (which also implies "not inside sectioning content" — depth 0 has no ancestors at all) */
   topLevel?: boolean;
 }
@@ -595,6 +598,8 @@ export interface ParsedA11y {
   nodes: A11yNode[];
   /** landmark ancestor of this file's <slot>/{@render children()} position, if any */
   slotInLandmark?: string;
+  /** `slotInLandmark`, skipping `<header>`/`<footer>` (see `A11yNode.inFixedLandmark`) */
+  slotInFixedLandmark?: string;
   /**
    * Branch address of this file's <slot>/{@render children()} — the longest prefix all such
    * positions share, so content rendered in two arms is placed above both. Absent: no slot.
@@ -626,6 +631,10 @@ interface A11yCtx {
   repeatable: boolean;
   /** landmark ancestors, outermost first */
   landmarks: string[];
+  /** the innermost of `landmarks` that is no `<header>`/`<footer>` */
+  fixedLandmark: string | undefined;
+  /** open `SECTIONING_TAGS` ancestors — a `<header>`/`<footer>` below one is no landmark */
+  sectioning: number;
   elementDepth: number;
   /** open `ASIDE_DEMOTING_TAGS` ancestors — an `<aside>` below one needs a name to be a landmark */
   asideDemoting: number;
@@ -640,9 +649,13 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   const nodes: A11yNode[] = [];
   let groups = 0;
   let slotInLandmark: string | undefined;
+  let slotInFixedLandmark: string | undefined;
   let slotPath: BranchStep[] | undefined;
   const noteSlot = (ctx: A11yCtx): void => {
-    slotInLandmark ??= ctx.landmarks.at(-1);
+    if (slotInLandmark === undefined) {
+      slotInLandmark = ctx.landmarks.at(-1);
+      slotInFixedLandmark = ctx.fixedLandmark;
+    }
     if (!slotPath) slotPath = ctx.path;
     else {
       let n = 0;
@@ -656,7 +669,13 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
 
   const emit = (ctx: A11yCtx, node: Omit<A11yNode, 'repeatable' | 'path' | 'inLandmark'>): void => {
     const inLandmark = ctx.landmarks.at(-1);
-    nodes.push({ ...node, repeatable: ctx.repeatable, path: ctx.path, ...(inLandmark ? { inLandmark } : {}) });
+    nodes.push({
+      ...node,
+      repeatable: ctx.repeatable,
+      path: ctx.path,
+      ...(inLandmark ? { inLandmark } : {}),
+      ...(ctx.fixedLandmark ? { inFixedLandmark: ctx.fixedLandmark } : {})
+    });
   };
 
   const noteSpread = (node: WalkNode): void => {
@@ -752,20 +771,20 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     const resolved = node.type === 'SvelteElement' ? svelteElementTags(node.tag) : [node.name];
     const literalTag = resolved?.length === 1 ? resolved[0] : undefined;
     const tag = literalTag?.toLowerCase();
-    // A per-file walk cannot see cross-file sectioning ancestry, so insideSectioning stays false;
-    // countsAsLandmark (routes.ts) applies the topLevel approximation at composition instead.
+    // Only in-file sectioning ancestry is visible here; the layout's main/aside is applied at
+    // composition (routes.ts), and countsAsLandmark adds the topLevel approximation on top.
     const landmark = resolveLandmark({
       tag,
       roleTokens: roleAttr ? splitTokens(attrTextOf(roleAttr)) : undefined,
       named: tag === 'aside' && hasAccessibleName(attrs),
-      insideSectioning: false,
+      insideSectioning: ctx.sectioning > 0,
       insideAsideDemoting: ctx.asideDemoting > 0
     });
+    // Only ancestry-dependent tags carry the per-file top-level approximation: their landmark-ness
+    // depends on sectioning ancestry the composition cannot see. `<main>` and `<aside>` are
+    // landmarks wherever they sit, so tagging them would drop every nested one.
+    const headerFooter = landmark !== undefined && !roleAttr && tag !== undefined && ANCESTRY_DEPENDENT_TAGS.has(tag);
     if (landmark) {
-      // Only ancestry-dependent tags carry the per-file top-level approximation: their landmark-ness
-      // depends on sectioning ancestry the composition cannot see. `<main>` and `<aside>` are
-      // landmarks wherever they sit, so tagging them would drop every nested one.
-      const headerFooter = !roleAttr && tag !== undefined && ANCESTRY_DEPENDENT_TAGS.has(tag);
       emit(ctx, {
         kind: 'landmark',
         key: landmark,
@@ -803,14 +822,25 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
       ...ctx,
       elementDepth: ctx.elementDepth + 1,
       asideDemoting: ctx.asideDemoting + (tag !== undefined && ASIDE_DEMOTING_TAGS.has(tag) ? 1 : 0),
-      landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
+      sectioning: ctx.sectioning + (tag !== undefined && SECTIONING_TAGS.has(tag) ? 1 : 0),
+      landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks,
+      fixedLandmark: landmark && !headerFooter ? landmark : ctx.fixedLandmark
     });
   };
 
-  walk(fragment, { path: [], repeatable: false, landmarks: [], elementDepth: 0, asideDemoting: 0 });
+  walk(fragment, {
+    path: [],
+    repeatable: false,
+    landmarks: [],
+    fixedLandmark: undefined,
+    sectioning: 0,
+    elementDepth: 0,
+    asideDemoting: 0
+  });
   return {
     nodes,
     ...(slotInLandmark ? { slotInLandmark } : {}),
+    ...(slotInFixedLandmark ? { slotInFixedLandmark } : {}),
     ...(slotPath ? { slotPath } : {}),
     unknowable,
     elementTags: [...elementTags],
