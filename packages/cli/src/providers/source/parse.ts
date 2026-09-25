@@ -216,6 +216,8 @@ export interface ComponentUse {
   inHead?: true;
   /** The `{#if}`/`{#await}`/`<svelte:boundary>` arms of its file it sits in, numbered as the file's heading paths. */
   path: BranchStep[];
+  /** Snippet prop name (`children` for loose content) → the id of the `HOLE` step content passed in it sits below. */
+  holes?: ReadonlyMap<string, number>;
 }
 
 /** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
@@ -236,21 +238,23 @@ function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSel
 function collectComponents(
   node: WalkNode | WalkNode[] | null | undefined,
   acc: ComponentUse[],
-  paths: Map<WalkNode, BranchStep[]>,
+  heading: Pick<ReturnType<typeof collectHeadings>, 'componentPaths' | 'holes'>,
   at: Pick<ComponentUse, 'conditional' | 'inHead'> = {}
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectComponents(child, acc, paths, at);
+    for (const child of node) collectComponents(child, acc, heading, at);
     return;
   }
   if (!node || typeof node !== 'object') return;
   if (node.type === 'Component' || node.type === 'SvelteComponent') {
     const attributes = node.attributes;
+    const holes = heading.holes.get(node);
     acc.push({
       name: componentName(node),
       attributes,
       hasSpread: attributes.some((a) => a.type === 'SpreadAttribute'),
-      path: paths.get(node) ?? [],
+      path: heading.componentPaths.get(node) ?? [],
+      ...(holes ? { holes } : {}),
       ...at
     });
   }
@@ -261,7 +265,7 @@ function collectComponents(
         ? { ...at, inHead: true as const }
         : at;
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectComponents(childOf(node, key), acc, paths, inner);
+    if (key in node) collectComponents(childOf(node, key), acc, heading, inner);
   }
 }
 
@@ -361,7 +365,7 @@ interface ParsedHeading {
   level: number;
   /** 1-based source line, or 0 if unknown. */
   line: number;
-  /** The `{#if}`/`{#await}` arms it sits in; absent when unconditional. */
+  /** The `{#if}`/`{#await}` arms it sits in, `HOLE` steps included; absent when unconditional. */
   path?: BranchStep[];
 }
 
@@ -518,51 +522,92 @@ const BOUNDARY_SNIPPET_ARMS = new Map([
 ]);
 
 /**
+ * The `branch` of a placeholder step standing where content passed to a component renders inside
+ * it; its `group` is the placeholder's id. `resolveFileTags` replaces it with the component's own
+ * path to that `{@render}` once the component is resolved, and drops it otherwise.
+ */
+export const HOLE = -1;
+
+/**
  * Collect page-body headings (<h1>–<h6>) anywhere in the template (seo/single-h1), each with
  * the `{#if}`/`{#await}`/`<svelte:boundary>` arms it sits in so exclusive arms are not counted
- * together; component tags get the same address (`componentPaths`), and `childrenPath` is where
- * `<slot />`/`{@render children()}` renders the next layout or page (the common prefix when it
- * renders in several places). `groups` is how many group numbers the file uses.
+ * together; component tags get the same address (`componentPaths`). A snippet this file renders
+ * is read at each `{@render}` of it; content passed to a component (its loose children, or a
+ * `{#snippet}` in its tag) sits below a `HOLE` step (`holes`). `renderPaths` is where each
+ * snippet prop renders (`children` also for `<slot />`), the common prefix when it renders in
+ * several places. `groups` is how many group numbers the file uses.
  * `dynamic` records a `<svelte:element>` that may render a heading but whose level is not
  * statically determinable — a route carrying one cannot be reported as having no <h1>.
  */
-function collectHeadings(fragment: AST.Fragment, source: string) {
+function collectHeadings(fragment: AST.Fragment, source: string, props: ReadonlyMap<string, string>) {
   const headings: ParsedHeading[] = [];
   const componentPaths = new Map<WalkNode, BranchStep[]>();
-  let childrenPath: BranchStep[] | undefined;
+  const renderPaths = new Map<string, BranchStep[]>();
+  const holes = new Map<WalkNode, Map<string, number>>();
+  const index = { snippets: new Map<string, AST.SnippetBlock>(), rendered: new Set<string>() };
+  indexSnippets(fragment, index);
+  const local = (name: string | undefined): AST.SnippetBlock | undefined =>
+    name !== undefined && index.rendered.has(name) ? index.snippets.get(name) : undefined;
+  const reached = new Set<AST.SnippetBlock>();
   let dynamic = false;
   let groups = 0;
+  let holeIds = 0;
   const push = (level: number, node: WalkNode & { start: number }, path: BranchStep[]): void => {
     headings.push({ level, line: lineOf(source, node.start), ...(path.length > 0 ? { path } : {}) });
   };
-  const walk = (node: WalkNode | WalkNode[] | null | undefined, path: BranchStep[]): void => {
+  const meet = <K>(map: Map<K, BranchStep[]>, key: K, path: BranchStep[]): void => {
+    const prev = map.get(key);
+    map.set(key, prev ? commonPrefix(prev, path) : path);
+  };
+  const holeOf = (node: WalkNode, name: string): BranchStep => {
+    let named = holes.get(node);
+    if (!named) holes.set(node, (named = new Map()));
+    let id = named.get(name);
+    if (id === undefined) named.set(name, (id = holeIds++));
+    return { group: id, branch: HOLE };
+  };
+  const walk = (node: WalkNode | WalkNode[] | null | undefined, path: BranchStep[], open: AST.SnippetBlock[]): void => {
     if (Array.isArray(node)) {
-      for (const child of node) walk(child, path);
+      for (const child of node) walk(child, path, open);
       return;
     }
     if (!node || typeof node !== 'object') return;
     // Body headings only — a stray <h1> inside <svelte:head> is not a page heading.
     if (node.type === 'SvelteHead') return;
+    if (node.type === 'SnippetBlock' && local(node.expression.name) === node) return;
     if (node.type === 'IfBlock' || node.type === 'AwaitBlock') {
       const group = groups++;
       const arms = node.type === 'IfBlock' ? ifArms(node) : [node.pending, node.then, node.catch];
-      arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }]));
+      arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }], open));
       return;
     }
     if (node.type === 'SvelteBoundary') {
       const group = groups++;
       for (const child of node.fragment.nodes) {
         const branch = child.type === 'SnippetBlock' ? (BOUNDARY_SNIPPET_ARMS.get(child.expression.name) ?? 0) : 0;
-        walk(child, [...path, { group, branch }]);
+        walk(child, [...path, { group, branch }], open);
       }
       return;
     }
-    if (node.type === 'Component' || node.type === 'SvelteComponent') componentPaths.set(node, path);
-    if (
-      (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) ||
-      (node.type === 'RenderTag' && renderCallee(node) === 'children')
-    ) {
-      childrenPath = childrenPath ? commonPrefix(childrenPath, path) : path;
+    if (node.type === 'RenderTag') {
+      const name = renderCallee(node);
+      const snippet = local(name);
+      if (snippet && !open.includes(snippet)) {
+        reached.add(snippet);
+        walk(snippet.body, path, [...open, snippet]);
+      } else if (!snippet && name !== undefined) meet(renderPaths, props.get(name) ?? name, path);
+      return;
+    }
+    if (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) {
+      meet(renderPaths, 'children', path);
+    }
+    if (node.type === 'Component' || node.type === 'SvelteComponent') {
+      meet(componentPaths, node, path);
+      for (const child of node.fragment.nodes) {
+        const name = child.type === 'SnippetBlock' ? child.expression.name : 'children';
+        walk(child, [...path, holeOf(node, name)], open);
+      }
+      return;
     }
     if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
       push(Number(node.name[1]), node, path);
@@ -575,11 +620,15 @@ function collectHeadings(fragment: AST.Fragment, source: string) {
       else if (!tags || tags.some((t) => HEADING_TAG.test(t.toLowerCase()))) dynamic = true;
     }
     for (const key of CHILD_NODE_KEYS) {
-      if (key in node) walk(childOf(node, key), path);
+      if (key in node) walk(childOf(node, key), path, open);
     }
   };
-  walk(fragment, []);
-  return { headings, dynamic, componentPaths, childrenPath, groups };
+  walk(fragment, [], []);
+  // A snippet rendered only from inside itself is still read once.
+  for (const snippet of index.snippets.values()) {
+    if (local(snippet.expression.name) === snippet && !reached.has(snippet)) walk(snippet.body, [], [snippet]);
+  }
+  return { headings, dynamic, componentPaths, renderPaths, holes, groups };
 }
 
 /** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */
@@ -885,8 +934,8 @@ export interface ParsedFile {
   headings: ParsedHeading[];
   /** How many branch-group numbers this file's heading and component paths use. */
   headingGroups: number;
-  /** Branch path of this file's `<slot />`/`{@render children()}`, when it has one. */
-  childrenPath?: BranchStep[];
+  /** Where each snippet prop renders (`children` also for `<slot />`), `HOLE` steps included. */
+  renderPaths: ReadonlyMap<string, BranchStep[]>;
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
   dynamicHeading: boolean;
   a11y: ParsedA11y;
@@ -903,9 +952,10 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
-  const headingAcc = collectHeadings(ast.fragment, source);
+  const props = collectProps(ast);
+  const headingAcc = collectHeadings(ast.fragment, source, props);
   const components: ComponentUse[] = [];
-  collectComponents(ast.fragment, components, headingAcc.componentPaths);
+  collectComponents(ast.fragment, components, headingAcc);
   const imports = collectImports(ast);
   return {
     headTags: heads.flatMap((h) => tagsFromHead(h, source)),
@@ -915,10 +965,10 @@ export function parseFile(source: string, filename: string): ParsedFile {
     images: collectImages(ast.fragment, source, imports),
     headings: headingAcc.headings,
     headingGroups: headingAcc.groups,
-    ...(headingAcc.childrenPath ? { childrenPath: headingAcc.childrenPath } : {}),
+    renderPaths: headingAcc.renderPaths,
     dynamicHeading: headingAcc.dynamic,
     a11y: collectA11y(ast.fragment, source),
-    template: { source, filename, props: collectProps(ast) },
+    template: { source, filename, props },
     suppressions: collectSuppressions(source)
   };
 }

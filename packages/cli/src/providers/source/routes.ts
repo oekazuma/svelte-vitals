@@ -370,12 +370,12 @@ async function resolveRoute(
     for (const img of parsed.images) {
       images.push({ ...img, file: rel });
     }
-    for (const heading of parsed.headings) {
-      headings.push(nestHeading({ ...heading, file: rel }, childrenAt, headingGroup));
+    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
+    for (const heading of resolved.ownHeadings) {
+      headings.push(nestHeading(heading, childrenAt, headingGroup));
     }
     dynamicHeading = dynamicHeading || parsed.dynamicHeading;
 
-    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
       if (tag.dynamicKey) {
         const seen = dynamicKeys[isPage ? 'own' : 'inherited'][tag.clientOnly ? 'client' : 'server'];
@@ -400,7 +400,8 @@ async function resolveRoute(
     componentHeadings.push(...resolved.headings.map((h) => nestHeading(h, childrenAt, headingGroup)));
     dynamicHeading = dynamicHeading || resolved.dynamicHeading;
     clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
-    if (parsed.childrenPath) childrenAt = [...childrenAt, ...offsetPath(parsed.childrenPath, headingGroup)];
+    const childrenPath = resolved.renderPaths.get('children');
+    if (childrenPath) childrenAt = [...childrenAt, ...offsetPath(childrenPath, headingGroup)];
     headingGroup += resolved.groupSpan;
   }
 
