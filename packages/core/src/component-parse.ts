@@ -2360,7 +2360,7 @@ function isBareSpecifier(s: string): boolean {
  * Whether `name` is used anywhere in `roots` other than as the object of a static member access
  * (`X.foo`, `X['foo']`) — passing `X` on, spreading it or indexing it by a variable is what makes
  * a bundler keep the whole module. `<X.Foo />` in markup is a component name, not an identifier,
- * so it counts as static. A same-named local elsewhere reads as dynamic: a conservative report.
+ * so it counts as static. A same-named local (`scopeIntroducedNames`) shadows the namespace.
  */
 function namespaceUsedDynamically(name: string, roots: Node[]): boolean {
   const staticOrDeclaring = new Set<Node>();
@@ -2386,8 +2386,9 @@ function namespaceUsedDynamically(name: string, roots: Node[]): boolean {
   }
   let dynamic = false;
   for (const root of roots) {
-    walkEstree(root, (n) => {
-      if (n.type === 'Identifier' && n.name === name && !staticOrDeclaring.has(n)) dynamic = true;
+    walkScoped(root, (n, shadowed) => {
+      if (n.type === 'Identifier' && n.name === name && !staticOrDeclaring.has(n) && !shadowed.has(name))
+        dynamic = true;
     });
   }
   return dynamic;

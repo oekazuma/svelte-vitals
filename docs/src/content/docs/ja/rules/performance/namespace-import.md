@@ -7,7 +7,7 @@ description: ツリーシェイクを効かせるため、import * as ではな�
 
 ## チェック内容
 
-node_modules のパッケージ（bare specifier）に対する値の `import * as X from '<package>'` のうち、ファイル内のどこかで `X` を丸ごと使っているものを検出します。丸ごとの使い方とは、変数によるインデックスアクセス（`X[key]`）、関数への受け渡し（`fn(X)`）、スプレッド、列挙（`Object.keys(X)`）です。静的なメンバーアクセス（`X.foo()`、`X['foo']`、マークアップ中の `{X.foo}` や `<X.Component />`）だけで読んでいる namespace は named import と同じようにツリーシェイクされるため、対象外です。型のみの import（`import type * as T`）と、bare でない specifier（相対パス、`$lib`、`$app`、`$env`、`#…`）は対象外です。
+node_modules のパッケージ（bare specifier）に対する値の `import * as X from '<package>'` のうち、ファイル内のどこかで `X` を丸ごと使っているものを検出します。丸ごとの使い方とは、変数によるインデックスアクセス（`X[key]`）、関数への受け渡し（`fn(X)`）、スプレッド、列挙（`Object.keys(X)`）です。静的なメンバーアクセス（`X.foo()`、`X['foo']`、マークアップ中の `{X.foo}` や `<X.Component />`）だけで読んでいる namespace は named import と同じようにツリーシェイクされるため、対象外です。`X` と同名のローカル変数（関数の引数、`{#each}` の要素やインデックス、snippet の引数、`{@const}`、`let:` ディレクティブ）が `X` を隠している範囲では、その変数は namespace の使用とは数えません。型のみの import（`import type * as T`）と、bare でない specifier（相対パス、`$lib`、`$app`、`$env`、`#…`）は対象外です。
 
 ## なぜ重要か
 

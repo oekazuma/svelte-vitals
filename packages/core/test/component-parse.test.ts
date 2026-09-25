@@ -379,6 +379,22 @@ describe('parseComponentFacts — namespace imports (performance/namespace-impor
     // A property named like the namespace is not a use of it.
     expect(facts(`<script>import * as e from 'e'; const o = { e: 1 }; o.e; e.x();</script>`)).toEqual([]);
   });
+  it('does not count a same-named local that shadows the namespace as a use of it', () => {
+    const facts = (markup: string) =>
+      parseComponentFacts(`<script>import * as _ from 'lodash';</script>${markup}`, 'C.svelte').namespaceImports.map(
+        (n) => n.source
+      );
+    expect(facts('{#each xs as _}{_}{/each}')).toEqual([]);
+    expect(facts('{#each xs as x, _}{f(_)}{/each}')).toEqual([]);
+    expect(facts('{#snippet row(_)}{f(_)}{/snippet}')).toEqual([]);
+    expect(facts('{#if x}{@const _ = 1}{f(_)}{/if}')).toEqual([]);
+    expect(facts('<List let:_>{f(_)}</List>')).toEqual([]);
+    expect(facts('<List let:item={{ _ }}>{f(_)}</List>')).toEqual([]);
+    expect(facts('<button onclick={(_) => f(_)}>x</button>')).toEqual([]);
+    // Outside the shadowing scope the namespace is still the one used.
+    expect(facts('{#each xs as x}{f(_)}{/each}')).toEqual(['lodash']);
+    expect(facts('{#each xs as _}{_}{/each}{f(_)}')).toEqual(['lodash']);
+  });
   it('captures namespace imports from a module script too', () => {
     const c = parseComponentFacts(
       `<script module>import * as a from 'apkg';</script><script>import * as b from 'bpkg'; use(a, b);</script>`,

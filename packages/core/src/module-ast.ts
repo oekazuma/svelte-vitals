@@ -122,7 +122,8 @@ export function rootObjectName(node: Node): string | undefined {
  * `then`/`catch` value/error bindings, and a fragment's own `{@const ...}` /
  * `{let ...}` / `{const ...}` declaration tags (attributed to the enclosing Fragment,
  * shadowing the whole fragment like a block's `let` — a write to one of these
- * template-locals, possible for `{let}`, is still not a write to the outer binding).
+ * template-locals, possible for `{let}`, is still not a write to the outer binding), and an
+ * element's or component's `let:` directive bindings.
  * Used by `walkScoped` so a write/mutation detector
  * doesn't misattribute a write to one of these locals as a write to an outer `$state`/prop
  * of the same name (issue #140 — originally a deliberately partial mitigation that left
@@ -165,6 +166,17 @@ export function scopeIntroducedNames(node: Node): Set<string> {
   } else if (node.type === 'AwaitBlock') {
     if (node.value) addBoundNames(node.value, introduced);
     if (node.error) addBoundNames(node.error, introduced);
+  } else if (Array.isArray(node.attributes) && node.fragment) {
+    // A `let:` directive binds its slot prop for the element or component it sits on — including,
+    // imprecisely, a component's own attribute expressions, which really see the outer binding.
+    for (const attr of node.attributes) {
+      if (attr?.type !== 'LetDirective') continue;
+      const e = attr.expression;
+      // Svelte parses a destructuring `let:x={{ a }}` as an expression, not a pattern.
+      const asPattern = { ObjectExpression: 'ObjectPattern', ArrayExpression: 'ArrayPattern' }[e?.type as string];
+      if (e) addBoundNames(asPattern ? { ...e, type: asPattern } : e, introduced);
+      else introduced.add(attr.name);
+    }
   } else if (node.type === 'Fragment') {
     for (const child of node.nodes ?? []) {
       if (child?.type === 'ConstTag' || child?.type === 'DeclarationTag') {
