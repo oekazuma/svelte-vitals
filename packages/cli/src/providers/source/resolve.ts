@@ -130,7 +130,8 @@ const MAX_REEXPORT_HOPS = 8;
  * The existing `.svelte` file behind export `name` of module `spec`, following barrel re-exports
  * — or, for `target: 'list'`, the module declaring it when it is a constant list.
  * Extensionless specifiers try `.svelte` first (projects that add it to `resolve.extensions`),
- * then Vite's own `.js`/`.ts` and `index` lookups; an explicit `.js` may name its `.ts` source.
+ * then Vite's own `.js`/`.ts` and `index` lookups; an explicit `.js` may name its `.ts` source,
+ * and a `.svelte` that is no file the runes module Vite finds by appending `.js`/`.ts`.
  */
 async function resolveExport(
   ctx: ResolveCtx,
@@ -168,8 +169,10 @@ async function resolveExportAt(
   const ext = /\.[^./]+$/.exec(path)?.[0];
   const component = target === 'component' && name === 'default';
   let modules: string[];
-  if (ext === '.svelte') return component && (await exists(path)) ? path : undefined;
-  if (ext === undefined) {
+  if (ext === '.svelte') {
+    if (await exists(path)) return component ? path : undefined;
+    modules = [`${path}.js`, `${path}.ts`];
+  } else if (ext === undefined) {
     if (component && (await exists(`${path}.svelte`))) return `${path}.svelte`;
     modules = ['.js', '.ts', '/index.js', '/index.ts'].map((suffix) => path + suffix);
   } else if (ext === '.js') modules = [path, `${path.slice(0, -3)}.ts`];
