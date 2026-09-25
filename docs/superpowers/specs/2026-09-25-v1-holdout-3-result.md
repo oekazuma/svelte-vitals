@@ -1,6 +1,6 @@
 # v1 holdout 3 — result (2026-09-25)
 
-Measured with `main` at b8d05b81 on the 14 apps pinned in `scripts/corpus/holdout.json` (chosen in
+Measured with `main` at b8d05b81 on the 14 apps then pinned in `scripts/corpus/holdout.json`, now in `targets.json` (chosen in
 `2026-09-25-v1-holdout-3-selection.md` before any run), and judged against
 `2026-09-24-v1-release-criteria.md`. Raw first look: `scripts/corpus/holdout-3-2026-09-25.json`;
 verdicts: `scripts/corpus/holdout-3-2026-09-25-verdicts.json` (9,639 findings, 9,632 distinct keys,
