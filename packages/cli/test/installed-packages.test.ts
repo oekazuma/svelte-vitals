@@ -124,6 +124,18 @@ describe('collectAll — installed npm packages', () => {
     expect(titles(facts)).toEqual(['dynamic']);
   });
 
+  it('still follows the candidates that parse when another package candidate does not', async () => {
+    const facts = await collect({
+      ...SEO_KIT,
+      'node_modules/seo-kit/dist/index.js': `export { default as Head } from './components/head.svelte';\nexport { default as Broken } from './components/broken.svelte';\n`,
+      'node_modules/seo-kit/dist/components/broken.svelte': `<svelte:head><title>{</svelte:head>`,
+      ...app({ 'seo-kit': '^0.0.16' }),
+      'src/routes/+page.svelte': `<script>import { Head, Broken } from 'seo-kit'; let { data } = $props(); const Seo = data.ok ? Head : Broken;</script><Seo title="Home" />`
+    });
+
+    expect(titles(facts)).toEqual(['dynamic']);
+  });
+
   it('leaves the a11y composition and each-key lists on the app and its workspace packages', async () => {
     const facts = await collect({
       ...SEO_KIT,

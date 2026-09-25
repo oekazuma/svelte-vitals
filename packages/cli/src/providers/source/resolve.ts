@@ -356,9 +356,13 @@ export async function resolveFileTags(
 
     // Layer 3: transitively resolve a user component in src/.
     const found = depth > 0 ? await resolveComponentFiles(ctx, use.name, parsed, fileRel) : undefined;
-    const files = found?.files.filter((f) => !visited.has(f)) ?? [];
-    const parsedFiles = await Promise.all(files.map((f) => readPackageAware(rt, cwd, f, cache)));
-    if (found && files.length > 0 && parsedFiles.every((p) => p !== undefined)) {
+    const unvisited = found?.files.filter((f) => !visited.has(f)) ?? [];
+    const read = await Promise.all(unvisited.map((f) => readPackageAware(rt, cwd, f, cache)));
+    const files = unvisited.filter((_, i) => read[i] !== undefined);
+    const parsedFiles = read.filter((p) => p !== undefined);
+    // A package file that does not parse stays unfollowed; the ones that parse are still alternatives.
+    const unreadable = files.length < unvisited.length;
+    if (found && files.length > 0) {
       // Which of several components renders, or whether one renders at all, is runtime state.
       const exclusive = files.length > 1 || !found.complete || files.length < found.files.length;
       const childHead = inHead || use.inHead ? argsOf(parsed, use, inHead ?? new Map()) : undefined;
@@ -409,7 +413,7 @@ export async function resolveFileTags(
         }
       }
       tags.push(...maybe.values());
-      continue;
+      if (!unreadable) continue;
     }
 
     // A component we cannot follow may render its heading from a prop (`<Heading tag="h1">`), so,

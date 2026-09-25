@@ -50,8 +50,9 @@ packages the app declares, from `node_modules`, the way Vite would.
    imports keep `componentAliases`/`kitAliases`. In them an npm component stays unfollowed, as
    before.
 7. **Failure is local.** A package `.svelte` file that does not parse makes that component usage
-   unfollowed, as if it had not been found, and the `metaComponents` fallback still applies. It never
-   fails the run. An app's own malformed component still does (the existing contract).
+   unfollowed, as if it had not been found, and the `metaComponents` fallback still applies. When the
+   usage has other candidates that parse, those are still followed as alternatives. It never fails
+   the run. An app's own malformed component still does (the existing contract).
 
 ## Precedence
 
