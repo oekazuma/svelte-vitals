@@ -120,6 +120,63 @@ describe('SourceHeadProvider component detection (layers 2-4)', () => {
   });
 });
 
+describe('collectRoutes: <meta> with a dynamic name/property', () => {
+  const metaKeys = async (files: Record<string, string>) => {
+    const [head] = await collectHeads(createMemoryRuntime(files), '');
+    return head!.tags
+      .filter((t) => t.kind === 'meta')
+      .map((t) => `${t.name ? `name=${t.name}` : `property=${t.property}`} ${t.presence} ${t.value}`)
+      .sort();
+  };
+
+  it('treats a dynamic property as possibly any Open Graph property, or twitter:card', async () => {
+    const page = `<svelte:head>{#each Object.entries(og) as [property, content]}<meta {property} {content} />{/each}</svelte:head>`;
+    expect(await metaKeys({ 'src/routes/+page.svelte': page })).toEqual([
+      'name=twitter:card own dynamic',
+      'property=og:description own dynamic',
+      'property=og:image own dynamic',
+      'property=og:title own dynamic',
+      'property=og:url own dynamic'
+    ]);
+  });
+
+  it('treats a dynamic name as possibly any named meta, but not an Open Graph property', async () => {
+    const page = `<svelte:head><meta name={key} content="x" /></svelte:head>`;
+    expect(await metaKeys({ 'src/routes/+page.svelte': page })).toEqual([
+      'name=description own dynamic',
+      'name=robots own dynamic',
+      'name=twitter:card own dynamic'
+    ]);
+  });
+
+  it('treats a spread as either attribute', async () => {
+    const keys = await metaKeys({ 'src/routes/+page.svelte': `<svelte:head><meta {...tag} /></svelte:head>` });
+    expect(keys).toContain('name=description own dynamic');
+    expect(keys).toContain('property=og:image own dynamic');
+  });
+
+  it('keeps a literal tag of the same key, from the same file or a layout', async () => {
+    const head = await collectHeads(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': `<svelte:head><meta property="og:title" content="" /></svelte:head><slot />`,
+        'src/routes/+page.svelte': `<svelte:head><meta name="description" content="Hello" /><meta {name} {property} content="x" /></svelte:head>`
+      }),
+      ''
+    );
+    const tags = head[0]!.tags;
+    expect(tags.find((t) => t.property === 'og:title')).toMatchObject({ presence: 'inherited', value: 'absent' });
+    expect(tags.find((t) => t.name === 'description')).toMatchObject({ value: 'static', text: 'Hello' });
+  });
+
+  it('reads a key bound from a literal prop as that key, not as dynamic', async () => {
+    const keys = await metaKeys({
+      'src/routes/+page.svelte': `<script>import Meta from '$lib/Meta.svelte';</script><svelte:head><Meta property="og:title" /></svelte:head>`,
+      'src/lib/Meta.svelte': `<script>let { name, property } = $props();</script><meta {name} {property} content="x" />`
+    });
+    expect(keys).toEqual(['property=og:title own static']);
+  });
+});
+
 describe('collectRoutes image collection (in-memory runtime)', () => {
   it('collects images from layout and page per route', async () => {
     const rt = createMemoryRuntime({
