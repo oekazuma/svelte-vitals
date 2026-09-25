@@ -409,7 +409,7 @@ describe('resolveFileTags: components rendered into <svelte:head>', () => {
   it('leaves a prop dynamic when the call site passes an expression, nothing, or a spread', async () => {
     for (const call of ['<Meta name={kind} />', '<Meta />', '<Meta name="description" {...rest} />']) {
       const r = await layout(call, meta(runes));
-      expect(r.tags).toEqual([{ kind: 'meta', value: 'dynamic' }]);
+      expect(r.tags).toEqual([{ kind: 'meta', value: 'dynamic', dynamicKey: { name: true, property: true } }]);
     }
   });
 

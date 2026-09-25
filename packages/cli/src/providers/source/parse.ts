@@ -27,7 +27,13 @@ import {
 import { collectComponentBindings, collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
-export type ParsedTag = Omit<HeadTag, 'presence' | 'file'>;
+export type ParsedTag = Omit<HeadTag, 'presence' | 'file'> & {
+  /**
+   * A `<meta>` with no literal key whose `name`/`property` is an expression (or a spread): it may
+   * be any meta of that attribute, so the route composition only rules out "missing" for them.
+   */
+  dynamicKey?: { name: boolean; property: boolean };
+};
 
 /** Any template node reachable while walking a parsed component (a Fragment's node list, plus Fragment itself). */
 type WalkNode = AST.Fragment | AST.Text | AST.Tag | AST.ElementLike | AST.Block | AST.Comment;
@@ -128,6 +134,17 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string, bind: Bi
       // Like rel below: rules compare meta names literally, but HTML treats them case-insensitively.
       const name = attrText(attributes, 'name')?.toLowerCase();
       const property = attrText(attributes, 'property');
+      if (!name && !property) {
+        const spread = node.attributes.some((a) => a.type === 'SpreadAttribute');
+        const dynamicKey = {
+          name: spread || attrValue(attributes, 'name') === 'dynamic',
+          property: spread || attrValue(attributes, 'property') === 'dynamic'
+        };
+        if (dynamicKey.name || dynamicKey.property) {
+          tags.push({ kind: 'meta', value: 'dynamic', dynamicKey });
+          continue;
+        }
+      }
       const content = name === 'robots' ? attrText(attributes, 'content') : undefined;
       const noindex = content !== undefined && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
       const contentValue = attrValue(attributes, 'content');

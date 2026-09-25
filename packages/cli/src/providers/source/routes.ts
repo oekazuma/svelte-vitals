@@ -304,6 +304,7 @@ async function resolveRoute(
   const additiveTags: HeadTag[] = [];
   let broadOwn = false;
   let broadInherited = false;
+  const dynamicKeys = { own: { name: false, property: false }, inherited: { name: false, property: false } };
   const images: ImageInfo[] = [];
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
@@ -361,6 +362,12 @@ async function resolveRoute(
 
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
+      if (tag.dynamicKey) {
+        const seen = dynamicKeys[isPage ? 'own' : 'inherited'];
+        seen.name ||= tag.dynamicKey.name;
+        seen.property ||= tag.dynamicKey.property;
+        continue;
+      }
       const stamped: HeadTag = { ...tag, presence: isPage ? 'own' : 'inherited', file: rel };
       if (
         tag.kind === 'jsonld' ||
@@ -387,6 +394,16 @@ async function resolveRoute(
     for (const tag of BROAD_KINDS) {
       const key = tagKey(tag);
       if (!composed.has(key)) composed.set(key, { ...tag, presence });
+    }
+  }
+  // A <meta> with a dynamic key may be any meta of that attribute: the same fill, limited to it.
+  for (const presence of ['own', 'inherited'] as const) {
+    const { name, property } = dynamicKeys[presence];
+    for (const tag of BROAD_KINDS) {
+      // X reads twitter:card from property= too.
+      const couldBe = (name && tag.name) || (property && (tag.property || tag.name === 'twitter:card'));
+      const key = tagKey(tag);
+      if (couldBe && !composed.has(key)) composed.set(key, { ...tag, presence });
     }
   }
   // After the broad fill: an opaque meta component may override the shell's literal.
