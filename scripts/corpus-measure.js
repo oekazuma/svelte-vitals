@@ -319,7 +319,7 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
 
   const out = [`## Corpus findings — ${failures.length ? '❌ gate failed' : '✅ gate passed'}`, ''];
   out.push(
-    `Measured on ${targets.length} real SvelteKit apps (\`scripts/corpus/targets.json\`), base vs this PR. Every finding is labelled in \`scripts/corpus/verdicts.json\`: **tp** a real defect, **fp** a false positive, **design** reported as documented but not a defect.`,
+    `Measured on ${targets.length} real SvelteKit apps (\`scripts/corpus/targets.json\`), base vs this PR. Verdicts come from \`scripts/corpus/verdicts.json\`: **tp** a real defect, **fp** a false positive, **design** reported as documented but not a defect; a finding without one counts under "unclear or no verdict".`,
     ''
   );
   for (const [label, measured] of [
