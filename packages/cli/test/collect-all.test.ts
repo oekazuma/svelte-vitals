@@ -179,6 +179,37 @@ describe('collectAll — a component loaded with import()', () => {
 
     expect(head(facts, '/ssr')).toEqual([{ kind: 'title', value: 'static', text: 'Server' }]);
   });
+
+  const og = (facts: Awaited<ReturnType<typeof collectAll>>, route: string) =>
+    facts.heads.find((h) => h.route === route)!.tags.find((t) => t.property === 'og:title');
+
+  it('drops the dynamic-key metas of such a component on a server-rendered route', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        ...TREE,
+        'src/lib/Meta.svelte': `<script>let { tags } = $props();</script><svelte:head>{#each tags as [property, content] (property)}<meta {property} {content} />{/each}</svelte:head>`
+      }),
+      '',
+      defaultConfig
+    );
+
+    expect(og(facts, '/ssr')).toBeUndefined();
+    expect(og(facts, '/spa')).toMatchObject({ value: 'dynamic' });
+  });
+
+  it('lets server-rendered dynamic-key metas stand in where a client-only literal would be dropped', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        ...TREE,
+        'src/lib/Meta.svelte': `<svelte:head><meta property="og:title" content="Client" /></svelte:head>`,
+        'src/routes/ssr/+page.svelte': `<script>let tags = [['og:title', 'Server']];</script><svelte:head>{#each tags as [property, content] (property)}<meta {property} {content} />{/each}</svelte:head>`
+      }),
+      '',
+      defaultConfig
+    );
+
+    expect(og(facts, '/ssr')).toMatchObject({ value: 'dynamic' });
+  });
 });
 
 describe('collectAll — a kit.alias above the project root', () => {

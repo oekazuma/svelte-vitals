@@ -90,14 +90,17 @@ describe('correctness/base-path-navigation', () => {
             { kind: 'goto', path: '/docs?tab=api', line: 3 },
             { kind: 'goto', path: '/docs#top', line: 4 },
             { kind: 'href', path: '/docsearch', line: 5 },
-            { kind: 'href', path: '/about', line: 6 }
+            { kind: 'href', path: '/about', line: 6 },
+            { kind: 'href', path: '/docs/../about', line: 8 },
+            { kind: 'goto', path: '/docs/%2E%2E/about', line: 9 },
+            { kind: 'href', path: '/docs/./intro', line: 10 }
           ])
         ],
         [kit('src/routes/+page.server.ts', [{ kind: 'redirect', path: '/docs/login', line: 7 }])]
       )
     );
     const penalized = results.filter((r) => r.detection.presence === 'none');
-    expect(penalized.map((r) => r.line)).toEqual([5, 6]);
+    expect(penalized.map((r) => r.line)).toEqual([5, 6, 8, 9]);
     expect(results.filter((r) => r.detection.presence === 'own').map((r) => r.location)).toEqual([
       'src/routes/+page.server.ts'
     ]);
