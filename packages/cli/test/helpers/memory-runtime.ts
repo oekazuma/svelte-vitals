@@ -22,7 +22,9 @@ export function createMemoryRuntime(files: Record<string, string>): Runtime {
       return [...map.keys()].filter((key) => posix.matchesGlob(key, pattern)).sort();
     },
     join(...parts) {
-      return parts.filter((p) => p.length > 0).join('/');
+      const joined = parts.filter((p) => p.length > 0).join('/');
+      // Like node:path's join, so a path climbing out of cwd names the file it lands on.
+      return joined.split('/').includes('..') ? posix.normalize(joined) : joined;
     }
   };
 }

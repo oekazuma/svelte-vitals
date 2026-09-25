@@ -611,8 +611,16 @@ describe('resolveRepoLocalPath — alias entries', () => {
     expect(resolve('$libFoo/x', [LIB])).toBeUndefined();
   });
 
-  it('returns undefined when the target escapes the project root', () => {
-    expect(resolve('$out/x', [LIB, prefix('$out', '../sibling/src')])).toBeUndefined();
+  it('resolves above the project root only inside a directory an alias names there', () => {
+    const aliases = [LIB, prefix('$out', '../../plugins')];
+    expect(resolve('$out/a/View.svelte', aliases)).toBe('../../plugins/a/View.svelte');
+    expect(resolveRepoLocalPath('./Hero.svelte', '../../plugins/a/View.svelte', aliases)).toBe(
+      '../../plugins/a/Hero.svelte'
+    );
+    expect(resolveRepoLocalPath('../../widgets/x', '../../plugins/a/View.svelte', aliases)).toBeUndefined();
+    expect(resolve('$out/../../x', aliases)).toBeUndefined();
+    expect(resolve('../../../../../sibling/x', aliases)).toBeUndefined();
+    expect(resolve('../../../../../sibling/x', [LIB])).toBeUndefined();
   });
 
   it('returns undefined for a literal absolute alias value, rather than a bogus project-relative path', () => {

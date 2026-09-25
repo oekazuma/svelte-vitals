@@ -192,6 +192,41 @@ describe('parseFile — a11y occurrences', () => {
   });
 });
 
+describe('parseFile — components loaded with import()', () => {
+  const bindings = (script: string) =>
+    Object.fromEntries(
+      parseFile(`<script>${script}</script><A /><B /><C />`, 'src/routes/+page.svelte').componentBindings
+    );
+
+  it('binds a let a function assigns from import(), directly, through a module local or destructured', () => {
+    expect(
+      bindings(`
+        let A = $state(null), B, C;
+        onMount(async () => {
+          A = (await import('./A.svelte')).default;
+          const [b] = await Promise.all([import('$lib/B.svelte')]);
+          B = b.Named;
+          const { default: c } = await import('./C.svelte');
+          C = c;
+        });`)
+    ).toEqual({
+      A: ['', { source: './A.svelte', imported: 'default' }],
+      B: ['', { source: '$lib/B.svelte', imported: 'Named' }],
+      C: ['', { source: './C.svelte', imported: 'default' }]
+    });
+  });
+
+  it('follows no let assigned outside a function or never from import()', () => {
+    expect(
+      bindings(`
+        import X from './X.svelte';
+        let A = $state(null), B = $state(null);
+        A = (await import('./A.svelte')).default;
+        function pick() { B = X; }`)
+    ).toEqual({});
+  });
+});
+
 describe('parseFile images', () => {
   it('collects <img> attribute presence and line (dynamic counts as present)', () => {
     const src = `<div>\n  <img src="/a.png" width="10" height="10" loading="lazy" />\n  <img src="/b.png" width={w} />\n</div>`;

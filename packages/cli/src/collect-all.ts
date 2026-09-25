@@ -6,6 +6,7 @@ import {
   collectSourceFiles,
   compileOverrides,
   ROBOTS_SOURCE_PATHS,
+  routeNeverSsr,
   SITEMAP_SOURCE_PATHS,
   SVELTE_CONFIG_FILES,
   VITE_CONFIG_FILES,
@@ -111,9 +112,22 @@ export async function collectAll(
     allKitModules.filter((m) => m.loadAlwaysRedirects && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file))
   );
   const routeLevel = (route: string) => matches(route) && !redirectOnly.has(route);
-  const heads = collected.heads.filter((h) => routeLevel(h.route));
+  // What a component loaded with `import()` renders is not in a server-rendered route's HTML.
+  const ssrScope = { kitModules: allKitModules, sourceFiles: collected.routeFiles };
+  const heads = collected.heads
+    .filter((h) => routeLevel(h.route))
+    .map((h) =>
+      h.tags.some((t) => t.clientOnly) && !routeNeverSsr(h.file, ssrScope)
+        ? { ...h, tags: h.tags.filter((t) => !t.clientOnly) }
+        : h
+    );
   const images = collected.images.filter((i) => routeLevel(i.route));
-  const headings = collected.headings.filter((h) => routeLevel(h.route));
+  const pageOf = new Map(collected.heads.map((h) => [h.route, h.file]));
+  const headings = collected.headings
+    .filter((h) => routeLevel(h.route))
+    .map(({ clientOnlyHeading, ...h }) =>
+      clientOnlyHeading && routeNeverSsr(pageOf.get(h.route)!, ssrScope) ? { ...h, dynamicHeading: true } : h
+    );
   const a11y = collected.a11y.filter((a) => routeLevel(a.route));
   // Every file the run read is entered, directives or not, so `has(file)` answers "was this file
   // scanned" — the invariant `test/directive-coverage.test.ts` checks against the real gallery.

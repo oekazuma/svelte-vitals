@@ -258,6 +258,11 @@ The CLI's static mode also follows these aliases when it walks component imports
 or another custom alias, not just `$lib` or a relative import). Every SEO rule reading that channel
 therefore sees content the same way regardless of which alias reached it.
 
+An alias whose value climbs above the project root (`$plugins: '../../plugins'` in a monorepo app) is
+followed too: svelte-vitals reads files inside the directory it names, and relative imports between
+them, because your config says the app builds from there. Nothing else above the project root is
+read. A relative import that leaves the root anywhere but into such a directory stays unresolved.
+
 The following cases are not resolved:
 
 - an alias whose value is computed from anything but string literals (a template literal, a variable,

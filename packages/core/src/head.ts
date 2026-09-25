@@ -33,6 +33,8 @@ export interface HeadTag {
   href?: string;
   /** True for a render-blocking `<script src>` in <head> (no defer/async/module) (performance/render-blocking-script). */
   blocking?: boolean;
+  /** Rendered only in the browser, by a component loaded with `import()` (static mode): absent from a server-rendered route's HTML. */
+  clientOnly?: true;
   /** Where this tag was set relative to the route. Never 'none' (absence = no tag). */
   presence: Exclude<Presence, 'none'>;
   /** Whether the tag's value is static/dynamic/absent (design §4). */
