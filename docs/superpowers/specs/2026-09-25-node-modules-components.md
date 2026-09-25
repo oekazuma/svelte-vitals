@@ -8,7 +8,7 @@ npm packages in `node_modules` out.
 
 ## The problem
 
-A route whose head comes from a component in an npm package (`import { Head } from 'svead'`,
+A route whose head comes from a component in an npm package (`import { Head } from '@acme/ui'`,
 `import SeoHeader from '@misiki/kitcommerce-core/components'`) reads as missing every tag that
 component renders, because a bare specifier resolves to nothing. Two holdouts in four had an app
 whose whole head came from such a component. In one of them it was 952 of 1,065 false positives.
@@ -39,7 +39,7 @@ packages the app declares, from `node_modules`, the way Vite would.
    resolves its bare name through its `svelte` field, and subpaths through its file layout. The
    `svelte`-field entry applies to workspace packages without `exports` too, since both are the
    same package shape.
-5. **Symlinks are read through, not resolved.** Paths stay textual (`node_modules/svead/dist/…`),
+5. **Symlinks are read through, not resolved.** Paths stay textual (`node_modules/@acme/ui/dist/…`),
    and `node:fs` follows pnpm's link on each read, exactly as Vite reads the file. `Runtime` has no
    `realpath`, and none is added. The link's destination is the installer's choice. With pnpm's
    global virtual store it is outside the repository by design. An `exports` target that leaves the
@@ -57,7 +57,7 @@ packages the app declares, from `node_modules`, the way Vite would.
 
 Unchanged, and it needs no new code. Layer 2 (a known-library adapter, keyed on the import
 specifier) runs before layer 3 (follow the file), and layer 4 (`metaComponents`) applies only when
-layer 3 found nothing. So `svelte-meta-tags`, `svelte-seo` and any future adapter such as `svead`
+layer 3 found nothing. So `svelte-meta-tags`, `svelte-seo` and `svead`
 keep answering from the adapter even when the package is installed. A declared `metaComponents`
 name becomes a no-op once the component is followed, as it already is for a local one.
 

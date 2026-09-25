@@ -29,22 +29,22 @@ const h1Files = (facts: Facts, route = '/') =>
     .componentHeadings?.filter((h) => h.level === 1)
     .map((h) => h.file);
 
-/** svead's published shape: `exports['.'].svelte` and a `svelte` field, both naming a JS barrel. */
-const SVEAD = {
-  'node_modules/svead/package.json': json({
-    name: 'svead',
+/** A published package's shape (as seo-kit ships it): `exports['.'].svelte` and a `svelte` field, both naming a JS barrel. */
+const SEO_KIT = {
+  'node_modules/seo-kit/package.json': json({
+    name: 'seo-kit',
     svelte: './dist/index.js',
     exports: { '.': { types: './dist/index.d.ts', svelte: './dist/index.js' } }
   }),
-  'node_modules/svead/dist/index.js': `export { default as Head } from './components/head.svelte';\n`,
-  'node_modules/svead/dist/components/head.svelte': `<script>let { title } = $props();</script>
+  'node_modules/seo-kit/dist/index.js': `export { default as Head } from './components/head.svelte';\n`,
+  'node_modules/seo-kit/dist/components/head.svelte': `<script>let { title } = $props();</script>
 <svelte:head><title>{title}</title><meta name="description" content="Svead" /></svelte:head>`
 };
-const HEAD_PAGE = `<script>import { Head } from 'svead';</script><Head title="Home" /><p>hi</p>`;
+const HEAD_PAGE = `<script>import { Head } from 'seo-kit';</script><Head title="Home" /><p>hi</p>`;
 
 describe('collectAll — installed npm packages', () => {
   it('follows a component through the exports svelte condition and a barrel', async () => {
-    const facts = await collect({ ...SVEAD, ...app({ svead: '^0.0.16' }), 'src/routes/+page.svelte': HEAD_PAGE });
+    const facts = await collect({ ...SEO_KIT, ...app({ 'seo-kit': '^0.0.16' }), 'src/routes/+page.svelte': HEAD_PAGE });
 
     const tags = facts.heads.find((h) => h.route === '/')!.tags;
     expect(tags.map((t) => [t.kind, t.kind === 'meta' ? t.name : undefined, t.value])).toEqual([
@@ -69,10 +69,11 @@ describe('collectAll — installed npm packages', () => {
   it('finds a package hoisted to the repository root, and not one above the repository', async () => {
     const files = {
       '../../.git': '',
-      '../../node_modules/svead/package.json': SVEAD['node_modules/svead/package.json'],
-      '../../node_modules/svead/dist/index.js': SVEAD['node_modules/svead/dist/index.js'],
-      '../../node_modules/svead/dist/components/head.svelte': SVEAD['node_modules/svead/dist/components/head.svelte'],
-      'package.json': json({ name: 'web', devDependencies: { svead: '^0.0.16' } }),
+      '../../node_modules/seo-kit/package.json': SEO_KIT['node_modules/seo-kit/package.json'],
+      '../../node_modules/seo-kit/dist/index.js': SEO_KIT['node_modules/seo-kit/dist/index.js'],
+      '../../node_modules/seo-kit/dist/components/head.svelte':
+        SEO_KIT['node_modules/seo-kit/dist/components/head.svelte'],
+      'package.json': json({ name: 'web', devDependencies: { 'seo-kit': '^0.0.16' } }),
       'src/routes/+page.svelte': HEAD_PAGE
     };
     expect(titles(await collect(files))).toEqual(['dynamic']);
@@ -83,14 +84,14 @@ describe('collectAll — installed npm packages', () => {
 
   it('does not follow an undeclared package, a local-protocol dependency, or a package with no Svelte marker', async () => {
     const plain = {
-      'node_modules/svead/package.json': json({ name: 'svead', exports: { '.': './dist/index.js' } }),
-      'node_modules/svead/dist/index.js': SVEAD['node_modules/svead/dist/index.js'],
-      'node_modules/svead/dist/components/head.svelte': SVEAD['node_modules/svead/dist/components/head.svelte']
+      'node_modules/seo-kit/package.json': json({ name: 'seo-kit', exports: { '.': './dist/index.js' } }),
+      'node_modules/seo-kit/dist/index.js': SEO_KIT['node_modules/seo-kit/dist/index.js'],
+      'node_modules/seo-kit/dist/components/head.svelte': SEO_KIT['node_modules/seo-kit/dist/components/head.svelte']
     };
     for (const files of [
-      { ...SVEAD, ...app({}) },
-      { ...SVEAD, ...app({ svead: 'link:../svead' }) },
-      { ...plain, ...app({ svead: '^1.0.0' }) }
+      { ...SEO_KIT, ...app({}) },
+      { ...SEO_KIT, ...app({ 'seo-kit': 'link:../seo-kit' }) },
+      { ...plain, ...app({ 'seo-kit': '^1.0.0' }) }
     ]) {
       expect(titles(await collect({ ...files, 'src/routes/+page.svelte': HEAD_PAGE }))).toEqual([]);
     }
@@ -113,9 +114,9 @@ describe('collectAll — installed npm packages', () => {
 
   it('keeps metaComponents as the fallback when a package file does not parse, without failing the run', async () => {
     const files = {
-      ...SVEAD,
-      'node_modules/svead/dist/components/head.svelte': `<svelte:head><title>{</svelte:head>`,
-      ...app({ svead: '^0.0.16' }),
+      ...SEO_KIT,
+      'node_modules/seo-kit/dist/components/head.svelte': `<svelte:head><title>{</svelte:head>`,
+      ...app({ 'seo-kit': '^0.0.16' }),
       'src/routes/+page.svelte': HEAD_PAGE
     };
     expect(titles(await collect(files))).toEqual([]);
@@ -125,10 +126,10 @@ describe('collectAll — installed npm packages', () => {
 
   it('leaves the a11y composition and each-key lists on the app and its workspace packages', async () => {
     const facts = await collect({
-      ...SVEAD,
-      'node_modules/svead/dist/index.js': `export { default as Head } from './components/head.svelte';\nexport const TABS = ['a', 'b'];\n`,
-      ...app({ svead: '^0.0.16' }),
-      'src/routes/+page.svelte': `<script>import { Head, TABS } from 'svead';</script><Head title="Home" />
+      ...SEO_KIT,
+      'node_modules/seo-kit/dist/index.js': `export { default as Head } from './components/head.svelte';\nexport const TABS = ['a', 'b'];\n`,
+      ...app({ 'seo-kit': '^0.0.16' }),
+      'src/routes/+page.svelte': `<script>import { Head, TABS } from 'seo-kit';</script><Head title="Home" />
 {#each TABS as tab}<b>{tab}</b>{/each}`
     });
 
@@ -142,20 +143,20 @@ describe('collectAll — installed npm packages on disk', () => {
   it('reads a package through pnpm’s node_modules symlink', async () => {
     const root = await mkdtemp(join(tmpdir(), 'sv-installed-'));
     try {
-      const store = 'node_modules/.pnpm/svead@0.0.16/node_modules/svead';
+      const store = 'node_modules/.pnpm/seo-kit@0.0.16/node_modules/seo-kit';
       const files = {
         ...APP_HTML,
-        ...app({ svead: '^0.0.16' }),
+        ...app({ 'seo-kit': '^0.0.16' }),
         'src/routes/+page.svelte': HEAD_PAGE,
         ...Object.fromEntries(
-          Object.entries(SVEAD).map(([path, source]) => [path.replace('node_modules/svead', store), source])
+          Object.entries(SEO_KIT).map(([path, source]) => [path.replace('node_modules/seo-kit', store), source])
         )
       };
       for (const [path, source] of Object.entries(files)) {
         await mkdir(dirname(join(root, path)), { recursive: true });
         await writeFile(join(root, path), source);
       }
-      await symlink('.pnpm/svead@0.0.16/node_modules/svead', join(root, 'node_modules/svead'));
+      await symlink('.pnpm/seo-kit@0.0.16/node_modules/seo-kit', join(root, 'node_modules/seo-kit'));
 
       const facts = await collectAll(createNodeRuntime(), root, defaultConfig);
 

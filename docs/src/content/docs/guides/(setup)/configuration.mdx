@@ -274,13 +274,13 @@ not declare this way, and anything outside the repository, are not read. This ap
 `<head>`/heading walk only; the rules listed at the top of this section resolve imports as before.
 
 When the checkout is installed, the `<head>`/heading walk also follows components from the Svelte
-packages the app declares from a registry (`"svead": "^0.0.16"`, a `catalog:` or `npm:` range, and
-so on): a component such as `import { Head } from 'svead'` contributes its `<title>`, meta tags and
+packages the app declares from a registry (`"@acme/ui": "^2.1.0"`, a `catalog:` or `npm:` range, and
+so on): a component such as `import { Head } from '@acme/ui'` contributes its `<title>`, meta tags and
 headings to the routes that render it. The package is found as Node finds it, in the first
 `node_modules/<name>` from the app's directory upward, stopping at the directory holding `.git` (the
 app's own `node_modules` only, without one), and read through pnpm's links. Its import resolves
 through its `exports` with the `svelte` condition, or its `svelte` field. Only packages that publish
-one of those two are read. A package a known adapter covers (`svelte-meta-tags`, `svelte-seo`) is
+one of those two are read. A package a known adapter covers (`svelte-meta-tags`, `svelte-seo`, `svead`) is
 still read by the adapter. Accessibility rules and the rules listed at the top of this section do not
 look inside these packages. In a checkout that is not installed, nothing changes: declare such a
 component in `metaComponents` instead.
