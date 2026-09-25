@@ -719,6 +719,7 @@ export { ProjectError } from './providers/source/project.js';
 export { routeMatcher } from './route-matcher.js';
 export { createNodeRuntime } from './runtime/node.js';
 export { dropConstantListEachBlocks, type ParseCache } from './providers/source/resolve.js';
+export { findWorkspacePackages } from './providers/source/workspace.js';
 export { findUnknownRuleIds, knownRuleIds, registryTag, ruleOptionsSpec } from './rules-config.js';
 export { loadConfigFile, CONFIG_FILENAMES } from './config-file.js';
 export { loadSuppressions, applySuppressions, SUPPRESSIONS_FILE } from './suppressions.js';

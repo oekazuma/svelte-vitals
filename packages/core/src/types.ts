@@ -49,6 +49,11 @@ export interface KitAlias {
    *   is how Kit stops the plain key from swallowing the nested specifiers.
    */
   match: 'prefix' | 'contents' | 'exact';
+  /**
+   * The directory the entry's targets belong to, when it is wider than `replacement`: a workspace
+   * package's directory, so relative imports between its files resolve above the project root.
+   */
+  root?: string;
 }
 
 /** Project-wide facts precomputed by the runtime layer for project-scope rules (design §10). */
@@ -83,6 +88,12 @@ export interface Project {
    * list is never empty: `$lib` is always prepended.
    */
   kitAliases?: KitAlias[];
+  /**
+   * `kitAliases` plus the workspace packages the app's package.json declares, which component
+   * resolution (a route's `<head>` and headings) follows. Absent when the app declares none. Rules
+   * that resolve imports read `kitAliases`.
+   */
+  componentAliases?: KitAlias[];
   /**
    * Whether `src/app.html` opens with `<!doctype html>` (a11y/doctype). Set from the same read
    * as `htmlLang`; absent when the file wasn't read (missing or unreadable) — the rule stays

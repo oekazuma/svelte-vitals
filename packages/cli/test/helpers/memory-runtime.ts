@@ -18,8 +18,9 @@ export function createMemoryRuntime(files: Record<string, string>): Runtime {
     async exists(path) {
       return map.has(path);
     },
-    async glob(pattern) {
-      return [...map.keys()].filter((key) => posix.matchesGlob(key, pattern)).sort();
+    async glob(pattern, cwd) {
+      const keys = [...map.keys()].map((key) => (cwd ? posix.relative(cwd, key) : key));
+      return keys.filter((key) => posix.matchesGlob(key, pattern)).sort();
     },
     join(...parts) {
       const joined = parts.filter((p) => p.length > 0).join('/');
