@@ -19560,6 +19560,11 @@
     "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 0 ancestor layout(s), 3 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag and no meta-tag library anywhere in the frontend"
   },
   {
+    "key": "EpicenterHQ/epicenter:apps/whispering::a11y/duplicate-landmark::../../packages/ui/src/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "10 routes per CLI (/recipes, /recordings, /settings + 7 settings/*), all tp: (app)/+layout.svelte:76-78 wide-viewport {:else} arm wraps the page in Sidebar.Inset, whose root is <main> (sidebar-inset.svelte:13); recipes/+page.svelte:71, recordings/+page.svelte:368 and settings/+layout.svelte:17/57 render their own unconditional <main> inside it -> nested main landmarks"
+  },
+  {
     "key": "EpicenterHQ/epicenter:apps/whispering::a11y/duplicate-landmark::src/routes/(app)/(config)/settings/+layout.svelte:57::Duplicate main landmark (# of #)",
     "verdict": "tp",
     "basis": "read: settings/+layout.svelte has <main> at 17 wrapping a second <main> at 57 in the same file, both unconditional"
@@ -20235,6 +20240,11 @@
     "basis": "find/grep: no robots.txt/sitemap.xml in apps/whispering static/ or routes (only apps/landing has them, a separate site); the SPA is also deployed publicly on Cloudflare (svelte.config.js), cigale convention for a public web app"
   },
   {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/single-h1::../../packages/ui/src/section-header/section-title.svelte:18::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "both routes: section-title.svelte renders <h1> (:18) only {#if level === 1}; settings/+layout.svelte:22 passes level={2} and analytics/+page.svelte:16 level={3} (0 real <h1>), shortcuts/+page.svelte:30 level={1} (1 real <h1>) -> never two; the analyzer counts the level-1 arm of every SectionHeader.Title (heading behind a prop never given)"
+  },
+  {
     "key": "EpicenterHQ/epicenter:apps/whispering::seo/single-h1::/auth/callback::Missing <h#>",
     "verdict": "tp",
     "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; ssr=false Tauri app; page is {#if errorMessage}<div>{:else}<Loading label=\"Signing in…\">, no heading"
@@ -20358,6 +20368,11 @@
     "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/recording-overlay/+page.svelte::Missing <meta name=\"twitter:card\">",
     "verdict": "tp",
     "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 226 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "IcelandicIcecream/aphex:apps/studio::a11y/duplicate-landmark::../../packages/ui/src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "all admin routes: admin/+layout.svelte:103 renders cms-core Sidebar, which puts SidebarInset (root <main>, packages/ui sidebar-inset.svelte:13) around an unconditional second <main> (cms-core layout/Sidebar.svelte:159) wrapping children -> nested main landmarks"
   },
   {
     "key": "IcelandicIcecream/aphex:apps/studio::a11y/permitted-contents::src/routes/(protected)/admin/settings/_components/AccountSettings.svelte:246::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
@@ -21368,6 +21383,16 @@
     "key": "IcelandicIcecream/aphex:apps/studio::seo/og-url::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
     "verdict": "tp",
     "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 6 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; the only og/twitter/canonical emitter is src/lib/blog/Seo.svelte, rendered only by (site) blog/author/tag/[slug] pages; root/(site)/admin layouts emit only <link rel=icon>; workspace @aphexcms/* packages (incl. plugin-seo) emit no such tag"
+  },
+  {
+    "key": "IcelandicIcecream/aphex:apps/studio::seo/single-h1::../../packages/cms-core/src/lib/components/admin/ActivityView.svelte:335::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "ActivityView's unconditional <h1>Activity</h1> (ActivityView.svelte:335) plus AgentChat's <h1> (AgentChat.svelte:695) inside the assistant Sheet (cms-core Sidebar.svelte:173-179, assistantOpen=false until the user clicks the assistant button) -> second <h1> only after user action, same as the design DocumentEditor entry"
+  },
+  {
+    "key": "IcelandicIcecream/aphex:apps/studio::seo/single-h1::../../packages/cms-core/src/lib/components/admin/AgentChat.svelte:695::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "all 7 routes: the page/layout <h1> (organizations/+page.svelte:20, settings/+layout.svelte:105) plus AgentChat's <h1> (AgentChat.svelte:695) inside the closed assistant Sheet (cms-core Sidebar.svelte:173-179, assistantOpen=false until user action) -> co-render only after the user opens the assistant, same as the design DocumentEditor entry"
   },
   {
     "key": "IcelandicIcecream/aphex:apps/studio::seo/single-h1::../../packages/cms-core/src/lib/components/admin/DocumentEditor.svelte:2159::Multiple <h#> (#); a single <h#> is the conventional signal",
@@ -43063,11 +43088,6 @@
     "key": "chithi-dev/chithi:src/frontend::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
     "verdict": "tp",
     "basis": "read: root +layout.svelte:67 <title>Chithi</title> (6) is the winning title (MetaTags receives no title; no page sets one); length matches"
-  },
-  {
-    "key": "cigaleapp/cigale::a11y/disallowed-aria-props::src/lib/AreaObservations.svelte:307::`aria-expanded` is not supported by role `banner/generic`",
-    "verdict": "tp",
-    "basis": "read: <header aria-expanded> inside <section role=region> (generic there; banner elsewhere) — aria-expanded unsupported under both"
   },
   {
     "key": "cigaleapp/cigale::a11y/disallowed-aria-props::src/lib/Carousel.svelte:73::`aria-roledescription` is prohibited on role `generic`",
@@ -143235,14 +143255,19 @@
     "basis": "read: same pair as (protected) key — /auth/login shares \"Riven\" only with auth-gated /library"
   },
   {
-    "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:363::Heading level skipped (<h#> to <h#>)",
+    "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:463::Heading level skipped (<h#> to <h#>)",
     "verdict": "tp",
-    "basis": "<h1> (:333) then alsoKnownAs snippet / biography <h3> (:363) with no h2 between"
+    "basis": "<h1>{data.entity.name}</h1> (+page.svelte:333) is followed by {@render metadataBadges()} (no headings) and {@render alsoKnownAs(...)} (:345), whose snippet renders <h3>Also known as</h3> (:463) when also_known_as is non-empty -> h1 to h3 with no h2 between"
   },
   {
     "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/library/+page.svelte:275::Heading level skipped (<h#> to <h#>)",
     "verdict": "tp",
     "basis": "<h1> (:105) then the {:else} empty-state <h3> (:275) with no h2 between"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/logs/+page.svelte:122::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>System Logs</h1> (+page.svelte:183) then, in the same {:else if logs...} arm, {:else if historicalError} renders {@render errorDisplay(...)} (:240) whose snippet has <h3>Error Loading Logs</h3> (:122); tabButton/statusIndicator snippets between have no heading -> h1 to h3 on the historical-error state (same shape as the tp library :275 empty-state h3)"
   },
   {
     "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/logs/+page.svelte:262::Heading level skipped (<h#> to <h#>)",
@@ -164215,6 +164240,11 @@
     "basis": "my/notifications/+layout.svelte:41 unconditional <h1>Notifications</h1> plus SavedSearchesView.svelte:109 <h1>Saved searches &amp; alerts</h1> in its authenticated {:else} arm — both render for a signed-in user"
   },
   {
+    "key": "strelov1/freehire:web::seo/single-h1::src/lib/tailor/CvHtmlPreview.svelte:220::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "tailor/[slug]/+page.svelte:745 renders CvHtmlPreview unconditionally in the ready state; its headerBlock snippet <h1> (CvHtmlPreview.svelte:220) is rendered twice via blockView: in the aria-hidden off-screen measurement layer (:353-354) and in the visible A4 sheet (:363-376) -> two <h1> in the DOM (hidden-but-in-DOM duplicate)"
+  },
+  {
     "key": "strelov1/freehire:web::seo/single-h1::src/routes/my/mentorship/sessions/[id]/+page.svelte:74::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "tp",
     "basis": "my/mentorship/+layout.svelte:43 unconditional <h1>Mentorship</h1> plus sessions/[id]/+page.svelte:74 unconditional <h1>{starts.day} at …</h1> — two <h1>s render"
@@ -168708,6 +168738,11 @@
     "key": "temporalio/ui::seo/single-h1::src/lib/components/batch-operations/header.svelte:32::Multiple <h#> (#); a single <h#> is the conventional signal",
     "verdict": "fp",
     "basis": "only one <h1> renders: the BatchOperationHeader <h1> (header.svelte:32); the other counted <h1> is the boundary fallback — (app)/+layout.svelte:464-466 renders the page as ErrorBoundary's children, and error-boundary.svelte puts {@render children()} and the failed snippet's <Error> (<h1> at holocene/error.svelte:33) in one <svelte:boundary>, so that <h1> only replaces the page on a crash"
+  },
+  {
+    "key": "temporalio/ui::seo/single-h1::src/lib/components/deployments/deployment-header.svelte:67::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "DeploymentHeader's <h1> (deployment-header.svelte:67) is unconditional in {:then} of deployment.svelte:125; the other two counted are holocene Error <h1>s (error.svelte:33) in separate {#if refreshError} (:130) and {#if deleteError} (:208) blocks -> extra <h1>s only on an error, same as the design archival history {:catch} entry"
   },
   {
     "key": "temporalio/ui::seo/single-h1::src/lib/components/schedule/schedule-form/form.svelte:131::Multiple <h#> (#); a single <h#> is the conventional signal",
