@@ -82,15 +82,15 @@ That import is a **runtime** one. It resolves when svelte-vitals loads the file,
 
 ## Available options
 
-| Option           | Type                                                                                    | Default            | Description                                                                                                                                 |
-| ---------------- | --------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`           | How to score routes where a metadata value is set dynamically                                                                               |
-| `metaComponents` | `string[]`                                                                              | `[]`               | `<head>`-metadata components the analyzer cannot resolve (e.g. from an npm package); it follows resolvable in-repo components automatically |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`               | Per-rule overrides: disable a rule, change its severity, or set its [options](#rule-options)                                                |
-| `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                                                                         |
-| `weights`        | `Partial<Record<Category, number>>`                                                     | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                                                                 |
-| `overrides`      | `RuleOverride[]`                                                                        | (none)             | Route- and file-scoped rule overrides; see [below](#scoping-rules-to-routes-or-files-overrides)                                             |
-| `seo`            | `{ indexable?: boolean }`                                                               | (none)             | `indexable: false` turns off the rules that only matter for a page in a search result; see [below](#a-project-that-is-not-indexed)          |
+| Option           | Type                                                                                    | Default            | Description                                                                                                                                               |
+| ---------------- | --------------------------------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`           | How to score routes where a metadata value is set dynamically                                                                                             |
+| `metaComponents` | `string[]`                                                                              | `[]`               | `<head>`-metadata components the analyzer cannot resolve (e.g. from an npm package that is not installed); it follows resolvable components automatically |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`               | Per-rule overrides: disable a rule, change its severity, or set its [options](#rule-options)                                                              |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                                                                                       |
+| `weights`        | `Partial<Record<Category, number>>`                                                     | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                                                                               |
+| `overrides`      | `RuleOverride[]`                                                                        | (none)             | Route- and file-scoped rule overrides; see [below](#scoping-rules-to-routes-or-files-overrides)                                                           |
+| `seo`            | `{ indexable?: boolean }`                                                               | (none)             | `indexable: false` turns off the rules that only matter for a page in a search result; see [below](#a-project-that-is-not-indexed)                        |
 
 `Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture' | 'a11y'`.
 
@@ -270,9 +270,20 @@ inside the repository. svelte-vitals finds the package through the nearest `pnpm
 package's `exports` (its file layout when it has none). A `kit.alias` into
 `node_modules/<that package>` reads the package's directory, so the result does not depend on whether
 the checkout was installed. The search stops at the directory holding `.git`. Packages the app does
-not declare this way, npm packages in `node_modules`, and anything outside the repository are not
-read. This applies to the `<head>`/heading walk only; the rules listed at the top of this section
-resolve imports as before.
+not declare this way, and anything outside the repository, are not read. This applies to the
+`<head>`/heading walk only; the rules listed at the top of this section resolve imports as before.
+
+When the checkout is installed, the `<head>`/heading walk also follows components from the Svelte
+packages the app declares from a registry (`"@acme/ui": "^2.1.0"`, a `catalog:` or `npm:` range, and
+so on): a component such as `import { Head } from '@acme/ui'` contributes its `<title>`, meta tags and
+headings to the routes that render it. The package is found as Node finds it, in the first
+`node_modules/<name>` from the app's directory upward, stopping at the directory holding `.git` (the
+app's own `node_modules` only, without one), and read through pnpm's links. Its import resolves
+through its `exports` with the `svelte` condition, or its `svelte` field. Only packages that publish
+one of those two are read. A package a known adapter covers (`svelte-meta-tags`, `svelte-seo`, `svead`) is
+still read by the adapter. Accessibility rules and the rules listed at the top of this section do not
+look inside these packages. In a checkout that is not installed, nothing changes: declare such a
+component in `metaComponents` instead.
 
 The following cases are not resolved:
 

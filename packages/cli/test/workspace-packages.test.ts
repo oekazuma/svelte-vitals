@@ -176,7 +176,10 @@ export default { kit: { alias: {
     );
     await collectAll(rt, '', defaultConfig);
 
-    const touched = [...counts.exists.keys(), ...counts.readFile.keys()].filter((p) => p.startsWith('..'));
+    // The `.git` walk and `node_modules` probes above the app are the installed-package lookup's.
+    const touched = [...counts.exists.keys(), ...counts.readFile.keys()].filter(
+      (p) => p.startsWith('..') && !p.endsWith('/.git') && !p.includes('/node_modules/')
+    );
     expect(touched).toEqual([]);
     expect([...counts.glob.keys()].filter((p) => p.endsWith('/package.json'))).toEqual([]);
   });

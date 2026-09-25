@@ -23,8 +23,8 @@ const MAX_READS_PER_FILE = 2;
 
 /**
  * A SvelteKit-shaped project as a path→source map: `routeCount` pages that all
- * inherit one root layout, which itself pulls in one shared $lib component, and iterates one
- * constant list, through a barrel. The sharing is the point — it is what a broken parse cache would
+ * inherit one root layout, which itself pulls in one shared $lib component and one component of an
+ * installed npm package, and iterates one constant list, through a barrel. The sharing is the point — it is what a broken parse cache would
  * read repeatedly.
  *
  * Also includes one kit-module file of each shape `collectKitModuleFacts` looks
@@ -44,7 +44,11 @@ function project(routeCount: number) {
     'svelte.config.js': `export default { kit: {} };\n`,
     'vite.config.ts': `export default { plugins: [] };\n`,
     'src/app.html': `<!doctype html><html lang="en"><body></body></html>\n`,
-    'src/routes/+layout.svelte': `<script>\n  import { Card, TABS } from '$lib';\n  let { children } = $props();\n</script>\n\n<Card title="shared" />\n{#each TABS as tab}<b>{tab}</b>{/each}\n{@render children()}\n`,
+    'package.json': JSON.stringify({ name: 'app', devDependencies: { 'ui-kit': '^1.0.0', svelte: '^5.0.0' } }),
+    'node_modules/ui-kit/package.json': JSON.stringify({ name: 'ui-kit', exports: { '.': { svelte: './index.js' } } }),
+    'node_modules/ui-kit/index.js': `export { default as Seo } from './Seo.svelte';\n`,
+    'node_modules/ui-kit/Seo.svelte': `<svelte:head><meta name="robots" content="index" /></svelte:head>\n`,
+    'src/routes/+layout.svelte': `<script>\n  import { Card, TABS } from '$lib';\n  import { Seo } from 'ui-kit';\n  let { children } = $props();\n</script>\n\n<Card title="shared" />\n<Seo />\n{#each TABS as tab}<b>{tab}</b>{/each}\n{@render children()}\n`,
     'src/lib/index.ts': `export { default as Card } from './Card.svelte';\nexport { TABS } from './options';\n`,
     'src/lib/options.ts': `export const TABS = ['a', 'b'];\n`,
     'src/lib/Card.svelte': `<script>\n  let { title = '' } = $props();\n</script>\n\n<svelte:head><meta name="description" content="shared" /></svelte:head>\n<h3>{title}</h3>\n`,
@@ -99,7 +103,10 @@ describe('I/O budget for the collection phase', () => {
       'src/routes/+layout.svelte',
       'src/lib/Card.svelte',
       'src/lib/index.ts',
-      'src/lib/options.ts'
+      'src/lib/options.ts',
+      'node_modules/ui-kit/package.json',
+      'node_modules/ui-kit/index.js',
+      'node_modules/ui-kit/Seo.svelte'
     ]) {
       // Guard against a vacuous pass: Map#get returns undefined for a file that was
       // never read at all, and undefined === undefined would satisfy the equality

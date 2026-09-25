@@ -2,9 +2,11 @@ import { describe, it, expect } from 'vitest';
 import { resolveRepoLocalPath } from '../src/kit-module-parse.js';
 import { resolveKitAliases } from '../src/svelte-config-parse.js';
 import {
+  declaredInstalledPackages,
   declaredLocalPackages,
   packageJsonWorkspaceGlobs,
   pnpmWorkspaceGlobs,
+  withInstalledPackages,
   withWorkspacePackages
 } from '../src/workspace-packages.js';
 
@@ -153,5 +155,44 @@ export default { kit: { alias: {
     );
     // An npm package in node_modules is not a workspace package.
     expect(resolveRepoLocalPath('$other/x', 'src/routes/+page.svelte', aliases)).toBe('node_modules/other/src/x');
+  });
+});
+
+describe('installed packages', () => {
+  it('declares every dependency whose range is not a local protocol', () => {
+    const pkg = JSON.stringify({
+      dependencies: { svead: '^0.0.16', '@repo/ui': 'workspace:*', kit: 'catalog:' },
+      devDependencies: { alias: 'npm:other@1', linked: 'link:../x', filed: 'file:../y', portal: 'portal:../z' }
+    });
+    expect(declaredInstalledPackages(pkg)).toEqual(['svead', 'kit', 'alias']);
+    expect(declaredInstalledPackages('{')).toEqual([]);
+  });
+
+  it('compiles only packages that publish a Svelte marker', () => {
+    const pkg = (name: string, manifest: Record<string, unknown>) => ({
+      name,
+      dir: `node_modules/${name}`,
+      manifest: JSON.stringify(manifest)
+    });
+    const aliases = withInstalledPackages(undefined, [
+      pkg('ui', { exports: { '.': { types: './index.d.ts', svelte: './dist/index.js' } } }),
+      pkg('old', { svelte: 'src/index.js' }),
+      pkg('lodash', { main: 'index.js' })
+    ]);
+    const at = (spec: string) => resolveRepoLocalPath(spec, 'src/routes/+page.svelte', aliases);
+    expect([at('ui'), at('old'), at('old/src/Hero.svelte'), at('lodash')]).toEqual([
+      'node_modules/ui/dist/index.js',
+      'node_modules/old/src/index.js',
+      'node_modules/old/src/Hero.svelte',
+      undefined
+    ]);
+    expect(withInstalledPackages(undefined, [pkg('lodash', { main: 'index.js' })])).toBeUndefined();
+  });
+
+  it('refuses a svelte field that leaves the package', () => {
+    const aliases = withInstalledPackages(undefined, [
+      { name: 'x', dir: 'node_modules/x', manifest: JSON.stringify({ svelte: '../evil.js' }) }
+    ]);
+    expect(resolveRepoLocalPath('x', 'src/routes/+page.svelte', aliases)).toBe('node_modules/x');
   });
 });

@@ -73,6 +73,20 @@ export function readAndParse(rt: Runtime, cwd: string, rel: string, cache: Parse
   return hit;
 }
 
+/**
+ * `readAndParse`, except that an installed package's file that does not parse is undefined, so its
+ * usage reads as unfollowed: a dependency's source must not fail the run the way the app's own does.
+ */
+async function readPackageAware(
+  rt: Runtime,
+  cwd: string,
+  rel: string,
+  cache: ParseCache
+): Promise<ParsedFile | undefined> {
+  const parsed = readAndParse(rt, cwd, rel, cache);
+  return rel.split('/').includes('node_modules') ? parsed.catch(() => undefined) : parsed;
+}
+
 function nameOf(node: { type: string; name?: string; value?: unknown }): string {
   return node.type === 'Identifier' ? node.name! : String(node.value);
 }
@@ -342,14 +356,19 @@ export async function resolveFileTags(
 
     // Layer 3: transitively resolve a user component in src/.
     const found = depth > 0 ? await resolveComponentFiles(ctx, use.name, parsed, fileRel) : undefined;
-    const files = found?.files.filter((f) => !visited.has(f)) ?? [];
+    const unvisited = found?.files.filter((f) => !visited.has(f)) ?? [];
+    const read = await Promise.all(unvisited.map((f) => readPackageAware(rt, cwd, f, cache)));
+    const files = unvisited.filter((_, i) => read[i] !== undefined);
+    const parsedFiles = read.filter((p) => p !== undefined);
+    // A package file that does not parse stays unfollowed; the ones that parse are still alternatives.
+    const unreadable = files.length < unvisited.length;
     if (found && files.length > 0) {
       // Which of several components renders, or whether one renders at all, is runtime state.
       const exclusive = files.length > 1 || !found.complete || files.length < found.files.length;
       const childHead = inHead || use.inHead ? argsOf(parsed, use, inHead ?? new Map()) : undefined;
       const maybe = new Map<string, ParsedTag>();
-      for (const childRel of files) {
-        const childParsed = await readAndParse(rt, cwd, childRel, cache);
+      for (const [i, childRel] of files.entries()) {
+        const childParsed = parsedFiles[i]!;
         const childVisited = new Set(visited).add(childRel);
         const child = await resolveFileTags(
           rt,
@@ -394,7 +413,7 @@ export async function resolveFileTags(
         }
       }
       tags.push(...maybe.values());
-      continue;
+      if (!unreadable) continue;
     }
 
     // A component we cannot follow may render its heading from a prop (`<Heading tag="h1">`), so,

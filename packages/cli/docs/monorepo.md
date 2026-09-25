@@ -51,7 +51,8 @@ Components the app imports from a package of the same repository are followed wh
 `package.json` declares it with `workspace:` (or a `link:`/`file:` path inside the repository):
 their `<title>`, meta tags and headings count for the routes that render them. The package is found
 through the nearest `pnpm-workspace.yaml` or `package.json` `workspaces` above the app, and the
-import resolves through its `exports`. npm packages in `node_modules` are not read.
+import resolves through its `exports`. An npm package is read from `node_modules` only when the
+checkout is installed, and only for `<head>` tags and headings.
 
 ## Related
 

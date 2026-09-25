@@ -296,7 +296,8 @@ async function resolveRoute(
   aliases: readonly KitAlias[] | undefined,
   appHtmlIds: readonly { id: string; line: number }[] | undefined,
   appHtmlBodyTags: readonly string[] | undefined,
-  appHtmlHeadTags: readonly ParsedTag[] | undefined
+  appHtmlHeadTags: readonly ParsedTag[] | undefined,
+  headAliases: readonly KitAlias[] | undefined
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
   const chainOrder = new Map(files.map((f, i) => [f.rel, i]));
@@ -370,7 +371,7 @@ async function resolveRoute(
     for (const img of parsed.images) {
       images.push({ ...img, file: rel });
     }
-    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
+    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, headAliases);
     for (const heading of resolved.ownHeadings) {
       headings.push(nestHeading(heading, childrenAt, headingGroup));
     }
@@ -516,7 +517,9 @@ export async function collectRoutes(
   // The shell's `<body>` tag names (`Project.appHtmlBodyTags`): present on every route.
   appHtmlBodyTags?: readonly string[],
   // The shell's literal head tags (`Project.appHtmlHeadTags`): every route's lowest-priority tags.
-  appHtmlHeadTags?: readonly ParsedTag[]
+  appHtmlHeadTags?: readonly ParsedTag[],
+  // `Project.headAliases`: `aliases` plus installed packages, for the <head>/heading walk only.
+  headAliases: readonly KitAlias[] | undefined = aliases
 ): Promise<{
   heads: ResolvedHead[];
   images: ResolvedImages[];
@@ -528,7 +531,19 @@ export async function collectRoutes(
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
   const facts = await Promise.all(
     pages.map((page) =>
-      resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags, appHtmlHeadTags)
+      resolveRoute(
+        rt,
+        cwd,
+        page,
+        config,
+        layouts,
+        cache,
+        aliases,
+        appHtmlIds,
+        appHtmlBodyTags,
+        appHtmlHeadTags,
+        headAliases
+      )
     )
   );
   return {

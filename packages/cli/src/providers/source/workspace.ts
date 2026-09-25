@@ -1,4 +1,5 @@
 import {
+  declaredInstalledPackages,
   declaredLocalPackages,
   packageJsonWorkspaceGlobs,
   pnpmWorkspaceGlobs,
@@ -133,4 +134,39 @@ export async function findWorkspacePackages(
     }
   }
   return found;
+}
+
+/**
+ * The packages the app declares from a registry, found as Node finds them: the first
+ * `node_modules/<name>/package.json` from the app's directory upward. The walk ends at the directory
+ * holding `.git`; without one, only the app's own `node_modules` is read. `dir` is the textual path
+ * through `node_modules`, so a pnpm link is read through, as Vite reads it.
+ */
+export async function findInstalledPackages(
+  rt: Runtime,
+  cwd: string,
+  packageJsonSource: string | undefined
+): Promise<WorkspacePackage[]> {
+  const names = declaredInstalledPackages(packageJsonSource);
+  if (names.length === 0) return [];
+  const above = (up: number) => (up === 0 ? cwd : rt.join(cwd, ...Array<string>(up).fill('..')));
+  let levels = 1;
+  for (let up = 0; up < MAX_LEVELS; up++) {
+    const dir = above(up);
+    if (await rt.exists(rt.join(dir, '.git'))) {
+      levels = up + 1;
+      break;
+    }
+    if (rt.join(dir, '..') === dir) break;
+  }
+  const found = await Promise.all(
+    names.map(async (name): Promise<WorkspacePackage | undefined> => {
+      for (let up = 0; up < levels; up++) {
+        const manifest = await readIfExists(rt, rt.join(above(up), 'node_modules', name, 'package.json'));
+        if (manifest !== undefined) return { name, dir: fromApp(cwd, up, `node_modules/${name}`), manifest };
+      }
+      return undefined;
+    })
+  );
+  return found.filter((p) => p !== undefined);
 }

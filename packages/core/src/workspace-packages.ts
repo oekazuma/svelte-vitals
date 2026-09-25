@@ -2,7 +2,7 @@ import { DEFAULT_KIT_ALIASES } from './kit-module-parse.js';
 import { importTarget, normalizeAliasValue } from './svelte-config-parse.js';
 import type { KitAlias } from './types.js';
 
-/** A package of the app's own repository that the app declares: `dir` is relative to the app. */
+/** A package the app declares, from its repository or its `node_modules`: `dir` is relative to the app. */
 export interface WorkspacePackage {
   name: string;
   dir: string;
@@ -73,6 +73,19 @@ export function packageJsonWorkspaceGlobs(source: string | undefined): string[] 
   return Array.isArray(list) ? list.filter((g): g is string => typeof g === 'string') : undefined;
 }
 
+/** A package-relative `svelte` field (`./dist/index.js`, `index.js`); undefined when absent or leaving the package. */
+function svelteField(manifest: string): string | undefined {
+  let field: unknown;
+  try {
+    field = (JSON.parse(manifest) as { svelte?: unknown }).svelte;
+  } catch {
+    return undefined;
+  }
+  if (typeof field !== 'string' || field.startsWith('/') || /^[A-Za-z]:/.test(field)) return undefined;
+  const rel = field.replace(/^\.\//, '');
+  return rel && !rel.split('/').includes('..') ? rel : undefined;
+}
+
 /** `dir/rel`, or `dir` itself for an empty `rel`. */
 function inDir(dir: string, rel: string): string {
   const tail = normalizeAliasValue(rel);
@@ -86,8 +99,8 @@ function inDir(dir: string, rel: string): string {
  * patterns by longest prefix. The condition walk is `importTarget`'s, in declaration order over
  * `svelte`/`import`/`module`/`default`. A target this cannot follow — an environment condition,
  * a `null` exclusion, a `*` mid-pattern or mid-segment, a path leaving the package — stays as an opaque entry so
- * a shorter pattern cannot answer in its place. Without `exports`, the package's file layout is
- * read directly.
+ * a shorter pattern cannot answer in its place. Without `exports`, the bare name resolves through
+ * the `svelte` field and subpaths through the package's file layout.
  */
 function entriesOf({ name, dir, manifest }: WorkspacePackage): KitAlias[] {
   let exports: unknown;
@@ -96,7 +109,12 @@ function entriesOf({ name, dir, manifest }: WorkspacePackage): KitAlias[] {
   } catch {
     return [];
   }
-  if (exports === undefined) return [{ find: name, replacement: dir, match: 'prefix', root: dir }];
+  if (exports === undefined) {
+    const field = svelteField(manifest);
+    const main: KitAlias[] =
+      field === undefined ? [] : [{ find: name, replacement: inDir(dir, field), match: 'exact', root: dir }];
+    return [...main, { find: name, replacement: dir, match: 'prefix', root: dir }];
+  }
   const keys = exports && typeof exports === 'object' && !Array.isArray(exports) ? Object.keys(exports) : [];
   const dotted = keys.filter((k) => k.startsWith('.')).length;
   if (dotted > 0 && dotted < keys.length) return [{ find: name, replacement: null, match: 'prefix', root: dir }];
@@ -150,4 +168,55 @@ export function withWorkspacePackages(
     return entry;
   };
   return [...(aliases ?? DEFAULT_KIT_ALIASES).map(linked), ...packages.flatMap(entriesOf)];
+}
+
+/**
+ * The app's dependencies that an install puts in `node_modules`: every declared name whose range is
+ * not a local protocol (`workspace:`, `link:`, `file:`, `portal:`). Those are the workspace
+ * resolver's, whose bounds must not be sidestepped through their `node_modules` link.
+ */
+export function declaredInstalledPackages(packageJsonSource: string | undefined): string[] {
+  let pkg: Partial<Record<(typeof DEPENDENCY_FIELDS)[number], unknown>>;
+  try {
+    pkg = JSON.parse(packageJsonSource ?? '');
+  } catch {
+    return [];
+  }
+  const out = new Set<string>();
+  for (const field of DEPENDENCY_FIELDS) {
+    const deps = pkg?.[field];
+    if (!deps || typeof deps !== 'object') continue;
+    for (const [name, range] of Object.entries(deps)) {
+      if (typeof range === 'string' && !/^(?:workspace|link|file|portal):/.test(range)) out.add(name);
+    }
+  }
+  return [...out];
+}
+
+function hasSvelteCondition(value: unknown): boolean {
+  if (!value || typeof value !== 'object') return false;
+  return Object.entries(value).some(([key, branch]) => key === 'svelte' || hasSvelteCondition(branch));
+}
+
+/** Whether a manifest publishes Svelte components: a `svelte` field, or a `svelte` condition in `exports`. */
+function isSveltePackage(manifest: string): boolean {
+  try {
+    const { svelte, exports } = JSON.parse(manifest) as { svelte?: unknown; exports?: unknown };
+    return typeof svelte === 'string' || hasSvelteCondition(exports);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * `aliases` widened with the Svelte packages installed in `node_modules` (`dir` is the textual
+ * `node_modules/<name>` path, relative to the app), compiled like workspace packages. Packages that
+ * publish no Svelte marker get no entries: nothing they export is a component.
+ */
+export function withInstalledPackages(
+  aliases: KitAlias[] | undefined,
+  packages: readonly WorkspacePackage[]
+): KitAlias[] | undefined {
+  const svelte = packages.filter((p) => isSveltePackage(p.manifest));
+  return svelte.length === 0 ? aliases : [...(aliases ?? DEFAULT_KIT_ALIASES), ...svelte.flatMap(entriesOf)];
 }
