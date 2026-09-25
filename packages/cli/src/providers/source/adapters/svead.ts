@@ -41,7 +41,8 @@ function headTags(config: Map<string, Prop> | undefined): ParsedTag[] {
     tags.push({ kind: 'link', rel: 'canonical', value: url });
     tags.push({ kind: 'meta', property: 'og:url', value: url });
   }
-  if (!config || config.has('open_graph_image')) {
+  // `{#if seo_config.open_graph_image}`: an empty literal renders nothing.
+  if (!config || (config.has('open_graph_image') && textOf(config.get('open_graph_image')) !== '')) {
     tags.push({ kind: 'meta', property: 'og:image', value: valueOf('open_graph_image') });
   }
   // `content={twitter_card_type || 'summary_large_image'}` always renders a card.
@@ -56,8 +57,11 @@ function headTags(config: Map<string, Prop> | undefined): ParsedTag[] {
 
 /** The inline object literal passed as `seo_config`, or `undefined` when its keys cannot all be read. */
 function literalConfig(use: ComponentUse): Map<string, Prop> | undefined {
-  const attr = use.attributes.find((a) => a.type === 'Attribute' && a.name === 'seo_config');
+  const at = use.attributes.findIndex((a) => a.type === 'Attribute' && a.name === 'seo_config');
+  const attr = use.attributes[at];
   if (attr?.type !== 'Attribute' || attr.value === true || Array.isArray(attr.value)) return undefined;
+  // A later spread may pass its own `seo_config`, which wins.
+  if (use.attributes.slice(at + 1).some((a) => a.type === 'SpreadAttribute')) return undefined;
   const expr = attr.value.expression;
   if (expr.type !== 'ObjectExpression') return undefined;
   const config = new Map<string, Prop>();
@@ -68,6 +72,14 @@ function literalConfig(use: ComponentUse): Map<string, Prop> | undefined {
     if (typeof key === 'string') config.set(key, prop.value);
   }
   return config;
+}
+
+/** `image=""` or `image={''}`: renders nothing under svead's `{#if image}`. */
+function isEmptyLiteral(a: AST.Attribute): boolean {
+  const v = a.value;
+  if (v === true) return false;
+  if (Array.isArray(v)) return v.every((n) => n.type === 'Text' && n.data.trim() === '');
+  return v.expression.type === 'Literal' && v.expression.value === '';
 }
 
 /** The per-prop API before 0.0.10: og:* and twitter:card render only inside `{#if image}`. */
@@ -86,7 +98,8 @@ function legacyTags(use: ComponentUse): ParsedTag[] {
     tags.push(textTag(description, { kind: 'meta', name: 'description', value: attrValueOf(description) }));
   const url = attr('url');
   if (url) tags.push({ kind: 'link', rel: 'canonical', value: attrValueOf(url) });
-  if (attr('image')) {
+  const image = attr('image');
+  if (image && !isEmptyLiteral(image)) {
     for (const property of ['og:title', 'og:description', 'og:url', 'og:image'])
       tags.push({ kind: 'meta', property, value: 'dynamic' });
     tags.push({ kind: 'meta', name: 'twitter:card', value: 'dynamic' });

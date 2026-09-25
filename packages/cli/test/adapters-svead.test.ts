@@ -50,6 +50,20 @@ describe('svead Head adapter', () => {
     expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:image', value: 'dynamic' });
   });
 
+  it('does not credit og:image for an empty literal open_graph_image', () => {
+    const r = resolve('<Head seo_config={{ title: "T", description: "D", url: "/", open_graph_image: "" }} />');
+    expect(r.tags.some((t) => t.property === 'og:image')).toBe(false);
+  });
+
+  it('treats an inline config as unreadable when a later spread may replace it', () => {
+    expect(resolve('<Head seo_config={{ title: "Original", description: "D", url: "/" }} {...props} />')).toEqual({
+      tags: opaqueSet,
+      broad: false
+    });
+    const before = resolve('<Head {...props} seo_config={{ title: "Kept", description: "D", url: "/" }} />');
+    expect(before.tags).toContainEqual({ kind: 'title', value: 'static', text: 'Kept' });
+  });
+
   it('keeps a dynamic twitter_card_type dynamic', () => {
     const r = resolve('<Head seo_config={{ title: "T", twitter_card_type: kind }} />');
     expect(r.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'dynamic' });
@@ -64,6 +78,8 @@ describe('svead Head adapter', () => {
       ],
       broad: false
     });
+    const empty = resolve('<Head title="T" url="/" image="" />');
+    expect(empty.tags.some((t) => t.property === 'og:image' || t.name === 'twitter:card')).toBe(false);
     const r = resolve('<Head title="T" url="/" image={img} />');
     expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:image', value: 'dynamic' });
     expect(r.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'dynamic' });
