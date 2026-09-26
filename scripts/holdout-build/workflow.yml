@@ -111,8 +111,8 @@ jobs:
               try { return JSON.parse(fs.readFileSync(`out/${d}/result.json`, "utf8")); } catch { return { app: d, stage: "missing" }; }
             });
             fs.writeFileSync("summary.json", JSON.stringify(rows, null, 1));
-            const lines = ["| app | stage | status | exit | gate | plugin | report |", "| --- | --- | --- | --- | --- | --- | --- |"];
-            for (const r of rows) lines.push(`| ${r.app} | ${r.stage} | ${r.status ?? ""} | ${r.exit ?? ""} | ${r.gate ?? ""} | ${r.pluginLine ?? ""} | ${r.report ?? ""} |`);
+            const lines = ["| app | first look | stage | status | exit | gate | plugin | report |", "| --- | --- | --- | --- | --- | --- | --- | --- |"];
+            for (const r of rows) lines.push(`| ${r.app} | ${r.firstLookExit ?? ""} | ${r.stage} | ${r.status ?? ""} | ${r.exit ?? ""} | ${r.gate ?? ""} | ${r.pluginLine ?? ""} | ${r.report ?? ""} |`);
             fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join("\n") + "\n");
             console.log(lines.join("\n"));
           '

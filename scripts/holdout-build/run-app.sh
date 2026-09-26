@@ -8,8 +8,9 @@ set -uo pipefail
 # measures this installed checkout instead of fetching a fresh one.
 cache="$RUNNER_TEMP/cache"
 mkdir -p "$OUT"; log="$OUT/build.log"; work="$cache/${REPO//\//__}"
+fl_exit=""
 result() { # stage status
-  node -e 'const [app,stage,status,exit]=process.argv.slice(1);const fs=require("fs");const log=fs.existsSync(process.env.OUT+"/build.log")?fs.readFileSync(process.env.OUT+"/build.log","utf8"):"";const m=log.match(/Analyzed \d+ prerendered route\(s\)[^\n]*|no prerendered pages found[^\n]*/);fs.writeFileSync(process.env.OUT+"/result.json",JSON.stringify({app,stage,status,exit:Number(exit),gate:/svelte-vitals: build failed — findings at or above/.test(log),pluginLine:m?m[0]:null,report:fs.existsSync(process.env.REPORT||"")},null,1))' "$REPO:$APP_PATH" "$1" "$2" "${3:-0}"
+  node -e 'const [app,stage,status,exit,fl]=process.argv.slice(1);const fs=require("fs");const log=fs.existsSync(process.env.OUT+"/build.log")?fs.readFileSync(process.env.OUT+"/build.log","utf8"):"";const m=log.match(/Analyzed \d+ prerendered route\(s\)[^\n]*|no prerendered pages found[^\n]*/);fs.writeFileSync(process.env.OUT+"/result.json",JSON.stringify({app,stage,status,exit:Number(exit),firstLookExit:fl===""?null:Number(fl),gate:/svelte-vitals: build failed — findings at or above/.test(log),pluginLine:m?m[0]:null,report:fs.existsSync(process.env.REPORT||"")},null,1))' "$REPO:$APP_PATH" "$1" "$2" "${3:-0}" "$fl_exit"
 }
 # Runs before the build, which rewrites the vite config and adds files the source pass would read.
 # An app whose install fails is still measured, uninstalled, and says so.
@@ -18,7 +19,8 @@ first_look() {
   node -e 'console.log(JSON.stringify([{repo:process.env.REPO,path:process.env.APP_PATH,sha:process.env.SHA}]))' >"$RUNNER_TEMP/target.json"
   node "$MEASURE" run --cli "$PLUGIN_DIR/node_modules/svelte-vitals/dist/bin.js" --cache "$cache" \
     --targets "$RUNNER_TEMP/target.json" --out "$OUT/first-look.json" >>"$log" 2>&1
-  echo "first look ($1) exit $?" >>"$log"
+  fl_exit=$?
+  echo "first look ($1) exit $fl_exit" >>"$log"
 }
 mkdir -p "$work" && cd "$work" || exit 1
 { git init -q . && git remote add origin "https://github.com/$REPO.git" && git fetch -q --depth 1 origin "$SHA" && git checkout -q FETCH_HEAD; } >>"$log" 2>&1 || { result clone failed; exit 0; }
