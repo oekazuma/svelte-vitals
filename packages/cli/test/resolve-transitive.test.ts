@@ -296,6 +296,31 @@ describe('resolveFileTags transitive headings (layer 3, issue #425)', () => {
     expect(r.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/B.svelte' }]);
   });
 
+  it('drops the headings of an {#if} arm a prop the use decides never renders', async () => {
+    const levels = async (use: string, child: string) =>
+      (
+        await resolveWith(
+          {
+            'src/routes/+page.svelte': `<script>import Bar from '$lib/Bar.svelte'; let { data } = $props();</script>${use}`,
+            'src/lib/Bar.svelte': child
+          },
+          'src/routes/+page.svelte'
+        )
+      ).headings.map((h) => h.level);
+    const home = `<script>let { isHome = false } = $props();</script>{#if isHome}<h1>Home</h1>{:else}<h2>Nav</h2>{/if}`;
+    expect(await levels('<Bar />', home)).toEqual([2]);
+    expect(await levels('<Bar isHome />', home)).toEqual([1]);
+    expect(await levels('<Bar isHome={true} />', home)).toEqual([1]);
+    expect(await levels('<Bar isHome={data.home} />', home)).toEqual([1, 2]);
+    expect(await levels('<Bar {...data} />', home)).toEqual([1, 2]);
+    const titled = `<script>let { title, variant } = $props();</script>{#if title}<h1>{title}</h1>{/if}{#if variant === 'detail'}<h1>Detail</h1>{/if}{#if !title}<h2>Untitled</h2>{/if}`;
+    expect(await levels('<Bar />', titled)).toEqual([2]);
+    expect(await levels('<Bar title="Games" variant="detail" />', titled)).toEqual([1, 1]);
+    // A prop the component writes itself is never decided from outside.
+    const toggled = `<script>let { open = false } = $props();</script><button onclick={() => (open = true)}>x</button>{#if open}<h1>Open</h1>{/if}`;
+    expect(await levels('<Bar />', toggled)).toEqual([1]);
+  });
+
   it('stops on cycles without infinite recursion', async () => {
     const r = await resolveWith(
       {

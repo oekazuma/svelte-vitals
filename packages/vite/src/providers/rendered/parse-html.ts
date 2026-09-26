@@ -188,7 +188,12 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     });
   }
 
-  for (const script of head.querySelectorAll('script')) {
+  // Search engines read JSON-LD in <body> too; the rest of the scan stays on <head>.
+  const body = head === root ? undefined : root.querySelector('body');
+  const bodyJsonLd = (body?.querySelectorAll('script') ?? []).filter(
+    (s) => s.getAttribute('type') === 'application/ld+json'
+  );
+  for (const script of [...head.querySelectorAll('script'), ...bodyJsonLd]) {
     const type = script.getAttribute('type');
     if (type === 'application/ld+json') {
       // `<script>` is a raw-text element — browsers and search engines read its body verbatim and do

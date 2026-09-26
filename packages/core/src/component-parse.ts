@@ -215,7 +215,8 @@ type ImportBinding = EachBlockFact['importedList'] & {};
 
 /**
  * Names of `const X = [ … ]` array literals (script top level) that nothing can reorder: every
- * other mention of `X` in the file is a member read, an `{#each X …}` or a `for (… of X)`. Such a list is the inline
+ * other mention of `X` in the file is a member read, an `{#each X …}`, a `for (… of X)` or a copy into an array literal
+ * (`[...X]`). Such a list is the inline
  * literal the each rules already skip, just given a name. Anything else — a mutating call, an
  * assignment through it, passing or spreading `X` — keeps the list keyed. A component's value
  * imports are held to the same uses (`imports`), since the module behind one may be such a list;
@@ -275,6 +276,10 @@ function collectConstantLists(
     walkEstree(root, (n: Node) => {
       if (n.type === 'EachBlock' && (listOf(n.expression) || nsMember(n.expression))) safe.add(n.expression);
       if (n.type === 'ForOfStatement' && (listOf(n.right) || nsMember(n.right))) safe.add(n.right);
+      // `[...xs]` copies the list into a new array; the copy cannot reorder `xs`.
+      if (n.type === 'ArrayExpression')
+        for (const el of n.elements ?? [])
+          if (el?.type === 'SpreadElement' && (listOf(el.argument) || nsMember(el.argument))) safe.add(el.argument);
       if (nsMember(n)) members.add(nsMember(n)!);
       if (n.type === 'MemberExpression') {
         if (listOf(n.object) && !(n.computed && namespaces.has(n.object.name))) safe.add(n.object);

@@ -88,23 +88,31 @@ function conditionalTags(
 type Bind = (attributes: AST.RegularElement['attributes']) => AST.RegularElement['attributes'];
 
 /**
- * Script bindings whose initializer spells out a JSON-LD block (`` const ld = `<script
- * type="application/ld+json">…` ``), so `{@html ld}` is read as one.
+ * Script bindings whose initializer spells out a JSON-LD block's opening tag (`` const ld = `<script
+ * type="application/ld+json">…` ``, or `"<scr" + 'ipt type="application/ld+json">'`), or is built
+ * from such a binding (`OPEN + JSON.stringify(data) + CLOSE`), so `{@html ld}` is read as one.
  */
 function jsonLdBindings(ast: AST.Root, source: string): Set<string> {
-  const names = new Set<string>();
+  type Declarator = { id?: { type: string; name?: string }; init?: { start: number; end: number } | null };
+  const inits = new Map<string, string>();
   for (const script of [ast.module, ast.instance]) {
-    type Declarator = { id?: { type: string; name?: string }; init?: { start: number; end: number } | null };
     for (const stmt of (script?.content.body ?? []) as Array<{ type: string; declarations?: Declarator[] }>) {
       if (stmt.type !== 'VariableDeclaration') continue;
       for (const d of stmt.declarations ?? []) {
-        if (
-          d.id?.type === 'Identifier' &&
-          d.id.name &&
-          d.init &&
-          /\bscript\b[^>]*\btype\s*=\s*["']?application\/ld\+json/i.test(source.slice(d.init.start, d.init.end))
-        )
-          names.add(d.id.name);
+        if (d.id?.type === 'Identifier' && d.id.name && d.init)
+          inits.set(d.id.name, source.slice(d.init.start, d.init.end));
+      }
+    }
+  }
+  const names = new Set<string>();
+  for (let grew = true; grew;) {
+    grew = false;
+    for (const [name, init] of inits) {
+      if (names.has(name)) continue;
+      const builds = [...names].some((n) => new RegExp(`(?<![\\w$.])${n.replace(/\$/g, '\\$')}(?![\\w$])`).test(init));
+      if (builds || /\btype\s*=\s*["']?application\/ld\+json/i.test(init)) {
+        names.add(name);
+        grew = true;
       }
     }
   }
@@ -240,6 +248,32 @@ function tagsFromNodes(
   return tags;
 }
 
+/**
+ * JSON-LD the markup renders outside `<svelte:head>`: search engines read it in `<body>` too. Only a
+ * top-level `{@html}` can sit outside a block or element there (a top-level `<script>` is the component's
+ * own), and nothing nested makes a literal claim, like `conditionalTags`.
+ */
+function bodyJsonLd(fragment: AST.Fragment, source: string, jsonLdNames: ReadonlySet<string>): ParsedTag[] {
+  const tags: ParsedTag[] = [];
+  const visit = (node: WalkNode | WalkNode[] | null | undefined, nested: boolean): void => {
+    if (Array.isArray(node)) {
+      for (const child of node) visit(child, nested);
+      return;
+    }
+    if (!node || typeof node !== 'object' || node.type === 'SvelteHead') return;
+    if (node.type === 'HtmlTag' || (node.type === 'RegularElement' && node.name === 'script')) {
+      for (const tag of tagsFromNodes([node], source, undefined, jsonLdNames)) {
+        if (tag.kind !== 'jsonld') continue;
+        tags.push(nested ? { kind: 'jsonld', value: 'dynamic' } : tag);
+      }
+      return;
+    }
+    for (const key of CHILD_NODE_KEYS) if (key in node) visit(childOf(node, key), nested || node.type !== 'Fragment');
+  };
+  visit(fragment.nodes as WalkNode[], false);
+  return tags;
+}
+
 function tagsFromHead(head: AST.SvelteHead, source: string, jsonLdNames: ReadonlySet<string>): ParsedTag[] {
   return tagsFromNodes(head.fragment.nodes, source, undefined, jsonLdNames);
 }
@@ -321,6 +355,113 @@ function literalArgs(attributes: AST.Component['attributes']): PropArgs {
 }
 
 /**
+ * An `{#if}` whose test one prop decides (`{#if prop}`, `{#if !prop}`, `{#if prop === 'x'}`): its
+ * first arm renders exactly when this holds for the value the component receives.
+ */
+export interface PropGate {
+  prop: string;
+  equals?: string | number | boolean | null;
+  negate: boolean;
+}
+
+/** A prop default: its literal value, or `'unknown'` for any other expression. */
+type PropDefault = { value: string | number | boolean | null } | 'unknown';
+
+// A `Literal` node's value when it is one a gate can compare (not a regex or bigint).
+function literalValue(node: { type: string; value?: unknown; regex?: unknown }): PropDefault {
+  const v = node.value;
+  return node.type === 'Literal' && !node.regex && (v === null || ['string', 'number', 'boolean'].includes(typeof v))
+    ? { value: v as string | number | boolean | null }
+    : 'unknown';
+}
+
+/** Every identifier the component assigns, updates or binds: a prop it may change is never decided from outside. */
+function reassignedLocals(ast: AST.Root): Set<string> {
+  const out = new Set<string>();
+  const visit = (node: unknown): void => {
+    if (Array.isArray(node)) return node.forEach(visit);
+    if (!node || typeof node !== 'object') return;
+    const n = node as {
+      type?: string;
+      left?: { type: string; name?: string };
+      argument?: { type: string; name?: string };
+      expression?: { type: string; name?: string };
+    };
+    const target =
+      n.type === 'AssignmentExpression'
+        ? n.left
+        : n.type === 'UpdateExpression'
+          ? n.argument
+          : n.type === 'BindDirective'
+            ? n.expression
+            : undefined;
+    if (target?.type === 'Identifier' && target.name) out.add(target.name);
+    for (const [key, value] of Object.entries(node))
+      if (key !== 'parent' && value && typeof value === 'object') visit(value);
+  };
+  visit(ast.instance?.content);
+  visit(ast.fragment);
+  return out;
+}
+
+/** The gate an `{#if}` test is, when a single prop the component never changes decides it. */
+function propGate(
+  test: AST.IfBlock['test'],
+  props: ReadonlyMap<string, string>,
+  reassigned: ReadonlySet<string>
+): PropGate | undefined {
+  const propOf = (n: { type: string; name?: string }) =>
+    n.type === 'Identifier' && n.name && !reassigned.has(n.name) ? props.get(n.name) : undefined;
+  if (test.type === 'Identifier') {
+    const prop = propOf(test);
+    return prop === undefined ? undefined : { prop, negate: false };
+  }
+  if (test.type === 'UnaryExpression' && test.operator === '!') {
+    const prop = propOf(test.argument);
+    return prop === undefined ? undefined : { prop, negate: true };
+  }
+  if (test.type === 'BinaryExpression' && (test.operator === '===' || test.operator === '!==')) {
+    const [id, lit] = test.left.type === 'Literal' ? [test.right, test.left] : [test.left, test.right];
+    const prop = propOf(id);
+    const value = literalValue(lit);
+    if (prop === undefined || value === 'unknown') return undefined;
+    return { prop, equals: value.value, negate: test.operator === '!==' };
+  }
+  return undefined;
+}
+
+/**
+ * For each gated `{#if}` of `parsed` a use decides: `true` when only its first arm renders, `false`
+ * when its first arm never does. A prop the use passes literally, a boolean shorthand, or the
+ * default (undefined without one) decides it; an expression, a spread or `bind:` does not.
+ */
+export function decidedArms(parsed: ParsedFile, attributes: AST.Component['attributes']): Map<number, boolean> {
+  const out = new Map<number, boolean>();
+  if (parsed.headingGates.size === 0 || attributes.some((a) => a.type === 'SpreadAttribute')) return out;
+  for (const [group, gate] of parsed.headingGates) {
+    const passed = attributes.filter(
+      (a) => (a.type === 'Attribute' || a.type === 'BindDirective') && a.name === gate.prop
+    );
+    if (passed.length > 1 || passed[0]?.type === 'BindDirective') continue;
+    const attr = passed[0] as AST.Attribute | undefined;
+    let value: PropDefault | undefined;
+    // An absent prop is its default, or `undefined` without one.
+    if (!attr) value = parsed.propDefaults.get(gate.prop);
+    else if (attr.value === true) value = { value: true };
+    else if (Array.isArray(attr.value) && attr.value.every((n) => n.type === 'Text'))
+      value = { value: attr.value.map((n) => (n as AST.Text).data).join('') };
+    else {
+      const tag = Array.isArray(attr.value) ? (attr.value.length === 1 ? attr.value[0] : undefined) : attr.value;
+      value = tag?.type === 'ExpressionTag' ? literalValue(tag.expression) : 'unknown';
+    }
+    if (value === 'unknown') continue;
+    const v = value?.value;
+    out.set(group, (gate.equals === undefined ? Boolean(v) : v === gate.equals) !== gate.negate);
+  }
+  return out;
+}
+
+/**
  * Local name → prop name for `let { a, b: local = x } = $props()` and legacy `export let a`.
  * Nested patterns and computed keys are skipped: such a local simply stays unbound (dynamic).
  */
@@ -346,6 +487,31 @@ function collectProps(ast: AST.Root): Map<string, string> {
     }
   }
   return props;
+}
+
+/** Prop name → its default for `let { a = 'x' } = $props()` and `export let a = 'x'`. */
+function collectPropDefaults(ast: AST.Root): Map<string, PropDefault> {
+  const defaults = new Map<string, PropDefault>();
+  for (const stmt of ast.instance?.content.body ?? []) {
+    const exported = stmt.type === 'ExportNamedDeclaration';
+    const decl = exported ? stmt.declaration : stmt;
+    if (decl?.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations) {
+      if (exported && decl.kind !== 'const' && d.id.type === 'Identifier' && d.init)
+        defaults.set(d.id.name, literalValue(d.init));
+      const init = d.init;
+      if (init?.type !== 'CallExpression' || init.callee.type !== 'Identifier' || init.callee.name !== '$props')
+        continue;
+      if (d.id.type !== 'ObjectPattern') continue;
+      for (const p of d.id.properties) {
+        if (p.type !== 'Property' || p.computed || p.value.type !== 'AssignmentPattern') continue;
+        const key =
+          p.key.type === 'Identifier' ? p.key.name : p.key.type === 'Literal' ? String(p.key.value) : undefined;
+        if (key !== undefined) defaults.set(key, literalValue(p.value.right));
+      }
+    }
+  }
+  return defaults;
 }
 
 /** `attr={local}`, `attr="{local}"` and `{local}` where `local` is a prop the call site passes literally take that literal. */
@@ -377,7 +543,10 @@ export function tagsInHead(parsed: ParsedFile, args: PropArgs): ParsedTag[] {
     fragment = parseSvelte(source, filename).fragment;
     headRendered.set(parsed, fragment);
   }
-  return tagsFromNodes(fragment.nodes, source, bindProps(props, args), parsed.template.jsonLdNames);
+  // Its JSON-LD is already in `headTags`, which reads JSON-LD wherever the markup renders it.
+  return tagsFromNodes(fragment.nodes, source, bindProps(props, args), parsed.template.jsonLdNames).filter(
+    (t) => t.kind !== 'jsonld'
+  );
 }
 
 /** The literal props `use` passes, after `parsed`'s own props are bound to the args it was called with. */
@@ -577,8 +746,14 @@ export const HOLE = -1;
  * `dynamic` records a `<svelte:element>` that may render a heading but whose level is not
  * statically determinable — a route carrying one cannot be reported as having no <h1>.
  */
-function collectHeadings(fragment: AST.Fragment, source: string, props: ReadonlyMap<string, string>) {
+function collectHeadings(
+  fragment: AST.Fragment,
+  source: string,
+  props: ReadonlyMap<string, string>,
+  reassigned: ReadonlySet<string> = new Set()
+) {
   const headings: ParsedHeading[] = [];
+  const gates = new Map<number, PropGate>();
   const componentPaths = new Map<WalkNode, BranchStep[]>();
   const renderPaths = new Map<string, BranchStep[]>();
   const holes = new Map<WalkNode, Map<string, number>>();
@@ -615,6 +790,8 @@ function collectHeadings(fragment: AST.Fragment, source: string, props: Readonly
     if (node.type === 'SnippetBlock' && local(node.expression.name) === node) return;
     if (node.type === 'IfBlock' || node.type === 'AwaitBlock') {
       const group = groups++;
+      const gate = node.type === 'IfBlock' ? propGate(node.test, props, reassigned) : undefined;
+      if (gate) gates.set(group, gate);
       const arms = node.type === 'IfBlock' ? ifArms(node) : [node.pending, node.then, node.catch];
       arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }], open));
       return;
@@ -666,7 +843,7 @@ function collectHeadings(fragment: AST.Fragment, source: string, props: Readonly
   for (const snippet of index.snippets.values()) {
     if (local(snippet.expression.name) === snippet && !reached.has(snippet)) walk(snippet.body, [], [snippet]);
   }
-  return { headings, dynamic, componentPaths, renderPaths, holes, groups };
+  return { headings, dynamic, componentPaths, renderPaths, holes, groups, gates };
 }
 
 /** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */
@@ -976,6 +1153,10 @@ export interface ParsedFile {
   renderPaths: ReadonlyMap<string, BranchStep[]>;
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
   dynamicHeading: boolean;
+  /** Heading groups (`{#if}`s) a single prop decides, for `decidedArms`. */
+  headingGates: ReadonlyMap<number, PropGate>;
+  /** Literal prop defaults, for `decidedArms`. */
+  propDefaults: ReadonlyMap<string, PropDefault>;
   a11y: ParsedA11y;
   /** What `tagsInHead` re-reads when a parent renders this file inside `<svelte:head>`. */
   template: { source: string; filename: string; props: ReadonlyMap<string, string>; jsonLdNames: ReadonlySet<string> };
@@ -991,13 +1172,16 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
   const props = collectProps(ast);
-  const headingAcc = collectHeadings(ast.fragment, source, props);
+  const headingAcc = collectHeadings(ast.fragment, source, props, reassignedLocals(ast));
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
   const imports = collectImports(ast);
   const jsonLdNames = jsonLdBindings(ast, source);
   return {
-    headTags: heads.flatMap((h) => tagsFromHead(h, source, jsonLdNames)),
+    headTags: [
+      ...heads.flatMap((h) => tagsFromHead(h, source, jsonLdNames)),
+      ...bodyJsonLd(ast.fragment, source, jsonLdNames)
+    ],
     components,
     imports,
     componentBindings: collectComponentBindings(ast),
@@ -1006,6 +1190,8 @@ export function parseFile(source: string, filename: string): ParsedFile {
     headingGroups: headingAcc.groups,
     renderPaths: headingAcc.renderPaths,
     dynamicHeading: headingAcc.dynamic,
+    headingGates: headingAcc.gates,
+    propDefaults: collectPropDefaults(ast),
     a11y: collectA11y(ast.fragment, source),
     template: { source, filename, props, jsonLdNames },
     suppressions: collectSuppressions(source)

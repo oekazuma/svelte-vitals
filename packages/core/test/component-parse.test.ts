@@ -51,7 +51,10 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     expect(reported('const xs = [1, 2]; for (const x of xs) xs.push(x);')).toBe(1);
     expect(reported('const xs = [1, 2]; xs[0] = 5;')).toBe(1);
     expect(reported('const xs = [1, 2]; sort(xs);')).toBe(1);
-    expect(reported('const xs = [1, 2]; const ys = [...xs];')).toBe(1);
+    // A copy into a new array cannot reorder the original; spreading it anywhere else is a pass.
+    expect(reported('const xs = [1, 2]; const ys = [...xs, 3];')).toBe(0);
+    expect(reported('const xs = [1, 2]; f(...xs);')).toBe(1);
+    expect(reported('const xs = [1, 2]; const o = { ...xs };')).toBe(1);
     expect(reported('export const xs = [1, 2];')).toBe(1);
     expect(reported('const xs = [1, 2]; export { xs };')).toBe(1);
     expect(reported('let xs = [1, 2];')).toBe(1);
