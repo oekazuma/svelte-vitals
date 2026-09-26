@@ -77,6 +77,20 @@ describe('collectAll — workspace packages', () => {
     expect(titles(built)).toEqual(['From dist']);
   });
 
+  it('does not read src/ for an export a built dist/ entry lacks', async () => {
+    const facts = await collect({
+      '../../.git': '',
+      '../../pnpm-workspace.yaml': `packages:\n  - 'apps/*'\n  - 'packages/*'\n`,
+      '../../packages/ui/package.json': json({ name: '@repo/ui', exports: { '.': { svelte: './dist/index.js' } } }),
+      '../../packages/ui/dist/index.js': `export const version = '1';\n`,
+      '../../packages/ui/src/index.ts': `export { default as Hero } from './Hero.svelte';`,
+      '../../packages/ui/src/Hero.svelte': `<h1>Unpublished</h1>`,
+      ...app({ '@repo/ui': 'workspace:*' }),
+      'src/routes/+page.svelte': `<script>import { Hero } from '@repo/ui';</script><Hero />`
+    });
+    expect(h1Files(facts) ?? []).toEqual([]);
+  });
+
   it('follows a `./*` → `./src/lib/*.js` pattern to the `.ts` barrel it names, as Vite does', async () => {
     const facts = await collect({
       '../../.git': '',

@@ -168,17 +168,31 @@ async function resolveExport(
   if (name === '*' || hops > MAX_REEXPORT_HOPS) return undefined;
   const path = resolveRepoLocalPath(spec, fromRel, ctx.aliases);
   if (path === undefined) return undefined;
-  for (const candidate of [path, ...unbuiltSources(path, ctx.aliases)]) {
+  const at = (candidate: string) => {
     const key = `${candidate}#${name}#${hops}`;
     let hit = memo.get(key);
     if (!hit) {
       hit = resolveExportAt(ctx, candidate, name, target, hops, memo);
       memo.set(key, hit);
     }
-    const found = await hit;
-    if (found) return found;
+    return hit;
+  };
+  const found = await at(path);
+  const sources = unbuiltSources(path, ctx.aliases);
+  if (found || sources.length === 0 || (await isBuilt(ctx, path))) return found;
+  for (const source of sources) {
+    const hit = await at(source);
+    if (hit) return hit;
   }
   return undefined;
+}
+
+/** Whether any file the lookup of `path` would read exists — a built entry that lacks the export is not unbuilt. */
+async function isBuilt(ctx: ResolveCtx, path: string): Promise<boolean> {
+  const variants = [path, `${path}.svelte`, `${path}.js`, `${path}.ts`, `${path}/index.js`, `${path}/index.ts`];
+  if (path.endsWith('.js')) variants.push(`${path.slice(0, -3)}.ts`);
+  for (const file of variants) if (await ctx.rt.exists(ctx.rt.join(ctx.cwd, file))) return true;
+  return false;
 }
 
 /**

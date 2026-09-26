@@ -86,6 +86,18 @@ describe('svelteMetaTagsAdapter', () => {
     ]);
   });
 
+  it('reads additionalMetaTags keys as the runtime does: the last duplicate, and quoted keys', () => {
+    const r = svelteMetaTagsAdapter.resolve(
+      useOf(
+        `<MetaTags additionalMetaTags={[{ property: 'og:image', property: 'og:title', content: t }, { 'property': 'og:image', 'content': '/o.png' }]} />`
+      )
+    );
+    expect(r.tags).toEqual([
+      { kind: 'meta', property: 'og:title', value: 'dynamic' },
+      { kind: 'meta', property: 'og:image', value: 'static' }
+    ]);
+  });
+
   it('falls back to broad when openGraph is a variable (not an inline literal)', () => {
     const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags openGraph={cfg} />'));
     expect(r.broad).toBe(true);

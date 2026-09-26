@@ -70,10 +70,16 @@ function additionalMetaTags(attr: AST.Attribute | undefined): ParsedTag[] {
   if (expr?.type !== 'ArrayExpression') return [anyMeta];
   return expr.elements.map((el) => {
     if (el?.type !== 'ObjectExpression') return anyMeta;
+    // The last of duplicate keys wins, as at runtime; a quoted key (`'property'`) is the same key.
     const prop = (key: string) =>
-      el.properties.find(
-        (p) => p.type === 'Property' && !p.computed && p.key.type === 'Identifier' && p.key.name === key
-      ) as { value: Parameters<typeof exprValue>[0] } | undefined;
+      [...el.properties]
+        .reverse()
+        .find(
+          (p) =>
+            p.type === 'Property' &&
+            !p.computed &&
+            (p.key.type === 'Identifier' ? p.key.name : p.key.type === 'Literal' ? p.key.value : undefined) === key
+        ) as { value: Parameters<typeof exprValue>[0] } | undefined;
     const literal = (key: string) => {
       const v = prop(key)?.value;
       return v?.type === 'Literal' && typeof v.value === 'string' ? v.value : undefined;
