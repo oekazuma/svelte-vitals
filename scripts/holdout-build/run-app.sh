@@ -22,6 +22,8 @@ first_look() {
   fl_exit=$?
   echo "first look ($1) exit $fl_exit" >>"$log"
 }
+# LFS objects are binary assets the analysis never reads; a missing one would fail the checkout.
+export GIT_LFS_SKIP_SMUDGE=1
 mkdir -p "$work" && cd "$work" || exit 1
 { git init -q . && git remote add origin "https://github.com/$REPO.git" && git fetch -q --depth 1 origin "$SHA" && git checkout -q FETCH_HEAD; } >>"$log" 2>&1 || { result clone failed; exit 0; }
 # Workspaces vendored as submodules are part of the install: without them the checkout is not installed.
