@@ -1,11 +1,24 @@
 #!/usr/bin/env bash
-# One holdout app: clone at its pin, install with its own package manager, wrap its vite config
-# with the packed plugin, run its build script, and record what the plugin did.
+# One holdout app: clone at its pin, install with its own package manager, measure the installed
+# checkout with the packed CLI (the first look), wrap its vite config with the packed plugin, run its
+# build script, and record what the plugin did.
 set -uo pipefail
-: "${REPO:?}" "${APP_PATH:?}" "${SHA:?}" "${PLUGIN_DIR:?}" "${OUT:?}"
-mkdir -p "$OUT"; log="$OUT/build.log"; work="$RUNNER_TEMP/app"
+: "${REPO:?}" "${APP_PATH:?}" "${SHA:?}" "${PLUGIN_DIR:?}" "${OUT:?}" "${MEASURE:?}"
+# The clone sits where corpus-measure.js looks for it (`<cache>/<owner>__<repo>`), so its `run`
+# measures this installed checkout instead of fetching a fresh one.
+cache="$RUNNER_TEMP/cache"
+mkdir -p "$OUT"; log="$OUT/build.log"; work="$cache/${REPO//\//__}"
 result() { # stage status
   node -e 'const [app,stage,status,exit]=process.argv.slice(1);const fs=require("fs");const log=fs.existsSync(process.env.OUT+"/build.log")?fs.readFileSync(process.env.OUT+"/build.log","utf8"):"";const m=log.match(/Analyzed \d+ prerendered route\(s\)[^\n]*|no prerendered pages found[^\n]*/);fs.writeFileSync(process.env.OUT+"/result.json",JSON.stringify({app,stage,status,exit:Number(exit),gate:/svelte-vitals: build failed — findings at or above/.test(log),pluginLine:m?m[0]:null,report:fs.existsSync(process.env.REPORT||"")},null,1))' "$REPO:$APP_PATH" "$1" "$2" "${3:-0}"
+}
+# Runs before the build, which rewrites the vite config and adds files the source pass would read.
+# An app whose install fails is still measured, uninstalled, and says so.
+first_look() {
+  echo "{\"installed\":$([ "$1" = installed ] && echo true || echo false)}" >"$OUT/first-look-state.json"
+  node -e 'console.log(JSON.stringify([{repo:process.env.REPO,path:process.env.APP_PATH,sha:process.env.SHA}]))' >"$RUNNER_TEMP/target.json"
+  node "$MEASURE" run --cli "$PLUGIN_DIR/node_modules/svelte-vitals/dist/bin.js" --cache "$cache" \
+    --targets "$RUNNER_TEMP/target.json" --out "$OUT/first-look.json" >>"$log" 2>&1
+  echo "first look ($1) exit $?" >>"$log"
 }
 mkdir -p "$work" && cd "$work" || exit 1
 { git init -q . && git remote add origin "https://github.com/$REPO.git" && git fetch -q --depth 1 origin "$SHA" && git checkout -q FETCH_HEAD; } >>"$log" 2>&1 || { result clone failed; exit 0; }
@@ -25,7 +38,7 @@ case "$lock" in
   package-lock.json) npm ci >>"$log" 2>&1 ;;
   yarn.lock) corepack enable >>"$log" 2>&1; yarn install --immutable >>"$log" 2>&1 || yarn install --frozen-lockfile >>"$log" 2>&1 ;;
   *) npm install >>"$log" 2>&1 ;;
-esac || { result install failed $?; exit 0; }
+esac || { code=$?; first_look uninstalled; result install failed $code; exit 0; }
 cd "$app" || exit 1
 # A `link:`/`file:` dependency outside the installed workspace keeps its own dependencies, which
 # the install above never reaches.
@@ -39,6 +52,7 @@ node -e 'const p=require("./package.json");for(const d of Object.values({...p.de
       *) npm install --no-audit --no-fund >>"$log" 2>&1 ;;
     esac) || echo "linked package $dep failed to install" >>"$log"
   done
+first_look installed
 cfg=""; for e in ts mts js mjs; do [ -f "vite.config.$e" ] && cfg="vite.config.$e" && break; done
 [ -n "$cfg" ] || { echo "no vite.config" >>"$log"; result wrap failed; exit 0; }
 ext="${cfg##*.}"; mv "$cfg" "vite.config.orig.$ext"

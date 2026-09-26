@@ -50,7 +50,10 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          sparse-checkout: .github/holdout-build
+          sparse-checkout: |
+            .github/holdout-build
+            scripts/corpus-measure.js
+            packages/cli/scripts
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -78,6 +81,7 @@ jobs:
           SHA: ${{ matrix.app.sha }}
           PLUGIN_DIR: ${{ runner.temp }}/sv
           OUT: ${{ runner.temp }}/out
+          MEASURE: ${{ github.workspace }}/scripts/corpus-measure.js
           CI: 'true'
         run: bash .github/holdout-build/run-app.sh
       - name: Name the artifact
