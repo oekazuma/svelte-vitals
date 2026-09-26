@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseHeadTags } from '../src/providers/source/parse.js';
+import { parseFile, parseHeadTags } from '../src/providers/source/parse.js';
 
 const head = (inner: string) => `<svelte:head>${inner}</svelte:head>`;
 const jsonld = (tags: ReturnType<typeof parseHeadTags>) => tags.find((t) => t.kind === 'jsonld')!;
@@ -37,6 +37,13 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
     expect(tags('`${LT}meta name="description" content="Served as application/ld+json">`')).toEqual([]);
   });
 
+  it('reads a binding built from another that holds the opening tag in fragments', () => {
+    const src = `<script>let { data } = $props(); const OPEN = "<scr" + 'ipt type="application/ld+json">'; const CLOSE = "</scr" + "ipt>"; const html = $derived(OPEN + JSON.stringify(data) + CLOSE);</script>${head('{@html html}')}`;
+    expect(parseHeadTags(src, 'x.svelte').filter((t) => t.kind === 'jsonld')).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+  });
+
   it('leaves an unrelated {@html} injection unmatched', () => {
     expect(jsonldTags("{@html '<style>body{margin:0}</style>'}")).toEqual([]);
     expect(jsonldTags('{@html themeCss}')).toEqual([]);
@@ -57,5 +64,43 @@ describe('parse: <svelte:element this="script"> JSON-LD in <svelte:head>', () =>
 
   it('leaves a svelte:element whose tag is not determinable unmatched', () => {
     expect(jsonldTags('<svelte:element this={tag} type="application/ld+json">{ld}</svelte:element>')).toEqual([]);
+  });
+});
+
+describe('parse: JSON-LD outside <svelte:head>', () => {
+  const jsonld = (src: string) => parseFile(src, 'x.svelte').headTags.filter((t) => t.kind === 'jsonld');
+
+  it('reads JSON-LD the body renders, as present without a literal claim', () => {
+    expect(
+      jsonld('<main><script type="application/ld+json">{"@type":"Organization"}</script><h1>Hi</h1></main>')
+    ).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    expect(jsonld('{#if ok}<script type="application/ld+json">{"@type":"Organization"}</script>{/if}')).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+    const built = `<script>let { data } = $props(); const OPEN = "<scr" + 'ipt type="application/ld+json">'; const html = $derived(OPEN + JSON.stringify(data));</script>{@html html}`;
+    expect(jsonld(built)).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    expect(jsonld('<script>let { css } = $props();</script>{@html css}')).toEqual([]);
+  });
+
+  it('reads a determinable <svelte:element> script, and a snippet only where it renders', () => {
+    expect(
+      jsonld(
+        '<main><svelte:element this="script" type="application/ld+json">{JSON.stringify(ld)}</svelte:element></main>'
+      )
+    ).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    const snippet =
+      '{#snippet schema()}<div><script type="application/ld+json">{"@type":"Thing"}</script></div>{/snippet}';
+    expect(jsonld(snippet)).toEqual([]);
+    expect(jsonld(`${snippet}{@render schema()}`)).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    expect(jsonld(`<script>import Card from './Card.svelte';</script><Card>${snippet}</Card>`)).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+  });
+
+  it('follows a binding only through a reference, not through a string that spells its name', () => {
+    const src = (use: string) =>
+      `<script>let { data } = $props(); const OPEN = '<scr' + 'ipt type="application/ld+json">'; const css = 'OPEN'; const ld = OPEN + JSON.stringify(data);</script>{@html ${use}}`;
+    expect(jsonld(src('ld'))).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    expect(jsonld(src('css'))).toEqual([]);
   });
 });

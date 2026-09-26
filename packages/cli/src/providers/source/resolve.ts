@@ -9,7 +9,7 @@ import {
 import type { ParsedFile, ParsedTag, PropArgs } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { addImportsFromProgram, importOf, type ImportMap } from './imports.js';
-import { argsOf, HOLE, parseFile, tagsInHead } from './parse.js';
+import { argsOf, decidedArms, HOLE, parseFile, tagsInHead } from './parse.js';
 
 /** Props a heading component conventionally takes its element from (`<Heading tag="h1">`, `as`, `element`, `is`). */
 const HEADING_TAG_PROPS = new Set(['tag', 'as', 'element', 'is']);
@@ -419,7 +419,11 @@ export async function resolveFileTags(
           ? [...child.tags, ...(child.broad ? BROAD_KINDS : [])].map((t) => ({ ...t, clientOnly: true as const }))
           : child.tags;
         broad = broad || (child.broad && !clientOnly);
-        const childHeadings = [...child.ownHeadings, ...child.headings];
+        // An arm a prop this use decides never renders here, so neither do its headings.
+        const decided = decidedArms(childParsed, use.attributes);
+        const childHeadings = [...child.ownHeadings, ...child.headings].filter(
+          (h) => !h.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0))
+        );
         const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
         clientOnlyHeading = clientOnlyHeading || child.clientOnlyHeading;
         // A component in an `{#if}` arm competes for headings through its arm path, and its head tags

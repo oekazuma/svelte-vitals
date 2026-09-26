@@ -111,6 +111,14 @@ describe('parse-html: jsonld raw capture', () => {
     );
     expect(tags.find((t) => t.kind === 'jsonld')!.jsonld).toBe(body);
   });
+  it('reads JSON-LD in <body> too, and no other body script', () => {
+    const { tags } = parseHtmlHead(
+      '<html><head></head><body><main><script type="application/ld+json">{"@type":"Organization"}</script><script src="https://cdn.example.test/a.js"></script></main></body></html>'
+    );
+    expect(tags.filter((t) => t.kind === 'jsonld' || t.kind === 'script')).toEqual([
+      { kind: 'jsonld', presence: 'own', value: 'static', jsonld: '{"@type":"Organization"}' }
+    ]);
+  });
 });
 
 describe('parse-html: title/description text capture', () => {
