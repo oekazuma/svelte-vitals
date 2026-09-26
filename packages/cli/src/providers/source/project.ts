@@ -196,31 +196,42 @@ function detectAppHtmlIds(html: string): { id: string; line: number }[] {
 }
 
 /**
- * The shell `<head>`'s literal title, meta and canonical, read as a `<svelte:head>` so they parse
- * exactly as a layout's would. A `%sveltekit.*%` placeholder becomes an expression, so a tag
- * carrying one reads as dynamic and is dropped; so does a shell the Svelte parser rejects.
- * Charset and viewport stay out: their rules are rendered-mode only.
+ * The shell `<head>`'s literal title, meta, canonical, JSON-LD and connection hints, read as a
+ * `<svelte:head>` so they parse exactly as a layout's would. A `%…%` placeholder (SvelteKit's own, or
+ * one a `transformPageChunk` hook replaces) becomes an expression, so a tag carrying one is present
+ * with a dynamic value. A shell the Svelte parser rejects yields nothing. Charset and viewport stay
+ * out: their rules are rendered-mode only.
  */
 function detectAppHtmlHeadTags(html: string): ParsedTag[] {
   const markup = html
     .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<script\b(?![^>]*\btype\s*=\s*["']?application\/ld\+json)[\s\S]*?<\/script\s*>/gi, '')
     .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
   const head = /<head\b[^>]*>([\s\S]*?)(?:<\/head\s*>|<body\b|$)/i.exec(markup)?.[1];
   if (head === undefined) return [];
   let tags: ParsedTag[];
   try {
-    tags = parseHeadTags(`<svelte:head>${head.replace(/%sveltekit\.[^%\s]*%/g, '{0}')}</svelte:head>`, 'src/app.html');
+    // Not inside a JSON-LD body, where `%E2%80%99` is percent-encoding, not a placeholder.
+    const expr = head.replace(/(<script\b[\s\S]*?<\/script\s*>)|%[A-Za-z_][\w.-]*%/gi, (m, script) => script ?? '{0}');
+    tags = parseHeadTags(`<svelte:head>${expr}</svelte:head>`, 'src/app.html');
   } catch {
     return [];
   }
-  return tags.filter(
-    (t) =>
-      t.value === 'static' &&
-      (t.kind === 'title' ||
+  return tags
+    .filter(
+      (t) =>
+        t.kind === 'title' ||
+        t.kind === 'jsonld' ||
         (t.kind === 'meta' && t.name !== 'charset' && t.name !== 'viewport') ||
-        (t.kind === 'link' && t.rel === 'canonical'))
-  );
+        (t.kind === 'link' && (t.rel === 'canonical' || t.rel === 'preconnect' || t.rel === 'dns-prefetch'))
+    )
+    .map((t) =>
+      // A placeholder in a JSON-LD body (a script's text, so never an expression) makes its content unknown;
+      // `%E2%` followed by two more hex digits is percent-encoding, not one.
+      t.kind === 'jsonld' && t.jsonld !== undefined && /%(?![0-9a-f]{2}%)[a-z_][\w.-]*%/i.test(t.jsonld)
+        ? { kind: 'jsonld', value: 'dynamic' }
+        : t
+    );
 }
 
 /** app.html-derived facts sharing one read (io-budget): <html lang>, the leading doctype, shell ids and head tags. */

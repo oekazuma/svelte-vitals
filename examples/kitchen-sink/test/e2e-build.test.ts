@@ -107,7 +107,8 @@ describe('kitchen-sink e2e (build mode)', () => {
       '/clean/boundary',
       '/clean/catalog',
       '/clean/wrapped',
-      '/clean/snippets'
+      '/clean/snippets',
+      '/clean/head-title'
     ]) {
       const canary = report.routes.find((r) => r.route === route);
       expect(canary, route).toBeDefined();

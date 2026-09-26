@@ -425,6 +425,20 @@ describe('resolveFileTags: components rendered into <svelte:head>', () => {
     expect(r.tags).toEqual([{ kind: 'meta', name: 'description', value: 'dynamic' }]);
   });
 
+  it('reads a top-level <title> of a component rendered inside <svelte:head>', async () => {
+    const r = await resolveWith(
+      {
+        'src/lib/MetaTag.svelte': `<script>let { title } = $props();</script><title>{title}</title><meta name="description" content="D" />`,
+        'src/routes/+page.svelte': `<script>import MetaTag from '$lib/MetaTag.svelte';</script><svelte:head><MetaTag title="Home" /></svelte:head>`
+      },
+      'src/routes/+page.svelte'
+    );
+    expect(r.tags).toEqual([
+      { kind: 'title', value: 'dynamic' },
+      { kind: 'meta', name: 'description', value: 'static', text: 'D' }
+    ]);
+  });
+
   it('ignores a component rendered in the body, whose markup never reaches the head', async () => {
     const r = await resolveWith(
       {

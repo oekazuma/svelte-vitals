@@ -27,6 +27,21 @@ describe('collectLoadWaterfalls — dependent chains', () => {
     expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
   });
 
+  it('tracks taint through a for…of loop variable pushed into a list', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const space = await fetch("/api/space").then((r) => r.json());',
+      '  const going = [];',
+      '  for (const r of space.rsvps) {',
+      '    if (r.going) going.push(r.did);',
+      '  }',
+      '  const profiles = await fetch(`/api/profiles?ids=${going.join(",")}`);',
+      '  return { profiles };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [7], independentLines: [] });
+  });
+
   it('tracks destructured bindings', () => {
     const src = [
       'export async function load({ fetch }) {',

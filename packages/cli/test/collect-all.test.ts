@@ -250,7 +250,7 @@ describe('collectAll: app.html head tags', () => {
   <body>%sveltekit.body%</body>
 </html>`;
 
-  it("seeds every route with the shell's literal title, meta and canonical below any route tag", async () => {
+  it("seeds every route with the shell's title, meta and canonical below any route tag", async () => {
     const rt = createMemoryRuntime({
       'src/app.html': APP_HTML,
       'src/routes/a/+page.svelte': `<h1>A</h1>`,
@@ -264,6 +264,7 @@ describe('collectAll: app.html head tags', () => {
     expect(tagsOf('/a')).toEqual([
       { kind: 'title', value: 'static', text: 'Shell title', presence: 'inherited', file: 'src/app.html' },
       { kind: 'meta', name: 'twitter:card', value: 'static', presence: 'inherited', file: 'src/app.html' },
+      { kind: 'meta', property: 'og:image', value: 'dynamic', presence: 'inherited', file: 'src/app.html' },
       {
         kind: 'link',
         rel: 'canonical',
@@ -277,6 +278,49 @@ describe('collectAll: app.html head tags', () => {
     // An opaque meta component may set the title, so the shell's literal must not stand in for it.
     expect(tagsOf('/c').find((t) => t.kind === 'title')).toEqual({ kind: 'title', value: 'dynamic', presence: 'own' });
   });
+  it("seeds the shell's JSON-LD and connection hints, and reads a hook-replaced placeholder as dynamic", async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': `<!doctype html><html><head>
+    <title>%title%</title>
+    <meta name="description" content="%desc%" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.example.test" />
+    <script>window.x = '%title%';</script>
+    <script type="application/ld+json">{"@type":"Organization","url":"https://example.test/caf%C3%A9%20menu"}</script>
+    %sveltekit.head%
+  </head><body>%sveltekit.body%</body></html>`,
+      'src/routes/+page.svelte': `<h1>Home</h1>`
+    });
+
+    const { heads } = await collectAll(rt, '', defaultConfig);
+    expect(heads.find((h) => h.route === '/')!.tags.map(({ presence: _p, file: _f, ...t }) => t)).toEqual([
+      { kind: 'title', value: 'dynamic' },
+      { kind: 'meta', name: 'description', value: 'dynamic' },
+      { kind: 'link', rel: 'preconnect', value: 'static', hasCrossorigin: true, href: 'https://fonts.gstatic.com' },
+      { kind: 'link', rel: 'dns-prefetch', value: 'static', href: 'https://cdn.example.test' },
+      {
+        kind: 'jsonld',
+        value: 'static',
+        jsonld: '{"@type":"Organization","url":"https://example.test/caf%C3%A9%20menu"}'
+      }
+    ]);
+  });
+
+  it('reads a shell JSON-LD block holding a hook-replaced placeholder as dynamic', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': `<!doctype html><html><head>
+    <script type="application/ld+json">{"@type":"WebSite","inLanguage":%lang%}</script>
+    %sveltekit.head%
+  </head><body>%sveltekit.body%</body></html>`,
+      'src/routes/+page.svelte': `<h1>Home</h1>`
+    });
+
+    const { heads } = await collectAll(rt, '', defaultConfig);
+    expect(heads.find((h) => h.route === '/')!.tags.map(({ presence: _p, file: _f, ...t }) => t)).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+  });
+
   it('keeps every robots meta — the shell, layout and page ones all render', async () => {
     const rt = createMemoryRuntime({
       'src/app.html': APP_HTML.replace(
