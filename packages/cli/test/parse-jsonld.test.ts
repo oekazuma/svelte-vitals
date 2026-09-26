@@ -81,4 +81,26 @@ describe('parse: JSON-LD outside <svelte:head>', () => {
     expect(jsonld(built)).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
     expect(jsonld('<script>let { css } = $props();</script>{@html css}')).toEqual([]);
   });
+
+  it('reads a determinable <svelte:element> script, and a snippet only where it renders', () => {
+    expect(
+      jsonld(
+        '<main><svelte:element this="script" type="application/ld+json">{JSON.stringify(ld)}</svelte:element></main>'
+      )
+    ).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    const snippet =
+      '{#snippet schema()}<div><script type="application/ld+json">{"@type":"Thing"}</script></div>{/snippet}';
+    expect(jsonld(snippet)).toEqual([]);
+    expect(jsonld(`${snippet}{@render schema()}`)).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    expect(jsonld(`<script>import Card from './Card.svelte';</script><Card>${snippet}</Card>`)).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+  });
+
+  it('follows a binding only through a reference, not through a string that spells its name', () => {
+    const src = (use: string) =>
+      `<script>let { data } = $props(); const OPEN = '<scr' + 'ipt type="application/ld+json">'; const css = 'OPEN'; const ld = OPEN + JSON.stringify(data);</script>{@html ${use}}`;
+    expect(jsonld(src('ld'))).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
+    expect(jsonld(src('css'))).toEqual([]);
+  });
 });

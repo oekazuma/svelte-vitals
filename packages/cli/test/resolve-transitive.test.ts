@@ -319,6 +319,8 @@ describe('resolveFileTags transitive headings (layer 3, issue #425)', () => {
     // A prop the component writes itself is never decided from outside.
     const toggled = `<script>let { open = false } = $props();</script><button onclick={() => (open = true)}>x</button>{#if open}<h1>Open</h1>{/if}`;
     expect(await levels('<Bar />', toggled)).toEqual([1]);
+    const destructured = `<script>let { open = false, next } = $props(); $effect(() => { ({ open } = next); });</script>{#if open}<h1>Open</h1>{/if}`;
+    expect(await levels('<Bar />', destructured)).toEqual([1]);
   });
 
   it('stops on cycles without infinite recursion', async () => {

@@ -92,28 +92,47 @@ type Bind = (attributes: AST.RegularElement['attributes']) => AST.RegularElement
  * type="application/ld+json">…` ``, or `"<scr" + 'ipt type="application/ld+json">'`), or is built
  * from such a binding (`OPEN + JSON.stringify(data) + CLOSE`), so `{@html ld}` is read as one.
  */
-function jsonLdBindings(ast: AST.Root, source: string): Set<string> {
-  type Declarator = { id?: { type: string; name?: string }; init?: { start: number; end: number } | null };
-  const inits = new Map<string, string>();
+function jsonLdBindings(ast: AST.Root): Set<string> {
+  type Node = { type: string; [key: string]: unknown };
+  // What an initializer reads (identifiers, not a property name or key) and the text of its string parts.
+  const scan = (init: unknown) => {
+    const refs = new Set<string>();
+    const strings: string[] = [];
+    const visit = (node: unknown, skip = false): void => {
+      if (Array.isArray(node)) return node.forEach((n) => visit(n));
+      if (!node || typeof node !== 'object') return;
+      const n = node as Node & { name?: string; value?: unknown; computed?: boolean };
+      if (n.type === 'Identifier' && !skip && n.name) refs.add(n.name);
+      if (n.type === 'Literal' && typeof n.value === 'string') strings.push(n.value);
+      if (n.type === 'TemplateElement')
+        strings.push(String((n.value as { cooked?: string } | undefined)?.cooked ?? ''));
+      for (const [key, value] of Object.entries(n)) {
+        if (key === 'parent' || !value || typeof value !== 'object') continue;
+        const nonComputed =
+          !n.computed &&
+          ((n.type === 'MemberExpression' && key === 'property') || (n.type === 'Property' && key === 'key'));
+        visit(value, nonComputed);
+      }
+    };
+    visit(init);
+    return { refs, opens: strings.some((t) => /\btype\s*=\s*["']?application\/ld\+json/i.test(t)) };
+  };
+  const inits = new Map<string, ReturnType<typeof scan>>();
   for (const script of [ast.module, ast.instance]) {
-    for (const stmt of (script?.content.body ?? []) as Array<{ type: string; declarations?: Declarator[] }>) {
+    for (const stmt of script?.content.body ?? []) {
       if (stmt.type !== 'VariableDeclaration') continue;
-      for (const d of stmt.declarations ?? []) {
-        if (d.id?.type === 'Identifier' && d.id.name && d.init)
-          inits.set(d.id.name, source.slice(d.init.start, d.init.end));
+      for (const d of stmt.declarations) {
+        if (d.id.type === 'Identifier' && d.init) inits.set(d.id.name, scan(d.init));
       }
     }
   }
   const names = new Set<string>();
   for (let grew = true; grew;) {
     grew = false;
-    for (const [name, init] of inits) {
-      if (names.has(name)) continue;
-      const builds = [...names].some((n) => new RegExp(`(?<![\\w$.])${n.replace(/\$/g, '\\$')}(?![\\w$])`).test(init));
-      if (builds || /\btype\s*=\s*["']?application\/ld\+json/i.test(init)) {
-        names.add(name);
-        grew = true;
-      }
+    for (const [name, { refs, opens }] of inits) {
+      if (names.has(name) || !(opens || [...refs].some((r) => names.has(r)))) continue;
+      names.add(name);
+      grew = true;
     }
   }
   return names;
@@ -255,18 +274,40 @@ function tagsFromNodes(
  */
 function bodyJsonLd(fragment: AST.Fragment, source: string, jsonLdNames: ReadonlySet<string>): ParsedTag[] {
   const tags: ParsedTag[] = [];
+  // A snippet renders where `{@render}` or the component it is passed to places it, never where it is defined.
+  const rendered = new Set<string>();
+  const findRenders = (node: WalkNode | WalkNode[] | null | undefined): void => {
+    if (Array.isArray(node)) return node.forEach(findRenders);
+    if (!node || typeof node !== 'object') return;
+    if (node.type === 'RenderTag') {
+      const name = renderCallee(node);
+      if (name) rendered.add(name);
+    }
+    for (const key of CHILD_NODE_KEYS) if (key in node) findRenders(childOf(node, key));
+  };
+  findRenders(fragment);
   const visit = (node: WalkNode | WalkNode[] | null | undefined, nested: boolean): void => {
     if (Array.isArray(node)) {
       for (const child of node) visit(child, nested);
       return;
     }
     if (!node || typeof node !== 'object' || node.type === 'SvelteHead') return;
-    if (node.type === 'HtmlTag' || (node.type === 'RegularElement' && node.name === 'script')) {
+    if (node.type === 'SnippetBlock' && !rendered.has(node.expression.name)) return;
+    if (node.type === 'Component' || node.type === 'SvelteComponent') {
+      // A snippet in a component's tag is a prop the component renders.
+      for (const child of node.fragment.nodes) visit(child.type === 'SnippetBlock' ? child.body : child, true);
+      return;
+    }
+    if (
+      node.type === 'HtmlTag' ||
+      node.type === 'SvelteElement' ||
+      (node.type === 'RegularElement' && node.name === 'script')
+    ) {
       for (const tag of tagsFromNodes([node], source, undefined, jsonLdNames)) {
         if (tag.kind !== 'jsonld') continue;
         tags.push(nested ? { kind: 'jsonld', value: 'dynamic' } : tag);
       }
-      return;
+      if (node.type !== 'SvelteElement') return;
     }
     for (const key of CHILD_NODE_KEYS) if (key in node) visit(childOf(node, key), nested || node.type !== 'Fragment');
   };
@@ -375,6 +416,26 @@ function literalValue(node: { type: string; value?: unknown; regex?: unknown }):
     : 'unknown';
 }
 
+/** The identifiers a target writes, through destructuring (`({ a, b: [c] } = x)`) too. */
+function patternNames(node: unknown, out: Set<string>): void {
+  if (!node || typeof node !== 'object') return;
+  const n = node as {
+    type: string;
+    name?: string;
+    properties?: unknown[];
+    elements?: unknown[];
+    left?: unknown;
+    argument?: unknown;
+    value?: unknown;
+  };
+  if (n.type === 'Identifier' && n.name) out.add(n.name);
+  else if (n.type === 'ObjectPattern') for (const p of n.properties ?? []) patternNames(p, out);
+  else if (n.type === 'Property') patternNames(n.value, out);
+  else if (n.type === 'ArrayPattern') for (const e of n.elements ?? []) patternNames(e, out);
+  else if (n.type === 'AssignmentPattern') patternNames(n.left, out);
+  else if (n.type === 'RestElement') patternNames(n.argument, out);
+}
+
 /** Every identifier the component assigns, updates or binds: a prop it may change is never decided from outside. */
 function reassignedLocals(ast: AST.Root): Set<string> {
   const out = new Set<string>();
@@ -395,7 +456,7 @@ function reassignedLocals(ast: AST.Root): Set<string> {
           : n.type === 'BindDirective'
             ? n.expression
             : undefined;
-    if (target?.type === 'Identifier' && target.name) out.add(target.name);
+    if (target) patternNames(target, out);
     for (const [key, value] of Object.entries(node))
       if (key !== 'parent' && value && typeof value === 'object') visit(value);
   };
@@ -1176,7 +1237,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
   const imports = collectImports(ast);
-  const jsonLdNames = jsonLdBindings(ast, source);
+  const jsonLdNames = jsonLdBindings(ast);
   return {
     headTags: [
       ...heads.flatMap((h) => tagsFromHead(h, source, jsonLdNames)),
@@ -1206,6 +1267,6 @@ export function parseHeadTags(source: string, filename: string): ParsedTag[] {
   const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
-  const jsonLdNames = jsonLdBindings(ast, source);
+  const jsonLdNames = jsonLdBindings(ast);
   return heads.flatMap((h) => tagsFromHead(h, source, jsonLdNames));
 }
