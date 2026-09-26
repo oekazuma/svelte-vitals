@@ -2400,7 +2400,12 @@ function namespaceUsedDynamically(name: string, roots: Node[]): boolean {
           staticOrDeclaring.add(n.object);
         }
         if (!n.computed) staticOrDeclaring.add(n.property);
-      } else if (n.type === 'Property' && !n.computed && !n.shorthand) {
+      } else if (
+        ((n.type === 'Property' && !n.shorthand) ||
+          n.type === 'TSPropertySignature' ||
+          n.type === 'TSMethodSignature') &&
+        !n.computed
+      ) {
         staticOrDeclaring.add(n.key);
       } else if (n.type === 'ImportNamespaceSpecifier') {
         staticOrDeclaring.add(n.local);

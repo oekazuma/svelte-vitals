@@ -168,13 +168,44 @@ async function resolveExport(
   if (name === '*' || hops > MAX_REEXPORT_HOPS) return undefined;
   const path = resolveRepoLocalPath(spec, fromRel, ctx.aliases);
   if (path === undefined) return undefined;
-  const key = `${path}#${name}#${hops}`;
-  let hit = memo.get(key);
-  if (!hit) {
-    hit = resolveExportAt(ctx, path, name, target, hops, memo);
-    memo.set(key, hit);
+  const at = (candidate: string) => {
+    const key = `${candidate}#${name}#${hops}`;
+    let hit = memo.get(key);
+    if (!hit) {
+      hit = resolveExportAt(ctx, candidate, name, target, hops, memo);
+      memo.set(key, hit);
+    }
+    return hit;
+  };
+  const found = await at(path);
+  const sources = unbuiltSources(path, ctx.aliases);
+  if (found || sources.length === 0 || (await isBuilt(ctx, path))) return found;
+  for (const source of sources) {
+    const hit = await at(source);
+    if (hit) return hit;
   }
-  return hit;
+  return undefined;
+}
+
+/** Whether any file the lookup of `path` would read exists — a built entry that lacks the export is not unbuilt. */
+async function isBuilt(ctx: ResolveCtx, path: string): Promise<boolean> {
+  const variants = [path, `${path}.svelte`, `${path}.js`, `${path}.ts`, `${path}/index.js`, `${path}/index.ts`];
+  if (path.endsWith('.js')) variants.push(`${path.slice(0, -3)}.ts`);
+  for (const file of variants) if (await ctx.rt.exists(ctx.rt.join(ctx.cwd, file))) return true;
+  return false;
+}
+
+/**
+ * Where a package's `dist/` target is built from, tried when the target is not there: a workspace
+ * package's `exports` name its build output, which an unbuilt checkout does not have yet.
+ */
+function unbuiltSources(path: string, aliases: readonly KitAlias[] | undefined): string[] {
+  for (const { root } of aliases ?? []) {
+    if (root === undefined || !path.startsWith(`${root}/dist/`)) continue;
+    const rest = path.slice(root.length + '/dist/'.length);
+    return [`${root}/src/${rest}`, `${root}/src/lib/${rest}`];
+  }
+  return [];
 }
 
 async function resolveExportAt(
