@@ -47,8 +47,8 @@ export interface KitModuleFacts {
   ssrEnabled?: true;
   /** Set when this file disables client-side rendering via `export const csr = false` (inline or same-file alias export). With no client runtime, a universal load only runs during SSR — performance/load-waterfall's browser-waterfall premise doesn't hold. */
   csrDisabled?: { line: number };
-  /** Set when the exported `load` redirects on every call — every path through its body reaches a `redirect()` before any `return`, directly or through a same-file top-level function that always redirects (see `loadAlwaysRedirects` in kit-module-parse.ts). A `+page` module carrying it means the route never renders a document of its own. */
-  loadAlwaysRedirects?: true;
+  /** Set when the exported `load` redirects or throws `error()` on every call — every path through its body reaches a `redirect()`/`error()` before any `return`, directly or through a same-file top-level function that always does (see `loadNeverRenders` in kit-module-parse.ts). A `+page` module carrying it means the route never renders its own page. */
+  loadNeverRenders?: true;
   /** Sequential-await analysis of the exported `load` function (performance/load-waterfall, performance/sequential-awaits): 1-based lines of await sites that depend on an earlier await's result, and of sites independent of all earlier awaits. Set only when at least one list is non-empty. */
   loadWaterfalls?: { dependentLines: number[]; independentLines: number[] };
   /** Inline `svelte-vitals-disable-next-line` directives in this file. */

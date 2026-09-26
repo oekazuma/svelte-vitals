@@ -114,7 +114,8 @@ describe('kitchen-sink e2e (static mode)', () => {
       '/clean/boundary',
       '/clean/catalog',
       '/clean/wrapped',
-      '/clean/snippets'
+      '/clean/snippets',
+      '/clean/head-title'
     ]) {
       const canary = report.routes.find((r) => r.route === route);
       expect(canary, route).toBeDefined();
@@ -122,10 +123,11 @@ describe('kitchen-sink e2e (static mode)', () => {
     }
   });
 
-  it('gives a page whose load always redirects no route-level findings', () => {
+  it('gives a page whose load always redirects or errors no route-level findings', () => {
     expect(report.routes.map((r) => r.route)).toContain('/clean');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-helper');
+    expect(report.routes.map((r) => r.route)).not.toContain('/clean/error-only');
   });
 
   it('--by-route adds the per-route breakdown to console output', () => {

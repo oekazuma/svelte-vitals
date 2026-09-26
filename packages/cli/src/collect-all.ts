@@ -109,9 +109,9 @@ export async function collectAll(
   ]);
   // Kit-module facts are file-scoped too, so a route-filtered run hands the rules none.
   const kitModules = opts.route ? [] : allKitModules;
-  // A page whose own load always redirects never renders a document, so it has no route-level facts.
+  // A page whose own load always redirects or errors never renders itself, so it has no route-level facts.
   const redirectOnly = new Set(
-    allKitModules.filter((m) => m.loadAlwaysRedirects && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file))
+    allKitModules.filter((m) => m.loadNeverRenders && PAGE_MODULE_RE.test(m.file)).map((m) => deriveRoute(m.file))
   );
   const routeLevel = (route: string) => matches(route) && !redirectOnly.has(route);
   // What a component loaded with `import()` renders is not in a server-rendered route's HTML.

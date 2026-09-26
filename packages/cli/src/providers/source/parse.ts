@@ -67,10 +67,15 @@ function collectSvelteHeads(node: WalkNode | WalkNode[] | null | undefined, acc:
  * — picking one branch's literal would judge a value that may never render — and a tag repeated
  * across exclusive branches counts once.
  */
-function conditionalTags(branches: Array<AST.Fragment | null | undefined>, source: string, bind: Bind): ParsedTag[] {
+function conditionalTags(
+  branches: Array<AST.Fragment | null | undefined>,
+  source: string,
+  bind: Bind,
+  jsonLdNames: ReadonlySet<string>
+): ParsedTag[] {
   const unique = new Map<string, ParsedTag>();
   for (const fragment of branches) {
-    for (const tag of tagsFromNodes(fragment?.nodes ?? [], source, bind)) {
+    for (const tag of tagsFromNodes(fragment?.nodes ?? [], source, bind, jsonLdNames)) {
       const { text: _text, noindex: _noindex, jsonld: _jsonld, hreflang: _hreflang, ...shape } = tag;
       const dynamic: ParsedTag = { ...shape, value: 'dynamic' };
       unique.set(JSON.stringify(dynamic), dynamic);
@@ -82,11 +87,40 @@ function conditionalTags(branches: Array<AST.Fragment | null | undefined>, sourc
 /** Rewrites an element's attributes before they are read (binds prop references to call-site literals). */
 type Bind = (attributes: AST.RegularElement['attributes']) => AST.RegularElement['attributes'];
 
-function tagsFromNodes(children: AST.Fragment['nodes'], source: string, bind: Bind = (a) => a): ParsedTag[] {
+/**
+ * Script bindings whose initializer spells out a JSON-LD block (`` const ld = `<script
+ * type="application/ld+json">…` ``), so `{@html ld}` is read as one.
+ */
+function jsonLdBindings(ast: AST.Root, source: string): Set<string> {
+  const names = new Set<string>();
+  for (const script of [ast.module, ast.instance]) {
+    type Declarator = { id?: { type: string; name?: string }; init?: { start: number; end: number } | null };
+    for (const stmt of (script?.content.body ?? []) as Array<{ type: string; declarations?: Declarator[] }>) {
+      if (stmt.type !== 'VariableDeclaration') continue;
+      for (const d of stmt.declarations ?? []) {
+        if (
+          d.id?.type === 'Identifier' &&
+          d.id.name &&
+          d.init &&
+          /ld\+json/i.test(source.slice(d.init.start, d.init.end))
+        )
+          names.add(d.id.name);
+      }
+    }
+  }
+  return names;
+}
+
+function tagsFromNodes(
+  children: AST.Fragment['nodes'],
+  source: string,
+  bind: Bind = (a) => a,
+  jsonLdNames: ReadonlySet<string> = new Set()
+): ParsedTag[] {
   const tags: ParsedTag[] = [];
   for (const node of children) {
     if (node.type === 'KeyBlock') {
-      tags.push(...tagsFromNodes(node.fragment.nodes, source, bind));
+      tags.push(...tagsFromNodes(node.fragment.nodes, source, bind, jsonLdNames));
       continue;
     }
     const branches =
@@ -98,10 +132,12 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string, bind: Bi
             ? [node.pending, node.then, node.catch]
             : undefined;
     if (branches) {
-      tags.push(...conditionalTags(branches, source, bind));
+      tags.push(...conditionalTags(branches, source, bind, jsonLdNames));
       continue;
     }
-    if (node.type === 'TitleElement') {
+    // Outside `<svelte:head>` Svelte parses `<title>` as a regular element: the top level of a
+    // component a parent renders inside `<svelte:head>`.
+    if (node.type === 'TitleElement' || (node.type === 'RegularElement' && node.name === 'title')) {
       // A <title>'s fragment only ever contains literal text and {expr} tags.
       const titleNodes = node.fragment.nodes as Array<AST.Text | AST.ExpressionTag>;
       const text = textFromNodes(titleNodes);
@@ -110,8 +146,10 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string, bind: Bi
     }
     if (node.type === 'HtmlTag') {
       // A JSON-LD <script> built as a string (`{@html jsonLd(data)}`) is invisible as an element, so
-      // the expression's own wording is the only signal; other injections (`{@html css}`) stay unmatched.
-      if (/json-?ld|ld\+json/i.test(source.slice(node.start, node.end)))
+      // the expression's wording, or the initializer of the binding it names, is the only signal;
+      // other injections (`{@html css}`) stay unmatched.
+      const named = node.expression.type === 'Identifier' && jsonLdNames.has(node.expression.name);
+      if (named || /json-?ld|ld\+json/i.test(source.slice(node.start, node.end)))
         tags.push({ kind: 'jsonld', value: 'dynamic' });
       continue;
     }
@@ -202,8 +240,8 @@ function tagsFromNodes(children: AST.Fragment['nodes'], source: string, bind: Bi
   return tags;
 }
 
-function tagsFromHead(head: AST.SvelteHead, source: string): ParsedTag[] {
-  return tagsFromNodes(head.fragment.nodes, source);
+function tagsFromHead(head: AST.SvelteHead, source: string, jsonLdNames: ReadonlySet<string>): ParsedTag[] {
+  return tagsFromNodes(head.fragment.nodes, source, undefined, jsonLdNames);
 }
 
 export interface ComponentUse {
@@ -339,7 +377,7 @@ export function tagsInHead(parsed: ParsedFile, args: PropArgs): ParsedTag[] {
     fragment = parseSvelte(source, filename).fragment;
     headRendered.set(parsed, fragment);
   }
-  return tagsFromNodes(fragment.nodes, source, bindProps(props, args));
+  return tagsFromNodes(fragment.nodes, source, bindProps(props, args), parsed.template.jsonLdNames);
 }
 
 /** The literal props `use` passes, after `parsed`'s own props are bound to the args it was called with. */
@@ -940,7 +978,7 @@ export interface ParsedFile {
   dynamicHeading: boolean;
   a11y: ParsedA11y;
   /** What `tagsInHead` re-reads when a parent renders this file inside `<svelte:head>`. */
-  template: { source: string; filename: string; props: ReadonlyMap<string, string> };
+  template: { source: string; filename: string; props: ReadonlyMap<string, string>; jsonLdNames: ReadonlySet<string> };
   /** Inline `svelte-vitals-disable-next-line` directives in this file, for the central
    *  suppression pass. Collected here because a route-scoped finding can be located in any file
    *  the composition reads, including ones no component-fact collection visited (`--route`). */
@@ -957,8 +995,9 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
   const imports = collectImports(ast);
+  const jsonLdNames = jsonLdBindings(ast, source);
   return {
-    headTags: heads.flatMap((h) => tagsFromHead(h, source)),
+    headTags: heads.flatMap((h) => tagsFromHead(h, source, jsonLdNames)),
     components,
     imports,
     componentBindings: collectComponentBindings(ast),
@@ -968,7 +1007,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
     renderPaths: headingAcc.renderPaths,
     dynamicHeading: headingAcc.dynamic,
     a11y: collectA11y(ast.fragment, source),
-    template: { source, filename, props },
+    template: { source, filename, props, jsonLdNames },
     suppressions: collectSuppressions(source)
   };
 }
@@ -981,5 +1020,6 @@ export function parseHeadTags(source: string, filename: string): ParsedTag[] {
   const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
-  return heads.flatMap((h) => tagsFromHead(h, source));
+  const jsonLdNames = jsonLdBindings(ast, source);
+  return heads.flatMap((h) => tagsFromHead(h, source, jsonLdNames));
 }

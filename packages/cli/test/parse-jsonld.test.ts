@@ -26,6 +26,16 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
     expect(jsonldTags('{#if ld}{@html jsonLdScript}{/if}')).toEqual([{ kind: 'jsonld', value: 'dynamic' }]);
   });
 
+  it('treats {@html NAME} as JSON-LD when the script binding NAME builds a JSON-LD block', () => {
+    const src = (init: string) =>
+      `<script>let { data } = $props(); const LT = '<'; let html = ${init};</script>${head('{@html html}')}`;
+    const tags = (init: string) => parseHeadTags(src(init), 'x.svelte').filter((t) => t.kind === 'jsonld');
+    expect(tags('$derived(`${LT}script type="application/ld+json">${JSON.stringify(data)}${LT}/script>`)')).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+    expect(tags('$derived(`${LT}style>${data.css}${LT}/style>`)')).toEqual([]);
+  });
+
   it('leaves an unrelated {@html} injection unmatched', () => {
     expect(jsonldTags("{@html '<style>body{margin:0}</style>'}")).toEqual([]);
     expect(jsonldTags('{@html themeCss}')).toEqual([]);

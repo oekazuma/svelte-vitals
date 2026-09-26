@@ -463,9 +463,9 @@ describe('parseKitModuleFacts — ssrEnabled (app-wide ssr = false override)', (
   });
 });
 
-describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', () => {
+describe('parseKitModuleFacts — loadNeverRenders (routes whose load always redirects or errors)', () => {
   const kit = "import { redirect } from '@sveltejs/kit';\n";
-  const always = (src: string, file = 'src/routes/old/+page.ts') => facts(kit + src, file).loadAlwaysRedirects;
+  const always = (src: string, file = 'src/routes/old/+page.ts') => facts(kit + src, file).loadNeverRenders;
   it('is set when a top-level statement of load calls or throws redirect()', () => {
     expect(always("export function load() {\n  redirect(301, '/');\n}")).toBe(true);
     expect(always("export async function load() {\n  throw redirect(302, '/');\n}")).toBe(true);
@@ -480,9 +480,33 @@ describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', (
       facts(
         "import { redirect as go } from '@sveltejs/kit';\nexport function load() {\n  go(301, '/');\n}",
         'src/routes/+page.ts'
-      ).loadAlwaysRedirects
+      ).loadNeverRenders
     ).toBe(true);
     expect(always("export function load() {\n  return redirect(307, '/');\n}")).toBe(true);
+  });
+  it("is set when every path throws SvelteKit's error(), and not for another error()", () => {
+    const withError = "import { error } from '@sveltejs/kit';\n";
+    expect(
+      facts(withError + "export function load() {\n  error(503, 'down');\n}", 'src/routes/x/+page.server.ts')
+        .loadNeverRenders
+    ).toBe(true);
+    expect(
+      facts(
+        "import { error, redirect } from '@sveltejs/kit';\n" +
+          "export function load({ url }) {\n  if (url.search) redirect(303, '/');\n  else throw error(404);\n}",
+        'src/routes/x/+page.ts'
+      ).loadNeverRenders
+    ).toBe(true);
+    expect(
+      facts("import { error } from './log';\nexport function load() {\n  error('x');\n}", 'src/routes/x/+page.ts')
+        .loadNeverRenders
+    ).toBeUndefined();
+    expect(
+      facts(
+        withError + 'export function load({ url }) {\n  if (url.search) error(404);\n  return {};\n}',
+        'src/routes/x/+page.ts'
+      ).loadNeverRenders
+    ).toBeUndefined();
   });
   it('is set when every if/else and try/catch path ends in a redirect', () => {
     expect(
@@ -628,7 +652,7 @@ describe('parseKitModuleFacts — loadAlwaysRedirects (redirect-only routes)', (
     ).toBeUndefined();
     expect(always("export function actions() {\n  redirect(303, '/');\n}")).toBeUndefined();
     expect(
-      facts("export function load() {\n  redirect(301, '/');\n}", 'src/routes/+page.ts').loadAlwaysRedirects
+      facts("export function load() {\n  redirect(301, '/');\n}", 'src/routes/+page.ts').loadNeverRenders
     ).toBeUndefined();
   });
 });

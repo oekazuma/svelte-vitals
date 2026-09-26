@@ -218,7 +218,10 @@ function collectAwaits(node: Node, out: Node[] = []): Node[] {
   return out;
 }
 
+const MUTATING_METHODS = new Set(['push', 'unshift', 'splice', 'add', 'set']);
 const REDIRECT_NAMES = new Set(['redirect']);
+// `error()` throws too: the route then renders its `+error` page, never the page itself.
+const EXIT_NAMES = new Set(['redirect', 'error']);
 
 /**
  * Root-relative `redirect(status, '/…')` targets (correctness/base-path-navigation). Argument 1
@@ -253,13 +256,13 @@ function containsReturn(node: Node): boolean {
 type Frame = { seen: Set<Node>; observed: boolean };
 
 /**
- * Whether the exported `load` redirects on every call: every path through its body reaches a
- * `redirect(…)` / `throw redirect(…)` before any `return` — through both arms of an `if`/`else`,
+ * Whether the exported `load` redirects or errors on every call: every path through its body reaches a
+ * `redirect(…)` / `error(…)` (thrown or not) before any `return` — through both arms of an `if`/`else`,
  * through a `try` whose `catch` redirects or rethrows, and through a call to a top-level function
  * of the same file that itself always redirects. A redirect under an `if` without an `else`, in a
  * loop, or in a function declared inside `load` does not count.
  */
-function loadAlwaysRedirects(program: Node, locals: Set<string>): boolean {
+function loadNeverRenders(program: Node, locals: Set<string>): boolean {
   const load = locals.size > 0 ? findLoadFunction(program) : undefined;
   if (!load?.body) return false;
   const topLevel = collectTopLevelBindings(program);
@@ -490,9 +493,23 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
     }
   };
 
+  // `list.push(x)` (and the other in-place adders) makes `list` hold `x`.
+  const taintMutation = (call: Node): void => {
+    const callee: Node = unwrapTs(call?.callee);
+    if (call?.type !== 'CallExpression' || callee?.type !== 'MemberExpression' || callee.computed) return;
+    if (
+      !MUTATING_METHODS.has(callee.property?.name) ||
+      !(call.arguments ?? []).some((a: Node) => refsTainted(a, tainted))
+    )
+      return;
+    const root = rootObjectName(callee);
+    if (root) tainted.add(root);
+  };
+
   // Taint-only scan for regions we don't classify: assignments/declarations whose
-  // RHS contains an await or references taint taint their target. Never enters
-  // nested functions; creates no sites.
+  // RHS contains an await or references taint taint their target, as do in-place adds and a
+  // `for…of`/`for…in` over tainted data its loop variable. Never enters nested functions;
+  // creates no sites.
   const taintOnly = (node: Node): void => {
     if (Array.isArray(node)) {
       for (const child of node) taintOnly(child);
@@ -502,6 +519,12 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
     if (isFunctionNode(node)) return;
     if (node.type === 'AssignmentExpression') {
       taintTarget(node.left, node.right);
+    } else if (node.type === 'CallExpression') {
+      taintMutation(node);
+    } else if ((node.type === 'ForOfStatement' || node.type === 'ForInStatement') && refsTainted(node.right, tainted)) {
+      const names = new Set<string>();
+      addBoundNames(node.left?.type === 'VariableDeclaration' ? node.left.declarations?.[0]?.id : node.left, names);
+      for (const name of names) tainted.add(name);
     } else if (node.type === 'VariableDeclaration') {
       for (const d of node.declarations ?? []) {
         if (d?.id && d.init) taintTarget(d.id, d.init);
@@ -557,6 +580,7 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
         } else if (stmt.type === 'ExpressionStatement') {
           const expr = unwrapTs(stmt.expression);
           if (expr?.type === 'AssignmentExpression') taintTarget(expr.left, expr.right);
+          else taintMutation(expr);
         }
       } else {
         taintOnly(stmt);
@@ -1063,7 +1087,9 @@ export function parseKitModuleFacts(
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
     ...(!ssrOptOut && exportsName(program, 'ssr') ? { ssrEnabled: true as const } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
-    ...(loadAlwaysRedirects(program, redirectLocals) ? { loadAlwaysRedirects: true as const } : {}),
+    ...(loadNeverRenders(program, collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES))
+      ? { loadNeverRenders: true as const }
+      : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
       ? { loadWaterfalls: waterfalls }
       : {}),
