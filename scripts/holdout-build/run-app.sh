@@ -35,7 +35,10 @@ done
 echo "lockfile: ${lock:-none} at ${root:-none}" >>"$log"
 cd "${root:-$app}" || exit 1
 case "$lock" in
-  pnpm-lock.yaml) corepack enable >>"$log" 2>&1; pnpm install --frozen-lockfile >>"$log" 2>&1 || pnpm install --no-frozen-lockfile >>"$log" 2>&1 ;;
+  # pnpm 11+ fails an install whose dependencies have build scripts nobody approved (ERR_PNPM_IGNORED_BUILDS);
+  # `--ignore-scripts` installs the same packages and does not fail, though a build needing those scripts may.
+  pnpm-lock.yaml) corepack enable >>"$log" 2>&1; pnpm install --frozen-lockfile >>"$log" 2>&1 || pnpm install --no-frozen-lockfile >>"$log" 2>&1 ||
+    pnpm install --no-frozen-lockfile --ignore-scripts >>"$log" 2>&1 ;;
   bun.lock|bun.lockb) bun install --frozen-lockfile >>"$log" 2>&1 || bun install >>"$log" 2>&1 ;;
   package-lock.json) npm ci >>"$log" 2>&1 ;;
   yarn.lock) corepack enable >>"$log" 2>&1; yarn install --immutable >>"$log" 2>&1 || yarn install --frozen-lockfile >>"$log" 2>&1 ;;
