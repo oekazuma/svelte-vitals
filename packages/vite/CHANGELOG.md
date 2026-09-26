@@ -1,5 +1,116 @@
 # @svelte-vitals/vite
 
+## 0.55.2
+
+### Patch Changes
+
+- 3ae5bd5: Source analysis reads more of `src/app.html`'s `<head>`, which renders on every route. A `<script type="application/ld+json">` there now counts as the route's JSON-LD (`seo/json-ld` no longer reports it missing), with a dynamic value when its body holds a `%…%` placeholder, and a `<link rel="preconnect">` or `rel="dns-prefetch"` counts as the hint `performance/preconnect` looks for. A tag carrying a `%…%` placeholder (SvelteKit's own, such as `%sveltekit.assets%`, or one a `transformPageChunk` hook replaces, such as `%title%`) now counts as present with a dynamic value, judged by `treatDynamicAs`, instead of being ignored or read as the literal placeholder text. So a `<title>%title%</title>` is no longer measured by `seo/title-length` as seven characters, and a `<meta property="og:image" content="%sveltekit.assets%/og.png">` is no longer reported missing; a shell title or description filled by a hook is no longer reported by `seo/duplicate-title` or `seo/duplicate-description`, because its value is unknown.
+- 951e7dc: `correctness/each-key` and `correctness/each-index-key` no longer report an `{#each}` over a constant list imported from a module in the project: an `export const LIST = [ … ]` array literal (`as const` and `satisfies` included) that the module never writes, imported through `$lib` or another `kit.alias`, a relative path or a barrel, and iterated as `LIST` or `ns.LIST` of a namespace import. The component itself is held to the same reads a same-file constant list is. Lists from packages or JSON files, and exports that are not array literals, are still reported. Writes to the list from other modules that import it are not checked.
+- ff2d4e5: `correctness/each-key` and `correctness/each-index-key` now skip `{#each}` over a constant list imported as `./state.svelte` from a `state.svelte.ts`/`.svelte.js` runes module, and over a constant list that its module or component also iterates with `for (… of LIST)`.
+- 4b233ff: `correctness/each-key` and `correctness/each-index-key` now treat copying a constant list into a new array literal (`[...tabs, extra]`) as a read, in the component and in the module an imported list comes from. Such a copy cannot reorder the original, so an `{#each}` over the list is no longer reported. Passing the list, or spreading it anywhere else, still keeps it reported.
+- 3ae5bd5: Source analysis now reads a `<title>` written at the top level of a component that a page or layout renders inside `<svelte:head>` (`<svelte:head><MetaTag title={…} /></svelte:head>` with `<title>{title}</title>` in `MetaTag.svelte`). Its `<meta>` and `<link>` tags were already read; the title was dropped, so every route using such a component was reported as missing a `<title>` (`seo/title-presence`, critical).
+- 4b233ff: `seo/single-h1` now counts, in a component's `{#if}` that one prop decides (`{#if isHome}`, `{#if !title}`, `{#if variant === 'detail'}`), only the arm that prop selects, when the use passes the prop literally or not at all (its default, or `undefined`). A navigation bar whose `<h1>` renders only on the home page is no longer counted as a second `<h1>` on every other page. A prop passed as an expression or spread, bound, or written by the component itself still leaves every arm counted. A page whose only `<h1>` sat in such an arm can now be reported as missing one.
+- d280047: Source analysis now follows components from npm packages when the checkout is installed. It covers the Svelte packages that the app's `package.json` declares from a registry, meaning any range other than `workspace:`, `link:`, `file:` or `portal:`. A package counts as a Svelte package when it publishes a `svelte` export condition or a `svelte` field. svelte-vitals finds each package as Node does, in the first `node_modules/<name>` from the app's directory upward, and stops at the directory holding `.git`. It reads through pnpm's links, and resolves the import through the package's `exports` (conditions in declaration order over `svelte`/`import`/`module`/`default`), or its `svelte` field when there is no `exports`. The `<title>`, meta tags, JSON-LD and headings such a component renders (`import { Head } from '@acme/ui'`) now count for the routes that render it, which removes false "Missing" findings. An `<h1>` inside the package can also produce a new `seo/single-h1` finding located in `node_modules`. Known libraries keep their adapters (`svelte-meta-tags`, `svelte-seo`, `svead`), and `metaComponents` still applies when a component cannot be followed. A package file that does not parse leaves that component unfollowed instead of failing the run. Accessibility rules, `correctness/each-key` and the import-following rules do not look inside these packages. An uninstalled checkout behaves as before. A workspace package without `exports` now resolves its bare name through its `svelte` field as well.
+- 3ae5bd5: `{@html NAME}` in `<svelte:head>` now counts as a JSON-LD block when the script binding `NAME` is built from a string holding a `<script type="application/ld+json">` tag (``let ld = $derived(`${LT}script type="application/ld+json">…`)``), not only when the `{@html}` expression itself names JSON-LD. Routes that emit their structured data this way are no longer reported by `seo/json-ld`.
+- 4b233ff: `seo/json-ld` now counts JSON-LD in `<body>` as well as `<head>`, since search engines read it anywhere in the document. Source analysis counts a JSON-LD `<script>` or `{@html}` the markup renders outside `<svelte:head>` as a dynamic block, and the build pass reads `<script type="application/ld+json">` in the rendered `<body>`. A `{@html NAME}` binding is also recognised when its opening tag is assembled from fragments (`"<scr" + 'ipt type="application/ld+json">'`) or built from another such binding. A block under a condition counts as present on every route that renders its component, so a route that renders the component without the condition holding is no longer reported as missing JSON-LD.
+- 3ae5bd5: A page whose own `load` throws SvelteKit's `error()` on every path, like one that always redirects, now counts as never rendering: the route shows its `+error` page instead, so the route-level checks skip it (the component rules still read its files). A route under maintenance (`error(503)`) was reported as missing its title, description, social tags and `<h1>`.
+- 667cd93: The `svelte-meta-tags` adapter now reads `additionalMetaTags`: each inline `{ property | name, content }` entry counts as that `<meta>`, so an `og:image` or `twitter:image` passed there is no longer reported missing. An entry or list it cannot read inline counts as a meta of any name, which only keeps meta tags from being reported missing.
+- 667cd93: `performance/namespace-import` no longer reads an interface or type-literal member named like the namespace (`interface Props { toast: toast.Options }`) as a whole-namespace use, so a namespace used only through static member access and type positions is not reported.
+- 44d2c09: Components imported through a package.json `imports` entry (`#lib/*`, as svelte.dev and many SvelteKit apps use) are now followed like `$lib` imports. They were treated as unresolvable, so their headings, head tags and landmarks were invisible: a page whose `<h1>` came from `#lib/ui/heading.svelte` was reported as "Missing `<h1>`".
+- 8ea1804: A page whose own `load` always redirects no longer gets route-level findings. Such a page never renders a document, yet it used to be reported as missing its `<title>`, description, `<h1>` and the rest. The CLI now recognises a `redirect()` or `throw redirect()` sitting directly in the body of the `load` exported from the page's `+page.ts` or `+page.server.ts`, with no earlier `return` and not inside a condition, `try` or helper function, and skips the route's head, heading, image and landmark checks; component-level rules still read its files. This holds under `--route` as well. The Vite plugin skips the redirect stub SvelteKit writes for a route that redirected during prerendering.
+- 188400c: `performance/responsive-image` no longer reports the fallback `<img>` of a `<picture>` whose `<source>` elements carry a `srcset`: the browser picks from those candidates.
+- 8ea1804: `performance/responsive-image` no longer reports an SVG `<img>`: a vector image scales to any size from one file, so a `srcset` has nothing to choose between. An image counts as SVG when its `src` path ends in `.svg` (query and fragment ignored) or is an inline `data:image/svg+xml` URI, and, in source analysis, when `src={logo}` names a binding imported from a `.svg` file or the literal tail of a mixed value ends in `.svg` (`src="{base}/rss.svg"`). The other image rules still check SVG images as before.
+- 4e25000: Source analysis now understands the `svead` meta package, as it already does `svelte-meta-tags` and `svelte-seo`. `<Head seo_config={…}>` counts for `<title>`, the description, the canonical link, `og:title`, `og:description`, `og:url` and `twitter:card`, and for `og:image` when the config sets `open_graph_image`. A config it cannot read inline (a variable, or an object with a spread) counts for all of them as dynamic. `<SchemaOrg>` counts as a dynamic JSON-LD block. Routes that render svead's `<Head>` no longer report these tags as missing. The model follows svead 0.0.12 and later, where the Open Graph tags and `twitter:card` render whether or not `open_graph_image` is set; the per-prop `<Head title url image>` API from before 0.0.10 is read too, with its Open Graph tags and `twitter:card` counted as dynamic when `image` is passed. Because svead is now read directly, a `Head` entry in `metaComponents` no longer applies to it.
+- b9aa87f: A `vite build` that prerenders no pages (an SPA served from a fallback page, or an app with nothing opted into prerendering) no longer finishes silently with nothing checked. The plugin now prints one warning that route analysis was skipped, and still runs the project-wide source scan, reports it, and fails the build when its findings reach `failOn`. Such a build can therefore start failing on source findings it never checked before. `seo/html-lang` is not reported in that case, since there is no rendered `<html>` to read.
+- 1614339: Build-time analysis now matches `<meta name>` case-insensitively (`name="Robots"` is read as a robots meta) and finds a `sitemap.xml`/`robots.txt` `+server` endpoint inside a route group such as `src/routes/(marketing)/sitemap.xml/+server.ts`, as source analysis does.
+- b9aa87f: The plugin's `vite` and `@sveltejs/kit` peer ranges no longer follow the versions this repository develops against. They had tightened to `vite ^8.3.0` and `@sveltejs/kit ^2.70.3`, so npm refused to install the plugin into an app on Vite 8.1 or any earlier major without `--force`. The peers are now `vite ^5.0.3 || ^6.0.0 || ^7.0.0 || ^8.0.0` (SvelteKit's own Vite range) and `@sveltejs/kit ^2.0.0`.
+- 3ae5bd5: `performance/sequential-awaits` and `performance/load-waterfall` now follow a result through a `for…of`/`for…in` loop variable and into a list filled with `push()` (or `unshift`, `splice`, `add`, `set`). An await that uses such a list, built from an earlier await's data, is recognised as dependent on it: `performance/sequential-awaits` no longer reports it as needlessly sequential, and in a universal `load` `performance/load-waterfall` now counts it as a step of a request chain.
+- f685521: A workspace package whose `exports` pattern target adds a suffix after `*` (`"./*": "./src/lib/*.js"`) now resolves: `@repo/core/client/ui` reads `src/lib/client/ui.js`, or the `ui.ts` source behind it. Such subpaths used to stay unresolved, so a route that renders its `<h1>`, `<title>` or meta tags through a component imported that way was reported as missing them. Those components' tags and headings now count toward every head and heading rule, which can surface findings from them.
+- ca2884b: Source analysis now follows components an app imports from a package of the same monorepo. It covers a package the app's `package.json` declares with a `workspace:` range, or with a `link:`/`file:` path inside the repository. svelte-vitals finds the package through the nearest `pnpm-workspace.yaml` or `package.json` `workspaces` above the app, matches it by `name`, and resolves the import through its `exports` (its file layout when it has none). A `kit.alias` into `node_modules/<that package>` reads the package's directory whether or not the checkout was installed. The `<title>`, meta tags, JSON-LD and headings these components render now count for the routes that render them, which removes false "Missing" findings; components that were invisible before can also produce new findings. npm packages in `node_modules` and anything outside the repository are still not read, and the import-following rules (`architecture/private-scope-import`, `architecture/route-component-import`, `security/shared-state-import`, `security/handler-state-write`) resolve imports as before.
+- 667cd93: Source analysis now follows a workspace package whose `exports` or `svelte` field name its build output in `dist/` when the checkout has not built it yet: the component is read from the same path under the package's `src/` or `src/lib/` (`./dist/components/SEO.svelte` → `src/components/SEO.svelte`). A head component from such a package was not followed, so every route rendering it was reported as missing its title, description and social tags. A built checkout still reads `dist/`. Tags the component renders only under a condition now count as may-render on those routes, so a "Missing JSON-LD" on a page that does not pass the component's JSON-LD prop is no longer reported.
+- Updated dependencies [9c19428]
+- Updated dependencies [19ae8f1]
+- Updated dependencies [1614339]
+- Updated dependencies [1614339]
+- Updated dependencies [3ae5bd5]
+- Updated dependencies [1614339]
+- Updated dependencies [f685521]
+- Updated dependencies [f685521]
+- Updated dependencies [0fabbba]
+- Updated dependencies [9c19428]
+- Updated dependencies [1614339]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [9c19428]
+- Updated dependencies [f685521]
+- Updated dependencies [5c3150b]
+- Updated dependencies [c820cf7]
+- Updated dependencies [951e7dc]
+- Updated dependencies [f685521]
+- Updated dependencies [9c19428]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [ff2d4e5]
+- Updated dependencies [4b233ff]
+- Updated dependencies [1614339]
+- Updated dependencies [f685521]
+- Updated dependencies [1614339]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [1614339]
+- Updated dependencies [1614339]
+- Updated dependencies [f685521]
+- Updated dependencies [9c19428]
+- Updated dependencies [3ae5bd5]
+- Updated dependencies [1614339]
+- Updated dependencies [8ea1804]
+- Updated dependencies [4b233ff]
+- Updated dependencies [8ea1804]
+- Updated dependencies [8ea1804]
+- Updated dependencies [19ae8f1]
+- Updated dependencies [d280047]
+- Updated dependencies [3ae5bd5]
+- Updated dependencies [4b233ff]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [62758cf]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [44d2c09]
+- Updated dependencies [1614339]
+- Updated dependencies [1614339]
+- Updated dependencies [3ae5bd5]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [f685521]
+- Updated dependencies [9c19428]
+- Updated dependencies [1614339]
+- Updated dependencies [667cd93]
+- Updated dependencies [1614339]
+- Updated dependencies [c820cf7]
+- Updated dependencies [44d2c09]
+- Updated dependencies [667cd93]
+- Updated dependencies [cf03539]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [44d2c09]
+- Updated dependencies [44d2c09]
+- Updated dependencies [1614339]
+- Updated dependencies [44d2c09]
+- Updated dependencies [8ea1804]
+- Updated dependencies [188400c]
+- Updated dependencies [8ea1804]
+- Updated dependencies [1614339]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [1614339]
+- Updated dependencies [4e25000]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [b9aa87f]
+- Updated dependencies [f685521]
+- Updated dependencies [1614339]
+- Updated dependencies [9c19428]
+- Updated dependencies [1614339]
+- Updated dependencies [3ae5bd5]
+- Updated dependencies [f685521]
+- Updated dependencies [ca2884b]
+- Updated dependencies [667cd93]
+  - svelte-vitals@0.55.2
+  - @svelte-vitals/core@0.55.2
+
 ## 0.55.1
 
 ### Patch Changes
