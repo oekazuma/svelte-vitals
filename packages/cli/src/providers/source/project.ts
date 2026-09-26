@@ -217,13 +217,21 @@ function detectAppHtmlHeadTags(html: string): ParsedTag[] {
   } catch {
     return [];
   }
-  return tags.filter(
-    (t) =>
-      t.kind === 'title' ||
-      t.kind === 'jsonld' ||
-      (t.kind === 'meta' && t.name !== 'charset' && t.name !== 'viewport') ||
-      (t.kind === 'link' && (t.rel === 'canonical' || t.rel === 'preconnect' || t.rel === 'dns-prefetch'))
-  );
+  return tags
+    .filter(
+      (t) =>
+        t.kind === 'title' ||
+        t.kind === 'jsonld' ||
+        (t.kind === 'meta' && t.name !== 'charset' && t.name !== 'viewport') ||
+        (t.kind === 'link' && (t.rel === 'canonical' || t.rel === 'preconnect' || t.rel === 'dns-prefetch'))
+    )
+    .map((t) =>
+      // A placeholder in a JSON-LD body (a script's text, so never an expression) makes its content unknown;
+      // `%E2%` followed by two more hex digits is percent-encoding, not one.
+      t.kind === 'jsonld' && t.jsonld !== undefined && /%(?![0-9a-f]{2}%)[a-z_][\w.-]*%/i.test(t.jsonld)
+        ? { kind: 'jsonld', value: 'dynamic' }
+        : t
+    );
 }
 
 /** app.html-derived facts sharing one read (io-budget): <html lang>, the leading doctype, shell ids and head tags. */

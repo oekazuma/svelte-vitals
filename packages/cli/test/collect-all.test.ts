@@ -306,6 +306,21 @@ describe('collectAll: app.html head tags', () => {
     ]);
   });
 
+  it('reads a shell JSON-LD block holding a hook-replaced placeholder as dynamic', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': `<!doctype html><html><head>
+    <script type="application/ld+json">{"@type":"WebSite","inLanguage":%lang%}</script>
+    %sveltekit.head%
+  </head><body>%sveltekit.body%</body></html>`,
+      'src/routes/+page.svelte': `<h1>Home</h1>`
+    });
+
+    const { heads } = await collectAll(rt, '', defaultConfig);
+    expect(heads.find((h) => h.route === '/')!.tags.map(({ presence: _p, file: _f, ...t }) => t)).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+  });
+
   it('keeps every robots meta — the shell, layout and page ones all render', async () => {
     const rt = createMemoryRuntime({
       'src/app.html': APP_HTML.replace(

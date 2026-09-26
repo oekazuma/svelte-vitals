@@ -34,6 +34,7 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
       { kind: 'jsonld', value: 'dynamic' }
     ]);
     expect(tags('$derived(`${LT}style>${data.css}${LT}/style>`)')).toEqual([]);
+    expect(tags('`${LT}meta name="description" content="Served as application/ld+json">`')).toEqual([]);
   });
 
   it('leaves an unrelated {@html} injection unmatched', () => {

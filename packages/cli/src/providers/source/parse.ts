@@ -102,7 +102,7 @@ function jsonLdBindings(ast: AST.Root, source: string): Set<string> {
           d.id?.type === 'Identifier' &&
           d.id.name &&
           d.init &&
-          /ld\+json/i.test(source.slice(d.init.start, d.init.end))
+          /\bscript\b[^>]*\btype\s*=\s*["']?application\/ld\+json/i.test(source.slice(d.init.start, d.init.end))
         )
           names.add(d.id.name);
       }
