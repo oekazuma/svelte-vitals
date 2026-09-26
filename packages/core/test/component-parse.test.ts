@@ -387,6 +387,11 @@ describe('parseComponentFacts — namespace imports (performance/namespace-impor
     ).toEqual([]);
     // A property named like the namespace is not a use of it.
     expect(facts(`<script>import * as e from 'e'; const o = { e: 1 }; o.e; e.x();</script>`)).toEqual([]);
+    expect(
+      facts(
+        `<script lang="ts">import * as toast from 'toast'; interface Props { toast: toast.Options; toast2(): void } let { toast: t }: Props = $props(); toast.connect(t);</script>`
+      )
+    ).toEqual([]);
   });
   it('does not count a same-named local that shadows the namespace as a use of it', () => {
     const facts = (markup: string) =>

@@ -69,6 +69,23 @@ describe('svelteMetaTagsAdapter', () => {
     expect(r.broad).toBe(false);
   });
 
+  it('emits one meta per additionalMetaTags entry, and an any-key meta for one it cannot read', () => {
+    const r = svelteMetaTagsAdapter.resolve(
+      useOf(
+        '<MetaTags additionalMetaTags={[{ property: "og:image", content: image || "/og.png" }, { name: "Twitter:Image", content: "/t.png" }, entry]} />'
+      )
+    );
+    expect(r.tags).toEqual([
+      { kind: 'meta', property: 'og:image', value: 'dynamic' },
+      { kind: 'meta', name: 'twitter:image', value: 'static' },
+      { kind: 'meta', value: 'dynamic', dynamicKey: { name: true, property: true } }
+    ]);
+    expect(r.broad).toBe(false);
+    expect(svelteMetaTagsAdapter.resolve(useOf('<MetaTags additionalMetaTags={extra} />')).tags).toEqual([
+      { kind: 'meta', value: 'dynamic', dynamicKey: { name: true, property: true } }
+    ]);
+  });
+
   it('falls back to broad when openGraph is a variable (not an inline literal)', () => {
     const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags openGraph={cfg} />'));
     expect(r.broad).toBe(true);

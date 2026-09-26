@@ -168,13 +168,30 @@ async function resolveExport(
   if (name === '*' || hops > MAX_REEXPORT_HOPS) return undefined;
   const path = resolveRepoLocalPath(spec, fromRel, ctx.aliases);
   if (path === undefined) return undefined;
-  const key = `${path}#${name}#${hops}`;
-  let hit = memo.get(key);
-  if (!hit) {
-    hit = resolveExportAt(ctx, path, name, target, hops, memo);
-    memo.set(key, hit);
+  for (const candidate of [path, ...unbuiltSources(path, ctx.aliases)]) {
+    const key = `${candidate}#${name}#${hops}`;
+    let hit = memo.get(key);
+    if (!hit) {
+      hit = resolveExportAt(ctx, candidate, name, target, hops, memo);
+      memo.set(key, hit);
+    }
+    const found = await hit;
+    if (found) return found;
   }
-  return hit;
+  return undefined;
+}
+
+/**
+ * Where a package's `dist/` target is built from, tried when the target is not there: a workspace
+ * package's `exports` name its build output, which an unbuilt checkout does not have yet.
+ */
+function unbuiltSources(path: string, aliases: readonly KitAlias[] | undefined): string[] {
+  for (const { root } of aliases ?? []) {
+    if (root === undefined || !path.startsWith(`${root}/dist/`)) continue;
+    const rest = path.slice(root.length + '/dist/'.length);
+    return [`${root}/src/${rest}`, `${root}/src/lib/${rest}`];
+  }
+  return [];
 }
 
 async function resolveExportAt(

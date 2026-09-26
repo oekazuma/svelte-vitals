@@ -47,6 +47,36 @@ describe('collectAll — workspace packages', () => {
     expect(h1Files(facts)).toEqual(['../../packages/ui/src/components/Hero.svelte']);
   });
 
+  it('follows exports that name an unbuilt dist/ into the src/ or src/lib/ it is built from', async () => {
+    const repo = {
+      '../../.git': '',
+      '../../pnpm-workspace.yaml': `packages:\n  - 'apps/*'\n  - 'packages/*'\n`,
+      '../../packages/seo/package.json': json({
+        name: '@repo/seo',
+        exports: { './SEO.svelte': { svelte: './dist/components/SEO.svelte' } }
+      }),
+      '../../packages/seo/src/components/SEO.svelte': `<svelte:head><title>From src</title></svelte:head>`,
+      '../../packages/ui/package.json': json({
+        name: '@repo/ui',
+        svelte: './dist/index.js',
+        exports: { '.': { svelte: './dist/index.js' } }
+      }),
+      '../../packages/ui/src/lib/index.ts': `export { default as Hero } from './Hero.svelte';`,
+      '../../packages/ui/src/lib/Hero.svelte': `<h1>Welcome</h1>`,
+      ...app({ '@repo/seo': 'workspace:*', '@repo/ui': 'workspace:*' }),
+      'src/routes/+page.svelte': `<script>import SEO from '@repo/seo/SEO.svelte'; import { Hero } from '@repo/ui';</script><SEO /><Hero />`
+    };
+    const facts = await collect(repo);
+    expect(titles(facts)).toEqual(['From src']);
+    expect(h1Files(facts)).toEqual(['../../packages/ui/src/lib/Hero.svelte']);
+
+    const built = await collect({
+      ...repo,
+      '../../packages/seo/dist/components/SEO.svelte': `<svelte:head><title>From dist</title></svelte:head>`
+    });
+    expect(titles(built)).toEqual(['From dist']);
+  });
+
   it('follows a `./*` → `./src/lib/*.js` pattern to the `.ts` barrel it names, as Vite does', async () => {
     const facts = await collect({
       '../../.git': '',

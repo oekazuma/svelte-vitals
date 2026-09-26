@@ -267,7 +267,9 @@ In a monorepo, the walk also follows a package of the same repository that the a
 declares with a `workspace:` range (`"@repo/ui": "workspace:*"`), or with a `link:`/`file:` path
 inside the repository. svelte-vitals finds the package through the nearest `pnpm-workspace.yaml` or
 `package.json` `workspaces` above the app, by its `name`, and resolves the import through the
-package's `exports` (its file layout when it has none). A `kit.alias` into
+package's `exports` (its file layout when it has none). An export that names a file under the
+package's `dist/` that the checkout does not have (the package is built from source, and not built
+yet) is read from the same path under `src/` or `src/lib/`. A `kit.alias` into
 `node_modules/<that package>` reads the package's directory, so the result does not depend on whether
 the checkout was installed. The search stops at the directory holding `.git`. Packages the app does
 not declare this way, and anything outside the repository, are not read. This applies to the
