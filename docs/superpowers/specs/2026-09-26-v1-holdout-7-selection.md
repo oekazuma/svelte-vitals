@@ -172,7 +172,8 @@ checkbox, a lifecycle call at module scope, a preload without `as`, or `minify: 
 - Install risks: Verdagraph's lock records the specifier `svelte: 5.34.0` while `apps/web` asks for
   `^5.22.6`, so `pnpm install --frozen-lockfile` fails and the harness falls back to
   `--no-frozen-lockfile`; orkestrai's root `postinstall` runs patch-package (4 patches) and a node-pty
-  helper, and electron and node-pty have install scripts (npm has no retry); imrg-platform pins
+  helper, and electron and node-pty have install scripts (an `npm ci` that fails on one is retried with
+  `--ignore-scripts`, see "How the first look runs"); imrg-platform pins
   pnpm 12.4.2 and echobell.one pnpm 11.13.0 through `packageManager`, and imrg-platform's `prepare`
   runs husky; uwcourses pins bun 1.4.0; uwcourses, digitable install with bun.
 - Runners-up, read and not picked: texpile/texpile, EasyMetaAu/helm-api, HerrMuellerluedenscheid/hoister,
