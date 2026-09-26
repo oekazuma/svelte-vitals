@@ -24,6 +24,8 @@ first_look() {
 }
 mkdir -p "$work" && cd "$work" || exit 1
 { git init -q . && git remote add origin "https://github.com/$REPO.git" && git fetch -q --depth 1 origin "$SHA" && git checkout -q FETCH_HEAD; } >>"$log" 2>&1 || { result clone failed; exit 0; }
+# Workspaces vendored as submodules are part of the install; a failure leaves them missing, as before.
+git submodule update -q --init --recursive --depth 1 >>"$log" 2>&1 || echo "submodules failed" >>"$log"
 app="$work/$APP_PATH"; app="${app%/.}"
 dir="$app"; root=""; lock=""
 while :; do
@@ -44,11 +46,12 @@ case "$lock" in
       find . -name node_modules -type d -prune -exec rm -rf {} + &&
       pnpm install --no-frozen-lockfile --ignore-scripts >>"$log" 2>&1; } ;;
   bun.lock|bun.lockb) bun install --frozen-lockfile >>"$log" 2>&1 || bun install >>"$log" 2>&1 ;;
-  # npm reports a failing install script (the app's own postinstall, a native build) as "command failed";
-  # the retry installs the same packages without scripts. `npm ci` clears node_modules itself.
-  package-lock.json) npm ci >>"$log" 2>&1 ||
+  # A lockfile out of sync with package.json fails `npm ci`; `npm install` resolves it, as pnpm's
+  # --no-frozen-lockfile does. npm reports a failing install script (the app's own postinstall, a native
+  # build) as "command failed"; the retry installs the same packages without scripts.
+  package-lock.json) npm ci >>"$log" 2>&1 || npm install --no-audit --no-fund >>"$log" 2>&1 ||
     { grep -q "npm error command failed" "$log" && echo "retrying with --ignore-scripts" >>"$log" &&
-      npm ci --ignore-scripts >>"$log" 2>&1; } ;;
+      npm install --no-audit --no-fund --ignore-scripts >>"$log" 2>&1; } ;;
   yarn.lock) corepack enable >>"$log" 2>&1; yarn install --immutable >>"$log" 2>&1 || yarn install --frozen-lockfile >>"$log" 2>&1 ;;
   *) npm install >>"$log" 2>&1 ;;
 esac || { code=$?; first_look uninstalled; result install failed $code; exit 0; }
