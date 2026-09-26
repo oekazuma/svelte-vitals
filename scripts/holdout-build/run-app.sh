@@ -44,7 +44,11 @@ case "$lock" in
       find . -name node_modules -type d -prune -exec rm -rf {} + &&
       pnpm install --no-frozen-lockfile --ignore-scripts >>"$log" 2>&1; } ;;
   bun.lock|bun.lockb) bun install --frozen-lockfile >>"$log" 2>&1 || bun install >>"$log" 2>&1 ;;
-  package-lock.json) npm ci >>"$log" 2>&1 ;;
+  # npm reports a failing install script (the app's own postinstall, a native build) as "command failed";
+  # the retry installs the same packages without scripts. `npm ci` clears node_modules itself.
+  package-lock.json) npm ci >>"$log" 2>&1 ||
+    { grep -q "npm error command failed" "$log" && echo "retrying with --ignore-scripts" >>"$log" &&
+      npm ci --ignore-scripts >>"$log" 2>&1; } ;;
   yarn.lock) corepack enable >>"$log" 2>&1; yarn install --immutable >>"$log" 2>&1 || yarn install --frozen-lockfile >>"$log" 2>&1 ;;
   *) npm install >>"$log" 2>&1 ;;
 esac || { code=$?; first_look uninstalled; result install failed $code; exit 0; }
