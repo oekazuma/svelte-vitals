@@ -50,7 +50,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-          sparse-checkout: .github/holdout-build
+          sparse-checkout: |
+            .github/holdout-build
+            scripts/corpus
+            scripts/corpus-measure.js
+            packages/cli/scripts
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -78,6 +82,7 @@ jobs:
           SHA: ${{ matrix.app.sha }}
           PLUGIN_DIR: ${{ runner.temp }}/sv
           OUT: ${{ runner.temp }}/out
+          MEASURE: ${{ github.workspace }}/scripts/corpus-measure.js
           CI: 'true'
         run: bash .github/holdout-build/run-app.sh
       - name: Name the artifact
@@ -106,8 +111,8 @@ jobs:
               try { return JSON.parse(fs.readFileSync(`out/${d}/result.json`, "utf8")); } catch { return { app: d, stage: "missing" }; }
             });
             fs.writeFileSync("summary.json", JSON.stringify(rows, null, 1));
-            const lines = ["| app | stage | status | exit | gate | plugin | report |", "| --- | --- | --- | --- | --- | --- | --- |"];
-            for (const r of rows) lines.push(`| ${r.app} | ${r.stage} | ${r.status ?? ""} | ${r.exit ?? ""} | ${r.gate ?? ""} | ${r.pluginLine ?? ""} | ${r.report ?? ""} |`);
+            const lines = ["| app | first look | stage | status | exit | gate | plugin | report |", "| --- | --- | --- | --- | --- | --- | --- | --- |"];
+            for (const r of rows) lines.push(`| ${r.app} | ${r.firstLookExit ?? ""} | ${r.stage} | ${r.status ?? ""} | ${r.exit ?? ""} | ${r.gate ?? ""} | ${r.pluginLine ?? ""} | ${r.report ?? ""} |`);
             fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join("\n") + "\n");
             console.log(lines.join("\n"));
           '
