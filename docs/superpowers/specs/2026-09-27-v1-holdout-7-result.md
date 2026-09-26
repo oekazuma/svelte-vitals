@@ -55,7 +55,7 @@ its docs. Both are `design`.
 
 Two apps failed to install, and the harness now handles both shapes for the next holdout: an
 `npm ci` that fails on a lockfile out of sync with `package.json` falls back to `npm install` (as pnpm
-already fell back to `--no-frozen-lockfile`), and git submodules are fetched after the checkout. Both
+already fell back to `--no-frozen-lockfile`), and git submodules are fetched after the checkout (a checkout whose submodules fail to fetch is measured uninstalled). Other `npm ci` failures, such as an integrity mismatch, still fail the install. Both
 were checked locally: an out-of-sync lockfile, a failing `postinstall`, and both together install; and
 digitable's two vendored workspaces are present after the submodule fetch. orkestrai is the one app
 whose head comes from an npm package without an adapter, so following installed packages was not
