@@ -37,8 +37,12 @@ cd "${root:-$app}" || exit 1
 case "$lock" in
   # pnpm 11+ fails an install whose dependencies have build scripts nobody approved (ERR_PNPM_IGNORED_BUILDS);
   # `--ignore-scripts` installs the same packages and does not fail, though a build needing those scripts may.
+  # Only for that failure: a script failing for any other reason must still fail the install. The failed
+  # install's node_modules remember the ignored builds and fail the retry too, so they go first.
   pnpm-lock.yaml) corepack enable >>"$log" 2>&1; pnpm install --frozen-lockfile >>"$log" 2>&1 || pnpm install --no-frozen-lockfile >>"$log" 2>&1 ||
-    pnpm install --no-frozen-lockfile --ignore-scripts >>"$log" 2>&1 ;;
+    { grep -q ERR_PNPM_IGNORED_BUILDS "$log" && echo "retrying with --ignore-scripts" >>"$log" &&
+      find . -name node_modules -type d -prune -exec rm -rf {} + &&
+      pnpm install --no-frozen-lockfile --ignore-scripts >>"$log" 2>&1; } ;;
   bun.lock|bun.lockb) bun install --frozen-lockfile >>"$log" 2>&1 || bun install >>"$log" 2>&1 ;;
   package-lock.json) npm ci >>"$log" 2>&1 ;;
   yarn.lock) corepack enable >>"$log" 2>&1; yarn install --immutable >>"$log" 2>&1 || yarn install --frozen-lockfile >>"$log" 2>&1 ;;

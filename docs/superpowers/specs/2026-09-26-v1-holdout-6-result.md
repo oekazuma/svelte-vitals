@@ -56,7 +56,7 @@ nothing there to follow.
 Three apps failed to install, two of them (atmo-social, lms) because pnpm 11+ fails an install whose
 dependencies have build scripts nobody approved (`ERR_PNPM_IGNORED_BUILDS`). atmo-social is the one app
 whose head comes from an npm package without an adapter, so following installed packages was not
-exercised this round. The harness now retries such an install with `--ignore-scripts`, which installs
+exercised this round. The harness now retries only such an install, after clearing its `node_modules`, with `--ignore-scripts`, which installs
 the same packages without failing.
 
 ## C2 in detail
