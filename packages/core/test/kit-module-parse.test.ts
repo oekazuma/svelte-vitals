@@ -126,6 +126,21 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
     expect(writes('  const browser = true;\n  if (browser) user.set({});')).toEqual([
       { name: 'user', line: 5, via: 'set-call' }
     ]);
+    expect(writes("  const window = {};\n  if (typeof window === 'object') user.set({});")).toEqual([
+      { name: 'user', line: 5, via: 'set-call' }
+    ]);
+    expect(writes("  if (typeof window === 'object') user.set({});")).toEqual([]);
+    expect(writes("  if (typeof navigator === 'object') user.set({});")).toEqual([
+      { name: 'user', line: 4, via: 'set-call' }
+    ]);
+  });
+  it('does not take a module-level binding named like a browser global as a guard', () => {
+    const src =
+      "import { user } from '$lib/user';\nconst window = {};\n" +
+      "export async function load() {\n  if (typeof window === 'object') user.set({});\n}";
+    expect(facts(src, 'src/routes/+layout.ts').importedStateWrites).toEqual([
+      { name: 'user', line: 4, via: 'set-call' }
+    ]);
   });
   it('keeps the polarity of a guard derived from browser', () => {
     const src = (decl: string) =>
