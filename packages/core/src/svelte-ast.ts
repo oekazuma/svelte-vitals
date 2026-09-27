@@ -97,12 +97,29 @@ export function attrValue(attributes: AST.Attribute[], name: string): Value {
   return attr ? attrValueOf(attr) : 'absent';
 }
 
+// Line starts of the sources read most recently: a file is asked about once per element, and a
+// generated multi-megabyte component has tens of thousands of them.
+const lineStarts = new Map<string, number[]>();
+
 export function lineOf(source: string, offset: unknown): number {
   if (typeof offset !== 'number' || offset < 0) return 0;
-  let line = 1;
+  let starts = lineStarts.get(source);
+  if (!starts) {
+    starts = [0];
+    for (let i = source.indexOf('\n'); i !== -1; i = source.indexOf('\n', i + 1)) starts.push(i + 1);
+    if (lineStarts.size >= 8) lineStarts.delete(lineStarts.keys().next().value!);
+    lineStarts.set(source, starts);
+  }
+  // The line is the number of line starts at or before the offset.
   const end = Math.min(offset, source.length);
-  for (let i = 0; i < end; i++) if (source[i] === '\n') line++;
-  return line;
+  let lo = 0;
+  let hi = starts.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (starts[mid]! <= end) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
 }
 
 /**

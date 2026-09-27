@@ -99,6 +99,27 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
       "import { user } from '$lib/user';\nexport async function load({ fetch }) {\n  user.set(await (await fetch('/api/user')).json());\n}";
     expect(facts(src).importedStateWrites).toEqual([{ name: 'user', line: 3, via: 'set-call' }]);
   });
+  it('does not record a write only the browser reaches', () => {
+    const env = "import { browser } from '$app/environment';\nimport { user } from '$lib/user';\n";
+    const writes = (body: string) =>
+      facts(env + `export async function load({ url }) {\n${body}\n}`, 'src/routes/+layout.ts').importedStateWrites;
+    expect(writes('  if (!browser) return;\n  if (url.search) user.set({});')).toEqual([]);
+    expect(writes('  if (browser) user.set({});')).toEqual([]);
+    expect(writes('  browser && user.set({});')).toEqual([]);
+    expect(writes('  user.set({});\n  if (!browser) return;')).toEqual([{ name: 'user', line: 4, via: 'set-call' }]);
+    expect(writes('  if (url.search) user.set({});')).toEqual([{ name: 'user', line: 4, via: 'set-call' }]);
+    expect(writes('  if (!browser) { user.set({}); }')).toEqual([{ name: 'user', line: 4, via: 'set-call' }]);
+    expect(writes('  if (!browser) {} else { user.set({}); }')).toEqual([]);
+    expect(writes('  !browser ? user.set({}) : 0;')).toEqual([{ name: 'user', line: 4, via: 'set-call' }]);
+    expect(writes('  browser ? 0 : user.set({});')).toEqual([{ name: 'user', line: 4, via: 'set-call' }]);
+    expect(writes('  !browser || user.set({});')).toEqual([]);
+    expect(writes('  browser || user.set({});')).toEqual([{ name: 'user', line: 4, via: 'set-call' }]);
+    expect(writes('  if (browser) return;\n  user.set({});')).toEqual([{ name: 'user', line: 5, via: 'set-call' }]);
+    expect(writes("  if (typeof window === 'undefined') return;\n  user.set({});")).toEqual([]);
+    expect(writes("  if (typeof window === 'undefined') user.set({});")).toEqual([
+      { name: 'user', line: 4, via: 'set-call' }
+    ]);
+  });
   it("does not treat a namespace import's exported update/set function as a store write", () => {
     const src =
       "import * as gist from '$lib/db/gist.js';\nimport * as stores from '$lib/stores';\nexport async function PUT({ params }) {\n  await gist.update(params.id, {});\n  stores.user.set(null);\n}";

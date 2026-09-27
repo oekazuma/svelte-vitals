@@ -36,6 +36,15 @@ describe('findKitPathsBaseInSvelteConfig', () => {
     }
   });
 
+  it('ignores a base SvelteKit refuses to load (not starting with /, or ending with /)', () => {
+    for (const base of [`process.env.TAURI ? './' : ''`, `'./'`, `'/app/'`, `x ? 'app' : ''`]) {
+      expect(
+        findKitPathsBaseInSvelteConfig(`export default { kit: { paths: { base: ${base} } } };`),
+        base
+      ).toBeUndefined();
+    }
+  });
+
   it('keeps a computed base with a non-empty or non-literal outcome as present-but-unknown', () => {
     for (const base of [`x ? '' : '/repo'`, `x ? '' : y`, `process.env.BASE ?? ''`]) {
       expect(findKitPathsBaseInSvelteConfig(`export default { kit: { paths: { base: ${base} } } };`), base).toEqual({});

@@ -138,6 +138,17 @@ function jsonLdBindings(ast: AST.Root): Set<string> {
   return names;
 }
 
+/** `names` plus an `{#each}` item that is JSON-LD: the item of a list named for it (`{#each jsonLdScripts as script}`) or held in a JSON-LD binding. */
+function eachItemJsonLd(node: WalkNode, source: string, names: ReadonlySet<string>): ReadonlySet<string> {
+  if (node.type !== 'EachBlock' || node.context?.type !== 'Identifier') return names;
+  const list = node.expression;
+  // Svelte's AST carries offsets on every expression node; estree's types leave them out.
+  const { start, end } = list as typeof list & { start: number; end: number };
+  const named =
+    /json-?ld|ld\+json/i.test(source.slice(start, end)) || (list.type === 'Identifier' && names.has(list.name));
+  return named ? new Set([...names, node.context.name]) : names;
+}
+
 function tagsFromNodes(
   children: AST.Fragment['nodes'],
   source: string,
@@ -159,7 +170,7 @@ function tagsFromNodes(
             ? [node.pending, node.then, node.catch]
             : undefined;
     if (branches) {
-      tags.push(...conditionalTags(branches, source, bind, jsonLdNames));
+      tags.push(...conditionalTags(branches, source, bind, eachItemJsonLd(node, source, jsonLdNames)));
       continue;
     }
     // Outside `<svelte:head>` Svelte parses `<title>` as a regular element: the top level of a
@@ -286,16 +297,16 @@ function bodyJsonLd(fragment: AST.Fragment, source: string, jsonLdNames: Readonl
     for (const key of CHILD_NODE_KEYS) if (key in node) findRenders(childOf(node, key));
   };
   findRenders(fragment);
-  const visit = (node: WalkNode | WalkNode[] | null | undefined, nested: boolean): void => {
+  const visit = (node: WalkNode | WalkNode[] | null | undefined, nested: boolean, names: ReadonlySet<string>): void => {
     if (Array.isArray(node)) {
-      for (const child of node) visit(child, nested);
+      for (const child of node) visit(child, nested, names);
       return;
     }
     if (!node || typeof node !== 'object' || node.type === 'SvelteHead') return;
     if (node.type === 'SnippetBlock' && !rendered.has(node.expression.name)) return;
     if (node.type === 'Component' || node.type === 'SvelteComponent') {
       // A snippet in a component's tag is a prop the component renders.
-      for (const child of node.fragment.nodes) visit(child.type === 'SnippetBlock' ? child.body : child, true);
+      for (const child of node.fragment.nodes) visit(child.type === 'SnippetBlock' ? child.body : child, true, names);
       return;
     }
     if (
@@ -303,15 +314,17 @@ function bodyJsonLd(fragment: AST.Fragment, source: string, jsonLdNames: Readonl
       node.type === 'SvelteElement' ||
       (node.type === 'RegularElement' && node.name === 'script')
     ) {
-      for (const tag of tagsFromNodes([node], source, undefined, jsonLdNames)) {
+      for (const tag of tagsFromNodes([node], source, undefined, names)) {
         if (tag.kind !== 'jsonld') continue;
         tags.push(nested ? { kind: 'jsonld', value: 'dynamic' } : tag);
       }
       if (node.type !== 'SvelteElement') return;
     }
-    for (const key of CHILD_NODE_KEYS) if (key in node) visit(childOf(node, key), nested || node.type !== 'Fragment');
+    const inner = node.type === 'EachBlock' ? eachItemJsonLd(node, source, names) : names;
+    for (const key of CHILD_NODE_KEYS)
+      if (key in node) visit(childOf(node, key), nested || node.type !== 'Fragment', inner);
   };
-  visit(fragment.nodes as WalkNode[], false);
+  visit(fragment.nodes as WalkNode[], false, jsonLdNames);
   return tags;
 }
 
@@ -401,7 +414,10 @@ function literalArgs(attributes: AST.Component['attributes']): PropArgs {
  */
 export interface PropGate {
   prop: string;
-  equals?: string | number | boolean | null;
+  /** `{#if prop}`, `prop === x`, `typeof prop === 't'`, `prop.length > n` (and the negations). */
+  kind: 'truthy' | 'equals' | 'typeof' | 'length';
+  operand?: string | number | boolean | null;
+  op?: string;
   negate: boolean;
 }
 
@@ -475,18 +491,44 @@ function propGate(
     n.type === 'Identifier' && n.name && !reassigned.has(n.name) ? props.get(n.name) : undefined;
   if (test.type === 'Identifier') {
     const prop = propOf(test);
-    return prop === undefined ? undefined : { prop, negate: false };
+    return prop === undefined ? undefined : { prop, kind: 'truthy', negate: false };
   }
   if (test.type === 'UnaryExpression' && test.operator === '!') {
     const prop = propOf(test.argument);
-    return prop === undefined ? undefined : { prop, negate: true };
+    return prop === undefined ? undefined : { prop, kind: 'truthy', negate: true };
   }
-  if (test.type === 'BinaryExpression' && (test.operator === '===' || test.operator === '!==')) {
-    const [id, lit] = test.left.type === 'Literal' ? [test.right, test.left] : [test.left, test.right];
-    const prop = propOf(id);
-    const value = literalValue(lit);
-    if (prop === undefined || value === 'unknown') return undefined;
-    return { prop, equals: value.value, negate: test.operator === '!==' };
+  if (test.type !== 'BinaryExpression' || test.left.type === 'PrivateIdentifier') return undefined;
+  const [side, lit] = test.left.type === 'Literal' ? [test.right, test.left] : [test.left, test.right];
+  const value = literalValue(lit);
+  if (value === 'unknown') return undefined;
+  const strict = test.operator === '===' || test.operator === '!==';
+  // `typeof prop === 'string'`
+  if (strict && side.type === 'UnaryExpression' && side.operator === 'typeof' && typeof value.value === 'string') {
+    const prop = propOf(side.argument);
+    return prop === undefined
+      ? undefined
+      : { prop, kind: 'typeof', operand: value.value, negate: test.operator === '!==' };
+  }
+  // `prop.length > 0`, with the literal on the right.
+  if (
+    side === test.left &&
+    side.type === 'MemberExpression' &&
+    !side.computed &&
+    side.property.type === 'Identifier' &&
+    side.property.name === 'length' &&
+    typeof value.value === 'number' &&
+    ['>', '>=', '<', '<=', '===', '!=='].includes(test.operator)
+  ) {
+    const prop = propOf(side.object);
+    return prop === undefined
+      ? undefined
+      : { prop, kind: 'length', op: test.operator, operand: value.value, negate: false };
+  }
+  if (strict) {
+    const prop = propOf(side);
+    return prop === undefined
+      ? undefined
+      : { prop, kind: 'equals', operand: value.value, negate: test.operator === '!==' };
   }
   return undefined;
 }
@@ -505,19 +547,39 @@ export function decidedArms(parsed: ParsedFile, attributes: AST.Component['attri
     );
     if (passed.length > 1 || passed[0]?.type === 'BindDirective') continue;
     const attr = passed[0] as AST.Attribute | undefined;
-    let value: PropDefault | undefined;
-    // An absent prop is its default, or `undefined` without one.
-    if (!attr) value = parsed.propDefaults.get(gate.prop);
-    else if (attr.value === true) value = { value: true };
+    // What the prop holds: its literal value, or just its type for an object or template literal.
+    let held: { value: unknown } | { type: string } | 'unknown';
+    if (!attr) {
+      // An absent prop is its default, or `undefined` without one.
+      const d = parsed.propDefaults.get(gate.prop);
+      held = d === undefined ? { value: undefined } : d;
+    } else if (attr.value === true) held = { value: true };
     else if (Array.isArray(attr.value) && attr.value.every((n) => n.type === 'Text'))
-      value = { value: attr.value.map((n) => (n as AST.Text).data).join('') };
+      held = { value: attr.value.map((n) => (n as AST.Text).data).join('') };
     else {
       const tag = Array.isArray(attr.value) ? (attr.value.length === 1 ? attr.value[0] : undefined) : attr.value;
-      value = tag?.type === 'ExpressionTag' ? literalValue(tag.expression) : 'unknown';
+      const expr = tag?.type === 'ExpressionTag' ? tag.expression : undefined;
+      if (expr?.type === 'ObjectExpression' || expr?.type === 'ArrayExpression') held = { type: 'object' };
+      else if (expr?.type === 'TemplateLiteral') held = { type: 'string' };
+      else held = expr ? literalValue(expr) : 'unknown';
     }
-    if (value === 'unknown') continue;
-    const v = value?.value;
-    out.set(group, (gate.equals === undefined ? Boolean(v) : v === gate.equals) !== gate.negate);
+    if (held === 'unknown') continue;
+    const type = 'type' in held ? held.type : held.value === null ? 'object' : typeof held.value;
+    let holds: boolean;
+    if (gate.kind === 'typeof') holds = type === gate.operand;
+    else if (!('value' in held)) {
+      // An object is truthy and equals no literal; a template literal may be empty, so only its type is known.
+      if (gate.kind === 'length' || type !== 'object') continue;
+      holds = gate.kind === 'truthy';
+    } else if (gate.kind === 'truthy') holds = Boolean(held.value);
+    else if (gate.kind === 'equals') holds = held.value === gate.operand;
+    else {
+      if (typeof held.value !== 'string') continue;
+      const n = held.value.length;
+      const m = gate.operand as number;
+      holds = { '>': n > m, '>=': n >= m, '<': n < m, '<=': n <= m, '===': n === m, '!==': n !== m }[gate.op!]!;
+    }
+    out.set(group, holds !== gate.negate);
   }
   return out;
 }

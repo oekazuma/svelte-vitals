@@ -9,6 +9,7 @@ import {
   WALK_IGNORED_KEYS,
   collectSvelteLifecycleImports,
   matchLifecycleCall,
+  browserOnlyRanges,
   collectBrowserGlobalRefs,
   collectBrowserGuardImports,
   collectDerivedGuardBindings,
@@ -956,6 +957,11 @@ export function parseKitModuleFacts(
     }
   }
 
+  const envGuards = collectBrowserGuardImports(program);
+  const browserOnly = browserOnlyRanges(
+    program,
+    new Set([...envGuards, ...collectDerivedGuardBindings(program, envGuards)])
+  );
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       // security/server-module-state — module-scope let/var reassigned from inside a function body.
@@ -1046,6 +1052,8 @@ export function parseKitModuleFacts(
       };
       scanPatternTargets(n.left);
     }
+    // A write only the browser reaches changes that visitor's own copy of the module, never shared state.
+    if (write && browserOnly.some(([from, to]) => n.start >= from && n.start < to)) write = undefined;
     if (write) {
       if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
       else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
