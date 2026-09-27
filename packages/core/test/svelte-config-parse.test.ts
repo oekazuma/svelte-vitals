@@ -46,7 +46,7 @@ describe('findKitPathsBaseInSvelteConfig', () => {
   });
 
   it('keeps a computed base with a non-empty or non-literal outcome as present-but-unknown', () => {
-    for (const base of [`x ? '' : '/repo'`, `x ? '' : y`, `process.env.BASE ?? ''`]) {
+    for (const base of [`x ? '' : '/repo'`, `x ? './' : '/repo'`, `x ? '' : y`, `process.env.BASE ?? ''`]) {
       expect(findKitPathsBaseInSvelteConfig(`export default { kit: { paths: { base: ${base} } } };`), base).toEqual({});
     }
   });

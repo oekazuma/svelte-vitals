@@ -501,22 +501,28 @@ export function collectDerivedGuardBindings(program: Node, guards: Set<string>):
   return derived;
 }
 
+type Env = 'browser' | 'server';
+/** The environment a test being truthy, or falsy, proves. */
+type Implies = { truthy?: Env; falsy?: Env };
+
 /**
- * Which environment a test being truthy implies: `'browser'` for `browser`, `typeof window === 'object'`
- * or `typeof window !== 'undefined'`, `'server'` for their negations, else undefined. Unlike
- * `isBrowserGuardTest` this keeps the polarity, because a write the guard puts on the server side must
- * still be reported.
+ * Unlike `isBrowserGuardTest` this keeps the polarity and each outcome apart, because a write the
+ * guard leaves reachable on the server must still be reported: `!browser && url.search` being falsy
+ * proves nothing.
  */
-function guardSide(test: Node, guards: Set<string>): 'browser' | 'server' | undefined {
-  const flip = (side: 'browser' | 'server' | undefined) =>
-    side === 'browser' ? 'server' : side === 'server' ? 'browser' : undefined;
-  if (test?.type === 'Identifier') return guards.has(test.name) ? 'browser' : undefined;
-  if (test?.type === 'UnaryExpression' && test.operator === '!') return flip(guardSide(test.argument, guards));
-  if (test?.type === 'LogicalExpression') {
-    const sides = [guardSide(test.left, guards), guardSide(test.right, guards)];
-    // Truthy `a && b` means both hold, so one known side decides it; truthy `a || b` needs both to agree.
-    if (test.operator === '&&') return sides.find(Boolean);
-    return test.operator === '||' && sides[0] === sides[1] ? sides[0] : undefined;
+function guardImplies(test: Node, guards: Map<string, Implies>, shadowed: Set<string>): Implies {
+  if (test?.type === 'Identifier') return (!shadowed.has(test.name) && guards.get(test.name)) || {};
+  if (test?.type === 'UnaryExpression' && test.operator === '!') {
+    const inner = guardImplies(test.argument, guards, shadowed);
+    return { truthy: inner.falsy, falsy: inner.truthy };
+  }
+  if (test?.type === 'LogicalExpression' && (test.operator === '&&' || test.operator === '||')) {
+    const a = guardImplies(test.left, guards, shadowed);
+    const b = guardImplies(test.right, guards, shadowed);
+    const agree = (x?: Env, y?: Env) => (x === y ? x : undefined);
+    return test.operator === '&&'
+      ? { truthy: a.truthy ?? b.truthy, falsy: agree(a.falsy, b.falsy) }
+      : { truthy: agree(a.truthy, b.truthy), falsy: a.falsy ?? b.falsy };
   }
   if (test?.type === 'BinaryExpression' && ['===', '!==', '==', '!='].includes(test.operator)) {
     const sides = [test.left, test.right];
@@ -528,33 +534,46 @@ function guardSide(test: Node, guards: Set<string>): 'browser' | 'server' | unde
         BROWSER_GLOBALS.has(s.argument.name)
     );
     const type = sides.find((s: Node) => s?.type === 'Literal' && typeof s.value === 'string')?.value;
-    if (!hasTypeofGlobal || type === undefined) return undefined;
+    if (!hasTypeofGlobal || type === undefined) return {};
     const equal = test.operator === '===' || test.operator === '==';
-    if (type === 'undefined') return equal ? 'server' : 'browser';
-    return equal ? 'browser' : undefined;
+    if (type === 'undefined')
+      return equal ? { truthy: 'server', falsy: 'browser' } : { truthy: 'browser', falsy: 'server' };
+    return equal ? { truthy: 'browser' } : { falsy: 'browser' };
   }
-  return undefined;
+  return {};
 }
 
 /**
  * Source ranges only the browser reaches: the arm of an `if`/ternary its browser guard selects, the
  * right side of `browser && x` or `!browser || x`, and the statements after a terminating early return
- * on the server side (`if (!browser) return;`) in their block.
+ * the server always takes (`if (!browser) return;`) in their block. A top-level `const` derived from a
+ * guard (`const serverOnly = !browser`) carries its own polarity.
  */
-export function browserOnlyRanges(program: Node, guards: Set<string>): Array<[number, number]> {
+export function browserOnlyRanges(program: Node, envGuards: Set<string>): Array<[number, number]> {
+  const guards = new Map<string, Implies>([...envGuards].map((name) => [name, { truthy: 'browser', falsy: 'server' }]));
+  for (const stmt of program.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'VariableDeclaration' || decl.kind !== 'const') continue;
+    for (const d of decl.declarations ?? []) {
+      const implied = d?.id?.type === 'Identifier' && d.init ? guardImplies(d.init, guards, new Set()) : {};
+      if (implied.truthy || implied.falsy) guards.set(d.id.name, implied);
+    }
+  }
   const out: Array<[number, number]> = [];
   const push = (n: Node | null | undefined) => n && out.push([n.start, n.end]);
-  walkEstree(program, (n) => {
+  walkScoped(program, (n, shadowed) => {
+    const implies = (test: Node) => guardImplies(test, guards, shadowed);
     if (n.type === 'IfStatement' || n.type === 'ConditionalExpression') {
-      const side = guardSide(n.test, guards);
-      if (side) push(side === 'browser' ? n.consequent : n.alternate);
+      const implied = implies(n.test);
+      if (implied.truthy === 'browser') push(n.consequent);
+      if (implied.falsy === 'browser') push(n.alternate);
     } else if (n.type === 'LogicalExpression' && (n.operator === '&&' || n.operator === '||')) {
-      if (guardSide(n.left, guards) === (n.operator === '&&' ? 'browser' : 'server')) push(n.right);
+      if (implies(n.left)[n.operator === '&&' ? 'truthy' : 'falsy'] === 'browser') push(n.right);
     } else if (n.type === 'BlockStatement' || n.type === 'Program') {
       const body: Node[] = n.body ?? [];
       const at = body.findIndex(
         (stmt) =>
-          stmt?.type === 'IfStatement' && guardSide(stmt.test, guards) === 'server' && guardTerminates(stmt.consequent)
+          stmt?.type === 'IfStatement' && implies(stmt.test).falsy === 'browser' && guardTerminates(stmt.consequent)
       );
       if (at >= 0 && at < body.length - 1) out.push([body[at + 1].start, body[body.length - 1].end]);
     }

@@ -958,10 +958,7 @@ export function parseKitModuleFacts(
   }
 
   const envGuards = collectBrowserGuardImports(program);
-  const browserOnly = browserOnlyRanges(
-    program,
-    new Set([...envGuards, ...collectDerivedGuardBindings(program, envGuards)])
-  );
+  const browserOnly = browserOnlyRanges(program, envGuards);
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       // security/server-module-state — module-scope let/var reassigned from inside a function body.

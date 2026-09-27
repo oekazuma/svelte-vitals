@@ -119,6 +119,22 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
     expect(writes("  if (typeof window === 'undefined') user.set({});")).toEqual([
       { name: 'user', line: 4, via: 'set-call' }
     ]);
+    expect(writes('  if (!browser && url.search) return;\n  user.set({});')).toEqual([
+      { name: 'user', line: 5, via: 'set-call' }
+    ]);
+    expect(writes('  if (!browser || url.search) return;\n  user.set({});')).toEqual([]);
+    expect(writes('  const browser = true;\n  if (browser) user.set({});')).toEqual([
+      { name: 'user', line: 5, via: 'set-call' }
+    ]);
+  });
+  it('keeps the polarity of a guard derived from browser', () => {
+    const src = (decl: string) =>
+      "import { browser } from '$app/environment';\nimport { user } from '$lib/user';\n" +
+      `${decl}\nexport async function load() {\n  if (flag) user.set({});\n}`;
+    const writes = (decl: string) => facts(src(decl), 'src/routes/+layout.ts').importedStateWrites;
+    expect(writes('const flag = browser;')).toEqual([]);
+    expect(writes('const flag = !browser;')).toEqual([{ name: 'user', line: 5, via: 'set-call' }]);
+    expect(writes("const flag = typeof window === 'undefined';")).toEqual([{ name: 'user', line: 5, via: 'set-call' }]);
   });
   it("does not treat a namespace import's exported update/set function as a store write", () => {
     const src =
