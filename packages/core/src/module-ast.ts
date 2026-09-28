@@ -501,6 +501,97 @@ export function collectDerivedGuardBindings(program: Node, guards: Set<string>):
   return derived;
 }
 
+// Node defines `navigator`, and from 25 `localStorage`/`sessionStorage`, so `typeof` on those proves nothing.
+const DOM_ONLY_GLOBALS = new Set(['window', 'document']);
+
+type Env = 'browser' | 'server';
+/** The environment a test being truthy, or falsy, proves. */
+type Implies = { truthy?: Env; falsy?: Env };
+
+/**
+ * Unlike `isBrowserGuardTest` this keeps the polarity and each outcome apart, because a write the
+ * guard leaves reachable on the server must still be reported: `!browser && url.search` being falsy
+ * proves nothing.
+ */
+function guardImplies(test: Node, guards: Map<string, Implies>, shadowed: Set<string>): Implies {
+  if (test?.type === 'Identifier') return (!shadowed.has(test.name) && guards.get(test.name)) || {};
+  if (test?.type === 'UnaryExpression' && test.operator === '!') {
+    const inner = guardImplies(test.argument, guards, shadowed);
+    return { truthy: inner.falsy, falsy: inner.truthy };
+  }
+  if (test?.type === 'LogicalExpression' && (test.operator === '&&' || test.operator === '||')) {
+    const a = guardImplies(test.left, guards, shadowed);
+    const b = guardImplies(test.right, guards, shadowed);
+    const agree = (x?: Env, y?: Env) => (x === y ? x : undefined);
+    return test.operator === '&&'
+      ? { truthy: a.truthy ?? b.truthy, falsy: agree(a.falsy, b.falsy) }
+      : { truthy: agree(a.truthy, b.truthy), falsy: a.falsy ?? b.falsy };
+  }
+  if (test?.type === 'BinaryExpression' && ['===', '!==', '==', '!='].includes(test.operator)) {
+    const sides = [test.left, test.right];
+    const hasTypeofGlobal = sides.some(
+      (s: Node) =>
+        s?.type === 'UnaryExpression' &&
+        s.operator === 'typeof' &&
+        s.argument?.type === 'Identifier' &&
+        DOM_ONLY_GLOBALS.has(s.argument.name) &&
+        !shadowed.has(s.argument.name)
+    );
+    const type = sides.find((s: Node) => s?.type === 'Literal' && typeof s.value === 'string')?.value;
+    if (!hasTypeofGlobal || type === undefined) return {};
+    const equal = test.operator === '===' || test.operator === '==';
+    if (type === 'undefined')
+      return equal ? { truthy: 'server', falsy: 'browser' } : { truthy: 'browser', falsy: 'server' };
+    return equal ? { truthy: 'browser' } : { falsy: 'browser' };
+  }
+  return {};
+}
+
+/**
+ * Source ranges only the browser reaches: the arm of an `if`/ternary its browser guard selects, the
+ * right side of `browser && x` or `!browser || x`, and the statements after a terminating early return
+ * the server always takes (`if (!browser) return;`) in their block. A top-level `const` derived from a
+ * guard (`const serverOnly = !browser`) carries its own polarity.
+ */
+export function browserOnlyRanges(program: Node, envGuards: Set<string>): Array<[number, number]> {
+  const guards = new Map<string, Implies>([...envGuards].map((name) => [name, { truthy: 'browser', falsy: 'server' }]));
+  const bound = collectProgramBindings(program);
+  for (const name of envGuards) bound.delete(name);
+  for (const stmt of program.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'VariableDeclaration' || decl.kind !== 'const') continue;
+    for (const d of decl.declarations ?? []) {
+      const implied = d?.id?.type === 'Identifier' && d.init ? guardImplies(d.init, guards, bound) : {};
+      if (implied.truthy || implied.falsy) guards.set(d.id.name, implied);
+    }
+  }
+  for (const name of guards.keys()) bound.delete(name);
+  const out: Array<[number, number]> = [];
+  const push = (n: Node | null | undefined) => n && out.push([n.start, n.end]);
+  walkScoped(
+    program,
+    (n, shadowed) => {
+      const implies = (test: Node) => guardImplies(test, guards, shadowed);
+      if (n.type === 'IfStatement' || n.type === 'ConditionalExpression') {
+        const implied = implies(n.test);
+        if (implied.truthy === 'browser') push(n.consequent);
+        if (implied.falsy === 'browser') push(n.alternate);
+      } else if (n.type === 'LogicalExpression' && (n.operator === '&&' || n.operator === '||')) {
+        if (implies(n.left)[n.operator === '&&' ? 'truthy' : 'falsy'] === 'browser') push(n.right);
+      } else if (n.type === 'BlockStatement' || n.type === 'Program') {
+        const body: Node[] = n.body ?? [];
+        const at = body.findIndex(
+          (stmt) =>
+            stmt?.type === 'IfStatement' && implies(stmt.test).falsy === 'browser' && guardTerminates(stmt.consequent)
+        );
+        if (at >= 0 && at < body.length - 1) out.push([body[at + 1].start, body[body.length - 1].end]);
+      }
+    },
+    bound
+  );
+  return out;
+}
+
 /**
  * Browser-global reads in code that executes when `program` (or a passed function body)
  * is evaluated (correctness/server-browser-global, correctness/instance-browser-global). Position-aware — only read positions match: never a

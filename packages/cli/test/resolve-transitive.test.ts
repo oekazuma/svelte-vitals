@@ -319,6 +319,11 @@ describe('resolveFileTags transitive headings (layer 3, issue #425)', () => {
     // A prop the component writes itself is never decided from outside.
     const toggled = `<script>let { open = false } = $props();</script><button onclick={() => (open = true)}>x</button>{#if open}<h1>Open</h1>{/if}`;
     expect(await levels('<Bar />', toggled)).toEqual([1]);
+    const shaped = `<script>let { title = '', heading } = $props();</script>{#if title.length > 0}<h1>{title}</h1>{/if}{#if typeof heading === 'string'}<h1>{heading}</h1>{:else}<h2>x</h2>{/if}`;
+    expect(await levels('<Bar />', shaped)).toEqual([2]);
+    expect(await levels('<Bar title="Certificates" heading={{ level: 2 }} />', shaped)).toEqual([1, 2]);
+    expect(await levels('<Bar heading="Hi" />', shaped)).toEqual([1]);
+    expect(await levels('<Bar title={`x`} />', shaped)).toEqual([1, 2]);
     const destructured = `<script>let { open = false, next } = $props(); $effect(() => { ({ open } = next); });</script>{#if open}<h1>Open</h1>{/if}`;
     expect(await levels('<Bar />', destructured)).toEqual([1]);
   });

@@ -21,19 +21,25 @@ export type ViteKitConfigResult =
   /** `sveltekit({…})` resolved. `base` is unset when the config declares no non-empty base. */
   | { kind: 'resolved'; base?: { value?: string } };
 
-/** Whether every branch of a `?:` / `||` / `&&` / `??` tree is the literal `''`. */
-function alwaysEmptyString(expr: Expression): boolean {
+// SvelteKit accepts `''` or a path that starts and does not end with `/`; a config holding anything
+// else fails to load, so no app is ever served under it.
+function isServedBase(value: unknown): value is string {
+  return typeof value === 'string' && value.startsWith('/') && !value.endsWith('/');
+}
+
+/** Whether no branch of a `?:` / `||` / `&&` / `??` tree is a literal base an app can be served under. */
+function neverABase(expr: Expression): boolean {
   const e = unwrapTs(expr);
-  if (e.type === 'Literal') return e.value === '';
-  if (e.type === 'ConditionalExpression') return alwaysEmptyString(e.consequent) && alwaysEmptyString(e.alternate);
-  if (e.type === 'LogicalExpression') return alwaysEmptyString(e.left) && alwaysEmptyString(e.right);
+  if (e.type === 'Literal') return !isServedBase(e.value);
+  if (e.type === 'ConditionalExpression') return neverABase(e.consequent) && neverABase(e.alternate);
+  if (e.type === 'LogicalExpression') return neverABase(e.left) && neverABase(e.right);
   return false;
 }
 
 /**
  * `paths.base` off a resolved Kit-config object: `{ value }` for a non-empty string literal,
  * `{}` for any other expression (base exists, value unknowable — the `dev ? '' : '/repo'`
- * deploy form), and undefined when absent or when every value it can take is the empty string.
+ * deploy form), and undefined when absent or when no value it can take is a base SvelteKit serves under.
  */
 function basePathOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpression>): { value?: string } | undefined {
   const paths = propOf(kitConfig, 'paths');
@@ -42,10 +48,8 @@ function basePathOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpress
   const base = propOf(pathsObj, 'base');
   if (!base) return undefined;
   const value = unwrapTs(base.value as Expression);
-  if (value.type === 'Literal') {
-    return typeof value.value === 'string' && value.value !== '' ? { value: value.value } : undefined;
-  }
-  return alwaysEmptyString(value) ? undefined : {};
+  if (value.type === 'Literal') return isServedBase(value.value) ? { value: value.value } : undefined;
+  return neverABase(value) ? undefined : {};
 }
 
 /** `kit.alias` and `kit.files.lib` as written, before Kit compiles them into ordered entries. */

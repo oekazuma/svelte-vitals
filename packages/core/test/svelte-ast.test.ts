@@ -124,6 +124,21 @@ describe('lineOf', () => {
     expect(lineOf('abc', undefined)).toBe(0);
     expect(lineOf('abc', -1)).toBe(0);
   });
+  it('counts the newlines before the offset for every offset, across more sources than it keeps indexed', () => {
+    const counted = (s: string, o: number) =>
+      1 + [...s.slice(0, Math.min(o, s.length))].filter((c) => c === '\n').length;
+    const sources = [
+      '',
+      'a',
+      '\n',
+      'a\nb',
+      '\n\n\n',
+      'ab\ncd\r\nef\n',
+      ...Array.from({ length: 12 }, (_, k) => `f${k}\n`.repeat(k + 2))
+    ];
+    for (let round = 0; round < 2; round++)
+      for (const s of sources) for (let o = 0; o <= s.length + 2; o++) expect(lineOf(s, o)).toBe(counted(s, o));
+  });
 });
 
 describe('parseSvelte', () => {

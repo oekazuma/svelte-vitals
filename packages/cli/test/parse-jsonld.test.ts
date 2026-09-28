@@ -97,6 +97,19 @@ describe('parse: JSON-LD outside <svelte:head>', () => {
     ]);
   });
 
+  it('reads the item of a list named for JSON-LD as JSON-LD, in <svelte:head> and in the body', () => {
+    const each = '{#each metadata.jsonLdScripts as script}{@html script}{/each}';
+    expect(parseHeadTags(head(each), 'x.svelte').filter((t) => t.kind === 'jsonld')).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+    expect(jsonld(`<script>let { metadata } = $props();</script>${each}`)).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+    expect(jsonld('<script>let { blocks } = $props();</script>{#each blocks as block}{@html block}{/each}')).toEqual(
+      []
+    );
+  });
+
   it('follows a binding only through a reference, not through a string that spells its name', () => {
     const src = (use: string) =>
       `<script>let { data } = $props(); const OPEN = '<scr' + 'ipt type="application/ld+json">'; const css = 'OPEN'; const ld = OPEN + JSON.stringify(data);</script>{@html ${use}}`;
