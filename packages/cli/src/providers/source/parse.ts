@@ -102,18 +102,12 @@ function jsonLdBindings(ast: AST.Root): Set<string> {
   const scan = (init: unknown) => {
     const refs = new Set<string>();
     const strings: string[] = [];
-    let calls = false;
     const visit = (node: unknown, skip = false): void => {
       if (Array.isArray(node)) return node.forEach((n) => visit(n));
       if (!node || typeof node !== 'object') return;
       const n = node as Node & { name?: string; value?: unknown; computed?: boolean };
       if (n.type === 'Identifier' && !skip && n.name) refs.add(n.name);
       if (n.type === 'Literal' && typeof n.value === 'string') strings.push(n.value);
-      if (n.type === 'CallExpression') {
-        const callee = n.callee as (Node & { name?: string; property?: { name?: string } }) | undefined;
-        const name = callee?.type === 'Identifier' ? callee.name : callee?.property?.name;
-        if (name && JSONLD_WORDS.test(name)) calls = true;
-      }
       if (n.type === 'TemplateElement')
         strings.push(String((n.value as { cooked?: string } | undefined)?.cooked ?? ''));
       for (const [key, value] of Object.entries(n)) {
@@ -125,7 +119,41 @@ function jsonLdBindings(ast: AST.Root): Set<string> {
       }
     };
     visit(init);
-    return { refs, opens: calls || strings.some((t) => /\btype\s*=\s*["']?application\/ld\+json/i.test(t)) };
+    return {
+      refs,
+      opens: producedByJsonLdCall(init) || strings.some((t) => /\btype\s*=\s*["']?application\/ld\+json/i.test(t))
+    };
+  };
+  // A call whose result is the value — the initializer itself, or through `$derived(…)`, `await`, a
+  // conditional's arms, string concatenation or a list's items — never an argument of another call.
+  const producedByJsonLdCall = (expr: unknown): boolean => {
+    const e = expr as (Node & Record<string, unknown>) | null | undefined;
+    switch (e?.type) {
+      case 'CallExpression': {
+        const callee = e.callee as (Node & { name?: string; property?: { name?: string } }) | undefined;
+        const name = callee?.type === 'Identifier' ? callee.name : callee?.property?.name;
+        if (name === '$derived') return producedByJsonLdCall((e.arguments as unknown[])[0]);
+        return !!name && JSONLD_WORDS.test(name);
+      }
+      case 'AwaitExpression':
+        return producedByJsonLdCall(e.argument);
+      case 'TSAsExpression':
+      case 'TSSatisfiesExpression':
+      case 'TSNonNullExpression':
+        return producedByJsonLdCall(e.expression);
+      case 'ConditionalExpression':
+        return producedByJsonLdCall(e.consequent) || producedByJsonLdCall(e.alternate);
+      case 'LogicalExpression':
+        return producedByJsonLdCall(e.left) || producedByJsonLdCall(e.right);
+      case 'BinaryExpression':
+        return e.operator === '+' && (producedByJsonLdCall(e.left) || producedByJsonLdCall(e.right));
+      case 'TemplateLiteral':
+        return (e.expressions as unknown[]).some(producedByJsonLdCall);
+      case 'ArrayExpression':
+        return (e.elements as unknown[]).some(producedByJsonLdCall);
+      default:
+        return false;
+    }
   };
   const inits = new Map<string, ReturnType<typeof scan>>();
   for (const script of [ast.module, ast.instance]) {

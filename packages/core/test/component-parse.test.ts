@@ -25,7 +25,15 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
       ).map((b) => b.hasKey)
     ).toEqual([true]);
     expect(
+      blocks(
+        script('const xs = [1, 2]; function add(xs) { xs.push(3); xs[0] = 0; }', '{#each xs as x}<i>{x}</i>{/each}')
+      )
+    ).toEqual([]);
+    expect(
       blocks(script('const n = [1, 3, 7]; function grow() { n = [...n, 1]; }', '{#each n as d}<i>{d}</i>{/each}'))
+    ).toHaveLength(1);
+    expect(
+      blocks(script('const xs = [1, 2]; function add() { xs.push(3); }', '{#each xs as x}<i>{x}</i>{/each}'))
     ).toHaveLength(1);
     // A type position (`typeof examples`) is erased and cannot change the list.
     expect(

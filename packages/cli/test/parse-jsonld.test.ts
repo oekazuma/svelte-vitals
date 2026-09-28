@@ -45,7 +45,7 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
   });
 
   it('reads a binding a function named for JSON-LD builds, and a list named for structured data', () => {
-    const src = `<script>import { jsonLd } from '$lib/seo'; const siteLd = jsonLd({ name: 'x' }); const css = toCss({});</script>`;
+    const src = `<script>import { jsonLd } from '$lib/seo'; const siteLd = $derived(jsonLd({ name: 'x' })); const css = toCss({ id: jsonLdId(1) });</script>`;
     expect(parseHeadTags(src + head('{@html siteLd}'), 'x.svelte').filter((t) => t.kind === 'jsonld')).toEqual([
       { kind: 'jsonld', value: 'dynamic' }
     ]);
