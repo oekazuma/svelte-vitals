@@ -15,6 +15,18 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
       )
     ).toEqual([]);
     expect(blocks(script("const days = ['Mo', 'Tu'];", '{#each days as d, i (i)}<i>{d}</i>{/each}'))).toEqual([]);
+    // A parameter or an each item of the same name is a different binding.
+    expect(
+      blocks(
+        script(
+          'const n = [1, 3, 7]; let t = 0; const pick = n[t]; function step(arr, n) { return arr.slice(n); }',
+          '{#each n as d}<i>{d}</i>{/each}{#each names as n (n)}<b>{n}</b>{/each}'
+        )
+      ).map((b) => b.hasKey)
+    ).toEqual([true]);
+    expect(
+      blocks(script('const n = [1, 3, 7]; function grow() { n = [...n, 1]; }', '{#each n as d}<i>{d}</i>{/each}'))
+    ).toHaveLength(1);
     // A type position (`typeof examples`) is erased and cannot change the list.
     expect(
       blocks(

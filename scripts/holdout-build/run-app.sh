@@ -74,9 +74,10 @@ node -e 'const p=require("./package.json");for(const d of Object.values({...p.de
 first_look installed
 cfg=""; for e in ts mts js mjs; do [ -f "vite.config.$e" ] && cfg="vite.config.$e" && break; done
 [ -n "$cfg" ] || { echo "no vite.config" >>"$log"; result wrap failed; exit 0; }
+# The import names the extension: esbuild, which bundles the config, does not try `.mjs` or `.mts`.
 ext="${cfg##*.}"; mv "$cfg" "vite.config.orig.$ext"
 cat >"$cfg" <<CFG
-import * as orig from './vite.config.orig';
+import * as orig from './vite.config.orig.$ext';
 import { mergeConfig } from 'vite';
 import { svelteVitals } from '@svelte-vitals/vite';
 export default async (env) => {

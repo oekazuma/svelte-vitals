@@ -312,11 +312,11 @@ function collectConstantLists(
   for (const root of roots) {
     walkEvalScope(
       root,
-      (n: Node) => {
+      (n: Node, shadowed: Set<string>) => {
         // Type positions are erased and can change nothing: `typeof X`, `(X: T) => void`.
         if (n.type.startsWith('TS') && !TS_VALUE_NODES.has(n.type)) return true;
         const name = listOf(n) ?? nsMember(n);
-        if (name && !safe.has(n)) unsafe.add(name);
+        if (name && !safe.has(n) && !shadowed.has(name.split('.')[0]!)) unsafe.add(name);
         return false;
       },
       new Set(),

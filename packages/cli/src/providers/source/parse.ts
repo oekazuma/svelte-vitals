@@ -87,10 +87,14 @@ function conditionalTags(
 /** Rewrites an element's attributes before they are read (binds prop references to call-site literals). */
 type Bind = (attributes: AST.RegularElement['attributes']) => AST.RegularElement['attributes'];
 
+/** Wording that names JSON-LD — "structured data" is the name search engines give it. */
+const JSONLD_WORDS = /json-?ld|ld\+json|structured-?data/i;
+
 /**
  * Script bindings whose initializer spells out a JSON-LD block's opening tag (`` const ld = `<script
  * type="application/ld+json">…` ``, or `"<scr" + 'ipt type="application/ld+json">'`), or is built
- * from such a binding (`OPEN + JSON.stringify(data) + CLOSE`), so `{@html ld}` is read as one.
+ * from such a binding (`OPEN + JSON.stringify(data) + CLOSE`), or calls a function named for it
+ * (`jsonLd(data)`), so `{@html ld}` is read as one.
  */
 function jsonLdBindings(ast: AST.Root): Set<string> {
   type Node = { type: string; [key: string]: unknown };
@@ -98,12 +102,18 @@ function jsonLdBindings(ast: AST.Root): Set<string> {
   const scan = (init: unknown) => {
     const refs = new Set<string>();
     const strings: string[] = [];
+    let calls = false;
     const visit = (node: unknown, skip = false): void => {
       if (Array.isArray(node)) return node.forEach((n) => visit(n));
       if (!node || typeof node !== 'object') return;
       const n = node as Node & { name?: string; value?: unknown; computed?: boolean };
       if (n.type === 'Identifier' && !skip && n.name) refs.add(n.name);
       if (n.type === 'Literal' && typeof n.value === 'string') strings.push(n.value);
+      if (n.type === 'CallExpression') {
+        const callee = n.callee as (Node & { name?: string; property?: { name?: string } }) | undefined;
+        const name = callee?.type === 'Identifier' ? callee.name : callee?.property?.name;
+        if (name && JSONLD_WORDS.test(name)) calls = true;
+      }
       if (n.type === 'TemplateElement')
         strings.push(String((n.value as { cooked?: string } | undefined)?.cooked ?? ''));
       for (const [key, value] of Object.entries(n)) {
@@ -115,7 +125,7 @@ function jsonLdBindings(ast: AST.Root): Set<string> {
       }
     };
     visit(init);
-    return { refs, opens: strings.some((t) => /\btype\s*=\s*["']?application\/ld\+json/i.test(t)) };
+    return { refs, opens: calls || strings.some((t) => /\btype\s*=\s*["']?application\/ld\+json/i.test(t)) };
   };
   const inits = new Map<string, ReturnType<typeof scan>>();
   for (const script of [ast.module, ast.instance]) {
@@ -144,8 +154,7 @@ function eachItemJsonLd(node: WalkNode, source: string, names: ReadonlySet<strin
   const list = node.expression;
   // Svelte's AST carries offsets on every expression node; estree's types leave them out.
   const { start, end } = list as typeof list & { start: number; end: number };
-  const named =
-    /json-?ld|ld\+json/i.test(source.slice(start, end)) || (list.type === 'Identifier' && names.has(list.name));
+  const named = JSONLD_WORDS.test(source.slice(start, end)) || (list.type === 'Identifier' && names.has(list.name));
   return named ? new Set([...names, node.context.name]) : names;
 }
 
@@ -187,7 +196,7 @@ function tagsFromNodes(
       // the expression's wording, or the initializer of the binding it names, is the only signal;
       // other injections (`{@html css}`) stay unmatched.
       const named = node.expression.type === 'Identifier' && jsonLdNames.has(node.expression.name);
-      if (named || /json-?ld|ld\+json/i.test(source.slice(node.start, node.end)))
+      if (named || JSONLD_WORDS.test(source.slice(node.start, node.end)))
         tags.push({ kind: 'jsonld', value: 'dynamic' });
       continue;
     }
@@ -902,15 +911,28 @@ function collectHeadings(
     if (id === undefined) named.set(name, (id = holeIds++));
     return { group: id, branch: HOLE };
   };
+  const shared = new Map<WalkNode, BranchStep>();
   const walk = (node: WalkNode | WalkNode[] | null | undefined, path: BranchStep[], open: AST.SnippetBlock[]): void => {
     if (Array.isArray(node)) {
       for (const child of node) walk(child, path, open);
       return;
     }
     if (!node || typeof node !== 'object') return;
+    if (node.type === 'Fragment') {
+      const eligible = (b: AST.IfBlock) => !shared.has(b) && !propGate(b.test, props, reassigned);
+      for (const set of exclusiveIfs(node as AST.Fragment, source, eligible)) {
+        const group = groups++;
+        set.forEach((block, branch) => shared.set(block, { group, branch }));
+      }
+    }
     // Body headings only — a stray <h1> inside <svelte:head> is not a page heading.
     if (node.type === 'SvelteHead') return;
     if (node.type === 'SnippetBlock' && local(node.expression.name) === node) return;
+    const sibling = node.type === 'IfBlock' ? shared.get(node) : undefined;
+    if (sibling && node.type === 'IfBlock') {
+      walk(node.consequent, [...path, sibling], open);
+      return;
+    }
     if (node.type === 'IfBlock' || node.type === 'AwaitBlock') {
       const group = groups++;
       const gate = node.type === 'IfBlock' ? propGate(node.test, props, reassigned) : undefined;
@@ -967,6 +989,66 @@ function collectHeadings(
     if (local(snippet.expression.name) === snippet && !reached.has(snippet)) walk(snippet.body, [], [snippet]);
   }
   return { headings, dynamic, componentPaths, renderPaths, holes, groups, gates };
+}
+
+/**
+ * Sets of `{#if}` blocks without an `{:else}` in one arm (reached through elements only, so no
+ * block, `{#each}` or component lies between them) whose tests contradict each other on one
+ * expression (`{#if pitch}` / `{#if !pitch}`, `{#if step === 0}` / `{#if step === 1}`, also as a
+ * conjunct of `&&`). One render evaluates them against the same state, so at most one block of a
+ * set renders.
+ */
+function exclusiveIfs(fragment: AST.Fragment, source: string, eligible: (b: AST.IfBlock) => boolean): AST.IfBlock[][] {
+  type Expr = AST.IfBlock['test'];
+  const reference = (n: Expr): boolean =>
+    n.type === 'Identifier' || (n.type === 'MemberExpression' && !n.computed && reference(n.object as Expr));
+  const text = (n: Expr) => {
+    const { start, end } = n as Expr & { start: number; end: number };
+    return source.slice(start, end).replace(/\s+/g, '');
+  };
+  // What a test being truthy asserts: `t:` a reference's truthiness, `e:` its strict equality to a literal.
+  const facts = (test: Expr, out = new Map<string, string>()): Map<string, string> => {
+    if (test.type === 'LogicalExpression' && test.operator === '&&') {
+      facts(test.left, out);
+      facts(test.right, out);
+    } else if (test.type === 'UnaryExpression' && test.operator === '!' && reference(test.argument)) {
+      out.set(`t:${text(test.argument)}`, 'false');
+    } else if (reference(test)) {
+      out.set(`t:${text(test)}`, 'true');
+    } else if (test.type === 'BinaryExpression' && test.operator === '===' && test.left.type !== 'PrivateIdentifier') {
+      const [side, lit] = test.left.type === 'Literal' ? [test.right, test.left] : [test.left, test.right];
+      const value = literalValue(lit);
+      if (value !== 'unknown' && reference(side)) out.set(`e:${text(side)}`, JSON.stringify(value.value));
+    }
+    return out;
+  };
+  const blocks: AST.IfBlock[] = [];
+  const visit = (nodes: AST.Fragment['nodes']): void => {
+    for (const node of nodes) {
+      if (node.type === 'IfBlock' && !node.alternate && eligible(node)) blocks.push(node);
+      else if (node.type === 'RegularElement' || node.type === 'SvelteElement' || node.type === 'KeyBlock')
+        visit(node.fragment.nodes);
+    }
+  };
+  visit(fragment.nodes);
+  const byKey = new Map<string, Array<[AST.IfBlock, string]>>();
+  for (const block of blocks) {
+    for (const [key, value] of facts(block.test)) byKey.set(key, [...(byKey.get(key) ?? []), [block, value]]);
+  }
+  const taken = new Set<AST.IfBlock>();
+  const sets: AST.IfBlock[][] = [];
+  for (const entries of byKey.values()) {
+    const values = new Set<string>();
+    const set = entries.filter(([block, value]) => {
+      if (taken.has(block) || values.has(value)) return false;
+      values.add(value);
+      return true;
+    });
+    if (set.length < 2) continue;
+    for (const [block] of set) taken.add(block);
+    sets.push(set.map(([block]) => block));
+  }
+  return sets;
 }
 
 /** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */

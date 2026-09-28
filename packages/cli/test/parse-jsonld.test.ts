@@ -44,6 +44,17 @@ describe('parse: {@html} JSON-LD in <svelte:head>', () => {
     ]);
   });
 
+  it('reads a binding a function named for JSON-LD builds, and a list named for structured data', () => {
+    const src = `<script>import { jsonLd } from '$lib/seo'; const siteLd = jsonLd({ name: 'x' }); const css = toCss({});</script>`;
+    expect(parseHeadTags(src + head('{@html siteLd}'), 'x.svelte').filter((t) => t.kind === 'jsonld')).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+    expect(parseHeadTags(src + head('{@html css}'), 'x.svelte').filter((t) => t.kind === 'jsonld')).toEqual([]);
+    expect(jsonldTags('{#each structuredData as ld, i (i)}{@html ld}{/each}')).toEqual([
+      { kind: 'jsonld', value: 'dynamic' }
+    ]);
+  });
+
   it('leaves an unrelated {@html} injection unmatched', () => {
     expect(jsonldTags("{@html '<style>body{margin:0}</style>'}")).toEqual([]);
     expect(jsonldTags('{@html themeCss}')).toEqual([]);
