@@ -6,7 +6,7 @@ import type { BranchStep } from './a11y.js';
  * so seo/single-h1 never needs to know which mode produced them.
  */
 export interface HeadingInfo {
-  /** Heading level 1–6 (the `n` in <hn>). */
+  /** Heading level 1–6 (the `n` in <hn>), or 0 for a `<svelte:element>` whose level the source does not determine (source mode). */
   level: number;
   /** 1-based source line, or 0 if unknown (rendered mode does not track lines). */
   line: number;
@@ -18,6 +18,22 @@ export interface HeadingInfo {
    * above it. Group numbers are route-wide: each file instance has its own range.
    */
   path?: BranchStep[];
+  /**
+   * Its place in document order (source mode): the source offset of each placement from the route's
+   * outermost file down — a layout's `{@render children()}`, a component's tag, a snippet's
+   * `{@render}` — and last its own. Compared element by element (`documentOrder`); rendered-mode
+   * headings carry none and arrive in order.
+   */
+  order?: number[];
+}
+
+/** Sort comparator for `order`: element by element, a prefix first; headings without one keep their place. */
+export function documentOrder(a: HeadingInfo, b: HeadingInfo): number {
+  if (!a.order || !b.order) return 0;
+  for (let i = 0; i < Math.min(a.order.length, b.order.length); i++) {
+    if (a.order[i] !== b.order[i]) return a.order[i]! - b.order[i]!;
+  }
+  return a.order.length - b.order.length;
 }
 
 /** Two headings can never render together: different arms of one block. */
@@ -32,9 +48,8 @@ export interface ResolvedHeadings {
   headings: HeadingInfo[];
   /**
    * Headings found in child components rendered (transitively) by this route's
-   * chain files — source mode only; absent in rendered mode. Kept separate from
-   * `headings` because their position in document order is unknown: safe for
-   * counting (seo/single-h1), unusable for outline order (seo/heading-level-skip).
+   * chain files — source mode only; absent in rendered mode. Their `order` places
+   * them among `headings`.
    */
   componentHeadings?: HeadingInfo[];
   /**

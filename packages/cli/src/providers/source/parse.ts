@@ -381,6 +381,8 @@ export interface ComponentUse {
   path: BranchStep[];
   /** Snippet prop name (`children` for loose content) → the id of the `HOLE` step content passed in it sits below. */
   holes?: ReadonlyMap<string, number>;
+  /** Where it sits in the file's document order: its tag's offset, or the `{@render}` of the snippet holding it. */
+  offset: number;
 }
 
 /** The name a component tag renders: `<svelte:component this={X}>` renders whatever `X` holds, like `<X>`. */
@@ -401,7 +403,7 @@ function componentName(node: AST.Component | AST.SvelteComponent | AST.SvelteSel
 function collectComponents(
   node: WalkNode | WalkNode[] | null | undefined,
   acc: ComponentUse[],
-  heading: Pick<ReturnType<typeof collectHeadings>, 'componentPaths' | 'holes'>,
+  heading: Pick<ReturnType<typeof collectHeadings>, 'componentPaths' | 'componentOffsets' | 'holes'>,
   at: Pick<ComponentUse, 'conditional' | 'inHead'> = {}
 ): void {
   if (Array.isArray(node)) {
@@ -418,6 +420,7 @@ function collectComponents(
       hasSpread: attributes.some((a) => a.type === 'SpreadAttribute'),
       path: heading.componentPaths.get(node) ?? [],
       ...(holes ? { holes } : {}),
+      offset: heading.componentOffsets.get(node) ?? node.start,
       ...at
     });
   }
@@ -734,6 +737,8 @@ interface ParsedHeading {
   line: number;
   /** The `{#if}`/`{#await}` arms it sits in, `HOLE` steps included; absent when unconditional. */
   path?: BranchStep[];
+  /** Its place in the file's document order (`HeadingInfo.order`). */
+  order: number[];
 }
 
 /**
@@ -915,7 +920,9 @@ function collectHeadings(
   const headings: ParsedHeading[] = [];
   const gates = new Map<number, PropGate>();
   const componentPaths = new Map<WalkNode, BranchStep[]>();
+  const componentOffsets = new Map<WalkNode, number>();
   const renderPaths = new Map<string, BranchStep[]>();
+  const renderOffsets = new Map<string, number>();
   const holes = new Map<WalkNode, Map<string, number>>();
   const index = { snippets: new Map<string, AST.SnippetBlock>(), rendered: new Set<string>() };
   indexSnippets(fragment, index);
@@ -925,8 +932,15 @@ function collectHeadings(
   let dynamic = false;
   let groups = 0;
   let holeIds = 0;
-  const push = (level: number, node: WalkNode & { start: number }, path: BranchStep[]): void => {
-    headings.push({ level, line: lineOf(source, node.start), ...(path.length > 0 ? { path } : {}) });
+  // `{#if}` groups with an `{:else}`: how many arms, for marking those where every arm renders a heading.
+  const fullArms = new Map<number, number>();
+  // `at` is the `{@render}` a snippet body is read from: its content sits there in document order.
+  const push = (level: number, node: WalkNode & { start: number }, path: BranchStep[], at?: number): void => {
+    const order = at === undefined ? [node.start] : [at, node.start];
+    headings.push({ level, line: lineOf(source, node.start), ...(path.length > 0 ? { path } : {}), order });
+  };
+  const first = <K>(map: Map<K, number>, key: K, offset: number): void => {
+    if (!map.has(key)) map.set(key, offset);
   };
   const meet = <K>(map: Map<K, BranchStep[]>, key: K, path: BranchStep[]): void => {
     const prev = map.get(key);
@@ -940,9 +954,14 @@ function collectHeadings(
     return { group: id, branch: HOLE };
   };
   const shared = new Map<WalkNode, BranchStep>();
-  const walk = (node: WalkNode | WalkNode[] | null | undefined, path: BranchStep[], open: AST.SnippetBlock[]): void => {
+  const walk = (
+    node: WalkNode | WalkNode[] | null | undefined,
+    path: BranchStep[],
+    open: AST.SnippetBlock[],
+    at?: number
+  ): void => {
     if (Array.isArray(node)) {
-      for (const child of node) walk(child, path, open);
+      for (const child of node) walk(child, path, open, at);
       return;
     }
     if (!node || typeof node !== 'object') return;
@@ -958,7 +977,7 @@ function collectHeadings(
     if (node.type === 'SnippetBlock' && local(node.expression.name) === node) return;
     const sibling = node.type === 'IfBlock' ? shared.get(node) : undefined;
     if (sibling && node.type === 'IfBlock') {
-      walk(node.consequent, [...path, sibling], open);
+      walk(node.consequent, [...path, sibling], open, at);
       return;
     }
     if (node.type === 'IfBlock' || node.type === 'AwaitBlock') {
@@ -966,14 +985,22 @@ function collectHeadings(
       const gate = node.type === 'IfBlock' ? propGate(node.test, props, reassigned) : undefined;
       if (gate) gates.set(group, gate);
       const arms = node.type === 'IfBlock' ? ifArms(node) : [node.pending, node.then, node.catch];
-      arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }], open));
+      if (node.type === 'IfBlock' && endsInElse(node)) fullArms.set(group, arms.length);
+      arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }], open, at));
+      return;
+    }
+    if (node.type === 'EachBlock') {
+      // A list may be empty, so its body renders only sometimes: a block with one arm.
+      const group = groups++;
+      walk(node.body, [...path, { group, branch: 0, repeat: true }], open, at);
+      walk(node.fallback, path, open, at);
       return;
     }
     if (node.type === 'SvelteBoundary') {
       const group = groups++;
       for (const child of node.fragment.nodes) {
         const branch = child.type === 'SnippetBlock' ? (BOUNDARY_SNIPPET_ARMS.get(child.expression.name) ?? 0) : 0;
-        walk(child, [...path, { group, branch }], open);
+        walk(child, [...path, { group, branch }], open, at);
       }
       return;
     }
@@ -982,33 +1009,41 @@ function collectHeadings(
       const snippet = local(name);
       if (snippet && !open.includes(snippet)) {
         reached.add(snippet);
-        walk(snippet.body, path, [...open, snippet]);
-      } else if (!snippet && name !== undefined) meet(renderPaths, props.get(name) ?? name, path);
+        walk(snippet.body, path, [...open, snippet], at ?? node.start);
+      } else if (!snippet && name !== undefined) {
+        meet(renderPaths, props.get(name) ?? name, path);
+        first(renderOffsets, props.get(name) ?? name, at ?? node.start);
+      }
       return;
     }
     if (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) {
       meet(renderPaths, 'children', path);
+      first(renderOffsets, 'children', at ?? node.start);
     }
     if (node.type === 'Component' || node.type === 'SvelteComponent') {
       meet(componentPaths, node, path);
+      first(componentOffsets, node, at ?? node.start);
       for (const child of node.fragment.nodes) {
         const name = child.type === 'SnippetBlock' ? child.expression.name : 'children';
-        walk(child, [...path, holeOf(node, name)], open);
+        walk(child, [...path, holeOf(node, name)], open, at);
       }
       return;
     }
     if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
-      push(Number(node.name[1]), node, path);
+      push(Number(node.name[1]), node, path, at);
     } else if (node.type === 'SvelteElement') {
       const tags = svelteElementTags(node.tag);
       const level = tags ? headingLevelOf(tags) : undefined;
-      if (level !== undefined) push(level, node, path);
+      if (level !== undefined) push(level, node, path, at);
       // An unresolvable tag may be a heading; two different heading levels is a heading whose
       // level is unknown. A resolved non-heading set (`cond ? 'span' : 'em'`) is neither.
-      else if (!tags || tags.some((t) => HEADING_TAG.test(t.toLowerCase()))) dynamic = true;
+      else if (!tags || tags.some((t) => HEADING_TAG.test(t.toLowerCase()))) {
+        dynamic = true;
+        push(0, node, path, at);
+      }
     }
     for (const key of CHILD_NODE_KEYS) {
-      if (key in node) walk(childOf(node, key), path, open);
+      if (key in node) walk(childOf(node, key), path, open, at);
     }
   };
   walk(fragment, [], []);
@@ -1016,7 +1051,19 @@ function collectHeadings(
   for (const snippet of index.snippets.values()) {
     if (local(snippet.expression.name) === snippet && !reached.has(snippet)) walk(snippet.body, [], [snippet]);
   }
-  return { headings, dynamic, componentPaths, renderPaths, holes, groups, gates };
+  // A block whose every arm renders a heading directly (not below a further block) always renders one.
+  const armsWithHeading = new Map<number, Set<number>>();
+  for (const h of headings) {
+    const last = h.path?.at(-1);
+    if (last && fullArms.has(last.group))
+      armsWithHeading.set(last.group, (armsWithHeading.get(last.group) ?? new Set()).add(last.branch));
+  }
+  const covered = new Set([...armsWithHeading].filter(([g, b]) => b.size === fullArms.get(g)).map(([g]) => g));
+  if (covered.size > 0)
+    for (const h of headings)
+      if (h.path?.some((s) => covered.has(s.group)))
+        h.path = h.path.map((s) => (covered.has(s.group) ? { ...s, always: true as const } : s));
+  return { headings, dynamic, componentPaths, componentOffsets, renderPaths, renderOffsets, holes, groups, gates };
 }
 
 /**
@@ -1077,6 +1124,14 @@ function exclusiveIfs(fragment: AST.Fragment, source: string, eligible: (b: AST.
     sets.push(set.map(([block]) => block));
   }
   return sets;
+}
+
+/** Whether an `{#if}` chain ends in a plain `{:else}`, so one of its arms always renders. */
+function endsInElse(node: AST.IfBlock): boolean {
+  if (!node.alternate) return false;
+  const rest = node.alternate.nodes.filter((n) => n.type !== 'Text' || n.data.trim() !== '');
+  const chained = rest.length === 1 && rest[0]!.type === 'IfBlock' && rest[0]!.elseif ? rest[0] : undefined;
+  return chained ? endsInElse(chained) : true;
 }
 
 /** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */
@@ -1384,6 +1439,8 @@ export interface ParsedFile {
   headingGroups: number;
   /** Where each snippet prop renders (`children` also for `<slot />`), `HOLE` steps included. */
   renderPaths: ReadonlyMap<string, BranchStep[]>;
+  /** Where each snippet prop first renders in the file's document order. */
+  renderOffsets: ReadonlyMap<string, number>;
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
   dynamicHeading: boolean;
   /** Heading groups (`{#if}`s) a single prop decides, for `decidedArms`. */
@@ -1422,6 +1479,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
     headings: headingAcc.headings,
     headingGroups: headingAcc.groups,
     renderPaths: headingAcc.renderPaths,
+    renderOffsets: headingAcc.renderOffsets,
     dynamicHeading: headingAcc.dynamic,
     headingGates: headingAcc.gates,
     propDefaults: collectPropDefaults(ast),

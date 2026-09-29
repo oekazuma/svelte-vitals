@@ -230,7 +230,9 @@ describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
 
   it('reads a literal tag as the heading it resolves to', async () => {
     const headings = await headingsFor(`<main><svelte:element this={'h1'} class="sr-only">T</svelte:element></main>`);
-    expect(headings[0]!.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/routes/+page.svelte' }]);
+    expect(headings[0]!.headings).toEqual([
+      { level: 1, line: expect.any(Number), file: 'src/routes/+page.svelte', order: expect.any(Array) }
+    ]);
     expect(await check(headings)).toEqual(['Heading hierarchy']);
   });
 
@@ -248,7 +250,8 @@ describe('collectRoutes headings from <svelte:element> (issue #700)', () => {
 
   it('treats a conditional between two heading levels as undeterminable, not as either level', async () => {
     const headings = await headingsFor(`<svelte:element this={top ? 'h1' : 'h2'}>Title</svelte:element>`);
-    expect(headings[0]!.headings).toEqual([]);
+    // Level 0 holds its place in the outline without a level.
+    expect(headings[0]!.headings.map((h) => h.level)).toEqual([0]);
     expect(headings[0]!.dynamicHeading).toBe(true);
   });
 
@@ -311,7 +314,7 @@ describe('collectRoutes componentHeadings (issue #425)', () => {
     // No <h1> in the chain files themselves — it lives only in the child component.
     expect(route.headings).toEqual([]);
     expect(route.componentHeadings).toEqual([
-      { level: 1, line: expect.any(Number), file: 'src/lib/SiteHeader.svelte' }
+      { level: 1, line: expect.any(Number), file: 'src/lib/SiteHeader.svelte', order: expect.any(Array) }
     ]);
 
     const results = await seoSingleH1.check({ heads: [], headings, project: defaultProject, config: defaultConfig });
@@ -326,13 +329,71 @@ describe('collectRoutes componentHeadings (issue #425)', () => {
     });
     const { headings } = await collectRoutes(rt, '');
     const route = headings.find((h) => h.route === '/')!;
-    // Chain-file `headings` must stay component-free — it is seo/heading-level-skip's
-    // document-order input.
+    // Chain-file `headings` stay component-free, so seo/single-h1 counts the Card's <h1> once.
     expect(route.headings).toEqual([
-      { level: 2, line: expect.any(Number), file: 'src/routes/+layout.svelte' },
-      { level: 3, line: expect.any(Number), file: 'src/routes/+page.svelte' }
+      { level: 2, line: expect.any(Number), file: 'src/routes/+layout.svelte', order: expect.any(Array) },
+      { level: 3, line: expect.any(Number), file: 'src/routes/+page.svelte', order: expect.any(Array) }
     ]);
-    expect(route.componentHeadings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/Card.svelte' }]);
+    expect(route.componentHeadings).toEqual([
+      { level: 1, line: expect.any(Number), file: 'src/lib/Card.svelte', order: expect.any(Array) }
+    ]);
+  });
+});
+
+describe('collectRoutes: heading document order across layouts, components and snippets', () => {
+  const skips = async (files: Record<string, string>) => {
+    const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+    const results = await seoHeadingLevelSkip.check({
+      heads: [],
+      headings,
+      project: defaultProject,
+      config: defaultConfig
+    });
+    return results.filter((r) => r.message !== 'Heading order').map((r) => [r.message, r.location]);
+  };
+  const layout = `<script>let { children } = $props();</script><h1>Site</h1>{@render children()}`;
+  it('reads a component heading where the component renders', async () => {
+    const page = (body: string) => ({
+      'src/routes/+layout.svelte': layout,
+      'src/routes/+page.svelte': `<script>import Card from '$lib/Card.svelte';</script>${body}`,
+      'src/lib/Card.svelte': '<h2>Card</h2>'
+    });
+    expect(await skips(page('<Card /><h3>Page</h3>'))).toEqual([]);
+    expect(await skips(page('<h3>Page</h3><Card />'))).toEqual([
+      ['Heading level skipped (<h1> to <h3>)', 'src/routes/+page.svelte']
+    ]);
+  });
+  it('reads a component heading in an {#each} as rendering only when the list is not empty', async () => {
+    const page = `<script>import Card from '$lib/Card.svelte'; let { items } = $props();</script>{#each items as item}<Card />{/each}<h3>Page</h3>`;
+    expect(
+      await skips({
+        'src/routes/+layout.svelte': layout,
+        'src/routes/+page.svelte': page,
+        'src/lib/Card.svelte': '<h2>Item</h2>'
+      })
+    ).toEqual([['Heading level skipped (<h1> to <h3>)', 'src/routes/+page.svelte']]);
+  });
+  it('judges no skip right after a heading whose level the source does not determine', async () => {
+    const page = `<script>let { n } = $props();</script><h1>Page</h1><svelte:element this={\`h\${n}\`}>Sub</svelte:element><h3>Detail</h3>`;
+    expect(await skips({ 'src/routes/+page.svelte': page })).toEqual([]);
+  });
+  it('reads content passed to a component it cannot follow as rendering only sometimes', async () => {
+    const page = `<script>import Card from '$lib/Card.svelte'; import { Dialog } from 'bits-ui';</script>
+      <Dialog.Root><Dialog.Content><Card /></Dialog.Content></Dialog.Root><h3>Page</h3>`;
+    const files = {
+      'src/routes/+layout.svelte': layout,
+      'src/routes/+page.svelte': page,
+      'src/lib/Card.svelte': '<h2>In a dialog</h2>'
+    };
+    expect(await skips(files)).toEqual([['Heading level skipped (<h1> to <h3>)', 'src/routes/+page.svelte']]);
+  });
+  it("reads the page at the layout's children, and a snippet heading at its {@render}", async () => {
+    const footer = `<script>let { children } = $props();</script>{@render children()}<h3>Footer</h3>`;
+    expect(await skips({ 'src/routes/+layout.svelte': footer, 'src/routes/+page.svelte': '<h1>Page</h1>' })).toEqual([
+      ['Heading level skipped (<h1> to <h3>)', 'src/routes/+layout.svelte']
+    ]);
+    const page = `{#snippet intro()}<h2>Intro</h2>{/snippet}<h1>Page</h1>{@render intro()}`;
+    expect(await skips({ 'src/routes/+layout.svelte': footer, 'src/routes/+page.svelte': page })).toEqual([]);
   });
 });
 

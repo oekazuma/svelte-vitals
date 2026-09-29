@@ -172,7 +172,7 @@ describe('resolveFileTags through barrels, namespaces and runtime-chosen compone
     ]) {
       const r = await resolveWith(files, 'src/routes/+page.svelte');
       expect(r.tags).toEqual([{ kind: 'title', text: 'Seo', value: 'static' }]);
-      expect(r.headings).toEqual([{ level: 1, line: 1, file: 'src/lib/Seo.svelte' }]);
+      expect(r.headings).toEqual([{ level: 1, line: 1, file: 'src/lib/Seo.svelte', order: expect.any(Array) }]);
     }
   });
 
@@ -281,7 +281,9 @@ describe('resolveFileTags transitive headings (layer 3, issue #425)', () => {
       },
       'src/routes/+page.svelte'
     );
-    expect(r.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/SiteHeader.svelte' }]);
+    expect(r.headings).toEqual([
+      { level: 1, line: expect.any(Number), file: 'src/lib/SiteHeader.svelte', order: expect.any(Array) }
+    ]);
   });
 
   it('collects a heading at grandchild depth (page -> A -> B)', async () => {
@@ -293,7 +295,9 @@ describe('resolveFileTags transitive headings (layer 3, issue #425)', () => {
       },
       'src/routes/+page.svelte'
     );
-    expect(r.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/B.svelte' }]);
+    expect(r.headings).toEqual([
+      { level: 1, line: expect.any(Number), file: 'src/lib/B.svelte', order: expect.any(Array) }
+    ]);
   });
 
   it('drops the headings of an {#if} arm a prop the use decides never renders', async () => {
@@ -341,8 +345,8 @@ describe('resolveFileTags transitive headings (layer 3, issue #425)', () => {
     // (reached via B -> A) is already visited and stops before re-entering, so no
     // infinite recursion and no duplicate <h2>.
     expect(r.headings).toEqual([
-      { level: 2, line: expect.any(Number), file: 'src/lib/A.svelte' },
-      { level: 3, line: expect.any(Number), file: 'src/lib/B.svelte' }
+      { level: 2, line: expect.any(Number), file: 'src/lib/A.svelte', order: expect.any(Array) },
+      { level: 3, line: expect.any(Number), file: 'src/lib/B.svelte', order: expect.any(Array) }
     ]);
   });
 });
@@ -376,7 +380,9 @@ describe('resolveFileTags transitive with kit.alias (2608-TEST-05)', () => {
       ALIASES
     );
     expect(r.tags).toContainEqual({ kind: 'title', text: 'Deep aliased', value: 'static' });
-    expect(r.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/components/B.svelte' }]);
+    expect(r.headings).toEqual([
+      { level: 1, line: expect.any(Number), file: 'src/components/B.svelte', order: expect.any(Array) }
+    ]);
   });
 
   it('an alias whose target does not exist is skipped silently, same as an unresolvable $lib guess', async () => {
@@ -401,7 +407,9 @@ describe('resolveFileTags transitive with kit.alias (2608-TEST-05)', () => {
       'src/routes/+page.svelte',
       ALIASES
     );
-    expect(r.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/components/Header.svelte' }]);
+    expect(r.headings).toEqual([
+      { level: 1, line: expect.any(Number), file: 'src/components/Header.svelte', order: expect.any(Array) }
+    ]);
   });
 });
 

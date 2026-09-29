@@ -329,6 +329,9 @@ async function resolveRoute(
   // below its parent layout's `{@render children()}` arm.
   let headingGroup = 0;
   let childrenAt: BranchStep[] = [];
+  // Where the layouts above render their children, in document order (`HeadingInfo.order`).
+  let childrenOrder: number[] = [];
+  const ordered = (h: HeadingInfo): HeadingInfo => ({ ...h, order: [...childrenOrder, ...(h.order ?? [])] });
   const a11yCtx: ComposeCtx = {
     rt,
     cwd,
@@ -373,7 +376,7 @@ async function resolveRoute(
     }
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, headAliases);
     for (const heading of resolved.ownHeadings) {
-      headings.push(nestHeading(heading, childrenAt, headingGroup));
+      headings.push(ordered(nestHeading(heading, childrenAt, headingGroup)));
     }
     dynamicHeading = dynamicHeading || parsed.dynamicHeading;
 
@@ -398,11 +401,13 @@ async function resolveRoute(
       if (isPage) broadOwn = true;
       else broadInherited = true;
     }
-    componentHeadings.push(...resolved.headings.map((h) => nestHeading(h, childrenAt, headingGroup)));
+    componentHeadings.push(...resolved.headings.map((h) => ordered(nestHeading(h, childrenAt, headingGroup))));
     dynamicHeading = dynamicHeading || resolved.dynamicHeading;
     clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
     const childrenPath = resolved.renderPaths.get('children');
     if (childrenPath) childrenAt = [...childrenAt, ...offsetPath(childrenPath, headingGroup)];
+    const childrenOffset = resolved.renderOffsets.get('children');
+    if (childrenOffset !== undefined) childrenOrder = [...childrenOrder, childrenOffset];
     headingGroup += resolved.groupSpan;
   }
 

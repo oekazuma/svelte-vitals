@@ -134,9 +134,9 @@ describe('parse: heading capture (seo/single-h1)', () => {
     const paths = parseFile(src, 'x.svelte').headings.map((h) => h.path);
     expect(paths).toEqual([
       undefined,
-      [{ group: 0, branch: 0 }],
-      [{ group: 0, branch: 1 }],
-      [{ group: 0, branch: 2 }],
+      [{ group: 0, branch: 0, always: true }],
+      [{ group: 0, branch: 1, always: true }],
+      [{ group: 0, branch: 2, always: true }],
       [{ group: 1, branch: 0 }],
       [
         { group: 1, branch: 1 },
@@ -173,6 +173,31 @@ describe('parse: {#if} blocks of one arm whose tests contradict each other', () 
     expect(separate('{#if f()}<h1>A</h1>{/if}{#if !f()}<h1>B</h1>{/if}')).toBe(2);
     expect(separate('{#each xs as a}{#if a}<h1>A</h1>{/if}{/each}{#if !a}<h1>B</h1>{/if}')).toBe(2);
     expect(separate('<Card>{#if a}<h1>A</h1>{/if}</Card>{#if !a}<h1>B</h1>{/if}')).toBe(2);
+  });
+});
+
+describe('parse: blocks whose every arm renders a heading', () => {
+  const paths = (src: string) => parseFile(src, 'x.svelte').headings.map((h) => h.path);
+  it('marks the steps of a block with an {:else} whose every arm has a heading directly', () => {
+    expect(paths('{#if card}<h2>A</h2>{:else}<h2>B</h2>{/if}')).toEqual([
+      [{ group: 0, branch: 0, always: true }],
+      [{ group: 0, branch: 1, always: true }]
+    ]);
+  });
+  it('leaves a block with an empty arm, or no {:else}, or a heading only below a further block', () => {
+    expect(paths('{#if open}<h2>A</h2>{:else}<p></p>{/if}')).toEqual([[{ group: 0, branch: 0 }]]);
+    expect(paths('{#if open}<h2>A</h2>{/if}')).toEqual([[{ group: 0, branch: 0 }]]);
+    expect(paths('{#if a}<h2>A</h2>{:else if b}<h2>B</h2>{/if}')).toEqual([
+      [{ group: 0, branch: 0 }],
+      [{ group: 0, branch: 1 }]
+    ]);
+    expect(paths('{#if a}<h2>A</h2>{:else}{#if b}<h2>B</h2>{/if}{/if}')).toEqual([
+      [{ group: 0, branch: 0 }],
+      [
+        { group: 0, branch: 1 },
+        { group: 1, branch: 0 }
+      ]
+    ]);
   });
 });
 
@@ -220,10 +245,11 @@ describe('parse: heading arms beyond {#if}/{#await}', () => {
       '{#snippet wrapped()}<div>{@render hero()}</div>{/snippet}' +
       '{#snippet hero()}<h1>Hero</h1>{/snippet}';
     const headings = parseFile(src, 'x.svelte').headings.map((h) => [h.line, h.path]);
+    // Every arm renders an <h1>, so each step is marked `always`.
     expect(headings).toEqual([
-      [1, [{ group: 0, branch: 0 }]],
-      [1, [{ group: 0, branch: 1 }]],
-      [1, [{ group: 0, branch: 2 }]]
+      [1, [{ group: 0, branch: 0, always: true }]],
+      [1, [{ group: 0, branch: 1, always: true }]],
+      [1, [{ group: 0, branch: 2, always: true }]]
     ]);
   });
   it('still reads a snippet that is never rendered, or only from inside itself, once', () => {
