@@ -129,6 +129,9 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
       { name: 'count', line: 5, via: 'set-call' }
     ]);
     expect(writes(store, '    count.set(0);')).toEqual([{ name: 'count', line: 4, via: 'set-call' }]);
+    expect(writes(store, '    const bump = (n) => n + 1;\n    count.update(bump);')).toEqual([
+      { name: 'count', line: 5, via: 'set-call' }
+    ]);
   });
   it('does not record a write only the browser reaches', () => {
     const env = "import { browser } from '$app/environment';\nimport { user } from '$lib/user';\n";

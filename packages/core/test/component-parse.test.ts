@@ -47,6 +47,11 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     expect(
       blocks(script("const L = ['a', 'b']; (L as string[]).push('c');", '{#each L as l}<i>{l}</i>{/each}'))
     ).toHaveLength(1);
+    expect(
+      blocks(
+        script("const L = ['a', 'b']; function f() { (L as string[])[0] = 'c'; }", '{#each L as l}<i>{l}</i>{/each}')
+      )
+    ).toHaveLength(1);
     // A type position (`typeof examples`) is erased and cannot change the list.
     expect(
       blocks(

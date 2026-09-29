@@ -298,8 +298,11 @@ function collectConstantLists(
       }
       const target =
         n.type === 'AssignmentExpression' ? n.left : n.type === 'UpdateExpression' ? n.argument : undefined;
-      if (target?.type === 'MemberExpression' && listOf(rootObjectNode(target)))
-        unsafe.add(listOf(rootObjectNode(target))!);
+      // The root through member accesses and type assertions: `(xs as string[])[0] = v` writes `xs`.
+      let root = target;
+      while (root && (root.type === 'MemberExpression' || root.type.startsWith('TS')))
+        root = root.type === 'MemberExpression' ? root.object : root.expression;
+      if (target?.type === 'MemberExpression' && listOf(root)) unsafe.add(listOf(root)!);
       const called =
         n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' ? unwrapTs(n.callee.object) : undefined;
       const calledList = listOf(called) ?? nsMember(called);

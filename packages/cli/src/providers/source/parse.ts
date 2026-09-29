@@ -1097,13 +1097,9 @@ function exclusiveIfs(fragment: AST.Fragment, source: string, eligible: (b: AST.
     ) {
       const [side, lit] = test.left.type === 'Literal' ? [test.right, test.left] : [test.left, test.right];
       const value = literalValue(lit);
-      // Loose equality to two different literals of one type (`step == 0`, `step == 2`) cannot both hold;
-      // across types it can (`x == 0` and `x == ''`), so the key carries the literal's type.
-      if (
-        value !== 'unknown' &&
-        reference(side) &&
-        (test.operator === '===' || ['number', 'string'].includes(typeof value.value))
-      )
+      // Loose equality to two different numbers (`step == 0`, `step == 2`) cannot both hold; to strings
+      // it can (`x == '0'` and `x == '00'` for `x = 0`), and across types too, so the key carries the type.
+      if (value !== 'unknown' && reference(side) && (test.operator === '===' || typeof value.value === 'number'))
         out.set(`e:${typeof value.value}:${text(side)}`, JSON.stringify(value.value));
     }
     return out;

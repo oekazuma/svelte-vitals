@@ -14,7 +14,8 @@ import {
   collectBrowserGuardImports,
   collectDerivedGuardBindings,
   collectProgramBindings,
-  collectNamedImportAliases
+  collectNamedImportAliases,
+  walkEstree
 } from './module-ast.js';
 import { lineOf } from './svelte-ast.js';
 import { isRootRelativePath } from './base-path.js';
@@ -892,15 +893,14 @@ export function parseKitModuleFacts(
   // module when the import is aliased (`import { db as store }`).
   const importedNames = new Map<string, string>();
   const namespaceImports = new Set<string>();
-  // Functions this module declares at the top level, which a store's `update(fn)` may be handed by name.
+  // Names this module binds to a function anywhere (a handler's own `const bump = (n) => n + 1` too),
+  // which a store's `update(fn)` may be handed. Scope is ignored: a stray match only keeps a write reported.
   const localFunctions = new Set<string>();
-  for (const stmt of program.body ?? []) {
-    const decl = unwrapExport(stmt);
-    if (decl?.type === 'FunctionDeclaration' && decl.id?.name) localFunctions.add(decl.id.name);
-    if (decl?.type === 'VariableDeclaration')
-      for (const d of decl.declarations ?? [])
-        if (d?.id?.type === 'Identifier' && d.init && isFunctionNode(unwrapTs(d.init))) localFunctions.add(d.id.name);
-  }
+  walkEstree(program, (n) => {
+    if (n.type === 'FunctionDeclaration' && n.id?.name) localFunctions.add(n.id.name);
+    if (n.type === 'VariableDeclarator' && n.id?.type === 'Identifier' && n.init && isFunctionNode(unwrapTs(n.init)))
+      localFunctions.add(n.id.name);
+  });
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
     const spec = typeof stmt.source?.value === 'string' ? stmt.source.value : '';
