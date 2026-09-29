@@ -290,15 +290,18 @@ function collectConstantLists(
           if (el?.type === 'SpreadElement' && (listOf(el.argument) || nsMember(el.argument))) safe.add(el.argument);
       if (nsMember(n)) members.add(nsMember(n)!);
       if (n.type === 'MemberExpression') {
-        if (listOf(n.object) && !(n.computed && namespaces.has(n.object.name))) safe.add(n.object);
-        if (nsMember(n.object)) safe.add(n.object);
+        // A type assertion around the list (`(xs as readonly string[]).includes(v)`) reads it the same way.
+        const object = n.object ? unwrapTs(n.object) : n.object;
+        if (listOf(object) && !(n.computed && namespaces.has(object.name))) safe.add(object);
+        if (nsMember(object)) safe.add(object);
         if (!n.computed) safe.add(n.property);
       }
       const target =
         n.type === 'AssignmentExpression' ? n.left : n.type === 'UpdateExpression' ? n.argument : undefined;
       if (target?.type === 'MemberExpression' && listOf(rootObjectNode(target)))
         unsafe.add(listOf(rootObjectNode(target))!);
-      const called = n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' ? n.callee.object : undefined;
+      const called =
+        n.type === 'CallExpression' && n.callee?.type === 'MemberExpression' ? unwrapTs(n.callee.object) : undefined;
       const calledList = listOf(called) ?? nsMember(called);
       if (calledList) {
         const { computed, property } = n.callee;

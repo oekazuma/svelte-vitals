@@ -15,6 +15,7 @@ Not flagged:
 - Reads, other method calls (`logger.info(…)`), and writes to local variables.
 - A write only the browser reaches: after an early return such as `if (!browser) return;`, inside `if (browser)`, or on the right of `browser && …` (`browser` from `$app/environment`, or a `typeof window` check). In the browser each visitor has their own copy of the module. A write on the server side of the guard (`if (!browser) user.set(…)`) is still reported.
 - `.set()`/`.update()` on imports from installed packages.
+- `.update()` whose argument is not an updater function (a function literal, or a function the module declares): a store's `update` takes one, while a database client's takes a table or options (`prisma.post.update({ … })`, `db.update(table)`), wherever the client is imported from.
 - `.set()`/`.update()` on a **persistence client** resolving to `src/lib/server`: the directory entrypoint (`import { db } from '$lib/server'`) or anything under `src/lib/server/**`, such as Drizzle's `db.update(...).set(...)`. Those calls are persistence, not shared module state.
 
 The `src/lib/server` exemption applies to the **resolved** path, so it holds however the module is imported, via the `$lib/server/` alias or a relative path (`../../lib/server/db`). A specifier whose `..` segments escape the project root is conservatively never treated as repo-local state.

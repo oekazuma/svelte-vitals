@@ -1090,10 +1090,21 @@ function exclusiveIfs(fragment: AST.Fragment, source: string, eligible: (b: AST.
       out.set(`t:${text(test.argument)}`, 'false');
     } else if (reference(test)) {
       out.set(`t:${text(test)}`, 'true');
-    } else if (test.type === 'BinaryExpression' && test.operator === '===' && test.left.type !== 'PrivateIdentifier') {
+    } else if (
+      test.type === 'BinaryExpression' &&
+      (test.operator === '===' || test.operator === '==') &&
+      test.left.type !== 'PrivateIdentifier'
+    ) {
       const [side, lit] = test.left.type === 'Literal' ? [test.right, test.left] : [test.left, test.right];
       const value = literalValue(lit);
-      if (value !== 'unknown' && reference(side)) out.set(`e:${text(side)}`, JSON.stringify(value.value));
+      // Loose equality to two different literals of one type (`step == 0`, `step == 2`) cannot both hold;
+      // across types it can (`x == 0` and `x == ''`), so the key carries the literal's type.
+      if (
+        value !== 'unknown' &&
+        reference(side) &&
+        (test.operator === '===' || ['number', 'string'].includes(typeof value.value))
+      )
+        out.set(`e:${typeof value.value}:${text(side)}`, JSON.stringify(value.value));
     }
     return out;
   };

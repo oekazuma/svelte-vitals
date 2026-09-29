@@ -42,6 +42,12 @@ const HANDLER_NAMES = new Set([
   'fallback'
 ]);
 
+/** Whether `arg` can be a store updater: a function literal, or a function this module declares. */
+function isUpdaterArgument(arg: Node | undefined, localFunctions: ReadonlySet<string>): boolean {
+  const e = arg ? unwrapTs(arg) : undefined;
+  return isFunctionNode(e) || (e?.type === 'Identifier' && localFunctions.has(e.name));
+}
+
 function isFunctionNode(n: Node): boolean {
   return n?.type === 'FunctionDeclaration' || n?.type === 'FunctionExpression' || n?.type === 'ArrowFunctionExpression';
 }
@@ -886,6 +892,15 @@ export function parseKitModuleFacts(
   // module when the import is aliased (`import { db as store }`).
   const importedNames = new Map<string, string>();
   const namespaceImports = new Set<string>();
+  // Functions this module declares at the top level, which a store's `update(fn)` may be handed by name.
+  const localFunctions = new Set<string>();
+  for (const stmt of program.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type === 'FunctionDeclaration' && decl.id?.name) localFunctions.add(decl.id.name);
+    if (decl?.type === 'VariableDeclaration')
+      for (const d of decl.declarations ?? [])
+        if (d?.id?.type === 'Identifier' && d.init && isFunctionNode(unwrapTs(d.init))) localFunctions.add(d.id.name);
+  }
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
     const spec = typeof stmt.source?.value === 'string' ? stmt.source.value : '';
@@ -1003,7 +1018,10 @@ export function parseKitModuleFacts(
       // `ns.update(...)` on `import * as ns` calls the module's exported function; a store on it
       // would be `ns.store.update(...)`.
       const nsFunction = n.callee.object?.type === 'Identifier' && namespaceImports.has(n.callee.object.name);
-      if ((method === 'set' || method === 'update') && !nsFunction) {
+      // A store's `update` takes an updater; a database client's (`prisma.post.update({ … })`,
+      // `db.update(table)`) takes a table or options, and writes no module state.
+      const updater = method !== 'update' || isUpdaterArgument(n.arguments?.[0], localFunctions);
+      if ((method === 'set' || method === 'update') && !nsFunction && updater) {
         const r = importedRoot(n.callee.object);
         const spec = r ? importedSpecifiers.get(r)! : undefined;
         if (r && spec !== undefined) {
