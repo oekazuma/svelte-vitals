@@ -321,6 +321,7 @@ async function resolveRoute(
     inherited: { server: noKeys(), client: noKeys() }
   };
   const images: ImageInfo[] = [];
+  let imagesAt = 0;
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
   let dynamicHeading = false;
@@ -371,9 +372,10 @@ async function resolveRoute(
     if (parsed.a11y.slotPath) slotPrefix = [...slotPrefix, ...offsetPath(parsed.a11y.slotPath, base)];
     a11yNodes.push(...contributed);
 
-    for (const img of parsed.images) {
-      images.push({ ...img, file: rel });
-    }
+    // A layout's images after its `{@render children()}` come after the page's in document order.
+    const own = parsed.images.map((img) => ({ ...img, file: rel }));
+    images.splice(imagesAt, 0, ...own);
+    imagesAt += parsed.imagesBeforeChildren ?? own.length;
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, headAliases);
     for (const heading of resolved.ownHeadings) {
       headings.push(ordered(nestHeading(heading, childrenAt, headingGroup)));

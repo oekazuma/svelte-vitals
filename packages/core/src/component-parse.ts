@@ -459,6 +459,15 @@ function isEffectRootCall(node: Node): boolean {
  * `$state.raw(...)`, or `$state.frozen(...)` — but NOT readers like
  * `$state.snapshot(...)`, which would otherwise pollute the state-name set (correctness/effect-as-derived).
  */
+/** An absent argument or a literal no reader can write through: `0`, `'x'`, `null`, `-1`, `` `x` ``. */
+function isPrimitiveLiteral(node: Node): boolean {
+  if (node === undefined) return true;
+  if (node.type === 'Literal') return !('regex' in node);
+  if (node.type === 'TemplateLiteral') return node.expressions.length === 0;
+  if (node.type === 'UnaryExpression') return node.argument?.type === 'Literal';
+  return node.type === 'Identifier' && node.name === 'undefined';
+}
+
 function isStateDeclaration(node: Node): boolean {
   const c = node?.callee;
   if (c?.type === 'Identifier') return c.name === '$state';
@@ -470,14 +479,27 @@ function isStateDeclaration(node: Node): boolean {
 
 /** True when a function's body does nothing but assign to `$state` identifiers (correctness/effect-as-derived). */
 function bodyOnlyAssignsState(fn: Node, stateNames: Set<string>): boolean {
-  // Only a plain `=` is a derive candidate. Compound assignments (`+=`, `*=`, `??=`, …)
-  // read the previous value, so they accumulate rather than derive and can't become a
-  // self-referential `$derived` — flagging them would be a false positive.
+  // Only a plain `=` that does not read its own target is a derive candidate. Compound
+  // assignments (`+=`, `??=`, …) and `x = trim(x)` read the previous value, so they accumulate
+  // rather than derive and can't become a self-referential `$derived`.
+  const readsItself = (expr: Node): boolean => {
+    let reads = false;
+    // Names that are not value reads: `data.products`, `{ products: … }`, `typeof products`. Walked parent first.
+    const names = new Set<Node>();
+    walkEstree(expr.right, (n: Node) => {
+      if (n?.type === 'MemberExpression' && !n.computed) names.add(n.property);
+      if (n?.type === 'Property' && !n.computed && !n.shorthand) names.add(n.key);
+      if (n?.type === 'TSTypeQuery') names.add(n.exprName);
+      reads ||= n?.type === 'Identifier' && n.name === expr.left.name && !names.has(n);
+    });
+    return reads;
+  };
   const isStateAssign = (expr: Node): boolean =>
     expr?.type === 'AssignmentExpression' &&
     expr.operator === '=' &&
     expr.left?.type === 'Identifier' &&
-    stateNames.has(expr.left.name);
+    stateNames.has(expr.left.name) &&
+    !readsItself(expr);
   const body = fn?.body;
   if (!body) return false;
   if (body.type !== 'BlockStatement') return isStateAssign(body); // arrow with expression body
@@ -524,6 +546,13 @@ function collectStateWrites(
       set.add(kind);
     }
   };
+  const primitiveStates = new Set<string>();
+  walkEstree(root, (n: Node) => {
+    const init: Node = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
+    if (n?.id?.type === 'Identifier' && isStateDeclaration(init) && isPrimitiveLiteral(init.arguments?.[0])) {
+      primitiveStates.add(n.id.name);
+    }
+  });
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     if (n?.type === 'AssignmentExpression') {
@@ -560,6 +589,13 @@ function collectStateWrites(
         const r = rootObjectName(arg);
         if (r && stateNames.has(r) && !shadowed(r)) record(r, 'escape'); // f(x), f(x.a), f(...x)
       }
+    } else if ((n?.type === 'Property' || n?.type === 'MethodDefinition') && n.kind === 'get') {
+      // A getter hands out the state's reference like a call argument: `{ get list() { return list } }`.
+      // Over a state that holds a primitive until it is written, it hands out a copy.
+      walkEstree(n.value?.body, (m: Node) => {
+        const r = m?.type === 'ReturnStatement' ? rootObjectName(m.argument) : undefined;
+        if (r && stateNames.has(r) && !shadowed(r) && !primitiveStates.has(r)) record(r, 'escape');
+      });
     }
   };
   walkScoped(root, visit(stateNames));
