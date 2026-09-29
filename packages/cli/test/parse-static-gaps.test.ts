@@ -159,6 +159,10 @@ describe('parse: {#if} blocks of one arm whose tests contradict each other', () 
     expect(
       paths('{#if !a && mode.fit}<h1>A</h1>{/if}{#if mode.fit === false}<p></p>{/if}{#if a}<h1>B</h1>{/if}')
     ).toEqual([[{ group: 0, branch: 0 }], [{ group: 0, branch: 1 }]]);
+    expect(paths('{#if step == 0}<h1>A</h1>{/if}{#if step == 1}<p></p>{/if}{#if step == 2}<h1>B</h1>{/if}')).toEqual([
+      [{ group: 0, branch: 0 }],
+      [{ group: 0, branch: 2 }]
+    ]);
     expect(paths('{#if a}<h1>A</h1>{/if}<div><section>{#if !a}<h1>B</h1>{/if}</section></div>')).toEqual([
       [{ group: 0, branch: 0 }],
       [{ group: 0, branch: 1 }]
@@ -170,6 +174,8 @@ describe('parse: {#if} blocks of one arm whose tests contradict each other', () 
     expect(separate('{#if a}<h1>A</h1>{/if}{#if b}<h1>B</h1>{/if}')).toBe(2);
     expect(separate('{#if a}<h1>A</h1>{:else}<p></p>{/if}{#if !a}<h1>B</h1>{/if}')).toBe(2);
     expect(separate("{#if s === 'x'}<h1>A</h1>{/if}{#if s}<h1>B</h1>{/if}")).toBe(2);
+    expect(separate("{#if x == 0}<h1>A</h1>{/if}{#if x == ''}<h1>B</h1>{/if}")).toBe(2);
+    expect(separate("{#if x == '0'}<h1>A</h1>{/if}{#if x == '00'}<h1>B</h1>{/if}")).toBe(2);
     expect(separate('{#if f()}<h1>A</h1>{/if}{#if !f()}<h1>B</h1>{/if}')).toBe(2);
     expect(separate('{#each xs as a}{#if a}<h1>A</h1>{/if}{/each}{#if !a}<h1>B</h1>{/if}')).toBe(2);
     expect(separate('<Card>{#if a}<h1>A</h1>{/if}</Card>{#if !a}<h1>B</h1>{/if}')).toBe(2);

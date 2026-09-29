@@ -35,6 +35,23 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     expect(
       blocks(script('const xs = [1, 2]; function add() { xs.push(3); }', '{#each xs as x}<i>{x}</i>{/each}'))
     ).toHaveLength(1);
+    // A type assertion around the list is still a read; a mutating call through one is not.
+    expect(
+      blocks(
+        script(
+          "const L = ['a', 'b'] as const; const ok = (L as readonly string[]).includes('a');",
+          '{#each L as l}<i>{l}</i>{/each}'
+        )
+      )
+    ).toEqual([]);
+    expect(
+      blocks(script("const L = ['a', 'b']; (L as string[]).push('c');", '{#each L as l}<i>{l}</i>{/each}'))
+    ).toHaveLength(1);
+    expect(
+      blocks(
+        script("const L = ['a', 'b']; function f() { (L as string[])[0] = 'c'; }", '{#each L as l}<i>{l}</i>{/each}')
+      )
+    ).toHaveLength(1);
     // A type position (`typeof examples`) is erased and cannot change the list.
     expect(
       blocks(

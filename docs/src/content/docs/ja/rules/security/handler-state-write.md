@@ -17,6 +17,7 @@ universal な `+page.ts`/`+layout.ts` の load も対象です。SSR 時はサ�
 - 読み取り、その他のメソッド呼び出し（`logger.info(…)`）、ローカル変数への書き込み。
 - ブラウザでしか実行されない書き込み。`if (!browser) return;` のような早期 return の後、`if (browser)` の中、`browser && …` の右辺にあるものです（`browser` は `$app/environment` のもの、または `typeof window` の判定）。ブラウザでは、訪問者ごとにモジュールのコピーを持つためです。ガードのサーバー側にある書き込み（`if (!browser) user.set(…)`）は引き続き報告します。
 - インストール済みパッケージからの import への `.set()`/`.update()`。
+- 引数が更新関数（関数リテラル、またはモジュール内で関数に束縛した名前）でない `.update()`。ストアの `update` は更新関数を受け取りますが、データベースクライアントの `update` はテーブルやオプションを受け取ります（`prisma.post.update({ … })`、`db.update(table)`）。クライアントをどこから import していても同じです。
 - 解決先が `src/lib/server` になる **永続化クライアント**への `.set()`/`.update()`。ディレクトリエントリポイント（`import { db } from '$lib/server'`）と `src/lib/server/**` 配下が該当します。Drizzle の `db.update(...).set(...)` のような呼び出しは永続化であり、共有状態への書き込みではないためです。
 
 `src/lib/server` の除外は解決後のパスに対して働くので、`$lib/server/` alias 経由でも相対パス（`../../lib/server/db`）経由でも同じように適用されます。`..` でプロジェクトルートの外へ抜ける specifier は、保守的にリポジトリ内の共有状態としては扱いません。

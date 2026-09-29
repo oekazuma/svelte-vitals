@@ -113,6 +113,26 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
       "import { user } from '$lib/user';\nexport async function load({ fetch }) {\n  user.set(await (await fetch('/api/user')).json());\n}";
     expect(facts(src).importedStateWrites).toEqual([{ name: 'user', line: 3, via: 'set-call' }]);
   });
+  it("records a store's update(updater), not a database client's update(table or options)", () => {
+    const writes = (imp: string, body: string) =>
+      facts(
+        `${imp}\nexport const actions = {\n  default: async () => {\n${body}\n  }\n};`,
+        'src/routes/+page.server.ts'
+      ).importedStateWrites;
+    const prisma = "import { prisma } from '$lib/prisma';";
+    expect(writes(prisma, '    await prisma.project.update({ where: { id: 1 }, data: {} });')).toEqual([]);
+    const db = "import { db } from '$lib/infrastructure/db';\nimport { items } from '$lib/schema';";
+    expect(writes(db, '    await db.update(items).set({ expired: true });')).toEqual([]);
+    const store = "import { count } from '$lib/stores';";
+    expect(writes(store, '    count.update((n) => n + 1);')).toEqual([{ name: 'count', line: 4, via: 'set-call' }]);
+    expect(writes(`${store}\nconst bump = (n) => n + 1;`, '    count.update(bump);')).toEqual([
+      { name: 'count', line: 5, via: 'set-call' }
+    ]);
+    expect(writes(store, '    count.set(0);')).toEqual([{ name: 'count', line: 4, via: 'set-call' }]);
+    expect(writes(store, '    const bump = (n) => n + 1;\n    count.update(bump);')).toEqual([
+      { name: 'count', line: 5, via: 'set-call' }
+    ]);
+  });
   it('does not record a write only the browser reaches', () => {
     const env = "import { browser } from '$app/environment';\nimport { user } from '$lib/user';\n";
     const writes = (body: string) =>
