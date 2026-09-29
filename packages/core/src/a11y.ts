@@ -8,6 +8,8 @@ export interface BranchStep {
   branch: number;
   /** A heading renders here whichever arm is taken: every arm of the block has one, or a prop the use passes decides the arm. */
   always?: true;
+  /** The body of an `{#each}` (headings only): it may render any number of times, or none. */
+  repeat?: true;
 }
 
 /** Where a folded occurrence sits, for the finding location. */

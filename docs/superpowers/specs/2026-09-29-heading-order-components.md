@@ -12,7 +12,11 @@ false-positive class holdouts 4, 6 and 9 kept finding (a component's `<h2>` befo
 A child component's heading is placed in the outline and can be the heading before a route file's
 heading, but it is never the one reported, and only where it renders whenever that heading does: its
 `{#if}`/`{#await}` arm path must be contained in the flagged heading's. A heading in a closed dialog,
-drawer or menu therefore closes no gap.
+drawer or menu therefore closes no gap. An `{#each}` body is a one-arm block (the list may be empty). When the heading
+before sits in one arm of a block, every arm is a rendering: the last heading of each other arm is also
+compared, and the lowest level is the one the flagged heading is judged against — except when that
+heading repeats in an `{#each}` the flagged one is outside, where the arm of the last pass depends on the
+data (a list of typed sections, say) and only the nearest heading counts.
 
 ## Rejected: reporting a skip at a component's heading
 

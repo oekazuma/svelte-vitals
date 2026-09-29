@@ -39,14 +39,31 @@ export const seoHeadingLevelSkip: Rule = {
       for (let i = 1; i < headings.length && !skip; i++) {
         const h = headings[i]!;
         if (!own.has(h)) continue;
-        // The heading before it in a rendering that contains it: an arm exclusive with h's never is.
-        const prev = headings
+        // The headings before it in a rendering that contains it: an arm exclusive with h's never is.
+        const before = headings
           .slice(0, i)
-          .reverse()
-          .find((p) => !exclusiveHeadings(p, h) && (own.has(p) || rendersWith(p, h)));
+          .filter((p) => !exclusiveHeadings(p, h) && (own.has(p) || rendersWith(p, h)));
+        const prev = before.at(-1);
+        if (!prev) continue;
+        // Each other arm of a block `prev` sits in is a rendering too, ending on its own last heading —
+        // unless `prev` repeats in a loop `h` is outside: which arm the last pass takes is the data's.
+        const levels = [prev.level];
+        const arms = new Set<string>();
+        const looped = prev.path?.some((s) => s.repeat && !h.path?.some((t) => t.group === s.group));
+        for (let j = looped ? -1 : before.length - 2; j >= 0; j--) {
+          const q = before[j]!;
+          const step = q.path?.find((s) => prev.path?.some((t) => t.group === s.group && t.branch !== s.branch));
+          const arm = step && `${step.group}:${step.branch}`;
+          if (arm && !arms.has(arm)) {
+            arms.add(arm);
+            levels.push(q.level);
+          }
+        }
         // A heading of an undetermined level (0) neither skips nor sets the level the next one is judged against.
-        if (prev && prev.level > 0 && h.level > prev.level + 1)
-          skip = { level: h.level, prev: prev.level, line: h.line, file: h.file };
+        const known = levels.filter((level) => level > 0);
+        const lowest = Math.min(...known);
+        if (known.length === levels.length && h.level > lowest + 1)
+          skip = { level: h.level, prev: lowest, line: h.line, file: h.file };
       }
       out.push(
         skip

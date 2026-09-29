@@ -179,7 +179,7 @@ Measured on 139 apps, each pinned to a commit:
 - [gentleloop-labs/patterns/website](https://github.com/gentleloop-labs/patterns/tree/11fc0594dee2257f4697339bec5ae03433c45e18/website) (`11fc059`)
 - [0x5916/OpenCW/frontend](https://github.com/0x5916/OpenCW/tree/4b7f7b517d9b960dc7de2e1af057b3d5a01841dc/frontend) (`4b7f7b5`)
 
-59142 of 59142 corpus findings have a verdict.
+59143 of 59143 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision        | Design share    |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ---------------- | --------------- |
@@ -263,7 +263,7 @@ Measured on 139 apps, each pinned to a commit:
 | [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 2474            | 86   | 402 / 76 / 1996 / 0                   | 84% (402/478)    | 81% (1996/2474) |
 | [`seo/duplicate-description`](../../docs/src/content/docs/rules/seo/duplicate-description.md)                         | 57              | 16   | 52 / 0 / 5 / 0                        | 100% (52/52)     | 9% (5/57)       |
 | [`seo/duplicate-title`](../../docs/src/content/docs/rules/seo/duplicate-title.md)                                     | 63              | 34   | 16 / 0 / 47 / 0                       | 100% (16/16)     | 75% (47/63)     |
-| [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 434             | 72   | 409 / 25 / 0 / 0                      | 94% (409/434)    | 0% (0/434)      |
+| [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 435             | 72   | 412 / 23 / 0 / 0                      | 95% (412/435)    | 0% (0/435)      |
 | [`seo/hreflang`](../../docs/src/content/docs/rules/seo/hreflang.md)                                                   | 0               | 0    | —                                     | —                | —               |
 | [`seo/html-lang`](../../docs/src/content/docs/rules/seo/html-lang.md)                                                 | 4               | 4    | 3 / 0 / 1 / 0                         | 100% (3/3)       | 25% (1/4)       |
 | [`seo/image-alt`](../../docs/src/content/docs/rules/seo/image-alt.md)                                                 | 14              | 4    | 14 / 0 / 0 / 0                        | 100% (14/14)     | 0% (0/14)       |

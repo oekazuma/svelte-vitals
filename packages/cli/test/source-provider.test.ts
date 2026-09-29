@@ -363,6 +363,16 @@ describe('collectRoutes: heading document order across layouts, components and s
       ['Heading level skipped (<h1> to <h3>)', 'src/routes/+page.svelte']
     ]);
   });
+  it('reads a component heading in an {#each} as rendering only when the list is not empty', async () => {
+    const page = `<script>import Card from '$lib/Card.svelte'; let { items } = $props();</script>{#each items as item}<Card />{/each}<h3>Page</h3>`;
+    expect(
+      await skips({
+        'src/routes/+layout.svelte': layout,
+        'src/routes/+page.svelte': page,
+        'src/lib/Card.svelte': '<h2>Item</h2>'
+      })
+    ).toEqual([['Heading level skipped (<h1> to <h3>)', 'src/routes/+page.svelte']]);
+  });
   it('judges no skip right after a heading whose level the source does not determine', async () => {
     const page = `<script>let { n } = $props();</script><h1>Page</h1><svelte:element this={\`h\${n}\`}>Sub</svelte:element><h3>Detail</h3>`;
     expect(await skips({ 'src/routes/+page.svelte': page })).toEqual([]);

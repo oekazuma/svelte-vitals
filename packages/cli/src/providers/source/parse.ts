@@ -989,6 +989,13 @@ function collectHeadings(
       arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }], open, at));
       return;
     }
+    if (node.type === 'EachBlock') {
+      // A list may be empty, so its body renders only sometimes: a block with one arm.
+      const group = groups++;
+      walk(node.body, [...path, { group, branch: 0, repeat: true }], open, at);
+      walk(node.fallback, path, open, at);
+      return;
+    }
     if (node.type === 'SvelteBoundary') {
       const group = groups++;
       for (const child of node.fragment.nodes) {

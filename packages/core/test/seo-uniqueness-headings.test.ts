@@ -164,6 +164,43 @@ describe('seo/heading-level-skip heading order', () => {
       'Heading level skipped (<h1> to <h3>)'
     ]);
     expect(fails(await dialog([{ group: 0, branch: 0 }], [{ group: 0, branch: 0 }]))).toEqual([]);
+    // Each arm before it is a rendering: one ending on <h2> skips to the <h4> though the other ends on <h3>.
+    const armed = fails(
+      await seoHeadingLevelSkip.check(
+        headingsCtx([
+          {
+            route: '/r',
+            headings: [
+              at(1, [10]),
+              { ...at(2, [20]), path: [{ group: 0, branch: 0 }] },
+              { ...at(2, [30]), path: [{ group: 0, branch: 1 }] },
+              { ...at(3, [40]), path: [{ group: 0, branch: 1 }] },
+              at(4, [50])
+            ]
+          }
+        ])
+      )
+    );
+    expect(armed.map((r) => r.message)).toEqual(['Heading level skipped (<h2> to <h4>)']);
+    // Inside a loop the flagged heading is outside, the last pass decides the arm: only the nearest counts.
+    const loop = { group: 1, branch: 0, repeat: true as const };
+    const looped = fails(
+      await seoHeadingLevelSkip.check(
+        headingsCtx([
+          {
+            route: '/r',
+            headings: [
+              at(1, [10]),
+              { ...at(2, [20]), path: [loop, { group: 0, branch: 0 }] },
+              { ...at(2, [25]), path: [loop, { group: 0, branch: 1 }] },
+              { ...at(3, [30]), path: [loop, { group: 0, branch: 1 }] },
+              at(4, [50])
+            ]
+          }
+        ])
+      )
+    );
+    expect(looped).toEqual([]);
     // An arm marked `always` (every arm has a heading, or the use decides it) closes the gap too.
     expect(fails(await dialog([{ group: 0, branch: 0, always: true }]))).toEqual([]);
   });
