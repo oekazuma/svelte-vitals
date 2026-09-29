@@ -28,6 +28,20 @@ describe('parseKitModuleFacts — module-scope reassignments (security/server-mo
       { name: 'cached', line: 5, inHandler: true }
     ]);
   });
+  it('does not flag a reassignment only the browser reaches', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'let pathname = "";',
+      'export const load = async ({ url }) => {',
+      '  if (browser) {',
+      '    pathname = url.pathname;',
+      '  } else pathname = "/";',
+      '};'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+layout.ts').moduleStateReassignments).toEqual([
+      { name: 'pathname', line: 6, inHandler: true }
+    ]);
+  });
   it('flags a helper-function reassignment as inHandler: false', () => {
     const src = 'let last;\nfunction remember(v) {\n  last = v;\n}\nexport function load() {\n  remember(1);\n}';
     expect(facts(src).moduleStateReassignments).toEqual([{ name: 'last', line: 3, inHandler: false }]);

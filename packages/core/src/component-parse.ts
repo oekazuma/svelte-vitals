@@ -266,14 +266,22 @@ function collectConstantLists(
   const roots = [...programs, fragment];
   const listOf = (n: Node): string | undefined =>
     n?.type === 'Identifier' && candidates.has(n.name) ? n.name : undefined;
+  const outerList = listOf;
   // `ns.xs` of a namespace import is the list, held to the uses a plain `xs` is under the key `ns.xs`.
   const nsMember = (n: Node): string | undefined =>
     n?.type === 'MemberExpression' && !n.computed && namespaces.has(listOf(n.object)!)
       ? `${n.object.name}.${n.property.name}`
       : undefined;
+  const outerMember = nsMember;
   const members = new Set<string>();
   for (const root of roots) {
-    walkEstree(root, (n: Node) => {
+    walkScoped(root, (n: Node, shadowed: Set<string>) => {
+      // A same-named parameter or item is a different binding: its reads and writes are not the list's.
+      const listOf = (x: Node) => {
+        const name = outerList(x);
+        return name && !shadowed.has(name) ? name : undefined;
+      };
+      const nsMember = (x: Node) => (x?.type === 'MemberExpression' && listOf(x.object) ? outerMember(x) : undefined);
       if (n.type === 'EachBlock' && (listOf(n.expression) || nsMember(n.expression))) safe.add(n.expression);
       if (n.type === 'ForOfStatement' && (listOf(n.right) || nsMember(n.right))) safe.add(n.right);
       // `[...xs]` copies the list into a new array; the copy cannot reorder `xs`.
@@ -312,11 +320,11 @@ function collectConstantLists(
   for (const root of roots) {
     walkEvalScope(
       root,
-      (n: Node) => {
+      (n: Node, shadowed: Set<string>) => {
         // Type positions are erased and can change nothing: `typeof X`, `(X: T) => void`.
         if (n.type.startsWith('TS') && !TS_VALUE_NODES.has(n.type)) return true;
         const name = listOf(n) ?? nsMember(n);
-        if (name && !safe.has(n)) unsafe.add(name);
+        if (name && !safe.has(n) && !shadowed.has(name.split('.')[0]!)) unsafe.add(name);
         return false;
       },
       new Set(),

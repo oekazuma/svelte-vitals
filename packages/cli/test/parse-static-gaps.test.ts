@@ -146,6 +146,36 @@ describe('parse: heading capture (seo/single-h1)', () => {
   });
 });
 
+describe('parse: {#if} blocks of one arm whose tests contradict each other', () => {
+  const paths = (src: string) => parseFile(src, 'x.svelte').headings.map((h) => h.path);
+  it('reads them as arms of one block', () => {
+    expect(paths('{#if pitch}<h1>A</h1>{/if}<p></p>{#if !pitch}<h1>B</h1>{/if}')).toEqual([
+      [{ group: 0, branch: 0 }],
+      [{ group: 0, branch: 1 }]
+    ]);
+    expect(
+      paths('{#if step === 0}<h1>A</h1>{/if}{#if step === 1}<h1>B</h1>{/if}{#if step === 2}<h1>C</h1>{/if}')
+    ).toEqual([[{ group: 0, branch: 0 }], [{ group: 0, branch: 1 }], [{ group: 0, branch: 2 }]]);
+    expect(
+      paths('{#if !a && mode.fit}<h1>A</h1>{/if}{#if mode.fit === false}<p></p>{/if}{#if a}<h1>B</h1>{/if}')
+    ).toEqual([[{ group: 0, branch: 0 }], [{ group: 0, branch: 1 }]]);
+    expect(paths('{#if a}<h1>A</h1>{/if}<div><section>{#if !a}<h1>B</h1>{/if}</section></div>')).toEqual([
+      [{ group: 0, branch: 0 }],
+      [{ group: 0, branch: 1 }]
+    ]);
+  });
+  it('keeps blocks that can render together apart', () => {
+    const separate = (src: string) => new Set(paths(src).map((p) => p?.[0]?.group)).size;
+    expect(separate('{#if a}<h1>A</h1>{/if}{#if a}<h1>B</h1>{/if}')).toBe(2);
+    expect(separate('{#if a}<h1>A</h1>{/if}{#if b}<h1>B</h1>{/if}')).toBe(2);
+    expect(separate('{#if a}<h1>A</h1>{:else}<p></p>{/if}{#if !a}<h1>B</h1>{/if}')).toBe(2);
+    expect(separate("{#if s === 'x'}<h1>A</h1>{/if}{#if s}<h1>B</h1>{/if}")).toBe(2);
+    expect(separate('{#if f()}<h1>A</h1>{/if}{#if !f()}<h1>B</h1>{/if}')).toBe(2);
+    expect(separate('{#each xs as a}{#if a}<h1>A</h1>{/if}{/each}{#if !a}<h1>B</h1>{/if}')).toBe(2);
+    expect(separate('<Card>{#if a}<h1>A</h1>{/if}</Card>{#if !a}<h1>B</h1>{/if}')).toBe(2);
+  });
+});
+
 describe('parse: heading arms beyond {#if}/{#await}', () => {
   it('reads <svelte:boundary> children, failed and pending as arms of one block', () => {
     const src =

@@ -959,6 +959,7 @@ export function parseKitModuleFacts(
 
   const envGuards = collectBrowserGuardImports(program);
   const browserOnly = browserOnlyRanges(program, envGuards);
+  const reachedOnlyByBrowser = (at: number) => browserOnly.some(([from, to]) => at >= from && at < to);
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       // security/server-module-state — module-scope let/var reassigned from inside a function body.
@@ -966,7 +967,7 @@ export function parseKitModuleFacts(
       // assignment from inside Kit's `init` startup hook is likewise
       // initialisation, not exempted for security/handler-state-write, security/shared-state-import write detection below.
       const flagLet = (name: string | undefined) => {
-        if (name && !shadowed.has(name) && moduleLets.has(name)) {
+        if (name && !shadowed.has(name) && moduleLets.has(name) && !reachedOnlyByBrowser(n.start)) {
           moduleStateReassignments.push({ name, line: line(n.start), inHandler });
         }
       };
@@ -1050,7 +1051,7 @@ export function parseKitModuleFacts(
       scanPatternTargets(n.left);
     }
     // A write only the browser reaches changes that visitor's own copy of the module, never shared state.
-    if (write && browserOnly.some(([from, to]) => n.start >= from && n.start < to)) write = undefined;
+    if (write && reachedOnlyByBrowser(n.start)) write = undefined;
     if (write) {
       if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
       else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
