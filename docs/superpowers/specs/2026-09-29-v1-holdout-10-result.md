@@ -9,7 +9,7 @@ Raw first look: `scripts/corpus/holdout-10-2026-09-29.json`; verdicts:
 labelled by checks over the source at the pinned commit).
 
 **Result: not ready.** Four of ten criteria fail: C3, C6, C7 and C8. C3 and C7 fail on one class — a
-database client's `update()` read as a module-state write. C4 (99.6%) and C5 (99.7%) are the best of
+database client's `update()` read as a module-state write. C4 (99.6%) ties holdout 8 and C5 (99.7%) is the best of
 any holdout.
 
 | #   | Criterion                          | Threshold      | Measured                                                        | Result | H9    | H8    | H7    | H6    | H5    | H4    | H3    | H2    | H1    |
