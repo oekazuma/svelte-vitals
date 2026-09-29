@@ -46,10 +46,10 @@ describe('parse cache (per-run readFile dedup)', () => {
 
     const headingsByRoute = new Map(headings.map((h) => [h.route, h]));
     expect(headingsByRoute.get('/a')!.headings).toEqual([
-      { level: 1, line: expect.any(Number), file: 'src/routes/a/+page.svelte' }
+      { level: 1, line: expect.any(Number), file: 'src/routes/a/+page.svelte', order: expect.any(Array) }
     ]);
     expect(headingsByRoute.get('/b')!.headings).toEqual([
-      { level: 1, line: expect.any(Number), file: 'src/routes/b/+page.svelte' }
+      { level: 1, line: expect.any(Number), file: 'src/routes/b/+page.svelte', order: expect.any(Array) }
     ]);
   });
 });

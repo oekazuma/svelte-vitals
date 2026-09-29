@@ -2,12 +2,12 @@ import { describe, it, expect } from 'vitest';
 import { seoDuplicateTitle, seoDuplicateDescription, seoHeadingLevelSkip } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
-import type { ResolvedHeadings } from '../src/headings.js';
+import type { HeadingInfo, ResolvedHeadings } from '../src/headings.js';
 import type { RuleContext } from '../src/rule.js';
 
 const config = defineConfig({});
 const base = { project: defaultProject, config };
-const fails = (rs: { detection: { presence: string; value: string } }[]) =>
+const fails = <R extends { detection: { presence: string; value: string } }>(rs: R[]) =>
   rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 
 const titleHead = (route: string, text?: string): ResolvedHead => ({
@@ -119,7 +119,7 @@ describe('seo/heading-level-skip heading order', () => {
       0
     );
   });
-  it('ignores componentHeadings (no reliable document-order position, issue #425)', async () => {
+  it('ignores a component heading with no document-order position', async () => {
     // Chain outline h1->h2->h3 is well-ordered; a componentHeadings h6 would create
     // a skip (h3 -> h6) if it were appended to the walk, but it must not be.
     const withComponent: ResolvedHeadings = {
@@ -128,5 +128,43 @@ describe('seo/heading-level-skip heading order', () => {
     };
     const rs = await seoHeadingLevelSkip.check(headingsCtx([withComponent]));
     expect(fails(rs)).toHaveLength(0);
+  });
+  it('places component headings in document order among the route file headings', async () => {
+    const at = (level: number, order: number[], file = 'page.svelte'): HeadingInfo => ({ level, line: 0, file, order });
+    const route = (component: HeadingInfo): ResolvedHeadings => ({
+      route: '/r',
+      headings: [at(1, [10]), at(3, [50])],
+      componentHeadings: [component]
+    });
+    // A component's <h2> between the page's <h1> and <h3> closes the gap; after the <h3> it does not.
+    expect(fails(await seoHeadingLevelSkip.check(headingsCtx([route(at(2, [20, 5], 'Card.svelte'))])))).toHaveLength(0);
+    const late = fails(await seoHeadingLevelSkip.check(headingsCtx([route(at(2, [60, 5], 'Card.svelte'))])));
+    expect(late.map((r) => r.message)).toEqual(['Heading level skipped (<h1> to <h3>)']);
+    // A component heading is never the one reported: its skip is the component's, not the route outline's.
+    const skipping = fails(
+      await seoHeadingLevelSkip.check(
+        headingsCtx([
+          { route: '/r', headings: [at(1, [10]), at(2, [50])], componentHeadings: [at(4, [60, 5], 'Card.svelte')] }
+        ])
+      )
+    );
+    expect(skipping).toEqual([]);
+    // One in an arm of its own (a closed dialog) closes no gap; one in the flagged heading's arm does.
+    const dialog = (path: HeadingInfo['path'], pagePath?: HeadingInfo['path']) =>
+      seoHeadingLevelSkip.check(
+        headingsCtx([
+          {
+            route: '/r',
+            headings: [at(1, [10]), { ...at(3, [50]), ...(pagePath ? { path: pagePath } : {}) }],
+            componentHeadings: [{ ...at(2, [20, 5], 'Dialog.svelte'), path }]
+          }
+        ])
+      );
+    expect(fails(await dialog([{ group: 0, branch: 0 }])).map((r) => r.message)).toEqual([
+      'Heading level skipped (<h1> to <h3>)'
+    ]);
+    expect(fails(await dialog([{ group: 0, branch: 0 }], [{ group: 0, branch: 0 }]))).toEqual([]);
+    // An arm marked `always` (every arm has a heading, or the use decides it) closes the gap too.
+    expect(fails(await dialog([{ group: 0, branch: 0, always: true }]))).toEqual([]);
   });
 });

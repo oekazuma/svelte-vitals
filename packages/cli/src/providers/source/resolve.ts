@@ -21,6 +21,8 @@ interface ResolveResult {
   ownHeadings: HeadingInfo[];
   /** `parsed.renderPaths`, placed the same way. */
   renderPaths: ReadonlyMap<string, BranchStep[]>;
+  /** `parsed.renderOffsets`. */
+  renderOffsets: ReadonlyMap<string, number>;
   /**
    * Headings belonging to STRICT descendants reached via layer 3 — never `fileRel`'s
    * own headings (routes.ts already collects those from the chain file directly;
@@ -293,7 +295,7 @@ export async function dropConstantListEachBlocks(
 }
 
 export function offsetPath(path: BranchStep[], base: number): BranchStep[] {
-  return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
+  return base === 0 ? path : path.map((step) => ({ ...step, group: step.group + base }));
 }
 
 /** `heading` re-addressed below `prefix`, its own group numbers shifted up by `base`. */
@@ -363,10 +365,22 @@ export async function resolveFileTags(
   inHead?: PropArgs
 ): Promise<ResolveResult> {
   const tags: ParsedTag[] = [...parsed.headTags, ...(inHead ? tagsInHead(parsed, inHead) : [])];
-  const nested: { headings: HeadingInfo[]; at: BranchStep[]; base: number }[] = [];
+  const nested: { headings: HeadingInfo[]; at: BranchStep[]; base: number; offset: number }[] = [];
   // HOLE id → where the component it was passed to renders it, in this file's group space.
   const holes = new Map<number, BranchStep[]>();
-  const place = (path: BranchStep[]) => path.flatMap((s) => (s.branch === HOLE ? (holes.get(s.group) ?? []) : [s]));
+  // Content passed to a component that cannot be followed renders wherever, and whenever, that component
+  // chooses — a dialog's body, say — so it sits in a one-arm block of its own. Its group numbers are
+  // taken once `groupSpan` covers every followed component, as `place` runs only after the loop.
+  const opaque = new Map<number, BranchStep>();
+  const place = (path: BranchStep[]) =>
+    path.flatMap((s) => {
+      if (s.branch !== HOLE) return [s];
+      const rendered = holes.get(s.group);
+      if (rendered) return rendered;
+      let step = opaque.get(s.group);
+      if (!step) opaque.set(s.group, (step = { group: groupSpan++, branch: 0 }));
+      return [step];
+    });
   let groupSpan = parsed.headingGroups;
   let dynamicHeading = false;
   let clientOnlyHeading = false;
@@ -421,9 +435,18 @@ export async function resolveFileTags(
         broad = broad || (child.broad && !clientOnly);
         // An arm a prop this use decides never renders here, so neither do its headings.
         const decided = decidedArms(childParsed, use.attributes);
-        const childHeadings = [...child.ownHeadings, ...child.headings].filter(
-          (h) => !h.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0))
-        );
+        const childHeadings = [...child.ownHeadings, ...child.headings]
+          .filter(
+            (h) => !h.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0))
+          )
+          .map((h) =>
+            h.path?.some((step) => decided.has(step.group))
+              ? {
+                  ...h,
+                  path: h.path.map((step) => (decided.has(step.group) ? { ...step, always: true as const } : step))
+                }
+              : h
+          );
         const childDynamic = childParsed.dynamicHeading || child.dynamicHeading;
         clientOnlyHeading = clientOnlyHeading || child.clientOnlyHeading;
         // A component in an `{#if}` arm competes for headings through its arm path, and its head tags
@@ -432,9 +455,11 @@ export async function resolveFileTags(
         else for (const tag of childTags.map(maybeTag)) maybe.set(JSON.stringify(tag), tag);
         if (!exclusive) {
           // Each instance gets its own group range, so two instances' arms never fold as one block.
-          nested.push({ headings: childHeadings, at: use.path, base: groupSpan });
+          nested.push({ headings: childHeadings, at: use.path, base: groupSpan, offset: use.offset });
           for (const [name, id] of use.holes ?? []) {
-            const rendered = child.renderPaths.get(name);
+            const rendered = child.renderPaths
+              .get(name)
+              ?.map((step) => (decided.has(step.group) ? { ...step, always: true as const } : step));
             if (rendered) holes.set(id, offsetPath(rendered, groupSpan));
           }
           groupSpan += child.groupSpan;
@@ -484,7 +509,10 @@ export async function resolveFileTags(
     broad,
     ownHeadings: parsed.headings.map((h) => placeHeading({ ...h, file: fileRel })),
     renderPaths: new Map([...parsed.renderPaths].map(([name, path]) => [name, place(path)])),
-    headings: nested.flatMap(({ headings, at, base }) => headings.map((h) => nestHeading(h, place(at), base))),
+    renderOffsets: parsed.renderOffsets,
+    headings: nested.flatMap(({ headings, at, base, offset }) =>
+      headings.map((h) => ({ ...nestHeading(h, place(at), base), order: [offset, ...(h.order ?? [])] }))
+    ),
     groupSpan,
     dynamicHeading,
     clientOnlyHeading
