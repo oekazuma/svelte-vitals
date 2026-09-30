@@ -26,8 +26,8 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
 
 - `packages/core` — runtime-agnostic rule engine, scorer, and reporter (types + logic only). Two
   entry points: `.` (`src/index.ts`) is the semver-stable surface — config authoring, reading a
-  JSON report, and rendering and gating on it for the GitHub Action — and it must stay
-  **type-closed** (no export may reference a type only `./internal` exports). `./internal`
+  JSON report, and rendering results and gating on their summary for the GitHub Action — and it
+  must stay **type-closed** (no export may reference a type only `./internal` exports). `./internal`
   (`src/internal.ts`) is everything cli and vite share and
   carries no semver guarantee. New cross-package exports go in `internal.ts`; adding to `index.ts`
   is a decision, not a default. See `docs/superpowers/specs/2026-08-16-v1-public-surface.md`.
@@ -149,7 +149,7 @@ The CLI's contract (decided in `packages/cli/src/index.ts` and `packages/cli/src
 
 - `0` — no failing findings
 - `1` — critical finding present (or `--fail-on`/`--min-health` threshold reached)
-- `2` — execution error (not a SvelteKit project / internal error)
+- `2` — execution or usage error (invalid flags, arguments or config / not a SvelteKit project / internal error)
 
 ## Svelte MCP server
 
