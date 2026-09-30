@@ -25,9 +25,10 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
 ## Package map
 
 - `packages/core` — runtime-agnostic rule engine, scorer, and reporter (types + logic only). Two
-  entry points: `.` (`src/index.ts`) is the semver-stable surface — config authoring and reading a
-  JSON report, nothing else, and it must stay **type-closed** (no export may reference a type only
-  `./internal` exports). `./internal` (`src/internal.ts`) is everything cli and vite share and
+  entry points: `.` (`src/index.ts`) is the semver-stable surface — config authoring, reading a
+  JSON report, and rendering and gating on it for the GitHub Action — and it must stay
+  **type-closed** (no export may reference a type only `./internal` exports). `./internal`
+  (`src/internal.ts`) is everything cli and vite share and
   carries no semver guarantee. New cross-package exports go in `internal.ts`; adding to `index.ts`
   is a decision, not a default. See `docs/superpowers/specs/2026-08-16-v1-public-surface.md`.
 - `packages/cli` — the `svelte-vitals` CLI.
@@ -84,9 +85,10 @@ its PR is deliberately not automerged because the bump is user-facing and needs 
 - **Vendored spec data is generated, never edited.** `packages/core/src/html-spec/generated.ts` (a
   projection of `@markuplint/html-spec`) and `packages/core/src/rules/seo/schema-vocabulary.generated.ts`
   (from `schema-dts`) are written by `pnpm --filter @svelte-vitals/core run gen:html-spec` /
-  `gen:schema-vocab` from the **installed** package — the data package is a pinned catalog
-  devDependency, so a version bump makes the drift test (`packages/core/test/html-spec.test.ts`,
-  `schema-vocabulary.test.ts`) fail until regenerated, offline, with the data diff in the PR. The
+  `gen:schema-vocab` from the **installed** package — the data packages are catalog
+  devDependencies resolved through the lockfile, so a version bump makes the drift test
+  (`packages/core/test/html-spec.test.ts`, `schema-vocabulary.test.ts`) fail until regenerated,
+  offline, with the data diff in the PR. The
   html-spec projection is the single source for per-element HTML facts and per-role ARIA property
   tables; `aria-query` stays the single source for the ARIA vocabulary and required properties, and
   the projection deliberately carries no `required` field so the two cannot answer the same
@@ -143,7 +145,7 @@ its PR is deliberately not automerged because the bump is user-facing and needs 
 
 ## Exit codes
 
-The CLI's contract (`packages/cli/src/bin.ts`):
+The CLI's contract (decided in `packages/cli/src/index.ts` and `packages/cli/src/cli.ts`; `packages/cli/src/bin.ts` forwards that code and exits `2` on an uncaught error):
 
 - `0` — no failing findings
 - `1` — critical finding present (or `--fail-on`/`--min-health` threshold reached)
@@ -151,9 +153,9 @@ The CLI's contract (`packages/cli/src/bin.ts`):
 
 ## Svelte MCP server
 
-The Svelte MCP server (configured in `.mcp.json`) provides Svelte 5 / SvelteKit documentation and code validation. Use it whenever the task involves Svelte/SvelteKit topics or writing `.svelte` code:
+The Svelte MCP server (configured in `.mcp.json`) provides Svelte 5 / SvelteKit documentation and code validation. Use it when writing `.svelte` code, or when a task depends on Svelte 5 / SvelteKit behavior you need to confirm (how a rune, load function or hook actually behaves):
 
 - `list-sections` — call this first to discover the available documentation sections (returns titles, `use_cases`, and paths).
 - `get-documentation` — after `list-sections`, fetch every section relevant to the task (accepts single or multiple sections; judge relevance by the `use_cases` field).
-- `svelte-autofixer` — run on any Svelte code before presenting it; keep re-running until it returns no issues or suggestions.
+- `svelte-autofixer` — run on Svelte code you write or change, re-running until it returns no issues or suggestions. Leave the defects deliberately planted in `examples/kitchen-sink` and in test fixtures alone: fixing them deletes the samples the e2e and rule tests depend on.
 - `playground-link` — generates a Svelte Playground link. Only after the user confirms they want one, and never for code already written to files in the project.
