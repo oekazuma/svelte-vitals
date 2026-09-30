@@ -21,6 +21,8 @@ interface ResolveResult {
   ownHeadings: HeadingInfo[];
   /** `parsed.renderPaths`, placed the same way. */
   renderPaths: ReadonlyMap<string, BranchStep[]>;
+  /** `parsed.childrenSites`, placed the same way. */
+  childrenSites?: BranchStep[][];
   /** `parsed.renderOffsets`. */
   renderOffsets: ReadonlyMap<string, number>;
   /**
@@ -509,6 +511,7 @@ export async function resolveFileTags(
     broad,
     ownHeadings: parsed.headings.map((h) => placeHeading({ ...h, file: fileRel })),
     renderPaths: new Map([...parsed.renderPaths].map(([name, path]) => [name, place(path)])),
+    ...(parsed.childrenSites ? { childrenSites: parsed.childrenSites.map(place) } : {}),
     renderOffsets: parsed.renderOffsets,
     headings: nested.flatMap(({ headings, at, base, offset }) =>
       headings.map((h) => ({ ...nestHeading(h, place(at), base), order: [offset, ...(h.order ?? [])] }))

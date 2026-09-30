@@ -450,6 +450,7 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/state.svelte.ts': `export const runes = ['a'];\n`,
     'src/lib/looped.ts': `export const looped = ['a'];\nfor (const x of looped) console.log(x);\n`,
     'src/lib/copied.ts': `export const copied = ['a'];\nexport const all = [...copied, 'b'];\n`,
+    'src/lib/schema.ts': `import { z } from 'zod';\nexport const kinds = ['a', 'b'] as const;\nexport const Kind = z.enum(kinds);\n`,
     'src/lib/Widget.svelte': `<script module>export const xs = ['a'];</script>`
   };
   const COMPONENTS = {
@@ -470,6 +471,7 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/RunesModuleJs.svelte': each("import { runes as xs } from '$lib/state.svelte.js';"),
     'src/lib/ForOf.svelte': each("import { looped as xs } from '$lib/looped';"),
     'src/lib/Copied.svelte': each("import { copied as xs } from '$lib/copied';"),
+    'src/lib/Schema.svelte': each("import { kinds as xs } from '$lib/schema';"),
     'src/lib/ComponentExport.svelte': each("import { xs } from './Widget.svelte';")
   };
 

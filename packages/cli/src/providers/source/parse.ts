@@ -931,7 +931,7 @@ function headingLevelOf(tags: string[]): number | undefined {
 }
 
 /** Longest shared leading run of two branch paths. */
-function commonPrefix(a: BranchStep[], b: BranchStep[]): BranchStep[] {
+export function commonPrefix(a: BranchStep[], b: BranchStep[]): BranchStep[] {
   let i = 0;
   while (i < a.length && i < b.length && a[i]!.group === b[i]!.group && a[i]!.branch === b[i]!.branch) i++;
   return a.slice(0, i);
@@ -999,6 +999,12 @@ function collectHeadings(
   };
   const first = <K>(map: Map<K, number>, key: K, offset: number): void => {
     if (!map.has(key)) map.set(key, offset);
+  };
+  // Each distinct place the children render, which `renderPaths` meets into one.
+  const childrenSites: BranchStep[][] = [];
+  const site = (path: BranchStep[]): void => {
+    if (!childrenSites.some((p) => p.length === path.length && p.every((s, i) => sameStep(s, path[i]!))))
+      childrenSites.push(path);
   };
   const meet = <K>(map: Map<K, BranchStep[]>, key: K, path: BranchStep[]): void => {
     const prev = map.get(key);
@@ -1099,6 +1105,7 @@ function collectHeadings(
         reached.add(snippet);
         walk(snippet.body, path, [...open, snippet], at ?? node.start, snippet.parameters.length > 0 ? null : when);
       } else if (!snippet && name !== undefined) {
+        if ((props.get(name) ?? name) === 'children') site(path);
         meet(renderPaths, props.get(name) ?? name, path);
         note(renderWhen, props.get(name) ?? name, when);
         first(renderOffsets, props.get(name) ?? name, at ?? node.start);
@@ -1106,6 +1113,7 @@ function collectHeadings(
       return;
     }
     if (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) {
+      site(path);
       meet(renderPaths, 'children', path);
       note(renderWhen, 'children', when);
       first(renderOffsets, 'children', at ?? node.start);
@@ -1191,7 +1199,18 @@ function collectHeadings(
     for (const h of headings)
       if (h.path?.some((s) => covered.has(s.group)))
         h.path = h.path.map((s) => (covered.has(s.group) ? { ...s, always: true as const } : s));
-  return { headings, dynamic, componentPaths, componentOffsets, renderPaths, renderOffsets, holes, groups, gates };
+  return {
+    headings,
+    dynamic,
+    componentPaths,
+    componentOffsets,
+    renderPaths,
+    childrenSites,
+    renderOffsets,
+    holes,
+    groups,
+    gates
+  };
 }
 
 /** A test's truth as a formula over the file's references (`t`), their equality to a literal (`e`) and opaque parts (`o`). */
@@ -1443,10 +1462,10 @@ export interface ParsedA11y {
   /** `slotInLandmark`, skipping `<header>`/`<footer>` (see `A11yNode.inFixedLandmark`) */
   slotInFixedLandmark?: string;
   /**
-   * Branch address of this file's <slot>/{@render children()} — the longest prefix all such
-   * positions share, so content rendered in two arms is placed above both. Absent: no slot.
+   * Branch address of each distinct <slot>/{@render children()} position: content rendered in two
+   * arms is placed in both, where the arms fold it as one. Absent: no slot.
    */
-  slotPath?: BranchStep[];
+  slotPaths?: BranchStep[][];
   /** {@html} tags and spread attributes, located — each poisons the closed world for no-missing-id-ref */
   unknowable: { kind: 'spread' | 'html'; line: number }[];
   /** Distinct lowercased tag names of the body's `RegularElement`s (a11y/required-element's presence set). */
@@ -1492,18 +1511,14 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   let groups = 0;
   let slotInLandmark: string | undefined;
   let slotInFixedLandmark: string | undefined;
-  let slotPath: BranchStep[] | undefined;
+  const slotPaths: BranchStep[][] = [];
   const noteSlot = (ctx: A11yCtx): void => {
     if (slotInLandmark === undefined) {
       slotInLandmark = ctx.landmarks.at(-1);
       slotInFixedLandmark = ctx.fixedLandmark;
     }
-    if (!slotPath) slotPath = ctx.path;
-    else {
-      let n = 0;
-      while (n < slotPath.length && n < ctx.path.length && sameStep(slotPath[n]!, ctx.path[n]!)) n++;
-      slotPath = slotPath.slice(0, n);
-    }
+    const same = (p: BranchStep[]) => p.length === ctx.path.length && p.every((s, i) => sameStep(s, ctx.path[i]!));
+    if (!slotPaths.some(same)) slotPaths.push(ctx.path);
   };
   const unknowable: ParsedA11y['unknowable'] = [];
   const elementTags = new Set<string>();
@@ -1683,7 +1698,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     nodes,
     ...(slotInLandmark ? { slotInLandmark } : {}),
     ...(slotInFixedLandmark ? { slotInFixedLandmark } : {}),
-    ...(slotPath ? { slotPath } : {}),
+    ...(slotPaths.length > 0 ? { slotPaths } : {}),
     unknowable,
     elementTags: [...elementTags],
     elementsUnknowable
@@ -1714,6 +1729,8 @@ export interface ParsedFile {
   headingGroups: number;
   /** Where each snippet prop renders (`children` also for `<slot />`), `HOLE` steps included. */
   renderPaths: ReadonlyMap<string, BranchStep[]>;
+  /** Each distinct place `children` renders, when there is more than one. */
+  childrenSites?: BranchStep[][];
   /** Where each snippet prop first renders in the file's document order. */
   renderOffsets: ReadonlyMap<string, number>;
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */
@@ -1755,6 +1772,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
     headings: headingAcc.headings,
     headingGroups: headingAcc.groups,
     renderPaths: headingAcc.renderPaths,
+    ...(headingAcc.childrenSites.length > 1 ? { childrenSites: headingAcc.childrenSites } : {}),
     renderOffsets: headingAcc.renderOffsets,
     dynamicHeading: headingAcc.dynamic,
     headingGates: headingAcc.gates,

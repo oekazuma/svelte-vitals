@@ -318,6 +318,10 @@ function collectConstantLists(
           unsafe.add(calledList);
         }
       }
+      // In the module that exports it, handing the list to a call (`z.enum(TABS)`) is taken as a read:
+      // only the module's own writes disqualify it, as the rule's docs say.
+      if (opts.exported && n.type === 'CallExpression')
+        for (const arg of n.arguments ?? []) if (listOf(unwrapTs(arg))) safe.add(unwrapTs(arg));
       if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression)))
         unsafe.add(listOf(rootObjectNode(n.expression))!);
       if (n.type === 'Property' && !n.computed && !n.shorthand) safe.add(n.key);
