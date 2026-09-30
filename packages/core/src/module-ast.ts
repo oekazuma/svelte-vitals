@@ -41,7 +41,7 @@ export function unwrapTs(expr: TsExpression | undefined): Expression | undefined
 export function unwrapTs(expr: TsExpression | undefined): Expression | undefined {
   let cur = expr;
   while (
-    cur !== undefined &&
+    cur != null &&
     (cur.type === 'TSSatisfiesExpression' || cur.type === 'TSAsExpression' || cur.type === 'TSNonNullExpression')
   )
     cur = cur.expression;
@@ -105,8 +105,8 @@ export function addBoundNames(id: Node, acc: Set<string>): void {
 
 /** The base identifier name of a (possibly nested) member expression or identifier, else undefined. Shared with the Kit-module parser (the security kit-module rules). */
 export function rootObjectName(node: Node): string | undefined {
-  let cur = node;
-  while (cur?.type === 'MemberExpression') cur = cur.object;
+  let cur: Node = unwrapTs(node);
+  while (cur?.type === 'MemberExpression') cur = unwrapTs(cur.object);
   return cur?.type === 'Identifier' ? cur.name : undefined;
 }
 

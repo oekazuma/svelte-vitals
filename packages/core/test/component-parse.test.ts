@@ -281,6 +281,19 @@ describe('parseComponentFacts — $effect (correctness/effect-as-derived)', () =
     const e = facts('let total = $state(0); let count = $state(0); $effect(() => { total += count; });');
     expect(e[0]!.assignsOnlyState).toBe(false);
   });
+  it('does not flag an assignment that reads its own target', () => {
+    const e = facts('let dir = $state(""); $effect(() => { dir = dir.trim(); });');
+    expect(e[0]!.assignsOnlyState).toBe(false);
+    const named = facts(
+      'let items = $state([]); $effect(() => { items = [...data.items].map((i) => ({ items: i })); });'
+    );
+    expect(named[0]!.assignsOnlyState).toBe(true);
+    const typed = parseComponentFacts(
+      '<script lang="ts">let items = $state([]); $effect(() => { items = [...(data.items as typeof items)]; });</script>',
+      'C.svelte'
+    ).effects;
+    expect(typed[0]!.assignsOnlyState).toBe(true);
+  });
   it('flags an assign-only $effect.pre', () => {
     const e = facts('let count = $state(0); let double = $state(0); $effect.pre(() => { double = count * 2; });');
     expect(e).toEqual([{ line: 1, assignsOnlyState: true, mountOnly: false }]);
@@ -581,6 +594,31 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
     expect(names(factory('current = 1;'))).toEqual([]);
     expect(names(factory('return 1;'))).toEqual(['current']);
     expect(names(factory('let current = 2; current = 3;'))).toEqual(['current']);
+  });
+  it('parses a local declared without an initializer under a $state name', () => {
+    expect(names('<script>let err = $state(); function f() { let err; err = 1; }</script><p>{err}</p>')).toEqual([
+      'err'
+    ]);
+  });
+  it('does not flag an object $state a getter hands out', () => {
+    expect(names('<script>let rows = $state([]); setContext("k", { get rows() { return rows; } });</script>')).toEqual(
+      []
+    );
+    expect(names('<script>let o = $state({}); class Store { get o() { return o; } }</script>')).toEqual([]);
+    expect(names('<script>let rows = $state([]); const api = { get first() { return rows[0]; } };</script>')).toEqual(
+      []
+    );
+    expect(names('<script>let n = $state(0); const api = { get n() { return n; } };</script>')).toEqual(['n']);
+    expect(
+      names(
+        '<script>let rows = $state([]); function f() { let rows = $state(0); return rows; } const api = { get rows() { return rows; } };</script>'
+      )
+    ).not.toContain('rows');
+  });
+  it('does not flag a $state bound through a non-null member', () => {
+    expect(names('<script lang="ts">let q = $state({ limit: 10 });</script><Pager bind:limit={q.limit!} />')).toEqual(
+      []
+    );
   });
   it('does not flag a $state mutated in an inline handler', () => {
     expect(names('<script>let n = $state(0);</script><button onclick={() => n++}>+</button>')).toEqual([]);

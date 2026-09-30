@@ -7,7 +7,7 @@ description: Use $derived instead of an $effect that only assigns state.
 
 ## What it checks
 
-Flags an `$effect` whose body only assigns to `$state` variables, in the component's instance script.
+Flags an `$effect` whose body only assigns to `$state` variables, in the component's instance script. An assignment that reads its own target (`x += 1`, `x = x.trim()`) does not count: it builds on the previous value, which a `$derived` cannot read.
 
 ## Why it matters
 

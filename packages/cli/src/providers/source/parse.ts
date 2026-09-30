@@ -22,7 +22,9 @@ import {
   ANCESTRY_DEPENDENT_TAGS,
   NAMING_ATTRS,
   IDREF_ATTRS,
-  isSvgSrc
+  isSvgSrc,
+  unwrapTs,
+  walkEstree
 } from '@svelte-vitals/core/internal';
 import { collectComponentBindings, collectImports, type ComponentCandidate, type ImportMap } from './imports.js';
 
@@ -313,6 +315,36 @@ function tagsFromNodes(
     }
   }
   return tags;
+}
+
+/**
+ * `document.title = …` in the component's script: a title only the browser sets. Assigning it on the
+ * server throws, so it runs from `$effect`/`onMount` or behind a guard, and counts like a component
+ * mounted with `import()`: on routes that are never server-rendered. A script that also reads
+ * `document.title` rewrites a title something else set, and provides none.
+ */
+function documentTitle(ast: AST.Root): ParsedTag[] {
+  let refs = 0;
+  let sets = 0;
+  for (const script of [ast.module, ast.instance]) {
+    if (!script) continue;
+    walkEstree(script.content, (n) => {
+      if (n.type === 'AssignmentExpression' && n.operator === '=' && isDocumentTitle(unwrapTs(n.left))) sets++;
+      else if (isDocumentTitle(n)) refs++;
+    });
+  }
+  return sets > 0 && refs === sets ? [{ kind: 'title', value: 'dynamic', clientOnly: true }] : [];
+}
+
+function isDocumentTitle(n: Parameters<Parameters<typeof walkEstree>[1]>[0]): boolean {
+  return (
+    n?.type === 'MemberExpression' &&
+    !n.computed &&
+    n.object.type === 'Identifier' &&
+    n.object.name === 'document' &&
+    n.property.type === 'Identifier' &&
+    n.property.name === 'title'
+  );
 }
 
 /**
@@ -788,8 +820,16 @@ function indexSnippets(
  * sit at its first in-file `{@render}`, not at its definition. A snippet this file never renders
  * (passed to a component) keeps its definition position, since where it renders is unknown.
  */
-function collectImages(fragment: AST.Fragment, source: string, imports: ImportMap): ParsedImage[] {
+function collectImages(
+  fragment: AST.Fragment,
+  source: string,
+  imports: ImportMap
+): Pick<ParsedFile, 'images' | 'imagesBeforeChildren'> {
   const acc: ParsedImage[] = [];
+  // Where each `{@render children()}` (or `<slot />`) sits among the images; a layout that renders its
+  // children in more than one place keeps its images first, as no one position holds for every arm.
+  const childrenAt: number[] = [];
+  const childrenIn = new Map<AST.SnippetBlock, number>();
   const index = { snippets: new Map<string, AST.SnippetBlock>(), rendered: new Set<string>() };
   indexSnippets(fragment, index);
   const emitted = new Set<AST.SnippetBlock>();
@@ -807,11 +847,19 @@ function collectImages(fragment: AST.Fragment, source: string, imports: ImportMa
       if (index.snippets.get(name) === node && index.rendered.has(name)) return;
       emitted.add(node);
     }
+    const slot =
+      node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name');
+    if (slot || (node.type === 'RenderTag' && renderCallee(node) === 'children')) childrenAt.push(acc.length);
     if (node.type === 'RenderTag') {
       const snippet = index.snippets.get(renderCallee(node) ?? '');
       if (snippet && !emitted.has(snippet)) {
         emitted.add(snippet);
+        const before = childrenAt.length;
         walk(snippet.body, picture);
+        childrenIn.set(snippet, childrenAt.length - before);
+      } else if (snippet) {
+        // Its images are already placed, but each render places the children it renders again.
+        for (let i = childrenIn.get(snippet) ?? 0; i > 0; i--) childrenAt.push(acc.length);
       }
       return;
     }
@@ -845,7 +893,7 @@ function collectImages(fragment: AST.Fragment, source: string, imports: ImportMa
   walk(fragment);
   // A snippet whose only {@render} sits somewhere never walked (inside itself) is still collected.
   for (const snippet of index.snippets.values()) if (!emitted.has(snippet)) walk(snippet.body);
-  return acc;
+  return { images: acc, ...(childrenAt.length === 1 ? { imagesBeforeChildren: childrenAt[0] } : {}) };
 }
 
 /**
@@ -1441,6 +1489,8 @@ export interface ParsedFile {
   /** Locals holding a component chosen at runtime → what they can hold (see `ComponentCandidate`). */
   componentBindings: Map<string, ComponentCandidate[]>;
   images: ParsedImage[];
+  /** How many of `images` render before the one `{@render children()}` (or `<slot />`); unset without exactly one. */
+  imagesBeforeChildren?: number;
   headings: ParsedHeading[];
   /** How many branch-group numbers this file's heading and component paths use. */
   headingGroups: number;
@@ -1477,12 +1527,13 @@ export function parseFile(source: string, filename: string): ParsedFile {
   return {
     headTags: [
       ...heads.flatMap((h) => tagsFromHead(h, source, jsonLdNames)),
-      ...bodyJsonLd(ast.fragment, source, jsonLdNames)
+      ...bodyJsonLd(ast.fragment, source, jsonLdNames),
+      ...documentTitle(ast)
     ],
     components,
     imports,
     componentBindings: collectComponentBindings(ast),
-    images: collectImages(ast.fragment, source, imports),
+    ...collectImages(ast.fragment, source, imports),
     headings: headingAcc.headings,
     headingGroups: headingAcc.groups,
     renderPaths: headingAcc.renderPaths,

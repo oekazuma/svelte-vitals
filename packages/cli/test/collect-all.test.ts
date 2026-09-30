@@ -113,6 +113,105 @@ describe('collectAll — kit aliases', () => {
   });
 });
 
+describe('collectAll — image order', () => {
+  it("places the page's images at the layout's {@render children()}", async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+        'src/routes/+layout.svelte': `<script>let { children } = $props();</script>
+<img src="/logo.png" alt="" />
+{@render children()}
+<img src="/grid.png" alt="" loading="lazy" />`,
+        'src/routes/+page.svelte': `<img src="/hero.png" alt="" />`
+      }),
+      '',
+      defaultConfig
+    );
+
+    const files = facts.images.find((r) => r.route === '/')!.images.map((i) => `${i.file}:${i.line}`);
+    expect(files).toEqual(['src/routes/+layout.svelte:2', 'src/routes/+page.svelte:1', 'src/routes/+layout.svelte:4']);
+  });
+
+  it('keeps the layout first when it renders its children in more than one arm', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+        'src/routes/+layout.svelte': `<script>let { children, bare } = $props();</script>
+{#if bare}{@render children()}{:else}<img src="/logo.png" alt="" />{@render children()}{/if}`,
+        'src/routes/+page.svelte': `<img src="/hero.png" alt="" loading="lazy" />`
+      }),
+      '',
+      defaultConfig
+    );
+
+    const files = facts.images.find((r) => r.route === '/')!.images.map((i) => i.file);
+    expect(files).toEqual(['src/routes/+layout.svelte', 'src/routes/+page.svelte']);
+  });
+
+  it('counts each render of a snippet that renders the children', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+        'src/routes/+layout.svelte': `<script>let { children, bare } = $props();</script>
+{#snippet body()}{@render children()}{/snippet}
+{#if bare}{@render body()}{:else}<img src="/logo.png" alt="" />{@render body()}{/if}`,
+        'src/routes/+page.svelte': `<img src="/hero.png" alt="" loading="lazy" />`
+      }),
+      '',
+      defaultConfig
+    );
+
+    const files = facts.images.find((r) => r.route === '/')!.images.map((i) => i.file);
+    expect(files).toEqual(['src/routes/+layout.svelte', 'src/routes/+page.svelte']);
+  });
+});
+
+describe('collectAll — document.title', () => {
+  const TREE = {
+    'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+    'src/routes/+layout.svelte': `<script lang="ts">
+  let { children } = $props();
+  $effect(() => {
+    document.title = location.pathname === '/' ? 'Home' : 'App';
+  });
+</script>
+{@render children()}`,
+    'src/routes/spa/+page.svelte': `<p>spa</p>`,
+    'src/routes/spa/+page.ts': `export const ssr = false;\n`,
+    'src/routes/ssr/+page.svelte': `<p>ssr</p>`
+  };
+  const titles = (facts: Awaited<ReturnType<typeof collectAll>>, route: string) =>
+    facts.heads.find((h) => h.route === route)!.tags.filter((t) => t.kind === 'title');
+
+  it('counts as a dynamic title only on routes that are never server-rendered', async () => {
+    const facts = await collectAll(createMemoryRuntime(TREE), '', defaultConfig);
+
+    expect(titles(facts, '/spa').map(({ value, text }) => ({ value, text }))).toEqual([
+      { value: 'dynamic', text: undefined }
+    ]);
+    expect(titles(facts, '/ssr')).toEqual([]);
+  });
+
+  it('does not count a script that rewrites the title it reads', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        ...TREE,
+        'src/routes/+layout.svelte': `<script>
+  let { children } = $props();
+  $effect(() => {
+    if (document.title) document.title = document.title.replace('App', 'Brand');
+  });
+</script>
+{@render children()}`
+      }),
+      '',
+      defaultConfig
+    );
+
+    expect(titles(facts, '/spa')).toEqual([]);
+  });
+});
+
 describe('collectAll — a component loaded with import()', () => {
   const TREE = {
     'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,

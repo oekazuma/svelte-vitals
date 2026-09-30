@@ -126,6 +126,11 @@ describe('kitchen-sink e2e (static mode)', () => {
     }
   });
 
+  it('reads a document.title the browser sets on a route that is never server-rendered', () => {
+    const spa = report.routes.find((r) => r.route === '/gallery/seo/spa-document-title');
+    expect(spa?.issues).toEqual([]);
+  });
+
   it('gives a page whose load always redirects or errors no route-level findings', () => {
     expect(report.routes.map((r) => r.route)).toContain('/clean');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect');
