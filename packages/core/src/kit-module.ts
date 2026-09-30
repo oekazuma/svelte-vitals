@@ -51,6 +51,8 @@ export interface KitModuleFacts {
   csrEnabled?: true;
   /** Set when the exported `load` redirects or throws `error()` on every call — every path through its body reaches a `redirect()`/`error()` before any `return`, directly or through a same-file top-level function that always does (see `loadNeverRenders` in kit-module-parse.ts). A `+page` module carrying it means the route never renders its own page. */
   loadNeverRenders?: true;
+  /** Set when the exported `load` sends a request without a session away before rendering (see `loadGatesOnLocals` in kit-module-parse.ts); every route under a `+layout` carrying it is behind a login. */
+  loadGated?: true;
   /** Sequential-await analysis of the exported `load` function (performance/load-waterfall, performance/sequential-awaits): 1-based lines of await sites that depend on an earlier await's result, and of sites independent of all earlier awaits. Set only when at least one list is non-empty. */
   loadWaterfalls?: { dependentLines: number[]; independentLines: number[] };
   /** Inline `svelte-vitals-disable-next-line` directives in this file. */
@@ -125,19 +127,6 @@ function routeOptionOff(scope: SsrScope, which: RenderOption): Map<string, boole
   const kitModules = scope.kitModules ?? [];
   let hit = routeOptionCache[which].get(scope);
   if (hit) return hit;
-  const pages = new Map<string, string | undefined>();
-  const layouts = new Map<string, string | undefined>();
-  const files = [
-    ...(scope.sourceFiles ?? []),
-    ...(scope.components ?? []).map((c) => c.file),
-    ...kitModules.map((m) => m.file)
-  ];
-  for (const file of files) {
-    const match = ROUTE_FILE_RE.exec(file);
-    if (!match) continue;
-    const map = match[2] === 'page' ? pages : layouts;
-    if (match[3] !== undefined || !map.has(match[1]!)) map.set(match[1]!, match[3]);
-  }
   // At one node SvelteKit takes the universal module's export over the server module's.
   const own = { universal: new Map<string, 'on' | 'off'>(), server: new Map<string, 'on' | 'off'>() };
   for (const m of kitModules) {
@@ -149,13 +138,7 @@ function routeOptionOff(scope: SsrScope, which: RenderOption): Map<string, boole
   }
   const option = new Map([...own.server, ...own.universal]);
   hit = new Map();
-  for (const [dir, reset] of pages) {
-    const chain: string[] = [];
-    for (let d = reset === undefined ? dir : resetTarget(dir, reset); d !== undefined;) {
-      const layoutReset = layouts.get(d);
-      if (layouts.has(d)) chain.push(d);
-      d = layoutReset === undefined ? parentDir(d) : resetTarget(parentDir(d), layoutReset);
-    }
+  for (const [dir, chain] of pageChains(scope)) {
     const nearest = [`page:${dir}`, ...chain.map((l) => `layout:${l}`)].map((k) => option.get(k)).find(Boolean);
     const off = nearest === 'off';
     hit.set(`page:${dir}`, off);
@@ -164,6 +147,53 @@ function routeOptionOff(scope: SsrScope, which: RenderOption): Map<string, boole
   if (option.get(`layout:${ROUTES_DIR}`) !== 'off') hit.delete(`layout:${ROUTES_DIR}`);
   routeOptionCache[which].set(scope, hit);
   return hit;
+}
+
+const chainCache = new WeakMap<SsrScope, Map<string, string[]>>();
+
+/** Per page directory, the layout directories that wrap it, nearest first, following `+page@x`/`+layout@x` resets as SvelteKit does. */
+function pageChains(scope: SsrScope): Map<string, string[]> {
+  let hit = chainCache.get(scope);
+  if (hit) return hit;
+  const pages = new Map<string, string | undefined>();
+  const layouts = new Map<string, string | undefined>();
+  const files = [
+    ...(scope.sourceFiles ?? []),
+    ...(scope.components ?? []).map((c) => c.file),
+    ...(scope.kitModules ?? []).map((m) => m.file)
+  ];
+  for (const file of files) {
+    const match = ROUTE_FILE_RE.exec(file);
+    if (!match) continue;
+    const map = match[2] === 'page' ? pages : layouts;
+    if (match[3] !== undefined || !map.has(match[1]!)) map.set(match[1]!, match[3]);
+  }
+  hit = new Map();
+  for (const [dir, reset] of pages) {
+    const chain: string[] = [];
+    for (let d = reset === undefined ? dir : resetTarget(dir, reset); d !== undefined;) {
+      const layoutReset = layouts.get(d);
+      if (layouts.has(d)) chain.push(d);
+      d = layoutReset === undefined ? parentDir(d) : resetTarget(parentDir(d), layoutReset);
+    }
+    hit.set(dir, chain);
+  }
+  chainCache.set(scope, hit);
+  return hit;
+}
+
+/** Whether a `+page` file's route sends requests without a session away: its own load or a wrapping layout's does (`loadGated`). */
+export function routeGated(file: string, scope: SsrScope): boolean {
+  const match = ROUTE_FILE_RE.exec(file);
+  if (!match || match[2] !== 'page') return false;
+  const gated = new Set<string>();
+  for (const m of scope.kitModules ?? []) {
+    const g = m.loadGated ? ROUTE_FILE_RE.exec(m.file) : null;
+    if (g) gated.add(`${g[2]}:${g[1]}`);
+  }
+  if (gated.size === 0) return false;
+  const chain = pageChains(scope).get(match[1]!) ?? [];
+  return gated.has(`page:${match[1]}`) || chain.some((l) => gated.has(`layout:${l}`));
 }
 
 /** Whether a `+page`/`+layout` file (module or component) belongs to a route that is never server-rendered. */

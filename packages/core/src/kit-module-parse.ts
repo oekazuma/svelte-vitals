@@ -354,6 +354,66 @@ function loadNeverRenders(program: Node, locals: Set<string>): boolean {
 }
 
 /**
+ * Whether the exported `load` sends a request without a session away before rendering: a top-level
+ * `if` whose test is only negated reads of the request's `locals` (`!locals.user`,
+ * `!(await locals.auth())`, or a binding taken from one earlier in the body) and whose branch
+ * redirects or errors 401/403. A test that also reads anything else — the URL, params — gates only
+ * some requests and does not count; neither does a gate after a `return`.
+ */
+function loadGatesOnLocals(program: Node, exits: Set<string>): boolean {
+  const load = exits.size > 0 ? findLoadFunction(program) : undefined;
+  if (load?.body?.type !== 'BlockStatement') return false;
+  const param = load.params?.[0];
+  const event = param?.type === 'Identifier' ? param.name : undefined;
+  const derived = new Set<string>();
+  if (param?.type === 'ObjectPattern') {
+    for (const p of param.properties ?? []) {
+      if (p?.type === 'Property' && (p.key?.name ?? p.key?.value) === 'locals') addBoundNames(p.value, derived);
+    }
+  }
+  const fromLocals = (expr: Node): boolean => {
+    let cur: Node = unwrapTs(expr);
+    let prev: Node | undefined;
+    for (;;) {
+      if (cur?.type === 'AwaitExpression' || cur?.type === 'ChainExpression')
+        cur = unwrapTs(cur.argument ?? cur.expression);
+      else if (cur?.type === 'CallExpression') cur = unwrapTs(cur.callee);
+      else if (cur?.type === 'MemberExpression') [prev, cur] = [cur, unwrapTs(cur.object)];
+      else break;
+    }
+    if (cur?.type !== 'Identifier') return false;
+    return (
+      derived.has(cur.name) || (cur.name === event && prev?.computed === false && prev.property?.name === 'locals')
+    );
+  };
+  const negated = (test: Node): boolean => {
+    const t = unwrapTs(test);
+    if (t?.type === 'LogicalExpression') return t.operator === '||' && negated(t.left) && negated(t.right);
+    return t?.type === 'UnaryExpression' && t.operator === '!' && fromLocals(t.argument);
+  };
+  const exitCall = (expr: Node): boolean => {
+    const e = unwrapTs(expr);
+    if (e?.type !== 'CallExpression' || e.callee?.type !== 'Identifier' || !exits.has(e.callee.name)) return false;
+    if (e.callee.name !== 'error') return true;
+    const status = e.arguments?.[0];
+    return status?.type === 'Literal' && (status.value === 401 || status.value === 403);
+  };
+  const exitsNow = (stmt: Node): boolean =>
+    stmt?.type === 'BlockStatement'
+      ? stmt.body.some(exitsNow)
+      : (stmt?.type === 'ExpressionStatement' && exitCall(stmt.expression)) ||
+        ((stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') && exitCall(stmt.argument));
+  for (const stmt of load.body.body) {
+    if (stmt?.type === 'IfStatement' && negated(stmt.test) && exitsNow(stmt.consequent)) return true;
+    if (containsReturn(stmt)) return false;
+    if (stmt?.type === 'VariableDeclaration') {
+      for (const d of stmt.declarations ?? []) if (d?.init && fromLocals(d.init)) addBoundNames(d.id, derived);
+    }
+  }
+  return false;
+}
+
+/**
  * Whether `await`'s argument is a `parent()` / `<x>.parent()` call (Kit's parent-load
  * step, exempt from performance/load-waterfall and performance/sequential-awaits). Any `<expr>.parent()` member call matches — over-broad
  * in the false-negative direction only, which is the conservative side.
@@ -1110,6 +1170,7 @@ export function parseKitModuleFacts(
     }
   }
 
+  const exitLocals = collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES);
   return {
     moduleStateReassignments: byLine(moduleStateReassignments),
     importedStateWrites: byLine(importedStateWrites),
@@ -1123,9 +1184,8 @@ export function parseKitModuleFacts(
     ...(!ssrOptOut && exportsName(program, 'ssr') ? { ssrEnabled: true as const } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
-    ...(loadNeverRenders(program, collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES))
-      ? { loadNeverRenders: true as const }
-      : {}),
+    ...(loadNeverRenders(program, exitLocals) ? { loadNeverRenders: true as const } : {}),
+    ...(loadGatesOnLocals(program, exitLocals) ? { loadGated: true as const } : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
       ? { loadWaterfalls: waterfalls }
       : {}),

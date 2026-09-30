@@ -1,6 +1,7 @@
 import type { Detection, Fix, Result, Severity } from '../../types.js';
 import type { HeadTag, ResolvedHead } from '../../head.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
+import { routeGated } from '../../kit-module.js';
 
 export interface HeadTagRuleOptions {
   id: string;
@@ -27,6 +28,8 @@ export interface HeadTagRuleOptions {
    * presence turns "Missing" into a pointer at the attribute, since the author did try.
    */
   misspelled?: { match: (tag: HeadTag) => boolean; label: string; recommendation: string; fix: Fix };
+  /** Report as `info` on a route whose load sends visitors without a session away (`routeGated`): a crawler never gets past it. */
+  infoWhenGated?: true;
 }
 
 /** Open Graph keys are read from `property=`; `name="og:*"` is the common slip. */
@@ -56,6 +59,9 @@ function detect(head: ResolvedHead, match: (t: HeadTag) => boolean): Detection {
   return tag ? { presence: tag.presence, value: tag.value } : { presence: 'none', value: 'absent' };
 }
 
+const GATED_NOTE =
+  "Reported as info: this route's load redirects visitors without a session, so search engines never index it.";
+
 /** Build a route-scope rule asserting the presence of a single head tag (design §11). */
 export function headTagRule(opts: HeadTagRuleOptions): Rule {
   const docsUrl = docsUrlFor(opts.id);
@@ -82,15 +88,17 @@ export function headTagRule(opts: HeadTagRuleOptions): Rule {
             : detection.value === 'absent'
               ? `Empty ${opts.label}`
               : opts.label;
+        const gated = opts.infoWhenGated && routeGated(head.file, ctx);
         return {
           id: opts.id,
           category: 'seo',
-          severity: opts.severity,
+          severity: gated ? 'info' : opts.severity,
           detection,
           route: head.route,
           location: head.file,
           message,
-          recommendation: misspelled?.recommendation ?? opts.recommendation,
+          recommendation:
+            misspelled?.recommendation ?? (gated ? `${opts.recommendation} ${GATED_NOTE}` : opts.recommendation),
           docsUrl,
           // Copy per finding: opts.fix is a rule-level template shared across all
           // results this rule emits; a fresh object keeps findings independent.

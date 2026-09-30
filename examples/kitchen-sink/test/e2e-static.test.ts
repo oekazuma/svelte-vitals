@@ -87,6 +87,20 @@ describe('kitchen-sink e2e (static mode)', () => {
     expect(severities).toEqual(['info', 'warning']);
   });
 
+  it('reports canonical and description as info on a route whose load sends visitors without a session away', () => {
+    const signedIn = report.routes.find((r) => r.route === '/gallery/seo/signed-in')!;
+    expect(
+      signedIn.issues
+        .filter((i) => i.id === 'seo/canonical-url' || i.id === 'seo/description-presence')
+        .map((i) => i.severity)
+    ).toEqual(['info', 'info']);
+    const elsewhere = report.routes
+      .filter((r) => r.route !== '/gallery/seo/signed-in')
+      .flatMap((r) => r.issues.filter((i) => i.id === 'seo/canonical-url'));
+    expect(elsewhere.length).toBeGreaterThan(0);
+    expect(elsewhere.every((i) => i.severity === 'warning')).toBe(true);
+  });
+
   it('keeps the clean canaries clean', () => {
     const locations = [
       ...report.routes.flatMap((r) => r.issues.map((i) => i.location)),

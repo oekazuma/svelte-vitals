@@ -5,6 +5,7 @@ export const seoDescriptionPresence = headTagRule({
   id: 'seo/description-presence',
   title: 'Description presence',
   severity: 'warning',
+  infoWhenGated: true,
   match: (t: HeadTag) => t.kind === 'meta' && t.name === 'description',
   label: '<meta name="description">',
   recommendation: 'Add a <meta name="description"> in <svelte:head>, or set the description on your meta component.',
