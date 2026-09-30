@@ -14,6 +14,13 @@ on:
       - 'scripts/corpus/**'
       - 'scripts/corpus-measure.js'
       - '.github/workflows/corpus.yml'
+  # A PR restores caches from its own ref and its base branch only, so main keeps the clones warm.
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/corpus/targets.json'
+      - 'scripts/corpus-measure.js'
+      - '.github/workflows/corpus.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -22,7 +29,29 @@ concurrency:
 permissions: {}
 
 jobs:
+  warm:
+    if: github.event_name == 'push'
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - name: Cache corpus clones
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/corpus
+          key: corpus-${{ hashFiles('scripts/corpus/targets.json') }}
+          restore-keys: corpus-
+      - name: Fetch every pinned clone
+        run: node scripts/corpus-measure.js fetch --cache "$RUNNER_TEMP/corpus"
+
   measure:
+    if: github.event_name == 'pull_request'
     # Runs the PR's code over cloned third-party repos, so it gets nothing worth stealing; the
     # write token lives only in the `comment` job, which runs neither.
     permissions:
@@ -47,7 +76,18 @@ jobs:
           ref: ${{ github.event.pull_request.base.sha }}
           path: .corpus-base
           persist-credentials: false
+      # Base and head run the same CLI when nothing it is built from differs (a corpus-data or docs
+      # PR); the base's findings are then the head's, read against the base's verdicts.
+      - name: Compare the CLI sources
+        id: cli
+        run: |
+          same=true
+          for p in packages package.json pnpm-lock.yaml pnpm-workspace.yaml; do
+            [ "$(git rev-parse "HEAD:$p")" = "$(git -C .corpus-base rev-parse "HEAD:$p")" ] || same=false
+          done
+          echo "same=$same" >> "$GITHUB_OUTPUT"
       - name: Build base
+        if: steps.cli.outputs.same != 'true'
         working-directory: .corpus-base
         run: pnpm install --frozen-lockfile && pnpm build
       - name: Cache corpus clones
@@ -55,12 +95,17 @@ jobs:
         with:
           path: ${{ runner.temp }}/corpus
           key: corpus-${{ hashFiles('scripts/corpus/targets.json') }}
+          restore-keys: corpus-
       # The head's script measures both sides, so the base is read with the same key function
       # and targets even when the base predates them. An app that fails is reported in the diff.
       - name: Measure head
         run: node scripts/corpus-measure.js run --cache "$RUNNER_TEMP/corpus" --out "$RUNNER_TEMP/head.json" || echo "::warning::some corpus apps failed on head"
       - name: Measure base
+        if: steps.cli.outputs.same != 'true'
         run: node scripts/corpus-measure.js run --cli .corpus-base/packages/cli/dist/bin.js --cache "$RUNNER_TEMP/corpus" --out "$RUNNER_TEMP/base.json" || echo "::warning::some corpus apps failed on base"
+      - name: Reuse head as base
+        if: steps.cli.outputs.same == 'true'
+        run: cp "$RUNNER_TEMP/head.json" "$RUNNER_TEMP/base.json"
       - name: Diff
         id: report
         run: |
@@ -108,7 +153,7 @@ jobs:
   gate:
     needs: measure
     # Runs even when measure fails: a skipped required job counts as passing.
-    if: always()
+    if: always() && github.event_name == 'pull_request'
     permissions: {}
     runs-on: ubuntu-latest
     timeout-minutes: 5
