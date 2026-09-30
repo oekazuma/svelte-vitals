@@ -147,6 +147,23 @@ describe('collectAll — image order', () => {
     const files = facts.images.find((r) => r.route === '/')!.images.map((i) => i.file);
     expect(files).toEqual(['src/routes/+layout.svelte', 'src/routes/+page.svelte']);
   });
+
+  it('counts each render of a snippet that renders the children', async () => {
+    const facts = await collectAll(
+      createMemoryRuntime({
+        'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+        'src/routes/+layout.svelte': `<script>let { children, bare } = $props();</script>
+{#snippet body()}{@render children()}{/snippet}
+{#if bare}{@render body()}{:else}<img src="/logo.png" alt="" />{@render body()}{/if}`,
+        'src/routes/+page.svelte': `<img src="/hero.png" alt="" loading="lazy" />`
+      }),
+      '',
+      defaultConfig
+    );
+
+    const files = facts.images.find((r) => r.route === '/')!.images.map((i) => i.file);
+    expect(files).toEqual(['src/routes/+layout.svelte', 'src/routes/+page.svelte']);
+  });
 });
 
 describe('collectAll — document.title', () => {

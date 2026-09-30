@@ -609,6 +609,11 @@ describe('parseComponentFacts — constable $state (correctness/unmutated-state)
       []
     );
     expect(names('<script>let n = $state(0); const api = { get n() { return n; } };</script>')).toEqual(['n']);
+    expect(
+      names(
+        '<script>let rows = $state([]); function f() { let rows = $state(0); return rows; } const api = { get rows() { return rows; } };</script>'
+      )
+    ).not.toContain('rows');
   });
   it('does not flag a $state bound through a non-null member', () => {
     expect(names('<script lang="ts">let q = $state({ limit: 10 });</script><Pager bind:limit={q.limit!} />')).toEqual(

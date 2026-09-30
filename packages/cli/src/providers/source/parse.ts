@@ -829,6 +829,7 @@ function collectImages(
   // Where each `{@render children()}` (or `<slot />`) sits among the images; a layout that renders its
   // children in more than one place keeps its images first, as no one position holds for every arm.
   const childrenAt: number[] = [];
+  const childrenIn = new Map<AST.SnippetBlock, number>();
   const index = { snippets: new Map<string, AST.SnippetBlock>(), rendered: new Set<string>() };
   indexSnippets(fragment, index);
   const emitted = new Set<AST.SnippetBlock>();
@@ -853,7 +854,12 @@ function collectImages(
       const snippet = index.snippets.get(renderCallee(node) ?? '');
       if (snippet && !emitted.has(snippet)) {
         emitted.add(snippet);
+        const before = childrenAt.length;
         walk(snippet.body, picture);
+        childrenIn.set(snippet, childrenAt.length - before);
+      } else if (snippet) {
+        // Its images are already placed, but each render places the children it renders again.
+        for (let i = childrenIn.get(snippet) ?? 0; i > 0; i--) childrenAt.push(acc.length);
       }
       return;
     }

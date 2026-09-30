@@ -546,13 +546,15 @@ function collectStateWrites(
       set.add(kind);
     }
   };
+  // By name, so a state counts as primitive only when every `$state` of that name is.
   const primitiveStates = new Set<string>();
+  const objectStates = new Set<string>();
   walkEstree(root, (n: Node) => {
     const init: Node = n?.type === 'VariableDeclarator' ? unwrapTs(n.init) : undefined;
-    if (n?.id?.type === 'Identifier' && isStateDeclaration(init) && isPrimitiveLiteral(init.arguments?.[0])) {
-      primitiveStates.add(n.id.name);
-    }
+    if (n?.id?.type !== 'Identifier' || !isStateDeclaration(init)) return;
+    (isPrimitiveLiteral(init.arguments?.[0]) ? primitiveStates : objectStates).add(n.id.name);
   });
+  for (const name of objectStates) primitiveStates.delete(name);
   const visit = (stateNames: Set<string>) => (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     if (n?.type === 'AssignmentExpression') {
