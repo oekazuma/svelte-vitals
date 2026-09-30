@@ -172,15 +172,18 @@ function collectStartupFunctions(program: Node): Set<Node> {
  * reports the flag itself. A `csr = false` file never ships a client runtime —
  * performance/load-waterfall exempts it (see `csrDisabled` on `KitModuleFacts`).
  */
-function findFalseOptOut(program: Node, source: string, name: 'ssr' | 'csr'): { line: number } | undefined {
+function findFalseOptOut(
+  program: Node,
+  source: string,
+  name: 'ssr' | 'csr'
+): { line: number; literal: boolean } | undefined {
   // `dev` from `$app/environment` is false in every production build, which is what the options describe.
   const dev = collectNamedImportAliases(program, '$app/environment', DEV_NAMES);
-  let hit: { line: number } | undefined;
+  let hit: { line: number; literal: boolean } | undefined;
   forEachNamedExport(program, (exported, value, anchor) => {
-    const off =
-      (value?.type === 'Literal' && value.value === false) || (value?.type === 'Identifier' && dev.has(value.name));
-    if (exported !== name || !off) return undefined;
-    hit = { line: lineOf(source, anchor.start) };
+    const literal = value?.type === 'Literal' && value.value === false;
+    if (exported !== name || !(literal || (value?.type === 'Identifier' && dev.has(value.name)))) return undefined;
+    hit = { line: lineOf(source, anchor.start), literal };
     return true;
   });
   return hit;
@@ -946,7 +949,9 @@ export function parseKitModuleFacts(
   const ssrOptOut = findFalseOptOut(program, wrapped, 'ssr');
   const csrOptOut = findFalseOptOut(program, wrapped, 'csr');
   const waterfalls = collectLoadWaterfalls(program, wrapped);
-  if (!ssrOptOut) {
+  // SvelteKit imports a module whose page options are not all literals on the server to read them,
+  // so `ssr = dev` still has its module scope run there.
+  if (!ssrOptOut?.literal) {
     // The scanner returns line numbers computed against `wrapped` — subtract the
     // 1-line wrap prefix (the local `line()` helper takes a byte OFFSET, not a line,
     // so it must not be used here).

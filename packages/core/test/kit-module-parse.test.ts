@@ -538,6 +538,13 @@ describe('parseKitModuleFacts — `dev` from $app/environment (false in every pr
     expect(facts(`${dev}export const ssr = isDev;`, 'src/routes/+layout.ts').ssrEnabled).toBeUndefined();
     expect(facts(`${dev}export const csr = isDev;`, 'src/routes/+layout.ts').csrDisabled).toEqual({ line: 2 });
   });
+  it('still scans the module scope of an `ssr = dev` file, which the server imports to read it', () => {
+    const src = `${dev}export const ssr = isDev;\nconst width = window.innerWidth;`;
+    expect(facts(src, 'src/routes/+layout.ts').browserGlobalRefs.map((r) => r.name)).toEqual(['window']);
+    expect(
+      facts('export const ssr = false;\nconst width = window.innerWidth;', 'src/routes/+layout.ts').browserGlobalRefs
+    ).toEqual([]);
+  });
   it('sets csrEnabled for any other csr export', () => {
     expect(facts('export const csr = true;', 'src/routes/watch/+page.ts').csrEnabled).toBe(true);
     expect(facts('export const csr = false;', 'src/routes/+page.ts').csrEnabled).toBeUndefined();

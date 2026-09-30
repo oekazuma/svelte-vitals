@@ -33,7 +33,7 @@ export interface KitModuleFacts {
     line: number;
     inHandler: boolean;
   }[];
-  /** Browser-global reads in server-executed positions — top level, handler bodies, the `init` hook (correctness/server-browser-global). Empty when the file itself exports `ssr = false`. */
+  /** Browser-global reads in server-executed positions — top level, handler bodies, the `init` hook (correctness/server-browser-global). Empty when the file itself exports a literal `ssr = false`. */
   browserGlobalRefs: {
     name: string;
     line: number;
@@ -138,14 +138,16 @@ function routeOptionOff(scope: SsrScope, which: RenderOption): Map<string, boole
     const map = match[2] === 'page' ? pages : layouts;
     if (match[3] !== undefined || !map.has(match[1]!)) map.set(match[1]!, match[3]);
   }
-  const option = new Map<string, 'on' | 'off'>();
+  // At one node SvelteKit takes the universal module's export over the server module's.
+  const own = { universal: new Map<string, 'on' | 'off'>(), server: new Map<string, 'on' | 'off'>() };
   for (const m of kitModules) {
     const match = ROUTE_FILE_RE.exec(m.file);
     if (!match) continue;
     const key = `${match[2]}:${match[1]}`;
-    if (optionOn(m, which)) option.set(key, 'on');
-    else if (optionOff(m, which) && !option.has(key)) option.set(key, 'off');
+    if (optionOn(m, which)) own[m.kind].set(key, 'on');
+    else if (optionOff(m, which)) own[m.kind].set(key, 'off');
   }
+  const option = new Map([...own.server, ...own.universal]);
   hit = new Map();
   for (const [dir, reset] of pages) {
     const chain: string[] = [];
@@ -170,10 +172,9 @@ export function routeNeverSsr(file: string, scope: SsrScope): boolean {
   return !!match && routeOptionOff(scope, 'ssr').get(`${match[2]}:${match[1]}`) === true;
 }
 
-/** Whether a universal `+page`/`+layout` module never runs in the browser — its own `csr = false` or one its route inherits. */
+/** Whether a universal `+page`/`+layout` module never runs in the browser: every page it serves has `csr` off, its own or inherited. */
 export function universalNeverCsr(m: KitModuleFacts, scope: SsrScope): boolean {
   if (m.kind !== 'universal') return false;
-  if (m.csrDisabled !== undefined) return true;
   const match = ROUTE_FILE_RE.exec(m.file);
   return !!match && routeOptionOff(scope, 'csr').get(`${match[2]}:${match[1]}`) === true;
 }

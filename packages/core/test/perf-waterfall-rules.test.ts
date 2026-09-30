@@ -62,6 +62,26 @@ describe('performance/load-waterfall load waterfall', () => {
       'src/routes/watch/+page.ts'
     ]);
   });
+
+  it("takes a node's universal csr over its server csr, and flags a layout load a child page runs in the browser", async () => {
+    const flagged = async (modules: KitModuleFacts[]) =>
+      (await performanceLoadWaterfall.check(ctx(modules)))
+        .filter((r) => r.detection.presence === 'none')
+        .map((r) => r.location);
+    const page = mod('src/routes/feed/+page.ts', 'universal', { dependentLines: [3], independentLines: [] });
+    const paired = [
+      { ...mod('src/routes/+layout.ts', 'universal'), csrDisabled: { line: 1 } },
+      { ...mod('src/routes/+layout.server.ts', 'server'), csrEnabled: true as const },
+      page
+    ];
+    expect(await flagged(paired)).toEqual([]);
+    const layout = {
+      ...mod('src/routes/+layout.ts', 'universal', { dependentLines: [4], independentLines: [] }),
+      csrDisabled: { line: 1 }
+    };
+    const child = { ...mod('src/routes/watch/+page.ts', 'universal'), csrEnabled: true as const };
+    expect(await flagged([layout, child])).toEqual(['src/routes/+layout.ts']);
+  });
 });
 
 describe('performance/sequential-awaits sequential independent awaits', () => {
