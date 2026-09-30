@@ -57,15 +57,15 @@ out.
 
 | #   | Item                                        | Apps |
 | --- | ------------------------------------------- | ---- |
-| 1   | JSON-LD                                     | 5    |
+| 1   | JSON-LD                                     | 4    |
 | 2   | i18n + hreflang                             | 2    |
 | 3   | superforms                                  | 7    |
 | 4   | meta-tag library                            | 0    |
 | 5   | markdown/mdsvex                             | 7    |
 | 6   | `kit.paths.base`                            | 0    |
 | 7   | large SPA/dashboard, `ssr = false`          | 3    |
-| 8   | adapter-node, hooks, form actions           | 7    |
-| 9   | likely builds without services              | 9    |
+| 8   | adapter-node, hooks, form actions           | 8    |
+| 9   | likely builds without services              | 10   |
 | 10  | component-resolution shapes                 | 14   |
 | 11  | UI from a workspace package                 | 0    |
 | 12  | head from an npm package without an adapter | 0    |
