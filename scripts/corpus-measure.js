@@ -3,15 +3,18 @@
 // Measures every rule's findings on real third-party SvelteKit apps pinned in scripts/corpus/targets.json
 // and joins them with the human verdicts in scripts/corpus/verdicts.json. Reports; never gates.
 //
-//   node scripts/corpus-measure.js run [--cli <bin.js>] [--cache <dir>] [--targets <file>] --out <file>
+//   node scripts/corpus-measure.js run [--cli <bin.js>] [--cache <dir>] [--targets <file>] [--jobs <n>] --out <file>
 //   node scripts/corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <file>]
-//   node scripts/corpus-measure.js update [--cache <dir>]
+//   node scripts/corpus-measure.js update [--cache <dir>] [--jobs <n>]
+//   node scripts/corpus-measure.js fetch [--cache <dir>] [--jobs <n>]
 //
 // Node builtins plus `git`, like ecosystem-smoke.js: no dev dependency may leak in here.
 
-import { execFileSync, spawnSync } from 'node:child_process';
+import { execFile, spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, realpathSync, unlinkSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { availableParallelism, tmpdir } from 'node:os';
+import { setTimeout as sleep } from 'node:timers/promises';
+import { promisify } from 'node:util';
 import { join, resolve, sep } from 'node:path';
 import { parseArgs } from 'node:util';
 import {
@@ -25,6 +28,8 @@ import {
 
 const ANALYZE_TIMEOUT_MS = 180_000;
 const CLONE_TIMEOUT_MS = 300_000;
+// A fetch from GitHub times out now and then; one retry keeps a flake from failing the gate.
+const FETCH_ATTEMPTS = 2;
 const STDOUT_CAP_MB = 64;
 const LIST_CAP = 20;
 
@@ -67,49 +72,69 @@ function dropConfigFiles(dir) {
   }
 }
 
-/** Never throws: returns the exit code alongside the captured streams. */
+/** Never rejects: resolves with the exit code alongside the captured streams. */
 function analyze(cli, dir) {
   // `--no-suppressions` because a target's own recorded suppressions would silently hide
   // findings, and a suppressions file from a future format version is a hard exit 2.
-  const r = spawnSync(process.execPath, [cli, dir, '--reporter', 'json', '--no-suppressions'], {
-    encoding: 'utf8',
-    timeout: ANALYZE_TIMEOUT_MS,
-    maxBuffer: STDOUT_CAP_MB * 1024 * 1024,
-    stdio: ['ignore', 'pipe', 'pipe']
+  return new Promise((done) => {
+    const child = spawn(process.execPath, [cli, dir, '--reporter', 'json', '--no-suppressions'], {
+      stdio: ['ignore', 'pipe', 'pipe'],
+      timeout: ANALYZE_TIMEOUT_MS
+    });
+    const out = [];
+    const err = [];
+    let size = 0;
+    child.stdout.on('data', (chunk) => {
+      size += chunk.length;
+      if (size > STDOUT_CAP_MB * 1024 * 1024) child.kill('SIGTERM');
+      else out.push(chunk);
+    });
+    child.stderr.on('data', (chunk) => err.push(chunk));
+    child.on('error', (e) => done({ code: null, stdout: '', stderr: String(e), signal: null }));
+    child.on('close', (code, signal) =>
+      done({ code, stdout: Buffer.concat(out).toString('utf8'), stderr: Buffer.concat(err).toString('utf8'), signal })
+    );
   });
-  return { code: r.status, stdout: r.stdout ?? '', stderr: r.stderr ?? '', signal: r.signal ?? null };
 }
 
-function git(args, opts = {}) {
-  return execFileSync('git', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], ...opts }).trim();
+const execFileAsync = promisify(execFile);
+
+async function git(args, opts = {}) {
+  const { stdout } = await execFileAsync('git', args, { encoding: 'utf8', ...opts });
+  return stdout.trim();
 }
 
-/** Clone-by-SHA into `dir` (or move an existing clone to the SHA); returns an error string or undefined. */
-function checkoutPinned({ repo, sha }, dir) {
+/** Clone-by-SHA into `dir` (or move an existing clone to the SHA); resolves with an error string or undefined. */
+async function checkoutPinned({ repo, sha }, dir) {
   // Without its own `.git`, `git -C` would walk up and fetch into whatever repo encloses the cache.
   if (!existsSync(join(dir, '.git'))) {
     if (existsSync(dir)) return `${dir} exists but is not a git clone`;
     mkdirSync(dir, { recursive: true });
-    git(['init', '--quiet', dir]);
+    await git(['init', '--quiet', dir]);
   } else {
     try {
-      if (git(['-C', dir, 'rev-parse', 'HEAD']) === sha) return undefined;
+      if ((await git(['-C', dir, 'rev-parse', 'HEAD'])) === sha) return undefined;
     } catch {
       // a clone whose first fetch failed has no HEAD yet
     }
   }
-  try {
-    git(['-C', dir, 'fetch', '--quiet', '--depth', '1', `https://github.com/${repo}.git`, sha], {
-      timeout: CLONE_TIMEOUT_MS
-    });
-    git(['-C', dir, 'checkout', '--quiet', '--force', '--detach', 'FETCH_HEAD']);
-    return undefined;
-  } catch (e) {
-    const reason = String(e.stderr ?? '')
-      .split('\n')
-      .find((l) => l.trim().length > 0);
-    return `fetch ${sha} failed: ${reason ?? e.message.split('\n')[0]}`;
+  let failure;
+  for (let attempt = 1; attempt <= FETCH_ATTEMPTS; attempt++) {
+    try {
+      await git(['-C', dir, 'fetch', '--quiet', '--depth', '1', `https://github.com/${repo}.git`, sha], {
+        timeout: CLONE_TIMEOUT_MS
+      });
+      await git(['-C', dir, 'checkout', '--quiet', '--force', '--detach', 'FETCH_HEAD']);
+      return undefined;
+    } catch (e) {
+      const reason = String(e.stderr ?? '')
+        .split('\n')
+        .find((l) => l.trim().length > 0);
+      failure = `fetch ${sha} failed: ${reason ?? e.message.split('\n')[0]}`;
+      if (attempt < FETCH_ATTEMPTS) await sleep(5_000);
+    }
   }
+  return failure;
 }
 
 function findingsOf(app, report) {
@@ -136,10 +161,10 @@ function findingsOf(app, report) {
   return [...byKey.values()].sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));
 }
 
-function measureTarget(target, cli, cache) {
+async function measureTarget(target, cli, cache) {
   const app = appId(target);
   const dir = join(cache, target.repo.replace('/', '__'));
-  const error = checkoutPinned(target, dir);
+  const error = await checkoutPinned(target, dir);
   if (error) return { app, sha: target.sha, error };
 
   const path = target.path === '.' ? dir : join(dir, target.path);
@@ -157,7 +182,7 @@ function measureTarget(target, cli, cache) {
   }
   dropConfigFiles(real);
 
-  const { code, stdout, stderr, signal } = analyze(cli, real);
+  const { code, stdout, stderr, signal } = await analyze(cli, real);
   if (signal !== null)
     return {
       app,
@@ -177,21 +202,50 @@ function measureTarget(target, cli, cache) {
   return { app, sha: target.sha, exit: code, version: report.version, findings: findingsOf(app, report) };
 }
 
-function run({ cli, cache }) {
+/**
+ * Calls `each` on every target index, `jobs` repositories at a time. Targets that share a repository
+ * share its clone, so they run one after another in the same worker.
+ */
+async function forEachTarget(jobs, each) {
+  const byRepo = new Map();
+  targets.forEach((t, i) => byRepo.set(t.repo, [...(byRepo.get(t.repo) ?? []), i]));
+  const queue = [...byRepo.values()];
+  const worker = async () => {
+    for (let group = queue.shift(); group; group = queue.shift()) for (const i of group) await each(i);
+  };
+  await Promise.all(Array.from({ length: Math.max(1, jobs) }, worker));
+}
+
+/** `apps` keeps the order of `targets`. */
+async function run({ cli, cache, jobs }) {
   if (!existsSync(cli)) throw new Error(`${cli} is missing — run \`pnpm build\` first.`);
-  const apps = [];
-  for (const target of targets) {
+  const apps = new Array(targets.length);
+  await forEachTarget(jobs, async (i) => {
     const started = Date.now();
-    const result = measureTarget(target, cli, cache);
+    const result = await measureTarget(targets[i], cli, cache);
     const seconds = ((Date.now() - started) / 1000).toFixed(1);
     if (result.error) console.error(`FAIL  ${result.app} (${seconds}s): ${result.error}`);
     else {
       const distinct = new Set(result.findings.map((f) => f.key)).size;
       console.error(`ok    ${result.app} — exit ${result.exit}, ${distinct} distinct findings (${seconds}s)`);
     }
-    apps.push(result);
-  }
+    apps[i] = result;
+  });
   return { apps };
+}
+
+/** Checks out every target without analyzing it: fills the clone cache the `run` jobs restore. */
+async function fetchAll({ cache, jobs }) {
+  let failed = 0;
+  await forEachTarget(jobs, async (i) => {
+    const target = targets[i];
+    const error = await checkoutPinned(target, join(cache, target.repo.replace('/', '__')));
+    if (error) {
+      failed++;
+      console.error(`FAIL  ${appId(target)}: ${error}`);
+    }
+  });
+  return failed;
 }
 
 function verdictMap(file = verdictsFile) {
@@ -396,9 +450,9 @@ function diff(before, after, verdicts, measurement, baseVerdicts = verdicts) {
   return { text: out.join('\n'), failures };
 }
 
-async function update({ cache }) {
+async function update({ cache, jobs }) {
   const { allRules } = await import('../packages/core/dist/internal.js');
-  const measured = run({ cli: join(root, 'packages/cli/dist/bin.js'), cache });
+  const measured = await run({ cli: join(root, 'packages/cli/dist/bin.js'), cache, jobs });
   const failed = measured.apps.filter((a) => a.error);
   if (failed.length) throw new Error(`${failed.length} app(s) failed; measurement.json left untouched`);
 
@@ -441,15 +495,18 @@ async function main() {
       out: { type: 'string' },
       measurement: { type: 'string' },
       'base-verdicts': { type: 'string' },
-      targets: { type: 'string' }
+      targets: { type: 'string' },
+      jobs: { type: 'string', default: String(availableParallelism()) }
     }
   });
   const [command, ...files] = positionals;
   const cache = resolve(values.cache);
+  const jobs = Number(values.jobs);
+  if (!Number.isInteger(jobs) || jobs < 1) throw new Error(`--jobs must be a positive integer, got ${values.jobs}`);
   if (command === 'run') {
     if (!values.out) throw new Error('run needs --out <file>');
     if (values.targets) targets = readJson(resolve(values.targets));
-    const measured = run({ cli: resolve(values.cli), cache });
+    const measured = await run({ cli: resolve(values.cli), cache, jobs });
     writeFileSync(values.out, JSON.stringify(measured));
     if (measured.apps.some((a) => a.error)) process.exitCode = 1;
   } else if (command === 'diff' && files.length === 2) {
@@ -463,13 +520,18 @@ async function main() {
     // Distinct from 1, which an uncaught error also exits with.
     if (failures.length) process.exitCode = 3;
   } else if (command === 'update') {
-    await update({ cache });
+    await update({ cache, jobs });
+  } else if (command === 'fetch') {
+    if (await fetchAll({ cache, jobs })) process.exitCode = 1;
   } else {
-    console.error('usage: corpus-measure.js run [--cli <bin.js>] [--cache <dir>] [--targets <file>] --out <file>');
+    console.error(
+      'usage: corpus-measure.js run [--cli <bin.js>] [--cache <dir>] [--targets <file>] [--jobs <n>] --out <file>'
+    );
     console.error(
       '       corpus-measure.js diff <before.json> <after.json> [--measurement <file>] [--base-verdicts <file>]'
     );
-    console.error('       corpus-measure.js update [--cache <dir>]');
+    console.error('       corpus-measure.js update [--cache <dir>] [--jobs <n>]');
+    console.error('       corpus-measure.js fetch [--cache <dir>] [--jobs <n>]');
     process.exitCode = 2;
   }
 }
