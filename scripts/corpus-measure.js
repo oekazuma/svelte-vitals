@@ -81,15 +81,19 @@ function analyze(cli, dir) {
       stdio: ['ignore', 'pipe', 'pipe'],
       timeout: ANALYZE_TIMEOUT_MS
     });
-    const out = [];
-    const err = [];
-    let size = 0;
-    child.stdout.on('data', (chunk) => {
-      size += chunk.length;
-      if (size > STDOUT_CAP_MB * 1024 * 1024) child.kill('SIGTERM');
-      else out.push(chunk);
-    });
-    child.stderr.on('data', (chunk) => err.push(chunk));
+    // Each stream is capped like `maxBuffer`: past it the child is killed and reported as such.
+    const capture = (stream) => {
+      const chunks = [];
+      let size = 0;
+      stream.on('data', (chunk) => {
+        size += chunk.length;
+        if (size > STDOUT_CAP_MB * 1024 * 1024) child.kill('SIGTERM');
+        else chunks.push(chunk);
+      });
+      return chunks;
+    };
+    const out = capture(child.stdout);
+    const err = capture(child.stderr);
     child.on('error', (e) => done({ code: null, stdout: '', stderr: String(e), signal: null }));
     child.on('close', (code, signal) =>
       done({ code, stdout: Buffer.concat(out).toString('utf8'), stderr: Buffer.concat(err).toString('utf8'), signal })
