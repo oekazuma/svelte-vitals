@@ -29,8 +29,7 @@ The filters are unchanged: a real application (not a docs site, component librar
 or demo), SvelteKit 2 and Svelte 5 with runes in most components, a committed lockfile, at least 10
 routes, and a push within six months. 23 of the 140 were rejected because more of their components use
 `export let` than runes. Each pick's lockfile was compared with its `package.json` on each declared
-range: all 14 agree. No pick has a `.gitmodules` file or a `file:`/`link:` dependency outside its
-checkout; medora's `.npmrc` names only the public npm registry.
+range: all 14 agree. No pick has a `file:`/`link:` dependency outside its checkout, and medora's `.npmrc` names only the public npm registry. The `.gitmodules` check read the sparse clone of the app directory and so missed tilloh.dev's, at its repository root: it declares a private submodule (`.claude`, over SSH).
 
 ## The 14 apps
 
