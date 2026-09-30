@@ -165,7 +165,7 @@ function collectStartupFunctions(program: Node): Set<Node> {
 
 /**
  * The `export const ssr = false` / `export const csr = false` opt-out, when
- * present: inline form (`satisfies`/`as` unwrapped) or same-file alias export
+ * present (`= dev` too): inline form (`satisfies`/`as` unwrapped) or same-file alias export
  * (`const ssr = false; export { ssr };`). Returns the declaration's line in the
  * WRAPPED source (the caller applies the −1 shift). An `ssr = false` file never
  * runs on the server — correctness/server-browser-global skips its browser-global scan, and seo/ssr-disabled
@@ -173,14 +173,20 @@ function collectStartupFunctions(program: Node): Set<Node> {
  * performance/load-waterfall exempts it (see `csrDisabled` on `KitModuleFacts`).
  */
 function findFalseOptOut(program: Node, source: string, name: 'ssr' | 'csr'): { line: number } | undefined {
+  // `dev` from `$app/environment` is false in every production build, which is what the options describe.
+  const dev = collectNamedImportAliases(program, '$app/environment', DEV_NAMES);
   let hit: { line: number } | undefined;
   forEachNamedExport(program, (exported, value, anchor) => {
-    if (exported !== name || value?.type !== 'Literal' || value.value !== false) return undefined;
+    const off =
+      (value?.type === 'Literal' && value.value === false) || (value?.type === 'Identifier' && dev.has(value.name));
+    if (exported !== name || !off) return undefined;
     hit = { line: lineOf(source, anchor.start) };
     return true;
   });
   return hit;
 }
+
+const DEV_NAMES = new Set(['dev']);
 
 /** Whether the module exports a binding named `name` in any form, re-exports and unresolved aliases included. */
 function exportsName(program: Node, name: string): boolean {
@@ -1111,6 +1117,7 @@ export function parseKitModuleFacts(
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
     ...(!ssrOptOut && exportsName(program, 'ssr') ? { ssrEnabled: true as const } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
+    ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
     ...(loadNeverRenders(program, collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES))
       ? { loadNeverRenders: true as const }
       : {}),

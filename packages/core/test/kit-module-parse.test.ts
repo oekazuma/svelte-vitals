@@ -523,22 +523,31 @@ describe('parseKitModuleFacts — ssrDisabled (seo/ssr-disabled)', () => {
     });
     expect(facts('const ssr = false;\nexport { ssr };', 'src/routes/+page.ts').ssrDisabled).toEqual({ line: 1 });
   });
-  it('is absent for csr = false, ssr = true, non-literal, and non-exported forms', () => {
+  it('is absent for csr = false, ssr = true, a local `dev`, and non-exported forms', () => {
     expect(facts('export const csr = false;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
     expect(facts('export const ssr = true;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
-    expect(
-      facts("import { dev } from '$app/environment';\nexport const ssr = dev;", 'src/routes/+page.ts').ssrDisabled
-    ).toBeUndefined();
+    expect(facts('export const ssr = dev;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
     expect(facts('const ssr = false;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
   });
 });
 
+describe('parseKitModuleFacts — `dev` from $app/environment (false in every production build)', () => {
+  const dev = "import { dev as isDev } from '$app/environment';\n";
+  it('reads ssr = dev and csr = dev as opt-outs', () => {
+    expect(facts(`${dev}export const ssr = isDev;`, 'src/routes/+layout.ts').ssrDisabled).toEqual({ line: 2 });
+    expect(facts(`${dev}export const ssr = isDev;`, 'src/routes/+layout.ts').ssrEnabled).toBeUndefined();
+    expect(facts(`${dev}export const csr = isDev;`, 'src/routes/+layout.ts').csrDisabled).toEqual({ line: 2 });
+  });
+  it('sets csrEnabled for any other csr export', () => {
+    expect(facts('export const csr = true;', 'src/routes/watch/+page.ts').csrEnabled).toBe(true);
+    expect(facts('export const csr = false;', 'src/routes/+page.ts').csrEnabled).toBeUndefined();
+  });
+});
+
 describe('parseKitModuleFacts — ssrEnabled (app-wide ssr = false override)', () => {
-  it('is set when ssr is exported as anything but literal false', () => {
+  it('is set when ssr is exported as anything but false or dev', () => {
     expect(facts('export const ssr = true;', 'src/routes/+page.ts').ssrEnabled).toBe(true);
-    expect(
-      facts("import { dev } from '$app/environment';\nexport const ssr = dev;", 'src/routes/+page.ts').ssrEnabled
-    ).toBe(true);
+    expect(facts('export const ssr = !dev;', 'src/routes/+page.ts').ssrEnabled).toBe(true);
     expect(facts('const ssr = true;\nexport { ssr };', 'src/routes/+page.server.ts').ssrEnabled).toBe(true);
     expect(facts("export { ssr } from './options';", 'src/routes/+layout.ts').ssrEnabled).toBe(true);
   });

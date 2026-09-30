@@ -48,6 +48,20 @@ describe('performance/load-waterfall load waterfall', () => {
     const results = await performanceLoadWaterfall.check(ctx([{ ...m, csrDisabled: { line: 1 } }]));
     expect(results).toEqual([]);
   });
+
+  it("does not fire under a layout's csr = false, unless the page turns csr back on", async () => {
+    const chain = (page: KitModuleFacts) => [
+      { ...mod('src/routes/+layout.ts', 'universal'), csrDisabled: { line: 1 } },
+      page
+    ];
+    const page = mod('src/routes/feed/+page.ts', 'universal', { dependentLines: [3], independentLines: [] });
+    expect(await performanceLoadWaterfall.check(ctx(chain(page)))).toEqual([]);
+    const watch = { ...page, file: 'src/routes/watch/+page.ts', csrEnabled: true as const };
+    const results = await performanceLoadWaterfall.check(ctx(chain(watch)));
+    expect(results.filter((r) => r.detection.presence === 'none').map((r) => r.location)).toEqual([
+      'src/routes/watch/+page.ts'
+    ]);
+  });
 });
 
 describe('performance/sequential-awaits sequential independent awaits', () => {

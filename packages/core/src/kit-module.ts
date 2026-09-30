@@ -41,12 +41,14 @@ export interface KitModuleFacts {
   }[];
   /** Root-relative `redirect()` literals in this Kit module (correctness/base-path-navigation). */
   basePathLinks: BasePathLinkFact[];
-  /** Set when this file disables SSR via `export const ssr = false` (inline or same-file alias export) — the declaration's line (seo/ssr-disabled). */
+  /** Set when this file disables SSR via `export const ssr = false` or `= dev` (inline or same-file alias export) — the declaration's line (seo/ssr-disabled). */
   ssrDisabled?: { line: number };
   /** Set when this file exports `ssr` as anything but a literal `false` (`true`, a computed value, a re-export) — it may turn SSR back on under a layout's `ssr = false` (see `appSsrDisabled`, `routeNeverSsr`). */
   ssrEnabled?: true;
   /** Set when this file disables client-side rendering via `export const csr = false` (inline or same-file alias export). With no client runtime, a universal load only runs during SSR — performance/load-waterfall's browser-waterfall premise doesn't hold. */
   csrDisabled?: { line: number };
+  /** Set when this file exports `csr` as anything but `false` — it may turn CSR back on under a layout's `csr = false` (see `universalNeverCsr`). */
+  csrEnabled?: true;
   /** Set when the exported `load` redirects or throws `error()` on every call — every path through its body reaches a `redirect()`/`error()` before any `return`, directly or through a same-file top-level function that always does (see `loadNeverRenders` in kit-module-parse.ts). A `+page` module carrying it means the route never renders its own page. */
   loadNeverRenders?: true;
   /** Sequential-await analysis of the exported `load` function (performance/load-waterfall, performance/sequential-awaits): 1-based lines of await sites that depend on an earlier await's result, and of sites independent of all earlier awaits. Set only when at least one list is non-empty. */
@@ -102,18 +104,26 @@ function resetTarget(dir: string | undefined, segment: string): string | undefin
   return undefined;
 }
 
-const routeSsrCache = new WeakMap<SsrScope, Map<string, boolean>>();
+type RenderOption = 'ssr' | 'csr';
+const routeOptionCache = {
+  ssr: new WeakMap<SsrScope, Map<string, boolean>>(),
+  csr: new WeakMap<SsrScope, Map<string, boolean>>()
+};
+const optionOn = (m: KitModuleFacts, option: RenderOption) =>
+  m.parseFailed || (option === 'ssr' ? m.ssrEnabled : m.csrEnabled);
+const optionOff = (m: KitModuleFacts, option: RenderOption) =>
+  (option === 'ssr' ? m.ssrDisabled : m.csrDisabled) !== undefined;
 
 /**
- * Per route directory, whether its page (`page:<dir>`) or layout (`layout:<dir>`) is never
- * server-rendered. A page takes the nearest `ssr` export along its own files and then its layout
- * chain, following `+page@x`/`+layout@x` resets as SvelteKit does; an export other than a literal
- * `false`, or an unparsed option file, counts as SSR on. A layout is off only when every page using
- * it is — and the root layout also needs its own `ssr = false`, since it wraps the 404 page.
+ * Per route directory, whether `ssr` or `csr` is off for its page (`page:<dir>`) or layout
+ * (`layout:<dir>`). A page takes the nearest export of the option along its own files and then its
+ * layout chain, following `+page@x`/`+layout@x` resets as SvelteKit does; an export other than
+ * `false` (or `dev`), or an unparsed option file, counts as on. A layout is off only when every page
+ * using it is — and the root layout also needs its own opt-out, since it wraps the 404 page.
  */
-function routeSsrOff(scope: SsrScope): Map<string, boolean> {
+function routeOptionOff(scope: SsrScope, which: RenderOption): Map<string, boolean> {
   const kitModules = scope.kitModules ?? [];
-  let hit = routeSsrCache.get(scope);
+  let hit = routeOptionCache[which].get(scope);
   if (hit) return hit;
   const pages = new Map<string, string | undefined>();
   const layouts = new Map<string, string | undefined>();
@@ -133,8 +143,8 @@ function routeSsrOff(scope: SsrScope): Map<string, boolean> {
     const match = ROUTE_FILE_RE.exec(m.file);
     if (!match) continue;
     const key = `${match[2]}:${match[1]}`;
-    if (m.ssrEnabled || m.parseFailed) option.set(key, 'on');
-    else if (m.ssrDisabled && !option.has(key)) option.set(key, 'off');
+    if (optionOn(m, which)) option.set(key, 'on');
+    else if (optionOff(m, which) && !option.has(key)) option.set(key, 'off');
   }
   hit = new Map();
   for (const [dir, reset] of pages) {
@@ -150,14 +160,22 @@ function routeSsrOff(scope: SsrScope): Map<string, boolean> {
     for (const l of chain) hit.set(`layout:${l}`, (hit.get(`layout:${l}`) ?? true) && off);
   }
   if (option.get(`layout:${ROUTES_DIR}`) !== 'off') hit.delete(`layout:${ROUTES_DIR}`);
-  routeSsrCache.set(scope, hit);
+  routeOptionCache[which].set(scope, hit);
   return hit;
 }
 
 /** Whether a `+page`/`+layout` file (module or component) belongs to a route that is never server-rendered. */
 export function routeNeverSsr(file: string, scope: SsrScope): boolean {
   const match = ROUTE_FILE_RE.exec(file);
-  return !!match && routeSsrOff(scope).get(`${match[2]}:${match[1]}`) === true;
+  return !!match && routeOptionOff(scope, 'ssr').get(`${match[2]}:${match[1]}`) === true;
+}
+
+/** Whether a universal `+page`/`+layout` module never runs in the browser — its own `csr = false` or one its route inherits. */
+export function universalNeverCsr(m: KitModuleFacts, scope: SsrScope): boolean {
+  if (m.kind !== 'universal') return false;
+  if (m.csrDisabled !== undefined) return true;
+  const match = ROUTE_FILE_RE.exec(m.file);
+  return !!match && routeOptionOff(scope, 'csr').get(`${match[2]}:${match[1]}`) === true;
 }
 
 /** Whether a universal `+page`/`+layout` module never runs on the server — its own `ssr = false`, an app-wide one, or one its route inherits. */

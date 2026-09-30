@@ -110,6 +110,22 @@ describe('analyze: routes with ssr = false', () => {
     expect(r.routeCount).toBe(2);
   });
 
+  it('treats `ssr = dev` as off: a production build prerenders the shells', async () => {
+    const dev = await fixture({
+      'src/routes/+layout.ts':
+        "import { dev } from '$app/environment';\nexport const prerender = 'auto';\nexport const ssr = dev;\n",
+      'index.html': SHELL,
+      'admin.html': SHELL
+    });
+    try {
+      const r = await analyze(dev.pages, dev.cwd, { report: false });
+      expect(r.results.filter((x) => x.route?.startsWith('/'))).toEqual([]);
+      expect(r.warnings.some((w) => w.startsWith('skipped 2 prerendered route(s)'))).toBe(true);
+    } finally {
+      await rm(dev.cwd, { recursive: true, force: true });
+    }
+  });
+
   it('keeps routes outside the ssr = false subtree', async () => {
     const r = await analyze(scoped.pages, scoped.cwd, { report: false });
     const routes = new Set(r.results.map((x) => x.route).filter((x) => x?.startsWith('/')));

@@ -779,7 +779,9 @@ interface ParsedHeading {
  * `*.svg` import.
  */
 function isSvgImage(attrs: AST.Attribute[], imports: ImportMap): boolean {
-  const value = findAttr(attrs, 'src')?.value;
+  const raw = findAttr(attrs, 'src')?.value;
+  // A quoted lone expression (`src="{logo}"`) is the same value as `src={logo}`.
+  const value = Array.isArray(raw) && raw.length === 1 && raw[0]!.type === 'ExpressionTag' ? raw[0] : raw;
   if (Array.isArray(value)) {
     const last = value.at(-1);
     return last?.type === 'Text' && isSvgSrc(last.data);
@@ -983,9 +985,17 @@ function collectHeadings(
   // `{#if}` groups with an `{:else}`: how many arms, for marking those where every arm renders a heading.
   const fullArms = new Map<number, number>();
   // `at` is the `{@render}` a snippet body is read from: its content sits there in document order.
-  const push = (level: number, node: WalkNode & { start: number }, path: BranchStep[], at?: number): void => {
+  const push = (
+    level: number,
+    node: WalkNode & { start: number },
+    path: BranchStep[],
+    at: number | undefined,
+    when: Cond[] | null
+  ): void => {
     const order = at === undefined ? [node.start] : [at, node.start];
-    headings.push({ level, line: lineOf(source, node.start), ...(path.length > 0 ? { path } : {}), order });
+    const heading = { level, line: lineOf(source, node.start), ...(path.length > 0 ? { path } : {}), order };
+    headings.push(heading);
+    if (when) headingWhen.set(heading, when);
   };
   const first = <K>(map: Map<K, number>, key: K, offset: number): void => {
     if (!map.has(key)) map.set(key, offset);
@@ -1002,14 +1012,27 @@ function collectHeadings(
     return { group: id, branch: HOLE };
   };
   const shared = new Map<WalkNode, BranchStep>();
+  // The `{#if}` arm conditions each heading, component and snippet render sits under (`null` inside an
+  // `{#each}`, a snippet with parameters or an `{:then}`, where one test is read against several values).
+  const headingWhen = new Map<ParsedHeading, Cond[]>();
+  // How many arms each block walks: only a place below one-arm blocks alone may join a new block,
+  // since moving any other place away from its arms would unfold them.
+  const armCount = new Map<number, number>();
+  const opaque = { next: 0 };
+  const componentWhen = new Map<WalkNode, Cond[] | null>();
+  const renderWhen = new Map<string, Cond[] | null>();
+  const note = <K>(map: Map<K, Cond[] | null>, key: K, when: Cond[] | null): void => {
+    map.set(key, map.has(key) ? null : when);
+  };
   const walk = (
     node: WalkNode | WalkNode[] | null | undefined,
     path: BranchStep[],
     open: AST.SnippetBlock[],
-    at?: number
+    at?: number,
+    when: Cond[] | null = []
   ): void => {
     if (Array.isArray(node)) {
-      for (const child of node) walk(child, path, open, at);
+      for (const child of node) walk(child, path, open, at, when);
       return;
     }
     if (!node || typeof node !== 'object') return;
@@ -1017,6 +1040,7 @@ function collectHeadings(
       const eligible = (b: AST.IfBlock) => !shared.has(b) && !propGate(b.test, props, reassigned);
       for (const set of exclusiveIfs(node as AST.Fragment, source, eligible)) {
         const group = groups++;
+        armCount.set(group, set.length);
         set.forEach((block, branch) => shared.set(block, { group, branch }));
       }
     }
@@ -1025,7 +1049,7 @@ function collectHeadings(
     if (node.type === 'SnippetBlock' && local(node.expression.name) === node) return;
     const sibling = node.type === 'IfBlock' ? shared.get(node) : undefined;
     if (sibling && node.type === 'IfBlock') {
-      walk(node.consequent, [...path, sibling], open, at);
+      walk(node.consequent, [...path, sibling], open, at, when && [...when, condOf(node.test, source, opaque)]);
       return;
     }
     if (node.type === 'IfBlock' || node.type === 'AwaitBlock') {
@@ -1034,21 +1058,37 @@ function collectHeadings(
       if (gate) gates.set(group, gate);
       const arms = node.type === 'IfBlock' ? ifArms(node) : [node.pending, node.then, node.catch];
       if (node.type === 'IfBlock' && endsInElse(node)) fullArms.set(group, arms.length);
-      arms.forEach((arm, branch) => walk(arm, [...path, { group, branch }], open, at));
+      armCount.set(group, arms.filter(Boolean).length);
+      const tests = node.type === 'IfBlock' ? ifTests(node).map((t) => condOf(t, source, opaque)) : [];
+      arms.forEach((arm, branch) => {
+        const armWhen =
+          node.type === 'AwaitBlock'
+            ? branch === 0
+              ? when
+              : null
+            : when && [
+                ...when,
+                ...tests.slice(0, branch).map((t): Cond => ({ not: t })),
+                ...(tests[branch] ? [tests[branch]] : [])
+              ];
+        walk(arm, [...path, { group, branch }], open, at, armWhen);
+      });
       return;
     }
     if (node.type === 'EachBlock') {
       // A list may be empty, so its body renders only sometimes: a block with one arm.
       const group = groups++;
-      walk(node.body, [...path, { group, branch: 0, repeat: true }], open, at);
-      walk(node.fallback, path, open, at);
+      armCount.set(group, 1);
+      walk(node.body, [...path, { group, branch: 0, repeat: true }], open, at, null);
+      walk(node.fallback, path, open, at, when);
       return;
     }
     if (node.type === 'SvelteBoundary') {
       const group = groups++;
+      armCount.set(group, 2);
       for (const child of node.fragment.nodes) {
         const branch = child.type === 'SnippetBlock' ? (BOUNDARY_SNIPPET_ARMS.get(child.expression.name) ?? 0) : 0;
-        walk(child, [...path, { group, branch }], open, at);
+        walk(child, [...path, { group, branch }], open, at, when);
       }
       return;
     }
@@ -1057,47 +1097,87 @@ function collectHeadings(
       const snippet = local(name);
       if (snippet && !open.includes(snippet)) {
         reached.add(snippet);
-        walk(snippet.body, path, [...open, snippet], at ?? node.start);
+        walk(snippet.body, path, [...open, snippet], at ?? node.start, snippet.parameters.length > 0 ? null : when);
       } else if (!snippet && name !== undefined) {
         meet(renderPaths, props.get(name) ?? name, path);
+        note(renderWhen, props.get(name) ?? name, when);
         first(renderOffsets, props.get(name) ?? name, at ?? node.start);
       }
       return;
     }
     if (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) {
       meet(renderPaths, 'children', path);
+      note(renderWhen, 'children', when);
       first(renderOffsets, 'children', at ?? node.start);
     }
     if (node.type === 'Component' || node.type === 'SvelteComponent') {
       meet(componentPaths, node, path);
+      note(componentWhen, node, when);
       first(componentOffsets, node, at ?? node.start);
       for (const child of node.fragment.nodes) {
         const name = child.type === 'SnippetBlock' ? child.expression.name : 'children';
-        walk(child, [...path, holeOf(node, name)], open, at);
+        const scoped = child.type === 'SnippetBlock' && child.parameters.length > 0 ? null : when;
+        walk(child, [...path, holeOf(node, name)], open, at, scoped);
       }
       return;
     }
     if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
-      push(Number(node.name[1]), node, path, at);
+      push(Number(node.name[1]), node, path, at, when);
     } else if (node.type === 'SvelteElement') {
       const tags = svelteElementTags(node.tag);
       const level = tags ? headingLevelOf(tags) : undefined;
-      if (level !== undefined) push(level, node, path, at);
+      if (level !== undefined) push(level, node, path, at, when);
       // An unresolvable tag may be a heading; two different heading levels is a heading whose
       // level is unknown. A resolved non-heading set (`cond ? 'span' : 'em'`) is neither.
       else if (!tags || tags.some((t) => HEADING_TAG.test(t.toLowerCase()))) {
         dynamic = true;
-        push(0, node, path, at);
+        push(0, node, path, at, when);
       }
     }
     for (const key of CHILD_NODE_KEYS) {
-      if (key in node) walk(childOf(node, key), path, open, at);
+      if (key in node) walk(childOf(node, key), path, open, at, when);
     }
   };
   walk(fragment, [], []);
   // A snippet rendered only from inside itself is still read once.
   for (const snippet of index.snippets.values()) {
-    if (local(snippet.expression.name) === snippet && !reached.has(snippet)) walk(snippet.body, [], [snippet]);
+    if (local(snippet.expression.name) === snippet && !reached.has(snippet))
+      walk(snippet.body, [], [snippet], undefined, null);
+  }
+  const exclusive = [
+    ...headings.flatMap((h) => {
+      const when = headingWhen.get(h);
+      return when
+        ? [{ when, path: h.path ?? [], set: (step: BranchStep) => (h.path = [step, ...(h.path ?? [])]) }]
+        : [];
+    }),
+    ...[...componentWhen].flatMap(([node, when]) =>
+      when
+        ? [
+            {
+              when,
+              path: componentPaths.get(node)!,
+              set: (step: BranchStep) => componentPaths.set(node, [step, ...componentPaths.get(node)!])
+            }
+          ]
+        : []
+    ),
+    ...[...renderWhen].flatMap(([name, when]) =>
+      when
+        ? [
+            {
+              when,
+              path: renderPaths.get(name)!,
+              set: (step: BranchStep) => renderPaths.set(name, [step, ...renderPaths.get(name)!])
+            }
+          ]
+        : []
+    )
+  ];
+  const oneArm = (p: Placed) => p.path.every((s) => s.branch === HOLE || armCount.get(s.group) === 1);
+  for (const clique of contradictingArms(exclusive.filter(oneArm))) {
+    const group = groups++;
+    clique.forEach((members, branch) => members.forEach((m) => m.set({ group, branch })));
   }
   // A block whose every arm renders a heading directly (not below a further block) always renders one.
   const armsWithHeading = new Map<number, Set<number>>();
@@ -1112,6 +1192,137 @@ function collectHeadings(
       if (h.path?.some((s) => covered.has(s.group)))
         h.path = h.path.map((s) => (covered.has(s.group) ? { ...s, always: true as const } : s));
   return { headings, dynamic, componentPaths, componentOffsets, renderPaths, renderOffsets, holes, groups, gates };
+}
+
+/** A test's truth as a formula over the file's references (`t`), their equality to a literal (`e`) and opaque parts (`o`). */
+type Cond =
+  | { t: string }
+  | { e: string; v: string }
+  | { o: number }
+  | { k: boolean }
+  | { not: Cond }
+  | { and: Cond[] }
+  | { or: Cond[] };
+
+function condOf(test: AST.IfBlock['test'], source: string, opaque: { next: number }): Cond {
+  type Expr = AST.IfBlock['test'];
+  const reference = (n: Expr): boolean =>
+    n.type === 'Identifier' || (n.type === 'MemberExpression' && !n.computed && reference(n.object as Expr));
+  const text = (n: Expr) => {
+    const { start, end } = n as Expr & { start: number; end: number };
+    return source.slice(start, end).replace(/\s+/g, '');
+  };
+  const read = (n: Expr): Cond => {
+    if (reference(n)) return { t: text(n) };
+    if (n.type === 'Literal' && typeof n.value === 'boolean') return { k: n.value };
+    if (n.type === 'UnaryExpression' && n.operator === '!') return { not: read(n.argument) };
+    if (n.type === 'LogicalExpression' && n.operator !== '??')
+      return n.operator === '&&' ? { and: [read(n.left), read(n.right)] } : { or: [read(n.left), read(n.right)] };
+    if (
+      n.type === 'BinaryExpression' &&
+      ['===', '!==', '==', '!='].includes(n.operator) &&
+      n.left.type !== 'PrivateIdentifier'
+    ) {
+      const [side, lit] = n.left.type === 'Literal' ? [n.right, n.left] : [n.left, n.right];
+      const value = literalValue(lit);
+      const strict = n.operator.length === 3;
+      // As in `exclusiveIfs`: loose equality is exclusive only between numbers.
+      if (value !== 'unknown' && reference(side) && (strict || typeof value.value === 'number')) {
+        const eq: Cond = { e: `${typeof value.value}:${text(side)}`, v: JSON.stringify(value.value) };
+        return n.operator.startsWith('!') ? { not: eq } : eq;
+      }
+    }
+    return { o: opaque.next++ };
+  };
+  return read(test);
+}
+
+/** Whether no assignment makes every condition true: references are free, one reference equals at most one literal. */
+function unsatisfiable(conds: Cond[]): boolean {
+  const bools = new Set<string>();
+  const equals = new Map<string, Set<string>>();
+  const gather = (c: Cond): void => {
+    if ('t' in c) bools.add(`t:${c.t}`);
+    else if ('o' in c) bools.add(`o:${c.o}`);
+    else if ('e' in c) equals.set(c.e, (equals.get(c.e) ?? new Set()).add(c.v));
+    else if ('not' in c) gather(c.not);
+    else if ('and' in c || 'or' in c) ('and' in c ? c.and : c.or).forEach(gather);
+  };
+  conds.forEach(gather);
+  const names = [...bools];
+  const subjects = [...equals].map(([key, values]) => [key, [...values, '']] as const);
+  let combos = 2 ** names.length;
+  for (const [, values] of subjects) combos *= values.length;
+  // ponytail: exhaustive truth table; a condition set this large is read as satisfiable.
+  if (combos > 4096) return false;
+  for (let i = 0; i < combos; i++) {
+    let rest = i;
+    const bool = new Map(
+      names.map((n) => {
+        const v = rest % 2 === 1;
+        rest = Math.floor(rest / 2);
+        return [n, v] as const;
+      })
+    );
+    const equal = new Map(
+      subjects.map(([key, values]) => {
+        const v = values[rest % values.length]!;
+        rest = Math.floor(rest / values.length);
+        return [key, v] as const;
+      })
+    );
+    const holds = (c: Cond): boolean =>
+      't' in c
+        ? bool.get(`t:${c.t}`)!
+        : 'o' in c
+          ? bool.get(`o:${c.o}`)!
+          : 'k' in c
+            ? c.k
+            : 'e' in c
+              ? equal.get(c.e) === c.v
+              : 'not' in c
+                ? !holds(c.not)
+                : 'and' in c
+                  ? c.and.every(holds)
+                  : c.or.some(holds);
+    if (conds.every(holds)) return false;
+  }
+  return true;
+}
+
+type Placed = { when: Cond[]; path: BranchStep[]; set: (step: BranchStep) => void };
+
+/**
+ * Sets of places (headings, components, snippet renders) under `{#if}` arms of one file whose
+ * conditions cannot all hold at once, though no block they share tells them apart: `{#if open}` and,
+ * elsewhere in the file, `{#if !open}`, or `a || b` against `!a` and a nested `!b`. Places with the
+ * same conditions sit together; each set gets one new block with an arm per member.
+ */
+function contradictingArms(places: Placed[]): Placed[][][] {
+  const classes = new Map<string, Placed[]>();
+  for (const p of places) {
+    if (p.when.length === 0) continue;
+    const key = JSON.stringify(p.when);
+    classes.set(key, [...(classes.get(key) ?? []), p]);
+  }
+  const list = [...classes.values()];
+  // ponytail: pairwise over condition classes; a file with more is left as it is.
+  if (list.length < 2 || list.length > 80) return [];
+  const apart = (a: Placed[], b: Placed[]) =>
+    a[0]!.path.some((s) => b[0]!.path.some((t) => s.group === t.group && s.branch !== t.branch));
+  const excludes = (a: Placed[], b: Placed[]) => !apart(a, b) && unsatisfiable([...a[0]!.when, ...b[0]!.when]);
+  const taken = new Set<Placed[]>();
+  const cliques: Placed[][][] = [];
+  for (const a of list) {
+    if (taken.has(a)) continue;
+    const clique = [a];
+    for (const b of list)
+      if (!taken.has(b) && !clique.includes(b) && clique.every((c) => excludes(c, b))) clique.push(b);
+    if (clique.length < 2) continue;
+    clique.forEach((c) => taken.add(c));
+    cliques.push(clique);
+  }
+  return cliques;
 }
 
 /**
@@ -1187,6 +1398,13 @@ function endsInElse(node: AST.IfBlock): boolean {
   const rest = node.alternate.nodes.filter((n) => n.type !== 'Text' || n.data.trim() !== '');
   const chained = rest.length === 1 && rest[0]!.type === 'IfBlock' && rest[0]!.elseif ? rest[0] : undefined;
   return chained ? endsInElse(chained) : true;
+}
+
+/** An `{#if}` chain's tests in order, one per arm before a final `{:else}`. */
+function ifTests(node: AST.IfBlock): Array<AST.IfBlock['test']> {
+  const rest = node.alternate?.nodes.filter((n) => n.type !== 'Text' || n.data.trim() !== '') ?? [];
+  const chained = rest.length === 1 && rest[0]!.type === 'IfBlock' && rest[0]!.elseif ? rest[0] : undefined;
+  return [node.test, ...(chained ? ifTests(chained) : [])];
 }
 
 /** An `{#if}` chain's arms in order: `{:else if}` nests as an IfBlock in `alternate`, flattened here. */
