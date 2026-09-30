@@ -16,7 +16,7 @@ description: universal load で依存関係のある await が数珠つなぎに
 - レスポンスボディの読み取り（`await res.json()` など）は追加の往復を要しないためホップに数えませんが、そこから得たデータは依存として伝播します。
 - 先行する結果が渡してきた Promise の await もホップに数えません。たとえば祖先の load がすでに開始し、`parent()` 経由で渡された Promise（`await deferred.state`）です。その時点では新しいリクエストが始まらないためです。一方、この load が先行する結果から開始した Promise（`const p = fetch(user.url)` の後の `await p`）はホップに数えます。
 - **server** load 内の依存チェーンは対象外です。並列化は不可能で、すでにサーバーサイドで実行されているためです。
-- クライアントサイドレンダリングを無効化したファイル（`export const csr = false`）も対象外です。クライアントランタイムがないため、universal load は SSR 時にしか実行されません。
+- クライアントサイドレンダリングが無効なルートの load も対象外です。クライアントランタイムがないため、universal load は SSR 時にしか実行されません。SvelteKit と同じく、ページ自身の `+page` ファイル、続いてレイアウトチェーンで最も近い `csr` の export を採用します。`csr = false` と `csr = dev`（`dev` は `$app/environment` のもので、本番ビルドでは必ず `false`）で無効になり、それ以外の `csr` の export で再び有効になります。同じ階層の universal モジュールと server モジュールの両方が `csr` を export している場合は universal 側を採用します。レイアウトの load が対象外になるのは、その下のすべてのページで `csr` が無効な場合だけです。
 
 ## なぜ重要か
 

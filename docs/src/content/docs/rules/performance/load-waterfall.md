@@ -16,7 +16,7 @@ The scan is deliberately conservative:
 - Reading a response body (`await res.json()` and friends) is not a hop, since it costs no extra round trip, though data parsed from it still carries the dependency forward.
 - Awaiting a promise that an earlier result hands over, such as one an ancestor load already started and passed down through `parent()` (`await deferred.state`), is not a hop either: no request starts there. A promise this load starts from an earlier result (`const p = fetch(user.url)`, then `await p`) still is.
 - Dependent chains in **server** loads are exempt: they cannot be parallelized and already run server-side.
-- Files disabling client-side rendering (`export const csr = false`) are exempt: without a client runtime the universal load only runs during SSR.
+- Loads on a route without client-side rendering are exempt: without a client runtime the universal load only runs during SSR. The route takes the nearest `csr` export along its own `+page` files and then up its layout chain, as SvelteKit does; `csr = false` and `csr = dev` (with `dev` from `$app/environment`, `false` in every production build) turn it off, and any other `csr` export turns it back on. Where a node's universal and server modules both export `csr`, the universal one wins. A layout's load is exempt only when every page under it has `csr` off.
 
 ## Why it matters
 

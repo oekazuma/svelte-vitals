@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { foldOccurrences } from '@svelte-vitals/core/internal';
 import { HOLE, parseHeadTags, parseFile } from '../src/providers/source/parse.js';
 
 const head = (inner: string) => `<svelte:head>${inner}</svelte:head>`;
@@ -92,6 +93,7 @@ describe('parse: image loading/srcset capture (performance/lcp-image, performanc
     expect(svg('<img src="/rss.svg?v=2" />')).toBe(true);
     expect(svg('<img src="{base}/icons/rss.svg" />')).toBe(true);
     expect(svg("<script>import logo from '$lib/logo.svg';</script><img src={logo} />")).toBe(true);
+    expect(svg('<script>import logo from \'$lib/logo.svg\';</script><img src="{logo}" />')).toBe(true);
     expect(svg("<img src={'/rss.svg'} />")).toBe(true);
     expect(svg('<img src="/a.jpg" />')).toBeUndefined();
     expect(svg("<script>import hero from '$lib/hero.png';</script><img src={hero} />")).toBeUndefined();
@@ -178,7 +180,34 @@ describe('parse: {#if} blocks of one arm whose tests contradict each other', () 
     expect(separate("{#if x == '0'}<h1>A</h1>{/if}{#if x == '00'}<h1>B</h1>{/if}")).toBe(2);
     expect(separate('{#if f()}<h1>A</h1>{/if}{#if !f()}<h1>B</h1>{/if}')).toBe(2);
     expect(separate('{#each xs as a}{#if a}<h1>A</h1>{/if}{/each}{#if !a}<h1>B</h1>{/if}')).toBe(2);
-    expect(separate('<Card>{#if a}<h1>A</h1>{/if}</Card>{#if !a}<h1>B</h1>{/if}')).toBe(2);
+  });
+});
+
+describe('parse: headings under conditions that cannot hold together', () => {
+  const h1s = (src: string) => {
+    const nodes = parseFile(src, 'x.svelte')
+      .headings.filter((h) => h.level === 1)
+      .map((h) => ({ key: 'h1', path: h.path ?? [], repeatable: false }));
+    return foldOccurrences(nodes).get('h1')?.length ?? 0;
+  };
+  it('counts one <h1> across blocks without an {:else} that contradict through nesting or `||`', () => {
+    expect(h1s('{#if a || r}<h1>A</h1>{/if}{#if !a && s}{#if !r}<h1>B</h1>{/if}{/if}')).toBe(1);
+    expect(
+      h1s('{#if (open && !hide) || always}<h1>A</h1>{/if}<div>{#if (!open || hide) && !always}<h1>B</h1>{/if}</div>')
+    ).toBe(1);
+    expect(h1s("{#if s === 'x'}<h1>A</h1>{/if}{#if s !== 'x'}<h1>B</h1>{/if}")).toBe(1);
+    expect(h1s('<Card>{#if a}<h1>A</h1>{/if}</Card>{#if !a}<h1>B</h1>{/if}')).toBe(1);
+    expect(
+      h1s('{#snippet title()}<h1>T</h1>{/snippet}{#if a}{@render title()}{/if}{#if !a}{@render title()}{/if}')
+    ).toBe(1);
+  });
+  it('still counts both where one test is read against several values or they can both hold', () => {
+    expect(h1s('{#each xs as a}{#if a}<h1>A</h1>{/if}{/each}{#if !a}<h1>B</h1>{/if}')).toBe(2);
+    expect(h1s('{#snippet t(a)}{#if a}<h1>A</h1>{/if}{/snippet}{@render t(x)}{#if !a}<h1>B</h1>{/if}')).toBe(2);
+    expect(h1s('{#if a || r}<h1>A</h1>{/if}{#if !a}<h1>B</h1>{/if}')).toBe(2);
+    expect(h1s('{#if f()}<h1>A</h1>{/if}{#if !f()}<h1>B</h1>{/if}')).toBe(2);
+    expect(h1s("{#if x == '0'}<h1>A</h1>{/if}{#if x != '0'}<h1>B</h1>{/if}")).toBe(2);
+    expect(h1s('{#if a}<Err />{:else}<h1>Page</h1>{/if}{#if !a}<h1>B</h1>{/if}')).toBe(2);
   });
 });
 

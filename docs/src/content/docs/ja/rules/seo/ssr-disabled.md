@@ -9,7 +9,7 @@ description: export const ssr = false にすると、JS を実行しないクロ
 
 `export const ssr = false` でサーバーサイドレンダリングを無効化している SvelteKit のルートファイルを検出します（`satisfies`/`as` 形式や同一ファイル内のエイリアス export も対象）。ルートの `+layout` で無効化するとアプリ全体が SPA になるため、その場合はより強い、アプリ全体を対象としたメッセージを出します。
 
-検出対象外: `csr = false`（サーバー専用レンダリングであり、SEO にはむしろ良い）、`export const ssr = dev` のような非リテラル値（静的に評価不能）、export されていない `const ssr = false`（SvelteKit では効果がない）。
+`export const ssr = dev`（`dev` は `$app/environment` のもの）も検出します。本番ビルドでは必ず `false` になるためです。検出対象外: `csr = false`（サーバー専用レンダリングであり、SEO にはむしろ良い）、そのほかの非リテラル値、export されていない `const ssr = false`（SvelteKit では効果がない）。
 
 ## なぜ重要か
 

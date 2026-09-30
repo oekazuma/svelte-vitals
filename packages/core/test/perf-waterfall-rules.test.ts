@@ -48,6 +48,40 @@ describe('performance/load-waterfall load waterfall', () => {
     const results = await performanceLoadWaterfall.check(ctx([{ ...m, csrDisabled: { line: 1 } }]));
     expect(results).toEqual([]);
   });
+
+  it("does not fire under a layout's csr = false, unless the page turns csr back on", async () => {
+    const chain = (page: KitModuleFacts) => [
+      { ...mod('src/routes/+layout.ts', 'universal'), csrDisabled: { line: 1 } },
+      page
+    ];
+    const page = mod('src/routes/feed/+page.ts', 'universal', { dependentLines: [3], independentLines: [] });
+    expect(await performanceLoadWaterfall.check(ctx(chain(page)))).toEqual([]);
+    const watch = { ...page, file: 'src/routes/watch/+page.ts', csrEnabled: true as const };
+    const results = await performanceLoadWaterfall.check(ctx(chain(watch)));
+    expect(results.filter((r) => r.detection.presence === 'none').map((r) => r.location)).toEqual([
+      'src/routes/watch/+page.ts'
+    ]);
+  });
+
+  it("takes a node's universal csr over its server csr, and flags a layout load a child page runs in the browser", async () => {
+    const flagged = async (modules: KitModuleFacts[]) =>
+      (await performanceLoadWaterfall.check(ctx(modules)))
+        .filter((r) => r.detection.presence === 'none')
+        .map((r) => r.location);
+    const page = mod('src/routes/feed/+page.ts', 'universal', { dependentLines: [3], independentLines: [] });
+    const paired = [
+      { ...mod('src/routes/+layout.ts', 'universal'), csrDisabled: { line: 1 } },
+      { ...mod('src/routes/+layout.server.ts', 'server'), csrEnabled: true as const },
+      page
+    ];
+    expect(await flagged(paired)).toEqual([]);
+    const layout = {
+      ...mod('src/routes/+layout.ts', 'universal', { dependentLines: [4], independentLines: [] }),
+      csrDisabled: { line: 1 }
+    };
+    const child = { ...mod('src/routes/watch/+page.ts', 'universal'), csrEnabled: true as const };
+    expect(await flagged([layout, child])).toEqual(['src/routes/+layout.ts']);
+  });
 });
 
 describe('performance/sequential-awaits sequential independent awaits', () => {
