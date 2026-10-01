@@ -156,16 +156,21 @@ describe('parse-html: static-gaps capture (seo/charset, seo/hreflang, seo/single
     const doc =
       '<!doctype html><html lang="en"><head><title>t</title></head>' +
       '<body><h2>Intro</h2><section><h1>A</h1><h2>B</h2></section></body></html>';
-    expect(parseHtmlHead(doc).headings).toEqual([2, 1, 2]);
+    expect(parseHtmlHead(doc).headings.map((h) => h.level)).toEqual([2, 1, 2]);
   });
 
+  it('reads role="heading" at its aria-level, 2 by default (seo/heading-level-skip)', () => {
+    const doc =
+      '<!doctype html><html lang="en"><head><title>t</title></head><body><h1>a</h1><div role="heading" aria-level="3">b</div><p role="heading">c</p><span role="note">d</span></body></html>';
+    expect(parseHtmlHead(doc).headings).toEqual([{ level: 1 }, { level: 3, aria: true }, { level: 2, aria: true }]);
+  });
   it('reports an empty body as no headings (seo/single-h1)', () => {
     expect(parseHtmlHead(html('<title>t</title>')).headings).toEqual([]);
   });
 
   it('ignores headings outside <body> (seo/single-h1)', () => {
     const doc = '<!doctype html><html lang="en"><head><h1>nope</h1></head><body><h1>A</h1></body></html>';
-    expect(parseHtmlHead(doc).headings).toEqual([1]);
+    expect(parseHtmlHead(doc).headings.map((h) => h.level)).toEqual([1]);
   });
 
   it('keeps a literal empty hreflang="" (seo/hreflang)', () => {

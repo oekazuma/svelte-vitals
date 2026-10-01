@@ -97,9 +97,7 @@ async function analyzeAndIngest(
     const { tags, headings: levels, images: imgs, landmarks, nestedLandmarks, ids, idRefs } = parseHtmlHead(html);
     const head: ResolvedHead = { route, source: 'rendered', tags, file: route };
     // Rendered mode does not track source lines (line 0 = unknown); file is the route.
-    const headings: ResolvedHeadings[] = [
-      { route, headings: levels.map((level) => ({ level, line: 0, file: route })) }
-    ];
+    const headings: ResolvedHeadings[] = [{ route, headings: levels.map((h) => ({ ...h, line: 0, file: route })) }];
     const images: ResolvedImages[] = [{ route, images: imgs.map((img) => ({ ...img, file: route })) }];
     const a11y: ResolvedA11y[] = [
       {

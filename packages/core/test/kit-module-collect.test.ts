@@ -181,3 +181,69 @@ describe('collectKitModuleFacts — alias list', () => {
     expect(without[0]!.runesModuleImports).toEqual([]);
   });
 });
+
+describe('collectKitModuleFacts — persistence clients outside $lib/server', () => {
+  const writes = async (store: string) => {
+    const facts = await collectKitModuleFacts(
+      createMemoryRuntime({
+        'src/lib/services/kv.ts': store,
+        'src/routes/api/+server.ts':
+          "import { kv } from '$lib/services/kv';\nexport async function PATCH({ request }) {\n  await kv.set('k', await request.json());\n}"
+      }),
+      ''
+    );
+    return facts.flatMap((f) => f.importedStateWrites);
+  };
+
+  it('drops a write through a class instance or a package client', async () => {
+    expect(await writes('class Kv {}\nexport const kv = new Kv();')).toEqual([]);
+    expect(await writes("import { createClient } from 'redis';\nexport const kv = createClient();")).toEqual([]);
+  });
+
+  it('keeps a write to a store, a container, a local factory or a module it cannot read', async () => {
+    const kept = [{ name: 'kv', line: 3, via: 'set-call' }];
+    expect(await writes("import { writable } from 'svelte/store';\nexport const kv = writable({});")).toEqual(kept);
+    expect(await writes('export const kv = new Map();')).toEqual(kept);
+    expect(await writes('function make() { return new Map(); }\nexport const kv = make();')).toEqual(kept);
+    const facts = await collectKitModuleFacts(
+      createMemoryRuntime({
+        'src/routes/api/+server.ts':
+          "import { kv } from '$lib/services/kv';\nexport async function PATCH() {\n  kv.set('k', 1);\n}"
+      }),
+      ''
+    );
+    expect(facts.flatMap((f) => f.importedStateWrites)).toEqual(kept);
+  });
+});
+
+describe('collectKitModuleFacts — a load guarded by an imported flag', () => {
+  const never = async (config: string, guard = 'if (!FLAG) redirect(302, "/");', imp = 'FLAG') => {
+    const facts = await collectKitModuleFacts(
+      createMemoryRuntime({
+        'src/lib/config.ts': config,
+        'src/routes/x/+page.server.ts': `import { redirect } from '@sveltejs/kit';\nimport { ${imp} } from '$lib/config';\nexport async function load() {\n  ${guard}\n  return {};\n}`
+      }),
+      ''
+    );
+    return facts.find((f) => f.file === 'src/routes/x/+page.server.ts')?.loadNeverRenders;
+  };
+
+  it('never renders when the flag is the literal false, plain or as a member of an object literal', async () => {
+    expect(await never('export const FLAG = false;')).toBe(true);
+    expect(await never('export const FLAG = false as const;')).toBe(true);
+    expect(
+      await never(
+        'export const FEATURES = { DEBATE: false } as const;',
+        'if (!FEATURES.DEBATE) redirect(302, "/");',
+        'FEATURES'
+      )
+    ).toBe(true);
+  });
+
+  it('renders when the flag may be true, or the module cannot be read', async () => {
+    expect(await never('export const FLAG = true;')).toBeUndefined();
+    expect(await never('export let FLAG = false;')).toBeUndefined();
+    expect(await never('export const FLAG = import.meta.env.DEV;')).toBeUndefined();
+    expect(await never('export const OTHER = false;')).toBeUndefined();
+  });
+});

@@ -25,6 +25,8 @@ export interface KitModuleFacts {
    * behaviour, i.e. every one of these exempt.
    */
   pendingServerStoreWrites: { name: string; imported: string; resolved: string; line: number }[];
+  /** The targets of the `.set()`/`.update()` writes recorded in `importedStateWrites` from a handler, for the collector to drop those that reach a persistence client. */
+  storeWriteTargets?: { name: string; imported: string; resolved: string; line: number }[];
   /** Value imports whose specifier resolves to a repo-local `.svelte.ts`/`.svelte.js` runes module (security/shared-state-import). */
   runesModuleImports: { source: string; resolved: string; names: string[]; line: number }[];
   /** Svelte lifecycle/context calls that run outside component initialisation — top level, handler bodies, or the `init` hook (correctness/orphan-lifecycle). */
@@ -51,6 +53,8 @@ export interface KitModuleFacts {
   csrEnabled?: true;
   /** Set when the exported `load` redirects or throws `error()` on every call — every path through its body reaches a `redirect()`/`error()` before any `return`, directly or through a same-file top-level function that always does (see `loadNeverRenders` in kit-module-parse.ts). A `+page` module carrying it means the route never renders its own page. */
   loadNeverRenders?: true;
+  /** The imported flag a load's leading guard reads (`if (!FLAG) redirect(…)`): `collectKitModuleFacts` sets `loadNeverRenders` when that export is the literal `false`. */
+  pendingFlagGuard?: { resolved: string; name: string; member?: string };
   /** Set when the exported `load` sends a request without a session away before rendering (see `loadGatesOnLocals` in kit-module-parse.ts); every route under a `+layout` carrying it is behind a login. */
   loadGated?: true;
   /** Sequential-await analysis of the exported `load` function (performance/load-waterfall, performance/sequential-awaits): 1-based lines of await sites that depend on an earlier await's result, and of sites independent of all earlier awaits. Set only when at least one list is non-empty. */

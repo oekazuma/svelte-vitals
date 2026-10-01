@@ -9,7 +9,7 @@ description: head の <script src> で HTML の解析を止めないようにし
 
 `<head>` 内の `<script src>` のうち、クラシックスクリプトとして実行され（`type` が未指定・空、または JavaScript の MIME タイプ）、かつ `defer`・`async` のいずれも指定していないものを検出します。`src/app.html` に書かれたもの（レンダリング解析で検出）でも、`<svelte:head>` に書かれたもの（ソース解析で検出）でも対象です。`<script>` がない head は検査しません。
 
-検出しないもの: `type="module"`、および `type="importmap"`、`type="speculationrules"`、`type="text/partytown"` のようなサードパーティランタイムなど、クラシックスクリプトとして実行されない type。
+検出しないもの: `type="module"`、および `type="importmap"`、`type="speculationrules"`、`type="text/partytown"` のようなサードパーティランタイムなど、クラシックスクリプトとして実行されない type。サーバーで描画されないルート（レイアウトチェーンで `ssr = false`）の `<svelte:head>` のスクリプトも、HTML の解析後にクライアントが追加するため検出しません。`src/app.html` のスクリプトはその HTML に含まれるため、引き続き検出します。
 
 ## なぜ重要か
 

@@ -200,4 +200,12 @@ describe('seo/single-h1 heading hierarchy', () => {
     expect(rs[0]!.message).toBe('Missing <h1>');
     expect(rs[0]!.location).toBeUndefined();
   });
+  it('does not count a role="heading" at aria-level 1 as an <h1>', async () => {
+    const rs = await seoSingleH1.check(
+      headingsCtx([{ route: '/a', headings: [{ level: 1, line: 3, file: 'src/routes/a/+page.svelte', aria: true }] }])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toBe('Missing <h1>');
+    expect(rs[0]!.location).toBeUndefined();
+  });
 });

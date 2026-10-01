@@ -25,6 +25,8 @@ export interface HeadingInfo {
    * headings carry none and arrive in order.
    */
   order?: number[];
+  /** A `role="heading"` element: it holds its outline level for seo/heading-level-skip, but is not an `<h1>` for seo/single-h1. */
+  aria?: true;
 }
 
 /** Sort comparator for `order`: element by element, a prefix first; headings without one keep their place. */

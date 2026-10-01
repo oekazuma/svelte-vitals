@@ -30,7 +30,7 @@ const multipleRecommendation =
  */
 function renderableH1s(headings: HeadingInfo[]): HeadingInfo[] {
   const nodes = headings
-    .filter((h) => h.level === 1)
+    .filter((h) => h.level === 1 && !h.aria)
     .map((heading) => ({ key: 'h1', path: heading.path ?? [], repeatable: false, heading }));
   const kept = new Set([...foldOccurrences(nodes).values()].flat().map((n) => n.heading));
   return headings.filter((h) => kept.has(h));
@@ -60,7 +60,7 @@ export const seoSingleH1: Rule = {
         // Missing arm in a component file would change its findingKey
         // (`id::route::location`) — invalidating committed suppressions — and make it
         // newly visible to `--diff` runs touching that component.
-        const first = route.headings[0];
+        const first = route.headings.find((h) => !h.aria);
         if (first) where = { location: first.file, ...(first.line > 0 ? { line: first.line } : {}) };
       } else if (h1.length > 1) {
         problem = {

@@ -9,7 +9,7 @@ description: A head <script src> should not block parsing.
 
 Flags a `<script src>` in `<head>` that runs as a classic script (no `type`, an empty `type`, or a JavaScript MIME type) and has neither `defer` nor `async`, whether authored in `src/app.html` (caught in rendered analysis) or in `<svelte:head>` (caught in source analysis). A head with no `<script>` is not checked.
 
-Not flagged: `type="module"`, and non-executing types such as `type="importmap"`, `type="speculationrules"`, or a third-party runtime like `type="text/partytown"`. None of these run as a blocking classic script.
+Not flagged: `type="module"`, and non-executing types such as `type="importmap"`, `type="speculationrules"`, or a third-party runtime like `type="text/partytown"`. None of these run as a blocking classic script. Nor is a `<svelte:head>` script on a route that is never server-rendered (`ssr = false` along its layout chain): the client adds it after the HTML is parsed. A script in `src/app.html` is in that HTML and is still flagged.
 
 ## Why it matters
 
