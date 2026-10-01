@@ -1001,10 +1001,10 @@ function collectHeadings(
     if (!map.has(key)) map.set(key, offset);
   };
   // Each distinct place the children render, which `renderPaths` meets into one.
-  const childrenSites: BranchStep[][] = [];
-  const site = (path: BranchStep[]): void => {
-    if (!childrenSites.some((p) => p.length === path.length && p.every((s, i) => sameStep(s, path[i]!))))
-      childrenSites.push(path);
+  const childrenSites: ChildrenSite[] = [];
+  const site = (path: BranchStep[], offset: number): void => {
+    if (!childrenSites.some(({ path: p }) => p.length === path.length && p.every((s, i) => sameStep(s, path[i]!))))
+      childrenSites.push({ path, offset });
   };
   const meet = <K>(map: Map<K, BranchStep[]>, key: K, path: BranchStep[]): void => {
     const prev = map.get(key);
@@ -1105,7 +1105,7 @@ function collectHeadings(
         reached.add(snippet);
         walk(snippet.body, path, [...open, snippet], at ?? node.start, snippet.parameters.length > 0 ? null : when);
       } else if (!snippet && name !== undefined) {
-        if ((props.get(name) ?? name) === 'children') site(path);
+        if ((props.get(name) ?? name) === 'children') site(path, at ?? node.start);
         meet(renderPaths, props.get(name) ?? name, path);
         note(renderWhen, props.get(name) ?? name, when);
         first(renderOffsets, props.get(name) ?? name, at ?? node.start);
@@ -1113,7 +1113,7 @@ function collectHeadings(
       return;
     }
     if (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) {
-      site(path);
+      site(path, at ?? node.start);
       meet(renderPaths, 'children', path);
       note(renderWhen, 'children', when);
       first(renderOffsets, 'children', at ?? node.start);
@@ -1715,6 +1715,12 @@ function renderCallee(node: AST.RenderTag): string | undefined {
   return call.callee.type === 'Identifier' ? call.callee.name : undefined;
 }
 
+/** One place a layout renders `children`: its branch path and its offset in document order. */
+export interface ChildrenSite {
+  path: BranchStep[];
+  offset: number;
+}
+
 export interface ParsedFile {
   headTags: ParsedTag[];
   components: ComponentUse[];
@@ -1730,7 +1736,7 @@ export interface ParsedFile {
   /** Where each snippet prop renders (`children` also for `<slot />`), `HOLE` steps included. */
   renderPaths: ReadonlyMap<string, BranchStep[]>;
   /** Each distinct place `children` renders, when there is more than one. */
-  childrenSites?: BranchStep[][];
+  childrenSites?: ChildrenSite[];
   /** Where each snippet prop first renders in the file's document order. */
   renderOffsets: ReadonlyMap<string, number>;
   /** This file has a `<svelte:element>` that may render a heading of an undetermined level. */

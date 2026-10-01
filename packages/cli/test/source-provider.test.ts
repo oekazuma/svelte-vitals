@@ -840,6 +840,22 @@ describe('collectRoutes a11y composition', () => {
     expect(foldOccurrences(h1s).get('h1')).toHaveLength(1);
   });
 
+  it('orders the page in each arm by where that arm renders it', async () => {
+    const routes = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': `{#if bare}{@render children()}{:else}<h1>Layout</h1>{@render children()}{/if}`,
+        'src/routes/+page.svelte': `<h2>Page</h2>`
+      }),
+      ''
+    );
+    const { headings } = routes.headings.find((h) => h.route === '/')!;
+    const layoutH1 = headings.find((h) => h.level === 1)!;
+    const inElse = headings.find((h) => h.level === 2 && h.path?.[0]?.branch === 1)!;
+    const inIf = headings.find((h) => h.level === 2 && h.path?.[0]?.branch === 0)!;
+    expect(inElse.order![0]).toBeGreaterThan(layoutH1.order![0]!);
+    expect(inIf.order![0]).toBeLessThan(layoutH1.order![0]!);
+  });
+
   it('reports a page landmark nested in the layout slot landmark', async () => {
     const a11y = await a11yOf({
       'src/routes/+layout.svelte': `<main><slot /></main>`,

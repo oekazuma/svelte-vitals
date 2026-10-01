@@ -14,7 +14,7 @@ import type {
   Runtime
 } from '@svelte-vitals/core/internal';
 import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
-import type { A11yNode, ParsedFile, ParsedTag } from './parse.js';
+import type { A11yNode, ChildrenSite, ParsedFile, ParsedTag } from './parse.js';
 import { commonPrefix } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {
@@ -330,11 +330,13 @@ async function resolveRoute(
   // Heading paths are route-wide: each chain file gets its own group range, and a file renders
   // below its parent layout's `{@render children()}` arm.
   let headingGroup = 0;
-  // Where the layouts above render their children, one path per place (see `slotPrefixes`).
-  let childrenAts: BranchStep[][] = [[]];
-  // Where the layouts above render their children, in document order (`HeadingInfo.order`).
-  let childrenOrder: number[] = [];
-  const ordered = (h: HeadingInfo): HeadingInfo => ({ ...h, order: [...childrenOrder, ...(h.order ?? [])] });
+  // Where the layouts above render their children, one per place (see `slotPrefixes`): the branch
+  // path, and the document-order offsets that place a heading there (`HeadingInfo.order`).
+  let childrenAts: { path: BranchStep[]; order: number[] }[] = [{ path: [], order: [] }];
+  const placeHeading = (h: HeadingInfo, at: (typeof childrenAts)[number]): HeadingInfo => {
+    const nested = nestHeading(h, at.path, headingGroup);
+    return { ...nested, order: [...at.order, ...(nested.order ?? [])] };
+  };
   const a11yCtx: ComposeCtx = {
     rt,
     cwd,
@@ -389,7 +391,7 @@ async function resolveRoute(
     imagesAt += parsed.imagesBeforeChildren ?? own.length;
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, headAliases);
     for (const heading of resolved.ownHeadings) {
-      for (const at of childrenAts) headings.push(ordered(nestHeading(heading, at, headingGroup)));
+      for (const at of childrenAts) headings.push(placeHeading(heading, at));
     }
     dynamicHeading = dynamicHeading || parsed.dynamicHeading;
 
@@ -414,18 +416,28 @@ async function resolveRoute(
       if (isPage) broadOwn = true;
       else broadInherited = true;
     }
-    for (const at of childrenAts)
-      componentHeadings.push(...resolved.headings.map((h) => ordered(nestHeading(h, at, headingGroup))));
+    for (const at of childrenAts) componentHeadings.push(...resolved.headings.map((h) => placeHeading(h, at)));
     dynamicHeading = dynamicHeading || resolved.dynamicHeading;
     clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
     const childrenPath = resolved.renderPaths.get('children');
-    const sites = exclusiveSites(resolved.childrenSites) ?? (childrenPath ? [childrenPath] : undefined);
-    if (sites) {
-      const next = childrenAts.flatMap((at) => sites.map((site) => [...at, ...offsetPath(site, headingGroup)]));
-      childrenAts = next.length <= 8 ? next : [next.reduce(commonPrefix)];
-    }
     const childrenOffset = resolved.renderOffsets.get('children');
-    if (childrenOffset !== undefined) childrenOrder = [...childrenOrder, childrenOffset];
+    const exclusive = exclusiveSites(resolved.childrenSites?.map((s) => s.path));
+    const sites: ChildrenSite[] | undefined =
+      exclusive && exclusive.length > 1
+        ? resolved.childrenSites
+        : childrenPath && childrenOffset !== undefined
+          ? [{ path: exclusive?.[0] ?? childrenPath, offset: childrenOffset }]
+          : undefined;
+    if (sites) {
+      const next = childrenAts.flatMap((at) =>
+        sites.map((site) => ({
+          path: [...at.path, ...offsetPath(site.path, headingGroup)],
+          order: [...at.order, site.offset]
+        }))
+      );
+      childrenAts =
+        next.length <= 8 ? next : [{ path: next.map((n) => n.path).reduce(commonPrefix), order: next[0]!.order }];
+    }
     headingGroup += resolved.groupSpan;
   }
 

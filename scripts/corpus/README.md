@@ -235,7 +235,7 @@ Measured on 195 apps, each pinned to a commit:
 - [MaxOpperman/spelwijsheid](https://github.com/MaxOpperman/spelwijsheid/tree/0e17f1dec7f86c035f9864e60bcdb641dbab5375) (`0e17f1d`)
 - [tilloh-dev/tilloh.dev/frontend](https://github.com/tilloh-dev/tilloh.dev/tree/3013455c974b39c935878f025ea78dfef1eccc15/frontend) (`3013455`)
 
-89504 of 89504 corpus findings have a verdict.
+89503 of 89503 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision        | Design share    |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ---------------- | --------------- |
@@ -319,7 +319,7 @@ Measured on 195 apps, each pinned to a commit:
 | [`seo/description-presence`](../../docs/src/content/docs/rules/seo/description-presence.md)                           | 4096            | 126  | 490 / 78 / 3528 / 0                   | 86% (490/568)    | 86% (3528/4096) |
 | [`seo/duplicate-description`](../../docs/src/content/docs/rules/seo/duplicate-description.md)                         | 85              | 28   | 66 / 0 / 19 / 0                       | 100% (66/66)     | 22% (19/85)     |
 | [`seo/duplicate-title`](../../docs/src/content/docs/rules/seo/duplicate-title.md)                                     | 120             | 54   | 23 / 0 / 97 / 0                       | 100% (23/23)     | 81% (97/120)    |
-| [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 603             | 105  | 575 / 28 / 0 / 0                      | 95% (575/603)    | 0% (0/603)      |
+| [`seo/heading-level-skip`](../../docs/src/content/docs/rules/seo/heading-level-skip.md)                               | 602             | 105  | 575 / 27 / 0 / 0                      | 96% (575/602)    | 0% (0/602)      |
 | [`seo/hreflang`](../../docs/src/content/docs/rules/seo/hreflang.md)                                                   | 0               | 0    | —                                     | —                | —               |
 | [`seo/html-lang`](../../docs/src/content/docs/rules/seo/html-lang.md)                                                 | 4               | 4    | 3 / 0 / 1 / 0                         | 100% (3/3)       | 25% (1/4)       |
 | [`seo/image-alt`](../../docs/src/content/docs/rules/seo/image-alt.md)                                                 | 14              | 4    | 14 / 0 / 0 / 0                        | 100% (14/14)     | 0% (0/14)       |

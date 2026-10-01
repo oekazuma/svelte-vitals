@@ -274,6 +274,13 @@ function collectConstantLists(
       : undefined;
   const outerMember = nsMember;
   const members = new Set<string>();
+  const declared = new Set<string>();
+  for (const program of programs) {
+    const imported = new Set<string>();
+    for (const top of program.body ?? [])
+      if (top?.type === 'ImportDeclaration') for (const s of top.specifiers ?? []) imported.add(s?.local?.name);
+    for (const name of collectProgramBindings(program)) if (!imported.has(name)) declared.add(name);
+  }
   for (const root of roots) {
     walkScoped(root, (n: Node, shadowed: Set<string>) => {
       // A same-named parameter or item is a different binding: its reads and writes are not the list's.
@@ -318,9 +325,10 @@ function collectConstantLists(
           unsafe.add(calledList);
         }
       }
-      // In the module that exports it, handing the list to a call (`z.enum(TABS)`) is taken as a read:
-      // only the module's own writes disqualify it, as the rule's docs say.
-      if (opts.exported && n.type === 'CallExpression')
+      // In the module that exports it, handing the list to an imported or global function (`z.enum(TABS)`)
+      // is taken as a read; a function this module declares could reorder it, so that call is not.
+      const callee = n.type === 'CallExpression' ? rootObjectName(n.callee) : undefined;
+      if (opts.exported && callee !== undefined && !declared.has(callee) && !shadowed.has(callee))
         for (const arg of n.arguments ?? []) if (listOf(unwrapTs(arg))) safe.add(unwrapTs(arg));
       if (n.type === 'BindDirective' && listOf(rootObjectNode(n.expression)))
         unsafe.add(listOf(rootObjectNode(n.expression))!);

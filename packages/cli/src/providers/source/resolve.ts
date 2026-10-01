@@ -6,7 +6,7 @@ import {
   parseModuleProgram,
   resolveRepoLocalPath
 } from '@svelte-vitals/core/internal';
-import type { ParsedFile, ParsedTag, PropArgs } from './parse.js';
+import type { ChildrenSite, ParsedFile, ParsedTag, PropArgs } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { addImportsFromProgram, importOf, type ImportMap } from './imports.js';
 import { argsOf, decidedArms, HOLE, parseFile, tagsInHead } from './parse.js';
@@ -22,7 +22,7 @@ interface ResolveResult {
   /** `parsed.renderPaths`, placed the same way. */
   renderPaths: ReadonlyMap<string, BranchStep[]>;
   /** `parsed.childrenSites`, placed the same way. */
-  childrenSites?: BranchStep[][];
+  childrenSites?: ChildrenSite[];
   /** `parsed.renderOffsets`. */
   renderOffsets: ReadonlyMap<string, number>;
   /**
@@ -511,7 +511,9 @@ export async function resolveFileTags(
     broad,
     ownHeadings: parsed.headings.map((h) => placeHeading({ ...h, file: fileRel })),
     renderPaths: new Map([...parsed.renderPaths].map(([name, path]) => [name, place(path)])),
-    ...(parsed.childrenSites ? { childrenSites: parsed.childrenSites.map(place) } : {}),
+    ...(parsed.childrenSites
+      ? { childrenSites: parsed.childrenSites.map((s) => ({ ...s, path: place(s.path) })) }
+      : {}),
     renderOffsets: parsed.renderOffsets,
     headings: nested.flatMap(({ headings, at, base, offset }) =>
       headings.map((h) => ({ ...nestHeading(h, place(at), base), order: [offset, ...(h.order ?? [])] }))
