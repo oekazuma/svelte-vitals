@@ -1248,7 +1248,7 @@ function collectHeadings(
       const attrs = node.attributes.filter((a): a is AST.Attribute => a.type === 'Attribute');
       const set = attrs.some((a) => a.name === 'aria-level');
       const level = Number(set ? attrText(attrs, 'aria-level') : 2);
-      push(Number.isInteger(level) && level >= 1 && level <= 6 ? level : 0, node, path, at, when, true);
+      push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at, when, true);
     } else if (node.type === 'SvelteElement') {
       const tags = svelteElementTags(node.tag);
       const level = tags ? headingLevelOf(tags) : undefined;

@@ -849,7 +849,7 @@ describe('collectRoutes a11y composition', () => {
   it('reads role="heading" as a heading of its aria-level for the outline, not as an <h1>', async () => {
     const routes = await collectRoutes(
       createMemoryRuntime({
-        'src/routes/+page.svelte': `<h1>Title</h1><div role="heading" aria-level="2">Section</div><h3>Sub</h3><div role="heading" aria-level={level}>x</div>`
+        'src/routes/+page.svelte': `<h1>Title</h1><div role="heading" aria-level="2">Section</div><h3>Sub</h3><div role="heading" aria-level={level}>x</div><div role="heading" aria-level="7">y</div>`
       }),
       ''
     );
@@ -858,7 +858,8 @@ describe('collectRoutes a11y composition', () => {
       [1, false],
       [2, true],
       [3, false],
-      [0, true]
+      [0, true],
+      [7, true]
     ]);
   });
 

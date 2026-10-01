@@ -249,7 +249,7 @@ Measured on 209 apps, each pinned to a commit:
 - [fcrozatier/SoME](https://github.com/fcrozatier/SoME/tree/253b383a28611e44bcb3e97a427ad41cab64122e) (`253b383`)
 - [radio4000/r4atproto](https://github.com/radio4000/r4atproto/tree/b59ba7aba728683fd333a47f9e5a90bbeda3e5a2) (`b59ba7a`)
 
-99420 of 99420 corpus findings have a verdict.
+99421 of 99421 corpus findings have a verdict.
 
 | Rule                                                                                                                  | Corpus findings | Apps | Reviewed (tp / fp / design / unclear) | Precision          | Design share    |
 | --------------------------------------------------------------------------------------------------------------------- | --------------- | ---- | ------------------------------------- | ------------------ | --------------- |
@@ -322,7 +322,7 @@ Measured on 209 apps, each pinned to a commit:
 | [`performance/responsive-image`](../../docs/src/content/docs/rules/performance/responsive-image.md)                   | 1323            | 143  | 1094 / 0 / 229 / 0                    | 100% (1094/1094)   | 17% (229/1323)  |
 | [`performance/sequential-awaits`](../../docs/src/content/docs/rules/performance/sequential-awaits.md)                 | 1708            | 112  | 780 / 2 / 924 / 2                     | 100% (780/782)     | 54% (924/1708)  |
 | [`performance/state-raw`](../../docs/src/content/docs/rules/performance/state-raw.md)                                 | 505             | 99   | 505 / 0 / 0 / 0                       | 100% (505/505)     | 0% (0/505)      |
-| [`security/handler-state-write`](../../docs/src/content/docs/rules/security/handler-state-write.md)                   | 16              | 6    | 10 / 0 / 6 / 0                        | 100% (10/10)       | 38% (6/16)      |
+| [`security/handler-state-write`](../../docs/src/content/docs/rules/security/handler-state-write.md)                   | 17              | 7    | 10 / 0 / 7 / 0                        | 100% (10/10)       | 41% (7/17)      |
 | [`security/javascript-url`](../../docs/src/content/docs/rules/security/javascript-url.md)                             | 45              | 3    | 45 / 0 / 0 / 0                        | 100% (45/45)       | 0% (0/45)       |
 | [`security/raw-html`](../../docs/src/content/docs/rules/security/raw-html.md)                                         | 2537            | 168  | 312 / 0 / 2224 / 1                    | 100% (312/312)     | 88% (2224/2537) |
 | [`security/server-module-state`](../../docs/src/content/docs/rules/security/server-module-state.md)                   | 114             | 37   | 4 / 2 / 108 / 0                       | 67% (4/6)          | 95% (108/114)   |

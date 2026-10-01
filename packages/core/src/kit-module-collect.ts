@@ -72,7 +72,11 @@ export async function collectKitModuleFacts(
       }
     })
   );
-  return decideFlagGuards(rt, cwd, await dropClientWrites(rt, cwd, await arbitrateServerStoreWrites(rt, cwd, facts)));
+  return decideFlagGuards(
+    rt,
+    cwd,
+    await dropClientWrites(rt, cwd, await arbitrateServerStoreWrites(rt, cwd, facts), aliases)
+  );
 }
 
 /**
@@ -106,11 +110,20 @@ async function exportsOf(
 }
 
 /** Drop the handler `.set()`/`.update()` writes whose target module exports a persistence client under that name. */
-async function dropClientWrites(rt: Runtime, cwd: string, facts: KitModuleFacts[]): Promise<KitModuleFacts[]> {
+async function dropClientWrites(
+  rt: Runtime,
+  cwd: string,
+  facts: KitModuleFacts[],
+  aliases?: readonly KitAlias[]
+): Promise<KitModuleFacts[]> {
   const targets = [...new Set(facts.flatMap((f) => (f.storeWriteTargets ?? []).map((w) => w.resolved)))];
   if (targets.length === 0) return facts;
   const byPath = new Map(
-    await Promise.all(targets.map(async (t) => [t, await exportsOf(rt, cwd, t, parseClientExports)] as const))
+    await Promise.all(
+      targets.map(
+        async (t) => [t, await exportsOf(rt, cwd, t, (src, file) => parseClientExports(src, file, aliases))] as const
+      )
+    )
   );
   return facts.map((f) => {
     const clients = (f.storeWriteTargets ?? []).filter((w) => byPath.get(w.resolved)?.has(w.imported));

@@ -241,7 +241,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       if (/^h[1-6]$/i.test(el.rawTagName)) return [{ level: Number(el.rawTagName[1]) }];
       if (el.getAttribute('role')?.trim().toLowerCase() !== 'heading') return [];
       const level = Number(el.getAttribute('aria-level') ?? 2);
-      return [{ level: Number.isInteger(level) && level >= 1 && level <= 6 ? level : 0, aria: true }];
+      return [{ level: Number.isInteger(level) && level >= 1 ? level : 0, aria: true }];
     });
 
   // Page <img> elements (performance/image-dimensions, performance/image-loading-hint, performance/lcp-image,

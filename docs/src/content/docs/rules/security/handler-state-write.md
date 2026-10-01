@@ -29,7 +29,7 @@ export const client = drizzle(url); // exempt — not a container literal
 
 Anything the read cannot positively identify as a container stays exempt, so a wrapper around a real client, a re-export, or an unreadable module is never a false positive. Only the modules a handler actually writes to are read.
 
-Outside `src/lib/server` the default runs the other way: a `.set()`/`.update()` from a handler on a repo-local import is reported unless the target module shows the binding is a client. A client is an export initialized with `new` of a class other than `Map`/`Set`/`WeakMap`/`WeakSet` (`export const kv = new KvService()`), or with a call into an installed package (`drizzle(url)`, `createClient(…)`). A store library's factory, from `svelte/store` or a package whose name includes `store`, is not a client, so `export const user = writable(null)` stays reported.
+Outside `src/lib/server` the default runs the other way: a `.set()`/`.update()` from a handler on a repo-local import is reported unless the target module shows the binding is a client. A client is an export initialized with `new` of a class imported from an installed package, or of a class the module declares that extends nothing and keeps no `Map`/`Set`/`WeakMap`/`WeakSet` field (`export const kv = new KvService()`); or with a call into an installed package (`drizzle(url)`, `createClient(…)`), resolving the app's `kit.alias` entries first. A store library's factory, from `svelte/store` or a package whose name includes `store`, is not a client, so `export const user = writable(null)` stays reported.
 
 ## Why it matters
 

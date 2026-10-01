@@ -161,8 +161,13 @@ describe('parse-html: static-gaps capture (seo/charset, seo/hreflang, seo/single
 
   it('reads role="heading" at its aria-level, 2 by default (seo/heading-level-skip)', () => {
     const doc =
-      '<!doctype html><html lang="en"><head><title>t</title></head><body><h1>a</h1><div role="heading" aria-level="3">b</div><p role="heading">c</p><span role="note">d</span></body></html>';
-    expect(parseHtmlHead(doc).headings).toEqual([{ level: 1 }, { level: 3, aria: true }, { level: 2, aria: true }]);
+      '<!doctype html><html lang="en"><head><title>t</title></head><body><h1>a</h1><div role="heading" aria-level="3">b</div><p role="heading">c</p><span role="note">d</span><div role="heading" aria-level="7">e</div></body></html>';
+    expect(parseHtmlHead(doc).headings).toEqual([
+      { level: 1 },
+      { level: 3, aria: true },
+      { level: 2, aria: true },
+      { level: 7, aria: true }
+    ]);
   });
   it('reports an empty body as no headings (seo/single-h1)', () => {
     expect(parseHtmlHead(html('<title>t</title>')).headings).toEqual([]);

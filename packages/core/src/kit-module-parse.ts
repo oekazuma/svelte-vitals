@@ -366,9 +366,22 @@ function leadingFlagGuard(
 ): KitModuleFacts['pendingFlagGuard'] {
   const load = exits.size > 0 ? findLoadFunction(program) : undefined;
   if (load?.body?.type !== 'BlockStatement') return undefined;
+  // A parameter or a declaration of the load's own body is a different binding than the import.
+  const local = new Set<string>();
+  for (const param of load.params ?? []) addBoundNames(param, local);
+  for (const stmt of load.body.body) {
+    if (stmt?.type === 'VariableDeclaration') for (const d of stmt.declarations ?? []) addBoundNames(d?.id, local);
+    else if ((stmt?.type === 'FunctionDeclaration' || stmt?.type === 'ClassDeclaration') && stmt.id)
+      local.add(stmt.id.name);
+  }
   const exitCall = (e: Node) => {
     const x = unwrapTs(e);
-    return x?.type === 'CallExpression' && x.callee?.type === 'Identifier' && exits.has(x.callee.name);
+    return (
+      x?.type === 'CallExpression' &&
+      x.callee?.type === 'Identifier' &&
+      exits.has(x.callee.name) &&
+      !local.has(x.callee.name)
+    );
   };
   const exitsFirst = (stmt: Node): boolean => {
     if (stmt?.type === 'BlockStatement') {
@@ -389,7 +402,10 @@ function leadingFlagGuard(
       const arg: Node = unwrapTs(test.argument);
       const root: Node = arg?.type === 'MemberExpression' && !arg.computed ? unwrapTs(arg.object) : arg;
       const member = arg !== root && arg.property?.type === 'Identifier' ? arg.property.name : undefined;
-      const from = root?.type === 'Identifier' && (arg === root || member) ? imported(root.name) : undefined;
+      const from =
+        root?.type === 'Identifier' && !local.has(root.name) && (arg === root || member)
+          ? imported(root.name)
+          : undefined;
       if (from) return { ...from, ...(member ? { member } : {}) };
     }
     if (containsReturn(stmt)) return undefined;
@@ -408,18 +424,16 @@ export function parseFalseExports(source: string, filename: string): ReadonlySet
       const init = unwrapTs(d?.init);
       if (d?.id?.type !== 'Identifier') continue;
       if (init?.type === 'Literal' && init.value === false) names.add(d.id.name);
-      if (init?.type === 'ObjectExpression')
+      if (init?.type === 'ObjectExpression') {
+        // In source order: a later property or a spread may overwrite an earlier `false`.
+        const members = new Map<string, boolean>();
         for (const p of (init.properties ?? []) as Node[]) {
           const v: Node = unwrapTs(p?.value);
-          if (
-            p?.type === 'Property' &&
-            !p.computed &&
-            p.key?.type === 'Identifier' &&
-            v?.type === 'Literal' &&
-            v.value === false
-          )
-            names.add(`${d.id.name}.${p.key.name}`);
+          if (p?.type !== 'Property' || p.computed || p.key?.type !== 'Identifier') members.clear();
+          else members.set(p.key.name, v?.type === 'Literal' && v.value === false);
         }
+        for (const [key, isFalse] of members) if (isFalse) names.add(`${d.id.name}.${key}`);
+      }
     }
   }
   return names;
@@ -959,6 +973,9 @@ function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: rea
 /** Container constructors whose instances hold data in process memory. */
 const IN_MEMORY_CTORS = new Set(['Map', 'Set', 'WeakMap', 'WeakSet']);
 
+const isContainerCtor = (n: Node): boolean =>
+  n?.type === 'NewExpression' && n.callee?.type === 'Identifier' && IN_MEMORY_CTORS.has(n.callee.name);
+
 /**
  * Whether an initializer positively identifies an in-memory container. An object literal with a
  * spread is a composite of values this parse cannot see — typically a facade over clients and
@@ -977,19 +994,38 @@ function isInMemoryInit(init: Node | undefined): boolean {
 }
 
 /**
- * The exported bindings of a module that are a persistence or API client: `new C()` of a class that is
- * not an in-memory container, or a call into an installed package (`drizzle(…)`, `createClient(…)`).
- * A write through one of them reaches a database or service, not module state.
+ * The exported bindings of a module that are a persistence or API client: `new C()` of a class imported
+ * from an installed package, or of a class this module declares that neither extends another class nor
+ * keeps a `Map`/`Set`/`WeakMap`/`WeakSet` field; or a call into an installed package (`drizzle(…)`,
+ * `createClient(…)`). A write through one of them reaches a database or service, not module state.
  */
-export function parseClientExports(source: string, filename: string): ReadonlySet<string> {
+export function parseClientExports(
+  source: string,
+  filename: string,
+  aliases?: readonly KitAlias[]
+): ReadonlySet<string> {
   const names = new Set<string>();
   const { program } = parseModuleProgram(source, filename);
   const fromPackage = new Set<string>();
   for (const stmt of program?.body ?? []) {
     const src = stmt?.type === 'ImportDeclaration' ? String(stmt.source?.value ?? '') : '';
+    const local = !src || /^[./$~#]|^@\//.test(src) || resolveRepoLocalPath(src, filename, aliases) !== undefined;
     // A store library's factory (`svelte/store`, `svelte-persisted-store`) makes in-process state, not a client.
-    if (src && !/^[./$~#]|^@\//.test(src) && !/^svelte|store/i.test(src))
-      for (const sp of stmt.specifiers ?? []) fromPackage.add(sp.local.name);
+    if (!local && !/^svelte|store/i.test(src)) for (const sp of stmt.specifiers ?? []) fromPackage.add(sp.local.name);
+  }
+  const plainClasses = new Set<string>();
+  for (const stmt of program?.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'ClassDeclaration' || !decl.id || decl.superClass) continue;
+    const container = (decl.body?.body ?? []).some(
+      (m: Node) =>
+        isContainerCtor(m?.value) ||
+        (m?.kind === 'constructor' &&
+          m.value?.body?.body?.some(
+            (st: Node) => st?.type === 'ExpressionStatement' && isContainerCtor(st.expression?.right)
+          ))
+    );
+    if (!container) plainClasses.add(decl.id.name);
   }
   for (const stmt of program?.body ?? []) {
     if (stmt?.type !== 'ExportNamedDeclaration' || stmt.declaration?.type !== 'VariableDeclaration') continue;
@@ -998,7 +1034,7 @@ export function parseClientExports(source: string, filename: string): ReadonlySe
       if (init?.type === 'AwaitExpression') init = unwrapTs(init.argument);
       if (d?.id?.type !== 'Identifier') continue;
       const ctor = init?.type === 'NewExpression' && init.callee?.type === 'Identifier' ? init.callee.name : undefined;
-      if (ctor !== undefined && !IN_MEMORY_CTORS.has(ctor)) names.add(d.id.name);
+      if (ctor !== undefined && (fromPackage.has(ctor) || plainClasses.has(ctor))) names.add(d.id.name);
       if (init?.type === 'CallExpression' && fromPackage.has(rootObjectName(init.callee) ?? '')) names.add(d.id.name);
     }
   }
