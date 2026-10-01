@@ -891,3 +891,75 @@ describe('parseKitModuleFacts — alias-resolved specifiers', () => {
     ]);
   });
 });
+
+describe('parseKitModuleFacts — loadGated (loads that send a request without a session away)', () => {
+  const gated = (body: string, imports = "import { redirect, error } from '@sveltejs/kit';\n") =>
+    facts(imports + body, 'src/routes/(app)/+layout.server.ts').loadGated;
+  it('is set for a top-level negated read of locals that redirects or errors 401/403', () => {
+    expect(gated("export const load = async ({ locals }) => {\n  if (!locals.user) redirect(302, '/login');\n};")).toBe(
+      true
+    );
+    expect(
+      gated('export function load(event) {\n  if (!event.locals.session) {\n    throw redirect(303, `/login`);\n  }\n}')
+    ).toBe(true);
+    expect(
+      gated(
+        'export async function load({ locals }) {\n  const session = await locals.auth();\n  if (!session) error(401);\n}'
+      )
+    ).toBe(true);
+    expect(
+      gated("export function load({ locals: { user } }) {\n  if (!user || !user.admin) return redirect(302, '/');\n}")
+    ).toBe(true);
+  });
+  it('is not set for a test that also reads the URL, a positive test, a non-auth error, or a gate after a return', () => {
+    expect(
+      gated(
+        "export function load({ locals, url }) {\n  if (!locals.user && url.pathname !== '/') redirect(302, '/login');\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      gated("export function load({ locals }) {\n  if (locals.user) redirect(302, '/dashboard');\n}")
+    ).toBeUndefined();
+    expect(gated('export function load({ locals }) {\n  if (!locals.db) error(500);\n}')).toBeUndefined();
+    expect(
+      gated(
+        "export function load({ locals, url }) {\n  if (url.search) return {};\n  if (!locals.user) redirect(302, '/login');\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      gated("export function load({ locals }) {\n  if (!locals.user) redirect(302, '/login');\n}", '')
+    ).toBeUndefined();
+  });
+  it('is not set when the session read depends on the request, the binding is reassigned, or the exit can be bypassed', () => {
+    expect(
+      gated("export function load({ locals, url }) {\n  if (!locals.get(url.pathname)) redirect(302, '/login');\n}")
+    ).toBeUndefined();
+    expect(
+      gated("export function load({ locals, params }) {\n  if (!locals[params.k]) redirect(302, '/login');\n}")
+    ).toBeUndefined();
+    expect(
+      gated(
+        "export function load({ locals, url }) {\n  let user = locals.user;\n  user = url.searchParams.get('u');\n  if (!user) redirect(302, '/login');\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      gated(
+        "export function load({ locals, url }) {\n  if (!locals.user) {\n    if (url.search) return {};\n    redirect(302, '/login');\n  }\n}"
+      )
+    ).toBeUndefined();
+  });
+  it('reads error() by its import, not by its local name', () => {
+    const kit = (spec: string) => `import { ${spec} } from '@sveltejs/kit';\n`;
+    const load = (call: string) => `export function load({ locals }) {\n  if (!locals.user) ${call};\n}`;
+    expect(gated(load('fail(500)'), kit('error as fail'))).toBeUndefined();
+    expect(gated(load('fail(401)'), kit('error as fail'))).toBe(true);
+    expect(gated(load("error(302, '/login')"), kit('redirect as error'))).toBe(true);
+  });
+  it('leaves the other facts intact when load reads its event directly', () => {
+    const f = facts(
+      'export function load(event) {\n  const e = event;\n  if (!e) return;\n}\nlet n = 0;\nexport function GET() {\n  n = 1;\n}'
+    );
+    expect(f.loadGated).toBeUndefined();
+    expect(f.moduleStateReassignments).toHaveLength(1);
+  });
+});

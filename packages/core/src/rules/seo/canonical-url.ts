@@ -5,6 +5,7 @@ export const seoCanonicalUrl = headTagRule({
   id: 'seo/canonical-url',
   title: 'Canonical URL',
   severity: 'warning',
+  infoWhenGated: true,
   match: (t: HeadTag) => t.kind === 'link' && t.rel === 'canonical',
   label: '<link rel="canonical">',
   recommendation: 'Add <link rel="canonical"> in <svelte:head>, or set the canonical prop on your meta component.',

@@ -9,6 +9,8 @@ description: Every route should include a <meta name="description">.
 
 Every route must include a `<meta name="description">` tag (own or inherited through the layout chain). A missing or empty description meta tag is flagged.
 
+On a route that sends visitors without a session away, the finding is reported as `info` instead: a crawler has no session, so it only ever sees the redirect or error. Source analysis recognizes a server `load`, the page's own or a layout's above it, that starts with a check on the request's `locals` alone, such as `if (!locals.user) redirect(…)` or `error(401)`. A gate in `hooks.server.ts` or in the browser is not read, so routes guarded that way keep `warning`; turn the rule off for them with `overrides`, or set `seo: { indexable: false }` for a whole private app. A severity set for the rule in `rules` applies on these routes too.
+
 ## Why it matters
 
 A meta description is the snippet search engines show under your title; without one they invent one from page text, often poorly.

@@ -7,8 +7,10 @@ import {
   seoOgTitle,
   seoJsonLd,
   defaultProject,
+  type KitModuleFacts,
   type ResolvedHead
 } from '../src/internal.js';
+import { emptyKitModuleFacts } from '../src/kit-module-collect.js';
 
 const config = defineConfig({});
 const ctx = (tags: ResolvedHead['tags']) => ({
@@ -98,5 +100,46 @@ describe('head-tag rules', () => {
     const [r] = await seoJsonLd.check(ctx([{ kind: 'jsonld', presence: 'own', value: 'absent' }]));
     expect(r!.detection).toEqual({ presence: 'own', value: 'absent' });
     expect(r!.message).toBe('Empty JSON-LD (<script type="application/ld+json">)');
+  });
+});
+
+describe('head-tag rules on routes behind a login', () => {
+  const gate = (file: string) => ({
+    ...emptyKitModuleFacts(file, 'server'),
+    loadGated: true as const
+  });
+  const run = async (
+    rule: typeof seoCanonicalUrl,
+    page: string,
+    kitModules: KitModuleFacts[],
+    sourceFiles: string[]
+  ) => {
+    const [r] = await rule.check({
+      heads: [{ route: '/x', source: 'static', file: page, tags: [] }],
+      project: defaultProject,
+      config,
+      kitModules,
+      sourceFiles
+    });
+    return r!;
+  };
+  it('reports canonical-url and description-presence as info under a gating layout, with the reason', async () => {
+    const files = ['src/routes/(app)/+layout.server.ts', 'src/routes/(app)/x/+page.svelte'];
+    for (const rule of [seoCanonicalUrl, seoDescriptionPresence]) {
+      const r = await run(rule, files[1]!, [gate(files[0]!)], files);
+      expect(r.severity).toBe('info');
+      expect(r.recommendation).toMatch(/turns away visitors without a session/);
+    }
+    expect((await run(seoOgTitle, files[1]!, [gate(files[0]!)], files)).severity).toBe('warning');
+  });
+  it('keeps warning on a page that resets out of the gating layout, and on a route with no gate', async () => {
+    const files = ['src/routes/(app)/+layout.server.ts', 'src/routes/(app)/x/+page@.svelte'];
+    expect((await run(seoCanonicalUrl, files[1]!, [gate(files[0]!)], files)).severity).toBe('warning');
+    const universal = { ...gate('src/routes/(app)/+layout.ts'), kind: 'universal' as const };
+    const page = 'src/routes/(app)/y/+page.svelte';
+    expect((await run(seoCanonicalUrl, page, [universal], [universal.file, page])).severity).toBe('warning');
+    expect((await run(seoCanonicalUrl, 'src/routes/x/+page.svelte', [], ['src/routes/x/+page.svelte'])).severity).toBe(
+      'warning'
+    );
   });
 });

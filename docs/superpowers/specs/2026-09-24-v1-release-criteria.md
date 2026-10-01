@@ -60,7 +60,7 @@ it produces in the precision numbers.
 | C5  | Precision of **info** findings                                                                        | ≥ 95%                 |
 | C6  | Any fp class that appears in 2 or more holdout apps                                                   | none                  |
 | C7  | Per rule with ≥ 10 holdout findings: precision                                                        | ≥ 90%                 |
-| C8  | `design` share of **critical + warning** findings (reported as documented, not a demonstrable defect) | ≤ 30%                 |
+| C8  | `design` share of **critical + warning** findings (reported as documented, not a demonstrable defect) | reported, not a gate  |
 | C9  | Holdout findings without a verdict / with `unclear`                                                   | 0 / ≤ 1%              |
 | C10 | Rules with at least one labelled finding across tuning corpus + holdout                               | ≥ 70 of 105           |
 
@@ -74,9 +74,11 @@ Notes on the choices:
   has no denominator. Such a rule is outside C7 and is governed by C8. Holdout 1 was judged this way
   (`performance/load-waterfall` and `seo/ssr-disabled`); this note was added after it, and it does
   not change that result.
-- **C8 governs noise, not falsehood.** A `design` finding is not wrong, but a warning rule that mostly
+- **C8 measures noise, not falsehood.** A `design` finding is not wrong, but a warning rule that mostly
   reports things that are not defects trains people to ignore warnings. It is measured on critical
-  and warning only; info findings are opt-out advice.
+  and warning only; info findings are opt-out advice. Every result publishes it, against the 30% it
+  was first set at, but it does not decide a release: the share follows which apps a holdout draws
+  more than anything the tool does (`2026-10-01-c8-design-share.md`).
 - **C10 is about what we can vouch for.** A rule that never fired on any real app has no measured
   precision. Rules still without evidence are listed by name in the release notes as "not yet
   measured on real apps", not silently counted as passing.
