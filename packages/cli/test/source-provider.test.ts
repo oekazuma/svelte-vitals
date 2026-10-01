@@ -20,6 +20,7 @@ import {
 import { createNodeRuntime } from '../src/runtime/node.js';
 import { collectRoutes } from '../src/providers/source/routes.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
+import { foldOccurrences } from '@svelte-vitals/core/internal';
 
 const fixtureDir = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'basic-project');
 
@@ -808,6 +809,51 @@ describe('collectRoutes a11y composition', () => {
       'src/lib/Bar.svelte': `<header>bar</header>`
     });
     expect(a11y.landmarks.banner).toEqual([{ file: 'src/routes/+layout.svelte', line: 1 }]);
+  });
+
+  it('places the page at each arm of one block its layout renders it in, apart from the arm that does not', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `{#if home}{@render children()}{:else if bare}<div>{@render children()}</div>{:else}<p id="x">none</p>{/if}`,
+      'src/routes/+page.svelte': `<p id="x">page</p>`
+    });
+    expect(a11y.ids.x).toHaveLength(1);
+    const both = await a11yOf({
+      'src/routes/+layout.svelte': `{@render children()}<p id="x">layout</p>{#if more}{@render children()}{/if}`,
+      'src/routes/+page.svelte': `<p id="y">page</p>`
+    });
+    // Places in separate blocks may render together, so the page stays where they agree, once.
+    expect(both.ids.y).toHaveLength(1);
+  });
+
+  it("counts one <h1> when the layout's own <h1> sits in the arm that does not render the page", async () => {
+    const routes = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': `{#if patient}{@render children()}{:else if restricted}<div>{@render children()}</div>{:else}<h1>No access</h1>{/if}`,
+        'src/routes/+page.svelte': `<h1>Patient</h1>`
+      }),
+      ''
+    );
+    const route = routes.headings.find((h) => h.route === '/')!;
+    const h1s = [...route.headings, ...(route.componentHeadings ?? [])]
+      .filter((h) => h.level === 1)
+      .map((h) => ({ key: 'h1', path: h.path ?? [], repeatable: false }));
+    expect(foldOccurrences(h1s).get('h1')).toHaveLength(1);
+  });
+
+  it('orders the page in each arm by where that arm renders it', async () => {
+    const routes = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+layout.svelte': `{#if bare}{@render children()}{:else}<h1>Layout</h1>{@render children()}{/if}`,
+        'src/routes/+page.svelte': `<h2>Page</h2>`
+      }),
+      ''
+    );
+    const { headings } = routes.headings.find((h) => h.route === '/')!;
+    const layoutH1 = headings.find((h) => h.level === 1)!;
+    const inElse = headings.find((h) => h.level === 2 && h.path?.[0]?.branch === 1)!;
+    const inIf = headings.find((h) => h.level === 2 && h.path?.[0]?.branch === 0)!;
+    expect(inElse.order![0]).toBeGreaterThan(layoutH1.order![0]!);
+    expect(inIf.order![0]).toBeLessThan(layoutH1.order![0]!);
   });
 
   it('reports a page landmark nested in the layout slot landmark', async () => {

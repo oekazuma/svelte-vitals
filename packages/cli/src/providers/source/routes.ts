@@ -14,7 +14,8 @@ import type {
   Runtime
 } from '@svelte-vitals/core/internal';
 import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
-import type { A11yNode, ParsedFile, ParsedTag } from './parse.js';
+import type { A11yNode, ChildrenSite, ParsedFile, ParsedTag } from './parse.js';
+import { commonPrefix } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {
   nestHeading,
@@ -164,7 +165,7 @@ interface ComposeCtx extends ResolveCtx {
 /** Group ids a file occupies, so the next file instance can start above them. */
 function groupSpan(a11y: ParsedFile['a11y']): number {
   let max = -1;
-  for (const path of [...a11y.nodes.map((n) => n.path), a11y.slotPath ?? []]) {
+  for (const path of [...a11y.nodes.map((n) => n.path), ...(a11y.slotPaths ?? [])]) {
     for (const step of path) if (step.group > max) max = step.group;
   }
   return max + 1;
@@ -329,10 +330,13 @@ async function resolveRoute(
   // Heading paths are route-wide: each chain file gets its own group range, and a file renders
   // below its parent layout's `{@render children()}` arm.
   let headingGroup = 0;
-  let childrenAt: BranchStep[] = [];
-  // Where the layouts above render their children, in document order (`HeadingInfo.order`).
-  let childrenOrder: number[] = [];
-  const ordered = (h: HeadingInfo): HeadingInfo => ({ ...h, order: [...childrenOrder, ...(h.order ?? [])] });
+  // Where the layouts above render their children, one per place (see `slotPrefixes`): the branch
+  // path, and the document-order offsets that place a heading there (`HeadingInfo.order`).
+  let childrenAts: { path: BranchStep[]; order: number[] }[] = [{ path: [], order: [] }];
+  const placeHeading = (h: HeadingInfo, at: (typeof childrenAts)[number]): HeadingInfo => {
+    const nested = nestHeading(h, at.path, headingGroup);
+    return { ...nested, order: [...at.order, ...(nested.order ?? [])] };
+  };
   const a11yCtx: ComposeCtx = {
     rt,
     cwd,
@@ -350,8 +354,8 @@ async function resolveRoute(
   const nestedLandmarks: ResolvedA11y['nestedLandmarks'] = [];
   /** Landmark the layouts above the current chain file render their children inside. */
   let slotLandmark: string | undefined;
-  /** Branch address the layouts above the current chain file render their children at. */
-  let slotPrefix: BranchStep[] = [];
+  /** Branch addresses the layouts above the current chain file render their children at, one per position. */
+  let slotPrefixes: BranchStep[][] = [[]];
 
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
@@ -362,15 +366,24 @@ async function resolveRoute(
     // landmark (HTML-AAM) — for any rule, not just nesting — nor the landmark its content sits in.
     const scoped = slotLandmark === 'main' || slotLandmark === 'complementary';
     for (const node of contributed) {
-      if (slotPrefix.length > 0) node.path = [...slotPrefix, ...node.path];
       if (node.topLevel && scoped) node.topLevel = false;
       if (!node.chain || node.kind !== 'landmark' || !countsAsLandmark(node) || node.repeatable) continue;
       const within = (scoped ? node.inFixedLandmark : node.inLandmark) ?? slotLandmark;
       if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
     }
+    // Rendered at each of the layouts' positions, which exclude each other when they sit in the arms
+    // of one block: the fold then counts the file once, where the other arms' content is not.
+    for (const prefix of slotPrefixes)
+      a11yNodes.push(
+        ...contributed.map((node) => (prefix.length > 0 ? { ...node, path: [...prefix, ...node.path] } : node))
+      );
     slotLandmark = (scoped ? parsed.a11y.slotInFixedLandmark : parsed.a11y.slotInLandmark) ?? slotLandmark;
-    if (parsed.a11y.slotPath) slotPrefix = [...slotPrefix, ...offsetPath(parsed.a11y.slotPath, base)];
-    a11yNodes.push(...contributed);
+    const slots = exclusiveSites(parsed.a11y.slotPaths)?.map((p) => offsetPath(p, base));
+    if (slots) {
+      const next = slotPrefixes.flatMap((prefix) => slots.map((slot) => [...prefix, ...slot]));
+      // ponytail: positions multiply down the chain; past a handful, place the rest where they all agree.
+      slotPrefixes = next.length <= 8 ? next : [next.reduce(commonPrefix)];
+    }
 
     // A layout's images after its `{@render children()}` come after the page's in document order.
     const own = parsed.images.map((img) => ({ ...img, file: rel }));
@@ -378,7 +391,7 @@ async function resolveRoute(
     imagesAt += parsed.imagesBeforeChildren ?? own.length;
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, headAliases);
     for (const heading of resolved.ownHeadings) {
-      headings.push(ordered(nestHeading(heading, childrenAt, headingGroup)));
+      for (const at of childrenAts) headings.push(placeHeading(heading, at));
     }
     dynamicHeading = dynamicHeading || parsed.dynamicHeading;
 
@@ -403,13 +416,28 @@ async function resolveRoute(
       if (isPage) broadOwn = true;
       else broadInherited = true;
     }
-    componentHeadings.push(...resolved.headings.map((h) => ordered(nestHeading(h, childrenAt, headingGroup))));
+    for (const at of childrenAts) componentHeadings.push(...resolved.headings.map((h) => placeHeading(h, at)));
     dynamicHeading = dynamicHeading || resolved.dynamicHeading;
     clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
     const childrenPath = resolved.renderPaths.get('children');
-    if (childrenPath) childrenAt = [...childrenAt, ...offsetPath(childrenPath, headingGroup)];
     const childrenOffset = resolved.renderOffsets.get('children');
-    if (childrenOffset !== undefined) childrenOrder = [...childrenOrder, childrenOffset];
+    const exclusive = exclusiveSites(resolved.childrenSites?.map((s) => s.path));
+    const sites: ChildrenSite[] | undefined =
+      exclusive && exclusive.length > 1
+        ? resolved.childrenSites
+        : childrenPath && childrenOffset !== undefined
+          ? [{ path: exclusive?.[0] ?? childrenPath, offset: childrenOffset }]
+          : undefined;
+    if (sites) {
+      const next = childrenAts.flatMap((at) =>
+        sites.map((site) => ({
+          path: [...at.path, ...offsetPath(site.path, headingGroup)],
+          order: [...at.order, site.offset]
+        }))
+      );
+      childrenAts =
+        next.length <= 8 ? next : [{ path: next.map((n) => n.path).reduce(commonPrefix), order: next[0]!.order }];
+    }
     headingGroup += resolved.groupSpan;
   }
 
@@ -560,4 +588,17 @@ export async function collectRoutes(
     a11y: facts.map((f) => f.a11y),
     routeFiles: [...pages, ...layouts.values()]
   };
+}
+
+/**
+ * The places a layout renders its children, when every two of them sit in different arms of one
+ * block: one of them renders at a time, so the page is placed in each. Otherwise (a place outside
+ * any such pair, as with two separate `{#if}`s) the page stays where all of them agree.
+ */
+function exclusiveSites(sites: BranchStep[][] | undefined): BranchStep[][] | undefined {
+  if (!sites) return undefined;
+  if (sites.length < 2) return sites;
+  const apart = (a: BranchStep[], b: BranchStep[]) =>
+    a.some((s) => b.some((t) => s.group === t.group && s.branch !== t.branch));
+  return sites.every((a, i) => sites.every((b, j) => i === j || apart(a, b))) ? sites : [sites.reduce(commonPrefix)];
 }
