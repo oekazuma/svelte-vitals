@@ -1586,6 +1586,8 @@ export interface ParsedA11y {
   slotPaths?: BranchStep[][];
   /** `slotPaths`' request-path tests, by index (`ChildrenSite.url`). */
   slotUrls?: (UrlCond | undefined)[];
+  /** `slotPaths`' enclosing landmarks, by index (`slotInLandmark`, `slotInFixedLandmark`), when `slotUrls` is set. */
+  slotLandmarks?: { landmark?: string; fixed?: string }[];
   /** {@html} tags and spread attributes, located — each poisons the closed world for no-missing-id-ref */
   unknowable: { kind: 'spread' | 'html'; line: number }[];
   /** Distinct lowercased tag names of the body's `RegularElement`s (a11y/required-element's presence set). */
@@ -1637,6 +1639,7 @@ function collectA11y(
   let slotInFixedLandmark: string | undefined;
   const slotPaths: BranchStep[][] = [];
   const slotUrls: (UrlCond | undefined)[] = [];
+  const slotLandmarks: { landmark?: string; fixed?: string }[] = [];
   const noteSlot = (ctx: A11yCtx, start: number): void => {
     if (slotInLandmark === undefined) {
       slotInLandmark = ctx.landmarks.at(-1);
@@ -1646,6 +1649,7 @@ function collectA11y(
     if (!slotPaths.some(same)) {
       slotPaths.push(ctx.path);
       slotUrls.push(urls.get(start));
+      slotLandmarks.push({ landmark: ctx.landmarks.at(-1), fixed: ctx.fixedLandmark });
     }
   };
   const unknowable: ParsedA11y['unknowable'] = [];
@@ -1827,7 +1831,7 @@ function collectA11y(
     ...(slotInLandmark ? { slotInLandmark } : {}),
     ...(slotInFixedLandmark ? { slotInFixedLandmark } : {}),
     ...(slotPaths.length > 0 ? { slotPaths } : {}),
-    ...(slotUrls.some(Boolean) ? { slotUrls } : {}),
+    ...(slotUrls.some(Boolean) ? { slotUrls, slotLandmarks } : {}),
     unknowable,
     elementTags: [...elementTags],
     elementsUnknowable

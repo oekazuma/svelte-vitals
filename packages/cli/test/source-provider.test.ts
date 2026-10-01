@@ -813,7 +813,7 @@ describe('collectRoutes a11y composition', () => {
 
   it('places the page only in the arms whose request-path test its route can satisfy', async () => {
     const layout = `<script>import { page } from '$app/state'; const bare = $derived(page.url.pathname.startsWith('/login') || page.url.pathname === '/');</script>{#if bare}{@render children()}{:else}<main>{@render children()}</main>{/if}`;
-    const landmarksOf = async (route: string, dir: string) =>
+    const a11yAt = async (route: string, dir: string) =>
       (
         await collectRoutes(
           createMemoryRuntime({
@@ -822,12 +822,16 @@ describe('collectRoutes a11y composition', () => {
           }),
           ''
         )
-      ).a11y.find((a) => a.route === route)!.landmarks.main ?? [];
+      ).a11y.find((a) => a.route === route)!;
+    const landmarksOf = async (route: string, dir: string) => (await a11yAt(route, dir)).landmarks.main ?? [];
     expect(await landmarksOf('/login', 'login/')).toHaveLength(1);
     expect(await landmarksOf('/', '')).toHaveLength(1);
     expect(await landmarksOf('/products', 'products/')).toHaveLength(2);
     // A parameter the test cannot see past keeps both arms, which fold to the larger one.
     expect(await landmarksOf('/[slug]', '[slug]/')).toHaveLength(2);
+    // The page's <main> sits in the layout's <main> only on a route rendered in that arm.
+    expect((await a11yAt('/login', 'login/')).nestedLandmarks).toEqual([]);
+    expect((await a11yAt('/products', 'products/')).nestedLandmarks).toHaveLength(1);
   });
 
   it('does not read a <svelte:element> inside <svg> as a possible heading', async () => {

@@ -381,8 +381,19 @@ async function resolveRoute(
       a11yNodes.push(
         ...contributed.map((node) => (prefix.length > 0 ? { ...node, path: [...prefix, ...node.path] } : node))
       );
-    slotLandmark = (scoped ? parsed.a11y.slotInFixedLandmark : parsed.a11y.slotInLandmark) ?? slotLandmark;
-    const slotPaths = parsed.a11y.slotPaths?.filter((_, i) => onRoute(parsed.a11y.slotUrls?.[i]));
+    const kept = parsed.a11y.slotPaths?.flatMap((_, i) => (onRoute(parsed.a11y.slotUrls?.[i]) ? [i] : [])) ?? [];
+    // The landmark the page sits in is the first one around a place this route renders it at.
+    const around = parsed.a11y.slotLandmarks?.filter((_, i) => kept.includes(i)).find((l) => l.landmark);
+    const slotIn =
+      parsed.a11y.slotLandmarks && kept.length > 0
+        ? scoped
+          ? around?.fixed
+          : around?.landmark
+        : scoped
+          ? parsed.a11y.slotInFixedLandmark
+          : parsed.a11y.slotInLandmark;
+    slotLandmark = slotIn ?? slotLandmark;
+    const slotPaths = parsed.a11y.slotPaths?.filter((_, i) => kept.includes(i));
     const slots = exclusiveSites(slotPaths?.length ? slotPaths : parsed.a11y.slotPaths)?.map((p) =>
       offsetPath(p, base)
     );
