@@ -135,7 +135,8 @@ describe('kitchen-sink e2e (static mode)', () => {
       '/clean/db-write',
       '/clean/csr-dev/feed',
       '/clean/nested-guards',
-      '/clean/two-arm-layout'
+      '/clean/two-arm-layout',
+      '/clean/url-arms/bare'
     ]) {
       const canary = report.routes.find((r) => r.route === route);
       expect(canary, route).toBeDefined();
@@ -153,6 +154,7 @@ describe('kitchen-sink e2e (static mode)', () => {
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/redirect-helper');
     expect(report.routes.map((r) => r.route)).not.toContain('/clean/error-only');
+    expect(report.routes.map((r) => r.route)).not.toContain('/clean/flag-gated');
   });
 
   it('--by-route adds the per-route breakdown to console output', () => {

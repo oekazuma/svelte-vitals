@@ -708,6 +708,7 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
   it('does not flag mutation of a $bindable-declared prop', () => {
     expect(names('<script>let { value = $bindable() } = $props(); value.x = 1;</script>')).toEqual([]);
     expect(names('<script>let { value = $bindable("fallback") } = $props(); value += "!";</script>')).toEqual([]);
+    expect(names('<script lang="ts">let { cell = $bindable() as Cell } = $props(); cell.x = 1;</script>')).toEqual([]);
   });
   it('flags mutation of a renamed (aliased) destructured prop by its local name', () => {
     expect(names('<script>let { super: trouper } = $props(); trouper.x = 1;</script>')).toEqual(['trouper']);

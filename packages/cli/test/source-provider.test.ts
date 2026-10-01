@@ -811,6 +811,58 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.landmarks.banner).toEqual([{ file: 'src/routes/+layout.svelte', line: 1 }]);
   });
 
+  it('places the page only in the arms whose request-path test its route can satisfy', async () => {
+    const layout = `<script>import { page } from '$app/state'; const bare = $derived(page.url.pathname.startsWith('/login') || page.url.pathname === '/');</script>{#if bare}{@render children()}{:else}<main>{@render children()}</main>{/if}`;
+    const a11yAt = async (route: string, dir: string) =>
+      (
+        await collectRoutes(
+          createMemoryRuntime({
+            'src/routes/+layout.svelte': layout,
+            [`src/routes/${dir}+page.svelte`]: '<main>page</main>'
+          }),
+          ''
+        )
+      ).a11y.find((a) => a.route === route)!;
+    const landmarksOf = async (route: string, dir: string) => (await a11yAt(route, dir)).landmarks.main ?? [];
+    expect(await landmarksOf('/login', 'login/')).toHaveLength(1);
+    expect(await landmarksOf('/', '')).toHaveLength(1);
+    expect(await landmarksOf('/products', 'products/')).toHaveLength(2);
+    // A parameter the test cannot see past keeps both arms, which fold to the larger one.
+    expect(await landmarksOf('/[slug]', '[slug]/')).toHaveLength(2);
+    // The page's <main> sits in the layout's <main> only on a route rendered in that arm.
+    expect((await a11yAt('/login', 'login/')).nestedLandmarks).toEqual([]);
+    expect((await a11yAt('/products', 'products/')).nestedLandmarks).toHaveLength(1);
+  });
+
+  it('does not read a <svelte:element> inside <svg> as a possible heading', async () => {
+    const routes = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+page.svelte': `<script>import Icon from '$lib/Icon.svelte';</script><Icon /><p>no heading</p>`,
+        'src/lib/Icon.svelte': `<script>let { node = [] } = $props();</script><svg>{#each node as [tag, attrs]}<svelte:element this={tag} {...attrs} />{/each}</svg>`
+      }),
+      ''
+    );
+    const route = routes.headings.find((h) => h.route === '/')!;
+    expect(route.dynamicHeading ?? false).toBe(false);
+  });
+
+  it('reads role="heading" as a heading of its aria-level for the outline, not as an <h1>', async () => {
+    const routes = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/+page.svelte': `<h1>Title</h1><div role="heading" aria-level="2">Section</div><h3>Sub</h3><div role="heading" aria-level={level}>x</div><div role="heading" aria-level="7">y</div>`
+      }),
+      ''
+    );
+    const headings = routes.headings.find((h) => h.route === '/')!.headings;
+    expect(headings.map((h) => [h.level, h.aria ?? false])).toEqual([
+      [1, false],
+      [2, true],
+      [3, false],
+      [0, true],
+      [7, true]
+    ]);
+  });
+
   it('places the page at each arm of one block its layout renders it in, apart from the arm that does not', async () => {
     const a11y = await a11yOf({
       'src/routes/+layout.svelte': `{#if home}{@render children()}{:else if bare}<div>{@render children()}</div>{:else}<p id="x">none</p>{/if}`,

@@ -27,6 +27,7 @@ import {
   walkEstree
 } from '@svelte-vitals/core/internal';
 import { collectComponentBindings, collectImports, type ComponentCandidate, type ImportMap } from './imports.js';
+import type { UrlCond } from './url-cond.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
 export type ParsedTag = Omit<HeadTag, 'presence' | 'file'> & {
@@ -771,6 +772,8 @@ interface ParsedHeading {
   path?: BranchStep[];
   /** Its place in the file's document order (`HeadingInfo.order`). */
   order: number[];
+  /** An ARIA heading (`HeadingInfo.aria`). */
+  aria?: true;
 }
 
 /**
@@ -961,11 +964,104 @@ export const HOLE = -1;
  * `dynamic` records a `<svelte:element>` that may render a heading but whose level is not
  * statically determinable — a route carrying one cannot be reported as having no <h1>.
  */
+/**
+ * The request-path test each `{@render children()}` / `<slot />` renders under, keyed by the tag's
+ * offset: the conjunction of its `{#if}` arms, read through `$derived` bindings of the instance script.
+ * `page.url.pathname` (`$page` too), optionally through a de-localizing call or `|| '/'`, is the path;
+ * `startsWith`/`endsWith`/`includes`/`===` against a string literal are the tests it reads.
+ */
+function childrenUrlConds(ast: AST.Root, source: string): Map<number, UrlCond> {
+  const out = new Map<number, UrlCond>();
+  if (!source.includes('pathname')) return out;
+  type Expr = AST.IfBlock['test'];
+  const derived = new Map<string, Expr>();
+  for (const stmt of ast.instance?.content.body ?? []) {
+    if (stmt.type !== 'VariableDeclaration') continue;
+    for (const d of stmt.declarations) {
+      const init = d.init;
+      if (d.id.type === 'Identifier' && init?.type === 'CallExpression' && init.callee.type === 'Identifier')
+        if (init.callee.name === '$derived' && init.arguments.length === 1)
+          derived.set(d.id.name, init.arguments[0] as Expr);
+    }
+  }
+  const strip = (n: Expr): Expr => {
+    let cur = n as Expr & { expression?: Expr };
+    while (cur && (cur.type as string).startsWith('TS') && cur.expression) cur = cur.expression as typeof cur;
+    return cur;
+  };
+  const text = (n: Expr) => {
+    const { start, end } = n as Expr & { start: number; end: number };
+    return source.slice(start, end).replace(/\s+/g, '');
+  };
+  const literal = (n: Expr) => (n.type === 'Literal' && typeof n.value === 'string' ? n.value : undefined);
+  const isPath = (raw: Expr, depth = 0): boolean => {
+    const n = strip(raw);
+    if (n.type === 'MemberExpression') return /^\$?page\.url\.pathname$/.test(text(n));
+    if (n.type === 'Identifier') return depth < 4 && derived.has(n.name) && isPath(derived.get(n.name)!, depth + 1);
+    if (n.type === 'LogicalExpression' && n.operator !== '&&') return isPath(n.left, depth) && literal(n.right) === '/';
+    if (n.type === 'CallExpression' && n.callee.type === 'Identifier' && /locali[sz]e/i.test(n.callee.name))
+      return n.arguments.length === 1 && isPath(n.arguments[0] as Expr, depth);
+    return false;
+  };
+  const cond = (raw: Expr, depth = 0): UrlCond => {
+    const n = strip(raw);
+    if (n.type === 'Identifier' && depth < 4 && derived.has(n.name)) return cond(derived.get(n.name)!, depth + 1);
+    if (n.type === 'Literal' && typeof n.value === 'boolean') return { k: n.value };
+    if (n.type === 'UnaryExpression' && n.operator === '!') return { not: cond(n.argument, depth) };
+    if (n.type === 'LogicalExpression' && n.operator !== '??')
+      return n.operator === '&&'
+        ? { and: [cond(n.left, depth), cond(n.right, depth)] }
+        : { or: [cond(n.left, depth), cond(n.right, depth)] };
+    if (n.type === 'CallExpression' && n.callee.type === 'MemberExpression' && !n.callee.computed) {
+      const name = n.callee.property.type === 'Identifier' ? n.callee.property.name : '';
+      const op = ({ startsWith: 'starts', endsWith: 'ends', includes: 'includes' } as const)[name as 'includes'];
+      const v = n.arguments.length === 1 ? literal(n.arguments[0] as Expr) : undefined;
+      if (op && v !== undefined && isPath(n.callee.object as Expr, depth)) return { op, v };
+    }
+    if (n.type === 'BinaryExpression' && ['===', '!==', '==', '!='].includes(n.operator)) {
+      const [side, lit] = literal(n.right as Expr) !== undefined ? [n.left, n.right] : [n.right, n.left];
+      const v = literal(lit as Expr);
+      if (v !== undefined && isPath(side as Expr, depth)) {
+        const eq: UrlCond = { op: 'eq', v };
+        return n.operator.startsWith('!') ? { not: eq } : eq;
+      }
+    }
+    return { u: true };
+  };
+  const walk = (node: WalkNode | WalkNode[] | null | undefined, stack: UrlCond[]): void => {
+    if (Array.isArray(node)) return node.forEach((child) => walk(child, stack));
+    if (!node) return;
+    if (node.type === 'IfBlock') {
+      const tests = ifTests(node).map((t) => cond(t));
+      ifArms(node).forEach((arm, i) =>
+        walk(arm, [...stack, ...tests.slice(0, i).map((t): UrlCond => ({ not: t })), ...(tests[i] ? [tests[i]!] : [])])
+      );
+      return;
+    }
+    const isChildren =
+      (node.type === 'RenderTag' && renderCallee(node) === 'children') ||
+      (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name'));
+    if (isChildren && stack.length > 0) out.set(node.start, { and: stack });
+    for (const key of CHILD_NODE_KEYS) if (key in node) walk(childOf(node, key), stack);
+  };
+  walk(ast.fragment, []);
+  return out;
+}
+
+const isAriaHeading = (node: AST.RegularElement) =>
+  attrText(
+    node.attributes.filter((a): a is AST.Attribute => a.type === 'Attribute'),
+    'role'
+  )
+    ?.trim()
+    .toLowerCase() === 'heading';
+
 function collectHeadings(
   fragment: AST.Fragment,
   source: string,
   props: ReadonlyMap<string, string>,
-  reassigned: ReadonlySet<string> = new Set()
+  reassigned: ReadonlySet<string> = new Set(),
+  urls: ReadonlyMap<number, UrlCond> = new Map()
 ) {
   const headings: ParsedHeading[] = [];
   const gates = new Map<number, PropGate>();
@@ -990,10 +1086,17 @@ function collectHeadings(
     node: WalkNode & { start: number },
     path: BranchStep[],
     at: number | undefined,
-    when: Cond[] | null
+    when: Cond[] | null,
+    aria?: true
   ): void => {
     const order = at === undefined ? [node.start] : [at, node.start];
-    const heading = { level, line: lineOf(source, node.start), ...(path.length > 0 ? { path } : {}), order };
+    const heading = {
+      level,
+      line: lineOf(source, node.start),
+      ...(path.length > 0 ? { path } : {}),
+      order,
+      ...(aria ? { aria } : {})
+    };
     headings.push(heading);
     if (when) headingWhen.set(heading, when);
   };
@@ -1002,9 +1105,10 @@ function collectHeadings(
   };
   // Each distinct place the children render, which `renderPaths` meets into one.
   const childrenSites: ChildrenSite[] = [];
-  const site = (path: BranchStep[], offset: number): void => {
+  const site = (path: BranchStep[], offset: number, start: number): void => {
+    const url = urls.get(start);
     if (!childrenSites.some(({ path: p }) => p.length === path.length && p.every((s, i) => sameStep(s, path[i]!))))
-      childrenSites.push({ path, offset });
+      childrenSites.push({ path, offset, ...(url ? { url } : {}) });
   };
   const meet = <K>(map: Map<K, BranchStep[]>, key: K, path: BranchStep[]): void => {
     const prev = map.get(key);
@@ -1052,6 +1156,14 @@ function collectHeadings(
     }
     // Body headings only — a stray <h1> inside <svelte:head> is not a page heading.
     if (node.type === 'SvelteHead') return;
+    // SVG content is never an HTML heading (an icon's `<svelte:element this={tag}>` draws a shape),
+    // unless a <foreignObject> carries HTML back in.
+    if (
+      node.type === 'RegularElement' &&
+      node.name === 'svg' &&
+      !source.slice(node.start, node.end).includes('foreignObject')
+    )
+      return;
     if (node.type === 'SnippetBlock' && local(node.expression.name) === node) return;
     const sibling = node.type === 'IfBlock' ? shared.get(node) : undefined;
     if (sibling && node.type === 'IfBlock') {
@@ -1105,7 +1217,7 @@ function collectHeadings(
         reached.add(snippet);
         walk(snippet.body, path, [...open, snippet], at ?? node.start, snippet.parameters.length > 0 ? null : when);
       } else if (!snippet && name !== undefined) {
-        if ((props.get(name) ?? name) === 'children') site(path, at ?? node.start);
+        if ((props.get(name) ?? name) === 'children') site(path, at ?? node.start, node.start);
         meet(renderPaths, props.get(name) ?? name, path);
         note(renderWhen, props.get(name) ?? name, when);
         first(renderOffsets, props.get(name) ?? name, at ?? node.start);
@@ -1113,7 +1225,7 @@ function collectHeadings(
       return;
     }
     if (node.type === 'SlotElement' && !node.attributes.some((a) => a.type === 'Attribute' && a.name === 'name')) {
-      site(path, at ?? node.start);
+      site(path, at ?? node.start, node.start);
       meet(renderPaths, 'children', path);
       note(renderWhen, 'children', when);
       first(renderOffsets, 'children', at ?? node.start);
@@ -1131,6 +1243,12 @@ function collectHeadings(
     }
     if (node.type === 'RegularElement' && HEADING_TAG.test(node.name)) {
       push(Number(node.name[1]), node, path, at, when);
+    } else if (node.type === 'RegularElement' && isAriaHeading(node)) {
+      // ARIA's default level is 2; a level the source does not fix holds its place without one.
+      const attrs = node.attributes.filter((a): a is AST.Attribute => a.type === 'Attribute');
+      const set = attrs.some((a) => a.name === 'aria-level');
+      const level = Number(set ? attrText(attrs, 'aria-level') : 2);
+      push(Number.isInteger(level) && level >= 1 ? level : 0, node, path, at, when, true);
     } else if (node.type === 'SvelteElement') {
       const tags = svelteElementTags(node.tag);
       const level = tags ? headingLevelOf(tags) : undefined;
@@ -1466,6 +1584,10 @@ export interface ParsedA11y {
    * arms is placed in both, where the arms fold it as one. Absent: no slot.
    */
   slotPaths?: BranchStep[][];
+  /** `slotPaths`' request-path tests, by index (`ChildrenSite.url`). */
+  slotUrls?: (UrlCond | undefined)[];
+  /** `slotPaths`' enclosing landmarks, by index (`slotInLandmark`, `slotInFixedLandmark`), when `slotUrls` is set. */
+  slotLandmarks?: { landmark?: string; fixed?: string }[];
   /** {@html} tags and spread attributes, located — each poisons the closed world for no-missing-id-ref */
   unknowable: { kind: 'spread' | 'html'; line: number }[];
   /** Distinct lowercased tag names of the body's `RegularElement`s (a11y/required-element's presence set). */
@@ -1506,19 +1628,29 @@ interface A11yCtx {
  * Separate from the flat CHILD_NODE_KEYS walks above because those cannot distinguish
  * `{#if}` branches (which are exclusive, so counting must max) from siblings (which sum).
  */
-function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
+function collectA11y(
+  fragment: AST.Fragment,
+  source: string,
+  urls: ReadonlyMap<number, UrlCond> = new Map()
+): ParsedA11y {
   const nodes: A11yNode[] = [];
   let groups = 0;
   let slotInLandmark: string | undefined;
   let slotInFixedLandmark: string | undefined;
   const slotPaths: BranchStep[][] = [];
-  const noteSlot = (ctx: A11yCtx): void => {
+  const slotUrls: (UrlCond | undefined)[] = [];
+  const slotLandmarks: { landmark?: string; fixed?: string }[] = [];
+  const noteSlot = (ctx: A11yCtx, start: number): void => {
     if (slotInLandmark === undefined) {
       slotInLandmark = ctx.landmarks.at(-1);
       slotInFixedLandmark = ctx.fixedLandmark;
     }
     const same = (p: BranchStep[]) => p.length === ctx.path.length && p.every((s, i) => sameStep(s, ctx.path[i]!));
-    if (!slotPaths.some(same)) slotPaths.push(ctx.path);
+    if (!slotPaths.some(same)) {
+      slotPaths.push(ctx.path);
+      slotUrls.push(urls.get(start));
+      slotLandmarks.push({ landmark: ctx.landmarks.at(-1), fixed: ctx.fixedLandmark });
+    }
   };
   const unknowable: ParsedA11y['unknowable'] = [];
   const elementTags = new Set<string>();
@@ -1599,11 +1731,11 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         return;
       case 'SlotElement':
         noteSpread(node);
-        noteSlot(ctx);
+        noteSlot(ctx, node.start);
         walk(node.fragment, ctx);
         return;
       case 'RenderTag':
-        if (renderCallee(node) === 'children') noteSlot(ctx);
+        if (renderCallee(node) === 'children') noteSlot(ctx, node.start);
         return;
       default:
         noteSpread(node);
@@ -1699,6 +1831,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     ...(slotInLandmark ? { slotInLandmark } : {}),
     ...(slotInFixedLandmark ? { slotInFixedLandmark } : {}),
     ...(slotPaths.length > 0 ? { slotPaths } : {}),
+    ...(slotUrls.some(Boolean) ? { slotUrls, slotLandmarks } : {}),
     unknowable,
     elementTags: [...elementTags],
     elementsUnknowable
@@ -1719,6 +1852,8 @@ function renderCallee(node: AST.RenderTag): string | undefined {
 export interface ChildrenSite {
   path: BranchStep[];
   offset: number;
+  /** The request-path test it renders under, when an `{#if}` around it reads one. */
+  url?: UrlCond;
 }
 
 export interface ParsedFile {
@@ -1760,7 +1895,8 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
   const props = collectProps(ast);
-  const headingAcc = collectHeadings(ast.fragment, source, props, reassignedLocals(ast));
+  const urls = childrenUrlConds(ast, source);
+  const headingAcc = collectHeadings(ast.fragment, source, props, reassignedLocals(ast), urls);
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
   const imports = collectImports(ast);
@@ -1783,7 +1919,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
     dynamicHeading: headingAcc.dynamic,
     headingGates: headingAcc.gates,
     propDefaults: collectPropDefaults(ast),
-    a11y: collectA11y(ast.fragment, source),
+    a11y: collectA11y(ast.fragment, source, urls),
     template: { source, filename, props, jsonLdNames },
     suppressions: collectSuppressions(source)
   };

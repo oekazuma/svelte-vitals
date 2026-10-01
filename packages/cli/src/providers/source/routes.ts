@@ -16,6 +16,7 @@ import type {
 import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
 import type { A11yNode, ChildrenSite, ParsedFile, ParsedTag } from './parse.js';
 import { commonPrefix } from './parse.js';
+import { urlHolds, type UrlCond } from './url-cond.js';
 import { enumerateRoutePages } from './project.js';
 import {
   nestHeading,
@@ -302,6 +303,9 @@ async function resolveRoute(
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
   const chainOrder = new Map(files.map((f, i) => [f.rel, i]));
+  // A layout's children render only in the arms whose request-path test this route can satisfy.
+  const routePath = deriveRoute(pageRel);
+  const onRoute = (url: UrlCond | undefined) => urlHolds(url, routePath) !== false;
   const composed = new Map<string, HeadTag>();
   // Additive kinds survive in chain order (root layout -> ... -> page) and source order
   // within a file, unlike composed's override-by-kind semantics for title/meta: JSON-LD
@@ -377,8 +381,22 @@ async function resolveRoute(
       a11yNodes.push(
         ...contributed.map((node) => (prefix.length > 0 ? { ...node, path: [...prefix, ...node.path] } : node))
       );
-    slotLandmark = (scoped ? parsed.a11y.slotInFixedLandmark : parsed.a11y.slotInLandmark) ?? slotLandmark;
-    const slots = exclusiveSites(parsed.a11y.slotPaths)?.map((p) => offsetPath(p, base));
+    const kept = parsed.a11y.slotPaths?.flatMap((_, i) => (onRoute(parsed.a11y.slotUrls?.[i]) ? [i] : [])) ?? [];
+    // The landmark the page sits in is the first one around a place this route renders it at.
+    const around = parsed.a11y.slotLandmarks?.filter((_, i) => kept.includes(i)).find((l) => l.landmark);
+    const slotIn =
+      parsed.a11y.slotLandmarks && kept.length > 0
+        ? scoped
+          ? around?.fixed
+          : around?.landmark
+        : scoped
+          ? parsed.a11y.slotInFixedLandmark
+          : parsed.a11y.slotInLandmark;
+    slotLandmark = slotIn ?? slotLandmark;
+    const slotPaths = parsed.a11y.slotPaths?.filter((_, i) => kept.includes(i));
+    const slots = exclusiveSites(slotPaths?.length ? slotPaths : parsed.a11y.slotPaths)?.map((p) =>
+      offsetPath(p, base)
+    );
     if (slots) {
       const next = slotPrefixes.flatMap((prefix) => slots.map((slot) => [...prefix, ...slot]));
       // ponytail: positions multiply down the chain; past a handful, place the rest where they all agree.
@@ -421,13 +439,17 @@ async function resolveRoute(
     clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
     const childrenPath = resolved.renderPaths.get('children');
     const childrenOffset = resolved.renderOffsets.get('children');
-    const exclusive = exclusiveSites(resolved.childrenSites?.map((s) => s.path));
+    const reachable = resolved.childrenSites?.filter((s) => onRoute(s.url));
+    const placed = reachable?.length ? reachable : resolved.childrenSites;
+    const exclusive = exclusiveSites(placed?.map((s) => s.path));
     const sites: ChildrenSite[] | undefined =
-      exclusive && exclusive.length > 1
-        ? resolved.childrenSites
-        : childrenPath && childrenOffset !== undefined
-          ? [{ path: exclusive?.[0] ?? childrenPath, offset: childrenOffset }]
-          : undefined;
+      placed?.length === 1
+        ? placed
+        : exclusive && exclusive.length > 1
+          ? placed
+          : childrenPath && childrenOffset !== undefined
+            ? [{ path: exclusive?.[0] ?? childrenPath, offset: childrenOffset }]
+            : undefined;
     if (sites) {
       const next = childrenAts.flatMap((at) =>
         sites.map((site) => ({

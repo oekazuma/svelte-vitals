@@ -2228,6 +2228,7 @@ function isPropsCall(node: Node): boolean {
 
 /** Whether a CallExpression is a `$bindable(...)` call (a destructured prop's default value). */
 function isBindableCall(node: Node): boolean {
+  node = unwrapTs(node);
   return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$bindable';
 }
 

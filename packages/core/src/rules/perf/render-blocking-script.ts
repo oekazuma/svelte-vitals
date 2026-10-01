@@ -1,5 +1,6 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
+import { routeNeverSsr } from '../../kit-module.js';
 
 const docsUrl = docsUrlFor('performance/render-blocking-script');
 const recommendation = 'Add defer (or type="module"), or async, to the <script> so it does not block HTML parsing.';
@@ -27,7 +28,10 @@ export const performanceRenderBlockingScript: Rule = {
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
     for (const head of ctx.heads) {
-      const scripts = head.tags.filter((t) => t.kind === 'script');
+      // A route never server-rendered gets its <svelte:head> scripts from the client, after parsing;
+      // only app.html's are in the HTML it is served.
+      const clientHead = routeNeverSsr(head.file, ctx);
+      const scripts = head.tags.filter((t) => t.kind === 'script' && !(clientHead && t.file !== 'src/app.html'));
       if (scripts.length === 0) continue; // no <script> in head → no render-blocking signal
       const blocking = scripts.filter((t) => t.blocking);
       if (blocking.length > 0) {

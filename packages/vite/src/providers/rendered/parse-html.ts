@@ -32,7 +32,7 @@ export interface ParsedHtmlHead {
   tags: HeadTag[];
   htmlLang: { presence: 'own' | 'none'; value: Value };
   /** Page-body heading levels (the `n` in <hn>) found in the document (seo/single-h1). */
-  headings: number[];
+  headings: { level: number; aria?: true }[];
   /** Page <img> elements (the caller fills `file`); enables the image rules in rendered mode. */
   images: Omit<ImageInfo, 'file'>[];
   /** One entry per landmark occurrence in document order ('main'|'banner'|'contentinfo'|'complementary'); enables a11y/duplicate-landmark, a11y/top-level-landmark. */
@@ -234,9 +234,15 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   // static provider (which collects in AST order) — grouping by level would diverge
   // for inputs like <h2>…<h1>. Scope to <body> so a stray heading in <head> is not
   // counted (fallback to root for fragment HTML).
+  // A `role="heading"` element holds its aria-level (2 by default) for the outline, as in source mode.
   const headings = (root.querySelector('body') ?? root)
-    .querySelectorAll('h1,h2,h3,h4,h5,h6')
-    .map((el) => Number(el.rawTagName[1]));
+    .querySelectorAll('h1,h2,h3,h4,h5,h6,[role]')
+    .flatMap((el): { level: number; aria?: true }[] => {
+      if (/^h[1-6]$/i.test(el.rawTagName)) return [{ level: Number(el.rawTagName[1]) }];
+      if (el.getAttribute('role')?.trim().toLowerCase() !== 'heading') return [];
+      const level = Number(el.getAttribute('aria-level') ?? 2);
+      return [{ level: Number.isInteger(level) && level >= 1 ? level : 0, aria: true }];
+    });
 
   // Page <img> elements (performance/image-dimensions, performance/image-loading-hint, performance/lcp-image,
   // performance/responsive-image, seo/image-alt). Scope to <body> (like the

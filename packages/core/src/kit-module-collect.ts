@@ -1,4 +1,9 @@
-import { parseInMemoryExports, parseKitModuleFacts } from './kit-module-parse.js';
+import {
+  parseClientExports,
+  parseFalseExports,
+  parseInMemoryExports,
+  parseKitModuleFacts
+} from './kit-module-parse.js';
 import type { KitModuleFacts } from './kit-module.js';
 import type { Runtime } from './runtime.js';
 import type { KitAlias } from './types.js';
@@ -67,7 +72,11 @@ export async function collectKitModuleFacts(
       }
     })
   );
-  return arbitrateServerStoreWrites(rt, cwd, facts);
+  return decideFlagGuards(
+    rt,
+    cwd,
+    await dropClientWrites(rt, cwd, await arbitrateServerStoreWrites(rt, cwd, facts), aliases)
+  );
 }
 
 /**
@@ -82,21 +91,61 @@ function moduleCandidates(repoPath: string): string[] {
   return [`${repoPath}.ts`, `${repoPath}.js`, `${repoPath}/index.ts`, `${repoPath}/index.js`];
 }
 
-/**
- * Read the module a pending write targets and return the names it exports as an in-memory
- * container. Returns an empty set when the file cannot be found or read: unresolvable means
- * unarbitrated, which leaves the write exempt.
- */
-async function inMemoryExportsOf(rt: Runtime, cwd: string, repoPath: string): Promise<ReadonlySet<string>> {
+/** Read a module and parse it with `parse`; empty when it cannot be found or read. */
+async function exportsOf(
+  rt: Runtime,
+  cwd: string,
+  repoPath: string,
+  parse: (source: string, file: string) => ReadonlySet<string>
+): Promise<ReadonlySet<string>> {
   for (const rel of moduleCandidates(repoPath)) {
     try {
       if (!(await rt.exists(rt.join(cwd, rel)))) continue;
-      return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);
+      return parse(await rt.readFile(rt.join(cwd, rel)), rel);
     } catch {
       return new Set();
     }
   }
   return new Set();
+}
+
+/** Drop the handler `.set()`/`.update()` writes whose target module exports a persistence client under that name. */
+async function dropClientWrites(
+  rt: Runtime,
+  cwd: string,
+  facts: KitModuleFacts[],
+  aliases?: readonly KitAlias[]
+): Promise<KitModuleFacts[]> {
+  const targets = [...new Set(facts.flatMap((f) => (f.storeWriteTargets ?? []).map((w) => w.resolved)))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(
+    await Promise.all(
+      targets.map(
+        async (t) => [t, await exportsOf(rt, cwd, t, (src, file) => parseClientExports(src, file, aliases))] as const
+      )
+    )
+  );
+  return facts.map((f) => {
+    const clients = (f.storeWriteTargets ?? []).filter((w) => byPath.get(w.resolved)?.has(w.imported));
+    if (clients.length === 0) return f;
+    const drop = (w: { name: string; line: number; via: string }) =>
+      w.via === 'set-call' && clients.some((c) => c.name === w.name && c.line === w.line);
+    return { ...f, importedStateWrites: f.importedStateWrites.filter((w) => !drop(w)) };
+  });
+}
+
+/** A load whose leading guard exits on an imported flag that is the literal `false` never renders. */
+async function decideFlagGuards(rt: Runtime, cwd: string, facts: KitModuleFacts[]): Promise<KitModuleFacts[]> {
+  const targets = [...new Set(facts.flatMap((f) => (f.pendingFlagGuard ? [f.pendingFlagGuard.resolved] : [])))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(
+    await Promise.all(targets.map(async (t) => [t, await exportsOf(rt, cwd, t, parseFalseExports)] as const))
+  );
+  return facts.map((f) => {
+    const g = f.pendingFlagGuard;
+    const key = g && (g.member ? `${g.name}.${g.member}` : g.name);
+    return g && byPath.get(g.resolved)?.has(key!) ? { ...f, loadNeverRenders: true as const } : f;
+  });
 }
 
 /**
@@ -113,7 +162,7 @@ async function arbitrateServerStoreWrites(
   const targets = [...new Set(facts.flatMap((f) => f.pendingServerStoreWrites.map((w) => w.resolved)))];
   if (targets.length === 0) return facts;
   const byPath = new Map(
-    await Promise.all(targets.map(async (t) => [t, await inMemoryExportsOf(rt, cwd, t)] as const))
+    await Promise.all(targets.map(async (t) => [t, await exportsOf(rt, cwd, t, parseInMemoryExports)] as const))
   );
   return facts.map((f) => {
     const promoted = f.pendingServerStoreWrites

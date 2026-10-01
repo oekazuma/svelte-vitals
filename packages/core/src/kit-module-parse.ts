@@ -355,6 +355,91 @@ function loadNeverRenders(program: Node, locals: Set<string>): boolean {
 }
 
 /**
+ * The binding a load's leading flag guard reads: a top-level `if (!FLAG) <exit>` (or `!NS.FLAG`) before
+ * any `return`, where `FLAG` is imported from a repo-local module. When that export is the literal
+ * `false`, every request takes the exit; `collectKitModuleFacts` reads the module to decide.
+ */
+function leadingFlagGuard(
+  program: Node,
+  exits: Set<string>,
+  imported: (local: string) => { resolved: string; name: string } | undefined
+): KitModuleFacts['pendingFlagGuard'] {
+  const load = exits.size > 0 ? findLoadFunction(program) : undefined;
+  if (load?.body?.type !== 'BlockStatement') return undefined;
+  // A parameter or a declaration of the load's own body is a different binding than the import.
+  const local = new Set<string>();
+  for (const param of load.params ?? []) addBoundNames(param, local);
+  for (const stmt of load.body.body) {
+    if (stmt?.type === 'VariableDeclaration') for (const d of stmt.declarations ?? []) addBoundNames(d?.id, local);
+    else if ((stmt?.type === 'FunctionDeclaration' || stmt?.type === 'ClassDeclaration') && stmt.id)
+      local.add(stmt.id.name);
+  }
+  const exitCall = (e: Node) => {
+    const x = unwrapTs(e);
+    return (
+      x?.type === 'CallExpression' &&
+      x.callee?.type === 'Identifier' &&
+      exits.has(x.callee.name) &&
+      !local.has(x.callee.name)
+    );
+  };
+  const exitsFirst = (stmt: Node): boolean => {
+    if (stmt?.type === 'BlockStatement') {
+      for (const inner of stmt.body) {
+        if (exitsFirst(inner)) return true;
+        if (containsReturn(inner)) return false;
+      }
+      return false;
+    }
+    return (
+      (stmt?.type === 'ExpressionStatement' && exitCall(stmt.expression)) ||
+      ((stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') && exitCall(stmt.argument))
+    );
+  };
+  for (const stmt of load.body.body) {
+    const test: Node = stmt?.type === 'IfStatement' && exitsFirst(stmt.consequent) ? unwrapTs(stmt.test) : undefined;
+    if (test?.type === 'UnaryExpression' && test.operator === '!') {
+      const arg: Node = unwrapTs(test.argument);
+      const root: Node = arg?.type === 'MemberExpression' && !arg.computed ? unwrapTs(arg.object) : arg;
+      const member = arg !== root && arg.property?.type === 'Identifier' ? arg.property.name : undefined;
+      const from =
+        root?.type === 'Identifier' && !local.has(root.name) && (arg === root || member)
+          ? imported(root.name)
+          : undefined;
+      if (from) return { ...from, ...(member ? { member } : {}) };
+    }
+    if (containsReturn(stmt)) return undefined;
+  }
+  return undefined;
+}
+
+/** The exports of a module that are the literal `false`, as `NAME` or `NAME.member` (an object literal's own property). */
+export function parseFalseExports(source: string, filename: string): ReadonlySet<string> {
+  const names = new Set<string>();
+  const { program } = parseModuleProgram(source, filename);
+  for (const stmt of program?.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || stmt.declaration?.type !== 'VariableDeclaration') continue;
+    if (stmt.declaration.kind !== 'const') continue;
+    for (const d of stmt.declaration.declarations ?? []) {
+      const init = unwrapTs(d?.init);
+      if (d?.id?.type !== 'Identifier') continue;
+      if (init?.type === 'Literal' && init.value === false) names.add(d.id.name);
+      if (init?.type === 'ObjectExpression') {
+        // In source order: a later property or a spread may overwrite an earlier `false`.
+        const members = new Map<string, boolean>();
+        for (const p of (init.properties ?? []) as Node[]) {
+          const v: Node = unwrapTs(p?.value);
+          if (p?.type !== 'Property' || p.computed || p.key?.type !== 'Identifier') members.clear();
+          else members.set(p.key.name, v?.type === 'Literal' && v.value === false);
+        }
+        for (const [key, isFalse] of members) if (isFalse) names.add(`${d.id.name}.${key}`);
+      }
+    }
+  }
+  return names;
+}
+
+/**
  * Whether the exported `load` sends a request without a session away before rendering: a top-level
  * `if` whose test is only negated reads of the request's `locals` (`!locals.user`,
  * `!(await locals.auth())`, or a `const` taken from one earlier in the body) and whose branch
@@ -872,13 +957,9 @@ function libServerRoot(aliases?: readonly KitAlias[]): string | undefined {
  * risks a false positive in this default-on security rule, and staying silent only costs a
  * missed finding.
  */
-/** The resolved repo path when `spec` lands on, or under, the `$lib` server root; else undefined. */
-function serverRootRelativePath(spec: string, importerFile: string, aliases?: readonly KitAlias[]): string | undefined {
-  const serverRoot = libServerRoot(aliases);
-  if (serverRoot === undefined) return undefined;
-  const path = resolveRepoLocalPath(spec, importerFile, aliases);
-  if (path === undefined) return undefined;
-  return path === serverRoot || path.startsWith(`${serverRoot}/`) ? path : undefined;
+/** The resolved repo path of a repo-local `spec`, or undefined when it is a package or the `$lib` root is opaque. */
+function localModulePath(spec: string, importerFile: string, aliases?: readonly KitAlias[]): string | undefined {
+  return libServerRoot(aliases) === undefined ? undefined : resolveRepoLocalPath(spec, importerFile, aliases);
 }
 
 function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: readonly KitAlias[]): boolean {
@@ -891,6 +972,9 @@ function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: rea
 
 /** Container constructors whose instances hold data in process memory. */
 const IN_MEMORY_CTORS = new Set(['Map', 'Set', 'WeakMap', 'WeakSet']);
+
+const isContainerCtor = (n: Node): boolean =>
+  n?.type === 'NewExpression' && n.callee?.type === 'Identifier' && IN_MEMORY_CTORS.has(n.callee.name);
 
 /**
  * Whether an initializer positively identifies an in-memory container. An object literal with a
@@ -907,6 +991,54 @@ function isInMemoryInit(init: Node | undefined): boolean {
     return props.some((p) => p?.type === 'Property' && isInMemoryInit(p.value));
   }
   return init.type === 'NewExpression' && init.callee?.type === 'Identifier' && IN_MEMORY_CTORS.has(init.callee.name);
+}
+
+/**
+ * The exported bindings of a module that are a persistence or API client: `new C()` of a class imported
+ * from an installed package, or of a class this module declares that neither extends another class nor
+ * keeps a `Map`/`Set`/`WeakMap`/`WeakSet` field; or a call into an installed package (`drizzle(…)`,
+ * `createClient(…)`). A write through one of them reaches a database or service, not module state.
+ */
+export function parseClientExports(
+  source: string,
+  filename: string,
+  aliases?: readonly KitAlias[]
+): ReadonlySet<string> {
+  const names = new Set<string>();
+  const { program } = parseModuleProgram(source, filename);
+  const fromPackage = new Set<string>();
+  for (const stmt of program?.body ?? []) {
+    const src = stmt?.type === 'ImportDeclaration' ? String(stmt.source?.value ?? '') : '';
+    const local = !src || /^[./$~#]|^@\//.test(src) || resolveRepoLocalPath(src, filename, aliases) !== undefined;
+    // A store library's factory (`svelte/store`, `svelte-persisted-store`) makes in-process state, not a client.
+    if (!local && !/^svelte|store/i.test(src)) for (const sp of stmt.specifiers ?? []) fromPackage.add(sp.local.name);
+  }
+  const plainClasses = new Set<string>();
+  for (const stmt of program?.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'ClassDeclaration' || !decl.id || decl.superClass) continue;
+    const container = (decl.body?.body ?? []).some(
+      (m: Node) =>
+        isContainerCtor(m?.value) ||
+        (m?.kind === 'constructor' &&
+          m.value?.body?.body?.some(
+            (st: Node) => st?.type === 'ExpressionStatement' && isContainerCtor(st.expression?.right)
+          ))
+    );
+    if (!container) plainClasses.add(decl.id.name);
+  }
+  for (const stmt of program?.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || stmt.declaration?.type !== 'VariableDeclaration') continue;
+    for (const d of stmt.declaration.declarations ?? []) {
+      let init: Node = unwrapTs(d?.init);
+      if (init?.type === 'AwaitExpression') init = unwrapTs(init.argument);
+      if (d?.id?.type !== 'Identifier') continue;
+      const ctor = init?.type === 'NewExpression' && init.callee?.type === 'Identifier' ? init.callee.name : undefined;
+      if (ctor !== undefined && (fromPackage.has(ctor) || plainClasses.has(ctor))) names.add(d.id.name);
+      if (init?.type === 'CallExpression' && fromPackage.has(rootObjectName(init.callee) ?? '')) names.add(d.id.name);
+    }
+  }
+  return names;
 }
 
 /**
@@ -950,6 +1082,7 @@ export function parseKitModuleFacts(
   const importedStateWrites: KitModuleFacts['importedStateWrites'] = [];
   const importedStateWritesOutsideHandlers: KitModuleFacts['importedStateWritesOutsideHandlers'] = [];
   const pendingServerStoreWrites: KitModuleFacts['pendingServerStoreWrites'] = [];
+  const storeWriteTargets: KitModuleFacts['pendingServerStoreWrites'] = [];
   const runesModuleImports: KitModuleFacts['runesModuleImports'] = [];
   const lifecycleCalls: KitModuleFacts['lifecycleCalls'] = [];
   const browserGlobalRefs: KitModuleFacts['browserGlobalRefs'] = [];
@@ -1109,19 +1242,16 @@ export function parseKitModuleFacts(
         const r = importedRoot(n.callee.object);
         const spec = r ? importedSpecifiers.get(r)! : undefined;
         if (r && spec !== undefined) {
-          if (isLocalStateSpecifier(spec, filename, aliases)) write = { name: r, via: 'set-call' };
-          else {
+          const resolved = localModulePath(spec, filename, aliases);
+          const target = { name: r, imported: importedNames.get(r) ?? r, resolved: resolved!, line: line(n.start) };
+          if (isLocalStateSpecifier(spec, filename, aliases)) {
+            write = { name: r, via: 'set-call' };
+            // The collector drops it when the target module shows a persistence client instead.
+            if (inHandler) storeWriteTargets.push(target);
+          } else if (resolved !== undefined && inHandler) {
             // Under the `$lib` server root: the call shape cannot tell a persistence client from
             // a hand-rolled store, so defer to the collector, which can read the target module.
-            const resolved = serverRootRelativePath(spec, filename, aliases);
-            if (resolved !== undefined && inHandler) {
-              pendingServerStoreWrites.push({
-                name: r,
-                imported: importedNames.get(r) ?? r,
-                resolved,
-                line: line(n.start)
-              });
-            }
+            pendingServerStoreWrites.push(target);
           }
         }
       }
@@ -1184,11 +1314,17 @@ export function parseKitModuleFacts(
   }
 
   const exitLocals = collectNamedImportAliases(program, '@sveltejs/kit', EXIT_NAMES);
+  const flagGuard = leadingFlagGuard(program, exitLocals, (local) => {
+    const spec = namespaceImports.has(local) ? undefined : importedSpecifiers.get(local);
+    const resolved = spec === undefined ? undefined : localModulePath(spec, filename, aliases);
+    return resolved === undefined ? undefined : { resolved, name: importedNames.get(local) ?? local };
+  });
   return {
     moduleStateReassignments: byLine(moduleStateReassignments),
     importedStateWrites: byLine(importedStateWrites),
     importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
     pendingServerStoreWrites: byLine(pendingServerStoreWrites),
+    ...(storeWriteTargets.length > 0 ? { storeWriteTargets } : {}),
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
@@ -1198,6 +1334,7 @@ export function parseKitModuleFacts(
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
     ...(loadNeverRenders(program, exitLocals) ? { loadNeverRenders: true as const } : {}),
+    ...(flagGuard ? { pendingFlagGuard: flagGuard } : {}),
     ...(loadGatesOnLocals(program) ? { loadGated: true as const } : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
       ? { loadWaterfalls: waterfalls }

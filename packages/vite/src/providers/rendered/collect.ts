@@ -54,7 +54,7 @@ export async function collectRenderedHeads(prerenderPagesDir: string): Promise<C
     headings.push({
       route,
       // Rendered mode does not track source lines (line 0 = unknown); file is the HTML path.
-      headings: parsed.headings.map((level) => ({ level, line: 0, file: rel }))
+      headings: parsed.headings.map((h) => ({ ...h, line: 0, file: rel }))
     });
     images.push({ route, images: parsed.images.map((img) => ({ ...img, file: rel })) });
     a11y.push({

@@ -11,6 +11,7 @@ import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { ImageInfo, ResolvedImages } from '../src/images.js';
 import type { RuleContext } from '../src/rule.js';
+import { emptyKitModuleFacts } from '../src/kit-module-collect.js';
 
 const config = defineConfig({});
 const base = { project: defaultProject, config };
@@ -116,6 +117,17 @@ describe('performance/render-blocking-script render-blocking script', () => {
     // The route's own attributed file (design 2026-08-08-pass-result-location-design.md;
     // this rule's inline PASS literal was missed by the design spike's grep, added afterward).
     expect(rs[0]!.location).toBe('x');
+  });
+  it('skips a <svelte:head> script on a route that is never server-rendered, not an app.html one', async () => {
+    const page = 'src/routes/x/+page.svelte';
+    const spa = (file: string): RuleContext => ({
+      heads: [{ ...head('static', [{ kind: 'script', href: '/a.js', blocking: true, file }]), file: page }],
+      ...base,
+      kitModules: [{ ...emptyKitModuleFacts('src/routes/x/+page.ts', 'universal'), ssrDisabled: { line: 1 } }],
+      sourceFiles: [page]
+    });
+    expect(fails(await performanceRenderBlockingScript.check(spa(page)))).toHaveLength(0);
+    expect(fails(await performanceRenderBlockingScript.check(spa('src/app.html')))).toHaveLength(1);
   });
   it('also flags a blocking script in static mode (svelte:head)', async () => {
     const rs = await performanceRenderBlockingScript.check(

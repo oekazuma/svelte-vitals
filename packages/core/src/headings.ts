@@ -6,7 +6,7 @@ import type { BranchStep } from './a11y.js';
  * so seo/single-h1 never needs to know which mode produced them.
  */
 export interface HeadingInfo {
-  /** Heading level 1–6 (the `n` in <hn>), or 0 for a `<svelte:element>` whose level the source does not determine (source mode). */
+  /** Heading level: 1–6 (the `n` in <hn>), an ARIA heading's `aria-level`, or 0 when the source does not determine it (source mode). */
   level: number;
   /** 1-based source line, or 0 if unknown (rendered mode does not track lines). */
   line: number;
@@ -25,6 +25,8 @@ export interface HeadingInfo {
    * headings carry none and arrive in order.
    */
   order?: number[];
+  /** A `role="heading"` element: it holds its outline level for seo/heading-level-skip, but is not an `<h1>` for seo/single-h1. */
+  aria?: true;
 }
 
 /** Sort comparator for `order`: element by element, a prefix first; headings without one keep their place. */
