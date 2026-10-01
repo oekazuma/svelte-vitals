@@ -9,7 +9,7 @@ description: Use const (or $state.raw) for a $state that is never mutated.
 
 Flags a `let x = $state(...)` whose value is never written or escaped anywhere in the component: not reassigned, not mutated (`x.a = …`, `x.push()`), not bound (`bind:value={x}`), not passed to a function or component, not handed out by a getter (`get x() { return x; }`) unless it holds a primitive.
 
-State passed to a `use:`/`transition:`/`animate:` directive is not flagged either, since the receiving code holds the reference and may mutate it invisibly.
+State passed to a `use:`/`transition:`/`animate:` directive is not flagged either, since the receiving code holds the reference and may mutate it invisibly. Neither is state a function returns (`return live`), for the same reason.
 
 ## Why it matters
 

@@ -834,6 +834,36 @@ describe('collectRoutes a11y composition', () => {
     expect((await a11yAt('/products', 'products/')).nestedLandmarks).toHaveLength(1);
   });
 
+  it('leaves out a component arm the use decides by its props when counting ids', async () => {
+    const { a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/Field.svelte': `<script>let { title = '' } = $props();</script>{#if title !== ''}<span id="label">{title}</span>{/if}`,
+        'src/routes/+page.svelte': `<script>import Field from '$lib/Field.svelte';</script><Field /><Field title="On" />`
+      }),
+      ''
+    );
+    expect(a11y[0]!.ids.label).toHaveLength(1);
+  });
+
+  it('renders no page below a layout arm an imported literal-false flag rules out', async () => {
+    const { a11y, headings } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/flags.ts': 'export const NOTES_ENABLED = false;\nexport const LIVE = true;\n',
+        'src/lib/Shell.svelte': '<script>let { children } = $props();</script><main>{@render children()}</main>',
+        'src/routes/notes/+layout.svelte': `<script>import { NOTES_ENABLED } from '$lib/flags'; import Shell from '$lib/Shell.svelte'; let { children } = $props();</script>{#if !NOTES_ENABLED}<h1>Off</h1>{:else}<Shell>{@render children()}</Shell>{/if}`,
+        'src/routes/notes/+page.svelte': '<h1>Notes</h1><h3>Recent</h3><nav id="x">n</nav>',
+        'src/routes/live/+layout.svelte': `<script>import { LIVE } from '$lib/flags'; let { children } = $props();</script>{#if !LIVE}<h1>Off</h1>{:else}<main>{@render children()}</main>{/if}`,
+        'src/routes/live/+page.svelte': '<h1>Live</h1>'
+      }),
+      ''
+    );
+    const notes = a11y.find((a) => a.route === '/notes')!;
+    expect(notes.landmarks.main).toBeUndefined();
+    expect(notes.ids).toEqual({});
+    expect(headings.find((h) => h.route === '/notes')!.headings.map((h) => h.level)).toEqual([1]);
+    expect(a11y.find((a) => a.route === '/live')!.landmarks.main).toHaveLength(1);
+  });
+
   it('does not read a <svelte:element> inside <svg> as a possible heading', async () => {
     const routes = await collectRoutes(
       createMemoryRuntime({

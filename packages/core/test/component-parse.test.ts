@@ -1384,6 +1384,20 @@ describe('constableStates — directive escapes', () => {
   });
 });
 
+describe('constableStates — returned $state', () => {
+  const constable = (src: string) => parseComponentFacts(src, 'A.svelte').constableStates;
+
+  it('does not report $state a function returns to its caller', () => {
+    const src = `<script>\nfunction make(row) {\n  const live = $state(row);\n  return live;\n}\nlet job = $derived(make(data));\n</script>\n<button onclick={() => (job.x = 1)}>x</button>`;
+    expect(constable(src)).toEqual([]);
+  });
+
+  it('still reports $state an arrow body only reads', () => {
+    const src = `<script>\nimport { untrack } from 'svelte';\nlet obj = $state({});\nconst snap = untrack(() => obj);\n</script>\n{snap}`;
+    expect(constable(src)).toEqual([{ name: 'obj', line: 3 }]);
+  });
+});
+
 describe('constableStates — {@const} shadowing', () => {
   const constable = (src: string) => parseComponentFacts(src, 'A.svelte').constableStates;
 

@@ -2,6 +2,8 @@
 <script lang="ts">
   import SiteBar from '$lib/clean/prop-gated/SiteBar.svelte';
   import JsonLd from '$lib/clean/jsonld/PropGatedPage.svelte';
+  import Toggle from '$lib/clean/prop-gated/Toggle.svelte';
+  import ReturnedDraft from '$lib/clean/ReturnedDraft.svelte';
 </script>
 
 <svelte:head>
@@ -26,3 +28,6 @@
 
 <h1>Prop-gated heading canary</h1>
 <p>The bar above renders a paragraph here; its heading appears only on the home page.</p>
+<Toggle />
+<Toggle title="Notifications" />
+<ReturnedDraft />

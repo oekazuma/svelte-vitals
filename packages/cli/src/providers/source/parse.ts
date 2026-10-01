@@ -494,6 +494,28 @@ export interface PropGate {
   negate: boolean;
 }
 
+/** An `{#if FLAG}`/`{#if !FLAG}` on an imported binding, decided where the module exports it as the literal `false`. */
+export interface FlagGate {
+  name: string;
+  negate: boolean;
+}
+
+function flagGate(test: AST.IfBlock['test'], flags: ReadonlySet<string>): FlagGate | undefined {
+  const negate = test.type === 'UnaryExpression' && test.operator === '!';
+  const id = test.type === 'UnaryExpression' && negate ? test.argument : test;
+  return id.type === 'Identifier' && flags.has(id.name) ? { name: id.name, negate } : undefined;
+}
+
+/** For each group `gates` holds whose flag is in `falses`, whether only its first arm renders (see `decidedArms`). */
+export function flagArms(
+  gates: ReadonlyMap<number, FlagGate> | undefined,
+  falses: ReadonlySet<string>
+): Map<number, boolean> {
+  const out = new Map<number, boolean>();
+  for (const [group, gate] of gates ?? []) if (falses.has(gate.name)) out.set(group, gate.negate);
+  return out;
+}
+
 /** A prop default: its literal value, or `'unknown'` for any other expression. */
 type PropDefault = { value: string | number | boolean | null } | 'unknown';
 
@@ -611,10 +633,14 @@ function propGate(
  * when its first arm never does. A prop the use passes literally, a boolean shorthand, or the
  * default (undefined without one) decides it; an expression, a spread or `bind:` does not.
  */
-export function decidedArms(parsed: ParsedFile, attributes: AST.Component['attributes']): Map<number, boolean> {
+export function decidedArms(
+  parsed: ParsedFile,
+  attributes: AST.Component['attributes'],
+  gates: ReadonlyMap<number, PropGate> = parsed.headingGates
+): Map<number, boolean> {
   const out = new Map<number, boolean>();
-  if (parsed.headingGates.size === 0 || attributes.some((a) => a.type === 'SpreadAttribute')) return out;
-  for (const [group, gate] of parsed.headingGates) {
+  if (gates.size === 0 || attributes.some((a) => a.type === 'SpreadAttribute')) return out;
+  for (const [group, gate] of gates) {
     const passed = attributes.filter(
       (a) => (a.type === 'Attribute' || a.type === 'BindDirective') && a.name === gate.prop
     );
@@ -1061,10 +1087,12 @@ function collectHeadings(
   source: string,
   props: ReadonlyMap<string, string>,
   reassigned: ReadonlySet<string> = new Set(),
-  urls: ReadonlyMap<number, UrlCond> = new Map()
+  urls: ReadonlyMap<number, UrlCond> = new Map(),
+  flags: ReadonlySet<string> = new Set()
 ) {
   const headings: ParsedHeading[] = [];
   const gates = new Map<number, PropGate>();
+  const flagGates = new Map<number, FlagGate>();
   const componentPaths = new Map<WalkNode, BranchStep[]>();
   const componentOffsets = new Map<WalkNode, number>();
   const renderPaths = new Map<string, BranchStep[]>();
@@ -1147,7 +1175,8 @@ function collectHeadings(
     }
     if (!node || typeof node !== 'object') return;
     if (node.type === 'Fragment') {
-      const eligible = (b: AST.IfBlock) => !shared.has(b) && !propGate(b.test, props, reassigned);
+      const eligible = (b: AST.IfBlock) =>
+        !shared.has(b) && !propGate(b.test, props, reassigned) && !flagGate(b.test, flags);
       for (const set of exclusiveIfs(node as AST.Fragment, source, eligible)) {
         const group = groups++;
         armCount.set(group, set.length);
@@ -1174,6 +1203,8 @@ function collectHeadings(
       const group = groups++;
       const gate = node.type === 'IfBlock' ? propGate(node.test, props, reassigned) : undefined;
       if (gate) gates.set(group, gate);
+      const flag = node.type === 'IfBlock' ? flagGate(node.test, flags) : undefined;
+      if (flag) flagGates.set(group, flag);
       const arms = node.type === 'IfBlock' ? ifArms(node) : [node.pending, node.then, node.catch];
       if (node.type === 'IfBlock' && endsInElse(node)) fullArms.set(group, arms.length);
       armCount.set(group, arms.filter(Boolean).length);
@@ -1327,7 +1358,8 @@ function collectHeadings(
     renderOffsets,
     holes,
     groups,
-    gates
+    gates,
+    flagGates
   };
 }
 
@@ -1571,10 +1603,16 @@ export interface A11yNode {
   inFixedLandmark?: string;
   /** for kind 'landmark' from <header>/<footer>: at template top level in this file (which also implies "not inside sectioning content" — depth 0 has no ancestors at all) */
   topLevel?: boolean;
+  /** for kind 'component': the use's attributes, which may decide the component's prop-gated `{#if}`s (`decidedArms`) */
+  attributes?: AST.Component['attributes'];
 }
 
 export interface ParsedA11y {
   nodes: A11yNode[];
+  /** `{#if}` groups one prop decides, for `decidedArms` at each use of this file. */
+  gates?: ReadonlyMap<number, PropGate>;
+  /** `{#if}` groups an imported flag decides, for `flagArms`. */
+  flagGates?: ReadonlyMap<number, FlagGate>;
   /** landmark ancestor of this file's <slot>/{@render children()} position, if any */
   slotInLandmark?: string;
   /** `slotInLandmark`, skipping `<header>`/`<footer>` (see `A11yNode.inFixedLandmark`) */
@@ -1631,8 +1669,13 @@ interface A11yCtx {
 function collectA11y(
   fragment: AST.Fragment,
   source: string,
-  urls: ReadonlyMap<number, UrlCond> = new Map()
+  urls: ReadonlyMap<number, UrlCond> = new Map(),
+  props: ReadonlyMap<string, string> = new Map(),
+  reassigned: ReadonlySet<string> = new Set(),
+  flags: ReadonlySet<string> = new Set()
 ): ParsedA11y {
+  const gates = new Map<number, PropGate>();
+  const flagGates = new Map<number, FlagGate>();
   const nodes: A11yNode[] = [];
   let groups = 0;
   let slotInLandmark: string | undefined;
@@ -1690,6 +1733,10 @@ function collectA11y(
         return;
       case 'IfBlock': {
         const group = groups++;
+        const gate = propGate(node.test, props, reassigned);
+        if (gate) gates.set(group, gate);
+        const flag = flagGate(node.test, flags);
+        if (flag) flagGates.set(group, flag);
         ifArms(node).forEach((arm, branch) => walk(arm, { ...ctx, path: [...ctx.path, { group, branch }] }));
         return;
       }
@@ -1726,7 +1773,12 @@ function collectA11y(
       case 'SvelteComponent':
       case 'SvelteSelf':
         noteSpread(node);
-        emit(ctx, { kind: 'component', key: componentName(node), line: lineOf(source, node.start) });
+        emit(ctx, {
+          kind: 'component',
+          key: componentName(node),
+          line: lineOf(source, node.start),
+          ...(node.type === 'Component' ? { attributes: node.attributes } : {})
+        });
         walk(node.fragment, { ...ctx, elementDepth: ctx.elementDepth + 1 });
         return;
       case 'SlotElement':
@@ -1831,6 +1883,8 @@ function collectA11y(
     ...(slotInLandmark ? { slotInLandmark } : {}),
     ...(slotInFixedLandmark ? { slotInFixedLandmark } : {}),
     ...(slotPaths.length > 0 ? { slotPaths } : {}),
+    ...(gates.size > 0 ? { gates } : {}),
+    ...(flagGates.size > 0 ? { flagGates } : {}),
     ...(slotUrls.some(Boolean) ? { slotUrls, slotLandmarks } : {}),
     unknowable,
     elementTags: [...elementTags],
@@ -1878,6 +1932,8 @@ export interface ParsedFile {
   dynamicHeading: boolean;
   /** Heading groups (`{#if}`s) a single prop decides, for `decidedArms`. */
   headingGates: ReadonlyMap<number, PropGate>;
+  /** Heading groups an imported flag decides, for `flagArms`. */
+  headingFlagGates?: ReadonlyMap<number, FlagGate>;
   /** Literal prop defaults, for `decidedArms`. */
   propDefaults: ReadonlyMap<string, PropDefault>;
   a11y: ParsedA11y;
@@ -1896,10 +1952,12 @@ export function parseFile(source: string, filename: string): ParsedFile {
   collectSvelteHeads(ast.fragment, heads);
   const props = collectProps(ast);
   const urls = childrenUrlConds(ast, source);
-  const headingAcc = collectHeadings(ast.fragment, source, props, reassignedLocals(ast), urls);
+  const imports = collectImports(ast);
+  const flags = new Set(imports.keys());
+  const reassigned = reassignedLocals(ast);
+  const headingAcc = collectHeadings(ast.fragment, source, props, reassigned, urls, flags);
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
-  const imports = collectImports(ast);
   const jsonLdNames = jsonLdBindings(ast);
   return {
     headTags: [
@@ -1918,8 +1976,9 @@ export function parseFile(source: string, filename: string): ParsedFile {
     renderOffsets: headingAcc.renderOffsets,
     dynamicHeading: headingAcc.dynamic,
     headingGates: headingAcc.gates,
+    ...(headingAcc.flagGates.size > 0 ? { headingFlagGates: headingAcc.flagGates } : {}),
     propDefaults: collectPropDefaults(ast),
-    a11y: collectA11y(ast.fragment, source, urls),
+    a11y: collectA11y(ast.fragment, source, urls, props, reassigned, flags),
     template: { source, filename, props, jsonLdNames },
     suppressions: collectSuppressions(source)
   };

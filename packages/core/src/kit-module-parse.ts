@@ -415,8 +415,12 @@ function leadingFlagGuard(
 
 /** The exports of a module that are the literal `false`, as `NAME` or `NAME.member` (an object literal's own property). */
 export function parseFalseExports(source: string, filename: string): ReadonlySet<string> {
+  return collectFalseExports(parseModuleProgram(source, filename).program);
+}
+
+/** `parseFalseExports` over a parsed module. */
+export function collectFalseExports(program: Node): Set<string> {
   const names = new Set<string>();
-  const { program } = parseModuleProgram(source, filename);
   for (const stmt of program?.body ?? []) {
     if (stmt?.type !== 'ExportNamedDeclaration' || stmt.declaration?.type !== 'VariableDeclaration') continue;
     if (stmt.declaration.kind !== 'const') continue;
