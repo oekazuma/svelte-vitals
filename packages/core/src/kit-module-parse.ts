@@ -239,6 +239,7 @@ const MUTATING_METHODS = new Set(['push', 'unshift', 'splice', 'add', 'set']);
 const REDIRECT_NAMES = new Set(['redirect']);
 // `error()` throws too: the route then renders its `+error` page, never the page itself.
 const EXIT_NAMES = new Set(['redirect', 'error']);
+const ERROR_NAMES = new Set(['error']);
 
 /**
  * Root-relative `redirect(status, '/…')` targets (correctness/base-path-navigation). Argument 1
@@ -356,12 +357,14 @@ function loadNeverRenders(program: Node, locals: Set<string>): boolean {
 /**
  * Whether the exported `load` sends a request without a session away before rendering: a top-level
  * `if` whose test is only negated reads of the request's `locals` (`!locals.user`,
- * `!(await locals.auth())`, or a binding taken from one earlier in the body) and whose branch
+ * `!(await locals.auth())`, or a `const` taken from one earlier in the body) and whose branch
  * redirects or errors 401/403. A test that also reads anything else — the URL, params — gates only
  * some requests and does not count; neither does a gate after a `return`.
  */
-function loadGatesOnLocals(program: Node, exits: Set<string>): boolean {
-  const load = exits.size > 0 ? findLoadFunction(program) : undefined;
+function loadGatesOnLocals(program: Node): boolean {
+  const redirects = collectNamedImportAliases(program, '@sveltejs/kit', REDIRECT_NAMES);
+  const errors = collectNamedImportAliases(program, '@sveltejs/kit', ERROR_NAMES);
+  const load = redirects.size + errors.size > 0 ? findLoadFunction(program) : undefined;
   if (load?.body?.type !== 'BlockStatement') return false;
   const param = load.params?.[0];
   const event = param?.type === 'Identifier' ? param.name : undefined;
@@ -371,14 +374,16 @@ function loadGatesOnLocals(program: Node, exits: Set<string>): boolean {
       if (p?.type === 'Property' && (p.key?.name ?? p.key?.value) === 'locals') addBoundNames(p.value, derived);
     }
   }
+  // Only argument-free calls and named members: `locals.get(url.pathname)` or `locals[params.k]`
+  // depends on the request, not the session alone.
   const fromLocals = (expr: Node): boolean => {
     let cur: Node = unwrapTs(expr);
     let prev: Node | undefined;
     for (;;) {
       if (cur?.type === 'AwaitExpression' || cur?.type === 'ChainExpression')
         cur = unwrapTs(cur.argument ?? cur.expression);
-      else if (cur?.type === 'CallExpression') cur = unwrapTs(cur.callee);
-      else if (cur?.type === 'MemberExpression') [prev, cur] = [cur, unwrapTs(cur.object)];
+      else if (cur?.type === 'CallExpression' && (cur.arguments ?? []).length === 0) cur = unwrapTs(cur.callee);
+      else if (cur?.type === 'MemberExpression' && !cur.computed) [prev, cur] = [cur, unwrapTs(cur.object)];
       else break;
     }
     if (cur?.type !== 'Identifier') return false;
@@ -393,20 +398,28 @@ function loadGatesOnLocals(program: Node, exits: Set<string>): boolean {
   };
   const exitCall = (expr: Node): boolean => {
     const e = unwrapTs(expr);
-    if (e?.type !== 'CallExpression' || e.callee?.type !== 'Identifier' || !exits.has(e.callee.name)) return false;
-    if (e.callee.name !== 'error') return true;
+    if (e?.type !== 'CallExpression' || e.callee?.type !== 'Identifier') return false;
+    if (redirects.has(e.callee.name)) return true;
+    if (!errors.has(e.callee.name)) return false;
     const status = e.arguments?.[0];
     return status?.type === 'Literal' && (status.value === 401 || status.value === 403);
   };
-  const exitsNow = (stmt: Node): boolean =>
-    stmt?.type === 'BlockStatement'
-      ? stmt.body.some(exitsNow)
-      : (stmt?.type === 'ExpressionStatement' && exitCall(stmt.expression)) ||
-        ((stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') && exitCall(stmt.argument));
+  const exitsNow = (stmt: Node): boolean => {
+    if (stmt?.type !== 'BlockStatement')
+      return (
+        (stmt?.type === 'ExpressionStatement' && exitCall(stmt.expression)) ||
+        ((stmt?.type === 'ThrowStatement' || stmt?.type === 'ReturnStatement') && exitCall(stmt.argument))
+      );
+    for (const inner of stmt.body) {
+      if (exitsNow(inner)) return true;
+      if (containsReturn(inner)) return false;
+    }
+    return false;
+  };
   for (const stmt of load.body.body) {
     if (stmt?.type === 'IfStatement' && negated(stmt.test) && exitsNow(stmt.consequent)) return true;
     if (containsReturn(stmt)) return false;
-    if (stmt?.type === 'VariableDeclaration') {
+    if (stmt?.type === 'VariableDeclaration' && stmt.kind === 'const') {
       for (const d of stmt.declarations ?? []) if (d?.init && fromLocals(d.init)) addBoundNames(d.id, derived);
     }
   }
@@ -1185,7 +1198,7 @@ export function parseKitModuleFacts(
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(!csrOptOut && exportsName(program, 'csr') ? { csrEnabled: true as const } : {}),
     ...(loadNeverRenders(program, exitLocals) ? { loadNeverRenders: true as const } : {}),
-    ...(loadGatesOnLocals(program, exitLocals) ? { loadGated: true as const } : {}),
+    ...(loadGatesOnLocals(program) ? { loadGated: true as const } : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
       ? { loadWaterfalls: waterfalls }
       : {}),

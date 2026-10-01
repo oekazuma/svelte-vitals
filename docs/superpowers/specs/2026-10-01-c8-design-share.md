@@ -25,7 +25,7 @@ whole holdout by several points.
 
 ## What the design findings are
 
-Of the 6,433 `design` verdicts on `canonical-url` and `description-presence`, 5,114 say the route is
+Of the 6,423 `design` verdicts on `canonical-url` and `description-presence`, 5,114 say the route is
 behind a login. The rest: a literal `noindex` (678), an internal or local tool (216), a desktop shell
 (199), other (216).
 
@@ -45,7 +45,7 @@ How those 5,114 login gates are written, from the labellers' evidence:
    `load` sends a request without a session away.** The page's own `load`, or a layout's above it,
    starts with an `if` whose test is only negated reads of the request's `locals` (`!locals.user`,
    `!(await locals.auth())`, a binding taken from one) and whose branch redirects or errors 401/403.
-   A crawler has no session, so it only ever sees the redirect.
+   A crawler has no session, so it only ever sees the redirect or error.
 2. **C8 stays measured and published in every holdout result, and is not a release gate.** The other
    nine criteria are unchanged.
 
@@ -68,8 +68,8 @@ The known misread: an app whose `hooks.server.ts` creates a user for every visit
 
 ## Measured effect
 
-The corpus run (195 apps): 1,600 findings move from `warning` to `info` (canonical 850, description
-750). By verdict: 1,577 `design`, 5 `fp`, 18 `tp`. 17 of those `tp` were routes behind a login that
+The corpus run (195 apps): 1,598 findings move from `warning` to `info` (canonical 849, description
+749). By verdict: 1,575 `design`, 5 `fp`, 18 `tp`. 17 of those `tp` were routes behind a login that
 earlier rounds labelled before the convention (realworld 6, AdventureLog 9, CMSaasStarter 2), and
 are relabelled `design`. The 18th is the spelwijsheid misread above.
 

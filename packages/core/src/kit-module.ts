@@ -188,7 +188,7 @@ export function routeGated(file: string, scope: SsrScope): boolean {
   if (!match || match[2] !== 'page') return false;
   const gated = new Set<string>();
   for (const m of scope.kitModules ?? []) {
-    const g = m.loadGated ? ROUTE_FILE_RE.exec(m.file) : null;
+    const g = m.loadGated && m.kind === 'server' ? ROUTE_FILE_RE.exec(m.file) : null;
     if (g) gated.add(`${g[2]}:${g[1]}`);
   }
   if (gated.size === 0) return false;

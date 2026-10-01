@@ -128,13 +128,16 @@ describe('head-tag rules on routes behind a login', () => {
     for (const rule of [seoCanonicalUrl, seoDescriptionPresence]) {
       const r = await run(rule, files[1]!, [gate(files[0]!)], files);
       expect(r.severity).toBe('info');
-      expect(r.recommendation).toMatch(/redirects visitors without a session/);
+      expect(r.recommendation).toMatch(/turns away visitors without a session/);
     }
     expect((await run(seoOgTitle, files[1]!, [gate(files[0]!)], files)).severity).toBe('warning');
   });
   it('keeps warning on a page that resets out of the gating layout, and on a route with no gate', async () => {
     const files = ['src/routes/(app)/+layout.server.ts', 'src/routes/(app)/x/+page@.svelte'];
     expect((await run(seoCanonicalUrl, files[1]!, [gate(files[0]!)], files)).severity).toBe('warning');
+    const universal = { ...gate('src/routes/(app)/+layout.ts'), kind: 'universal' as const };
+    const page = 'src/routes/(app)/y/+page.svelte';
+    expect((await run(seoCanonicalUrl, page, [universal], [universal.file, page])).severity).toBe('warning');
     expect((await run(seoCanonicalUrl, 'src/routes/x/+page.svelte', [], ['src/routes/x/+page.svelte'])).severity).toBe(
       'warning'
     );

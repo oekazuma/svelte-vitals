@@ -9,7 +9,7 @@ description: Every route should include a <link rel="canonical"> tag.
 
 Every route should include a `<link rel="canonical">` tag (own or inherited through the layout chain). A missing or empty canonical link is flagged.
 
-On a route that sends visitors without a session away, the finding is reported as `info` instead: a crawler has no session, so it only ever sees the redirect. Source analysis recognizes a server `load`, the page's own or a layout's above it, that starts with a check on the request's `locals` alone, such as `if (!locals.user) redirect(…)` or `error(401)`. A gate in `hooks.server.ts` or in the browser is not read, so routes guarded that way keep `warning`; turn the rule off for them with `overrides`, or set `seo: { indexable: false }` for a whole private app. A severity set for the rule in `rules` applies on these routes too.
+On a route that sends visitors without a session away, the finding is reported as `info` instead: a crawler has no session, so it only ever sees the redirect or error. Source analysis recognizes a server `load`, the page's own or a layout's above it, that starts with a check on the request's `locals` alone, such as `if (!locals.user) redirect(…)` or `error(401)`. A gate in `hooks.server.ts` or in the browser is not read, so routes guarded that way keep `warning`; turn the rule off for them with `overrides`, or set `seo: { indexable: false }` for a whole private app. A severity set for the rule in `rules` applies on these routes too.
 
 ## Why it matters
 

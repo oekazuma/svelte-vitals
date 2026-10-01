@@ -60,7 +60,7 @@ function detect(head: ResolvedHead, match: (t: HeadTag) => boolean): Detection {
 }
 
 const GATED_NOTE =
-  "Reported as info: this route's load redirects visitors without a session, so search engines never index it.";
+  "Reported as info: this route's load turns away visitors without a session (a redirect or a 401/403), so search engines never index it.";
 
 /** Build a route-scope rule asserting the presence of a single head tag (design §11). */
 export function headTagRule(opts: HeadTagRuleOptions): Rule {

@@ -930,6 +930,31 @@ describe('parseKitModuleFacts — loadGated (loads that send a request without a
       gated("export function load({ locals }) {\n  if (!locals.user) redirect(302, '/login');\n}", '')
     ).toBeUndefined();
   });
+  it('is not set when the session read depends on the request, the binding is reassigned, or the exit can be bypassed', () => {
+    expect(
+      gated("export function load({ locals, url }) {\n  if (!locals.get(url.pathname)) redirect(302, '/login');\n}")
+    ).toBeUndefined();
+    expect(
+      gated("export function load({ locals, params }) {\n  if (!locals[params.k]) redirect(302, '/login');\n}")
+    ).toBeUndefined();
+    expect(
+      gated(
+        "export function load({ locals, url }) {\n  let user = locals.user;\n  user = url.searchParams.get('u');\n  if (!user) redirect(302, '/login');\n}"
+      )
+    ).toBeUndefined();
+    expect(
+      gated(
+        "export function load({ locals, url }) {\n  if (!locals.user) {\n    if (url.search) return {};\n    redirect(302, '/login');\n  }\n}"
+      )
+    ).toBeUndefined();
+  });
+  it('reads error() by its import, not by its local name', () => {
+    const kit = (spec: string) => `import { ${spec} } from '@sveltejs/kit';\n`;
+    const load = (call: string) => `export function load({ locals }) {\n  if (!locals.user) ${call};\n}`;
+    expect(gated(load('fail(500)'), kit('error as fail'))).toBeUndefined();
+    expect(gated(load('fail(401)'), kit('error as fail'))).toBe(true);
+    expect(gated(load("error(302, '/login')"), kit('redirect as error'))).toBe(true);
+  });
   it('leaves the other facts intact when load reads its event directly', () => {
     const f = facts(
       'export function load(event) {\n  const e = event;\n  if (!e) return;\n}\nlet n = 0;\nexport function GET() {\n  n = 1;\n}'
