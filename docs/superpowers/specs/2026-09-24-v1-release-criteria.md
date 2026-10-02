@@ -59,7 +59,7 @@ it produces in the precision numbers.
 | C4  | Precision of **warning** findings                                                                     | ≥ 98%                 |
 | C5  | Precision of **info** findings                                                                        | ≥ 95%                 |
 | C6  | Any fp class that appears in 2 or more holdout apps                                                   | none                  |
-| C7  | Per rule with ≥ 10 holdout findings: precision                                                        | ≥ 90%                 |
+| C7  | Per rule with ≥ 10 holdout findings whose `fp` come from 2 or more apps: precision                    | ≥ 90%                 |
 | C8  | `design` share of **critical + warning** findings (reported as documented, not a demonstrable defect) | reported, not a gate  |
 | C9  | Holdout findings without a verdict / with `unclear`                                                   | 0 / ≤ 1%              |
 | C10 | Rules with at least one labelled finding across tuning corpus + holdout                               | ≥ 70 of 105           |
@@ -74,6 +74,10 @@ Notes on the choices:
   has no denominator. Such a rule is outside C7 and is governed by C8. Holdout 1 was judged this way
   (`performance/load-waterfall` and `seo/ssr-disabled`); this note was added after it, and it does
   not change that result.
+- **C7 judges a rule only when its false positives come from two or more apps.** One app's idiom
+  can pull a rule with 10–30 holdout findings under 90% by itself; such a rule is published with the
+  app and its class fixed, but the result is decided by rules broken on several apps, as C6 decides
+  by classes shared by several apps. Applies from holdout 18 (`2026-10-03-c7-multi-app.md`).
 - **C8 measures noise, not falsehood.** A `design` finding is not wrong, but a warning rule that mostly
   reports things that are not defects trains people to ignore warnings. It is measured on critical
   and warning only; info findings are opt-out advice. Every result publishes it, against the 30% it
