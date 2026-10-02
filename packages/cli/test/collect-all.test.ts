@@ -478,7 +478,8 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/Flipped.svelte': each("import { flipped as xs } from '$lib/flipped';"),
     'src/lib/ComponentExport.svelte': each("import { xs } from './Widget.svelte';"),
     'src/lib/Dotted.svelte': each("import { xs } from '$lib/dua.model';"),
-    'src/lib/Mjs.svelte': each("import { xs } from '$lib/items.mjs';")
+    'src/lib/Mjs.svelte': each("import { xs } from '$lib/items.mjs';"),
+    'src/lib/Dot.svelte': each("import { viaBarrel as xs } from '.';")
   };
 
   it('drops the block only when the export is a repo-local constant list', async () => {
