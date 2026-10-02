@@ -547,6 +547,39 @@ function patternNames(node: unknown, out: Set<string>): void {
   else if (n.type === 'RestElement') patternNames(n.argument, out);
 }
 
+/** Names the template binds itself (snippet parameters, `{#each}` items, `{@const}`, `{:then}` values), which may shadow an import. */
+function templateBindings(fragment: AST.Fragment): Set<string> {
+  const out = new Set<string>();
+  const visit = (node: unknown): void => {
+    if (Array.isArray(node)) return node.forEach(visit);
+    if (!node || typeof node !== 'object') return;
+    const n = node as Record<string, unknown> & { type?: string };
+    if (n.type === 'SnippetBlock') (n.parameters as unknown[]).forEach((p) => patternNames(p, out));
+    else if (n.type === 'EachBlock') {
+      patternNames(n.context, out);
+      if (typeof n.index === 'string') out.add(n.index);
+    } else if (n.type === 'AwaitBlock') {
+      patternNames(n.value, out);
+      patternNames(n.error, out);
+    } else if (n.type === 'VariableDeclarator') patternNames(n.id, out);
+    for (const [key, value] of Object.entries(n))
+      if (key !== 'parent' && value && typeof value === 'object') visit(value);
+  };
+  visit(fragment);
+  return out;
+}
+
+/** The snippet props a component tag's content supplies: each `{#snippet}` in it, and `children` for anything else. */
+function suppliedSnippets(fragment: AST.Fragment): string[] {
+  return fragment.nodes.flatMap((n) =>
+    n.type === 'SnippetBlock'
+      ? [n.expression.name]
+      : n.type === 'Comment' || (n.type === 'Text' && !n.data.trim())
+        ? []
+        : ['children']
+  );
+}
+
 /** Every identifier the component assigns, updates or binds: a prop it may change is never decided from outside. */
 function reassignedLocals(ast: AST.Root): Set<string> {
   const out = new Set<string>();
@@ -636,11 +669,18 @@ function propGate(
 export function decidedArms(
   parsed: ParsedFile,
   attributes: AST.Component['attributes'],
-  gates: ReadonlyMap<number, PropGate> = parsed.headingGates
+  gates: ReadonlyMap<number, PropGate> = parsed.headingGates,
+  // Snippet props the tag's content supplies, which no attribute names.
+  supplied: readonly string[] = []
 ): Map<number, boolean> {
   const out = new Map<number, boolean>();
   if (gates.size === 0 || attributes.some((a) => a.type === 'SpreadAttribute')) return out;
   for (const [group, gate] of gates) {
+    if (supplied.includes(gate.prop)) {
+      // A snippet is a function: truthy, and nothing else about it is known.
+      if (gate.kind === 'truthy') out.set(group, !gate.negate);
+      continue;
+    }
     const passed = attributes.filter(
       (a) => (a.type === 'Attribute' || a.type === 'BindDirective') && a.name === gate.prop
     );
@@ -1605,6 +1645,8 @@ export interface A11yNode {
   topLevel?: boolean;
   /** for kind 'component': the use's attributes, which may decide the component's prop-gated `{#if}`s (`decidedArms`) */
   attributes?: AST.Component['attributes'];
+  /** for kind 'component': the snippet props its content supplies (`decidedArms`) */
+  snippets?: string[];
 }
 
 export interface ParsedA11y {
@@ -1777,7 +1819,9 @@ function collectA11y(
           kind: 'component',
           key: componentName(node),
           line: lineOf(source, node.start),
-          ...(node.type === 'Component' ? { attributes: node.attributes } : {})
+          ...(node.type === 'Component'
+            ? { attributes: node.attributes, snippets: suppliedSnippets(node.fragment) }
+            : {})
         });
         walk(node.fragment, { ...ctx, elementDepth: ctx.elementDepth + 1 });
         return;
@@ -1787,7 +1831,7 @@ function collectA11y(
         walk(node.fragment, ctx);
         return;
       case 'RenderTag':
-        if (renderCallee(node) === 'children') noteSlot(ctx, node.start);
+        if ((props.get(renderCallee(node) ?? '') ?? renderCallee(node)) === 'children') noteSlot(ctx, node.start);
         return;
       default:
         noteSpread(node);
@@ -1953,7 +1997,8 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const props = collectProps(ast);
   const urls = childrenUrlConds(ast, source);
   const imports = collectImports(ast);
-  const flags = new Set(imports.keys());
+  const bound = templateBindings(ast.fragment);
+  const flags = new Set([...imports.keys()].filter((name) => !bound.has(name)));
   const reassigned = reassignedLocals(ast);
   const headingAcc = collectHeadings(ast.fragment, source, props, reassigned, urls, flags);
   const components: ComponentUse[] = [];

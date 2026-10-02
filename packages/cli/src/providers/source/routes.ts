@@ -246,7 +246,8 @@ async function composeA11y(
     for (const [branch, childRel] of files.entries()) {
       const childParsed = await readAndParse(rt, cwd, childRel, ctx.cache);
       const gates = childParsed.a11y.gates;
-      const childDecided = gates && node.attributes ? decidedArms(childParsed, node.attributes, gates) : undefined;
+      const childDecided =
+        gates && node.attributes ? decidedArms(childParsed, node.attributes, gates, node.snippets) : undefined;
       const child = await composeA11y(
         ctx,
         childRel,

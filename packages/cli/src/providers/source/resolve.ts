@@ -228,7 +228,7 @@ async function resolveExportAt(
 ): Promise<string | undefined> {
   const exists = (rel: string) => ctx.rt.exists(ctx.rt.join(ctx.cwd, rel));
   // Only a module extension is one: `dua.model` names `dua.model.ts`.
-  const ext = /\.(svelte|js|ts)$/.exec(path)?.[0];
+  const ext = /\.(svelte|[cm]?[jt]sx?|json)$/.exec(path)?.[0];
   const component = target === 'component' && name === 'default';
   let modules: string[];
   if (ext === '.svelte') {
@@ -457,7 +457,7 @@ export async function resolveFileTags(
           : child.tags;
         broad = broad || (child.broad && !clientOnly);
         // An arm a prop this use decides never renders here, so neither do its headings.
-        const decided = decidedArms(childParsed, use.attributes);
+        const decided = decidedArms(childParsed, use.attributes, undefined, [...(use.holes?.keys() ?? [])]);
         const childHeadings = [...child.ownHeadings, ...child.headings]
           .filter(
             (h) => !h.path?.some((step) => decided.has(step.group) && decided.get(step.group) !== (step.branch === 0))
