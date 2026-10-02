@@ -834,6 +834,61 @@ describe('collectRoutes a11y composition', () => {
     expect((await a11yAt('/products', 'products/')).nestedLandmarks).toHaveLength(1);
   });
 
+  it('leaves out a component arm the use decides by its props when counting ids', async () => {
+    const { a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/Field.svelte': `<script>let { title = '' } = $props();</script>{#if title !== ''}<span id="label">{title}</span>{/if}`,
+        'src/routes/+page.svelte': `<script>import Field from '$lib/Field.svelte';</script><Field /><Field title="On" />`
+      }),
+      ''
+    );
+    expect(a11y[0]!.ids.label).toHaveLength(1);
+  });
+
+  it('keeps a component arm its tag content supplies the snippet prop for', async () => {
+    const { a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/Box.svelte': `<script>let { children } = $props();</script>{#if children}<main>{@render children()}</main>{/if}`,
+        'src/routes/+page.svelte': `<script>import Box from '$lib/Box.svelte';</script><Box><p>Text</p></Box><main>page</main>`
+      }),
+      ''
+    );
+    expect(a11y[0]!.landmarks.main).toHaveLength(2);
+  });
+
+  it('reads a flag arm through a renamed children prop, but not a snippet parameter shadowing the flag', async () => {
+    const { a11y, headings } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/flags.ts': 'export const FLAG = false;\n',
+        'src/routes/renamed/+layout.svelte': `<script>import { FLAG } from '$lib/flags'; let { children: content } = $props();</script>{#if FLAG}{@render content()}{/if}`,
+        'src/routes/renamed/+page.svelte': '<main>page</main>',
+        'src/routes/shadowed/+page.svelte': `<script>import { FLAG } from '$lib/flags';</script>{#snippet body(FLAG)}{#if FLAG}<h1>Shown</h1>{/if}{/snippet}{@render body(true)}`
+      }),
+      ''
+    );
+    expect(a11y.find((a) => a.route === '/renamed')!.landmarks.main).toBeUndefined();
+    expect(headings.find((h) => h.route === '/shadowed')!.headings.map((h) => h.level)).toEqual([1]);
+  });
+
+  it('renders no page below a layout arm an imported literal-false flag rules out', async () => {
+    const { a11y, headings } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/flags.ts': 'export const NOTES_ENABLED = false;\nexport const LIVE = true;\n',
+        'src/lib/Shell.svelte': '<script>let { children } = $props();</script><main>{@render children()}</main>',
+        'src/routes/notes/+layout.svelte': `<script>import { NOTES_ENABLED } from '$lib/flags'; import Shell from '$lib/Shell.svelte'; let { children } = $props();</script>{#if !NOTES_ENABLED}<h1>Off</h1>{:else}<Shell>{@render children()}</Shell>{/if}`,
+        'src/routes/notes/+page.svelte': '<h1>Notes</h1><h3>Recent</h3><nav id="x">n</nav>',
+        'src/routes/live/+layout.svelte': `<script>import { LIVE } from '$lib/flags'; let { children } = $props();</script>{#if !LIVE}<h1>Off</h1>{:else}<main>{@render children()}</main>{/if}`,
+        'src/routes/live/+page.svelte': '<h1>Live</h1>'
+      }),
+      ''
+    );
+    const notes = a11y.find((a) => a.route === '/notes')!;
+    expect(notes.landmarks.main).toBeUndefined();
+    expect(notes.ids).toEqual({});
+    expect(headings.find((h) => h.route === '/notes')!.headings.map((h) => h.level)).toEqual([1]);
+    expect(a11y.find((a) => a.route === '/live')!.landmarks.main).toHaveLength(1);
+  });
+
   it('does not read a <svelte:element> inside <svg> as a possible heading', async () => {
     const routes = await collectRoutes(
       createMemoryRuntime({

@@ -452,7 +452,9 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/copied.ts': `export const copied = ['a'];\nexport const all = [...copied, 'b'];\n`,
     'src/lib/schema.ts': `import { z } from 'zod';\nexport const kinds = ['a', 'b'] as const;\nexport const Kind = z.enum(kinds);\n`,
     'src/lib/flipped.ts': `export const flipped = ['a', 'b'];\nfunction flip(xs) {\n  xs.reverse();\n}\nflip(flipped);\n`,
-    'src/lib/Widget.svelte': `<script module>export const xs = ['a'];</script>`
+    'src/lib/Widget.svelte': `<script module>export const xs = ['a'];</script>`,
+    'src/lib/dua.model.ts': `export const xs = ['a'];\n`,
+    'src/lib/items.mjs': `export const xs = ['a'];\n`
   };
   const COMPONENTS = {
     'src/lib/Alias.svelte': each("import { xs } from '$lib/data';"),
@@ -474,7 +476,9 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/Copied.svelte': each("import { copied as xs } from '$lib/copied';"),
     'src/lib/Schema.svelte': each("import { kinds as xs } from '$lib/schema';"),
     'src/lib/Flipped.svelte': each("import { flipped as xs } from '$lib/flipped';"),
-    'src/lib/ComponentExport.svelte': each("import { xs } from './Widget.svelte';")
+    'src/lib/ComponentExport.svelte': each("import { xs } from './Widget.svelte';"),
+    'src/lib/Dotted.svelte': each("import { xs } from '$lib/dua.model';"),
+    'src/lib/Mjs.svelte': each("import { xs } from '$lib/items.mjs';")
   };
 
   it('drops the block only when the export is a repo-local constant list', async () => {

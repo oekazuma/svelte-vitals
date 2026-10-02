@@ -603,6 +603,12 @@ function collectStateWrites(
         const r = rootObjectName(arg);
         if (r && stateNames.has(r) && !shadowed(r)) record(r, 'escape'); // f(x), f(x.a), f(...x)
       }
+    } else if (n?.type === 'ReturnStatement') {
+      // A function returning the state hands its reference to the caller, which may write it. An
+      // arrow's expression body is left out: it is almost always a read (`untrack(() => s)`).
+      const out: Node = unwrapTs(n.argument);
+      const r = out?.type === 'Identifier' ? out.name : undefined;
+      if (r && stateNames.has(r) && !shadowed(r) && !primitiveStates.has(r)) record(r, 'escape');
     } else if ((n?.type === 'Property' || n?.type === 'MethodDefinition') && n.kind === 'get') {
       // A getter hands out the state's reference like a call argument: `{ get list() { return list } }`.
       // Over a state that holds a primitive until it is written, it hands out a copy.

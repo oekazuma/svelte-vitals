@@ -15,7 +15,7 @@ import type {
 } from '@svelte-vitals/core/internal';
 import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
 import type { A11yNode, ChildrenSite, ParsedFile, ParsedTag } from './parse.js';
-import { commonPrefix } from './parse.js';
+import { commonPrefix, decidedArms, flagArms } from './parse.js';
 import { urlHolds, type UrlCond } from './url-cond.js';
 import { enumerateRoutePages } from './project.js';
 import {
@@ -24,6 +24,7 @@ import {
   resolveComponentFiles,
   resolveFileTags,
   readAndParse,
+  falseImports,
   BROAD_KINDS,
   tagKey,
   type ParseCache,
@@ -209,7 +210,9 @@ async function composeA11y(
   parsed: ParsedFile,
   depth: number,
   visited: Set<string>,
-  chain: boolean
+  chain: boolean,
+  // The use's decisions on this file's prop-gated `{#if}` groups: true keeps the first arm only.
+  decided?: ReadonlyMap<number, boolean>
 ): Promise<ComposedNode[]> {
   const { rt, cwd, state } = ctx;
   if (parsed.a11y.unknowable.length > 0) {
@@ -223,6 +226,7 @@ async function composeA11y(
 
   const composed: ComposedNode[] = [];
   for (const node of parsed.a11y.nodes) {
+    if (decided && ruledOut(node.path, decided)) continue;
     const path = offsetPath(node.path, base);
     if (node.kind !== 'component') {
       composed.push({ ...node, path, file: fileRel, chain });
@@ -241,7 +245,18 @@ async function composeA11y(
     const group = files.length > 1 ? state.nextGroup++ : undefined;
     for (const [branch, childRel] of files.entries()) {
       const childParsed = await readAndParse(rt, cwd, childRel, ctx.cache);
-      const child = await composeA11y(ctx, childRel, childParsed, depth - 1, new Set(visited).add(childRel), false);
+      const gates = childParsed.a11y.gates;
+      const childDecided =
+        gates && node.attributes ? decidedArms(childParsed, node.attributes, gates, node.snippets) : undefined;
+      const child = await composeA11y(
+        ctx,
+        childRel,
+        childParsed,
+        depth - 1,
+        new Set(visited).add(childRel),
+        false,
+        childDecided
+      );
       const at = group === undefined ? path : [...path, { group, branch }];
       for (const inner of child) {
         composed.push({ ...inner, path: [...at, ...inner.path], repeatable: node.repeatable || inner.repeatable });
@@ -249,6 +264,11 @@ async function composeA11y(
     }
   }
   return composed;
+}
+
+/** Whether `path` runs through an arm `decided` (see `decidedArms`) rules out. */
+function ruledOut(path: readonly BranchStep[], decided: ReadonlyMap<number, boolean>): boolean {
+  return path.some((s) => decided.has(s.group) && (decided.get(s.group) ? s.branch !== 0 : s.branch === 0));
 }
 
 /**
@@ -361,11 +381,29 @@ async function resolveRoute(
   /** Branch addresses the layouts above the current chain file render their children at, one per position. */
   let slotPrefixes: BranchStep[][] = [[]];
 
+  // Set once a layout renders its children only in arms an imported `false` flag rules out: the rest
+  // of the chain renders no body. Its head still counts, as the route is judged on the shell it serves.
+  let unreached = false;
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
+    const flagGates = [...(parsed.a11y.flagGates?.values() ?? []), ...(parsed.headingFlagGates?.values() ?? [])];
+    const falses =
+      flagGates.length > 0 && !unreached
+        ? await falseImports(
+            a11yCtx,
+            rel,
+            parsed,
+            flagGates.map((g) => g.name)
+          )
+        : new Set<string>();
+    const a11yFlags = flagArms(parsed.a11y.flagGates, falses);
+    const headingFlags = flagArms(parsed.headingFlagGates, falses);
+    const open = (path: readonly BranchStep[] | undefined) => !path || !ruledOut(path, headingFlags);
 
     const base = a11yCtx.state.nextGroup;
-    const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true);
+    const contributed = unreached
+      ? []
+      : await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true, a11yFlags);
     // The layout's main/aside is this file's sectioning ancestor, so a <header>/<footer> here is no
     // landmark (HTML-AAM) — for any rule, not just nesting — nor the landmark its content sits in.
     const scoped = slotLandmark === 'main' || slotLandmark === 'complementary';
@@ -381,7 +419,10 @@ async function resolveRoute(
       a11yNodes.push(
         ...contributed.map((node) => (prefix.length > 0 ? { ...node, path: [...prefix, ...node.path] } : node))
       );
-    const kept = parsed.a11y.slotPaths?.flatMap((_, i) => (onRoute(parsed.a11y.slotUrls?.[i]) ? [i] : [])) ?? [];
+    const kept =
+      parsed.a11y.slotPaths?.flatMap((p, i) =>
+        onRoute(parsed.a11y.slotUrls?.[i]) && !ruledOut(p, a11yFlags) ? [i] : []
+      ) ?? [];
     // The landmark the page sits in is the first one around a place this route renders it at.
     const around = parsed.a11y.slotLandmarks?.filter((_, i) => kept.includes(i)).find((l) => l.landmark);
     const slotIn =
@@ -404,14 +445,14 @@ async function resolveRoute(
     }
 
     // A layout's images after its `{@render children()}` come after the page's in document order.
-    const own = parsed.images.map((img) => ({ ...img, file: rel }));
+    const own = unreached ? [] : parsed.images.map((img) => ({ ...img, file: rel }));
     images.splice(imagesAt, 0, ...own);
     imagesAt += parsed.imagesBeforeChildren ?? own.length;
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, headAliases);
-    for (const heading of resolved.ownHeadings) {
+    for (const heading of unreached ? [] : resolved.ownHeadings.filter((h) => open(h.path))) {
       for (const at of childrenAts) headings.push(placeHeading(heading, at));
     }
-    dynamicHeading = dynamicHeading || parsed.dynamicHeading;
+    dynamicHeading = dynamicHeading || (!unreached && parsed.dynamicHeading);
 
     for (const tag of resolved.tags) {
       if (tag.dynamicKey) {
@@ -434,12 +475,15 @@ async function resolveRoute(
       if (isPage) broadOwn = true;
       else broadInherited = true;
     }
-    for (const at of childrenAts) componentHeadings.push(...resolved.headings.map((h) => placeHeading(h, at)));
-    dynamicHeading = dynamicHeading || resolved.dynamicHeading;
-    clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
+    if (!unreached) {
+      const shown = resolved.headings.filter((h) => open(h.path));
+      for (const at of childrenAts) componentHeadings.push(...shown.map((h) => placeHeading(h, at)));
+      dynamicHeading = dynamicHeading || resolved.dynamicHeading;
+      clientOnlyHeading = clientOnlyHeading || resolved.clientOnlyHeading;
+    }
     const childrenPath = resolved.renderPaths.get('children');
     const childrenOffset = resolved.renderOffsets.get('children');
-    const reachable = resolved.childrenSites?.filter((s) => onRoute(s.url));
+    const reachable = resolved.childrenSites?.filter((s) => onRoute(s.url) && open(s.path));
     const placed = reachable?.length ? reachable : resolved.childrenSites;
     const exclusive = exclusiveSites(placed?.map((s) => s.path));
     const sites: ChildrenSite[] | undefined =
@@ -461,6 +505,7 @@ async function resolveRoute(
         next.length <= 8 ? next : [{ path: next.map((n) => n.path).reduce(commonPrefix), order: next[0]!.order }];
     }
     headingGroup += resolved.groupSpan;
+    if (a11yFlags.size > 0 && parsed.a11y.slotPaths?.every((p) => ruledOut(p, a11yFlags))) unreached = true;
   }
 
   // Broad (opaque) meta source: fill only kinds not already set specifically.
