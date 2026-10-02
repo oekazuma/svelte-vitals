@@ -138,7 +138,8 @@ describe('kitchen-sink e2e (static mode)', () => {
       '/clean/two-arm-layout',
       '/clean/url-arms/bare',
       '/clean/flag-arm',
-      '/clean/session'
+      '/clean/session',
+      '/clean/route-arms'
     ]) {
       const canary = report.routes.find((r) => r.route === route);
       expect(canary, route).toBeDefined();

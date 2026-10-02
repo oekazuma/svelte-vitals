@@ -9,7 +9,7 @@ description: Awaits that don't use each other's results still run one after anot
 
 Flags an await in a `load` function (universal or server) that uses no result from any await before it. The requests serialize for no data-flow reason.
 
-Detection uses the same conservative straight-line scan as `performance/load-waterfall`: forward taint through bindings and intermediate constants, callback-parameter shadowing respected, `await parent()` exempt. Awaiting an already-created promise (`await somePromise`, `await store.ready`) starts no request and is never flagged: only an await of a call, tagged template, `new`, or `import()` counts as starting work. A method of an object the load created itself, awaited for its effect alone (`const auth = getAuth(); await auth.initialize()`), is read as filling that object, so a later await that reads it depends on it.
+Detection uses the same conservative straight-line scan as `performance/load-waterfall`: forward taint through bindings and intermediate constants, callback-parameter shadowing respected, `await parent()` exempt. A container a callback over an earlier result fills (`lists.forEach((l) => ids.add(l.id))`) carries that result on. Awaiting an already-created promise (`await somePromise`, `await store.ready`) starts no request and is never flagged: only an await of a call, tagged template, `new`, or `import()` counts as starting work. A method of an object the load created itself, awaited for its effect alone (`const auth = getAuth(); await auth.initialize()`), is read as filling that object, so a later await that reads it depends on it.
 
 ## Why it matters
 

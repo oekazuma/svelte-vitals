@@ -236,6 +236,7 @@ function collectAwaits(node: Node, out: Node[] = []): Node[] {
 }
 
 const MUTATING_METHODS = new Set(['push', 'unshift', 'splice', 'add', 'set']);
+const ITERATING_METHODS = new Set(['forEach', 'map', 'flatMap', 'filter', 'some', 'every', 'reduce']);
 const REDIRECT_NAMES = new Set(['redirect']);
 // `error()` throws too: the route then renders its `+error` page, never the page itself.
 const EXIT_NAMES = new Set(['redirect', 'error']);
@@ -700,6 +701,29 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
     if (root) tainted.add(root);
   };
 
+  // `results.forEach((r) => ids.add(r.id))`: a container a callback over tainted data fills holds that data.
+  const taintLoopFill = (call: Node): void => {
+    const callee: Node = unwrapTs(call?.callee);
+    if (call?.type !== 'CallExpression' || callee?.type !== 'MemberExpression' || callee.computed) return;
+    if (!ITERATING_METHODS.has(callee.property?.name) || !refsTainted(callee.object, tainted)) return;
+    const fill = (node: Node): void => {
+      if (Array.isArray(node)) return node.forEach(fill);
+      if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+      // A function defined in the callback runs only if something calls it.
+      if (isFunctionNode(node)) return;
+      const c: Node = node.type === 'CallExpression' ? unwrapTs(node.callee) : undefined;
+      if (c?.type === 'MemberExpression' && !c.computed && MUTATING_METHODS.has(c.property?.name)) {
+        const root = rootObjectName(c);
+        if (root) tainted.add(root);
+      }
+      // A callback a nested iteration gets does run, during this one.
+      if (c?.type === 'MemberExpression' && !c.computed && ITERATING_METHODS.has(c.property?.name))
+        for (const arg of node.arguments ?? []) if (isFunctionNode(arg)) fill(arg.body);
+      for (const key of Object.keys(node)) if (!WALK_IGNORED_KEYS.has(key)) fill(node[key]);
+    };
+    for (const arg of call.arguments ?? []) if (isFunctionNode(arg)) fill(arg.body);
+  };
+
   // Taint-only scan for regions we don't classify: assignments/declarations whose
   // RHS contains an await or references taint taint their target, as do in-place adds and a
   // `for…of`/`for…in` over tainted data its loop variable. Never enters nested functions;
@@ -715,13 +739,17 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
       taintTarget(node.left, node.right);
     } else if (node.type === 'CallExpression') {
       taintMutation(node);
+      taintLoopFill(node);
     } else if ((node.type === 'ForOfStatement' || node.type === 'ForInStatement') && refsTainted(node.right, tainted)) {
       const names = new Set<string>();
       addBoundNames(node.left?.type === 'VariableDeclaration' ? node.left.declarations?.[0]?.id : node.left, names);
       for (const name of names) tainted.add(name);
     } else if (node.type === 'VariableDeclaration') {
       for (const d of node.declarations ?? []) {
-        if (d?.id && d.init) taintTarget(d.id, d.init);
+        if (d?.id && d.init) {
+          taintTarget(d.id, d.init);
+          taintLoopFill(unwrapTs(d.init));
+        }
       }
     }
     for (const key of Object.keys(node)) {
@@ -769,12 +797,18 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
         }
         if (stmt.type === 'VariableDeclaration') {
           for (const d of stmt.declarations ?? []) {
-            if (d?.id && d.init) taintTarget(d.id, d.init);
+            if (d?.id && d.init) {
+              taintTarget(d.id, d.init);
+              taintLoopFill(unwrapTs(d.init));
+            }
           }
         } else if (stmt.type === 'ExpressionStatement') {
           const expr = unwrapTs(stmt.expression);
           if (expr?.type === 'AssignmentExpression') taintTarget(expr.left, expr.right);
-          else taintMutation(expr);
+          else {
+            taintMutation(expr);
+            taintLoopFill(expr);
+          }
           // A method of an object the load made itself, awaited for its effect alone
           // (`const auth = getAuth(); await auth.initialize()`), fills that object's state.
           const call: Node = expr?.type === 'AwaitExpression' ? unwrapTs(expr.argument) : undefined;
@@ -895,7 +929,7 @@ export function resolveRepoLocalPath(
   aliases: readonly KitAlias[] = DEFAULT_KIT_ALIASES
 ): string | undefined {
   let path: string;
-  if (spec.startsWith('./') || spec.startsWith('../')) {
+  if (spec === '.' || spec === '..' || spec.startsWith('./') || spec.startsWith('../')) {
     const dir = importerFile.split('/').slice(0, -1).join('/');
     path = `${dir}/${spec}`;
   } else {

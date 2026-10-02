@@ -520,6 +520,24 @@ export function flagArms(
 type PropDefault = { value: string | number | boolean | null } | 'unknown';
 
 // A `Literal` node's value when it is one a gate can compare (not a regex or bigint).
+/** The conventional names of a translation function: `t`, `$t`, `_`, `$_`, `translate`, or one of those on an object (`i18n.t`). */
+const TRANSLATE_CALL = /^(?:[$\w]+\.)?(?:\$?t|\$?_|translate)$/;
+
+/** `t`, `$_`, `i18n.t`: the dotted name of a callee, or '' for anything else. */
+function calleeText(n: {
+  type: string;
+  name?: string;
+  object?: unknown;
+  property?: unknown;
+  computed?: boolean;
+}): string {
+  if (n.type === 'Identifier') return n.name ?? '';
+  if (n.type !== 'MemberExpression' || n.computed) return '';
+  const object = calleeText(n.object as typeof n);
+  const property = calleeText(n.property as typeof n);
+  return object && property ? `${object}.${property}` : '';
+}
+
 function literalValue(node: { type: string; value?: unknown; regex?: unknown }): PropDefault {
   const v = node.value;
   return node.type === 'Literal' && !node.regex && (v === null || ['string', 'number', 'boolean'].includes(typeof v))
@@ -698,11 +716,26 @@ export function decidedArms(
     else {
       const tag = Array.isArray(attr.value) ? (attr.value.length === 1 ? attr.value[0] : undefined) : attr.value;
       const expr = tag?.type === 'ExpressionTag' ? tag.expression : undefined;
+      const first = expr?.type === 'CallExpression' ? expr.arguments[0] : undefined;
       if (expr?.type === 'ObjectExpression' || expr?.type === 'ArrayExpression') held = { type: 'object' };
       else if (expr?.type === 'TemplateLiteral') held = { type: 'string' };
+      // A translation call given a non-empty key (`t('Title')`, `$_('Title')`) returns non-empty text.
+      else if (
+        expr?.type === 'CallExpression' &&
+        TRANSLATE_CALL.test(calleeText(expr.callee)) &&
+        first?.type === 'Literal' &&
+        typeof first.value === 'string' &&
+        first.value.trim()
+      )
+        held = { type: 'text' };
       else held = expr ? literalValue(expr) : 'unknown';
     }
     if (held === 'unknown') continue;
+    if ('type' in held && held.type === 'text') {
+      if (gate.kind !== 'truthy') continue;
+      out.set(group, !gate.negate);
+      continue;
+    }
     const type = 'type' in held ? held.type : held.value === null ? 'object' : typeof held.value;
     let holds: boolean;
     if (gate.kind === 'typeof') holds = type === gate.operand;
@@ -710,8 +743,11 @@ export function decidedArms(
       // An object is truthy and equals no literal; a template literal may be empty, so only its type is known.
       if (gate.kind === 'length' || type !== 'object') continue;
       holds = gate.kind === 'truthy';
-    } else if (gate.kind === 'truthy') holds = Boolean(held.value);
-    else if (gate.kind === 'equals') holds = held.value === gate.operand;
+    } else if (gate.kind === 'truthy') {
+      // A blank string is truthy, but not once a derived alias trims it (`$derived(title?.trim())`).
+      if (typeof held.value === 'string' && held.value && !held.value.trim()) continue;
+      holds = Boolean(held.value);
+    } else if (gate.kind === 'equals') holds = held.value === gate.operand;
     else {
       if (typeof held.value !== 'string') continue;
       const n = held.value.length;
@@ -746,6 +782,31 @@ function collectProps(ast: AST.Root): Map<string, string> {
         const local = p.value.type === 'AssignmentPattern' ? p.value.left : p.value;
         if (key !== undefined && local.type === 'Identifier') props.set(local.name, key);
       }
+    }
+  }
+  // `const t = $derived(title?.trim() ?? '')` reads as `title`: it is truthy exactly when the prop
+  // holds a non-blank string.
+  type Expr = AST.IfBlock['test'];
+  const unwrap = (n: Expr | undefined): Expr | undefined => {
+    if (!n) return undefined;
+    if (n.type === 'LogicalExpression' && n.operator !== '&&' && n.right.type === 'Literal' && n.right.value === '')
+      return unwrap(n.left);
+    if (n.type === 'ChainExpression') return unwrap(n.expression as Expr);
+    if (n.type === 'CallExpression' && n.arguments.length === 0 && n.callee.type === 'MemberExpression')
+      return !n.callee.computed && n.callee.property.type === 'Identifier' && n.callee.property.name === 'trim'
+        ? unwrap(n.callee.object as Expr)
+        : undefined;
+    return n;
+  };
+  for (const stmt of ast.instance?.content.body ?? []) {
+    if (stmt.type !== 'VariableDeclaration' || stmt.kind !== 'const') continue;
+    for (const d of stmt.declarations) {
+      const init = d.init;
+      if (d.id.type !== 'Identifier' || init?.type !== 'CallExpression' || init.arguments.length !== 1) continue;
+      if (init.callee.type !== 'Identifier' || init.callee.name !== '$derived') continue;
+      const inner = unwrap(init.arguments[0] as Expr);
+      const prop = inner?.type === 'Identifier' ? props.get(inner.name) : undefined;
+      if (prop !== undefined) props.set(d.id.name, prop);
     }
   }
   return props;
@@ -1036,9 +1097,11 @@ export const HOLE = -1;
  * `page.url.pathname` (`$page` too), optionally through a de-localizing call or `|| '/'`, is the path;
  * `startsWith`/`endsWith`/`includes`/`===` against a string literal are the tests it reads.
  */
-function childrenUrlConds(ast: AST.Root, source: string): Map<number, UrlCond> {
+function childrenUrlConds(ast: AST.Root, source: string) {
   const out = new Map<number, UrlCond>();
-  if (!source.includes('pathname')) return out;
+  // Each `{#if}` whose first test reads the request: decided per route like a flag (`urlGates`).
+  const blocks = new Map<number, UrlCond>();
+  if (!source.includes('pathname') && !source.includes('route.id')) return { sites: out, blocks };
   type Expr = AST.IfBlock['test'];
   const derived = new Map<string, Expr>();
   for (const stmt of ast.instance?.content.body ?? []) {
@@ -1060,6 +1123,25 @@ function childrenUrlConds(ast: AST.Root, source: string): Map<number, UrlCond> {
     return source.slice(start, end).replace(/\s+/g, '');
   };
   const literal = (n: Expr) => (n.type === 'Literal' && typeof n.value === 'string' ? n.value : undefined);
+  const isRouteId = (raw: Expr, depth = 0): boolean => {
+    const n = strip(raw);
+    if (n.type === 'MemberExpression') return /^\$?page\.route\.id$/.test(text(n));
+    if (n.type === 'Identifier') return depth < 4 && derived.has(n.name) && isRouteId(derived.get(n.name)!, depth + 1);
+    if (n.type === 'LogicalExpression' && n.operator !== '&&')
+      return isRouteId(n.left, depth) && literal(n.right) !== undefined;
+    return false;
+  };
+  // A template literal as path segments: a literal one, or `null` for one built from an expression.
+  const template = (raw: Expr, depth = 0): (string | null)[] | undefined => {
+    const n = strip(raw);
+    if (n.type === 'Identifier' && depth < 4 && derived.has(n.name)) return template(derived.get(n.name)!, depth + 1);
+    if (n.type !== 'TemplateLiteral' || n.expressions.length === 0) return undefined;
+    const joined = n.quasis.map((q) => q.value.cooked ?? '').join('\0');
+    if (!joined.startsWith('/')) return undefined;
+    const segments = joined.slice(1).split('/');
+    if (segments.some((seg) => seg.includes('\0') && seg !== '\0')) return undefined;
+    return segments.map((seg) => (seg === '\0' ? null : seg));
+  };
   const isPath = (raw: Expr, depth = 0): boolean => {
     const n = strip(raw);
     if (n.type === 'MemberExpression') return /^\$?page\.url\.pathname$/.test(text(n));
@@ -1083,14 +1165,27 @@ function childrenUrlConds(ast: AST.Root, source: string): Map<number, UrlCond> {
       const op = ({ startsWith: 'starts', endsWith: 'ends', includes: 'includes' } as const)[name as 'includes'];
       const v = n.arguments.length === 1 ? literal(n.arguments[0] as Expr) : undefined;
       if (op && v !== undefined && isPath(n.callee.object as Expr, depth)) return { op, v };
+      // `['/a', '/b'].includes(page.route.id)`
+      const list = n.callee.object as Expr;
+      if (name === 'includes' && list.type === 'ArrayExpression' && n.arguments.length === 1) {
+        const ids = list.elements.map((e) => (e ? literal(e as Expr) : undefined));
+        if (ids.every((id) => id !== undefined) && isRouteId(n.arguments[0] as Expr, depth))
+          return { id: ids as string[] };
+      }
+      // `/^\/app\//.test(page.url.pathname)`
+      const re = n.callee.object as Expr & { regex?: { pattern: string; flags: string } };
+      if (name === 'test' && re.type === 'Literal' && re.regex && n.arguments.length === 1)
+        if (isPath(n.arguments[0] as Expr, depth)) return { re: re.regex.pattern, flags: re.regex.flags };
     }
     if (n.type === 'BinaryExpression' && ['===', '!==', '==', '!='].includes(n.operator)) {
       const [side, lit] = literal(n.right as Expr) !== undefined ? [n.left, n.right] : [n.right, n.left];
       const v = literal(lit as Expr);
-      if (v !== undefined && isPath(side as Expr, depth)) {
-        const eq: UrlCond = { op: 'eq', v };
-        return n.operator.startsWith('!') ? { not: eq } : eq;
-      }
+      const negate = (c: UrlCond): UrlCond => (n.operator.startsWith('!') ? { not: c } : c);
+      if (v !== undefined && isPath(side as Expr, depth)) return negate({ op: 'eq', v });
+      if (v !== undefined && isRouteId(side as Expr, depth)) return negate({ id: [v] });
+      const [path, other] = isPath(n.left as Expr, depth) ? [n.left, n.right] : [n.right, n.left];
+      const tpl = isPath(path as Expr, depth) ? template(other as Expr, depth) : undefined;
+      if (tpl) return negate({ tpl });
     }
     return { u: true };
   };
@@ -1099,6 +1194,7 @@ function childrenUrlConds(ast: AST.Root, source: string): Map<number, UrlCond> {
     if (!node) return;
     if (node.type === 'IfBlock') {
       const tests = ifTests(node).map((t) => cond(t));
+      if (tests[0] && JSON.stringify(tests[0]) !== '{"u":true}') blocks.set(node.start, tests[0]);
       ifArms(node).forEach((arm, i) =>
         walk(arm, [...stack, ...tests.slice(0, i).map((t): UrlCond => ({ not: t })), ...(tests[i] ? [tests[i]!] : [])])
       );
@@ -1111,7 +1207,7 @@ function childrenUrlConds(ast: AST.Root, source: string): Map<number, UrlCond> {
     for (const key of CHILD_NODE_KEYS) if (key in node) walk(childOf(node, key), stack);
   };
   walk(ast.fragment, []);
-  return out;
+  return { sites: out, blocks };
 }
 
 const isAriaHeading = (node: AST.RegularElement) =>
@@ -1128,11 +1224,13 @@ function collectHeadings(
   props: ReadonlyMap<string, string>,
   reassigned: ReadonlySet<string> = new Set(),
   urls: ReadonlyMap<number, UrlCond> = new Map(),
-  flags: ReadonlySet<string> = new Set()
+  flags: ReadonlySet<string> = new Set(),
+  urlBlocks: ReadonlyMap<number, UrlCond> = new Map()
 ) {
   const headings: ParsedHeading[] = [];
   const gates = new Map<number, PropGate>();
   const flagGates = new Map<number, FlagGate>();
+  const urlGates = new Map<number, UrlCond>();
   const componentPaths = new Map<WalkNode, BranchStep[]>();
   const componentOffsets = new Map<WalkNode, number>();
   const renderPaths = new Map<string, BranchStep[]>();
@@ -1218,7 +1316,7 @@ function collectHeadings(
     if (!node || typeof node !== 'object') return;
     if (node.type === 'Fragment') {
       const eligible = (b: AST.IfBlock) =>
-        !shared.has(b) && !propGate(b.test, props, reassigned) && !flagGate(b.test, flags);
+        !shared.has(b) && !propGate(b.test, props, reassigned) && !flagGate(b.test, flags) && !urlBlocks.has(b.start);
       for (const set of exclusiveIfs(node as AST.Fragment, source, eligible)) {
         const group = groups++;
         armCount.set(group, set.length);
@@ -1247,6 +1345,8 @@ function collectHeadings(
       if (gate) gates.set(group, gate);
       const flag = node.type === 'IfBlock' ? flagGate(node.test, flags) : undefined;
       if (flag) flagGates.set(group, flag);
+      const url = node.type === 'IfBlock' ? urlBlocks.get(node.start) : undefined;
+      if (url) urlGates.set(group, url);
       const arms = node.type === 'IfBlock' ? ifArms(node) : [node.pending, node.then, node.catch];
       if (node.type === 'IfBlock' && endsInElse(node)) fullArms.set(group, arms.length);
       armCount.set(group, arms.filter(Boolean).length);
@@ -1435,7 +1535,8 @@ function collectHeadings(
     holes,
     groups,
     gates,
-    flagGates
+    flagGates,
+    urlGates
   };
 }
 
@@ -1691,6 +1792,8 @@ export interface ParsedA11y {
   gates?: ReadonlyMap<number, PropGate>;
   /** `{#if}` groups an imported flag decides, for `flagArms`. */
   flagGates?: ReadonlyMap<number, FlagGate>;
+  /** `{#if}` groups whose first test reads the request path or route id, decided per route. */
+  urlGates?: ReadonlyMap<number, UrlCond>;
   /** landmark ancestor of this file's <slot>/{@render children()} position, if any */
   slotInLandmark?: string;
   /** `slotInLandmark`, skipping `<header>`/`<footer>` (see `A11yNode.inFixedLandmark`) */
@@ -1750,10 +1853,12 @@ function collectA11y(
   urls: ReadonlyMap<number, UrlCond> = new Map(),
   props: ReadonlyMap<string, string> = new Map(),
   reassigned: ReadonlySet<string> = new Set(),
-  flags: ReadonlySet<string> = new Set()
+  flags: ReadonlySet<string> = new Set(),
+  urlBlocks: ReadonlyMap<number, UrlCond> = new Map()
 ): ParsedA11y {
   const gates = new Map<number, PropGate>();
   const flagGates = new Map<number, FlagGate>();
+  const urlGates = new Map<number, UrlCond>();
   const nodes: A11yNode[] = [];
   let groups = 0;
   let slotInLandmark: string | undefined;
@@ -1815,6 +1920,8 @@ function collectA11y(
         if (gate) gates.set(group, gate);
         const flag = flagGate(node.test, flags);
         if (flag) flagGates.set(group, flag);
+        const url = urlBlocks.get(node.start);
+        if (url) urlGates.set(group, url);
         ifArms(node).forEach((arm, branch) => walk(arm, { ...ctx, path: [...ctx.path, { group, branch }] }));
         return;
       }
@@ -1965,6 +2072,7 @@ function collectA11y(
     ...(slotPaths.length > 0 ? { slotPaths } : {}),
     ...(gates.size > 0 ? { gates } : {}),
     ...(flagGates.size > 0 ? { flagGates } : {}),
+    ...(urlGates.size > 0 ? { urlGates } : {}),
     ...(slotUrls.some(Boolean) ? { slotUrls, slotLandmarks } : {}),
     unknowable,
     elementTags: [...elementTags],
@@ -2014,6 +2122,8 @@ export interface ParsedFile {
   headingGates: ReadonlyMap<number, PropGate>;
   /** Heading groups an imported flag decides, for `flagArms`. */
   headingFlagGates?: ReadonlyMap<number, FlagGate>;
+  /** Heading groups whose first test reads the request path or route id, decided per route. */
+  headingUrlGates?: ReadonlyMap<number, UrlCond>;
   /** Literal prop defaults, for `decidedArms`. */
   propDefaults: ReadonlyMap<string, PropDefault>;
   a11y: ParsedA11y;
@@ -2036,7 +2146,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const bound = templateBindings(ast.fragment);
   const flags = new Set([...imports.keys()].filter((name) => !bound.has(name)));
   const reassigned = reassignedLocals(ast);
-  const headingAcc = collectHeadings(ast.fragment, source, props, reassigned, urls, flags);
+  const headingAcc = collectHeadings(ast.fragment, source, props, reassigned, urls.sites, flags, urls.blocks);
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
   const jsonLdNames = jsonLdBindings(ast);
@@ -2058,8 +2168,9 @@ export function parseFile(source: string, filename: string): ParsedFile {
     dynamicHeading: headingAcc.dynamic,
     headingGates: headingAcc.gates,
     ...(headingAcc.flagGates.size > 0 ? { headingFlagGates: headingAcc.flagGates } : {}),
+    ...(headingAcc.urlGates.size > 0 ? { headingUrlGates: headingAcc.urlGates } : {}),
     propDefaults: collectPropDefaults(ast),
-    a11y: collectA11y(ast.fragment, source, urls, props, reassigned, flags),
+    a11y: collectA11y(ast.fragment, source, urls.sites, props, reassigned, flags, urls.blocks),
     template: { source, filename, props, jsonLdNames },
     suppressions: collectSuppressions(source)
   };

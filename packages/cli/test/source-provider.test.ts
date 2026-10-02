@@ -521,6 +521,60 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(rs.map((r) => r.message)).toEqual(['Heading order']);
   });
 
+  it("decides a layout's own {#if} by the route's path, route id, a regex test or a template", async () => {
+    const layout = `<script>import { page } from '$app/state'; let { children, data } = $props(); const base = $derived(\`/c/\${data.slug}\`); const onIndex = $derived(page.url.pathname === base); const shell = $derived(!['/c/[slug]/admin'].includes(page.route.id ?? '') && !/\\/c\\/x\\//.test(page.url.pathname));</script>{#if !onIndex}<h1>Conference</h1>{/if}{#if shell}<nav id="shell">n</nav>{/if}{@render children()}`;
+    const { headings, a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/routes/c/[slug]/+layout.svelte': layout,
+        'src/routes/c/[slug]/+page.svelte': '<h1>Home</h1>',
+        'src/routes/c/[slug]/admin/+page.svelte': '<nav id="shell">admin</nav><p>a</p>'
+      }),
+      ''
+    );
+    expect(headings.find((h) => h.route === '/c/[slug]')!.headings.map((h) => h.level)).toEqual([1]);
+    expect(a11y.find((a) => a.route === '/c/[slug]/admin')!.ids.shell).toHaveLength(1);
+  });
+
+  it('leaves the arm undecided for a blank title or a call that is not a translation call', async () => {
+    const card = `<script>let { title, children } = $props(); const shown = $derived(title?.trim() ?? '');</script>{#if shown}<h2>{shown}</h2>{/if}{@render children?.()}`;
+    const skipOf = async (use: string) => {
+      const page = `<script>import Card from '$lib/Card.svelte'; import { format } from '$lib/fmt';</script><h1>Crew</h1>${use}`;
+      const files = {
+        'src/lib/Card.svelte': card,
+        'src/lib/fmt.ts': 'export const format = (s) => s;',
+        'src/routes/+page.svelte': page
+      };
+      const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+      return (
+        await seoHeadingLevelSkip.check({ heads: [], headings, project: defaultProject, config: defaultConfig })
+      ).map((r) => r.message);
+    };
+    expect(await skipOf(`<Card title="   "><h3>Split</h3></Card>`)).toEqual(['Heading level skipped (<h1> to <h3>)']);
+    expect(await skipOf(`<Card title={format('Receipts')}><h3>Split</h3></Card>`)).toEqual([
+      'Heading level skipped (<h1> to <h3>)'
+    ]);
+  });
+
+  it('decides route-tested blocks one by one, not as arms of one block', async () => {
+    const layout = `<script>import { page } from '$app/state'; let { children } = $props();</script>{#if page.route.id === '/a'}<h1>A</h1>{/if}{#if page.route.id === '/b'}<h1>B</h1>{/if}{@render children()}`;
+    const files = { 'src/routes/+layout.svelte': layout, 'src/routes/c/+page.svelte': '<h1>C</h1>' };
+    const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+    expect(headings.find((h) => h.route === '/c')!.headings.map((h) => h.level)).toEqual([1]);
+  });
+
+  it('reads a trimmed $derived of a prop, and a translation call passed to it, as deciding its arm', async () => {
+    const card = `<script>let { title, children } = $props(); const shown = $derived(title?.trim() ?? '');</script>{#if shown}<h2>{shown}</h2>{/if}{@render children?.()}`;
+    const page = `<script>import Card from '$lib/Card.svelte'; import { t } from '$lib/i18n';</script><h1>Crew</h1><Card title={t('Receipts')}><h3>Split</h3></Card>`;
+    const files = {
+      'src/lib/Card.svelte': card,
+      'src/lib/i18n.ts': 'export const t = (s) => s;',
+      'src/routes/+page.svelte': page
+    };
+    const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+    const rs = await seoHeadingLevelSkip.check({ heads: [], headings, project: defaultProject, config: defaultConfig });
+    expect(rs.map((r) => r.message)).toEqual(['Heading order']);
+  });
+
   it('keeps a heading before a later heading the selected arm does not reach', async () => {
     const page = `<script>import Title from '$lib/Title.svelte';</script><h1>T</h1>{#if flag}<Title />{#if flag}<p>a</p>{:else}<p>b</p>{/if}{#each items as item}<h3>{item}</h3>{/each}{/if}`;
     const files = { 'src/lib/Title.svelte': '<h2>Schedule</h2>', 'src/routes/+page.svelte': page };

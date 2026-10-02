@@ -53,6 +53,39 @@ describe('collectLoadWaterfalls — dependent chains', () => {
     expect(wf(inTry)).toEqual({ dependentLines: [5], independentLines: [] });
   });
 
+  it('reads a container a callback over an earlier result fills as depending on it', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const lists = await fetch("/api/lists").then((r) => r.json());',
+      '  const ids = new Set();',
+      '  lists.forEach((l) => l.items.forEach((id) => ids.add(id)));',
+      '  const cards = await fetch(`/api/cards?ids=${[...ids].join(",")}`);',
+      '  return { cards };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [5], independentLines: [] });
+    const mapped = [
+      'export async function load({ fetch }) {',
+      '  const lists = await fetch("/api/lists").then((r) => r.json());',
+      '  const ids = new Set();',
+      '  const names = lists.map((l) => { ids.add(l.id); return l.name; });',
+      '  const cards = await fetch(`/api/cards?ids=${[...ids].join(",")}`);',
+      '  return { cards, names };',
+      '}'
+    ].join('\n');
+    expect(wf(mapped)).toEqual({ dependentLines: [5], independentLines: [] });
+    const uncalled = [
+      'export async function load({ fetch }) {',
+      '  const lists = await fetch("/api/lists").then((r) => r.json());',
+      '  const ids = new Set();',
+      '  lists.forEach(() => { const later = () => ids.add("x"); });',
+      '  const cards = await fetch(`/api/cards?ids=${[...ids].join(",")}`);',
+      '  return { cards };',
+      '}'
+    ].join('\n');
+    expect(wf(uncalled)).toEqual({ dependentLines: [], independentLines: [5] });
+  });
+
   it('tracks taint through an intermediate const', () => {
     const src = [
       'export const load = async ({ fetch }) => {',

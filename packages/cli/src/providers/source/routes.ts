@@ -325,7 +325,18 @@ async function resolveRoute(
   const chainOrder = new Map(files.map((f, i) => [f.rel, i]));
   // A layout's children render only in the arms whose request-path test this route can satisfy.
   const routePath = deriveRoute(pageRel);
-  const onRoute = (url: UrlCond | undefined) => urlHolds(url, routePath) !== false;
+  // `page.route.id` keeps the `(group)` segments the path drops.
+  const routeId = '/' + dirSegments(dirOf(pageRel)).join('/');
+  const onRoute = (url: UrlCond | undefined) => urlHolds(url, routePath, routeId) !== false;
+  // The `{#if}` groups whose first test this route's path or id decides, as `decidedArms` reads them.
+  const urlArms = (gates: ReadonlyMap<number, UrlCond> | undefined): Map<number, boolean> => {
+    const out = new Map<number, boolean>();
+    for (const [group, cond] of gates ?? []) {
+      const holds = urlHolds(cond, routePath, routeId);
+      if (holds !== undefined) out.set(group, holds);
+    }
+    return out;
+  };
   const composed = new Map<string, HeadTag>();
   // Additive kinds survive in chain order (root layout -> ... -> page) and source order
   // within a file, unlike composed's override-by-kind semantics for title/meta: JSON-LD
@@ -398,12 +409,14 @@ async function resolveRoute(
         : new Set<string>();
     const a11yFlags = flagArms(parsed.a11y.flagGates, falses);
     const headingFlags = flagArms(parsed.headingFlagGates, falses);
-    const open = (path: readonly BranchStep[] | undefined) => !path || !ruledOut(path, headingFlags);
+    const a11yDecided = new Map([...urlArms(parsed.a11y.urlGates), ...a11yFlags]);
+    const headingDecided = new Map([...urlArms(parsed.headingUrlGates), ...headingFlags]);
+    const open = (path: readonly BranchStep[] | undefined) => !path || !ruledOut(path, headingDecided);
 
     const base = a11yCtx.state.nextGroup;
     const contributed = unreached
       ? []
-      : await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true, a11yFlags);
+      : await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true, a11yDecided);
     // The layout's main/aside is this file's sectioning ancestor, so a <header>/<footer> here is no
     // landmark (HTML-AAM) — for any rule, not just nesting — nor the landmark its content sits in.
     const scoped = slotLandmark === 'main' || slotLandmark === 'complementary';
