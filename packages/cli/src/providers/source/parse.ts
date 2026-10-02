@@ -1148,6 +1148,8 @@ function collectHeadings(
   let holeIds = 0;
   // `{#if}` groups with an `{:else}`: how many arms, for marking those where every arm renders a heading.
   const fullArms = new Map<number, number>();
+  // Each block with an `{:else}`: where it sits, and the conditions of each of its arms.
+  const fullWhen = new Map<number, { path: BranchStep[]; arms: Cond[][] }>();
   // `at` is the `{@render}` a snippet body is read from: its content sits there in document order.
   const push = (
     level: number,
@@ -1249,6 +1251,15 @@ function collectHeadings(
       if (node.type === 'IfBlock' && endsInElse(node)) fullArms.set(group, arms.length);
       armCount.set(group, arms.filter(Boolean).length);
       const tests = node.type === 'IfBlock' ? ifTests(node).map((t) => condOf(t, source, opaque)) : [];
+      if (node.type === 'IfBlock' && endsInElse(node) && when)
+        fullWhen.set(group, {
+          path,
+          arms: arms.map((_, branch) => [
+            ...when,
+            ...tests.slice(0, branch).map((t): Cond => ({ not: t })),
+            ...(tests[branch] ? [tests[branch]] : [])
+          ])
+        });
       arms.forEach((arm, branch) => {
         const armWhen =
           node.type === 'AwaitBlock'
@@ -1345,7 +1356,14 @@ function collectHeadings(
     ...headings.flatMap((h) => {
       const when = headingWhen.get(h);
       return when
-        ? [{ when, path: h.path ?? [], set: (step: BranchStep) => (h.path = [step, ...(h.path ?? [])]) }]
+        ? [
+            {
+              when,
+              path: h.path ?? [],
+              set: (step: BranchStep) => (h.path = [step, ...(h.path ?? [])]),
+              push: (step: BranchStep) => (h.path = [...(h.path ?? []), step])
+            }
+          ]
         : [];
     }),
     ...[...componentWhen].flatMap(([node, when]) =>
@@ -1354,7 +1372,8 @@ function collectHeadings(
             {
               when,
               path: componentPaths.get(node)!,
-              set: (step: BranchStep) => componentPaths.set(node, [step, ...componentPaths.get(node)!])
+              set: (step: BranchStep) => componentPaths.set(node, [step, ...componentPaths.get(node)!]),
+              push: (step: BranchStep) => componentPaths.set(node, [...componentPaths.get(node)!, step])
             }
           ]
         : []
@@ -1365,7 +1384,8 @@ function collectHeadings(
             {
               when,
               path: renderPaths.get(name)!,
-              set: (step: BranchStep) => renderPaths.set(name, [step, ...renderPaths.get(name)!])
+              set: (step: BranchStep) => renderPaths.set(name, [step, ...renderPaths.get(name)!]),
+              push: (step: BranchStep) => renderPaths.set(name, [...renderPaths.get(name)!, step])
             }
           ]
         : []
@@ -1375,6 +1395,21 @@ function collectHeadings(
   for (const clique of contradictingArms(exclusive.filter(oneArm))) {
     const group = groups++;
     clique.forEach((members, branch) => members.forEach((m) => m.set({ group, branch })));
+  }
+  // A place whose conditions leave one arm of a block with an `{:else}` renders with that arm:
+  // after `{#if !rule}…{:else}<h3>{/if}`, a heading in `{#if open && rule}` follows that `<h3>`.
+  const refs = (conds: Cond[]) => new Set(JSON.stringify(conds).match(/"[te]":"[^"]*"/g));
+  for (const p of exclusive) {
+    const own = refs(p.when);
+    if (own.size === 0) continue;
+    for (const [group, block] of fullWhen) {
+      if (p.path.some((s) => s.group === group)) continue;
+      if (![...refs(block.arms.flat())].some((r) => own.has(r))) continue;
+      if (!block.path.every((s) => p.path.some((t) => t.group === s.group && t.branch === s.branch))) continue;
+      const fits = block.arms.flatMap((w, branch) => (unsatisfiable([...p.when, ...w]) ? [] : [branch]));
+      // Innermost: the arm folds below the blocks `p` really sits in, which keeps them exclusive.
+      if (fits.length === 1) p.push({ group, branch: fits[0]! });
+    }
   }
   // A block whose every arm renders a heading directly (not below a further block) always renders one.
   const armsWithHeading = new Map<number, Set<number>>();
@@ -1499,7 +1534,7 @@ function unsatisfiable(conds: Cond[]): boolean {
   return true;
 }
 
-type Placed = { when: Cond[]; path: BranchStep[]; set: (step: BranchStep) => void };
+type Placed = { when: Cond[]; path: BranchStep[]; set: (step: BranchStep) => void; push: (step: BranchStep) => void };
 
 /**
  * Sets of places (headings, components, snippet renders) under `{#if}` arms of one file whose

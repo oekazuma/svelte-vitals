@@ -59,6 +59,16 @@ describe('collectKitModuleFacts — $lib/server store arbitration', () => {
     ).toEqual([]);
   });
 
+  it("leaves an object of the module's own functions exempt, but not one that also holds data", async () => {
+    const store = (obj: string) =>
+      `function get(k) { return read(k); }\nasync function set(k, v) { await write(k, v); }\nexport const data = ${obj};`;
+    const page = { 'src/routes/+page.server.ts': handler('$lib/server/data', "data.set('user', locals.user)") };
+    expect(await writes({ 'src/lib/server/data.ts': store('{ get, set, remove: () => {} }'), ...page })).toEqual([]);
+    expect(await writes({ 'src/lib/server/data.ts': store('{ get, set, items: [] }'), ...page })).toEqual([
+      { name: 'data', line: 3, via: 'set-call' }
+    ]);
+  });
+
   it('resolves the exported name through an aliased import', async () => {
     const facts = await collectKitModuleFacts(
       createMemoryRuntime({

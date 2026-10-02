@@ -649,6 +649,10 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
 
   const line = (start: number) => Math.max(0, lineOf(wrapped, start) - 1);
   const tainted = new Set<string>();
+  const ownBindings = new Set<string>();
+  for (const stmt of load.body.body)
+    if (stmt?.type === 'VariableDeclaration')
+      for (const d of stmt.declarations ?? []) addBoundNames(d?.id, ownBindings);
   // Tainted names that can hold a request started after the earlier await: bound without an await
   // from an expression that starts work (`const p = fetch(user.url)`) or from such a name. A name
   // bound from an await result or a plain read (`const p = deferred.state`) holds only a promise
@@ -760,6 +764,13 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
           const expr = unwrapTs(stmt.expression);
           if (expr?.type === 'AssignmentExpression') taintTarget(expr.left, expr.right);
           else taintMutation(expr);
+          // A method of an object the load made itself, awaited for its effect alone
+          // (`const auth = getAuth(); await auth.initialize()`), fills that object's state.
+          const call: Node = expr?.type === 'AwaitExpression' ? unwrapTs(expr.argument) : undefined;
+          const callee: Node = call?.type === 'CallExpression' ? unwrapTs(call.callee) : undefined;
+          const owner: Node =
+            callee?.type === 'MemberExpression' && !callee.computed ? unwrapTs(callee.object) : undefined;
+          if (owner?.type === 'Identifier' && ownBindings.has(owner.name)) tainted.add(owner.name);
         }
       } else {
         taintOnly(stmt);
@@ -984,15 +995,23 @@ const isContainerCtor = (n: Node): boolean =>
  * Whether an initializer positively identifies an in-memory container. An object literal with a
  * spread is a composite of values this parse cannot see — typically a facade over clients and
  * imported modules (`{ ...prismaModels, ...handlers }`) — so it counts only when one of its own
- * properties is itself a container.
+ * properties is itself a container. One whose properties are all functions (`{ get, set }` of the
+ * module's own functions) holds no data: `.set()` on it calls its own method.
  */
-function isInMemoryInit(init: Node | undefined): boolean {
+function isInMemoryInit(init: Node | undefined, fns: ReadonlySet<string> = new Set()): boolean {
   if (!init) return false;
   if (init.type === 'ArrayExpression') return true;
   if (init.type === 'ObjectExpression') {
     const props: Node[] = init.properties ?? [];
+    const isFn = (p: Node) =>
+      p?.type === 'Property' &&
+      (p.method ||
+        p.value?.type === 'FunctionExpression' ||
+        p.value?.type === 'ArrowFunctionExpression' ||
+        (p.value?.type === 'Identifier' && fns.has(p.value.name)));
+    if (props.length > 0 && props.every(isFn)) return false;
     if (!props.some((p) => p?.type === 'SpreadElement')) return true;
-    return props.some((p) => p?.type === 'Property' && isInMemoryInit(p.value));
+    return props.some((p) => p?.type === 'Property' && isInMemoryInit(p.value, fns));
   }
   return init.type === 'NewExpression' && init.callee?.type === 'Identifier' && IN_MEMORY_CTORS.has(init.callee.name);
 }
@@ -1059,12 +1078,17 @@ export function parseClientExports(
 export function parseInMemoryExports(source: string, filename: string): ReadonlySet<string> {
   const names = new Set<string>();
   const { program } = parseModuleProgram(source, filename);
+  const fns = new Set<string>();
+  for (const stmt of program?.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type === 'FunctionDeclaration' && decl.id) fns.add(decl.id.name);
+  }
   for (const stmt of program?.body ?? []) {
     if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
     const decl = stmt.declaration;
     if (decl.type !== 'VariableDeclaration') continue;
     for (const d of decl.declarations ?? []) {
-      if (d?.id?.type === 'Identifier' && isInMemoryInit(d.init)) names.add(d.id.name);
+      if (d?.id?.type === 'Identifier' && isInMemoryInit(d.init, fns)) names.add(d.id.name);
     }
   }
   return names;

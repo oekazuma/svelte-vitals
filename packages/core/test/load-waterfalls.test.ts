@@ -15,6 +15,25 @@ describe('collectLoadWaterfalls — dependent chains', () => {
     expect(wf(src)).toEqual({ dependentLines: [3], independentLines: [] });
   });
 
+  it('reads an awaited method of an object the load made as filling it, not one of an import', () => {
+    const own = [
+      'export async function load() {',
+      '  const auth = getAuth();',
+      '  await auth.initialize();',
+      '  await applyLocale(auth.user);',
+      '}'
+    ].join('\n');
+    expect(wf(own)).toEqual({ dependentLines: [4], independentLines: [] });
+    const imported = [
+      "import { redis, db } from '$lib/server/clients';",
+      'export async function load() {',
+      '  await redis.ping();',
+      '  await db.count(redis);',
+      '}'
+    ].join('\n');
+    expect(wf(imported)).toEqual({ dependentLines: [], independentLines: [4] });
+  });
+
   it('tracks taint through an intermediate const', () => {
     const src = [
       'export const load = async ({ fetch }) => {',

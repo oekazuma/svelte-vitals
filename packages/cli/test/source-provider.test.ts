@@ -513,6 +513,19 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(await singleH1({ 'src/routes/+page.svelte': page })).toEqual(['Heading hierarchy']);
   });
 
+  it('follows a heading with the one arm of an earlier {:else} block its own conditions select', async () => {
+    const page = `<script>import Title from '$lib/Title.svelte';</script><h1>Rule</h1>{#if !rule}<p>None</p>{:else}<Title />{/if}{#if open && rule}<h3>Save</h3>{/if}`;
+    const files = { 'src/lib/Title.svelte': '<h2>Schedule</h2>', 'src/routes/+page.svelte': page };
+    const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+    const rs = await seoHeadingLevelSkip.check({ heads: [], headings, project: defaultProject, config: defaultConfig });
+    expect(rs.map((r) => r.message)).toEqual(['Heading order']);
+  });
+
+  it('keeps arms exclusive when a heading also sits under an earlier {:else} block', async () => {
+    const page = `{#if org}<p>Seo</p>{:else}<p>Fallback</p>{/if}{#if loading}<p>…</p>{:else if error}<h1>Error</h1>{:else if org}<h1>Org</h1>{/if}`;
+    expect(await singleH1({ 'src/routes/+page.svelte': page })).toEqual(['Heading hierarchy']);
+  });
+
   it('places the page inside the layout arm that renders {@render children()}', async () => {
     const layout = `{#if user}{@render children()}{:else}<h1>Sign in</h1>{/if}`;
     const files = { 'src/routes/+layout.svelte': layout, 'src/routes/+page.svelte': `<h3>Card</h3>` };
