@@ -32,6 +32,25 @@ describe('collectLoadWaterfalls — dependent chains', () => {
       '}'
     ].join('\n');
     expect(wf(imported)).toEqual({ dependentLines: [], independentLines: [4] });
+    const aliased = [
+      "import { redis, db } from '$lib/server/clients';",
+      'export async function load() {',
+      '  const client = redis;',
+      '  await client.ping();',
+      '  await db.count(client);',
+      '}'
+    ].join('\n');
+    expect(wf(aliased)).toEqual({ dependentLines: [], independentLines: [5] });
+    const inTry = [
+      'export async function load() {',
+      '  try {',
+      '    const session = createSession();',
+      '    await session.initialize();',
+      '    await greet(session.user);',
+      '  } catch {}',
+      '}'
+    ].join('\n');
+    expect(wf(inTry)).toEqual({ dependentLines: [5], independentLines: [] });
   });
 
   it('tracks taint through an intermediate const', () => {

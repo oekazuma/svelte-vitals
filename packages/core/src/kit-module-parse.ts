@@ -649,10 +649,21 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
 
   const line = (start: number) => Math.max(0, lineOf(wrapped, start) - 1);
   const tainted = new Set<string>();
+  // Objects the load creates itself (`const auth = getAuth()`), in the statements it classifies; an
+  // alias of an import (`const client = redis`) is not one.
   const ownBindings = new Set<string>();
-  for (const stmt of load.body.body)
-    if (stmt?.type === 'VariableDeclaration')
-      for (const d of stmt.declarations ?? []) addBoundNames(d?.id, ownBindings);
+  const collectOwn = (body: Node[]): void => {
+    for (const stmt of body ?? []) {
+      if (stmt?.type === 'TryStatement') collectOwn(stmt.block?.body);
+      if (stmt?.type !== 'VariableDeclaration') continue;
+      for (const d of stmt.declarations ?? []) {
+        let init: Node = unwrapTs(d?.init);
+        if (init?.type === 'AwaitExpression') init = unwrapTs(init.argument);
+        if (init?.type === 'CallExpression' || init?.type === 'NewExpression') addBoundNames(d?.id, ownBindings);
+      }
+    }
+  };
+  collectOwn(load.body.body);
   // Tainted names that can hold a request started after the earlier await: bound without an await
   // from an expression that starts work (`const p = fetch(user.url)`) or from such a name. A name
   // bound from an await result or a plain read (`const p = deferred.state`) holds only a promise

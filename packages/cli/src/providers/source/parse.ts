@@ -1407,8 +1407,9 @@ function collectHeadings(
       if (![...refs(block.arms.flat())].some((r) => own.has(r))) continue;
       if (!block.path.every((s) => p.path.some((t) => t.group === s.group && t.branch === s.branch))) continue;
       const fits = block.arms.flatMap((w, branch) => (unsatisfiable([...p.when, ...w]) ? [] : [branch]));
-      // Innermost: the arm folds below the blocks `p` really sits in, which keeps them exclusive.
-      if (fits.length === 1) p.push({ group, branch: fits[0]! });
+      // Innermost: the arm folds below the blocks `p` really sits in, which keeps them exclusive. It adds
+      // no condition of its own, so it never stops `p` counting before a heading outside that block.
+      if (fits.length === 1) p.push({ group, branch: fits[0]!, always: true });
     }
   }
   // A block whose every arm renders a heading directly (not below a further block) always renders one.

@@ -521,6 +521,14 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(rs.map((r) => r.message)).toEqual(['Heading order']);
   });
 
+  it('keeps a heading before a later heading the selected arm does not reach', async () => {
+    const page = `<script>import Title from '$lib/Title.svelte';</script><h1>T</h1>{#if flag}<Title />{#if flag}<p>a</p>{:else}<p>b</p>{/if}{#each items as item}<h3>{item}</h3>{/each}{/if}`;
+    const files = { 'src/lib/Title.svelte': '<h2>Schedule</h2>', 'src/routes/+page.svelte': page };
+    const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+    const rs = await seoHeadingLevelSkip.check({ heads: [], headings, project: defaultProject, config: defaultConfig });
+    expect(rs.map((r) => r.message)).toEqual(['Heading order']);
+  });
+
   it('keeps arms exclusive when a heading also sits under an earlier {:else} block', async () => {
     const page = `{#if org}<p>Seo</p>{:else}<p>Fallback</p>{/if}{#if loading}<p>…</p>{:else if error}<h1>Error</h1>{:else if org}<h1>Org</h1>{/if}`;
     expect(await singleH1({ 'src/routes/+page.svelte': page })).toEqual(['Heading hierarchy']);
