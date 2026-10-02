@@ -39,7 +39,9 @@ export function urlHolds(cond: UrlCond | undefined, route: string, routeId = rou
   if ('re' in cond) {
     if (DYNAMIC.test(route)) return undefined;
     try {
-      return new RegExp(cond.re, cond.flags).test(route);
+      // With a trailing slash the path can read either way (`trailingSlash`), so only an answer both agree on holds.
+      const bare = new RegExp(cond.re, cond.flags).test(route);
+      return route === '/' || new RegExp(cond.re, cond.flags).test(`${route}/`) === bare ? bare : undefined;
     } catch {
       return undefined;
     }

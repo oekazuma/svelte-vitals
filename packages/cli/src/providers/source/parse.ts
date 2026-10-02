@@ -520,6 +520,24 @@ export function flagArms(
 type PropDefault = { value: string | number | boolean | null } | 'unknown';
 
 // A `Literal` node's value when it is one a gate can compare (not a regex or bigint).
+/** The conventional names of a translation function: `t`, `$t`, `_`, `$_`, `translate`, or one of those on an object (`i18n.t`). */
+const TRANSLATE_CALL = /^(?:[$\w]+\.)?(?:\$?t|\$?_|translate)$/;
+
+/** `t`, `$_`, `i18n.t`: the dotted name of a callee, or '' for anything else. */
+function calleeText(n: {
+  type: string;
+  name?: string;
+  object?: unknown;
+  property?: unknown;
+  computed?: boolean;
+}): string {
+  if (n.type === 'Identifier') return n.name ?? '';
+  if (n.type !== 'MemberExpression' || n.computed) return '';
+  const object = calleeText(n.object as typeof n);
+  const property = calleeText(n.property as typeof n);
+  return object && property ? `${object}.${property}` : '';
+}
+
 function literalValue(node: { type: string; value?: unknown; regex?: unknown }): PropDefault {
   const v = node.value;
   return node.type === 'Literal' && !node.regex && (v === null || ['string', 'number', 'boolean'].includes(typeof v))
@@ -701,8 +719,14 @@ export function decidedArms(
       const first = expr?.type === 'CallExpression' ? expr.arguments[0] : undefined;
       if (expr?.type === 'ObjectExpression' || expr?.type === 'ArrayExpression') held = { type: 'object' };
       else if (expr?.type === 'TemplateLiteral') held = { type: 'string' };
-      // A call given a non-empty string, as a translation call is (`t('Title')`), returns non-empty text.
-      else if (first?.type === 'Literal' && typeof first.value === 'string' && first.value.trim())
+      // A translation call given a non-empty key (`t('Title')`, `$_('Title')`) returns non-empty text.
+      else if (
+        expr?.type === 'CallExpression' &&
+        TRANSLATE_CALL.test(calleeText(expr.callee)) &&
+        first?.type === 'Literal' &&
+        typeof first.value === 'string' &&
+        first.value.trim()
+      )
         held = { type: 'text' };
       else held = expr ? literalValue(expr) : 'unknown';
     }
@@ -719,8 +743,11 @@ export function decidedArms(
       // An object is truthy and equals no literal; a template literal may be empty, so only its type is known.
       if (gate.kind === 'length' || type !== 'object') continue;
       holds = gate.kind === 'truthy';
-    } else if (gate.kind === 'truthy') holds = Boolean(held.value);
-    else if (gate.kind === 'equals') holds = held.value === gate.operand;
+    } else if (gate.kind === 'truthy') {
+      // A blank string is truthy, but not once a derived alias trims it (`$derived(title?.trim())`).
+      if (typeof held.value === 'string' && held.value && !held.value.trim()) continue;
+      holds = Boolean(held.value);
+    } else if (gate.kind === 'equals') holds = held.value === gate.operand;
     else {
       if (typeof held.value !== 'string') continue;
       const n = held.value.length;
@@ -1289,7 +1316,7 @@ function collectHeadings(
     if (!node || typeof node !== 'object') return;
     if (node.type === 'Fragment') {
       const eligible = (b: AST.IfBlock) =>
-        !shared.has(b) && !propGate(b.test, props, reassigned) && !flagGate(b.test, flags);
+        !shared.has(b) && !propGate(b.test, props, reassigned) && !flagGate(b.test, flags) && !urlBlocks.has(b.start);
       for (const set of exclusiveIfs(node as AST.Fragment, source, eligible)) {
         const group = groups++;
         armCount.set(group, set.length);

@@ -709,11 +709,16 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
     const fill = (node: Node): void => {
       if (Array.isArray(node)) return node.forEach(fill);
       if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+      // A function defined in the callback runs only if something calls it.
+      if (isFunctionNode(node)) return;
       const c: Node = node.type === 'CallExpression' ? unwrapTs(node.callee) : undefined;
       if (c?.type === 'MemberExpression' && !c.computed && MUTATING_METHODS.has(c.property?.name)) {
         const root = rootObjectName(c);
         if (root) tainted.add(root);
       }
+      // A callback a nested iteration gets does run, during this one.
+      if (c?.type === 'MemberExpression' && !c.computed && ITERATING_METHODS.has(c.property?.name))
+        for (const arg of node.arguments ?? []) if (isFunctionNode(arg)) fill(arg.body);
       for (const key of Object.keys(node)) if (!WALK_IGNORED_KEYS.has(key)) fill(node[key]);
     };
     for (const arg of call.arguments ?? []) if (isFunctionNode(arg)) fill(arg.body);
@@ -741,7 +746,10 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
       for (const name of names) tainted.add(name);
     } else if (node.type === 'VariableDeclaration') {
       for (const d of node.declarations ?? []) {
-        if (d?.id && d.init) taintTarget(d.id, d.init);
+        if (d?.id && d.init) {
+          taintTarget(d.id, d.init);
+          taintLoopFill(unwrapTs(d.init));
+        }
       }
     }
     for (const key of Object.keys(node)) {
@@ -789,7 +797,10 @@ function collectLoadWaterfalls(program: Node, wrapped: string) {
         }
         if (stmt.type === 'VariableDeclaration') {
           for (const d of stmt.declarations ?? []) {
-            if (d?.id && d.init) taintTarget(d.id, d.init);
+            if (d?.id && d.init) {
+              taintTarget(d.id, d.init);
+              taintLoopFill(unwrapTs(d.init));
+            }
           }
         } else if (stmt.type === 'ExpressionStatement') {
           const expr = unwrapTs(stmt.expression);

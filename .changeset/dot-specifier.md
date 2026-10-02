@@ -4,4 +4,4 @@
 '@svelte-vitals/vite': patch
 ---
 
-An import from `'.'` or `'..'` (a directory's own index module) now resolves like `'./index'`, so the components and constant lists it re-exports are followed.
+Imports from `'.'` and `'..'` now resolve to the index module of the directory they name, so the components and constant lists it re-exports are followed.

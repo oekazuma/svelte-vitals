@@ -64,6 +64,26 @@ describe('collectLoadWaterfalls — dependent chains', () => {
       '}'
     ].join('\n');
     expect(wf(src)).toEqual({ dependentLines: [5], independentLines: [] });
+    const mapped = [
+      'export async function load({ fetch }) {',
+      '  const lists = await fetch("/api/lists").then((r) => r.json());',
+      '  const ids = new Set();',
+      '  const names = lists.map((l) => { ids.add(l.id); return l.name; });',
+      '  const cards = await fetch(`/api/cards?ids=${[...ids].join(",")}`);',
+      '  return { cards, names };',
+      '}'
+    ].join('\n');
+    expect(wf(mapped)).toEqual({ dependentLines: [5], independentLines: [] });
+    const uncalled = [
+      'export async function load({ fetch }) {',
+      '  const lists = await fetch("/api/lists").then((r) => r.json());',
+      '  const ids = new Set();',
+      '  lists.forEach(() => { const later = () => ids.add("x"); });',
+      '  const cards = await fetch(`/api/cards?ids=${[...ids].join(",")}`);',
+      '  return { cards };',
+      '}'
+    ].join('\n');
+    expect(wf(uncalled)).toEqual({ dependentLines: [], independentLines: [5] });
   });
 
   it('tracks taint through an intermediate const', () => {
