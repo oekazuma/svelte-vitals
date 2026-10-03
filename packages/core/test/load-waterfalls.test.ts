@@ -135,6 +135,20 @@ describe('collectLoadWaterfalls — dependent chains', () => {
     expect(wf(src)).toBeUndefined();
   });
 
+  it('does not treat Promise.all over response-body parses as a hop', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const [a, b] = await Promise.all([fetch("/api/a"), fetch("/api/b")]);',
+      '  const [x, y] = await Promise.all([a.json(), b.json()]);',
+      '  const posts = await fetch(`/api/posts/${x.id}`);',
+      '  return { y, posts };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+    const mixed = src.replace('b.json()', 'fetch("/api/c")');
+    expect(wf(mixed)?.dependentLines).toEqual([3, 4]);
+  });
+
   it('keeps dependency through a body parse', () => {
     const src = [
       'export async function load({ fetch }) {',
