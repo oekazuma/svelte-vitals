@@ -485,9 +485,11 @@ function literalArgs(attributes: AST.Component['attributes']): PropArgs {
  * An `{#if}` whose test one prop decides (`{#if prop}`, `{#if !prop}`, `{#if prop === 'x'}`): its
  * first arm renders exactly when this holds for the value the component receives.
  */
-export interface PropGate {
+export type PropGate = PropTest | { kind: 'and' | 'or'; parts: [PropGate, PropGate] };
+
+/** One prop's test: `{#if prop}`, `prop === x`, `typeof prop === 't'`, `prop.length > n` (and the negations). */
+export interface PropTest {
   prop: string;
-  /** `{#if prop}`, `prop === x`, `typeof prop === 't'`, `prop.length > n` (and the negations). */
   kind: 'truthy' | 'equals' | 'typeof' | 'length';
   operand?: string | number | boolean | null;
   op?: string;
@@ -635,6 +637,12 @@ function propGate(
 ): PropGate | undefined {
   const propOf = (n: { type: string; name?: string }) =>
     n.type === 'Identifier' && n.name && !reassigned.has(n.name) ? props.get(n.name) : undefined;
+  // `{#if title || header}`: decided only when every operand is a prop's test.
+  if (test.type === 'LogicalExpression' && test.operator !== '??') {
+    const left = propGate(test.left, props, reassigned);
+    const right = left && propGate(test.right, props, reassigned);
+    return right ? { kind: test.operator === '&&' ? 'and' : 'or', parts: [left!, right] } : undefined;
+  }
   if (test.type === 'Identifier') {
     const prop = propOf(test);
     return prop === undefined ? undefined : { prop, kind: 'truthy', negate: false };
@@ -693,16 +701,22 @@ export function decidedArms(
 ): Map<number, boolean> {
   const out = new Map<number, boolean>();
   if (gates.size === 0 || attributes.some((a) => a.type === 'SpreadAttribute')) return out;
-  for (const [group, gate] of gates) {
+  // Whether the gate's first arm renders, or undefined when the use does not decide it.
+  const decide = (gate: PropGate): boolean | undefined => {
+    if ('parts' in gate) {
+      const [a, b] = gate.parts.map(decide);
+      const short = gate.kind === 'or';
+      if (a === short || b === short) return short;
+      return a === undefined || b === undefined ? undefined : !short;
+    }
     if (supplied.includes(gate.prop)) {
       // A snippet is a function: truthy, and nothing else about it is known.
-      if (gate.kind === 'truthy') out.set(group, !gate.negate);
-      continue;
+      return gate.kind === 'truthy' ? !gate.negate : undefined;
     }
     const passed = attributes.filter(
       (a) => (a.type === 'Attribute' || a.type === 'BindDirective') && a.name === gate.prop
     );
-    if (passed.length > 1 || passed[0]?.type === 'BindDirective') continue;
+    if (passed.length > 1 || passed[0]?.type === 'BindDirective') return undefined;
     const attr = passed[0] as AST.Attribute | undefined;
     // What the prop holds: its literal value, or just its type for an object or template literal.
     let held: { value: unknown } | { type: string } | 'unknown';
@@ -730,31 +744,31 @@ export function decidedArms(
         held = { type: 'text' };
       else held = expr ? literalValue(expr) : 'unknown';
     }
-    if (held === 'unknown') continue;
-    if ('type' in held && held.type === 'text') {
-      if (gate.kind !== 'truthy') continue;
-      out.set(group, !gate.negate);
-      continue;
-    }
+    if (held === 'unknown') return undefined;
+    if ('type' in held && held.type === 'text') return gate.kind === 'truthy' ? !gate.negate : undefined;
     const type = 'type' in held ? held.type : held.value === null ? 'object' : typeof held.value;
     let holds: boolean;
     if (gate.kind === 'typeof') holds = type === gate.operand;
     else if (!('value' in held)) {
       // An object is truthy and equals no literal; a template literal may be empty, so only its type is known.
-      if (gate.kind === 'length' || type !== 'object') continue;
+      if (gate.kind === 'length' || type !== 'object') return undefined;
       holds = gate.kind === 'truthy';
     } else if (gate.kind === 'truthy') {
       // A blank string is truthy, but not once a derived alias trims it (`$derived(title?.trim())`).
-      if (typeof held.value === 'string' && held.value && !held.value.trim()) continue;
+      if (typeof held.value === 'string' && held.value && !held.value.trim()) return undefined;
       holds = Boolean(held.value);
     } else if (gate.kind === 'equals') holds = held.value === gate.operand;
     else {
-      if (typeof held.value !== 'string') continue;
+      if (typeof held.value !== 'string') return undefined;
       const n = held.value.length;
       const m = gate.operand as number;
       holds = { '>': n > m, '>=': n >= m, '<': n < m, '<=': n <= m, '===': n === m, '!==': n !== m }[gate.op!]!;
     }
-    out.set(group, holds !== gate.negate);
+    return holds !== gate.negate;
+  };
+  for (const [group, gate] of gates) {
+    const holds = decide(gate);
+    if (holds !== undefined) out.set(group, holds);
   }
   return out;
 }

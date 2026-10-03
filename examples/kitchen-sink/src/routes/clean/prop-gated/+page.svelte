@@ -3,6 +3,7 @@
   import SiteBar from '$lib/clean/prop-gated/SiteBar.svelte';
   import JsonLd from '$lib/clean/jsonld/PropGatedPage.svelte';
   import Toggle from '$lib/clean/prop-gated/Toggle.svelte';
+  import Badge from '$lib/clean/prop-gated/Badge.svelte';
   import ReturnedDraft from '$lib/clean/ReturnedDraft.svelte';
 </script>
 
@@ -30,4 +31,6 @@
 <p>The bar above renders a paragraph here; its heading appears only on the home page.</p>
 <Toggle />
 <Toggle title="Notifications" />
+<Badge />
+<Badge tone="warn" />
 <ReturnedDraft />
