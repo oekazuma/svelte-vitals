@@ -920,6 +920,17 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y[0]!.ids.label).toHaveLength(1);
   });
 
+  it('decides a component arm on a member of an undestructured $props() binding', async () => {
+    const { a11y } = await collectRoutes(
+      createMemoryRuntime({
+        'src/lib/List.svelte': `<script>let props = $props();</script>{#if props.withHeading}<h3 id="items">Items</h3>{/if}`,
+        'src/routes/+page.svelte': `<script>import List from '$lib/List.svelte';</script><h3 id="items">Items</h3><List />`
+      }),
+      ''
+    );
+    expect(a11y[0]!.ids.items).toHaveLength(1);
+  });
+
   it('decides a component arm whose test joins prop tests with || or &&', async () => {
     const ids = async (test: string) => {
       const { a11y } = await collectRoutes(
