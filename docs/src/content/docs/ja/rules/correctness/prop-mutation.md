@@ -7,7 +7,7 @@ description: $bindable を宣言していない $props() の値は書き換え�
 
 ## チェック内容
 
-`$props()` から分割代入された値のうち `$bindable` を宣言していないものへの変異を検出します。メンバー書き込み（`user.name = …`、`obj.count += 1`）、`delete obj.x`、変異メソッド呼び出し（`items.push(…)`、`arr.splice(…)`、`map.set(…)` など）です。`...rest` で受けたバインディングも対象です。rest props は個別に `$bindable` を宣言できないためです。
+`$props()` から分割代入された値のうち `$bindable` を宣言していないものへの変異を検出します。メンバー書き込み（`user.name = …`、`obj.count += 1`）、`delete obj.x`、変異メソッド呼び出し（`items.push(…)`、`arr.splice(…)`、`map.set(…)` など）です。これらのメソッドは同期的なので、`await` したり `.then`/`.catch`/`.finally` でつないだりした呼び出し（`await db.items.clear()`）はクライアント自身の API とみなし、検出しません。`...rest` で受けたバインディングも対象です。rest props は個別に `$bindable` を宣言できないためです。
 
 prop 自体への単純な再代入（`count = 5`）は対象外です。Svelte の公式ドキュメントは一時的な状態保持のための再代入を明示的に許容しており、禁止されているのは変異のみです。
 

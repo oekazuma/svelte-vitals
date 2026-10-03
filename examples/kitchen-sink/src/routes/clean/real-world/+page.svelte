@@ -8,6 +8,7 @@
   import alert from '$lib/clean/real-world/notify';
   import LegacyCard from '$lib/clean/real-world/LegacyCard.svelte';
   import Clock from '$lib/clean/real-world/Clock.svelte';
+  import ClearHistory from '$lib/clean/real-world/ClearHistory.svelte';
   import { SORT_ORDERS } from '$lib/clean/real-world/options';
   import * as options from '$lib/clean/real-world/options';
   import JsonLd from '$lib/clean/jsonld/RealWorldPage.svelte';
@@ -107,5 +108,7 @@
 <LegacyCard card={{ title: 'Legacy card', opened: 0 }} tags={['a']} />
 
 <Clock />
+
+<ClearHistory history={{ clear: async () => {} }} />
 
 {@render thumbnail()}

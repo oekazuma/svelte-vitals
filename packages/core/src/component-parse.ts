@@ -2375,6 +2375,18 @@ function collectPropMutations(
     ) {
       exemptCalls.add(call);
     }
+    // The array, Set and Map methods are synchronous: a call awaited or chained with `.then` is a
+    // client's own API (`await db.items.clear()`), not a collection mutation.
+    const awaited = m.type === 'AwaitExpression' ? unwrapTs(m.argument) : undefined;
+    if (awaited?.type === 'CallExpression') exemptCalls.add(awaited);
+    const chained =
+      m.type === 'CallExpression' &&
+      m.callee?.type === 'MemberExpression' &&
+      !m.callee.computed &&
+      ['then', 'catch', 'finally'].includes(m.callee.property?.name)
+        ? unwrapTs(m.callee.object)
+        : undefined;
+    if (chained?.type === 'CallExpression') exemptCalls.add(chained);
   });
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const flag = (r: string | undefined) => {

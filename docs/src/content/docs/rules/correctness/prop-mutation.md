@@ -7,7 +7,7 @@ description: Don't mutate a prop from $props() unless it is declared $bindable.
 
 ## What it checks
 
-Flags a mutation of a value destructured from `$props()` that is not declared `$bindable`: a member write (`user.name = …`, `obj.count += 1`), `delete obj.x`, or a mutating method call (`items.push(…)`, `arr.splice(…)`, `map.set(…)`, …). A `...rest` binding is tracked too, since rest props can never be individually declared `$bindable`.
+Flags a mutation of a value destructured from `$props()` that is not declared `$bindable`: a member write (`user.name = …`, `obj.count += 1`), `delete obj.x`, or a mutating method call (`items.push(…)`, `arr.splice(…)`, `map.set(…)`, …). Those methods are synchronous, so a call awaited or chained with `.then`/`.catch`/`.finally` (`await db.items.clear()`) is a client's own API and is not flagged. A `...rest` binding is tracked too, since rest props can never be individually declared `$bindable`.
 
 Plain reassignment of the prop itself (`count = 5`) is **not** flagged: Svelte's docs explicitly sanction temporary reassignment for unsaved ephemeral state. Only mutation is prohibited.
 
