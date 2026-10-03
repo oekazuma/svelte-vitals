@@ -814,6 +814,11 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
       '<script>let { value, items } = $props(); function f() { value = value.set({ hour: 15 }); items.push(1); }</script>';
     expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'items', line: 1 }]);
   });
+  it('does not flag a mutating method name awaited or chained with then — a client call, not a collection', () => {
+    const src =
+      '<script>let { db, items } = $props(); async function f(id) { await db.rows.clear(); db.rows.delete(id).then(() => {}); items.push(1); }</script>';
+    expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'items', line: 1 }]);
+  });
   it('still flags Map#set reassigned to itself — it mutates and returns the same map', () => {
     const src = "<script>let { map } = $props(); function f() { map = map.set('k', 1); }</script>";
     expect(parseComponentFacts(src, 'C.svelte').mutatedProps).toEqual([{ name: 'map', line: 1 }]);
