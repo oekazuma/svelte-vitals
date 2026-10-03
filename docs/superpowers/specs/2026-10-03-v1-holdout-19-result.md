@@ -8,10 +8,11 @@ installed checkouts: 13 of the 14 installed; d-scan.space's install stopped on i
 verdicts: `scripts/corpus/holdout-19-2026-10-03-verdicts.json` (2,976 distinct keys from 14 apps, every
 one labelled by checks over the source at the pinned commit).
 
-**Result: not ready.** Two of the nine deciding criteria fail: C6 and C7, both on
-`correctness/prop-mutation`, whose false positives come from two apps through one class. C3 passes with
-no false critical finding, C4 (98.7%) and C5 (98.9%) pass, and no key is `unclear`. C8, published
-without deciding the result, is 29.6%.
+**Result: not ready.** Two of the nine deciding criteria fail: C6, on two classes shared by two or
+more apps, and C7, on `correctness/prop-mutation`, whose false positives come from two apps. C3 passes
+with no false critical finding, C4 (98.7%) and C5 (98.9%) pass, and no key is `unclear`. C8, published
+without deciding the result, is 29.6%. Both failures rest on labelling and grouping calls the ledger
+does not settle; the section on C6 gives the result under the other readings.
 
 | #   | Criterion                          | Threshold      | Measured                                       | Result   | H18   | H17   | H16    | H15   | H14   | H13   | H12   | H11   | H10   | H9    | H8    | H7    | H6    | H5    | H4    | H3    | H2    | H1    |
 | --- | ---------------------------------- | -------------- | ---------------------------------------------- | -------- | ----- | ----- | ------ | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
@@ -44,32 +45,38 @@ Each was decided on its route's full render chain, including the npm components 
 
 ## False-positive classes
 
-| Class                                                                                                                                                                  | Findings | Apps | Rules                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---- | -------------------------------------- |
-| **A mutating method name (`clear`, `delete`) called on a prop whose method does I/O or is a callback**: a Dexie table (`db.delegates.clear()`), an object of functions | 4        | 2    | **prop-mutation**                      |
-| **An arm on store state that never holds on the route**: a field only another page sets and navigation resets, a flag no reachable code sets                           | 3        | 2    | single-h1                              |
-| `{@html ldTag(item)}` over a list named `ld`, a JSON-LD `<script>` the naming patterns do not catch                                                                    | 8        | 1    | json-ld                                |
-| A layout arm on `page.data.bare`, a flag the route's load returns as `true`                                                                                            | 5        | 1    | top-level-landmark, duplicate-landmark |
-| A path test called through a `$derived` (`isOnboardingRoute(page.url.pathname)`)                                                                                       | 2        | 1    | single-h1                              |
-| An alias of an imported store's `$state` member (`const s = store.field`) read as non-reactive                                                                         | 2        | 1    | effect-as-onmount                      |
-| A component `{#if}` on a prop in a compound test (`showcase && layout === 'cover'`), and a layout's regex path test on a route with a parameter                        | 1        | 1    | duplicate-landmark                     |
-| Snippets passed as arguments to another snippet (`withSidebar(wide)`), counted outside their `{#if}` arms                                                              | 1        | 1    | single-h1                              |
-| A bits-ui `Dialog.Title` heading role carried in a prop spread, not read                                                                                               | 1        | 1    | heading-level-skip                     |
-| A `robots.txt` the build script copies into the git-ignored `static/`                                                                                                  | 1        | 1    | robots-txt                             |
+| Class                                                                                                                                                                  | Findings | Apps | Rules                                             |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---- | ------------------------------------------------- |
+| **A mutating method name (`clear`, `delete`) called on a prop whose method does I/O or is a callback**: a Dexie table (`db.delegates.clear()`), an object of functions | 4        | 2    | **prop-mutation**                                 |
+| **An arm on runtime state that never holds on the route**: a store field only another page sets, a store flag no reachable code sets, `page.data.bare` a load returns  | 8        | 3    | single-h1, top-level-landmark, duplicate-landmark |
+| `{@html ldTag(item)}` over a list named `ld`, a JSON-LD `<script>` the naming patterns do not catch                                                                    | 8        | 1    | json-ld                                           |
+| A path test called through a `$derived` (`isOnboardingRoute(page.url.pathname)`)                                                                                       | 2        | 1    | single-h1                                         |
+| An alias of an imported store's `$state` member (`const s = store.field`) read as non-reactive                                                                         | 2        | 1    | effect-as-onmount                                 |
+| A component `{#if}` on a prop in a compound test (`showcase && layout === 'cover'`), and a layout's regex path test on a route with a parameter                        | 1        | 1    | duplicate-landmark                                |
+| Snippets passed as arguments to another snippet (`withSidebar(wide)`), counted outside their `{#if}` arms                                                              | 1        | 1    | single-h1                                         |
+| A bits-ui `Dialog.Title` heading role carried in a prop spread, not read                                                                                               | 1        | 1    | heading-level-skip                                |
+| A `robots.txt` the build script copies into the git-ignored `static/`                                                                                                  | 1        | 1    | robots-txt                                        |
 
 C6's two classes:
 
 - `prop-mutation` reads `clear`/`delete`/`add`/`set` on a prop as a mutation whatever the receiver is.
   The ledger already labels the same shape fp elsewhere (a service adapter's `delete`, a formatter's
   `messages.add`); this round it reaches two apps.
-- The two store-state arms are different mechanisms, a field set on one page and reset in
-  `onNavigate` (couchmun) and a flag behind a navigation no caller reaches (genshin-music), but both are
-  the one limit the docs state for headings: an arm behind a runtime condition is counted. They are
-  counted as one class, as holdout 17 counted two apps' different request-path tests as one. Counted
-  apart, C6 still fails on `prop-mutation`.
+- The runtime-state arms reach the one limit the docs state: an arm behind a runtime condition is
+  counted. They do it through three mechanisms: a store field set on one page and reset in
+  `onNavigate` (couchmun), a store flag behind a navigation no caller reaches (genshin-music), and
+  `page.data.bare`, a flag the route's load returns as `true` (inkforum, landmarks). They are counted
+  as one class, as holdout 17 counted two apps' different request-path tests as one. The `page.data`
+  arm is the shape holdout 18 left open (gustav's `hidePageHeading`), here in a second holdout.
 
-The `page.data` layout arm is the shape holdout 18 left open (gustav's `hidePageHeading`), here in a
-second app through landmarks rather than headings.
+Under the other readings:
+
+- couchmun's three calls are on a Dexie table, a persistence client's own API. The ledger labels that
+  shape both ways: `design` for a settings store's or a drafts client's persistence `set` (5 entries),
+  `fp` for a service adapter's `delete` and a `set` that writes the database (2). Labelled `design`,
+  `prop-mutation` keeps one false positive from one app: C7 passes and its C6 class reaches one app.
+- Split by mechanism, the runtime-state arms are three single-app classes.
+- With both, every deciding criterion passes. With either one alone, C6 still fails.
 
 ## C2 in detail
 
