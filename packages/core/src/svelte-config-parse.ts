@@ -27,13 +27,35 @@ function isServedBase(value: unknown): value is string {
   return typeof value === 'string' && value.startsWith('/') && !value.endsWith('/');
 }
 
+/** The top-level bindings declared `const`: a `let` may be reassigned on the way to the export. */
+function constBindings(program: Program, bindings: Map<string, TsExpression>): Map<string, TsExpression> {
+  const names = new Set<string>();
+  for (const stmt of program.body) {
+    const decl = stmt.type === 'ExportNamedDeclaration' ? stmt.declaration : stmt;
+    if (decl?.type !== 'VariableDeclaration' || decl.kind !== 'const') continue;
+    for (const d of decl.declarations) if (d.id.type === 'Identifier') names.add(d.id.name);
+  }
+  return new Map([...bindings].filter(([name]) => names.has(name)));
+}
+
 /** Whether no branch of a `?:` / `||` / `&&` / `??` tree is a literal base an app can be served under. */
-function neverABase(expr: Expression): boolean {
-  const e = unwrapTs(expr);
+function neverABase(expr: Expression, consts: Map<string, TsExpression>): boolean {
+  const e = resolveBinding(expr, consts);
   if (e.type === 'Literal') return !isServedBase(e.value);
-  if (e.type === 'ConditionalExpression') return neverABase(e.consequent) && neverABase(e.alternate);
-  if (e.type === 'LogicalExpression') return neverABase(e.left) && neverABase(e.right);
+  if (e.type === 'ConditionalExpression') return neverABase(e.consequent, consts) && neverABase(e.alternate, consts);
+  if (e.type === 'LogicalExpression') return neverABase(e.left, consts) && neverABase(e.right, consts);
   return false;
+}
+
+/** `expr` with top-level `const` names followed to their initializers (`paths: { base }` naming `const base = ''`). */
+function resolveBinding(expr: Expression, consts: Map<string, TsExpression>): Expression {
+  let e = unwrapTs(expr);
+  for (let i = 0; i < 4 && e.type === 'Identifier'; i++) {
+    const next = consts.get(e.name);
+    if (!next) break;
+    e = unwrapTs(next as Expression);
+  }
+  return e;
 }
 
 /**
@@ -41,15 +63,19 @@ function neverABase(expr: Expression): boolean {
  * `{}` for any other expression (base exists, value unknowable — the `dev ? '' : '/repo'`
  * deploy form), and undefined when absent or when no value it can take is a base SvelteKit serves under.
  */
-function basePathOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpression>): { value?: string } | undefined {
+function basePathOf(
+  kitConfig: ObjectExpression,
+  bindings: Map<string, TsExpression>,
+  consts: Map<string, TsExpression>
+): { value?: string } | undefined {
   const paths = propOf(kitConfig, 'paths');
   const pathsObj = paths ? unwrapToObjectExpression(paths.value as Expression, bindings) : undefined;
   if (!pathsObj) return undefined;
   const base = propOf(pathsObj, 'base');
   if (!base) return undefined;
-  const value = unwrapTs(base.value as Expression);
+  const value = resolveBinding(base.value as Expression, consts);
   if (value.type === 'Literal') return isServedBase(value.value) ? { value: value.value } : undefined;
-  return neverABase(value) ? undefined : {};
+  return neverABase(value, consts) ? undefined : {};
 }
 
 /** `kit.alias` and `kit.files.lib` as written, before Kit compiles them into ordered entries. */
@@ -325,7 +351,7 @@ export function findKitPathsBaseInSvelteConfig(source: string): { value?: string
   const bindings = collectTopLevelBindings(program);
   const kit = propOf(config, 'kit');
   const kitObj = kit ? unwrapToObjectExpression(kit.value as Expression, bindings) : undefined;
-  return kitObj ? basePathOf(kitObj, bindings) : undefined;
+  return kitObj ? basePathOf(kitObj, bindings, constBindings(program, bindings)) : undefined;
 }
 
 /**
@@ -361,7 +387,7 @@ export function findKitPathsBaseInViteConfig(source: string): ViteKitConfigResul
     if (arg === undefined) return none; // sveltekit() — svelte.config still applies
     const kitConfig = unwrapToObjectExpression(arg, bindings);
     if (!kitConfig) return { kind: 'unresolvable' };
-    const base = basePathOf(kitConfig, bindings);
+    const base = basePathOf(kitConfig, bindings, constBindings(program, bindings));
     return base ? { kind: 'resolved', base } : { kind: 'resolved' };
   }
   return none;

@@ -13,7 +13,7 @@ The scan is deliberately conservative:
 
 - It follows the load body's straight-line statements (directly `try`-wrapped ones included) and does not enter `if` branches, loops, or nested functions.
 - `await parent()` is never flagged itself, but data derived from it counts as a dependency.
-- Reading a response body (`await res.json()` and friends) is not a hop, since it costs no extra round trip, though data parsed from it still carries the dependency forward.
+- Reading a response body (`await res.json()` and friends, or a `Promise.all` of such reads) is not a hop, since it costs no extra round trip, though data parsed from it still carries the dependency forward.
 - A method of an object the load created itself, awaited for its effect alone (`const auth = getAuth(); await auth.initialize()`), fills that object: a later await that reads it depends on it.
 - A container a callback over an earlier result fills (`lists.forEach((l) => ids.add(l.id))`) carries that result: a later await that reads it depends on it.
 - Awaiting a promise that an earlier result hands over, such as one an ancestor load already started and passed down through `parent()` (`await deferred.state`), is not a hop either: no request starts there. A promise this load starts from an earlier result (`const p = fetch(user.url)`, then `await p`) still is.

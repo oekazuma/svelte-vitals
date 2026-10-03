@@ -55,6 +55,16 @@ describe('findKitPathsBaseInSvelteConfig', () => {
     expect(findKitPathsBaseInSvelteConfig(`export default { kit: { paths: { base: '' } } };`)).toBeUndefined();
   });
 
+  it('follows a base named by a top-level const', () => {
+    const decl = (init: string) =>
+      `const base = ${init};\nexport default { kit: { paths: { relative: false, base } } };`;
+    expect(findKitPathsBaseInSvelteConfig(decl(`''`))).toBeUndefined();
+    expect(findKitPathsBaseInSvelteConfig(decl(`'/repo'`))).toEqual({ value: '/repo' });
+    expect(findKitPathsBaseInSvelteConfig(decl(`process.env.BASE ?? ''`))).toEqual({});
+    const reassigned = `let base = '';\nif (process.env.CI) base = '/repo';\nexport default { kit: { paths: { base } } };`;
+    expect(findKitPathsBaseInSvelteConfig(reassigned)).toEqual({});
+  });
+
   it('ignores a config with no paths.base', () => {
     expect(findKitPathsBaseInSvelteConfig(`export default { kit: { adapter: adapter() } };`)).toBeUndefined();
   });

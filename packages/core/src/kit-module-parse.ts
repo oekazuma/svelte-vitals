@@ -535,6 +535,7 @@ function isParentCall(arg: Node): boolean {
 }
 
 const BODY_METHODS = new Set(['json', 'text', 'blob', 'arrayBuffer', 'formData', 'bytes']);
+const PROMISE_COMBINATORS = new Set(['all', 'allSettled']);
 
 /**
  * Whether `await`'s argument is a response-body read (`res.json()`, `res.text()`, …):
@@ -544,13 +545,19 @@ const BODY_METHODS = new Set(['json', 'text', 'blob', 'arrayBuffer', 'formData',
  */
 function isBodyParseCall(arg: Node): boolean {
   const e = unwrapTs(arg);
-  if (e?.type !== 'CallExpression' || e.arguments?.length) return false;
+  if (e?.type !== 'CallExpression') return false;
   const callee = e.callee;
+  if (callee?.type !== 'MemberExpression' || callee.computed || callee.property.type !== 'Identifier') return false;
+  if (BODY_METHODS.has(callee.property.name)) return !e.arguments?.length;
+  // `Promise.all([a.json(), b.json()])`: the bodies of responses already awaited.
+  const list: Node = e.arguments?.length === 1 ? unwrapTs(e.arguments[0] as Node) : undefined;
   return (
-    callee?.type === 'MemberExpression' &&
-    !callee.computed &&
-    callee.property.type === 'Identifier' &&
-    BODY_METHODS.has(callee.property.name)
+    callee.object.type === 'Identifier' &&
+    callee.object.name === 'Promise' &&
+    PROMISE_COMBINATORS.has(callee.property.name) &&
+    list?.type === 'ArrayExpression' &&
+    list.elements.length > 0 &&
+    list.elements.every((el: Node) => el && isBodyParseCall(el))
   );
 }
 
