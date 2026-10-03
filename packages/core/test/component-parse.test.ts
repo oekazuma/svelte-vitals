@@ -419,6 +419,14 @@ describe('parseComponentFacts — namespace imports (performance/namespace-impor
   it('captures a bare value namespace import with its source', () => {
     expect(ns("import * as _ from 'lodash'; const f = _[key];").map((n) => n.source)).toEqual(['lodash']);
   });
+  it('does not read an aliased named import of the same name as a use of the namespace', () => {
+    expect(
+      ns("import * as Dialog from 'ui-dialog'; import { Dialog as Primitive } from 'bits-ui'; const r = Dialog.Root;")
+    ).toEqual([]);
+    expect(ns("import * as A from '@/lib/a'; import * as B from '~/lib/b'; Object.keys(A); Object.keys(B);")).toEqual(
+      []
+    );
+  });
   it('reports only a namespace used as a whole, not one read through static member access', () => {
     const facts = (src: string) => parseComponentFacts(src, 'C.svelte').namespaceImports.map((n) => n.source);
     // Static: script member access (dotted or string-keyed), template reads, and <X.Component />.
@@ -798,6 +806,10 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
         '<script>export let m; export let h; function a(k) { delete m[k]; m = { ...m }; } function b(ids) { ids.forEach((id) => { delete h.x[id]; }); h = h; }</script>'
       )
     ).toEqual([]);
+  });
+  it('does not flag a legacy mutating call its `$:` statement reassigns the prop with', () => {
+    expect(names('<script>export let data; $: data = data.sort((a, b) => a - b);</script>')).toEqual([]);
+    expect(names('<script>export let data; export let rows; $: rows = data.sort();</script>')).toEqual(['data']);
   });
   it('still flags a legacy mutating call when only another function reassigns the prop', () => {
     expect(

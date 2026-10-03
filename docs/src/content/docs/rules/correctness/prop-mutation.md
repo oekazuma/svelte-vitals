@@ -79,7 +79,7 @@ Reassign the prop after mutating it to re-trigger reactivity. This is Svelte's o
 </script>
 ```
 
-A mutating call is not flagged when the same function also reassigns the prop. A reassignment in a different function does not count.
+A mutating call is not flagged when the same function, or the same `$:` statement (`$: data = data.sort(…)`), also reassigns the prop. A reassignment in a different function does not count.
 
 ## Mode differences
 

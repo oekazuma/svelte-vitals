@@ -2339,19 +2339,24 @@ function collectPropMutations(
 ): void {
   if (propNames.size === 0) return;
   // Legacy idiom `items.push(x); items = items;` (or `delete items[k]`): a reassignment in the same
-  // function, closures included, invalidates the mutation.
+  // function or `$:` statement, closures included, invalidates the mutation.
   const exemptCalls = new Set<Node>();
   if (legacy.size > 0) {
     walkEstree(root, (fn: Node) => {
-      if (!isDeferredBody(fn)) return;
+      const body = isDeferredBody(fn)
+        ? fn.body
+        : fn.type === 'LabeledStatement' && fn.label?.name === '$'
+          ? fn.body
+          : undefined;
+      if (!body) return;
       const assigned = new Set<string>();
       // Scoped: `function helper(flags) { flags = {} }` reassigns a parameter, not the prop.
-      walkScoped(fn.body, (m: Node, scope: Set<string>) => {
+      walkScoped(body, (m: Node, scope: Set<string>) => {
         if (m.type === 'AssignmentExpression' && m.left?.type === 'Identifier' && !scope.has(m.left.name)) {
           assigned.add(m.left.name);
         }
       });
-      walkEstree(fn.body, (m: Node) => {
+      walkEstree(body, (m: Node) => {
         const r =
           m.type === 'CallExpression'
             ? rootObjectName(m.callee?.object)
@@ -2469,7 +2474,8 @@ function collectImportSources(program: Node, source: string, acc: ComponentFacts
 
 /** A specifier is "bare" (a node_modules package) when it is not relative/absolute/alias-local. */
 function isBareSpecifier(s: string): boolean {
-  return !/^[./$#]/.test(s);
+  // `@/` and `~/` are no package name (a scope needs a name), only the usual `kit.alias` prefixes.
+  return !/^([./$#]|@\/|~\/)/.test(s);
 }
 
 /**
@@ -2497,6 +2503,11 @@ function namespaceUsedDynamically(name: string, roots: Node[]): boolean {
         staticOrDeclaring.add(n.key);
       } else if (n.type === 'ImportNamespaceSpecifier') {
         staticOrDeclaring.add(n.local);
+      } else if (n.type === 'ImportSpecifier' && n.imported !== n.local) {
+        // `import { Dialog as Primitive }` names another module's export, not this namespace.
+        staticOrDeclaring.add(n.imported);
+      } else if (n.type === 'ExportSpecifier' && n.exported !== n.local) {
+        staticOrDeclaring.add(n.exported);
       } else if (n.type === 'TSQualifiedName' || n.type === 'TSTypeQuery') {
         // Type positions (`X.Props`, `typeof X`) are erased before bundling.
         const id = n.type === 'TSQualifiedName' ? n.left : n.exprName;

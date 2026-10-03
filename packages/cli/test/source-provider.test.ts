@@ -920,6 +920,23 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y[0]!.ids.label).toHaveLength(1);
   });
 
+  it('decides a component arm whose test joins prop tests with || or &&', async () => {
+    const ids = async (test: string) => {
+      const { a11y } = await collectRoutes(
+        createMemoryRuntime({
+          'src/lib/Card.svelte': `<script>let { showcase = false, layout = 'centered' } = $props();</script>{#if ${test}}<main id="card">x</main>{/if}`,
+          'src/routes/+page.svelte': `<script>import Card from '$lib/Card.svelte';</script><Card /><Card layout="cover" />`
+        }),
+        ''
+      );
+      return a11y[0]!.ids.card?.length ?? 0;
+    };
+    expect(await ids("showcase && layout === 'cover'")).toBe(0);
+    expect(await ids("showcase || layout === 'cover'")).toBe(1);
+    // An operand no prop decides leaves the arm counted.
+    expect(await ids("open && layout === 'cover'")).toBe(2);
+  });
+
   it('keeps a component arm its tag content supplies the snippet prop for', async () => {
     const { a11y } = await collectRoutes(
       createMemoryRuntime({
