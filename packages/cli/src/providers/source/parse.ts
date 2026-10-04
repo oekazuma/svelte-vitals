@@ -665,8 +665,8 @@ function propGate(
   }
   // `{#if title || header}`: decided only when every operand is a prop's test.
   if (test.type === 'LogicalExpression' && test.operator !== '??') {
-    const left = propGate(test.left, props, reassigned, depth + 1);
-    const right = left && propGate(test.right, props, reassigned, depth + 1);
+    const left = propGate(test.left, props, reassigned, depth);
+    const right = left && propGate(test.right, props, reassigned, depth);
     return right ? { kind: test.operator === '&&' ? 'and' : 'or', parts: [left!, right] } : undefined;
   }
   if (test.type === 'Identifier' || test.type === 'MemberExpression') {

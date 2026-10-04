@@ -974,6 +974,8 @@ describe('collectRoutes a11y composition', () => {
     expect(await ids("showcase || layout === 'cover'")).toBe(1);
     // An operand no prop decides leaves the arm counted.
     expect(await ids("open && layout === 'cover'")).toBe(2);
+    // A long chain of prop tests is decided like a short one.
+    expect(await ids("showcase && layout === 'cover' && !showcase && !showcase && !showcase && !showcase")).toBe(0);
   });
 
   it('keeps a component arm its tag content supplies the snippet prop for', async () => {
