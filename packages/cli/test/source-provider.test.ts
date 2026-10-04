@@ -411,6 +411,19 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
   };
   const header = `<h1>Header</h1>`;
 
+  it('decides a component arm on a $derived comparison of a prop', async () => {
+    const h1s = async (test: string, attrs: string) => {
+      const thread = `<script>let { variant = 'page' } = $props(); const embedded = $derived(variant === 'embedded');</script>{#if ${test}}<h2>Discussion</h2>{:else}<h1>Thread</h1>{/if}`;
+      const page = `<script>import Thread from '$lib/Thread.svelte';</script><h1>Session</h1><Thread ${attrs} />`;
+      const files = { 'src/lib/Thread.svelte': thread, 'src/routes/+page.svelte': page };
+      return singleH1(files);
+    };
+    expect(await h1s('embedded', 'variant="embedded"')).toEqual(['Heading hierarchy']);
+    expect(await h1s('!embedded', 'variant="page"')).toEqual(['Heading hierarchy']);
+    // Without the literal, both arms still count.
+    expect(await h1s('embedded', '')).not.toEqual(['Heading hierarchy']);
+  });
+
   it('counts a component in one {#if} arm against the <h1> of the other arm', async () => {
     const page = `<script>import Header from '$lib/Header.svelte';</script>{#if a}<h1>Own</h1>{:else}<Header />{/if}`;
     expect(await singleH1({ 'src/routes/+page.svelte': page, 'src/lib/Header.svelte': header })).toEqual([
@@ -961,6 +974,8 @@ describe('collectRoutes a11y composition', () => {
     expect(await ids("showcase || layout === 'cover'")).toBe(1);
     // An operand no prop decides leaves the arm counted.
     expect(await ids("open && layout === 'cover'")).toBe(2);
+    // A long chain of prop tests is decided like a short one.
+    expect(await ids("showcase && layout === 'cover' && !showcase && !showcase && !showcase && !showcase")).toBe(0);
   });
 
   it('keeps a component arm its tag content supplies the snippet prop for', async () => {
