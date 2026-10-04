@@ -4,6 +4,7 @@
   import JsonLd from '$lib/clean/jsonld/PropGatedPage.svelte';
   import Toggle from '$lib/clean/prop-gated/Toggle.svelte';
   import Badge from '$lib/clean/prop-gated/Badge.svelte';
+  import Hint from '$lib/clean/prop-gated/Hint.svelte';
   import ReturnedDraft from '$lib/clean/ReturnedDraft.svelte';
 </script>
 
@@ -33,4 +34,6 @@
 <Toggle title="Notifications" />
 <Badge />
 <Badge tone="warn" />
+<Hint />
+<Hint />
 <ReturnedDraft />

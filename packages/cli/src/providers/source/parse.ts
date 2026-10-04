@@ -600,7 +600,7 @@ function suppliedSnippets(fragment: AST.Fragment): string[] {
   );
 }
 
-/** Every identifier the component assigns, updates or binds: a prop it may change is never decided from outside. */
+/** Every identifier the component assigns, updates, binds or loops into: a prop it may change is never decided from outside. */
 function reassignedLocals(ast: AST.Root): Set<string> {
   const out = new Set<string>();
   const visit = (node: unknown): void => {
@@ -619,7 +619,9 @@ function reassignedLocals(ast: AST.Root): Set<string> {
           ? n.argument
           : n.type === 'BindDirective'
             ? n.expression
-            : undefined;
+            : (n.type === 'ForOfStatement' || n.type === 'ForInStatement') && n.left?.type !== 'VariableDeclaration'
+              ? n.left
+              : undefined;
     if (target) patternNames(target, out);
     for (const [key, value] of Object.entries(node))
       if (key !== 'parent' && value && typeof value === 'object') visit(value);
@@ -635,15 +637,26 @@ function propGate(
   props: ReadonlyMap<string, string>,
   reassigned: ReadonlySet<string>
 ): PropGate | undefined {
-  const propOf = (n: { type: string; name?: string }) =>
-    n.type === 'Identifier' && n.name && !reassigned.has(n.name) ? props.get(n.name) : undefined;
+  const propOf = (n: AST.IfBlock['test'] | { type: 'Super' }): string | undefined => {
+    if (n.type === 'Identifier') return reassigned.has(n.name) ? undefined : props.get(n.name);
+    // `props.title` on `let props = $props()`.
+    const whole = props.get(WHOLE_PROPS);
+    return n.type === 'MemberExpression' &&
+      !n.computed &&
+      n.object.type === 'Identifier' &&
+      n.object.name === whole &&
+      !reassigned.has(whole) &&
+      n.property.type === 'Identifier'
+      ? n.property.name
+      : undefined;
+  };
   // `{#if title || header}`: decided only when every operand is a prop's test.
   if (test.type === 'LogicalExpression' && test.operator !== '??') {
     const left = propGate(test.left, props, reassigned);
     const right = left && propGate(test.right, props, reassigned);
     return right ? { kind: test.operator === '&&' ? 'and' : 'or', parts: [left!, right] } : undefined;
   }
-  if (test.type === 'Identifier') {
+  if (test.type === 'Identifier' || test.type === 'MemberExpression') {
     const prop = propOf(test);
     return prop === undefined ? undefined : { prop, kind: 'truthy', negate: false };
   }
@@ -777,6 +790,9 @@ export function decidedArms(
  * Local name → prop name for `let { a, b: local = x } = $props()` and legacy `export let a`.
  * Nested patterns and computed keys are skipped: such a local simply stays unbound (dynamic).
  */
+/** The key `collectProps` stores an undestructured `$props()` binding's name under: never an identifier. */
+const WHOLE_PROPS = '...';
+
 function collectProps(ast: AST.Root): Map<string, string> {
   const props = new Map<string, string>();
   for (const stmt of ast.instance?.content.body ?? []) {
@@ -788,6 +804,7 @@ function collectProps(ast: AST.Root): Map<string, string> {
       const init = d.init;
       const isProps =
         init?.type === 'CallExpression' && init.callee.type === 'Identifier' && init.callee.name === '$props';
+      if (isProps && d.id.type === 'Identifier') props.set(WHOLE_PROPS, d.id.name);
       if (!isProps || d.id.type !== 'ObjectPattern') continue;
       for (const p of d.id.properties) {
         if (p.type !== 'Property' || p.computed) continue;
