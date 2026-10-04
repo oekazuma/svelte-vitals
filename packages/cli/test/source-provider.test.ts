@@ -931,6 +931,21 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y[0]!.ids.items).toHaveLength(1);
   });
 
+  it('leaves a prop arm undecided when a loop assigns the binding', async () => {
+    const ids = async (script: string, test: string) => {
+      const { a11y } = await collectRoutes(
+        createMemoryRuntime({
+          'src/lib/List.svelte': `<script>${script}</script>{#if ${test}}<h3 id="items">Items</h3>{/if}`,
+          'src/routes/+page.svelte': `<script>import List from '$lib/List.svelte';</script><h3 id="items">Items</h3><List />`
+        }),
+        ''
+      );
+      return a11y[0]!.ids.items?.length;
+    };
+    expect(await ids('let props = $props(); for (props of [{ withHeading: true }]);', 'props.withHeading')).toBe(2);
+    expect(await ids('let { withHeading } = $props(); for (withHeading in { a: 1 });', 'withHeading')).toBe(2);
+  });
+
   it('decides a component arm whose test joins prop tests with || or &&', async () => {
     const ids = async (test: string) => {
       const { a11y } = await collectRoutes(

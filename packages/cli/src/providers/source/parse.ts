@@ -600,7 +600,7 @@ function suppliedSnippets(fragment: AST.Fragment): string[] {
   );
 }
 
-/** Every identifier the component assigns, updates or binds: a prop it may change is never decided from outside. */
+/** Every identifier the component assigns, updates, binds or loops into: a prop it may change is never decided from outside. */
 function reassignedLocals(ast: AST.Root): Set<string> {
   const out = new Set<string>();
   const visit = (node: unknown): void => {
@@ -619,7 +619,9 @@ function reassignedLocals(ast: AST.Root): Set<string> {
           ? n.argument
           : n.type === 'BindDirective'
             ? n.expression
-            : undefined;
+            : (n.type === 'ForOfStatement' || n.type === 'ForInStatement') && n.left?.type !== 'VariableDeclaration'
+              ? n.left
+              : undefined;
     if (target) patternNames(target, out);
     for (const [key, value] of Object.entries(node))
       if (key !== 'parent' && value && typeof value === 'object') visit(value);
