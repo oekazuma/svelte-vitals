@@ -5,6 +5,7 @@
   import Toggle from '$lib/clean/prop-gated/Toggle.svelte';
   import Badge from '$lib/clean/prop-gated/Badge.svelte';
   import Hint from '$lib/clean/prop-gated/Hint.svelte';
+  import Panel from '$lib/clean/prop-gated/Panel.svelte';
   import ReturnedDraft from '$lib/clean/ReturnedDraft.svelte';
 </script>
 
@@ -36,4 +37,6 @@
 <Badge tone="warn" />
 <Hint />
 <Hint />
+<Panel size="compact" />
+<Panel size="compact" />
 <ReturnedDraft />

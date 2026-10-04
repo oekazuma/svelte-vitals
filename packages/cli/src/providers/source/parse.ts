@@ -635,8 +635,10 @@ function reassignedLocals(ast: AST.Root): Set<string> {
 function propGate(
   test: AST.IfBlock['test'],
   props: ReadonlyMap<string, string>,
-  reassigned: ReadonlySet<string>
+  reassigned: ReadonlySet<string>,
+  depth = 0
 ): PropGate | undefined {
+  if (depth > 4) return undefined;
   const propOf = (n: AST.IfBlock['test'] | { type: 'Super' }): string | undefined => {
     if (n.type === 'Identifier') return reassigned.has(n.name) ? undefined : props.get(n.name);
     // `props.title` on `let props = $props()`.
@@ -650,10 +652,21 @@ function propGate(
       ? n.property.name
       : undefined;
   };
+  // `{#if embedded}` on `const embedded = $derived(variant === 'embedded')`.
+  const derived = test.type === 'Identifier' ? derivedTests.get(props)?.get(test.name) : undefined;
+  if (derived) return propGate(derived, props, reassigned, depth + 1);
+  const negated =
+    test.type === 'UnaryExpression' && test.operator === '!' && test.argument.type === 'Identifier'
+      ? derivedTests.get(props)?.get(test.argument.name)
+      : undefined;
+  if (negated) {
+    const gate = propGate(negated, props, reassigned, depth + 1);
+    return gate && !('parts' in gate) ? { ...gate, negate: !gate.negate } : undefined;
+  }
   // `{#if title || header}`: decided only when every operand is a prop's test.
   if (test.type === 'LogicalExpression' && test.operator !== '??') {
-    const left = propGate(test.left, props, reassigned);
-    const right = left && propGate(test.right, props, reassigned);
+    const left = propGate(test.left, props, reassigned, depth + 1);
+    const right = left && propGate(test.right, props, reassigned, depth + 1);
     return right ? { kind: test.operator === '&&' ? 'and' : 'or', parts: [left!, right] } : undefined;
   }
   if (test.type === 'Identifier' || test.type === 'MemberExpression') {
@@ -790,6 +803,12 @@ export function decidedArms(
  * Local name → prop name for `let { a, b: local = x } = $props()` and legacy `export let a`.
  * Nested patterns and computed keys are skipped: such a local simply stays unbound (dynamic).
  */
+/**
+ * Per props map, the other `const x = $derived(…)` initializers (`$derived(variant === 'embedded')`):
+ * `{#if x}` is decided like an `{#if}` on that expression.
+ */
+const derivedTests = new WeakMap<ReadonlyMap<string, string>, ReadonlyMap<string, AST.IfBlock['test']>>();
+
 /** The key `collectProps` stores an undestructured `$props()` binding's name under: never an identifier. */
 const WHOLE_PROPS = '...';
 
@@ -818,6 +837,7 @@ function collectProps(ast: AST.Root): Map<string, string> {
   // `const t = $derived(title?.trim() ?? '')` reads as `title`: it is truthy exactly when the prop
   // holds a non-blank string.
   type Expr = AST.IfBlock['test'];
+  const tests = new Map<string, Expr>();
   const unwrap = (n: Expr | undefined): Expr | undefined => {
     if (!n) return undefined;
     if (n.type === 'LogicalExpression' && n.operator !== '&&' && n.right.type === 'Literal' && n.right.value === '')
@@ -838,8 +858,10 @@ function collectProps(ast: AST.Root): Map<string, string> {
       const inner = unwrap(init.arguments[0] as Expr);
       const prop = inner?.type === 'Identifier' ? props.get(inner.name) : undefined;
       if (prop !== undefined) props.set(d.id.name, prop);
+      else if (inner) tests.set(d.id.name, inner);
     }
   }
+  derivedTests.set(props, tests);
   return props;
 }
 
