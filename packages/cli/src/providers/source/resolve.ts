@@ -5,12 +5,13 @@ import {
   collectConstantListExports,
   collectFalseExports,
   parseModuleProgram,
-  resolveRepoLocalPath
+  resolveRepoLocalPath,
+  unwrapTs
 } from '@svelte-vitals/core/internal';
 import type { ChildrenSite, ParsedFile, ParsedTag, PropArgs } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { addImportsFromProgram, importOf, type ImportMap } from './imports.js';
-import { argsOf, decidedArms, HOLE, parseFile, tagsInHead } from './parse.js';
+import { argsOf, decidedArms, HOLE, parseFile, setsDocumentTitle, tagsInHead } from './parse.js';
 
 /** Props a heading component conventionally takes its element from (`<Heading tag="h1">`, `as`, `element`, `is`). */
 const HEADING_TAG_PROPS = new Set(['tag', 'as', 'element', 'is']);
@@ -49,6 +50,8 @@ export interface ModuleExports {
   lists: Set<string>;
   /** Exports that are the literal `false` (`parseFalseExports`). */
   falses: Set<string>;
+  /** Exported functions that set `document.title` (`setsDocumentTitle`). */
+  titleSetters: Set<string>;
 }
 
 /**
@@ -100,7 +103,13 @@ function nameOf(node: { type: string; name?: string; value?: unknown }): string 
 
 /** A barrel's value re-exports. A module that does not parse forwards nothing, so its components stay unresolved. */
 function moduleExportsOf(source: string, rel: string): ModuleExports {
-  const out: ModuleExports = { named: new Map(), stars: [], lists: new Set(), falses: new Set() };
+  const out: ModuleExports = {
+    named: new Map(),
+    stars: [],
+    lists: new Set(),
+    falses: new Set(),
+    titleSetters: new Set()
+  };
   let program;
   try {
     program = parseModuleProgram(source, rel).program;
@@ -109,6 +118,7 @@ function moduleExportsOf(source: string, rel: string): ModuleExports {
   }
   out.lists = collectConstantListExports(program);
   out.falses = collectFalseExports(program);
+  out.titleSetters = titleSetterExports(program);
   const imports: ImportMap = new Map();
   addImportsFromProgram(program, imports);
   for (const node of program?.body ?? []) {
@@ -144,14 +154,37 @@ function readModuleExports(ctx: ResolveCtx, rel: string): Promise<ModuleExports>
     // A module that exists but cannot be read exports nothing, like one that does not parse.
     hit = ctx.rt.readFile(ctx.rt.join(ctx.cwd, rel)).then(
       (source) => moduleExportsOf(source, rel),
-      (): ModuleExports => ({ named: new Map(), stars: [], lists: new Set(), falses: new Set() })
+      (): ModuleExports => ({
+        named: new Map(),
+        stars: [],
+        lists: new Set(),
+        falses: new Set(),
+        titleSetters: new Set()
+      })
     );
     ctx.cache.set(rel, hit);
   }
   return hit;
 }
 
-type Target = 'component' | 'list' | 'false';
+/** `export function f() {…}` and `export const f = () => {…}` whose body sets `document.title`. */
+function titleSetterExports(program: ReturnType<typeof parseModuleProgram>['program']): Set<string> {
+  const names = new Set<string>();
+  for (const node of program?.body ?? []) {
+    if (node.type !== 'ExportNamedDeclaration') continue;
+    const decl = node.declaration;
+    if (decl?.type === 'FunctionDeclaration' && decl.id && setsDocumentTitle([decl.body])) names.add(decl.id.name);
+    if (decl?.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations) {
+      const init = unwrapTs(d.init);
+      const fn = init?.type === 'ArrowFunctionExpression' || init?.type === 'FunctionExpression';
+      if (fn && d.id.type === 'Identifier' && setsDocumentTitle([init.body])) names.add(d.id.name);
+    }
+  }
+  return names;
+}
+
+type Target = 'component' | 'list' | 'false' | 'titleSetter';
 
 /** Re-export hops followed before giving up; also what ends an `export *` cycle. */
 const MAX_REEXPORT_HOPS = 8;
@@ -242,7 +275,15 @@ async function resolveExportAt(
   for (const mod of modules) {
     if (!(await exists(mod))) continue;
     const exports = await readModuleExports(ctx, mod);
-    if ((target === 'list' ? exports.lists : target === 'false' ? exports.falses : undefined)?.has(name)) return mod;
+    const own =
+      target === 'list'
+        ? exports.lists
+        : target === 'false'
+          ? exports.falses
+          : target === 'titleSetter'
+            ? exports.titleSetters
+            : undefined;
+    if (own?.has(name)) return mod;
     const hit = exports.named.get(name);
     if (hit) return resolveExport(ctx, hit.source, mod, hit.imported, target, hops + 1, memo);
     if (name === 'default') return undefined; // `export *` never forwards a default
@@ -315,6 +356,15 @@ export async function falseImports(
     if (info && (await resolveExport(ctx, info.source, fileRel, info.imported, 'false'))) out.add(name);
   }
   return out;
+}
+
+/** Whether `parsed`'s script calls an imported repo-local function that sets `document.title`. */
+export async function titleSetterCalled(ctx: ResolveCtx, fileRel: string, parsed: ParsedFile): Promise<boolean> {
+  for (const name of parsed.scriptCalls ?? []) {
+    const info = parsed.imports.get(name);
+    if (info && (await resolveExport(ctx, info.source, fileRel, info.imported, 'titleSetter'))) return true;
+  }
+  return false;
 }
 
 export function offsetPath(path: BranchStep[], base: number): BranchStep[] {
