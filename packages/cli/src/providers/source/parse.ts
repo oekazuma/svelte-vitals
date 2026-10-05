@@ -325,16 +325,20 @@ function tagsFromNodes(
  * `document.title` rewrites a title something else set, and provides none.
  */
 function documentTitle(ast: AST.Root): ParsedTag[] {
+  const scripts = [ast.module, ast.instance].flatMap((script) => (script ? [script.content] : []));
+  return setsDocumentTitle(scripts) ? [{ kind: 'title', value: 'dynamic', clientOnly: true }] : [];
+}
+
+/** Whether `nodes` assign `document.title` and never read it otherwise (see `documentTitle`). */
+export function setsDocumentTitle(nodes: Parameters<typeof walkEstree>[0][]): boolean {
   let refs = 0;
   let sets = 0;
-  for (const script of [ast.module, ast.instance]) {
-    if (!script) continue;
-    walkEstree(script.content, (n) => {
+  for (const node of nodes)
+    walkEstree(node, (n) => {
       if (n.type === 'AssignmentExpression' && n.operator === '=' && isDocumentTitle(unwrapTs(n.left))) sets++;
       else if (isDocumentTitle(n)) refs++;
     });
-  }
-  return sets > 0 && refs === sets ? [{ kind: 'title', value: 'dynamic', clientOnly: true }] : [];
+  return sets > 0 && refs === sets;
 }
 
 function isDocumentTitle(n: Parameters<Parameters<typeof walkEstree>[1]>[0]): boolean {
@@ -346,6 +350,19 @@ function isDocumentTitle(n: Parameters<Parameters<typeof walkEstree>[1]>[0]): bo
     n.property.type === 'Identifier' &&
     n.property.name === 'title'
   );
+}
+
+/** Imported bindings the component's script calls by name (`syncTitle()`), for `titleSetterCalled`. */
+function importedCalls(ast: AST.Root, imports: ImportMap): string[] {
+  const names = new Set<string>();
+  for (const script of [ast.module, ast.instance]) {
+    if (!script) continue;
+    walkEstree(script.content, (n) => {
+      if (n.type === 'CallExpression' && n.callee.type === 'Identifier' && imports.has(n.callee.name))
+        names.add(n.callee.name);
+    });
+  }
+  return [...names];
 }
 
 /**
@@ -1505,49 +1522,54 @@ function collectHeadings(
     if (local(snippet.expression.name) === snippet && !reached.has(snippet))
       walk(snippet.body, [], [snippet], undefined, null);
   }
+  const placed = (when: Cond[], get: () => BranchStep[], put: (path: BranchStep[]) => void): Placed => ({
+    when,
+    get path() {
+      return get();
+    },
+    insert: (index, step) => put([...get().slice(0, index), step, ...get().slice(index)])
+  });
   const exclusive = [
     ...headings.flatMap((h) => {
       const when = headingWhen.get(h);
       return when
         ? [
-            {
+            placed(
               when,
-              path: h.path ?? [],
-              set: (step: BranchStep) => (h.path = [step, ...(h.path ?? [])]),
-              push: (step: BranchStep) => (h.path = [...(h.path ?? []), step])
-            }
+              () => h.path ?? [],
+              (path) => (h.path = path)
+            )
           ]
         : [];
     }),
     ...[...componentWhen].flatMap(([node, when]) =>
       when
         ? [
-            {
+            placed(
               when,
-              path: componentPaths.get(node)!,
-              set: (step: BranchStep) => componentPaths.set(node, [step, ...componentPaths.get(node)!]),
-              push: (step: BranchStep) => componentPaths.set(node, [...componentPaths.get(node)!, step])
-            }
+              () => componentPaths.get(node)!,
+              (path) => componentPaths.set(node, path)
+            )
           ]
         : []
     ),
     ...[...renderWhen].flatMap(([name, when]) =>
       when
         ? [
-            {
+            placed(
               when,
-              path: renderPaths.get(name)!,
-              set: (step: BranchStep) => renderPaths.set(name, [step, ...renderPaths.get(name)!]),
-              push: (step: BranchStep) => renderPaths.set(name, [...renderPaths.get(name)!, step])
-            }
+              () => renderPaths.get(name)!,
+              (path) => renderPaths.set(name, path)
+            )
           ]
         : []
     )
   ];
-  const oneArm = (p: Placed) => p.path.every((s) => s.branch === HOLE || armCount.get(s.group) === 1);
-  for (const clique of contradictingArms(exclusive.filter(oneArm))) {
+  const oneArmFrom = (p: Placed, from: number) =>
+    p.path.slice(from).every((s) => s.branch === HOLE || armCount.get(s.group) === 1);
+  for (const clique of contradictingArms(exclusive.filter((p) => oneArmFrom(p, 0)))) {
     const group = groups++;
-    clique.forEach((members, branch) => members.forEach((m) => m.set({ group, branch })));
+    clique.forEach((members, branch) => members.forEach((m) => m.insert(0, { group, branch })));
   }
   // A place whose conditions leave one arm of a block with an `{:else}` renders with that arm:
   // after `{#if !rule}…{:else}<h3>{/if}`, a heading in `{#if open && rule}` follows that `<h3>`.
@@ -1560,9 +1582,15 @@ function collectHeadings(
       if (![...refs(block.arms.flat())].some((r) => own.has(r))) continue;
       if (!block.path.every((s) => p.path.some((t) => t.group === s.group && t.branch === s.branch))) continue;
       const fits = block.arms.flatMap((w, branch) => (unsatisfiable([...p.when, ...w]) ? [] : [branch]));
-      // Innermost: the arm folds below the blocks `p` really sits in, which keeps them exclusive. It adds
-      // no condition of its own, so it never stops `p` counting before a heading outside that block.
-      if (fits.length === 1) p.push({ group, branch: fits[0]!, always: true });
+      if (fits.length !== 1) continue;
+      const step = { group, branch: fits[0]!, always: true as const };
+      const depth = block.path.length;
+      const below = block.path.every((s, i) => p.path[i]?.group === s.group && p.path[i]?.branch === s.branch);
+      // Where only one-arm blocks hold `p` below the block's own place, it sits in that arm there, so the
+      // block's other arms exclude it. Otherwise innermost: the arm folds below the blocks `p` really sits
+      // in, which keeps them exclusive. It adds no condition of its own, so it never stops `p` counting
+      // before a heading outside that block.
+      p.insert(below && oneArmFrom(p, depth) ? depth : p.path.length, step);
     }
   }
   // A block whose every arm renders a heading directly (not below a further block) always renders one.
@@ -1689,7 +1717,7 @@ function unsatisfiable(conds: Cond[]): boolean {
   return true;
 }
 
-type Placed = { when: Cond[]; path: BranchStep[]; set: (step: BranchStep) => void; push: (step: BranchStep) => void };
+type Placed = { when: Cond[]; readonly path: BranchStep[]; insert: (index: number, step: BranchStep) => void };
 
 /**
  * Sets of places (headings, components, snippet renders) under `{#if}` arms of one file whose
@@ -2177,6 +2205,8 @@ export interface ParsedFile {
   headingFlagGates?: ReadonlyMap<number, FlagGate>;
   /** Heading groups whose first test reads the request path or route id, decided per route. */
   headingUrlGates?: ReadonlyMap<number, UrlCond>;
+  /** Imported bindings the script calls by name, for `titleSetterCalled`. */
+  scriptCalls?: string[];
   /** Literal prop defaults, for `decidedArms`. */
   propDefaults: ReadonlyMap<string, PropDefault>;
   a11y: ParsedA11y;
@@ -2203,12 +2233,14 @@ export function parseFile(source: string, filename: string): ParsedFile {
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment, components, headingAcc);
   const jsonLdNames = jsonLdBindings(ast);
+  const calls = importedCalls(ast, imports);
   return {
     headTags: [
       ...heads.flatMap((h) => tagsFromHead(h, source, jsonLdNames)),
       ...bodyJsonLd(ast.fragment, source, jsonLdNames),
       ...documentTitle(ast)
     ],
+    ...(calls.length > 0 ? { scriptCalls: calls } : {}),
     components,
     imports,
     componentBindings: collectComponentBindings(ast),

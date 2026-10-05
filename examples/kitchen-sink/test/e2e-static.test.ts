@@ -132,6 +132,7 @@ describe('kitchen-sink e2e (static mode)', () => {
       '/clean/head-title',
       '/clean/prop-gated',
       '/clean/sibling-arms',
+      '/clean/else-arms',
       '/clean/db-write',
       '/clean/csr-dev/feed',
       '/clean/nested-guards',
@@ -148,8 +149,11 @@ describe('kitchen-sink e2e (static mode)', () => {
   });
 
   it('reads a document.title the browser sets on a route that is never server-rendered', () => {
-    const spa = report.routes.find((r) => r.route === '/gallery/seo/spa-document-title');
-    expect(spa?.issues).toEqual([]);
+    for (const route of ['/gallery/seo/spa-document-title', '/gallery/seo/spa-module-title']) {
+      const spa = report.routes.find((r) => r.route === route);
+      expect(spa, route).toBeDefined();
+      expect(spa!.issues, route).toEqual([]);
+    }
   });
 
   it('gives a page whose load always redirects or errors no route-level findings', () => {

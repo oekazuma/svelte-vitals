@@ -526,6 +526,20 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     expect(await singleH1({ 'src/routes/+page.svelte': page })).toEqual(['Heading hierarchy']);
   });
 
+  it('reads an <h1> in a one-arm {#if} as exclusive with the arms of an {:else} block its test rules out', async () => {
+    const page = (other: string) =>
+      `<header><div>{#if signedIn}<h1>Chats</h1>{#if unread}<button>Read</button>{/if}{/if}</div></header><div>{#if signedIn}<p>List</p>${other}{:else}<div><h1>Welcome</h1></div>{/if}</div>`;
+    expect(await singleH1({ 'src/routes/+page.svelte': page('') })).toEqual(['Heading hierarchy']);
+    expect(await singleH1({ 'src/routes/+page.svelte': page('<h1>List</h1>') })).toEqual([
+      'Multiple <h1> (2); a single <h1> is the conventional signal'
+    ]);
+    // A test that leaves two arms open places the heading in neither.
+    const several = `{#if !a && !b}<h1>Sign in</h1>{/if}{#if !c && !a && !b}<p>Form</p>{:else if a}<h1>Recover</h1>{:else if b}<p>First</p>{:else}<p>Code</p>{/if}`;
+    expect(await singleH1({ 'src/routes/+page.svelte': several })).toEqual([
+      'Multiple <h1> (2); a single <h1> is the conventional signal'
+    ]);
+  });
+
   it('follows a heading with the one arm of an earlier {:else} block its own conditions select', async () => {
     const page = `<script>import Title from '$lib/Title.svelte';</script><h1>Rule</h1>{#if !rule}<p>None</p>{:else}<Title />{/if}{#if open && rule}<h3>Save</h3>{/if}`;
     const files = { 'src/lib/Title.svelte': '<h2>Schedule</h2>', 'src/routes/+page.svelte': page };

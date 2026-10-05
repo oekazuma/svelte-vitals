@@ -174,7 +174,6 @@ describe('parse: {#if} blocks of one arm whose tests contradict each other', () 
     const separate = (src: string) => new Set(paths(src).map((p) => p?.[0]?.group)).size;
     expect(separate('{#if a}<h1>A</h1>{/if}{#if a}<h1>B</h1>{/if}')).toBe(2);
     expect(separate('{#if a}<h1>A</h1>{/if}{#if b}<h1>B</h1>{/if}')).toBe(2);
-    expect(separate('{#if a}<h1>A</h1>{:else}<p></p>{/if}{#if !a}<h1>B</h1>{/if}')).toBe(2);
     expect(separate("{#if s === 'x'}<h1>A</h1>{/if}{#if s}<h1>B</h1>{/if}")).toBe(2);
     expect(separate("{#if x == 0}<h1>A</h1>{/if}{#if x == ''}<h1>B</h1>{/if}")).toBe(2);
     expect(separate("{#if x == '0'}<h1>A</h1>{/if}{#if x == '00'}<h1>B</h1>{/if}")).toBe(2);
@@ -196,6 +195,7 @@ describe('parse: headings under conditions that cannot hold together', () => {
       h1s('{#if (open && !hide) || always}<h1>A</h1>{/if}<div>{#if (!open || hide) && !always}<h1>B</h1>{/if}</div>')
     ).toBe(1);
     expect(h1s("{#if s === 'x'}<h1>A</h1>{/if}{#if s !== 'x'}<h1>B</h1>{/if}")).toBe(1);
+    expect(h1s('{#if a}<h1>A</h1>{:else}<p></p>{/if}{#if !a}<h1>B</h1>{/if}')).toBe(1);
     expect(h1s('<Card>{#if a}<h1>A</h1>{/if}</Card>{#if !a}<h1>B</h1>{/if}')).toBe(1);
     expect(
       h1s('{#snippet title()}<h1>T</h1>{/snippet}{#if a}{@render title()}{/if}{#if !a}{@render title()}{/if}')

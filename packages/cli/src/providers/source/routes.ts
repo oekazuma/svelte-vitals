@@ -25,6 +25,7 @@ import {
   resolveFileTags,
   readAndParse,
   falseImports,
+  titleSetterCalled,
   BROAD_KINDS,
   tagKey,
   type ParseCache,
@@ -395,8 +396,10 @@ async function resolveRoute(
   // Set once a layout renders its children only in arms an imported `false` flag rules out: the rest
   // of the chain renders no body. Its head still counts, as the route is judged on the shell it serves.
   let unreached = false;
+  const callers: { rel: string; isPage: boolean; parsed: ParsedFile }[] = [];
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
+    if (parsed.scriptCalls && !unreached) callers.push({ rel, isPage, parsed });
     const flagGates = [...(parsed.a11y.flagGates?.values() ?? []), ...(parsed.headingFlagGates?.values() ?? [])];
     const falses =
       flagGates.length > 0 && !unreached
@@ -549,6 +552,16 @@ async function resolveRoute(
     if (isRobotsMeta(tag)) additiveTags.push(stamped);
     else if (!serverRendered(composed.get(tagKey(tag)))) composed.set(tagKey(tag), stamped);
   }
+
+  // Read last, and only for a route nothing else titles, so the modules it reads stay few. The page
+  // first, as its own title wins over a layout's.
+  if (!composed.has('title'))
+    for (const { rel, isPage, parsed } of [...callers].reverse())
+      if (await titleSetterCalled(a11yCtx, rel, parsed)) {
+        const presence = isPage ? 'own' : 'inherited';
+        composed.set('title', { kind: 'title', value: 'dynamic', clientOnly: true, presence, file: rel });
+        break;
+      }
 
   const idNodes = a11yNodes.filter((n) => n.kind === 'id');
   // An expression-valued id (key '') is unknowable: it closes no world and is no candidate.
