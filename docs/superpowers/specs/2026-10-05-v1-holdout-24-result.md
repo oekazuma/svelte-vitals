@@ -101,8 +101,9 @@ checked for a `.gitmodules` file, which neither has; it did not check for gitlin
   - namsbokasafn-vefur's section pages are `tp` for "Missing `<h1>`": the `<h1>` comes from content
     HTML a client `$effect` inserts, so the prerendered page has none. The content was read in its
     public sister repository.
-  - cashier-sveltekit's 90 "Missing `<h1>`" keys are `tp`: the only `<h1>` is in the help markdown
-    inside a closed `<dialog>`, the mirror of the ledger's "closed dialog extra" `design`.
+  - cashier-sveltekit has 91 "Missing `<h1>`" keys. 90 are `tp`: the only `<h1>` is in the help markdown
+    inside a closed `<dialog>`, the mirror of the ledger's "closed dialog extra" `design`. The 91st,
+    `/help/[topic]`, is the C6 false positive above, where the page itself renders that markdown.
   - Paraglide's `locales` lists (banbot) are `design` for `each-key`: the runtime module is generated
     and gitignored.
   - sunburn's chat markdown is `tp` for `raw-html`: `javascript:` link URLs pass through unsanitized.
