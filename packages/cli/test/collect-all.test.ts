@@ -237,6 +237,35 @@ export function syncTitle() {
     const rewrites = `export function syncTitle() { document.title = document.title.replace('App', 'Brand'); }`;
     expect(titles(await collectAll(createMemoryRuntime(tree(rewrites)), '', defaultConfig), '/spa')).toEqual([]);
   });
+
+  it('reads a title setter however the module exports it, and prefers the page over its layout', async () => {
+    const layout = (call: string) => `<script lang="ts">
+  ${call}
+  let { children } = $props();
+</script>
+{@render children()}`;
+    const named = `function sync() { document.title = 'App'; }\nexport { sync as syncTitle };`;
+    const viaSpecifier = {
+      ...TREE,
+      'src/routes/+layout.svelte': layout(`import { syncTitle } from '$lib/title';\n  $effect(() => syncTitle());`),
+      'src/lib/title.ts': named
+    };
+    expect(titles(await collectAll(createMemoryRuntime(viaSpecifier), '', defaultConfig), '/spa')).toHaveLength(1);
+
+    const viaDefault = {
+      ...TREE,
+      'src/routes/+layout.svelte': layout(`import syncTitle from '$lib/title';\n  $effect(() => syncTitle());`),
+      'src/lib/title.ts': `export default function () { document.title = 'App'; }`
+    };
+    expect(titles(await collectAll(createMemoryRuntime(viaDefault), '', defaultConfig), '/spa')).toHaveLength(1);
+
+    const both = {
+      ...viaSpecifier,
+      'src/routes/spa/+page.svelte': `<script>import { syncTitle } from '$lib/title';\n$effect(() => syncTitle());</script><p>spa</p>`
+    };
+    const [tag] = titles(await collectAll(createMemoryRuntime(both), '', defaultConfig), '/spa');
+    expect(tag?.presence).toBe('own');
+  });
 });
 
 describe('collectAll — a component loaded with import()', () => {

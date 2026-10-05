@@ -167,20 +167,36 @@ function readModuleExports(ctx: ResolveCtx, rel: string): Promise<ModuleExports>
   return hit;
 }
 
-/** `export function f() {…}` and `export const f = () => {…}` whose body sets `document.title`. */
+/** Exported functions whose body sets `document.title`, however they are exported (`default` included). */
 function titleSetterExports(program: ReturnType<typeof parseModuleProgram>['program']): Set<string> {
+  const isFn = (n: { type?: string } | undefined) =>
+    n?.type === 'FunctionDeclaration' || n?.type === 'ArrowFunctionExpression' || n?.type === 'FunctionExpression';
+  const setters = new Set<string>();
+  const exported = new Map<string, string>();
   const names = new Set<string>();
   for (const node of program?.body ?? []) {
-    if (node.type !== 'ExportNamedDeclaration') continue;
-    const decl = node.declaration;
-    if (decl?.type === 'FunctionDeclaration' && decl.id && setsDocumentTitle([decl.body])) names.add(decl.id.name);
-    if (decl?.type !== 'VariableDeclaration') continue;
-    for (const d of decl.declarations) {
-      const init = unwrapTs(d.init);
-      const fn = init?.type === 'ArrowFunctionExpression' || init?.type === 'FunctionExpression';
-      if (fn && d.id.type === 'Identifier' && setsDocumentTitle([init.body])) names.add(d.id.name);
+    const own = node.type === 'ExportNamedDeclaration' ? node.declaration : node;
+    if (own?.type === 'FunctionDeclaration' && own.id && setsDocumentTitle([own.body])) setters.add(own.id.name);
+    if (own?.type === 'VariableDeclaration')
+      for (const d of own.declarations) {
+        const init = unwrapTs(d.init);
+        const fn = init?.type === 'ArrowFunctionExpression' || init?.type === 'FunctionExpression';
+        if (fn && d.id.type === 'Identifier' && setsDocumentTitle([init.body])) setters.add(d.id.name);
+      }
+    if (node.type === 'ExportNamedDeclaration') {
+      for (const name of own?.id
+        ? [own.id.name]
+        : (own?.declarations ?? []).map((d: { id: { name?: string } }) => d.id.name))
+        if (name) exported.set(name, name);
+      if (!node.source) for (const spec of node.specifiers) exported.set(nameOf(spec.exported), nameOf(spec.local));
+    }
+    if (node.type === 'ExportDefaultDeclaration') {
+      const decl = node.declaration;
+      if (decl.type === 'Identifier') exported.set('default', decl.name);
+      else if (isFn(decl) && setsDocumentTitle([decl.body])) names.add('default');
     }
   }
+  for (const [name, local] of exported) if (setters.has(local)) names.add(name);
   return names;
 }
 

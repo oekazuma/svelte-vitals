@@ -553,9 +553,10 @@ async function resolveRoute(
     else if (!serverRendered(composed.get(tagKey(tag)))) composed.set(tagKey(tag), stamped);
   }
 
-  // Read last, and only for a route nothing else titles, so the modules it reads stay few.
+  // Read last, and only for a route nothing else titles, so the modules it reads stay few. The page
+  // first, as its own title wins over a layout's.
   if (!composed.has('title'))
-    for (const { rel, isPage, parsed } of callers)
+    for (const { rel, isPage, parsed } of [...callers].reverse())
       if (await titleSetterCalled(a11yCtx, rel, parsed)) {
         const presence = isPage ? 'own' : 'inherited';
         composed.set('title', { kind: 'title', value: 'dynamic', clientOnly: true, presence, file: rel });
