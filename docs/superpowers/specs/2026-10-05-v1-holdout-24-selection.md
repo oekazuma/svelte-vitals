@@ -52,9 +52,9 @@ out.
 | [sunburnco/sunburn](https://github.com/sunburnco/sunburn/tree/e6e0690a8989)                                           | `pwa`            | 7, 9, 10        | no         | yes    | Self-hosted chat, voice and video client (18 routes) on adapter-static, `ssr = false`.   |
 | [alensiljak/cashier-sveltekit](https://github.com/alensiljak/cashier-sveltekit/tree/04ce73501239)                     | `.`              | 7, 9, 10, 9b    | yes        | yes    | Personal finance app (94 routes) on adapter-static, `ssr = false`.                       |
 | [MFergie121/kali-afl-stats](https://github.com/MFergie121/kali-afl-stats/tree/b50577b77926)                           | `.`              | 1, 8, 9, 10     | no         | yes    | Sports statistics site (26 routes) on adapter-node: JSON-LD, hooks, form actions.        |
-| [adaptocms/adapto-sveltekit-client](https://github.com/adaptocms/adapto-sveltekit-client/tree/691af5f12934)           | `.`              | 2, 9, 10        | no         | yes    | Multi-language CMS client (18 routes) under a `[lang]` route parameter.                  |
-| [FRC5800/MagicScouting](https://github.com/FRC5800/MagicScouting/tree/4635e36eabba)                                   | `.`              | 2, 9, 10, 9b    | yes        | yes    | Robotics-competition scouting app (19 routes), translated, six prerendered routes.       |
-| [aleapc/guia-guangzhou](https://github.com/aleapc/guia-guangzhou/tree/fcf2a1697912)                                   | `.`              | 2, 6, 9, 10, 9b | yes        | yes    | Multi-language offline travel guide (15 routes) under a `paths.base`, prerendered.       |
+| [adaptocms/adapto-sveltekit-client](https://github.com/adaptocms/adapto-sveltekit-client/tree/691af5f12934)           | `.`              | 9, 10           | no         | yes    | Multi-language CMS client (18 routes) under a `[lang]` route parameter.                  |
+| [FRC5800/MagicScouting](https://github.com/FRC5800/MagicScouting/tree/4635e36eabba)                                   | `.`              | 9, 10, 9b       | yes        | yes    | Robotics-competition scouting app (19 routes), translated, six prerendered routes.       |
+| [aleapc/guia-guangzhou](https://github.com/aleapc/guia-guangzhou/tree/fcf2a1697912)                                   | `.`              | 6, 9, 10, 9b    | yes        | yes    | Multi-language offline travel guide (15 routes) under a `paths.base`, prerendered.       |
 | [SigurdurVilhelmsson/namsbokasafn-vefur](https://github.com/SigurdurVilhelmsson/namsbokasafn-vefur/tree/3dbf50b22938) | `.`              | 9, 10, 9b       | yes        | yes    | Textbook reader (24 routes) on adapter-static with fifteen prerendered routes.           |
 | [BjornKennethHolmstrom/website](https://github.com/BjornKennethHolmstrom/website/tree/d7c8fc9ce6f0)                   | `.`              | 5, 9, 10, 9b    | yes        | yes    | Personal and project site (158 routes) on adapter-static with markdown content.          |
 | [rakharamadhana/halal-ima-taiwan](https://github.com/rakharamadhana/halal-ima-taiwan/tree/40c62a9f2810)               | `.`              | 3, 10           | no         | no     | Certification registry (15 routes): superforms, hooks and ten action files.              |
@@ -68,7 +68,7 @@ out.
 | #   | Item                                        | Apps |
 | --- | ------------------------------------------- | ---- |
 | 1   | JSON-LD                                     | 3    |
-| 2   | i18n + hreflang                             | 3    |
+| 2   | i18n + hreflang                             | 0    |
 | 3   | superforms                                  | 1    |
 | 4   | meta-tag library                            | 0    |
 | 5   | markdown/mdsvex                             | 2    |
@@ -81,9 +81,10 @@ out.
 | 12  | head from an npm package without an adapter | 0    |
 | 9b  | prerenders pages and likely builds          | 7    |
 
-The three item-2 apps are translated (a `[lang]` parameter, a translation package, a multi-language
-guide), but none of them emits alternate-language links. Item 4 has no app: none of the 140 read uses a
-meta-tag library, and the workspace packages seen hold no components (item 11).
+Item 2 has no app: three picks are translated (adapto client's `[lang]` parameter, MagicScouting's
+translation package, guia-guangzhou's multi-language guide), but none emits alternate-language links,
+so hreflang stays untested. Item 4 has no app: none of the 140 read uses a meta-tag library, and the
+workspace packages seen hold no components (item 11).
 
 ## How the first look runs
 
