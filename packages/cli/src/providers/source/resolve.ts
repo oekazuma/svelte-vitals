@@ -277,9 +277,11 @@ async function resolveExportAt(
 ): Promise<string | undefined> {
   const exists = (rel: string) => ctx.rt.exists(ctx.rt.join(ctx.cwd, rel));
   // Only a module extension is one: `dua.model` names `dua.model.ts`.
-  const ext = /\.(svelte|[cm]?[jt]sx?|json)$/.exec(path)?.[0];
+  const ext = /\.(svelte|md|svx|[cm]?[jt]sx?|json)$/.exec(path)?.[0];
   const component = target === 'component' && name === 'default';
   let modules: string[];
+  // A markdown module a preprocessor (mdsvex) compiles to a component.
+  if (ext === '.md' || ext === '.svx') return component && (await exists(path)) ? path : undefined;
   if (ext === '.svelte') {
     if (await exists(path)) return component ? path : undefined;
     modules = [`${path}.js`, `${path}.ts`];
@@ -501,6 +503,7 @@ export async function resolveFileTags(
       const exclusive = files.length > 1 || !found.complete || files.length < found.files.length;
       const childHead = inHead || use.inHead ? argsOf(parsed, use, inHead ?? new Map()) : undefined;
       const maybe = new Map<string, ParsedTag>();
+      const headed: HeadingInfo[] = [];
       for (const [i, childRel] of files.entries()) {
         const childParsed = parsedFiles[i]!;
         const childVisited = new Set(visited).add(childRel);
@@ -560,7 +563,13 @@ export async function resolveFileTags(
           if (clientOnly) clientOnlyHeading = true;
           else dynamicHeading = true;
         }
+        const always = childHeadings.find((h) => !h.path);
+        if (always && !clientOnly) headed.push(always);
       }
+      // When every candidate always renders a heading, one of an undetermined level sits at the use,
+      // like an undeterminable `<svelte:element>`: the heading after it is not judged against the one before.
+      if (found.complete && !unreadable && headed.length === found.files.length)
+        nested.push({ headings: [{ ...headed[0]!, level: 0 }], at: use.path, base: groupSpan, offset: use.offset });
       tags.push(...maybe.values());
       if (!unreadable) continue;
     }

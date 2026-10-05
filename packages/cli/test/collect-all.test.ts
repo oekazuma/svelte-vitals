@@ -510,7 +510,9 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/flipped.ts': `export const flipped = ['a', 'b'];\nfunction flip(xs) {\n  xs.reverse();\n}\nflip(flipped);\n`,
     'src/lib/Widget.svelte': `<script module>export const xs = ['a'];</script>`,
     'src/lib/dua.model.ts': `export const xs = ['a'];\n`,
-    'src/lib/items.mjs': `export const xs = ['a'];\n`
+    'src/lib/items.mjs': `export const xs = ['a'];\n`,
+    'src/lib/aliased.ts': `export const days = ['Su', 'Mo'];\nexport function first(custom) {\n  const names = custom?.length === 2 ? custom : days;\n  return names[0];\n}\n`,
+    'src/lib/aliasSorted.ts': `export const order = ['b', 'a'];\nconst sorted = order;\nsorted.sort();\n`
   };
   const COMPONENTS = {
     'src/lib/Alias.svelte': each("import { xs } from '$lib/data';"),
@@ -535,7 +537,9 @@ describe('collectAll — {#each} over an imported constant list', () => {
     'src/lib/ComponentExport.svelte': each("import { xs } from './Widget.svelte';"),
     'src/lib/Dotted.svelte': each("import { xs } from '$lib/dua.model';"),
     'src/lib/Mjs.svelte': each("import { xs } from '$lib/items.mjs';"),
-    'src/lib/Dot.svelte': each("import { viaBarrel as xs } from '.';")
+    'src/lib/Dot.svelte': each("import { viaBarrel as xs } from '.';"),
+    'src/lib/Aliased.svelte': each("import { days as xs } from '$lib/aliased';"),
+    'src/lib/AliasSorted.svelte': each("import { order as xs } from '$lib/aliasSorted';")
   };
 
   it('drops the block only when the export is a repo-local constant list', async () => {
@@ -550,6 +554,7 @@ describe('collectAll — {#each} over an imported constant list', () => {
       .map((c) => c.file)
       .sort();
     expect(reported).toEqual([
+      'src/lib/AliasSorted.svelte',
       'src/lib/ComponentExport.svelte',
       'src/lib/Computed.svelte',
       'src/lib/Flipped.svelte',

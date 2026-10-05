@@ -260,6 +260,30 @@ function collectConstantLists(
     }
   }
   if (candidates.size === 0) return new Set();
+  // In the module that exports it, a `const` alias (`const days = custom ?? DAYS`, or one branch of
+  // `?:`) is held to the same uses, and anything that keeps the alias keyed keeps the list keyed.
+  const aliases = new Map<string, string>();
+  if (opts.exported)
+    for (const program of programs)
+      walkEstree(program, (n: Node) => {
+        if (n.type !== 'VariableDeclaration' || n.kind !== 'const') return;
+        for (const d of n.declarations ?? []) {
+          const init = unwrapTs(d?.init);
+          const branches =
+            init?.type === 'ConditionalExpression'
+              ? [init.consequent, init.alternate]
+              : init?.type === 'LogicalExpression' && init.operator !== '&&'
+                ? [init.left, init.right]
+                : [init];
+          const list: Node = branches
+            .map((b: Node) => unwrapTs(b))
+            .find((b: Node) => b?.type === 'Identifier' && candidates.has(b.name));
+          if (d?.id?.type !== 'Identifier' || !list || candidates.has(d.id.name)) continue;
+          safe.add(list);
+          aliases.set(d.id.name, list.name);
+          candidates.set(d.id.name, d.id);
+        }
+      });
   for (const node of candidates.values()) safe.add(node);
   const namespaces = new Set([...(opts.imports ?? [])].filter(([, b]) => b.imported === '*').map(([local]) => local));
   const unsafe = new Set<string>();
@@ -349,8 +373,11 @@ function collectConstantLists(
       new Set()
     );
   }
+  for (const [alias, list] of aliases) if (unsafe.has(alias)) unsafe.add(list);
   return new Set(
-    [...candidates.keys(), ...members].filter((key) => !unsafe.has(key) && !unsafe.has(key.split('.')[0]!))
+    [...candidates.keys(), ...members].filter(
+      (key) => !aliases.has(key) && !unsafe.has(key) && !unsafe.has(key.split('.')[0]!)
+    )
   );
 }
 

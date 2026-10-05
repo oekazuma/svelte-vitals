@@ -1343,6 +1343,13 @@ describe('parseComponentFacts — browser-global refs (correctness/server-browse
     ].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([]);
   });
+  it("does not flag a name a legacy component's `$:` assignment declares", () => {
+    const src =
+      '<script>\n  export let state;\n  $: history = state.history;\n  $: last = history.at(-1);\n  $: title = document.title;\n</script>';
+    expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([
+      { name: 'document', line: 5, context: 'instance' }
+    ]);
+  });
   it('does not flag a shadowed name in a top-level block', () => {
     const src = '{\n  const window = fake();\n  window.open();\n}';
     expect(refs(src)).toEqual([]);

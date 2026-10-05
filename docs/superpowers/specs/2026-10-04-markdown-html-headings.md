@@ -1,6 +1,7 @@
 # An `<h1>` in markdown a page renders with `{@html}`
 
-Status: measured; not pursued. Revisit when a cheaper signal than resolving the markdown source exists.
+Status: the component form is handled (below); the `{@html}` forms are measured and not pursued. Revisit
+them when a cheaper signal than resolving the markdown source exists.
 
 ## Problem
 
@@ -54,7 +55,19 @@ but it means interprocedural evaluation of glob keys, template strings and path 
 plus file reads the I/O budget (`packages/cli/test/io-budget.test.ts`) does not have room for. The first
 row alone (route-local `?raw`) is cheap, but covers 4 of the 24.
 
-## Decision
+## Markdown rendered as a component
+
+An mdsvex `.md`/`.svx` module imported into a page or component is resolved like a `.svelte` file and
+read for its ATX headings (front matter and fenced code skipped), so its `# `/`## ` headings count where
+it renders. A component held in a `let` with `$derived` or assigned by a legacy `$: Content = …` is
+followed like one in a `const`; when it holds one of several modules (a language switch) that each
+always render a heading, a heading of an undetermined level holds its place for
+`seo/heading-level-skip`. This needs no data flow: the import names the file. Holdout 24 met this form
+in the Holmström website (33 false positives), and four ledger false positives had it (steaminputdb.com,
+dotsem.be). A module a `load` returns or `import.meta.glob` picks by a parameter (utsuwa, biubiu.tools,
+dxlbnl) is not named by an import, needs the data flow below, and stays open.
+
+## Decision on `{@html}`
 
 Not pursued. Neither name-based option is acceptable: each removes false positives by dropping real
 findings, and the source-resolving design costs a data-flow engine for a class that reaches one or two

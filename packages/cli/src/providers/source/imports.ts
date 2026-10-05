@@ -66,6 +66,10 @@ function candidatesOf(expr: Expression): string[] {
   return [''];
 }
 
+function isDerivedCall(init: Expression | null | undefined): boolean {
+  return init?.type === 'CallExpression' && init.callee.type === 'Identifier' && init.callee.name === '$derived';
+}
+
 function addBinding(decl: VariableDeclarator, out: Map<string, string[]>): void {
   if (decl.id.type !== 'Identifier' || !decl.init) return;
   const init = decl.init;
@@ -204,9 +208,25 @@ function addDynamicBindings(ast: AST.Root, out: Map<string, ComponentCandidate[]
 export function collectComponentBindings(ast: AST.Root): Map<string, ComponentCandidate[]> {
   const out = new Map<string, string[]>();
   for (const program of [ast.instance?.content, ast.module?.content]) {
+    const declared = new Set<string>();
     for (const node of program?.body ?? []) {
-      if (node.type !== 'VariableDeclaration' || node.kind !== 'const') continue;
-      for (const decl of node.declarations) addBinding(decl, out);
+      if (node.type !== 'VariableDeclaration') continue;
+      for (const decl of node.declarations) {
+        if (decl.id.type === 'Identifier') declared.add(decl.id.name);
+        // A `let` holding `$derived` is as fixed as a `const`; any other `let` may be reassigned.
+        if (node.kind === 'const' || isDerivedCall(decl.init)) addBinding(decl, out);
+      }
+    }
+    // `$: Content = …` declares `Content` and is its only assignment when nothing else declares it.
+    for (const node of program?.body ?? []) {
+      const assign =
+        node.type === 'LabeledStatement' && node.label.name === '$' && node.body.type === 'ExpressionStatement'
+          ? node.body.expression
+          : undefined;
+      if (assign?.type !== 'AssignmentExpression' || assign.operator !== '=' || assign.left.type !== 'Identifier')
+        continue;
+      if (!declared.has(assign.left.name))
+        addBinding({ type: 'VariableDeclarator', id: assign.left, init: assign.right } as VariableDeclarator, out);
     }
   }
   addConstTags(ast.fragment, out);

@@ -195,7 +195,8 @@ describe('resolveFileTags through barrels, namespaces and runtime-chosen compone
       'src/routes/+page.svelte'
     );
     expect(r.tags).toEqual([{ kind: 'title', value: 'dynamic' }]);
-    expect(r.headings).toEqual([]);
+    // Each candidate always renders a heading, so one of an undetermined level holds the use's place.
+    expect(r.headings.map((h) => h.level)).toEqual([0]);
     expect(r.dynamicHeading).toBe(true);
   });
 
@@ -209,7 +210,7 @@ describe('resolveFileTags through barrels, namespaces and runtime-chosen compone
       { kind: 'title', value: 'dynamic' },
       { kind: 'title', value: 'dynamic' }
     ]);
-    expect(r.headings).toEqual([]);
+    expect(r.headings.map((h) => h.level)).toEqual([0, 0]);
     expect(r.dynamicHeading).toBe(true);
   });
 
