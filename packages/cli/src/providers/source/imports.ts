@@ -1,6 +1,6 @@
 import type { Expression, Node, Pattern, Program, VariableDeclarator } from 'estree';
 import type { AST } from 'svelte/compiler';
-import { CHILD_NODE_KEYS } from '@svelte-vitals/core/internal';
+import { CHILD_NODE_KEYS, walkEstree } from '@svelte-vitals/core/internal';
 
 /** A resolved import binding: which module, and which export ('default' for default imports, '*' for a namespace). */
 export interface ImportInfo {
@@ -208,24 +208,34 @@ function addDynamicBindings(ast: AST.Root, out: Map<string, ComponentCandidate[]
 export function collectComponentBindings(ast: AST.Root): Map<string, ComponentCandidate[]> {
   const out = new Map<string, string[]>();
   for (const program of [ast.instance?.content, ast.module?.content]) {
+    if (!program) continue;
+    const assignments = new Map<string, number>();
+    walkEstree(program, (n) => {
+      if (n.type === 'AssignmentExpression' && n.left.type === 'Identifier')
+        assignments.set(n.left.name, (assignments.get(n.left.name) ?? 0) + 1);
+    });
     const declared = new Set<string>();
-    for (const node of program?.body ?? []) {
+    for (const node of program.body) {
       if (node.type !== 'VariableDeclaration') continue;
       for (const decl of node.declarations) {
         if (decl.id.type === 'Identifier') declared.add(decl.id.name);
-        // A `let` holding `$derived` is as fixed as a `const`; any other `let` may be reassigned.
-        if (node.kind === 'const' || isDerivedCall(decl.init)) addBinding(decl, out);
+        // A `let` holding `$derived` is as fixed as a `const` unless something overrides it.
+        const fixed =
+          node.kind === 'const' ||
+          (isDerivedCall(decl.init) && decl.id.type === 'Identifier' && !assignments.has(decl.id.name));
+        if (fixed) addBinding(decl, out);
       }
     }
-    // `$: Content = …` declares `Content` and is its only assignment when nothing else declares it.
-    for (const node of program?.body ?? []) {
+    // `$: Content = …` declares `Content` when nothing else does, and is then its only assignment.
+    for (const node of program.body) {
       const assign =
         node.type === 'LabeledStatement' && node.label.name === '$' && node.body.type === 'ExpressionStatement'
           ? node.body.expression
           : undefined;
       if (assign?.type !== 'AssignmentExpression' || assign.operator !== '=' || assign.left.type !== 'Identifier')
         continue;
-      if (!declared.has(assign.left.name))
+      const name = assign.left.name;
+      if (!declared.has(name) && assignments.get(name) === 1)
         addBinding({ type: 'VariableDeclarator', id: assign.left, init: assign.right } as VariableDeclarator, out);
     }
   }

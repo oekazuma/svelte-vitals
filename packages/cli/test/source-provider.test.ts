@@ -568,6 +568,19 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
         files(essay, 'export let sv = false; $: Content = sv ? Sv : En;', '<svelte:component this={Content} />')
       )
     ).toEqual(['Heading order']);
+    // A `let` the script overrides may hold another component, so it is not followed.
+    expect(
+      await skips(
+        files(
+          essay,
+          'let sv = $state(false); let Content = $derived(sv ? Sv : En); const reset = () => { Content = En; };',
+          '<Content />'
+        )
+      )
+    ).toEqual(['Heading level skipped (<h1> to <h3>)']);
+    // A fence line with an info string inside a fenced block is code, not its end.
+    const fenced = '```md\n## In code\n```js\n## Still code\n```\n';
+    expect(await skips(files(fenced, '', '<Sv />'))).toEqual(['Heading level skipped (<h1> to <h3>)']);
     // One alternative without a heading leaves the <h3> after the <h1>.
     expect(
       await skips(

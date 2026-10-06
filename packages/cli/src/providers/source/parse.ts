@@ -2233,12 +2233,15 @@ function markdownTemplate(source: string): string {
         if (i > 0 && /^---\s*$/.test(line)) frontMatter = false;
         return '';
       }
-      const marker = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1];
-      if (marker && (!fence || marker.startsWith(fence))) {
-        fence = fence ? undefined : marker;
+      if (fence) {
+        // Only a run of the opening character, at least as long, with nothing after it closes the block.
+        const close = /^ {0,3}(`{3,}|~{3,})[ \t]*$/.exec(line)?.[1];
+        if (close && close[0] === fence[0] && close.length >= fence.length) fence = undefined;
         return '';
       }
-      const atx = fence ? null : /^ {0,3}(#{1,6})(?:[ \t]+(.*?))?(?:[ \t]+#+)?[ \t]*$/.exec(line);
+      fence = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1];
+      if (fence) return '';
+      const atx = /^ {0,3}(#{1,6})(?:[ \t]+(.*?))?(?:[ \t]+#+)?[ \t]*$/.exec(line);
       if (!atx) return '';
       const level = atx[1]!.length;
       return `<h${level}>${(atx[2] ?? '').replace(/[<>{}&]/g, ' ')}</h${level}>`;
