@@ -2218,8 +2218,40 @@ export interface ParsedFile {
   suppressions: SuppressionDirective[];
 }
 
+/**
+ * A markdown component module (mdsvex `.md`/`.svx`) as the headings it compiles to: each ATX heading
+ * outside front matter and fenced code becomes `<hN>` on its own line, every other line is blank.
+ */
+// ponytail: ATX headings only; setext underlines, inline HTML and components in the markdown are not read.
+function markdownTemplate(source: string): string {
+  let fence: string | undefined;
+  let frontMatter = /^---\s*$/.test(source.split('\n', 1)[0] ?? '');
+  return source
+    .split('\n')
+    .map((line, i) => {
+      if (frontMatter) {
+        if (i > 0 && /^---\s*$/.test(line)) frontMatter = false;
+        return '';
+      }
+      if (fence) {
+        // Only a run of the opening character, at least as long, with nothing after it closes the block.
+        const close = /^ {0,3}(`{3,}|~{3,})[ \t]*$/.exec(line)?.[1];
+        if (close && close[0] === fence[0] && close.length >= fence.length) fence = undefined;
+        return '';
+      }
+      fence = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1];
+      if (fence) return '';
+      const atx = /^ {0,3}(#{1,6})(?:[ \t]+(.*?))?(?:[ \t]+#+)?[ \t]*$/.exec(line);
+      if (!atx) return '';
+      const level = atx[1]!.length;
+      return `<h${level}>${(atx[2] ?? '').replace(/[<>{}&]/g, ' ')}</h${level}>`;
+    })
+    .join('\n');
+}
+
 /** Parse a .svelte source into its layer-1 head tags, component usages, and imports. */
-export function parseFile(source: string, filename: string): ParsedFile {
+export function parseFile(raw: string, filename: string): ParsedFile {
+  const source = /\.(md|svx)$/.test(filename) ? markdownTemplate(raw) : raw;
   const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);

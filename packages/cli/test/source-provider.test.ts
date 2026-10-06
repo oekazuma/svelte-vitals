@@ -540,6 +540,55 @@ describe('collectRoutes: <h1>s in exclusive arms across files', () => {
     ]);
   });
 
+  it('reads the headings of a markdown module rendered as a component', async () => {
+    const skips = async (files: Record<string, string>) => {
+      const { headings } = await collectRoutes(createMemoryRuntime(files), '');
+      const rs = await seoHeadingLevelSkip.check({
+        heads: [],
+        headings,
+        project: defaultProject,
+        config: defaultConfig
+      });
+      return rs.map((r) => r.message);
+    };
+    const essay = '---\ntitle: Essay\n---\n\nIntro.\n\n```md\n# not a heading\n```\n\n## Part one\n\nText.\n';
+    const page = (script: string, use: string) =>
+      `<script>import En from './en.md'; import Sv from './sv.md'; ${script}</script><h1>Essay</h1><div>${use}</div><div><h3>Reference</h3></div>`;
+    const files = (sv: string, script: string, use: string) => ({
+      'src/routes/en.md': essay,
+      'src/routes/sv.md': sv,
+      'src/routes/+page.svelte': page(script, use)
+    });
+    expect(await skips(files(essay, '', '<En />'))).toEqual(['Heading order']);
+    expect(
+      await skips(files(essay, 'let sv = $state(false); let Content = $derived(sv ? Sv : En);', '<Content />'))
+    ).toEqual(['Heading order']);
+    expect(
+      await skips(
+        files(essay, 'export let sv = false; $: Content = sv ? Sv : En;', '<svelte:component this={Content} />')
+      )
+    ).toEqual(['Heading order']);
+    // A `let` the script overrides may hold another component, so it is not followed.
+    expect(
+      await skips(
+        files(
+          essay,
+          'let sv = $state(false); let Content = $derived(sv ? Sv : En); const reset = () => { Content = En; };',
+          '<Content />'
+        )
+      )
+    ).toEqual(['Heading level skipped (<h1> to <h3>)']);
+    // A fence line with an info string inside a fenced block is code, not its end.
+    const fenced = '```md\n## In code\n```js\n## Still code\n```\n';
+    expect(await skips(files(fenced, '', '<Sv />'))).toEqual(['Heading level skipped (<h1> to <h3>)']);
+    // One alternative without a heading leaves the <h3> after the <h1>.
+    expect(
+      await skips(
+        files('No headings.\n', 'let sv = $state(false); let Content = $derived(sv ? Sv : En);', '<Content />')
+      )
+    ).toEqual(['Heading level skipped (<h1> to <h3>)']);
+  });
+
   it('follows a heading with the one arm of an earlier {:else} block its own conditions select', async () => {
     const page = `<script>import Title from '$lib/Title.svelte';</script><h1>Rule</h1>{#if !rule}<p>None</p>{:else}<Title />{/if}{#if open && rule}<h3>Save</h3>{/if}`;
     const files = { 'src/lib/Title.svelte': '<h2>Schedule</h2>', 'src/routes/+page.svelte': page };

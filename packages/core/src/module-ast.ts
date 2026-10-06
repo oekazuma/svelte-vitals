@@ -418,6 +418,12 @@ export function collectProgramBindings(program: Node): Set<string> {
       for (const s of stmt.specifiers ?? []) if (s?.local?.type === 'Identifier') bound.add(s.local.name);
       continue;
     }
+    // A legacy component's `$: name = …` declares `name` when nothing else does.
+    if (stmt?.type === 'LabeledStatement' && stmt.label?.name === '$') {
+      const e = stmt.body?.type === 'ExpressionStatement' ? stmt.body.expression : undefined;
+      if (e?.type === 'AssignmentExpression' && e.operator === '=') addBoundNames(e.left, bound);
+      continue;
+    }
     const decl = unwrapExport(stmt);
     if (decl?.type === 'VariableDeclaration') {
       for (const d of decl.declarations ?? []) addBoundNames(d?.id, bound);
