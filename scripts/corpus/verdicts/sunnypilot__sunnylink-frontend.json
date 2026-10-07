@@ -1,0 +1,1277 @@
+[
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/lib/components/LegacyDeviceBadge.svelte:64::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/LegacyDeviceBadge.svelte:64: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/+layout.svelte:592::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read routes/+layout.svelte:592: daisyUI drawer <label for=\"main-drawer\" aria-label> with no role/spread/use:; docs name exactly this <label for aria-label> case as firing while the spec prohibits a name only when exposed as generic (all prior <label> verdicts are design)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/+layout.svelte:625::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:625: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/+layout.svelte:698::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read routes/+layout.svelte:698: daisyUI drawer <label for=\"main-drawer\" aria-label> with no role/spread/use:; docs name exactly this <label for aria-label> case as firing while the spec prohibits a name only when exposed as generic (all prior <label> verdicts are design)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/+layout.svelte:871::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/+layout.svelte:871: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/dashboard/devices/+page.svelte:245::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/dashboard/devices/+page.svelte:245: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/dashboard/devices/+page.svelte:252::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/dashboard/devices/+page.svelte:252: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/dashboard/whats-new/+page.svelte:296::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/dashboard/whats-new/+page.svelte:296: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/dashboard/whats-new/+page.svelte:387::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/dashboard/whats-new/+page.svelte:387: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/disallowed-aria-props::src/routes/dashboard/whats-new/[id]/+page.svelte:218::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read routes/dashboard/whats-new/[id]/+page.svelte:218: <span> with aria-label and no role, spread or use: action on it, so its implicit role is generic, which prohibits a name"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/duplicate-landmark::src/routes/dashboard/+page.svelte:162::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte:162/:169 <main> in exclusive arms of one {#if}; each renders inside root +layout.svelte:673 <main> (normal {:else} arm of showSessionExpiredModal), and dashboard/+layout.svelte:289 adds no wrapper, so the route has two main landmarks"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/id-duplication::src/lib/components/LegacyInfoModal.svelte:73::Duplicate id \"legacy-modal-title\"",
+    "verdict": "design",
+    "basis": "read: h2#legacy-modal-title is under LegacyInfoModal's {#if open} (:43); the copies are separate instances (LegacyDeviceBadge.svelte:73, DeviceStatusPill.svelte:707, LegacyTopBanner.svelte:78) each bound to its own modalOpen set by clicking that instance, a modal with modalLock; separate modals never open together (documented separate-{#if} co-render model); same on every route it appears on"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/interactive-nesting::src/lib/components/search/CommandPalette.svelte:341::<button> is nested inside interactive <li role=\"option\">",
+    "verdict": "tp",
+    "basis": "read CommandPalette.svelte: <button> inside <li role=\"option\"> (children-presentational) in the listbox; the use:portal div (:267) is an ancestor of both, so the nesting holds in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/interactive-nesting::src/routes/dashboard/models/+page.svelte:1722::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read routes/dashboard/models/+page.svelte:1722: literal <button> inside <div role=\"button\"> in the same template, only elements/control-flow blocks between, no component boundary and no portal/relocating action between them"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/NotificationBell.svelte:191::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/NotificationBell.svelte:191 has nearest literal non-transparent ancestor <button> (line 182) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/PairingModal.svelte:205::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/PairingModal.svelte:205 has nearest literal non-transparent ancestor <button> (line 201) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/PairingModal.svelte:212::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/PairingModal.svelte:212 has nearest literal non-transparent ancestor <button> (line 201) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/PairingModal.svelte:221::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/PairingModal.svelte:221 has nearest literal non-transparent ancestor <button> (line 217) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/PairingModal.svelte:224::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/PairingModal.svelte:224 has nearest literal non-transparent ancestor <button> (line 217) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingCard.svelte:103::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingCard.svelte:103 has nearest literal non-transparent ancestor <button> (line 84) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingCard.svelte:113::`<h#>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <h3> at lib/components/SettingCard.svelte:113 has nearest literal non-transparent ancestor <span> (line 112) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingCard.svelte:139::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <p> at lib/components/SettingCard.svelte:139 has nearest literal non-transparent ancestor <span> (line 111) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingCard.svelte:141::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <p> at lib/components/SettingCard.svelte:141 has nearest literal non-transparent ancestor <span> (line 111) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingCard.svelte:143::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <p> at lib/components/SettingCard.svelte:143 has nearest literal non-transparent ancestor <span> (line 111) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingCard.svelte:162::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingCard.svelte:162 has nearest literal non-transparent ancestor <span> (line 160) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingCard.svelte:164::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingCard.svelte:164 has nearest literal non-transparent ancestor <span> (line 160) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingsMigrationWizard.svelte:560::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingsMigrationWizard.svelte:560 has nearest literal non-transparent ancestor <button> (line 553) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingsMigrationWizard.svelte:563::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingsMigrationWizard.svelte:563 has nearest literal non-transparent ancestor <button> (line 553) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingsMigrationWizard.svelte:578::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingsMigrationWizard.svelte:578 has nearest literal non-transparent ancestor <button> (line 571) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingsMigrationWizard.svelte:583::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingsMigrationWizard.svelte:583 has nearest literal non-transparent ancestor <button> (line 571) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingsMigrationWizard.svelte:641::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingsMigrationWizard.svelte:641 has nearest literal non-transparent ancestor <button> (line 631) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingsMigrationWizard.svelte:793::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingsMigrationWizard.svelte:793 has nearest literal non-transparent ancestor <button> (line 786) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingsMigrationWizard.svelte:872::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingsMigrationWizard.svelte:872 has nearest literal non-transparent ancestor <button> (line 866) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/SettingsRefreshBanner.svelte:121::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/SettingsRefreshBanner.svelte:121 has nearest literal non-transparent ancestor <button> (line 115) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/schema/SchemaItemRenderer.svelte:1047::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/schema/SchemaItemRenderer.svelte:1047 has nearest literal non-transparent ancestor <span> (line 1045) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/lib/components/vehicle/CarSelectionModal.svelte:154::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at lib/components/vehicle/CarSelectionModal.svelte:154 has nearest literal non-transparent ancestor <button> (line 150) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it; the use:portal ancestor moves the whole subtree, so the parent/child pair is kept in the live DOM"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/routes/dashboard/devices/+page.svelte:282::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/dashboard/devices/+page.svelte:282 has nearest literal non-transparent ancestor <button> (line 278) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/routes/dashboard/devices/+page.svelte:287::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <p> at routes/dashboard/devices/+page.svelte:287 has nearest literal non-transparent ancestor <button> (line 278) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/routes/dashboard/models/+page.svelte:1645::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/dashboard/models/+page.svelte:1645 has nearest literal non-transparent ancestor <button> (line 1625) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/routes/dashboard/whats-new/+page.svelte:322::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/dashboard/whats-new/+page.svelte:322 has nearest literal non-transparent ancestor <button> (line 301) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/routes/dashboard/whats-new/+page.svelte:328::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/dashboard/whats-new/+page.svelte:328 has nearest literal non-transparent ancestor <button> (line 301) with only control-flow blocks between (IfBlock), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/permitted-contents::src/routes/dashboard/whats-new/+page.svelte:334::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label12/ework/pc.mjs): literal <div> at routes/dashboard/whats-new/+page.svelte:334 has nearest literal non-transparent ancestor <button> (line 301) with only control-flow blocks between (none), no component/snippet/{@render}/svelte:element boundary, not in svg, no use: action on the child that relocates it"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/top-level-landmark::src/routes/dashboard/+page.svelte:162::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte:162 <main> (devices.length === 0 arm) renders inside root +layout.svelte:673 <main> via dashboard/+layout.svelte:289, a main nested in main"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::a11y/top-level-landmark::src/routes/dashboard/+page.svelte:169::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte:169 <main> (device-selected arm) renders inside root +layout.svelte:673 <main> via dashboard/+layout.svelte:289, a main nested in main"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/AccountMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AccountMenu.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/BackupProgressModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BackupProgressModal.svelte has 271 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/DeregisterDeviceModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DeregisterDeviceModal.svelte has 305 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/DeviceRowMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DeviceRowMenu.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/DeviceStatusPill.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DeviceStatusPill.svelte has 738 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/ForceOffroadModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ForceOffroadModal.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/GlobalStatusBanner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/GlobalStatusBanner.svelte has 414 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/NotificationBell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NotificationBell.svelte has 215 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/PWAInstallPrompt.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PWAInstallPrompt.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/PairingModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PairingModal.svelte has 280 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/PushSettingsModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PushSettingsModal.svelte has 250 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/SelectDropdown.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SelectDropdown.svelte has 498 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/SettingCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SettingCard.svelte has 387 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/SettingsMigrationWizard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SettingsMigrationWizard.svelte has 1094 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/SyncStatusBanner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SyncStatusBanner.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/schema/SchemaItemRenderer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/schema/SchemaItemRenderer.svelte has 1263 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/schema/SchemaPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/schema/SchemaPanel.svelte has 349 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/search/CommandPalette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/search/CommandPalette.svelte has 471 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/lib/components/vehicle/VehicleSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vehicle/VehicleSelector.svelte has 548 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 1052 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 414 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+layout.svelte has 289 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte has 216 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/devices/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/devices/+page.svelte has 295 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/devices/[id]/details/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/devices/[id]/details/+page.svelte has 618 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/models/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/models/+page.svelte has 1943 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/osm/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/osm/+page.svelte has 704 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/preferences/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/preferences/+page.svelte has 260 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/settings/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/settings/+layout.svelte has 459 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/settings/[category]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/settings/[category]/+page.svelte has 855 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/settings/vehicle/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/settings/vehicle/+page.svelte has 259 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/whats-new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/whats-new/+page.svelte has 474 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/component-size::src/routes/dashboard/whats-new/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/whats-new/[id]/+page.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/prop-count::src/lib/components/ConfirmationModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/ConfirmationModal.svelte has a single destructured $props() with 8 named props (> 6): open, title, message, confirmText, cancelText, variant, isProcessing, onConfirm"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/prop-count::src/lib/components/DeviceRowMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/DeviceRowMenu.svelte has a single destructured $props() with 7 named props (> 6): deviceId, dongleId, pairedAt, isDownloading, onRename, onDownloadBackup, onDeregister"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::architecture/prop-count::src/lib/components/PWAInstallPrompt.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/PWAInstallPrompt.svelte has a single destructured $props() with 11 named props (> 6): title, body, shareLabel, addLabel, dismissLabel, promptOnVisit, timesToShow, delayMs, permanentlyHideOnDismiss, debug, onClose"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/lib/components/AccountMenu.svelte:173::<a href=\"/dashboard/preferences\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/dashboard/preferences') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AccountMenu.svelte:173 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/lib/components/DeviceIdentityCard.svelte:124::<a href=\"/dashboard/devices\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/dashboard/devices') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DeviceIdentityCard.svelte:124 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/lib/components/LegacyInfoModal.svelte:30::goto('/dashboard/whats-new') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/whats-new')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/LegacyInfoModal.svelte:30 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/lib/components/NotificationBell.svelte:99::goto('/dashboard/whats-new') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/whats-new')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/NotificationBell.svelte:99 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/lib/components/SettingsMigrationWizard.svelte:453::goto('/dashboard/settings/device?openPush=true') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/settings/device?openPush=true')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/SettingsMigrationWizard.svelte:453 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/lib/components/WelcomeModal.svelte:77::goto('/dashboard/devices') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/devices')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/WelcomeModal.svelte:77 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/+layout.svelte:479::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:479 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/+layout.svelte:612::<a href=\"/dashboard/devices\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/dashboard/devices') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:612 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/+layout.svelte:648::<a href=\"/dashboard/devices\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/dashboard/devices') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:648 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/+layout.svelte:95::goto('/dashboard/devices') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/devices')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:95 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/+page.svelte:377::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:377 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/+page.svelte:52::goto('/dashboard') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:52 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/+page.svelte:91::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:91 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/auth/callback/+page.svelte:24::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/auth/callback/+page.svelte:24 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/auth/callback/+page.svelte:45::goto('/dashboard') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/auth/callback/+page.svelte:45 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/auth/callback/+page.svelte:49::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/auth/callback/+page.svelte:49 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/+page.svelte:30::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/+page.svelte:30 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/+page.svelte:79::goto('/dashboard/devices') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/devices')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/+page.svelte:79 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/+page.svelte:94::goto('/dashboard/devices') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/devices')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/+page.svelte:94 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/devices/+page.svelte:112::goto('/dashboard') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/devices/+page.svelte:112 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/devices/+page.svelte:24::goto('/') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/devices/+page.svelte:24 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/devices/[id]/details/+page.svelte:493::goto('/dashboard/devices') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/devices')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/devices/[id]/details/+page.svelte:493 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/osm/+page.svelte:538::<a href=\"/dashboard/devices\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/dashboard/devices') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/osm/+page.svelte:538 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/settings/[category]/+page.svelte:674::<a href=\"/dashboard/devices\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/dashboard/devices') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/settings/[category]/+page.svelte:674 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/whats-new/+layout.ts:9::redirect(…, '/dashboard') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/dashboard') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/whats-new/+layout.ts:9 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/whats-new/[id]/+page.svelte:111::goto('/dashboard/whats-new') is root-relative — it navigates outside this project's kit.paths.base and #s in production. Use goto(resolve('/dashboard/whats-new')) with resolve from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/whats-new/[id]/+page.svelte:111 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/whats-new/[id]/+page.svelte:137::<a href=\"/dashboard/whats-new\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/dashboard/whats-new') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/whats-new/[id]/+page.svelte:137 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/dashboard/whats-new/[id]/+page.svelte:157::<a href=\"/dashboard/whats-new\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/dashboard/whats-new') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/whats-new/[id]/+page.svelte:157 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/base-path-navigation::src/routes/settings/+page.ts:5::redirect(…, '/dashboard') is root-relative — the Location header points outside this project's kit.paths.base and #s in production. Use resolve('/dashboard') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/settings/+page.ts:5 root-relative literal; svelte.config.js:13 sets kit.paths.base = process.env.BASE_PATH || \"\" (computed, so the documented gate opens), and the line holds a root-relative literal; but the only deploy, .github/workflows/main.yml:18, sets BASE_PATH: \"\" and CNAME is www.sunnylink.ai with PWA scope/start_url \"/\" (vite.config.ts), and no file imports $app/paths, so the app is served at the domain root and the link does not 404 there; the svelte.config comment \"BASE_PATH=/sunnylink-frontend\" is the only (stale) trace of a sub-path deploy; reported per documented semantics"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-index-key::src/lib/components/schema/SchemaPanel.svelte:258::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/schema/SchemaPanel.svelte:258 keyed by its index binding; list source is runtime data (itemGroups derived from the device settings schema and visibility rules evaluated against the device, 74-87, so groups appear/disappear mid-list)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-index-key::src/routes/dashboard/devices/MyDevicesSkeleton.svelte:16::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/dashboard/devices/MyDevicesSkeleton.svelte:16 keyed by its index binding; iterates a named length-only list (const placeholders = Array.from({ length: count }), 3); the docs' length-only exemption is for the inline shape and the named-list exemption covers array literals only, so it is reported per the docs; fixed placeholder slots (ledger convention)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/BackupProgressModal.svelte:190::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/BackupProgressModal.svelte:190 '{#each deviceState.backupState.failedKeys …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (device backup failures, pending setting changes, migration comparison, paired devices, search history from app stores/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/PushSettingsModal.svelte:201::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PushSettingsModal.svelte:201 '{#each changeList …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (device backup failures, pending setting changes, migration comparison, paired devices, search history from app stores/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/SettingsMigrationWizard.svelte:1014::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SettingsMigrationWizard.svelte:1014 '{#each ms.comparison …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (device backup failures, pending setting changes, migration comparison, paired devices, search history from app stores/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/SettingsMigrationWizard.svelte:1042::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SettingsMigrationWizard.svelte:1042 '{#each ms.comparison …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (device backup failures, pending setting changes, migration comparison, paired devices, search history from app stores/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/SettingsMigrationWizard.svelte:630::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SettingsMigrationWizard.svelte:630 '{#each sourceDevices …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (device backup failures, pending setting changes, migration comparison, paired devices, search history from app stores/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/SettingsMigrationWizard.svelte:785::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SettingsMigrationWizard.svelte:785 '{#each targetDevices …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (device backup failures, pending setting changes, migration comparison, paired devices, search history from app stores/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/SettingsMigrationWizard.svelte:865::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SettingsMigrationWizard.svelte:865 '{#each targetDevices …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (device backup failures, pending setting changes, migration comparison, paired devices, search history from app stores/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/schema/SchemaItemRenderer.svelte:1171::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/schema/SchemaItemRenderer.svelte:1171 '{#each item.options …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (segmented-control options of one schema item whose selection is tracked by index, isSelected = oi === selectedIdx, 1172): position is the identity"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/lib/components/search/CommandPalette.svelte:410::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/search/CommandPalette.svelte:410 '{#each searchState.history …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (device backup failures, pending setting changes, migration comparison, paired devices, search history from app stores/API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/routes/+layout.svelte:780::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:780 '{#each topLevelItems …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sidebar nav: literal NavItem lists inside $derived with conditional entries, 256-310): fixed at author time, stateless links"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/routes/+layout.svelte:786::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:786 '{#each navSections …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sidebar nav: literal NavItem lists inside $derived with conditional entries, 256-310): fixed at author time, stateless links"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/routes/+layout.svelte:811::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:811 '{#each section.items …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sidebar nav: literal NavItem lists inside $derived with conditional entries, 256-310): fixed at author time, stateless links"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/routes/+layout.svelte:829::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:829 '{#each section.items …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sidebar nav: literal NavItem lists inside $derived with conditional entries, 256-310): fixed at author time, stateless links"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::correctness/each-key::src/routes/+layout.svelte:841::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:841 '{#each utilityItems …}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sidebar nav: literal NavItem lists inside $derived with conditional entries, 256-310): fixed at author time, stateless links"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/image-dimensions::src/routes/+page.svelte:249::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class w-full rounded-lg only — width fixed, height comes from the image, no box reserved"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/image-dimensions::src/routes/dashboard/whats-new/+page.svelte:325::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside the h-16 w-24 / sm:h-20 sm:w-32 cover box, :321-325); also the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/image-dimensions::src/routes/dashboard/whats-new/[id]/+page.svelte:170::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside the aspect-[16/7] w-full wrapper, :169-170); also the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/image-loading-hint::src/routes/+page.svelte:249::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: dashboard screenshot in the landing hero's right column (+page.svelte:238-252, lg only) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/image-loading-hint::src/routes/dashboard/whats-new/[id]/+page.svelte:170::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: topic hero image at the top of the article card (:166-171) — above the fold, where the docs keep the image eager; and the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/lcp-image::src/routes/dashboard/whats-new/+page.svelte:325::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "fp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false — no page is ever served, so there is no LCP to delay (and the flagged image is a 96x64 list-row thumbnail in {#each whatsNewStore.topics}, not an LCP candidate)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/responsive-image::src/routes/+page.svelte:249::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /landing-dashboard.png — raster, one fixed-size asset"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/responsive-image::src/routes/dashboard/whats-new/+page.svelte:325::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: topic cover thumbnail URL, raster; but the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false, so the element never ships"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/responsive-image::src/routes/dashboard/whats-new/[id]/+page.svelte:170::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: topic.image_url raster; but the route never renders in this build: dashboard/whats-new/+layout.ts load throws redirect(302,'/dashboard') whenever !FEATURES.whatsNewRoute, and lib/config/features.ts sets whatsNewRoute: false, so the element never ships"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::performance/state-raw::src/lib/components/NotificationBell.svelte:18::\"panelPos\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"panelPos\" in src/lib/components/NotificationBell.svelte: only whole-binding reassignments and read-only uses; no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/InfoDetailsModal.svelte:78::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read InfoDetailsModal.svelte:19-22,78: sanitize() escapes &, <, > and only restores <br /> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/dashboard/DashboardEmptyState.svelte:18::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read dashboard/DashboardEmptyState.svelte:4,18: pairDeviceIllustration is the repo asset $lib/assets/illustrations/pair-device.svg?raw — repo constant, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/schema/SchemaItemRenderer.svelte:1041::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read schema/SchemaItemRenderer.svelte:369-376,1041: sanitizeDescription escapes &, <, > and only restores <br> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/schema/SchemaItemRenderer.svelte:1131::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read schema/SchemaItemRenderer.svelte:369-376,1131: sanitizeDescription escapes &, <, > and only restores <br> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/schema/SchemaItemRenderer.svelte:1206::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read schema/SchemaItemRenderer.svelte:369-376,1206: sanitizeDescription escapes &, <, > and only restores <br> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/schema/SchemaItemRenderer.svelte:455::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read schema/SchemaItemRenderer.svelte:369-376,455: sanitizeDescription escapes &, <, > and only restores <br> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/schema/SchemaItemRenderer.svelte:599::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read schema/SchemaItemRenderer.svelte:369-376,599: sanitizeDescription escapes &, <, > and only restores <br> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/schema/SchemaItemRenderer.svelte:731::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read schema/SchemaItemRenderer.svelte:369-376,731: sanitizeDescription escapes &, <, > and only restores <br> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/schema/SchemaItemRenderer.svelte:828::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read schema/SchemaItemRenderer.svelte:369-376,828: sanitizeDescription escapes &, <, > and only restores <br> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/search/CommandPalette.svelte:352::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read search/CommandPalette.svelte:227-248,352: highlight() escapeHtml()s every slice and only adds <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/search/CommandPalette.svelte:362::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read search/CommandPalette.svelte:227-248,362: highlight() escapeHtml()s every slice and only adds <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::security/raw-html::src/lib/components/search/CommandPalette.svelte:367::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read search/CommandPalette.svelte:227-248,367: highlight() escapeHtml()s every slice and only adds <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; publicly reachable landing page (ssr=false; signs-in/redirects only authenticated visitors), no noindex"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/auth/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (OAuth callback handoff: auth/callback/+page.svelte completes sign-in then goto()s /dashboard or /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (client auth-gated app interior, ssr=false: root +layout.svelte:460-465 treats /dashboard* as auth-required and :557 replaces the chrome with a session-expired modal whose dismissal goto('/'); dashboard pages show the signed-in user's device data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/devices/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (client auth-gated app interior, ssr=false: root +layout.svelte:460-465 treats /dashboard* as auth-required and :557 replaces the chrome with a session-expired modal whose dismissal goto('/'); dashboard pages show the signed-in user's device data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/devices/[id]/details/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (client auth-gated app interior, ssr=false: root +layout.svelte:460-465 treats /dashboard* as auth-required and :557 replaces the chrome with a session-expired modal whose dismissal goto('/'); dashboard pages show the signed-in user's device data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/models/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (client auth-gated app interior, ssr=false: root +layout.svelte:460-465 treats /dashboard* as auth-required and :557 replaces the chrome with a session-expired modal whose dismissal goto('/'); dashboard pages show the signed-in user's device data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/osm/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (client auth-gated app interior, ssr=false: root +layout.svelte:460-465 treats /dashboard* as auth-required and :557 replaces the chrome with a session-expired modal whose dismissal goto('/'); dashboard pages show the signed-in user's device data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/preferences/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (client auth-gated app interior, ssr=false: root +layout.svelte:460-465 treats /dashboard* as auth-required and :557 replaces the chrome with a session-expired modal whose dismissal goto('/'); dashboard pages show the signed-in user's device data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/settings/[category]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (client auth-gated app interior, ssr=false: root +layout.svelte:460-465 treats /dashboard* as auth-required and :557 replaces the chrome with a session-expired modal whose dismissal goto('/'); dashboard pages show the signed-in user's device data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/settings/vehicle/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (label12/a1b/verify.py + grep, comments stripped): no <link rel=\"canonical\"> anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library) but not a search target (client auth-gated app interior, ssr=false: root +layout.svelte:460-465 treats /dashboard* as auth-required and :557 replaces the chrome with a session-expired modal whose dismissal goto('/'); dashboard pages show the signed-in user's device data), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/whats-new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/canonical-url::src/routes/dashboard/whats-new/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (root +layout.svelte:552-555 head is a dynamic <title> + favicon only); / is the public marketing landing page (prerender = true, robots.txt allows all; signed-out visitors see the landing, only signed-in ones are sent to /dashboard)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/auth/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (literal claim holds); not a search target: Logto OAuth callback handler page (chromeless transitional route, root +layout.svelte isChromeless)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (chain name= hits are DashboardSkeleton props) (literal claim holds); not a search target: per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/devices/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (chain name= hits are DashboardSkeleton props) (literal claim holds); not a search target: per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/devices/[id]/details/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (chain name= hits are DashboardSkeleton props) (literal claim holds); not a search target: per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/models/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (chain name= hits are DashboardSkeleton props) (literal claim holds); not a search target: per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/osm/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (chain name= hits are DashboardSkeleton props) (literal claim holds); not a search target: per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/preferences/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (chain name= hits are DashboardSkeleton props) (literal claim holds); not a search target: per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/settings/[category]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (chain name= hits are DashboardSkeleton props) (literal claim holds); not a search target: per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/settings/vehicle/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep + a2chain): no <meta name=description> anywhere in src or app.html (chain name= hits are DashboardSkeleton props) (literal claim holds); not a search target: per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/whats-new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false in lib/config/features.ts (as const, never reassigned), so every visit to this route is redirected; route-level claims on it are false (communisaas FEATURES precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/description-presence::src/routes/dashboard/whats-new/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false in lib/config/features.ts (as const, never reassigned), so every visit to this route is redirected; route-level claims on it are false (communisaas FEATURES precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/devices/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/devices/[id]/details/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/models/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/osm/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/preferences/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/settings/[category]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/settings/vehicle/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/structured data anywhere in src or app.html; the route has no JSON-LD"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/whats-new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false in lib/config/features.ts (as const, never reassigned), so every visit to this route is redirected; route-level claims on it are false (communisaas FEATURES precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/json-ld::src/routes/dashboard/whats-new/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false in lib/config/features.ts (as const, never reassigned), so every visit to this route is redirected; route-level claims on it are false (communisaas FEATURES precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/devices/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/devices/[id]/details/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/models/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/osm/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/preferences/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/settings/[category]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/settings/vehicle/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:description anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/whats-new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-description::src/routes/dashboard/whats-new/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/devices/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/devices/[id]/details/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/models/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/osm/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/preferences/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/settings/[category]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/settings/vehicle/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:image anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/whats-new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-image::src/routes/dashboard/whats-new/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/devices/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/devices/[id]/details/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/models/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/osm/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/preferences/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/settings/[category]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/settings/vehicle/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:title anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/whats-new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-title::src/routes/dashboard/whats-new/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/devices/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/devices/[id]/details/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/models/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/osm/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/preferences/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/settings/[category]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/settings/vehicle/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no og:url anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/whats-new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/og-url::src/routes/dashboard/whats-new/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ (robots.txt allows all) or routes (literal claim holds); the only public page is the / landing, every other route is the Logto-gated device dashboard or the OAuth callback, so a sitemap would list one URL"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/ssr-disabled::src/routes/+layout.ts:157::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:157, a deliberate SPA for the per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA); the SEO-relevant landing is reported separately at src/routes/+page.ts:2"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/ssr-disabled::src/routes/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+page.ts:2 (with prerender = true) on the public marketing landing page (feature/hero copy, sign-in CTA), so the prerendered / is an empty shell for non-JS crawlers; the landing needs no browser-only API to render (auth redirect already runs in a browser-guarded $effect)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/ssr-disabled::src/routes/dashboard/+page.ts:8::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/dashboard/+page.ts (redundant with root +layout.ts:157); per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA), not content for search"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/ssr-disabled::src/routes/dashboard/devices/+page.ts:8::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/dashboard/devices/+page.ts (redundant with root +layout.ts:157); per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA), not content for search"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/ssr-disabled::src/routes/dashboard/devices/[id]/details/+page.ts:8::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/dashboard/devices/[id]/details/+page.ts (redundant with root +layout.ts:157); per-user remote-management dashboard for comma devices (README; Logto SSO, device data loaded with the user's token; root +layout.ts:157 ssr=false SPA), not content for search"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/ssr-disabled::src/routes/dashboard/whats-new/+layout.ts:5::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/dashboard/whats-new/+layout.ts (the source claim holds), but the route never renders: dashboard/whats-new/+layout.ts load redirects to /dashboard while FEATURES.whatsNewRoute is the literal false (lib/config/features.ts), and it sits in the Logto-gated device dashboard, so no content is affected"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/ssr-disabled::src/routes/dashboard/whats-new/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/dashboard/whats-new/+page.ts (the source claim holds), but the route never renders: dashboard/whats-new/+layout.ts load redirects to /dashboard while FEATURES.whatsNewRoute is the literal false (lib/config/features.ts), and it sits in the Logto-gated device dashboard, so no content is affected"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/ssr-disabled::src/routes/dashboard/whats-new/[id]/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/dashboard/whats-new/[id]/+page.ts (the source claim holds), but the route never renders: dashboard/whats-new/+layout.ts load redirects to /dashboard while FEATURES.whatsNewRoute is the literal false (lib/config/features.ts), and it sits in the Logto-gated device dashboard, so no content is affected"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/title-length::src/routes/dashboard/whats-new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false in lib/config/features.ts (as const, never reassigned), so every visit to this route is redirected; route-level claims on it are false (communisaas FEATURES precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/auth/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/devices/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/devices/[id]/details/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/models/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/osm/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/preferences/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/settings/[category]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/settings/vehicle/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (label12/a1b/verify.py + grep, comments stripped): no twitter:card anywhere in src (124 files) or app.html (fonts/icons/PWA metas only); root +layout.svelte:552-555 head is title/icon only; ssr=false app-wide (routes/+layout.ts:157) and no client-side emitter either; no meta-tag library; route renders (no load that always redirects/throws); og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/whats-new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/twitter-card::src/routes/dashboard/whats-new/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "never renders: dashboard/whats-new/+layout.ts:7-10 load throws redirect(302, '/dashboard') whenever !FEATURES.whatsNewRoute, and FEATURES.whatsNewRoute is the literal false at lib/config/features.ts:15 (as const, never reassigned; the only other uses are reads at root +layout.svelte:261,517); route-level claims on it are false (FEATURES-flag never-renders precedent)"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/single-h1::src/routes/+layout.svelte:1008::Missing <h#>",
+    "verdict": "tp",
+    "basis": "key covers 7 local routes; 6 (auth/callback, dashboard/models, osm, preferences, settings/[category], settings/vehicle) render no <h1>: their pages and root/dashboard/settings layouts have only <h2>+ (root :1008 session-expired <h2>) and do not use PageHeader/DashboardHero (the <h1> components); /dashboard/whats-new never renders (whats-new/+layout.ts redirects while FEATURES.whatsNewRoute is false); npm lucide/svelte-sonner render none"
+  },
+  {
+    "key": "sunnypilot/sunnylink-frontend::seo/single-h1::/auth/callback::Missing <h#>",
+    "verdict": "tp",
+    "basis": "/auth/callback (ssr=false app, client render): page renders a status <div> with <p>s only (auth/callback/+page.svelte); root layout chrome is in {#if !isChromeless} with isChromeless = pathname === '/' || pathname === '/auth/callback' (+layout.svelte:549; decided correctly) and has no <h1> anyway; the session-expired modal is an <h2>; <h1>s exist only in dashboard pages/PageHeader/DashboardHero/DashboardEmptyState and routes/+page.svelte (script-verified grep)"
+  }
+]

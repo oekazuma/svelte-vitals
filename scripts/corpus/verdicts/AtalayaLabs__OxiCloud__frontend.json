@@ -1,0 +1,1352 @@
+[
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/accessible-name::src/lib/components/PeopleView.svelte:154::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/PeopleView.svelte:154: <button class=\"photos__open\"> whose only content is <img alt=\"\">, no aria-label/title; it opens the lightbox but has no accessible name"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/disallowed-aria-props::src/lib/components/CollabEditor.svelte:819::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/dap.mjs): <span> at src/lib/components/CollabEditor.svelte:819 carries aria-label with no role, no spread and no use: action, so its role is generic everywhere and the name is prohibited (not exposed) as reported"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/disallowed-aria-props::src/lib/components/CollabEditor.svelte:844::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/dap.mjs): <span> at src/lib/components/CollabEditor.svelte:844 carries aria-label with no role, no spread and no use: action, so its role is generic everywhere and the name is prohibited (not exposed) as reported"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/disallowed-aria-props::src/lib/components/UserVignette.svelte:84::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/dap.mjs): <span> at src/lib/components/UserVignette.svelte:84 carries aria-label with no role, no spread and no use: action, so its role is generic everywhere and the name is prohibited (not exposed) as reported"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/disallowed-aria-props::src/routes/admin/[[tab]]/+page.svelte:3393::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/dap.mjs): <span> at src/routes/admin/[[tab]]/+page.svelte:3393 carries aria-label with no role, no spread and no use: action, so its role is generic everywhere and the name is prohibited (not exposed) as reported"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/id-duplication::src/lib/components/QuotaEditor.svelte:112::Duplicate id \"quota-editor-form\"",
+    "verdict": "design",
+    "basis": "read: both copies are QuotaEditor.svelte:112 <form id=\"quota-editor-form\">, rendered by the user-quota and drive-quota <QuotaEditor> instances on admin/[[tab]]/+page.svelte:4187/:4201; the form is children of Modal, which renders them only {#if open} (Modal.svelte:83), and the two modals (quotaModal / driveQuotaModal, set by separate edit actions) never open together; documented co-render model"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/interactive-nesting::src/lib/components/NotificationRow.svelte:212::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/in.mjs): <button> at src/lib/components/NotificationRow.svelte:212 is a literal descendant of interactive <div role=\"button\"> (line 160) in the same template; interactive content nested in an interactive container as reported"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/no-autofocus::src/lib/components/CommandPalette.svelte:302::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; search input under {#if open} (:285), the palette opened by the user; focus moves on a user action that opens the control, not at page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/no-autofocus::src/routes/music/+page.svelte:992::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; search input under {#if addOpen} (:969), opened by the add action; focus moves on a user action that opens the control, not at page load (docs carve out only <dialog>/popover)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/permitted-contents::src/lib/components/AdminJobsPanel.svelte:1149::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at src/lib/components/AdminJobsPanel.svelte:1149 has literal parent <span> (line 1125) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <span>'s content model"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/permitted-contents::src/lib/components/QuotaEditor.svelte:118::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at src/lib/components/QuotaEditor.svelte:118 has literal parent <label> (line 116) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <label>'s content model"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/permitted-contents::src/routes/admin/[[tab]]/+page.svelte:3922::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at src/routes/admin/[[tab]]/+page.svelte:3922 has literal parent <label> (line 3920) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <label>'s content model"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/permitted-contents::src/routes/admin/[[tab]]/+page.svelte:3994::`<ul>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <ul> at src/routes/admin/[[tab]]/+page.svelte:3994 has literal parent <label> (line 3980) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <label>'s content model"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/permitted-contents::src/routes/admin/[[tab]]/+page.svelte:4028::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at src/routes/admin/[[tab]]/+page.svelte:4028 has literal parent <label> (line 4026) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <label>'s content model"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::a11y/permitted-contents::src/routes/music/+page.svelte:586::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at src/routes/music/+page.svelte:586 has literal parent <button> (line 574) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <button>'s content model"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/ActionMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ActionMenu.svelte has 219 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/AdminDrivePoliciesPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AdminDrivePoliciesPanel.svelte has 1139 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/AdminJobsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AdminJobsPanel.svelte has 2130 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/AppShell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AppShell.svelte has 1702 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/CollabEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CollabEditor.svelte has 1192 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/CommandPalette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CommandPalette.svelte has 438 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/FileViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FileViewer.svelte has 632 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/FolderBreadcrumb.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FolderBreadcrumb.svelte has 536 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/Modal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Modal.svelte has 220 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/MoveDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MoveDialog.svelte has 406 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/NotificationRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NotificationRow.svelte has 253 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/OwnerAvatarStack.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/OwnerAvatarStack.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/PeopleView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PeopleView.svelte has 297 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/PhotoLightbox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PhotoLightbox.svelte has 402 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/PlacesMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PlacesMap.svelte has 370 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/PolicyList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PolicyList.svelte has 307 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/QuotaEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/QuotaEditor.svelte has 228 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/ResourceList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ResourceList.svelte has 1883 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/ShareDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ShareDialog.svelte has 1847 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/lib/components/UserVignette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UserVignette.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 279 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/admin/[[tab]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/[[tab]]/+page.svelte has 6013 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/config/drive/[uuid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/config/drive/[uuid]/+page.svelte has 796 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/device/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/device/+page.svelte has 273 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/favorites/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/favorites/+page.svelte has 382 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/files/[...path]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/files/[...path]/+page.svelte has 2704 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/groups/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/groups/+page.svelte has 637 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 1160 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/music/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/music/+page.svelte has 1145 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/photos/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/photos/+page.svelte has 654 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 1586 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/recent/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/recent/+page.svelte has 487 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/s/[token]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/s/[token]/+page.svelte has 633 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/search/+page.svelte has 862 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/shared-with-me/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/shared-with-me/+page.svelte has 458 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/shared/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/shared/+page.svelte has 1110 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/trash/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/trash/+page.svelte has 427 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/component-size::src/routes/upgrade/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/upgrade/+page.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/prop-count::src/lib/components/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Button.svelte has a single destructured $props() with 10 named props (> 6): variant, icon, small, type, disabled, title, onclick, class, data-testid, children"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/prop-count::src/lib/components/DisplayModeControls.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/DisplayModeControls.svelte has a single destructured $props() with 9 named props (> 6): groups, groupBy, ongroup, reversed, ondirection, showSort, showViewMode, showDotfileToggle, beforeGroupBy"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/prop-count::src/lib/components/ListToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ListToolbar.svelte has a single destructured $props() with 9 named props (> 6): groups, groupBy, reversed, ongroup, ondirection, showViewToggle, start, beforeGroupBy, showDotfileToggle"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/prop-count::src/lib/components/PolicyList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PolicyList.svelte has a single destructured $props() with 7 named props (> 6): values, readonly, busy, testIdPrefix, onchange, defaultsForKind, compareTo"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/prop-count::src/lib/components/QuotaEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/QuotaEditor.svelte has a single destructured $props() with 9 named props (> 6): open, title, subjectName, initialBytes, busy, error, onclose, onsave, testIdPrefix"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/prop-count::src/lib/components/ResourceList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ResourceList.svelte has a single destructured $props() with 59 named props (> 6): title, heading, items, contextMap, resolveOwnerName, loading, error, emptyText, emptyHint, emptyIcon, emptyAction, hasMore, onloadmore, showPath, pathLabel, showSize, showType, showDate, dateLabel, dateCell, bucketAction, bucketLabel, ..."
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::architecture/prop-count::src/lib/components/VirtualList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/VirtualList.svelte has a single destructured $props() with 8 named props (> 6): items, rowHeight, columns, overscan, windowClass, windowStyle, key, row"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::correctness/autoplay-muted::src/lib/components/PhotoLightbox.svelte:227::<video autoplay> without muted — browsers block audible autoplay, so the video silently never starts playing",
+    "verdict": "tp",
+    "basis": "read: PhotoLightbox.svelte:227 <video class=\"lb__media\" controls autoplay poster=...> has no muted/bind:muted/spread and no .play() call in the file; user videos (audio unknown) opened in a lightbox, so Safari/iOS blocks the audible autoplay"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::correctness/each-index-key::src/routes/admin/[[tab]]/+page.svelte:2793::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/[[tab]]/+page.svelte:2793 '{#each entry.encryption_pairs as pair, i (i)}' is keyed by its index binding and is not an exempt shape; runtime data: encryption key records (cipher, fingerprint) of a storage entry fetched from the API"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::correctness/each-index-key::src/routes/admin/[[tab]]/+page.svelte:4462::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/[[tab]]/+page.svelte:4462 '{#each logs as entry, i (i)}' is keyed by its index binding and is not an exempt shape; live log: logs = [entry, ...logs] prepends each live entry (line 804), so every index shifts"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/iframe-loading::src/lib/components/FileViewer.svelte:423::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: PDF preview inside the FileViewer dialog ({#if open && file}, .fv position:fixed inset:0, :249-254,463-466), the content of the file the user opened — visible when created, where eager is right"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/iframe-loading::src/lib/components/WopiEditor.svelte:125::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: WOPI document-editor frame filling the {#if open} full-screen editor dialog (.wopi position:fixed inset:0, :80-83,138-141) — the visible content when created, where eager is right"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-dimensions::src/routes/music/+page.svelte:582::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (.music-playlist-cover button 140x140, .music-cover-img 100%x100%, lib/styles/ported/music.css:224-227,1094-1097)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-dimensions::src/routes/music/+page.svelte:781::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (.player-album-art 56x56, img 100%x100%, music.css:512-531)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-dimensions::src/routes/photos/+page.svelte:416::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: .photo-tile__open img is position:absolute inset:0 100%x100% inside a tile sized by an inline width/height style (:372,406) — box reserved"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-dimensions::src/routes/profile/+page.svelte:623::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (.avatar-lg 72x72, :1207-1211)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-dimensions::src/routes/profile/+page.svelte:701::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (.avatar-preview 96x96, :1296-1300)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-loading-hint::src/routes/music/+page.svelte:582::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: playlist cover at the top of the playlist detail header, beside its h2 — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-loading-hint::src/routes/music/+page.svelte:781::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: album art in the now-playing bar, position:fixed bottom:0 (music.css:477-482), shown {#if currentTrack} — always in the viewport when rendered"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-loading-hint::src/routes/profile/+page.svelte:623::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar in the first card right under the page h1 (:584-623) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/image-loading-hint::src/routes/profile/+page.svelte:701::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatarPreview is a client-generated data: URL (resizeImageToDataUrl, :338-341) shown in the avatar editor the user opened — no network request for loading to defer"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/lcp-image::src/routes/photos/+page.svelte:416::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route (root layout and page header have none): the first photo tiles of the moments grid directly under the h1, sub-nav and toolbar (:249-372) — in view on load, yet marked loading=\"lazy\""
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/responsive-image::src/routes/music/+page.svelte:582::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: coverUrl() = /api/files/<cover_file_id> (:392-394), a user's raster cover file shown at 140px — one fixed-size asset"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/responsive-image::src/routes/music/+page.svelte:781::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: coverUrl() = /api/files/<cover_file_id> (:392-394), a user's raster cover file shown at 56px — one fixed-size asset"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/responsive-image::src/routes/profile/+page.svelte:623::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: session.user.image remote raster avatar URL at 72px — one fixed-size asset"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/responsive-image::src/routes/profile/+page.svelte:701::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: avatarPreview is a client-generated data: URL (resizeImageToDataUrl, :338-341) — no alternate sizes exist"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/state-raw::src/lib/components/AdminJobsPanel.svelte:51::\"runsByJob\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"runsByJob\" in src/lib/components/AdminJobsPanel.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/state-raw::src/lib/components/AdminJobsPanel.svelte:52::\"runsErrorByJob\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"runsErrorByJob\" in src/lib/components/AdminJobsPanel.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/state-raw::src/lib/components/AdminJobsPanel.svelte:53::\"runsLoadingByJob\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"runsLoadingByJob\" in src/lib/components/AdminJobsPanel.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/state-raw::src/lib/components/AdminJobsPanel.svelte:57::\"findingsByRun\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"findingsByRun\" in src/lib/components/AdminJobsPanel.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/state-raw::src/lib/components/AdminJobsPanel.svelte:58::\"findingsErrorByRun\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"findingsErrorByRun\" in src/lib/components/AdminJobsPanel.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/state-raw::src/lib/components/AdminJobsPanel.svelte:59::\"findingsLoadingByRun\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"findingsLoadingByRun\" in src/lib/components/AdminJobsPanel.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/state-raw::src/routes/admin/[[tab]]/+page.svelte:1498::\"personalDriveOwners\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"personalDriveOwners\" in src/routes/admin/[[tab]]/+page.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::performance/state-raw::src/routes/admin/[[tab]]/+page.svelte:524::\"entryTest\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"entryTest\" in src/routes/admin/[[tab]]/+page.svelte: only whole-binding reassignments (spread-copies / fresh values) and read-only template/expression uses ({@const} / {#each} items only read, passed only to read-only helpers); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated and a client redirect stub: +page.svelte onMount goto()s to /files or /shared-with-me, and routes/+layout.svelte:216-227 sends guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/admin/[[tab]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/[[tab]] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 98 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/collab/[fileId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /collab/[fileId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/config/drive/[uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /config/drive/[uuid] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 93 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/device/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /device (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); publicly reachable, rendered route, no noindex (in PUBLIC_PREFIXES, routes/+layout.svelte:36)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/favorites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /favorites (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 115 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/files/[...path]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /files/[...path] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 129 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/groups/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /groups (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); publicly reachable, rendered route, no noindex (in PUBLIC_PREFIXES, routes/+layout.svelte:36)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/music/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /music (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/nextcloud/error/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /nextcloud/error (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); publicly reachable, rendered route, no noindex (in PUBLIC_PREFIXES, routes/+layout.svelte:36)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/nextcloud/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /nextcloud/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); publicly reachable, rendered route, no noindex (in PUBLIC_PREFIXES, routes/+layout.svelte:36)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/nextcloud/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /nextcloud/success (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); publicly reachable, rendered route, no noindex (in PUBLIC_PREFIXES, routes/+layout.svelte:36)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/photos/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /photos (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 99 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/recent/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recent (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 117 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/s/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /s/[token] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 110 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); publicly reachable, rendered route, no noindex (in PUBLIC_PREFIXES, routes/+layout.svelte:36)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/shared-with-me/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /shared-with-me (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 108 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/shared/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /shared (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 94 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/trash/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/canonical-url::src/routes/upgrade/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /upgrade (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)) but not a search target (auth-gated: routes/+layout.svelte:36-39,216-227 client guard goto()s every guest outside PUBLIC_PREFIXES to /login (private self-hosted file cloud SPA)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/admin/[[tab]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/collab/[fileId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/config/drive/[uuid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/device/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/favorites/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/files/[...path]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/groups/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/music/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/nextcloud/error/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/nextcloud/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/nextcloud/success/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/photos/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/recent/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/s/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/search/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/shared-with-me/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/shared/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/trash/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/description-presence::src/routes/upgrade/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; / has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/admin/[[tab]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /admin/[[tab]] has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/collab/[fileId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /collab/[fileId] has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/config/drive/[uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /config/drive/[uuid] has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/device/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /device has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/favorites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /favorites has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/files/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /files/[...path] has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/groups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /groups has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /login has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/music/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /music has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/nextcloud/error/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /nextcloud/error has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/nextcloud/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /nextcloud/login has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/nextcloud/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /nextcloud/success has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/photos/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /photos has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /profile has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/recent/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /recent has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/s/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /s/[token] has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /search has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/shared-with-me/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /shared-with-me has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/shared/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /shared has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/trash/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /trash has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/json-ld::src/routes/upgrade/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in frontend/src or app.html; /upgrade has no JSON-LD (renders client-side; no load redirects)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/admin/[[tab]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/[[tab]] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 98 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/collab/[fileId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /collab/[fileId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/config/drive/[uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /config/drive/[uuid] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 93 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/device/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /device (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/favorites/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /favorites (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 115 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/files/[...path]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /files/[...path] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 129 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/groups/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /groups (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/music/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /music (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/nextcloud/error/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /nextcloud/error (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/nextcloud/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /nextcloud/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/nextcloud/success/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /nextcloud/success (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/photos/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /photos (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 99 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/recent/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recent (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 117 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/s/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /s/[token] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 110 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/shared-with-me/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shared-with-me (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 108 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/shared/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shared (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 94 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/trash/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-description::src/routes/upgrade/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /upgrade (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/admin/[[tab]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/[[tab]] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 98 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/collab/[fileId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /collab/[fileId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/config/drive/[uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /config/drive/[uuid] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 93 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/device/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /device (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/favorites/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /favorites (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 115 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/files/[...path]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /files/[...path] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 129 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/groups/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /groups (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/music/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /music (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/nextcloud/error/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /nextcloud/error (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/nextcloud/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /nextcloud/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/nextcloud/success/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /nextcloud/success (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/photos/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /photos (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 99 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/recent/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recent (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 117 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/s/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /s/[token] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 110 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/shared-with-me/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shared-with-me (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 108 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/shared/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shared (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 94 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/trash/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-image::src/routes/upgrade/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /upgrade (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/admin/[[tab]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/[[tab]] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 98 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/collab/[fileId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /collab/[fileId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/config/drive/[uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /config/drive/[uuid] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 93 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/device/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /device (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/favorites/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /favorites (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 115 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/files/[...path]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /files/[...path] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 129 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/groups/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /groups (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/music/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /music (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/nextcloud/error/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /nextcloud/error (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/nextcloud/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /nextcloud/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/nextcloud/success/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /nextcloud/success (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/photos/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /photos (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 99 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/recent/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recent (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 117 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/s/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /s/[token] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 110 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/shared-with-me/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shared-with-me (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 108 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/shared/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shared (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 94 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/trash/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-title::src/routes/upgrade/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /upgrade (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/admin/[[tab]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/[[tab]] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 98 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/collab/[fileId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /collab/[fileId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/config/drive/[uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /config/drive/[uuid] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 93 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/device/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /device (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/favorites/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /favorites (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 115 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/files/[...path]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /files/[...path] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 129 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/groups/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /groups (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/music/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /music (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/nextcloud/error/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /nextcloud/error (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/nextcloud/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /nextcloud/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/nextcloud/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /nextcloud/success (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/photos/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /photos (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 99 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/recent/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recent (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 117 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/s/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /s/[token] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 110 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/shared-with-me/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shared-with-me (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 108 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/shared/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shared (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 94 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/trash/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/og-url::src/routes/upgrade/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /upgrade (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: frontend/static has no robots.txt and no robots route (backend only writes one in a test, interfaces/web/mod.rs:669) (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "client redirect stub: routes/+page.svelte renders only <p>Loading…</p> and goto()s /files or /shared-with-me in onMount; root +layout.svelte (AppShell/Toaster/DialogHost) renders no <h1> (the app's only <h1> is ResourceList.svelte:1358, not on this chain) — redirect-stub convention"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/single-h1::src/routes/music/+page.svelte:519::Missing <h#>",
+    "verdict": "tp",
+    "basis": "music/+page.svelte headings are <h3>/<h2> only (:519,536,589,766…); its imports are Icon and stores; root +layout.svelte's AppShell renders no <h1> (grep: the only <h1> in src/lib is ResourceList.svelte:1358, not imported here); no npm Svelte deps"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in frontend/static, routes or backend (literal claim holds); OxiCloud is a self-hosted file cloud (README) shipped as an ssr=false SPA (src/routes/+layout.ts:4) served by its Rust backend, whose root +layout.svelte:36 guard sends every path outside /login, /device, /s/, /nextcloud to /login; not a search target"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/ssr-disabled::src/routes/+layout.ts:4::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:4 (comment: pure client-rendered SPA served by the Rust layer); deliberate SPA for a self-hosted login-gated file cloud, docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: +page.svelte has no svelte:head; root +layout.svelte (AppShell/DialogHost/Toaster) has none, app.html has no <title>, no document.title in src (only <title> outside routes is lib/icons/Icon.svelte:29 inside an <svg>); no npm Svelte UI deps; the ssr=false SPA (+layout.ts:4) renders untitled (page only shows \"Loading…\" and client-redirects in onMount, same shape as earlier SPA-shell tp verdicts)"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/title-presence::src/routes/config/drive/[uuid]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: config/drive/[uuid]/+page.svelte has no svelte:head; root +layout.svelte (AppShell/DialogHost/Toaster) has none, app.html has no <title>, no document.title in src (only <title> outside routes is lib/icons/Icon.svelte:29 inside an <svg>); no npm Svelte UI deps; the ssr=false SPA (+layout.ts:4) renders untitled"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/admin/[[tab]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/[[tab]] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 98 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/collab/[fileId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /collab/[fileId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/config/drive/[uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /config/drive/[uuid] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 93 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/device/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /device (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/favorites/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /favorites (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 115 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/files/[...path]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /files/[...path] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 129 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/groups/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /groups (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 87 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/music/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /music (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 88 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/nextcloud/error/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /nextcloud/error (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/nextcloud/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /nextcloud/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/nextcloud/success/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /nextcloud/success (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 85 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/photos/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /photos (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 99 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/recent/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recent (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 117 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/s/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /s/[token] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 110 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/shared-with-me/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shared-with-me (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 108 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/shared/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shared (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 94 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/trash/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 100 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "AtalayaLabs/OxiCloud:frontend::seo/twitter-card::src/routes/upgrade/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /upgrade (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 86 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are per-page <title> only); ssr=false SPA (routes/+layout.ts:4), no loads; npm Svelte deps none (no meta-tag library)); route renders; og/twitter rules carry no search-target exemption"
+  }
+]

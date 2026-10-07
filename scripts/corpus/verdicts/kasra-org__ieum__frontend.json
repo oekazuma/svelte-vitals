@@ -1,0 +1,1287 @@
+[
+  {
+    "key": "kasra-org/ieum:frontend::a11y/id-duplication::src/lib/components/InstitutionLookup.svelte:262::Duplicate id \"create_institution_form\"",
+    "verdict": "design",
+    "basis": "script-verified (CLI, 1 route /event/[slug]/admin): InstitutionLookup.svelte:262 form id renders via RegistrationForm in Attendees.svelte:809 (attendee_modal) and UnpaidAttendees.svelte:434, which admin/+page.svelte:257/:261 render in separate {#if sidebar_selected === ...} blocks that never render together (and inside modals)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/id-duplication::src/lib/components/SendEmailModal.svelte:224::Duplicate id \"cc_input\"",
+    "verdict": "design",
+    "basis": "script-verified (CLI, 5 findings on /event/[slug]/admin): SendEmailModal is a ui/Modal.svelte whose content renders only {#if open} (:27); the copies are separate modals (Attendees:919, UnpaidAttendees:414, OnSiteAttendees:778, Speakers:495, Abstracts:508/:556) each with its own open state, in tabs behind separate {#if sidebar_selected} blocks; opened one at a time (modal precedent)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/id-duplication::src/lib/components/SendEmailModal.svelte:258::Duplicate id \"subject\"",
+    "verdict": "design",
+    "basis": "script-verified (CLI, 5 findings on /event/[slug]/admin): SendEmailModal is a ui/Modal.svelte whose content renders only {#if open} (:27); the copies are separate modals (Attendees:919, UnpaidAttendees:414, OnSiteAttendees:778, Speakers:495, Abstracts:508/:556) each with its own open state, in tabs behind separate {#if sidebar_selected} blocks; opened one at a time (modal precedent)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/id-duplication::src/lib/components/event_admin/OnSiteAttendees.svelte:672::Duplicate id \"nametag\"",
+    "verdict": "design",
+    "basis": "read: iframe#nametag at OnSiteAttendees.svelte:672 and Attendees.svelte:955, each inside its own Modal (renders only when open), rendered by admin/+page.svelte:265/:257 in separate {#if sidebar_selected === \"onsite\"} / {#if sidebar_selected === \"attendees\"} blocks that never render together"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/id-duplication::src/lib/components/event_admin/OnSiteAttendees.svelte:724::Duplicate id \"batch_nametag\"",
+    "verdict": "design",
+    "basis": "read: iframe#batch_nametag at OnSiteAttendees.svelte:724 and Attendees.svelte:1007, each inside its own Modal (renders only when open), rendered by admin/+page.svelte:265/:257 in separate {#if sidebar_selected === \"onsite\"} / {#if sidebar_selected === \"attendees\"} blocks that never render together"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/id-duplication::src/lib/components/event_admin/OnSiteAttendees.svelte:751::Duplicate id \"cert\"",
+    "verdict": "design",
+    "basis": "read: iframe#cert at OnSiteAttendees.svelte:751 and Attendees.svelte:1034, each inside its own Modal (renders only when open), rendered by admin/+page.svelte:265/:257 in separate {#if sidebar_selected === \"onsite\"} / {#if sidebar_selected === \"attendees\"} blocks that never render together"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/id-duplication::src/lib/components/ui/TableSearch.svelte:18::Duplicate id \"table-search-field\"",
+    "verdict": "tp",
+    "basis": "mixed, labelled by majority of findings (CLI: /event/[slug]/admin and /[admin_page_name]): on /event/[slug]/admin Abstracts.svelte:339 and :419 render two <TableSearch> at its top level, so TableSearch.svelte:18 id=\"table-search-field\" is duplicated whenever the abstracts tab is open; on /[admin_page_name] the copies are in separate {#if sidebar_selected} tabs (Events/Users/Institutions), never together"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/id-duplication::src/lib/components/ui/TableSearch.svelte:29::Duplicate id \"table-search\"",
+    "verdict": "tp",
+    "basis": "mixed, labelled by majority of findings (CLI: /event/[slug]/admin and /[admin_page_name]): on /event/[slug]/admin Abstracts.svelte:339 and :419 render two <TableSearch> at its top level, so TableSearch.svelte:29 id=\"table-search\" is duplicated whenever the abstracts tab is open; on /[admin_page_name] the copies are in separate {#if sidebar_selected} tabs (Events/Users/Institutions), never together"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/interactive-nesting::src/lib/components/SendEmailModal.svelte:219::<button> is nested inside interactive <span role=\"option\">",
+    "verdict": "tp",
+    "basis": "read SendEmailModal.svelte:209-221: remove <button> inside <span role=\"option\" tabindex=\"-1\">; option is children-presentational, nested control as reported"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/lib/components/InstitutionLookup.svelte:235::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read InstitutionLookup.svelte:230-235: <div> inside the suggestion <button>; phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/lib/components/InstitutionLookup.svelte:237::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read InstitutionLookup.svelte:230-237: <div> (in {#if}) inside the suggestion <button>; phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/lib/components/MultiUserSelector.svelte:89::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read MultiUserSelector.svelte:84-89: <div class=\"flex\"> inside the user <button>; phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/lib/components/SearchableUserList.svelte:140::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read SearchableUserList.svelte:135-140: <div> inside the item <button>; phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/lib/components/SearchableUserList.svelte:141::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read SearchableUserList.svelte:135-141: <div> inside the item <button>; phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/lib/components/SearchableUserList.svelte:142::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read SearchableUserList.svelte:135-142: <div> inside the item <button>; phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/lib/components/VenueSelector.svelte:288::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read VenueSelector.svelte:283-288: <div> inside the result <button>; phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/lib/components/VenueSelector.svelte:289::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read VenueSelector.svelte:283-289: <div> inside the result <button>; phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:818::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read register/+page.svelte:818: <div class=\"flex\"> inside the payment-option <label> (radio card); <label> admits phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:843::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read register/+page.svelte:843: <div class=\"flex\"> inside the payment-option <label> (radio card); <label> admits phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::a11y/permitted-contents::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:868::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read register/+page.svelte:868: <div class=\"flex\"> inside the payment-option <label> (radio card); <label> admits phrasing content only"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/InstitutionLookup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/InstitutionLookup.svelte has 333 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/MarkdownEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MarkdownEditor.svelte has 973 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/RegistrationForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RegistrationForm.svelte has 259 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/SendEmailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SendEmailModal.svelte has 304 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/VenueSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/VenueSelector.svelte has 399 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/admin/Events.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/Events.svelte has 228 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/admin/Users.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/Users.svelte has 347 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/event_admin/Abstracts.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event_admin/Abstracts.svelte has 612 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/event_admin/Attendees.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event_admin/Attendees.svelte has 1057 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/event_admin/EventAdminForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event_admin/EventAdminForm.svelte has 302 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/event_admin/OnSiteAttendees.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event_admin/OnSiteAttendees.svelte has 789 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/event_admin/Organizers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event_admin/Organizers.svelte has 336 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/event_admin/Speakers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event_admin/Speakers.svelte has 517 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/event_admin/Transactions.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event_admin/Transactions.svelte has 856 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/lib/components/event_admin/UnpaidAttendees.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/event_admin/UnpaidAttendees.svelte has 457 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/(event)/event/[slug]/(after_login)/abstract/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(event)/event/[slug]/(after_login)/abstract/+page.svelte has 316 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/(event)/event/[slug]/(after_login)/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(event)/event/[slug]/(after_login)/admin/+page.svelte has 287 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte has 956 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/(event)/event/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(event)/event/[slug]/+page.svelte has 360 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/(nonevent)/(after_login)/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nonevent)/(after_login)/profile/+page.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/(nonevent)/(after_login)/receipt/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nonevent)/(after_login)/receipt/[id]/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/(nonevent)/[admin_page_name]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nonevent)/[admin_page_name]/+page.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/(nonevent)/registration/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(nonevent)/registration/+page.svelte has 246 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 413 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ConfirmModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ConfirmModal.svelte has a single destructured $props() with 8 named props (> 6): open, title, message, confirmLabel, cancelLabel, confirmColor, onConfirm, loading"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/MarkdownEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MarkdownEditor.svelte has a single destructured $props() with 7 named props (> 6): value, name, id, label, placeholder, rows, required"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/MultiUserSelector.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MultiUserSelector.svelte has a single destructured $props() with 7 named props (> 6): users, selectedIds, label, placeholder, description, maxResults, required"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/SearchableUserList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SearchableUserList.svelte has a single destructured $props() with 11 named props (> 6): items, selectedId, placeholder, noResultsMessage, maxHeight, showChangeButton, getItemName, getItemSecondaryName, getItemInstitute, getItemEmail, onSelect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/UserSelectionModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/UserSelectionModal.svelte has a single destructured $props() with 7 named props (> 6): open, title, userList, action, submitLabel, error, onSubmit"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/VenueSelector.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/VenueSelector.svelte has a single destructured $props() with 8 named props (> 6): venueName, venueNameKo, venueAddress, venueAddressKo, venueLatitude, venueLongitude, error, required"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 9 named props plus ...rest (> 6): color, size, type, href, disabled, pill, outline, class, children"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ui/Card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Card.svelte has a single destructured $props() with 7 named props plus ...rest (> 6): size, padding, href, horizontal, shadow, class, children"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ui/Dropzone.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Dropzone.svelte has a single destructured $props() with 7 named props plus ...rest (> 6): files, multiple, accept, onChange, onDrop, class, children"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ui/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Input.svelte has a single destructured $props() with 7 named props plus ...rest (> 6): value, type, class, disabled, readonly, required, children"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ui/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Modal.svelte has a single destructured $props() with 10 named props plus ...rest (> 6): open, title, size, dismissable, autoclose, outsideclose, onclose, class, children, footer"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ui/Sidebar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Sidebar.svelte has a single destructured $props() with 7 named props plus ...rest (> 6): alwaysOpen, backdrop, isOpen, activeClass, nonActiveClass, class, children"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ui/SidebarItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/SidebarItem.svelte has a single destructured $props() with 9 named props plus ...rest (> 6): label, href, active, activeClass, nonActiveClass, class, icon, subtext, children"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::architecture/prop-count::src/lib/components/ui/TableSearch.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/TableSearch.svelte has a single destructured $props() with 11 named props plus ...rest (> 6): inputValue, field, fields, placeholder, hoverable, striped, divClass, innerDivClass, inputClass, class, children"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-index-key::src/lib/components/event_admin/EventAdminForm.svelte:209::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: EventAdminForm.svelte:209 '{#each categories as category, index (index)}' keyed by its index binding; categories is an editable $state list of registration-category rows with inputs, appended (:56), removed mid-list (:60) and reordered by moveCategory (:65-68): runtime user-edited list (ledger editable add/remove rows)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/EmailAttachments.svelte:87::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: EmailAttachments.svelte:87 '{#each value as file, i}' has no key; value is a $bindable attachment list appended on upload (:63) and removed mid-list by index (:75): runtime user-edited list"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/EmailManagement.svelte:138::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: EmailManagement.svelte:138 '{#each emailList as emailItem}' has no key; emailList $state replaced from the email API (:39): runtime records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/InstitutionLookup.svelte:229::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: InstitutionLookup.svelte:229 '{#each filtered_suggestions as suggestion}' has no key; filtered_suggestions $state (:51) of institution lookups as the user types: runtime search results"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/MultiUserSelector.svelte:55::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: MultiUserSelector.svelte:55 '{#each selectedUsers as user}' has no key; selectedUsers = $derived of the users the admin picks and removes (:30): runtime user-edited list"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/MultiUserSelector.svelte:83::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: MultiUserSelector.svelte:83 '{#each filteredUsers as user}' has no key; filteredUsers = $derived of the user list filtered by the search input (:19): runtime search results"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/SearchableUserList.svelte:134::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: SearchableUserList.svelte:134 '{#each filteredItems as item}' has no key; filteredItems = $derived of the items filtered by the search input (:65): runtime search results"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/SendEmailModal.svelte:207::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: SendEmailModal.svelte:207 '{#each ccEmails as email, i}' has no key; ccEmails $state appended (:52) and removed mid-list by index (:61): runtime user-edited list"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/SendEmailModal.svelte:241::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: SendEmailModal.svelte:241 '{#each suggestions as admin, si}' has no key; suggestions = $derived event admins filtered by the typed text and the chosen CCs (:37-41): runtime search results"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/SendEmailModal.svelte:263::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SendEmailModal.svelte:263 '{#each presets as preset}' has no key; both callers pass a same-file const literal of email presets (Abstracts.svelte:130 abstractEmailPresets, Speakers.svelte:495 speakerEmailPresets): static list fixed at author time"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/TablePagination.svelte:51::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TablePagination.svelte:51 '{#each visiblePages() as page}' has no key; visiblePages = page numbers around the current page (:12): positional list (pagination page numbers), ledger pagination convention"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/VenueSelector.svelte:282::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: VenueSelector.svelte:282 '{#each results as result}' has no key; results $state (:19) of venue search results: runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/YearSelector.svelte:111::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: YearSelector.svelte:111 '{#each displayYears() as year}' has no key; displayYears = a window of consecutive years around currentYear + yearOffset (:19-27): positional list (calendar years), ledger calendar convention"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/admin/Events.svelte:150::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: admin/Events.svelte:150 '{#each filtered_events as event}' has no key; filtered_events = $derived of the event records filtered by search (:28): runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/admin/Institutions.svelte:69::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: admin/Institutions.svelte:69 '{#each filtered_institutions as institution}' has no key; filtered_institutions = $derived of the institution records filtered by search (:18): runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/admin/PaymentSettings.svelte:50::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: admin/PaymentSettings.svelte:50 '{#each options as option}' has no key; the providerGroup snippet is rendered only with the same-file const literals domesticOptions/internationalOptions (:20, :25, :82, :88): static list fixed at author time"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/admin/Users.svelte:139::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: admin/Users.svelte:139 '{#each filtered_users as user}' has no key; filtered_users = $derived of the user records filtered by search (:22): runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/admin/Users.svelte:288::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: admin/Users.svelte:288 '{#each (data.admin.institutions ?? []) as inst}' has no key; the institution records the admin manages (admin/Institutions.svelte) rendered as <option>s: runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Abstracts.svelte:360::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Abstracts.svelte:360 '{#each paginatedReviewers as row}' has no key; paginatedReviewers = $derived page slice of the event's reviewer records (:151): runtime data that changes with paging"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Abstracts.svelte:434::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Abstracts.svelte:434 '{#each paginatedAbstracts as row}' has no key; a page slice of the event's submitted abstracts: runtime data that changes with paging/filters"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Attendees.svelte:726::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: event_admin/Attendees.svelte:726 '{#each custom_headers_attendees as header}' has no key; custom_headers_attendees = the event's custom-question column headers set once from the loaded table data (:647, :656): positional list (column headers of one table), ledger convention"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Attendees.svelte:733::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Attendees.svelte:733 '{#each paginatedAttendees as row}' has no key; a page slice of the event's attendee records: runtime data that changes with paging/filters"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Attendees.svelte:759::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: event_admin/Attendees.svelte:759 '{#each row.custom_answers as a}' has no key; one cell per custom-question column, built aligned with the headers (:98-113): positional list (cells of one row)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Attendees.svelte:827::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Attendees.svelte:827 '{#each custom_answers as answer, idx}' has no key; custom_answers is an editable $state list of answer rows with selects/inputs, appended (:246) and removed mid-list by index (:883): runtime user-edited list"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Attendees.svelte:856::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Attendees.svelte:856 '{#each options as option, oidx}' has no key; options = the checkbox options of the organizer-defined question the answer row references (:849), swapped when the row's question changes or rows are removed: runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/EventAdmins.svelte:112::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/EventAdmins.svelte:112 '{#each paginatedEventAdmins as row}' has no key; paginatedEventAdmins = $derived page slice of the event-admin records (:43): runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/OnSiteAttendees.svelte:557::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/OnSiteAttendees.svelte:557 '{#each paginatedAttendees as row}' has no key; a page slice of the on-site attendee records filtered by search: runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Organizers.svelte:186::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Organizers.svelte:186 '{#each paginatedOrganizers as row, localIndex}' has no key; paginatedOrganizers = $derived page slice of the organizer records (:40): runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Speakers.svelte:293::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: event_admin/Speakers.svelte:293 '{#each roleFilters as f}' has no key; roleFilters = $derived of a same-file fixed filter literal, with one entry included by a flag (:43-50): static list fixed at author time"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Speakers.svelte:322::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Speakers.svelte:322 '{#each paginatedSpeakers as row}' has no key; a page slice of the speaker records filtered by role: runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Transactions.svelte:479::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Transactions.svelte:479 '{#each paginatedPayments as payment}' has no key; a page slice of the event's payment records: runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/Transactions.svelte:556::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/Transactions.svelte:556 '{#each categoryOptions as option}' has no key; categoryOptions = $derived of the event's organizer-defined registration categories (data.event.registration_categories, :204-209): runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_admin/UnpaidAttendees.svelte:307::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event_admin/UnpaidAttendees.svelte:307 '{#each paginated as row}' has no key; paginated = $derived(filtered.slice(...)) (:75) of unpaid attendee records: runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_registration/RegistrationInfoSection.svelte:157::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: RegistrationInfoSection.svelte:157 '{#each attendee.custom_answers as answer}' has no key; the attendee record's answers to the event's custom questions: runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/event_registration/RegistrationInfoSection.svelte:162::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: RegistrationInfoSection.svelte:162 '{#each parseCheckboxAnswer(answer.answer) as item}' has no key; the checked items parsed from one answer string (:32): positional list (segments of one string)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/ui/ProgressStepper.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ui/ProgressStepper.svelte:22 '{#each steps as step, i}' has no key; its only caller passes steps = $derived choice between two fixed step literals (register/+page.svelte:61-70, :525): static list (wizard steps), ledger convention"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/ui/Select.svelte:18::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: ui/Select.svelte:18 '{#each items as item}' has no key; at least four callers pass runtime records: users (admin/ApiKeys.svelte:143), event categories (Attendees.svelte:807, UnpaidAttendees.svelte:432) and question options (Attendees.svelte:875); the others pass constants (paymentTypeOptions, PRESENTATION_TYPES): the claim holds for the runtime uses"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/lib/components/ui/TableSearch.svelte:23::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ui/TableSearch.svelte:23 '{#each fields as f}' has no key; callers pass same-file const field literals (Organizers.svelte:22, OnSiteAttendees.svelte:86 searchFields): static list fixed at author time"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:590::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: register/+page.svelte:590 '{#each categoryOptions as option}' has no key; categoryOptions = $derived of the event's organizer-defined registration categories (:30-36), rendered as radio inputs: runtime DB records that differ per event"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:615::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: register/+page.svelte:615 '{#each data.questions as question}' has no key; data.questions = the event's custom questions fetched in the load (register/+page.server.js:36-38), rendered as inputs: runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:621::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: register/+page.svelte:621 '{#each question.question.options as option, oidx}' has no key; the options of an organizer-defined custom question fetched in the load: runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:627::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: register/+page.svelte:627 '{#each question.question.options as option, oidx}' has no key; the options of an organizer-defined custom question fetched in the load: runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:738::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: register/+page.svelte:738 '{#each data.questions as question}' has no key; data.questions = the event's custom questions fetched in the load (register/+page.server.js:36-38): runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:744::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: register/+page.svelte:744 '{#each question.question.options as option, oidx}' has no key; the options of an organizer-defined custom question fetched in the load: runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/(after_login)/reviewer/+page.svelte:67::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: reviewer/+page.svelte:67 '{#each data.abstracts as abstract}' has no key; data.abstracts are the abstracts assigned to the reviewer, loaded from the API: runtime records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/+page.svelte:144::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: event/[slug]/+page.svelte:144 '{#each feeRows as row}' has no key; feeRows = $derived of the event's organizer-defined registration categories (:85-90), which differ per [slug]: runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(event)/event/[slug]/onsite/+page.svelte:123::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: onsite/+page.svelte:123 '{#each categoryOptions as option}' has no key; categoryOptions = $derived of the event's organizer-defined registration categories (:36): runtime DB records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(nonevent)/(after_login)/payment-history/+page.svelte:101::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: payment-history/+page.svelte:101 '{#each paginatedPayments as payment}' has no key; paginatedPayments = $derived page slice of the user's payment records (:62): runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/(nonevent)/(after_login)/registration-history/+page.svelte:142::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: registration-history/+page.svelte:142 '{#each paginatedRegistrations as registration}' has no key; a page slice of the user's registration records: runtime data"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/+layout.svelte:283::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/+layout.svelte:283 '{#each businessInfo as [label, value, href]}' has no key; businessInfo = $derived.by of a fixed label/value literal over the business settings record, minus empty values (:101-115): static list (fixed metadata rows of one record), ledger convention"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/each-key::src/routes/+page.svelte:282::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: routes/+page.svelte:282 '{#each allEvents as event}' has no key; allEvents $state replaced and appended by load-more pagination (:36-39): runtime records"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/effect-as-derived::src/lib/components/event_admin/EventInformation.svelte:16::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: EventInformation.svelte:15-18 the effect copies data.event into eventFormData, which is passed as bind:data={eventFormData} to EventAdminForm (:55), which deep-writes it (data.description/venue/... = …, EventAdminForm.svelte:89-92); a $derived value is not deeply proxied (ledger convention)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/effect-as-derived::src/lib/components/event_admin/OnSiteAttendees.svelte:179::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: OnSiteAttendees.svelte:179-183 the $effect.pre only assigns three primitive $state from the $derived _nametag_defaults; the other writes are wholesale reassignments (:215), the writable-$derived override pattern (svelte 5.57.0 in the lockfile)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/effect-as-derived::src/routes/(event)/event/[slug]/(after_login)/admin/+page.svelte:95::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: admin/+page.svelte:95-97 the effect only does published = data.event.published (prop); the other write is published = !published (:138), the writable-$derived override pattern (svelte 5.57.0 in the lockfile)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/stale-prop-derivation::src/routes/(event)/event/[slug]/(after_login)/abstract/+page.svelte:15::\"me\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: abstract/+page.svelte:15 let me = data.user at init, rendered (:202), structurally true; data.user is the signed-in user, which does not change across same-route navigation between events: not a demonstrable stale-UI defect (ledger logged-in-user convention)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/stale-prop-derivation::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:160::\"domesticProvider\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: register/+page.svelte:160 domesticProvider from data.payment_settings at init, rendered (:808, :833), structurally true; payment_settings is the global gateway setting fetched from api/payment-settings (register/+page.server.js:10-13), the same for every event, so it does not change while mounted"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/stale-prop-derivation::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:161::\"internationalProvider\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: register/+page.svelte:161 internationalProvider from data.payment_settings at init, rendered (:858), structurally true; the global gateway setting (register/+page.server.js:10-13), the same for every event, so it does not change while mounted"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/stale-prop-derivation::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:56::\"startAtPaymentStep\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: register/+page.svelte:56 startAtPaymentStep = data.startAtPaymentStep at init, rendered (:510), structurally true; it deliberately seeds the step machine (currentStep = $state(startAtPaymentStep ? 3 : 1), :60) and nothing links one event's register page to another's (grep of href/goto to /register: only the same event's pages and components link it, event/[slug]/+page.svelte:256, abstract/+page.svelte:185): not a demonstrable stale-UI defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/stale-prop-derivation::src/routes/(event)/event/[slug]/onsite/[onsiteid]/+page.svelte:8::\"onsiteid\" is computed from a prop once, at initialization — it will not update when the prop changes. Prefix the assignment with $: to make it a reactive statement.",
+    "verdict": "design",
+    "basis": "read: onsite/[onsiteid]/+page.svelte:8 onsiteid = data.onsiteid at init, rendered (:50), structurally true; a confirmation page reached only by the onsite form's redirect (onsite/+page.server.js:40) whose only link leaves for the event page, so no in-app navigation goes [onsiteid] -> [onsiteid]"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/unmutated-state::src/lib/components/event_admin/Speakers.svelte:81::$state \"attendee_selection_modal\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w attendee_selection_modal in the file): Speakers.svelte:81 let attendee_selection_modal = $state(false) is declared and never mentioned again (dead state); never written, bound or passed"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/unmutated-state::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:154::$state \"checkoutStatus\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w checkoutStatus in the file): register/+page.svelte:154 let checkoutStatus = $state('processing'); its only other mentions are reads in {#if} (:944, :948); never written, bound or passed, so the success arm never renders"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::correctness/unmutated-state::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:166::$state \"paypalContainerRef\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w paypalContainerRef in the file): register/+page.svelte:166 let paypalContainerRef = $state(null) is declared and never mentioned again (dead state); never written, bound or passed"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/iframe-loading::src/lib/components/event_admin/Attendees.svelte:1007::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; batch nametag PDF print preview (src = client-generated PDF, e.g. generateNametagPDF, Attendees.svelte:445/480/584) inside a flowbite <Modal> the admin opens, printed via contentWindow.print() - the modal's visible content when opened, where eager is right"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/iframe-loading::src/lib/components/event_admin/Attendees.svelte:1034::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; certificate PDF print preview (src = client-generated PDF, e.g. generateNametagPDF, Attendees.svelte:445/480/584) inside a flowbite <Modal> the admin opens, printed via contentWindow.print() - the modal's visible content when opened, where eager is right"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/iframe-loading::src/lib/components/event_admin/Attendees.svelte:955::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; single nametag PDF print preview (src = client-generated PDF, e.g. generateNametagPDF, Attendees.svelte:445/480/584) inside a flowbite <Modal> the admin opens, printed via contentWindow.print() - the modal's visible content when opened, where eager is right"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/iframe-loading::src/lib/components/event_admin/OnSiteAttendees.svelte:672::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; single nametag PDF print preview (src = client-generated PDF, e.g. generateNametagPDF, Attendees.svelte:445/480/584) inside a flowbite <Modal> the admin opens, printed via contentWindow.print() - the modal's visible content when opened, where eager is right"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/iframe-loading::src/lib/components/event_admin/OnSiteAttendees.svelte:724::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; batch nametag PDF print preview (src = client-generated PDF, e.g. generateNametagPDF, Attendees.svelte:445/480/584) inside a flowbite <Modal> the admin opens, printed via contentWindow.print() - the modal's visible content when opened, where eager is right"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/iframe-loading::src/lib/components/event_admin/OnSiteAttendees.svelte:751::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; certificate PDF print preview (src = client-generated PDF, e.g. generateNametagPDF, Attendees.svelte:445/480/584) inside a flowbite <Modal> the admin opens, printed via contentWindow.print() - the modal's visible content when opened, where eager is right"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/image-dimensions::src/routes/+layout.svelte:171::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> has no width/height and no spread; navbar logo /logo.webp with class h-10 sm:h-12 (+layout.svelte:171) - fixed height, width auto only varies inside its row; key covers 27 routes (root layout, not /receipt/*)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/image-dimensions::src/routes/+layout.svelte:238::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> has no width/height and no spread; footer logo /logo.webp with class h-10 w-auto (+layout.svelte:238-242) - fixed height, width auto only varies inside its column; key covers 27 routes"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/image-loading-hint::src/routes/+layout.svelte:171::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading and no spread; navbar brand logo in NavBrand at the top of every page (+layout.svelte:166-172) - above the fold; key covers 27 routes"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/image-loading-hint::src/routes/+layout.svelte:238::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading and no spread; footer brand logo at the bottom of every page after {@render children()} and a flex-1 spacer (+layout.svelte:225-243) - offscreen on load; key covers 27 routes"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/responsive-image::src/routes/+layout.svelte:171::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; static/logo.webp (7 KB raster WebP) shown at h-10/h-12 - raster, one fixed-size asset; key covers 27 routes"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/responsive-image::src/routes/+layout.svelte:238::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; static/logo.webp (7 KB raster WebP) - raster, one fixed-size asset; key covers 27 routes"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(event)/event/[slug]/(after_login)/registration/+page.server.js:34::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(event)/event/[slug]/(after_login)/registration/+page.server.js:14-34: payment GET uses only params.slug, nothing from the attendee GET at :14 (rtn.registered gate is from the exempt parent()) — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/[admin_page_name]/+page.server.js:30::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/[admin_page_name]/+page.server.js:24-30: get('api/admin/apikeys') uses nothing from the earlier backend GETs (events/users/institutions/apikeys/settings), which only throw 404 on the exceptional path — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/[admin_page_name]/+page.server.js:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/[admin_page_name]/+page.server.js:24-35: get('api/site-settings') uses nothing from the earlier backend GETs (events/users/institutions/apikeys/settings), which only throw 404 on the exceptional path — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/[admin_page_name]/+page.server.js:47::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/[admin_page_name]/+page.server.js:24-47: get('api/payment-settings') uses nothing from the earlier backend GETs (events/users/institutions/apikeys/settings), which only throw 404 on the exceptional path — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/[admin_page_name]/+page.server.js:53::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/[admin_page_name]/+page.server.js:24-53: get('api/business-settings') uses nothing from the earlier backend GETs (events/users/institutions/apikeys/settings), which only throw 404 on the exceptional path — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/[admin_page_name]/+page.server.js:68::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/[admin_page_name]/+page.server.js:24-68: get('api/admin/account-settings') uses nothing from the earlier backend GETs (events/users/institutions/apikeys/settings), which only throw 404 on the exceptional path — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/[admin_page_name]/+page.server.js:82::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/[admin_page_name]/+page.server.js:24-82: get('api/admin/privacy-policy') uses nothing from the earlier backend GETs (events/users/institutions/apikeys/settings), which only throw 404 on the exceptional path — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/[admin_page_name]/+page.server.js:93::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/[admin_page_name]/+page.server.js:24-93: get('api/admin/terms-of-service') uses nothing from the earlier backend GETs (events/users/institutions/apikeys/settings), which only throw 404 on the exceptional path — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/invite/[token]/+page.server.js:32::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/(nonevent)/invite/[token]/+page.server.js:22-32: the flagged await is the side-effecting POST .../accept, deliberately issued only after the invitation GET validated the link (404) and the signed-in check — a mutation ordered after its validation read, docs Limitations side-effect ordering"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/registration/+page.server.js:49::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/registration/+page.server.js:46-49: get('api/privacy-policy') uses nothing from invitationForNext (a backend GET, lib/server/invitation.js:14) — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/(nonevent)/registration/+page.server.js:56::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/registration/+page.server.js:46-56: get('api/terms-of-service') uses nothing from invitationForNext (a backend GET, lib/server/invitation.js:14) or the privacy-policy GET — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/+layout.server.js:110::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+layout.server.js:29-110: public cookie-less get('api/business-settings') uses nothing from the csrftoken/me/event GETs before it or site-settings — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/sequential-awaits::src/routes/+layout.server.js:96::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/+layout.server.js:29-96: public cookie-less get('api/site-settings') uses nothing from the csrftoken/me/event GETs before it — independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/Attendees.svelte:276::\"message_custom_answer_changes\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/Attendees.svelte:276 — script-listed every reference to \"message_custom_answer_changes\" in Attendees.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/Attendees.svelte:308::\"message_default_answer_changes\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/Attendees.svelte:308 — script-listed every reference to \"message_default_answer_changes\" in Attendees.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/Attendees.svelte:505::\"cert_message\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/Attendees.svelte:505 — script-listed every reference to \"cert_message\" in Attendees.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/Attendees.svelte:510::\"bulk_cert_message\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/Attendees.svelte:510 — script-listed every reference to \"bulk_cert_message\" in Attendees.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/EventSpecificQuestions.svelte:11::\"message_custom_question_changes\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/EventSpecificQuestions.svelte:11 — script-listed every reference to \"message_custom_question_changes\" in EventSpecificQuestions.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/OnSiteAttendees.svelte:129::\"message_update\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/OnSiteAttendees.svelte:129 — script-listed every reference to \"message_update\" in OnSiteAttendees.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/OnSiteAttendees.svelte:282::\"cert_message\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/OnSiteAttendees.svelte:282 — script-listed every reference to \"cert_message\" in OnSiteAttendees.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/OnSiteAttendees.svelte:287::\"bulk_cert_message\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/OnSiteAttendees.svelte:287 — script-listed every reference to \"bulk_cert_message\" in OnSiteAttendees.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::performance/state-raw::src/lib/components/event_admin/UnpaidAttendees.svelte:139::\"edit_message\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/lib/components/event_admin/UnpaidAttendees.svelte:139 — script-listed every reference to \"edit_message\" in UnpaidAttendees.svelte: only whole-binding reassignments and read-only template uses (reassigned to fresh {type,message} literals in handlers, read as .type/.message in {#if}/<Alert>); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/lib/components/event_admin/Abstracts.svelte:588::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/event_admin/Abstracts.svelte:588: sanitizeHtml (same file) returns DOMPurify.sanitize(html) in the browser and '' otherwise — never unsanitized, reported per docs"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(event)/event/[slug]/(after_login)/abstract/+page.svelte:207::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(event)/event/[slug]/(after_login)/abstract/+page.svelte:207: sanitizeHtml (same file) returns DOMPurify.sanitize(html) in the browser and '' otherwise — never unsanitized, reported per docs"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(event)/event/[slug]/(after_login)/admin/+page.svelte:111::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(event)/event/[slug]/(after_login)/admin/+page.svelte:110-112: the process_spaces snippet is never rendered in this file (grep: no {@render process_spaces}) — dead code, reported per docs"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte:488::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read register/+page.svelte:487-488,617,740: process_spaces renders question.question.question (CustomQuestion text written by event admins, backend models.py:570-575) with only \\n->br and space->nbsp, no escaping, to every registrant — convention: admin/DB-authored text rendered unsanitized"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(event)/event/[slug]/(after_login)/reviewer/+page.svelte:74::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(event)/event/[slug]/(after_login)/reviewer/+page.svelte:74: sanitizeHtml (same file) returns DOMPurify.sanitize(html) in the browser and '' otherwise — never unsanitized, reported per docs"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(event)/event/[slug]/+page.svelte:238::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/(event)/event/[slug]/+page.svelte:55-64: descriptionHtml = DOMPurify.sanitize(marked.parse(description)) in the browser and '' on the server — sanitized, reported per docs"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(nonevent)/privacy-policy/+page.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/privacy-policy/+page.svelte:49: privacy policy / terms content_en/content_ko are raw HTML staff type into a Textarea (lib/components/admin/PrivacyPolicy.svelte; backend apis.py:4114-4156 @ensure_staff, no sanitizer in backend or frontend) rendered unsanitized to every visitor — convention: admin/DB-authored HTML rendered unsanitized"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(nonevent)/registration/+page.svelte:193::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/registration/+page.svelte:193: privacy policy / terms content_en/content_ko are raw HTML staff type into a Textarea (lib/components/admin/PrivacyPolicy.svelte; backend apis.py:4114-4156 @ensure_staff, no sanitizer in backend or frontend) rendered unsanitized to every visitor — convention: admin/DB-authored HTML rendered unsanitized"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(nonevent)/registration/+page.svelte:213::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/registration/+page.svelte:213: privacy policy / terms content_en/content_ko are raw HTML staff type into a Textarea (lib/components/admin/PrivacyPolicy.svelte; backend apis.py:4114-4156 @ensure_staff, no sanitizer in backend or frontend) rendered unsanitized to every visitor — convention: admin/DB-authored HTML rendered unsanitized"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/(nonevent)/terms-of-service/+page.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(nonevent)/terms-of-service/+page.svelte:49: privacy policy / terms content_en/content_ko are raw HTML staff type into a Textarea (lib/components/admin/PrivacyPolicy.svelte; backend apis.py:4114-4156 @ensure_staff, no sanitizer in backend or frontend) rendered unsanitized to every visitor — convention: admin/DB-authored HTML rendered unsanitized"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/+page.svelte:309::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:187-206,309: highlightText escapes & < > \" ' of the text (and the keyword) before wrapping matches in a fixed <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/+page.svelte:360::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:187-206,360: highlightText escapes & < > \" ' of the text (and the keyword) before wrapping matches in a fixed <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/raw-html::src/routes/+page.svelte:364::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:187-206,364: highlightText escapes & < > \" ' of the text (and the keyword) before wrapping matches in a fixed <mark> — escaped, reported per docs"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/server-module-state::src/routes/api/geocode/+server.js:57::module-scope variable \"lastCallAt\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/api/geocode/+server.js:29-65: `lastCallAt` is the process-wide serialisation/rate limiter for Nominatim's 1 req/s usage policy (commented :48-49), holding a timestamp/promise chain, no user or request data — deliberate process-wide state, docs' suppress case"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/server-module-state::src/routes/api/geocode/+server.js:60::module-scope variable \"chain\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/api/geocode/+server.js:29-65: `chain` is the process-wide serialisation/rate limiter for Nominatim's 1 req/s usage policy (commented :48-49), holding a timestamp/promise chain, no user or request data — deliberate process-wide state, docs' suppress case"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/server-module-state::src/routes/og-image/+server.js:34::module-scope variable \"fontData\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/og-image/+server.js:11-44: `fontData` is a lazily loaded process-wide cache of a static file from static/ (font/bg/logo) filled by initResources(), identical for every request, no user data — deliberate process-wide cache, docs' suppress case"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/server-module-state::src/routes/og-image/+server.js:39::module-scope variable \"bgBase#\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/og-image/+server.js:11-44: `bgBase64` is a lazily loaded process-wide cache of a static file from static/ (font/bg/logo) filled by initResources(), identical for every request, no user data — deliberate process-wide cache, docs' suppress case"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::security/server-module-state::src/routes/og-image/+server.js:43::module-scope variable \"logoBase#\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/og-image/+server.js:11-44: `logoBase64` is a lazily loaded process-wide cache of a static file from static/ (font/bg/logo) filled by initResources(), identical for every request, no user data — deliberate process-wide cache, docs' suppress case"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(event)/event/[slug]/(after_login)/abstract/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/abstract (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(event)/event/[slug]/(after_login)/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/admin (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (admin-only: the (after_login) layout skips its guest redirect for paths containing \"admin\", but admin/+page.server.js 404s via get_data_or_404(api/admin/event/...) for any non-admin session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/register (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(event)/event/[slug]/(after_login)/registration/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/registration (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(event)/event/[slug]/(after_login)/reviewer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/reviewer (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(event)/event/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(event)/event/[slug]/onsite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/onsite (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /) (renders during the event dates, onsite/+page.server.js redirects otherwise)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(event)/event/[slug]/onsite/[onsiteid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /event/[slug]/onsite/[onsiteid] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /) (renders during the event dates, [onsiteid]/+page.server.js redirects otherwise)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/(after_login)/complete-profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /complete-profile (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/(after_login)/payment-history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /payment-history (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/(after_login)/payment/fail/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /payment/fail (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/(after_login)/payment/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /payment/success (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/(after_login)/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /profile (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/(after_login)/receipt/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /receipt/[id] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/(after_login)/registration-history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /registration-history (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/[admin_page_name]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /[admin_page_name] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (admin-only: [admin_page_name]/+page.server.js errors 404 unless the param equals ADMIN_PAGE_NAME and then 404s via get_data_or_404(api/admin/*) for any non-admin session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/forgot-password/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password/[slug] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/invite/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /invite/[token] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library) but not a search target (auth-gated: invite/[token]/+page.server.js redirects guests to /login?next= after validating the token), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/privacy-policy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy-policy (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/registration/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /registration (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/terms-of-service/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms-of-service (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /verify-email (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/(nonevent)/verify-email/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /verify-email/[slug] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/canonical-url::src/routes/logout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "never renders: logout/+page.server.js load ends both branches in `return redirect(303, next)` (guest and signed-in); with @sveltejs/kit 2.70.3 (pnpm-lock) redirect() throws, so the page is never rendered and route-level claims on it are false"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/heading-level-skip::src/routes/+page.svelte:277::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:218 <h1>, then filters (YearSelector has no heading) and the empty-state <h3> (:277, {:else if allEvents.length === 0}) with no <h2> between -> h1 to h3"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(event)/event/[slug]/(after_login)/abstract/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /event/[slug]/abstract ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(event)/event/[slug]/(after_login)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /event/[slug]/admin ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /event/[slug]/register ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(event)/event/[slug]/(after_login)/registration/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /event/[slug]/registration ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(event)/event/[slug]/(after_login)/reviewer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /event/[slug]/reviewer ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(event)/event/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /event/[slug] ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(event)/event/[slug]/onsite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /event/[slug]/onsite ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(event)/event/[slug]/onsite/[onsiteid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /event/[slug]/onsite/[onsiteid] ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/(after_login)/complete-profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /complete-profile ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/(after_login)/payment-history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /payment-history ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/(after_login)/payment/fail/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /payment/fail ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/(after_login)/payment/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /payment/success ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/(after_login)/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /profile ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/(after_login)/receipt/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /receipt/[id] ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/(after_login)/registration-history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /registration-history ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/[admin_page_name]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /[admin_page_name] ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /forgot-password ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/forgot-password/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /forgot-password/[slug] ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/invite/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /invite/[token] ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /login ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/privacy-policy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /privacy-policy ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/registration/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /registration ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/terms-of-service/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /terms-of-service ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /verify-email ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/(nonevent)/verify-email/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /verify-email/[slug] ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so / ships none"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/json-ld::src/routes/logout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "never renders: logout/+page.server.js load redirects on every path (no user -> return redirect(303, next); otherwise backend logout in try/catch, cookie deleted, return redirect(303, next)), so /logout is never served as a page; route-level claims on it are false"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(event)/event/[slug]/(after_login)/abstract/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /event/[slug]/abstract (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(event)/event/[slug]/(after_login)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /event/[slug]/admin (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (admin-only: the (after_login) layout skips its guest redirect for paths containing \"admin\", but admin/+page.server.js 404s via get_data_or_404(api/admin/event/...) for any non-admin session; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(event)/event/[slug]/(after_login)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /event/[slug]/register (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(event)/event/[slug]/(after_login)/registration/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /event/[slug]/registration (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(event)/event/[slug]/(after_login)/reviewer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /event/[slug]/reviewer (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(event)/event/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /event/[slug] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(event)/event/[slug]/onsite/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /event/[slug]/onsite (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /) (renders during the event dates, onsite/+page.server.js redirects otherwise)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(event)/event/[slug]/onsite/[onsiteid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /event/[slug]/onsite/[onsiteid] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /) (renders during the event dates, [onsiteid]/+page.server.js redirects otherwise)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/(after_login)/complete-profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /complete-profile (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/(after_login)/payment-history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /payment-history (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/(after_login)/payment/fail/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /payment/fail (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/(after_login)/payment/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /payment/success (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/(after_login)/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/(after_login)/receipt/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /receipt/[id] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/(after_login)/registration-history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /registration-history (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: (after_login)/+layout.server.js redirects guests to /login?next=; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/[admin_page_name]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[admin_page_name] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (admin-only: [admin_page_name]/+page.server.js errors 404 unless the param equals ADMIN_PAGE_NAME and then 404s via get_data_or_404(api/admin/*) for any non-admin session; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/forgot-password/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password/[slug] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/invite/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /invite/[token] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); rendered route (auth-gated: invite/[token]/+page.server.js redirects guests to /login?next= after validating the token; a guest gate does not exempt the social-tag claim)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/privacy-policy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy-policy (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/registration/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /registration (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/terms-of-service/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /terms-of-service (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify-email (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/(nonevent)/verify-email/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify-email/[slug] (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (repo-wide grep of frontend excl. node_modules, incl. app.html): no og:url and no rel=canonical anywhere; root +layout.svelte:118-148 head emits og:type/title/site_name/image/description and twitter:* only; event/[slug]/+page.svelte:133-137 adds og:title/twitter:title; app.html has icon/alternate/viewport/theme-color/robots; hooks.server.js is an empty sequence(); no meta-tag library); publicly reachable, rendered route, no guest gate or noindex (robots.txt route allows /)"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/og-url::src/routes/logout/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "never renders: logout/+page.server.js load ends both branches in `return redirect(303, next)` (guest and signed-in); with @sveltejs/kit 2.70.3 (pnpm-lock) redirect() throws, so the page is never rendered and route-level claims on it are false"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/single-h1::src/routes/+layout.svelte:258::Missing <h#>",
+    "verdict": "tp",
+    "basis": "mixed key (2 routes): /login (first-look route) renders (nonevent)/login/+page.svelte with <h3>s only (:88/:93) inside the root layout (Navbar, footer <h2> :258, CookieConsent - no <h1>) -> tp; /logout never renders: logout/+page.server.js load returns redirect(303) on both paths (no user / after logout), so that half is fp; labelled by the first-look route on the 1-1 split"
+  },
+  {
+    "key": "kasra-org/ieum:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml file, route, caddy rule or generator repo-wide, although robots.txt/+server.js allows all crawling and its own comment mentions sitemap links; the app publishes public /event/[slug] pages (and an llms.txt for them) that a sitemap would list"
+  }
+]

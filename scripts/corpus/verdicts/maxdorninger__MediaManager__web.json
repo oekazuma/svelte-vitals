@@ -1,0 +1,1152 @@
+[
+  {
+    "key": "maxdorninger/MediaManager:web::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:14::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: dashboard/+layout.svelte:40 wraps children in Sidebar.Inset (<main> sidebar-inset.svelte:14) and each of the 12 dashboard pages renders its own unconditional <main> (grep-confirmed, e.g. dashboard/+page.svelte:60); two mains"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::a11y/duplicate-landmark::src/routes/login/+page.svelte:16::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: login/+layout.svelte:25 <main> wraps children unconditionally and login/+page.svelte:16 renders another <main>; two mains"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::a11y/top-level-landmark::src/routes/login/+page.svelte:16::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte:16 <main> renders inside login/+layout.svelte:25 <main> around children; main nested in main"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::architecture/component-size::src/lib/components/user-data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/user-data-table.svelte has 339 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::architecture/component-size::src/routes/dashboard/notifications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/notifications/+page.svelte has 264 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::architecture/component-size::src/routes/dashboard/tv/[showId=uuid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/tv/[showId=uuid]/+page.svelte has 360 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 7 named props (> 6): class, variant, size, ref, href, type, children"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6): ref, class, sideOffset, alignOffset, align, side, portalProps"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6): ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::correctness/prop-mutation::src/lib/components/library-combobox.svelte:72::Prop \"media\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/library-combobox.svelte:72 media.library = selectedLabel writes a field of the non-bindable media prop (library-combobox.svelte:15), which callers pass from their page data (dashboard/tv/[showId]/+page.svelte:214); a prop mutation as documented"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::correctness/prop-mutation::src/lib/components/user-data-table.svelte:17::Prop \"users\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/user-data-table.svelte:17 users.sort(...) inside $derived sorts the users prop array in place; the sorted return value is what renders, so the UI is correct and it is not the stale-UI failure the rule describes (ledger in-place .sort in $derived/each convention)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::correctness/unmutated-state::src/lib/components/add-media-card.svelte:11::$state \"errorMessage\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/add-media-card.svelte:11 errorMessage = $state(null) is only read in the template (add-media-card.svelte:114-115); never assigned, so the error branch can never show"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::correctness/unmutated-state::src/lib/components/stats/stat-cards.svelte:11::$state \"episodeCount\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/stats/stat-cards.svelte:11 the promise $state is only read by an {#await} (stat-cards.svelte:45/54); never reassigned, bound or passed"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::correctness/unmutated-state::src/lib/components/stats/stat-cards.svelte:16::$state \"torrentCount\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/stats/stat-cards.svelte:16 the promise $state is only read by an {#await} (stat-cards.svelte:45/54); never reassigned, bound or passed"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/iframe-loading::src/routes/dashboard/about/+page.svelte:57::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: GitHub sponsors card (600x225) right after the intro, version line and first <h2> (~500px down) - within the first viewport, where eager is right"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:102::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:109::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:116::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:126::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: DigitalOcean badge with width=\"201px\" only - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:142::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: TMDB logo, class h-auto w-20 - width fixed, the height comes from the image"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:154::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: TheTVDB logo, class h-auto w-20 - width fixed, the height comes from the image"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:41::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: logo h-24 w-24 - fixed box"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:71::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:74::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:77::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:80::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:83::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:86::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:89::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:92::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/dashboard/about/+page.svelte:95::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sponsor avatar with width=\"80px\" only and no CSS height - the natural aspect decides the height"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-dimensions::src/routes/login/+layout.svelte:17::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: logo size-12 inside a size-16 box - fixed box (5 routes)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:102::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:109::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:116::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:126::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: badge after the sponsors row - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:142::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the metadata-sources section at the end of the page (mt-24) - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:154::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the metadata-sources section at the end of the page - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:41::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the about page above the <h1> - above the fold"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:71::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:74::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:77::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:80::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:83::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:86::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:89::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:92::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/dashboard/about/+page.svelte:95::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: sponsor avatar in the sponsors row after the sponsors iframe and second <h2> - offscreen on load"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/image-loading-hint::src/routes/login/+layout.svelte:17::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: brand logo in the login layout header - above the fold (5 routes)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:102::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:109::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:116::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:154::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote thetvdb logo2.png - one fixed-size raster"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:71::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:74::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:77::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:80::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:83::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:86::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:89::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:92::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/responsive-image::src/routes/dashboard/about/+page.svelte:95::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote GitHub/BuyMeACoffee raster avatar - one fixed-size asset"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::performance/sequential-awaits::src/routes/dashboard/+layout.ts:21::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read dashboard/+layout.ts:9-21: the only preceding await is GET /api/v1/users/me, the auth gate that redirects to /login on error — auth-before-query ordering, docs Limitations"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 1 ancestor layout(s), 5 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (route renders no content, only a client redirect stub (+page.svelte:7 goto(/dashboard) in the browser, ssr=false)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 95 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/movies/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/movies/[movieId=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 161 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/movies/add-movie/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/movies/torrents/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/tv/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/tv/[showId=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 3 ancestor layout(s), 163 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/tv/[showId=uuid]/[SeasonId=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 3 ancestor layout(s), 102 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/tv/add-show/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/dashboard/tv/torrents/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist) but not a search target (auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; public login page, no noindex"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/login/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; public login page, no noindex"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/login/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; public login page, no noindex"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/login/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; public login page, no noindex"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/canonical-url::src/routes/login/verify/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> rendered by page, 2 ancestor layout(s), 14 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; public login page, no noindex"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/+layout.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: /dashboard/notifications sets only a <title>, so its description is root +layout.svelte:12 literal content=\"Smart PVR for movies and TV shows\" = 33 chars, under 70 as claimed"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (66 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/about/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/about/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (64 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/movies/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/movies/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (55 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/movies/add-movie/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/movies/add-movie/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (47 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/movies/torrents/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/movies/torrents/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (55 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/settings/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/settings/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (54 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/tv/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/tv/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (57 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/tv/add-show/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/tv/add-show/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (49 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/dashboard/tv/torrents/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/tv/torrents/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (57 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/login/reset-password/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/login/reset-password/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (52 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/login/signup/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/login/signup/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (21 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/description-length::src/routes/login/verify/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/login/verify/+page.svelte top-level svelte:head has an unconditional literal <meta content=… name=\"description\"> of the stated length (Description is too short (57 chars; aim for 70–160))"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/duplicate-title::src/routes/login/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: login/+page.svelte and login/signup/+page.svelte both literal <title>Login - MediaManager</title>, duplicate as claimed (the signup one is a copy-paste slip); but these are the sign-in pages of a self-hosted media manager instance (README; root +layout.ts:2 ssr=false SPA), so no search competition"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/duplicate-title::src/routes/login/signup/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: login/+page.svelte and login/signup/+page.svelte both literal <title>Login - MediaManager</title>, duplicate as claimed (the signup one is a copy-paste slip); but these are the sign-in pages of a self-hosted media manager instance (README; root +layout.ts:2 ssr=false SPA), so no search competition"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/heading-level-skip::src/routes/dashboard/+page.svelte:67::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "the flagged heading follows a shadcn CardTitle, which renders <div role=\"heading\" aria-level={level}> (ui/card/card-title.svelte, default level 3): the outline's skip sits at that component heading, which the rule never reports, and the flagged heading itself does not skip; same shape as radio4000 settings/appearance (fp)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/heading-level-skip::src/routes/dashboard/movies/add-movie/+page.svelte:108::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: add-movie/+page.svelte:86 <h1>, then Label/Input and the 'Advanced Settings' <h4> (:108) -> h1 to h4, no heading-rendering component between"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/heading-level-skip::src/routes/dashboard/tv/add-show/+page.svelte:109::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: add-show/+page.svelte:87 <h1>, then Label/Input and the 'Advanced Settings' <h4> (:109) -> h1 to h4"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; / has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/about has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/movies/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/movies has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/movies/[movieId=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/movies/[movieId=uuid] has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/movies/add-movie/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/movies/add-movie has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/movies/torrents/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/movies/torrents has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/notifications has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/settings has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/tv/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/tv has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/tv/[showId=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/tv/[showId=uuid] has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/tv/[showId=uuid]/[SeasonId=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/tv/[showId=uuid]/[SeasonId=uuid] has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/tv/add-show/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/tv/add-show has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/dashboard/tv/torrents/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /dashboard/tv/torrents has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /login has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/login/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /login/forgot-password has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/login/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /login/reset-password has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/login/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /login/signup has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/json-ld::src/routes/login/verify/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; /login/verify has no JSON-LD"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 1 ancestor layout(s), 5 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: route renders no content, only a client redirect stub (+page.svelte:7 goto(/dashboard) in the browser, ssr=false) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 95 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/movies/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/movies/[movieId=uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 161 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/movies/add-movie/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/movies/torrents/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/tv/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/tv/[showId=uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 3 ancestor layout(s), 163 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/tv/[showId=uuid]/[SeasonId=uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 3 ancestor layout(s), 102 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/tv/add-show/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/dashboard/tv/torrents/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/login/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/login/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/login/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-description::src/routes/login/verify/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description rendered by page, 2 ancestor layout(s), 14 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 1 ancestor layout(s), 5 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: route renders no content, only a client redirect stub (+page.svelte:7 goto(/dashboard) in the browser, ssr=false) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 95 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/movies/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/movies/[movieId=uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 161 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/movies/add-movie/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/movies/torrents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/tv/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/tv/[showId=uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 3 ancestor layout(s), 163 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/tv/[showId=uuid]/[SeasonId=uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 3 ancestor layout(s), 102 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/tv/add-show/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/dashboard/tv/torrents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/login/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/login/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/login/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-image::src/routes/login/verify/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image rendered by page, 2 ancestor layout(s), 14 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 1 ancestor layout(s), 5 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: route renders no content, only a client redirect stub (+page.svelte:7 goto(/dashboard) in the browser, ssr=false) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 95 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/movies/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/movies/[movieId=uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 161 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/movies/add-movie/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/movies/torrents/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/tv/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/tv/[showId=uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 3 ancestor layout(s), 163 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/tv/[showId=uuid]/[SeasonId=uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 3 ancestor layout(s), 102 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/tv/add-show/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/dashboard/tv/torrents/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/login/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/login/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/login/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-title::src/routes/login/verify/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title rendered by page, 2 ancestor layout(s), 14 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 1 ancestor layout(s), 5 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: route renders no content, only a client redirect stub (+page.svelte:7 goto(/dashboard) in the browser, ssr=false) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 95 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/movies/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/movies/[movieId=uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 161 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/movies/add-movie/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/movies/torrents/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/tv/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/tv/[showId=uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 3 ancestor layout(s), 163 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/tv/[showId=uuid]/[SeasonId=uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 3 ancestor layout(s), 102 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/tv/add-show/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/dashboard/tv/torrents/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/login/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/login/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/login/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/og-url::src/routes/login/verify/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url rendered by page, 2 ancestor layout(s), 14 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/single-h1::src/routes/login/verify/+page.svelte:19::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: login/+layout.svelte:20 renders an unconditional brand <h1>Media Manager</h1> and login/verify/+page.svelte:19 its own <h1> -> two real <h1>s"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has robots.txt but no sitemap.xml, no sitemap route or generator (literal claim holds); self-hosted media manager (README) whose dashboard is behind a login, nothing public to list"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/ssr-disabled::src/routes/+layout.ts:2::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at web/src/routes/+layout.ts:2 (with prerender = false); deliberate SPA frontend of a self-hosted media manager whose pages are login/dashboard views, not content for search; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (24 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/about/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (20 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/movies/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/movies/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (21 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/movies/add-movie/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/movies/add-movie/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (24 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/movies/torrents/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/movies/torrents/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (29 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/notifications/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/notifications/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (28 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/settings/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (23 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/tv/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/tv/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (23 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/dashboard/tv/add-show/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/tv/add-show/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (26 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (20 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/login/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/reset-password/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (29 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/login/signup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/signup/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (20 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/title-length::src/routes/login/verify/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/verify/+page.svelte top-level svelte:head has a literal '<Page> - MediaManager' <title> whose length matches the finding (Title is too short (29 chars; aim for 30–60)) (it overrides the root layout's <title>MediaManager</title>)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 1 ancestor layout(s), 5 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: route renders no content, only a client redirect stub (+page.svelte:7 goto(/dashboard) in the browser, ssr=false) (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 95 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/movies/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/movies/[movieId=uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 161 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/movies/add-movie/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/movies/torrents/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 83 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 125 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/tv/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 106 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/tv/[showId=uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 3 ancestor layout(s), 163 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/tv/[showId=uuid]/[SeasonId=uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 3 ancestor layout(s), 102 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/tv/add-show/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 96 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/dashboard/tv/torrents/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 120 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist; route context: auth-gated: dashboard/+layout.ts:12-17 sends every visitor without a session to /login; self-hosted media manager (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/login/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/login/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 25 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/login/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 33 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  },
+  {
+    "key": "maxdorninger/MediaManager:web::seo/twitter-card::src/routes/login/verify/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card rendered by page, 2 ancestor layout(s), 14 transitively imported local/workspace files or app.html/hooks; no og/twitter/canonical tag anywhere in web/src or app.html (root +layout.svelte head is title/description/icon only), no meta-tag library; ssr=false app-wide (+layout.ts:2), so client-rendered heads count and none exist"
+  }
+]

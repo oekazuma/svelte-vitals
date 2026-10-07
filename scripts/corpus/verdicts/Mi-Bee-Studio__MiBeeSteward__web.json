@@ -1,0 +1,1627 @@
+[
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/accessible-name::src/routes/devices/scan-tasks/+page.svelte:867::<button> has no accessible name",
+    "verdict": "tp",
+    "basis": "read devices/scan-tasks/+page.svelte:866-877: <button role=\"switch\" aria-checked> containing only an empty knob <span>; the preceding <label> has no for and does not wrap it, so the switch is unnamed"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/deprecated-attr::src/lib/components/DataTable.svelte:262::`scope` on <td> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read lib/components/DataTable.svelte:262: scope literal on <td> in live markup; deprecated as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/disallowed-aria-props::src/lib/components/NotificationBell.svelte:203::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read lib/components/NotificationBell.svelte:203: unread-dot <span aria-label={notif.is_read ? undefined : ...}> with no role; on unread notifications a name lands on a generic span, as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/interactive-nesting::src/lib/components/scanner/PipelineConfigEditor.svelte:202::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read lib/components/scanner/PipelineConfigEditor.svelte:202: <button> sits inside the <div role=\"button\"> ancestor in the same template; interactive content nested in interactive content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/label-has-control::src/routes/agents/+page.svelte:678::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read agents/+page.svelte:678: <label> with no for, wrapping no control; the field after it is a component/custom widget or an input it does not reference, so the label is associated with nothing"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/label-has-control::src/routes/networks/+page.svelte:303::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read networks/+page.svelte:303: <label> with no for, wrapping no control; the field after it is a component/custom widget or an input it does not reference, so the label is associated with nothing"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/no-autofocus::src/routes/login/+page.svelte:316::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "tp",
+    "basis": "read login/+page.svelte:299-325: setup password <input autofocus> under {#if setupRequired}, set in onMount from the initial /auth/setup-status fetch (:71-75) with no user action, so focus moves on page load (logtide initial-fetch precedent)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/no-autofocus::src/routes/login/+page.svelte:352::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; 2FA code <input autofocus> under {:else if twoFactorRequired} (:343), set only after the user submits the login form (:118); focus on user action, not page load"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/lib/components/DeviceTopologyView.svelte:500::`<p>` is not permitted content here — `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <p> at lib/components/DeviceTopologyView.svelte:500 has <dl> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1250::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1250 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1256::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1256 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1262::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1262 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1268::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1268 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1274::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1274 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1285::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1285 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1291::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1291 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1297::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1297 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/+page.svelte:1310::`<summary>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <summary> at devices/+page.svelte:1310 has <div> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<div>`'s content model is flow content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/detail/[id]/+page.svelte:1552::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at devices/detail/[id]/+page.svelte:1552 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/detail/[id]/+page.svelte:1558::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at devices/detail/[id]/+page.svelte:1558 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/detail/[id]/+page.svelte:1566::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at devices/detail/[id]/+page.svelte:1566 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/devices/detail/[id]/+page.svelte:1940::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at devices/detail/[id]/+page.svelte:1940 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/settings/+page.svelte:448::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <h3> at settings/+page.svelte:448 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/settings/+page.svelte:458::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <h3> at settings/+page.svelte:458 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::a11y/permitted-contents::src/routes/settings/+page.svelte:469::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <h3> at settings/+page.svelte:469 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/CertificateModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CertificateModal.svelte has 527 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/DashboardWidget.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DashboardWidget.svelte has 384 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/DataTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DataTable.svelte has 315 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/DeviceEditModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DeviceEditModal.svelte has 321 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/DeviceTopologyView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DeviceTopologyView.svelte has 510 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/HeartbeatExpandableRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/HeartbeatExpandableRow.svelte has 220 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/Modal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Modal.svelte has 370 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/NotificationBell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NotificationBell.svelte has 253 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/SystemCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SystemCard.svelte has 229 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/Toast.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Toast.svelte has 219 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/WidgetPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/WidgetPicker.svelte has 452 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/scanner/LabelEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/scanner/LabelEditor.svelte has 367 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/lib/components/scanner/PipelineConfigEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/scanner/PipelineConfigEditor.svelte has 464 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 362 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/agents/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/agents/+page.svelte has 807 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/audit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/audit/+page.svelte has 502 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/changes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/changes/+page.svelte has 483 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte has 1350 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/devices/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/devices/+page.svelte has 1510 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/devices/detail/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/devices/detail/[id]/+page.svelte has 2692 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/devices/discovery/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/devices/discovery/+page.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/devices/scan-results/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/devices/scan-results/+page.svelte has 720 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/devices/scan-tasks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/devices/scan-tasks/+page.svelte has 915 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/devices/scanner/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/devices/scanner/+page.svelte has 690 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/documents/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/documents/+page.svelte has 689 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/fingerprints/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/fingerprints/+page.svelte has 291 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 478 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/networks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/networks/+page.svelte has 343 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/probes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/probes/+page.svelte has 1103 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 502 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/settings/notifications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/notifications/+page.svelte has 1223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/settings/security/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/security/+page.svelte has 299 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/settings/snmp-credentials/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/snmp-credentials/+page.svelte has 458 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/component-size::src/routes/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/users/+page.svelte has 702 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/prop-count::src/lib/components/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ConfirmDialog.svelte has a single destructured $props() with 9 named props (> 6): open, title, message, confirmLabel, cancelLabel, confirmVariant, loading, onConfirm, onCancel"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/prop-count::src/lib/components/DashboardWidget.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/DashboardWidget.svelte has a single destructured $props() with 7 named props (> 6): widget, onEdit, onRemove, onMove, ondragstart, ondragover, ondrop"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/prop-count::src/lib/components/DataTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/DataTable.svelte has a single destructured $props() with 18 named props (> 6): columns, rows, searchPlaceholder, searchableKeys, initialSearch, emptyTitle, emptyDescription, emptyAction, emptyActionLabel, id, expandedRowId, expandedContent, cell, externalSortKey, externalSortDirection, onSortChange, onSearchChange, serverFilterQuery"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/prop-count::src/lib/components/LoadingButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/LoadingButton.svelte has a single destructured $props() with 9 named props (> 6) beside a ...rest element: loading, disabled, variant, size, type, class, label, children, onclick"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::architecture/prop-count::src/lib/components/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Modal.svelte has a single destructured $props() with 9 named props (> 6): open, title, maxWidth, onClose, closable, confirmDiscard, discardTitle, discardMessage, children"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-index-key::src/lib/components/Skeleton.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Skeleton.svelte:22 '{#each items as _item, i (i)}' keyed by its index binding and is not an exempt shape; static list (items = $derived(Array.from({ length: count })) named length-only skeleton list, Skeleton.svelte:19): the length-only exemption covers the inline shape, so it is reported per the docs; placeholders never reorder"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-index-key::src/routes/devices/+page.svelte:1428::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/+page.svelte:1428 '{#each csvPreviewRows as row, i (i)}' keyed by its index binding and is not an exempt shape; positional list (csvPreviewRows = parseCsv(text): preview rows of one parsed CSV file, devices/+page.svelte:474): rows have no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/ChangeDiff.svelte:112::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ChangeDiff.svelte:112 '{#each Object.entries(diff) as [field, values]}' has no key and is not an exempt shape; positional list (Object.entries of the field diff/snapshot of one change record, ChangeDiff.svelte:38): fields of one record, no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/ChangeDiff.svelte:144::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ChangeDiff.svelte:144 '{#each Object.entries(snapshot) as [field, value]}' has no key and is not an exempt shape; positional list (Object.entries of the field diff/snapshot of one change record, ChangeDiff.svelte:38): fields of one record, no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/DashboardWidget.svelte:129::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DashboardWidget.svelte:129 '{#each widget.listItems as item}' has no key and is not an exempt shape; list source is runtime data (widget.listItems of the dashboard widget state (API data)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/DataTable.svelte:219::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DataTable.svelte:219 '{#each columns as col}' has no key and is not an exempt shape; static list (columns prop: every caller passes a $derived literal of column definitions, e.g. changes/+page.svelte:264, networks/+page.svelte:158): fixed author-time columns"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/DataTable.svelte:259::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DataTable.svelte:259 '{#each displayRows as row, i}' has no key and is not an exempt shape; list source is runtime data (displayRows = sortedRows(): table rows from the API, sorted by the user's column choice), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/DataTable.svelte:261::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DataTable.svelte:261 '{#each columns as col, colIndex}' has no key and is not an exempt shape; static list (columns prop: every caller passes a $derived literal of column definitions, e.g. changes/+page.svelte:264, networks/+page.svelte:158): fixed author-time columns"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/HeartbeatExpandableRow.svelte:170::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/HeartbeatExpandableRow.svelte:170 '{#each configs as config}' has no key and is not an exempt shape; list source is runtime data (configs/notifications $state fetched from the API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/NotificationBell.svelte:196::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/NotificationBell.svelte:196 '{#each notifications as notif}' has no key and is not an exempt shape; list source is runtime data (configs/notifications $state fetched from the API), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/Pagination.svelte:86::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Pagination.svelte:86 '{#each pageSizeOptions as opt}' has no key and is not an exempt shape; static list (pageSizeOptions prop defaults to the literal [10, 20, 50, 100] and no caller passes it, Pagination.svelte:20): fixed options"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/lib/components/scanner/LabelEditor.svelte:192::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/scanner/LabelEditor.svelte:192 '{#each Object.entries(merged).sort(([a], [b]) => a.localeCompare(b)) as [key, info]}' has no key and is not an exempt shape; list source is runtime data (merged labels of a device the user edits (LabelEditor.svelte:61), sorted by key), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/agents/+page.svelte:727::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agents/+page.svelte:727 '{#each networks as net}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/audit/+page.svelte:345::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/audit/+page.svelte:345 '{#each users as u}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/audit/+page.svelte:360::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/audit/+page.svelte:360 '{#each actions as a}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/audit/+page.svelte:375::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/audit/+page.svelte:375 '{#each resourceTypes as rt}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/changes/+page.svelte:365::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/changes/+page.svelte:365 '{#each networks as net}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/dashboard/+page.svelte:1170::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/+page.svelte:1170 '{#each overview.scanning.recent_runs as run}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/dashboard/+page.svelte:1207::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/+page.svelte:1207 '{#each overview.abnormal as dev}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/+page.svelte:1041::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/+page.svelte:1041 '{#each networks as net}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/+page.svelte:1470::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/+page.svelte:1470 '{#each linkedDocs as doc}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/+page.svelte:1497::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/+page.svelte:1497 '{#each allDocs.filter((d) => !linkedDocs.some((ld) => ld.id === d.id)) as doc}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:1210::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:1210 '{#each parsedServices as svc}' has no key and is not an exempt shape; positional list (detected services/open ports/extras parsed from one device record, devices/detail/[id]/+page.svelte:1204/1318): parse output of one record, no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:1222::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:1222 '{#each parsedPorts as p}' has no key and is not an exempt shape; positional list (detected services/open ports/extras parsed from one device record, devices/detail/[id]/+page.svelte:1204/1318): parse output of one record, no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:1372::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:1372 '{#each sa.detected_services ?? [] as svc}' has no key and is not an exempt shape; positional list (detected services/open ports/extras parsed from one device record, devices/detail/[id]/+page.svelte:1204/1318): parse output of one record, no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:1375::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:1375 '{#each sa.open_ports ?? [] as p}' has no key and is not an exempt shape; positional list (detected services/open ports/extras parsed from one device record, devices/detail/[id]/+page.svelte:1204/1318): parse output of one record, no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:1400::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:1400 '{#each Object.entries(extras).sort(([a], [b]) => a.localeCompare(b)) as [k, v]}' has no key and is not an exempt shape; positional list (detected services/open ports/extras parsed from one device record, devices/detail/[id]/+page.svelte:1204/1318): parse output of one record, no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:1485::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:1485 '{#each neighbors as nb}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:1738::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:1738 '{#each heartbeatConfigs as cfg}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:2193::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:2193 '{#each configDetail.diff_from_prev.split('\\n') as line}' has no key and is not an exempt shape; positional list (lines of one config diff text split on newlines): no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/detail/[id]/+page.svelte:2211::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/detail/[id]/+page.svelte:2211 '{#each configDiff.diff.split('\\n') as line}' has no key and is not an exempt shape; positional list (lines of one config diff text split on newlines): no identity beyond position"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/discovery/+page.svelte:145::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/discovery/+page.svelte:145 '{#each status.sources as src}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/discovery/+page.svelte:162::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/discovery/+page.svelte:162 '{#each funnel as stage}' has no key and is not an exempt shape; static list (funnel = $derived([...]) literal of seven fixed funnel stages, discovery/+page.svelte:77): never reorders/inserts"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/discovery/+page.svelte:187::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/discovery/+page.svelte:187 '{#each [...status.recent_discoveries].reverse() as ev}' has no key and is not an exempt shape; list source is runtime data ([...status.recent_discoveries].reverse(): discovery events of the polled status, new events inserted at the top), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/scan-results/+page.svelte:331::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/scan-results/+page.svelte:331 '{#each tasks as task}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/scan-results/+page.svelte:459::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/scan-results/+page.svelte:459 '{#each results as result}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/scan-results/+page.svelte:540::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/scan-results/+page.svelte:540 '{#each ports as p}' has no key and is not an exempt shape; positional list (ports/services parsed from one scan result's JSON fields, scan-results/+page.svelte:460): parse output of one record"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/scan-results/+page.svelte:561::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/devices/scan-results/+page.svelte:561 '{#each services as s}' has no key and is not an exempt shape; positional list (ports/services parsed from one scan result's JSON fields, scan-results/+page.svelte:460): parse output of one record"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/scan-results/+page.svelte:689::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/scan-results/+page.svelte:689 '{#each runs as run}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/devices/scan-tasks/+page.svelte:584::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/devices/scan-tasks/+page.svelte:584 '{#each tasks as task}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/settings/+page.svelte:398::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/settings/+page.svelte:398 '{#each twoFASetupData.backup_codes as code}' has no key and is not an exempt shape; positional list (twoFASetupData.backup_codes: the codes of one 2FA setup response, replaced wholesale, settings/+page.svelte:220): one generated result"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/settings/notifications/+page.svelte:1162::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/notifications/+page.svelte:1162 '{#each networks as n}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/settings/notifications/+page.svelte:1174::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/notifications/+page.svelte:1174 '{#each devices as d}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/settings/notifications/+page.svelte:1187::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/notifications/+page.svelte:1187 '{#each channels as c}' has no key and is not an exempt shape; list source is runtime data ($state records fetched from the API (networks, users, audit actions, overview runs, documents, neighbors, configs, tasks, results, channels)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/each-key::src/routes/settings/notifications/+page.svelte:967::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/notifications/+page.svelte:967 '{#each formHeaders as hdr, i}' has no key and is not an exempt shape; list source is runtime data (formHeaders $state: header key/value input rows the user adds/removes (notifications/+page.svelte:80)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::correctness/effect-as-onmount::src/routes/+layout.svelte:171::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:171 the effect only adds a window/document keydown listener and returns its removal; nothing reactive is read, so it runs once after mount like onMount"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/iframe-loading::src/routes/documents/+page.svelte:659::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: PDF preview iframe inside the File Preview Modal ({#if open}, Modal.svelte:168) opened by the user (:624-663) - visible when rendered"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/image-dimensions::src/routes/+layout.svelte:249::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: sidebar logo class w-9 h-9 (:249) - box reserved by CSS, so no CLS (all 23 routes)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/image-dimensions::src/routes/documents/+page.svelte:652::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: preview image only max-w-full max-h-[70vh] (:655) - its natural size decides the box inside the preview modal, content shifts on load"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/image-dimensions::src/routes/settings/+page.svelte:380::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: QR class w-64 h-64 (:380) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/image-loading-hint::src/routes/+layout.svelte:249::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the sidebar (:247-249) - above the fold, where the docs keep the image eager (all 23 routes)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/image-loading-hint::src/routes/documents/+page.svelte:652::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image created only in the File Preview <Modal bind:open={previewOpen}> (:624-656) after the user opens a document - created when shown and then visible"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/image-loading-hint::src/routes/settings/+page.svelte:380::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: src is a client data: URL (QRCode.toDataURL, :221) shown only in the 2FA setup flow the user starts - no network request for loading to defer"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/responsive-image::src/routes/documents/+page.svelte:652::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /api/v1/documents/{id}/download?inline=1, the uploaded raster document image at full size - one fixed-size asset"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/responsive-image::src/routes/settings/+page.svelte:380::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src is a client QR data: URL (QRCode.toDataURL, :221) - no alternate sizes exist"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/state-raw::src/routes/agents/+page.svelte:80::\"fieldErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/agents/+page.svelte:80: \"fieldErrors\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/state-raw::src/routes/audit/+page.svelte:64::\"resourceTypes\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/audit/+page.svelte:64: \"resourceTypes\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/state-raw::src/routes/login/+page.svelte:33::\"errors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/login/+page.svelte:33: \"errors\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/state-raw::src/routes/networks/+page.svelte:45::\"fieldErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/networks/+page.svelte:45: \"fieldErrors\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/state-raw::src/routes/settings/+page.svelte:40::\"profileFieldErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/settings/+page.svelte:40: \"profileFieldErrors\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/state-raw::src/routes/settings/notifications/+page.svelte:370::\"ruleFieldErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/settings/notifications/+page.svelte:370: \"ruleFieldErrors\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/state-raw::src/routes/settings/notifications/+page.svelte:71::\"fieldErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/settings/notifications/+page.svelte:71: \"fieldErrors\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::performance/state-raw::src/routes/users/+page.svelte:91::\"resetFieldErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/users/+page.svelte:91: \"resetFieldErrors\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::security/raw-html::src/lib/components/DataTable.svelte:266::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read DataTable.svelte:266 + lib/utils/html.ts:52-58 + render callers (grep \"render: (row\"): cells are built with the escaping html`` tag or escapeHtml/escapeAttr (devices/+page.svelte:810-857); raw template parts only interpolate numeric ids and constant classes - escaped, reported per docs"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::security/raw-html::src/routes/documents/+page.svelte:648::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read documents/+page.svelte:289,648 + lib/utils/markdown.ts:37-46: previewHtml = renderMarkdown = DOMPurify.sanitize(marked.parse(...)) - sanitized, reported per docs"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing; also an onMount goto() redirect stub)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/agents/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /agents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/audit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /audit; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/changes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /changes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 37 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /dashboard; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/devices/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 41 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /devices; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/devices/detail/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 40 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /devices/detail/[id]; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/devices/discovery/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /devices/discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/devices/scan-results/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 29 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /devices/scan-results; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/devices/scan-tasks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 35 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /devices/scan-tasks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/devices/scanner/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /devices/scanner; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/discovery/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing; also an onMount goto() redirect stub)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/documents/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /documents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/fingerprints/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 26 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /fingerprints; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /login; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/networks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /networks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/probes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 34 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /probes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /settings; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/settings/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /settings/notifications; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/settings/security/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /settings/security; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/settings/snmp-credentials/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 28 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /settings/snmp-credentials; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/topology/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /topology; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing; also an onMount goto() redirect stub)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/canonical-url::src/routes/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no <link rel=\"canonical\"> on /users; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; but not a search target (auth-gated (client-side): root +layout.svelte:54-63 goto('/login') whenever $auth.token is missing)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/agents/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/audit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/changes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/devices/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/devices/detail/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/devices/discovery/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/devices/scan-results/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/devices/scan-tasks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/devices/scanner/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/discovery/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/documents/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/fingerprints/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/networks/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/probes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/settings/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/settings/security/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/settings/snmp-credentials/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/topology/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/description-presence::src/routes/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> anywhere in web/src or app.html (description= hits are EmptyState props) (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:18 literal <title>MiBee Steward</title> is the only title of the 21 routes in the key (local CLI list; only settings/security and settings/snmp-credentials set their own, no document.title), duplicate as claimed; not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login, so no search competition"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/heading-level-skip::src/routes/devices/+page.svelte:1412::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: flagged <h4>Import Preview (:1412) is inside the Import <Modal> (:1400), whose title is <h2 class=\"modal-title\"> (lib/components/Modal.svelte:187) before {@render children()} - h2 to h4 whenever the modal is open"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/heading-level-skip::src/routes/devices/detail/[id]/+page.svelte:2190::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: flagged <h4> (:2190) is inside the config-detail <Modal> (:2180), whose title is <h2 class=\"modal-title\"> (Modal.svelte:187) before its children - h2 to h4 whenever it renders"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/heading-level-skip::src/routes/devices/scan-results/+page.svelte:535::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: page <h2> Results Title (:298), then the expanded-row <h4>s (:535...) with no <h3> between - h2 to h4"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; / has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/agents/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /agents has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/audit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /audit has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/changes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /changes has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /dashboard has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/devices/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /devices has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/devices/detail/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /devices/detail/[id] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/devices/discovery/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /devices/discovery has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/devices/scan-results/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /devices/scan-results has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/devices/scan-tasks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /devices/scan-tasks has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/devices/scanner/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /devices/scanner has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/discovery/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /discovery has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/documents/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /documents has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/fingerprints/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /fingerprints has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /login has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/networks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /networks has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/probes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /probes has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /settings has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/settings/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /settings/notifications has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/settings/security/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /settings/security has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/settings/snmp-credentials/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /settings/snmp-credentials has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/topology/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /topology has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/json-ld::src/routes/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in web/src or app.html; /users has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/agents/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /agents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/audit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /audit; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/changes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /changes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 37 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /dashboard; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/devices/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 41 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /devices; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/devices/detail/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 40 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /devices/detail/[id]; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/devices/discovery/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /devices/discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/devices/scan-results/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 29 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /devices/scan-results; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/devices/scan-tasks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 35 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /devices/scan-tasks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/devices/scanner/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /devices/scanner; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/discovery/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/documents/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /documents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/fingerprints/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 26 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /fingerprints; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /login; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/networks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /networks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/probes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 34 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /probes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /settings; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/settings/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /settings/notifications; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/settings/security/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /settings/security; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/settings/snmp-credentials/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 28 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /settings/snmp-credentials; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/topology/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /topology; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-description::src/routes/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /users; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/agents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /agents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/audit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /audit; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/changes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /changes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 37 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /dashboard; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/devices/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 41 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /devices; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/devices/detail/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 40 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /devices/detail/[id]; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/devices/discovery/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /devices/discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/devices/scan-results/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 29 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /devices/scan-results; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/devices/scan-tasks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 35 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /devices/scan-tasks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/devices/scanner/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /devices/scanner; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/discovery/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/documents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /documents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/fingerprints/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 26 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /fingerprints; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /login; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/networks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /networks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/probes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 34 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /probes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /settings; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/settings/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /settings/notifications; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/settings/security/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /settings/security; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/settings/snmp-credentials/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 28 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /settings/snmp-credentials; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/topology/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /topology; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-image::src/routes/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /users; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/agents/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /agents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/audit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /audit; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/changes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /changes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 37 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /dashboard; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/devices/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 41 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /devices; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/devices/detail/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 40 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /devices/detail/[id]; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/devices/discovery/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /devices/discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/devices/scan-results/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 29 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /devices/scan-results; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/devices/scan-tasks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 35 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /devices/scan-tasks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/devices/scanner/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /devices/scanner; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/discovery/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/documents/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /documents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/fingerprints/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 26 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /fingerprints; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /login; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/networks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /networks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/probes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 34 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /probes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /settings; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/settings/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /settings/notifications; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/settings/security/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /settings/security; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/settings/snmp-credentials/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 28 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /settings/snmp-credentials; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/topology/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /topology; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-title::src/routes/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /users; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/agents/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /agents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/audit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /audit; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/changes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /changes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 37 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /dashboard; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/devices/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 41 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /devices; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/devices/detail/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 40 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /devices/detail/[id]; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/devices/discovery/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /devices/discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/devices/scan-results/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 29 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /devices/scan-results; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/devices/scan-tasks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 35 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /devices/scan-tasks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/devices/scanner/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /devices/scanner; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/discovery/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/documents/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /documents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/fingerprints/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 26 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /fingerprints; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /login; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/networks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /networks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/probes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 34 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /probes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /settings; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/settings/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /settings/notifications; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/settings/security/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /settings/security; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/settings/snmp-credentials/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 28 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /settings/snmp-credentials; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/topology/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /topology; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/og-url::src/routes/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /users; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has favicon.svg only, no robots.txt route (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/single-h1::src/routes/fingerprints/+page.svelte:140::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte renders the sidebar <h1>MiBee Steward (:251) for every signed-in non-login route ({#if $auth.token && !isLoginPage}, :214; ssr=false app) plus the page <h1> (:140) - two real <h1>"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/single-h1::src/routes/settings/security/+page.svelte:147::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte renders the sidebar <h1>MiBee Steward (:251) for every signed-in non-login route ({#if $auth.token && !isLoginPage}, :214; ssr=false app) plus the page <h1> (:147) - two real <h1>"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/single-h1::src/routes/settings/snmp-credentials/+page.svelte:222::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte renders the sidebar <h1>MiBee Steward (:251) for every signed-in non-login route ({#if $auth.token && !isLoginPage}, :214; ssr=false app) plus the page <h1> (:222) - two real <h1>"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes (literal claim holds); not a search target: the web UI of a self-hosted network asset-discovery/CMDB binary (README), an ssr=false SPA whose root +layout.svelte:54-62 sends every visitor without a token to /login"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/ssr-disabled::src/routes/+layout.ts:13::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:13; deliberate SPA (adapter-static) for the self-hosted network asset-discovery/CMDB binary (README), login-gated; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/ssr-disabled::src/routes/devices/detail/[id]/+page.ts:13::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/devices/detail/[id]/+page.ts:13; deliberate SPA (adapter-static) for the self-hosted network asset-discovery/CMDB binary (README), login-gated; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (lencheck.js: literal <title> in the location file, grapheme-counted after whitespace collapse = 13): src/app.html:18 \"MiBee Steward\"; the only title of the 21 routes in the key (local CLI list; no page title or document.title replaces it); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/agents/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /agents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/audit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /audit; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/changes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /changes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 37 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /dashboard; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/devices/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 41 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /devices; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/devices/detail/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 40 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /devices/detail/[id]; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/devices/discovery/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /devices/discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/devices/scan-results/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 29 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /devices/scan-results; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/devices/scan-tasks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 35 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /devices/scan-tasks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/devices/scanner/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 30 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /devices/scanner; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/discovery/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /discovery; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/documents/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /documents; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/fingerprints/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 26 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /fingerprints; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /login; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/networks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /networks; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/probes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 34 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /probes; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 27 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /settings; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/settings/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 31 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /settings/notifications; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/settings/security/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 25 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /settings/security; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/settings/snmp-credentials/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 28 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /settings/snmp-credentials; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/topology/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 22 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /topology; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side; route is an onMount goto() redirect stub (redirect-stub convention: og/twitter stay tp)"
+  },
+  {
+    "key": "Mi-Bee-Studio/MiBeeSteward:web::seo/twitter-card::src/routes/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 32 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /users; no og:*/twitter:*/rel=canonical anywhere in web/src or app.html (ssr=false SPA, root +layout.ts:13); npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; route renders client-side"
+  }
+]

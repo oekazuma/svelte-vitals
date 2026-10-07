@@ -1,0 +1,747 @@
+[
+  {
+    "key": "orchestra-canvas-tokyo/homepage::a11y/deprecated-attr::src/routes/concerts/[slug]/+page.svelte:233::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read concerts/[slug]/+page.svelte:233-241: YouTube embed <iframe ... frameborder=\"0\"> in HTML, frameborder is deprecated on iframe"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::a11y/id-duplication::src/routes/nyanvas/NyanvasOverlay.svelte:66::Duplicate id \"permission-toast\"",
+    "verdict": "design",
+    "basis": "read: nyanvas/2025*/+page.svelte:20 renders <NyanvasOverlay/> and root +layout.svelte:194-195 renders the lazily imported overlay under {#if shouldShowNyanvasOverlay && ...}, where shouldShowNyanvasOverlay = isNyanvasEvent && !isNyanvasPath(pathname) (:25, lib/nyanvasPaths.ts:6-7) is false exactly on /nyanvas/YYYYMMDD, so only the page copy renders; the fold credits the layout arm without evaluating the route condition (documented; grocery-manager showShell precedent)"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::a11y/id-duplication::src/routes/nyanvas/NyanvasOverlay.svelte:74::Duplicate id \"permission-toast-message\"",
+    "verdict": "design",
+    "basis": "read: nyanvas/2025*/+page.svelte:20 renders <NyanvasOverlay/> and root +layout.svelte:194-195 renders the lazily imported overlay under {#if shouldShowNyanvasOverlay && ...}, where shouldShowNyanvasOverlay = isNyanvasEvent && !isNyanvasPath(pathname) (:25, lib/nyanvasPaths.ts:6-7) is false exactly on /nyanvas/YYYYMMDD, so only the page copy renders; the fold credits the layout arm without evaluating the route condition (documented; grocery-manager showShell precedent)"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::a11y/permitted-contents::src/routes/concerts/[slug]/+page.svelte:208::`<dl>` is not permitted content here — `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <dl> at routes/concerts/[slug]/+page.svelte:208 has nearest literal non-transparent element ancestor <dl> (line 62) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <dl> is outside <dl>'s content model as reported"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::a11y/permitted-contents::src/routes/concerts/[slug]/+page.svelte:209::`<p>` is not permitted content here — `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <p> at routes/concerts/[slug]/+page.svelte:209 has nearest literal non-transparent element ancestor <dl> (line 208) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <p> is outside <dl>'s content model as reported"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::a11y/top-level-landmark::src/routes/+layout.svelte:293::complementary landmark is nested inside main",
+    "verdict": "design",
+    "basis": "mixed, labelled by majority (first look and local run 11 routes): root +layout.svelte:292-293 unlabelled <aside class=\"mobile-news\"> sits directly in <main> (:289) under {#if data.isRoot}, and isRoot = url.pathname === '/' (+layout.server.ts:32); nested as reported on / only, while on the other 10 routes the arm never renders; the analyzer does not evaluate the data condition (documented; grocery-manager / haydenkoch precedent)"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 663 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 360 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::architecture/component-size::src/routes/concerts/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/concerts/[slug]/+page.svelte has 389 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::architecture/component-size::src/routes/concerts/archives/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/concerts/archives/+page.svelte has 298 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::architecture/component-size::src/routes/concerts/archives/Concert.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/concerts/archives/Concert.svelte has 229 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::architecture/component-size::src/routes/contact/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/contact/+page.svelte has 408 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::architecture/component-size::src/routes/support-us/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/support-us/+page.svelte has 493 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/lib/components/Breadcrumb.svelte:29::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Breadcrumb.svelte:29 '{#each segments ...}' has no key; segments prop; every caller passes literal breadcrumb segments (e.g. contact/+page.svelte:117): static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/lib/components/Slider.svelte:18::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Slider.svelte:18 '{#each slides ...}' has no key; slides prop; its caller passes data.flyers of a concert from the static $lib/concerts content (concerts/[slug]/+page.svelte:55): static list fixed at author time"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/+layout.svelte:219::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:219 '{#each headerMenuItems ...}' has no key; headerMenuItems = $derived.by literal menu (line 80), varying only by language: static nav list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/+layout.svelte:228::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:228 '{#each menuItem.children ...}' has no key; menuItem.children of the literal header menu: static nav list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/+layout.svelte:266::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:266 '{#each newsItems.slice(-2).reverse() ...}' has no key; newsItems.slice(-2).reverse(): newsItems is an exported array literal ($lib/news.ts) but iterated through .slice().reverse(), not as the bare import the docs exempt; static content"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/+page.svelte:163::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:163 '{#each slideshowItems ...}' has no key; slideshowItems = $derived over the static $lib/concerts content (line 42): static list fixed at author time"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/about/accounting/+page.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/about/accounting/+page.svelte:41 '{#each items ...}' has no key; items = $derived map over data.reports from static accounting content (line 8): static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/[slug]/+page.svelte:112::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/[slug]/+page.svelte:112 '{#each data.performers ...}' has no key; data.performers of a concert from the static $lib/concerts content (+page.server.ts finds by slug): static list fixed at author time"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/[slug]/+page.svelte:133::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/[slug]/+page.svelte:133 '{#each data.programs ...}' has no key; data.programs of a concert from the static $lib/concerts content: static list fixed at author time"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/[slug]/+page.svelte:150::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/[slug]/+page.svelte:150 '{#each data.programs ...}' has no key; data.programs of a concert from the static $lib/concerts content: static list fixed at author time"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/[slug]/+page.svelte:161::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/[slug]/+page.svelte:161 '{#each data.credits ...}' has no key; data.credits of a concert from the static $lib/concerts content: static list fixed at author time"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/[slug]/+page.svelte:186::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/[slug]/+page.svelte:186 '{#each data.ticket.description ...}' has no key; data.ticket.description lines of a concert from the static $lib/concerts content: static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/[slug]/+page.svelte:196::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/[slug]/+page.svelte:196 '{#each data.relatedLinks ...}' has no key; data.relatedLinks of a concert from the static $lib/concerts content: static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/archives/+page.svelte:188::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/archives/+page.svelte:188 '{#each regularConcerts ...}' has no key; regularConcerts = $derived filter/sort of the static concerts content (line 15): static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/archives/+page.svelte:199::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/archives/+page.svelte:199 '{#each chamberConcerts ...}' has no key; chamberConcerts = $derived filter/sort of the static concerts content (line 23): static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/archives/+page.svelte:213::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/archives/+page.svelte:213 '{#each participationConcerts ...}' has no key; participationConcerts = $derived filter/sort of the static concerts content (line 31): static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/archives/Concert.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/archives/Concert.svelte:56 '{#each concert.programs ...}' has no key; concert.programs of a static concert entry ($lib/concerts content): static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/concerts/archives/YearAnchors.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/concerts/archives/YearAnchors.svelte:22 '{#each Object.values(yearlyFirstConcerts) ...}' has no key; Object.values(yearlyFirstConcerts) computed from the static concerts content (archives/+page.svelte:185): static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/contact/+page.svelte:227::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/contact/+page.svelte:227 '{#each Object.entries(categories) ...}' has no key; Object.entries(categories) of the imported constant object from $lib/contact/form: static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/contact/+page.svelte:245::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/contact/+page.svelte:245 '{#each Object.entries(form.errors).filter(([field, error]) => field !== 'turnstileToken' && error) ...}' has no key; Object.entries(form.errors) filtered: action validation errors, change per submit; runtime data"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/news/+page.svelte:44::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/news/+page.svelte:44 '{#each separatedNewsItems[page] ...}' has no key; separatedNewsItems[page]: a page of the static newsItems literal (news/+page.svelte:16); static content paged"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/support-us/+page.svelte:85::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/support-us/+page.svelte:85 '{#each supportersOnLeftSide ...}' has no key; supportersOnLeftSide = supporters.slice(...) of a same-file literal (line 38): a slice is not the exempt bare const; static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::correctness/each-key::src/routes/support-us/+page.svelte:90::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/support-us/+page.svelte:90 '{#each supportersOnRightSide ...}' has no key; supportersOnRightSide = supporters.slice(...) of a same-file literal (line 39): a slice is not the exempt bare const; static list"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/iframe-loading::src/routes/concerts/[slug]/+page.svelte:233::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "read: <iframe> has no loading attribute and no spread; YouTube playlist embed {#if data.youtubePlaylistId} at the end of the concert page after the details <dl> and ticket button (concerts/[slug]/+page.svelte:221-241) - offscreen on load"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/+layout.svelte:202::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: header logo .logo height:50px width:auto (+layout.svelte:343-347) - fixed-height box; width auto only varies inside its row"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/+layout.svelte:203::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: mobile header logo .logo-sp height:50px width:auto (+layout.svelte:355-358) - fixed-height box; width auto only varies inside its row"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/+layout.svelte:254::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks height, width=\"25px\" only, no spread; read: SNS icon in the hamburger menu list (.hamburger-sns-container display:none on desktop, inside the closed mobile menu, +layout.svelte:252-254,369-404) - not laid out on load"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/+layout.svelte:282::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks height, width=\"25px\" only, no spread; read: SNS icon at the bottom of the position:fixed .sidebar (+layout.svelte:278-282, :559-567) - out of the page flow, cannot shift page content"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/about/concepts/+page.svelte:59::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and height, no spread; .img is width:700px; height:auto; max-width:100% (about/concepts/+page.svelte:88-92) - height comes from the image, nothing below reserves it"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/concerts/[slug]/+page.svelte:167::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and height, no spread; .inline-icon width:auto with only an inline max-height (50px for the hollywood-latte.png credit) (concerts/[slug]/+page.svelte:167-171,360) - size comes from the image, the credits list shifts"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/concerts/[slug]/+page.svelte:227::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (.teket-logo width:120px; height:60px, concerts/[slug]/+page.svelte:379-383)"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/nyanvas/20250401/+page.svelte:24::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and height, no spread; only the page's img { max-height:80px; max-width:100% } applies (nyanvas/*/+page.svelte:75-78/94-97) - size comes from the image, the <h1> logo and text below shift"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/nyanvas/20250401/+page.svelte:28::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and height, no spread; logo inside the <h1> with only img { max-height:80px; max-width:100% } (nyanvas/*/+page.svelte:27-29) - size comes from the image, the text below shifts"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/nyanvas/20250401/+page.svelte:48::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .cat-stamp position:absolute; 35x35 (nyanvas/*/+page.svelte:103-108/122-127) - box reserved and out of flow"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/nyanvas/20260222/+page.svelte:24::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and height, no spread; only the page's img { max-height:80px; max-width:100% } applies (nyanvas/*/+page.svelte:75-78/94-97) - size comes from the image, the <h1> logo and text below shift"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/nyanvas/20260222/+page.svelte:28::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> lacks width and height, no spread; logo inside the <h1> with only img { max-height:80px; max-width:100% } (nyanvas/*/+page.svelte:27-29) - size comes from the image, the text below shifts"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/nyanvas/20260222/+page.svelte:67::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .cat-stamp position:absolute; 35x35 (nyanvas/*/+page.svelte:103-108/122-127) - box reserved and out of flow"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/support-us/+page.svelte:77::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .supporter-logo height:75px width:auto (support-us/+page.svelte:411-414) - fixed-height box; width auto only varies inside its row"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-dimensions::src/routes/support-us/+page.svelte:79::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .supporter-logo height:75px width:auto (support-us/+page.svelte:411-414) - fixed-height box; width auto only varies inside its row"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/+layout.svelte:202::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; header logo (+layout.svelte:200-202) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/+layout.svelte:203::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; mobile header logo (+layout.svelte:200-203) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/+layout.svelte:254::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; SNS icon in the hamburger overlay, visible when opened; the same svg files the fixed sidebar already loads, so lazy would save nothing"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/+layout.svelte:282::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; SNS icon in the position:fixed full-height sidebar (+layout.svelte:278-282, :559-567) - in view on load, where the docs keep the image eager"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/about/concepts/+page.svelte:59::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; organisation chart at the end of the article after the <h1> and five paragraphs (about/concepts/+page.svelte:42-59) - below the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/concerts/[slug]/+page.svelte:167::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; sponsor logo in the credits at the end of the concert details <dl> (concerts/[slug]/+page.svelte:160-171) - below the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/concerts/[slug]/+page.svelte:227::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; the element has no src at all - its image is CSS content:url(./teket-logo-v-white.svg) (concerts/[slug]/+page.svelte:227,379-388), which a loading attribute does not defer"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/nyanvas/20250401/+page.svelte:24::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; old logo at the top of the announcement article (nyanvas/*/+page.svelte:22-24) - above the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/nyanvas/20250401/+page.svelte:28::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; the new logo inside the page <h1> near the top (nyanvas/*/+page.svelte:26-29) - above the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/nyanvas/20250401/+page.svelte:48::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; 35px cat stamp at the end of the short announcement (five short paragraphs after the logos, nyanvas/20250401/+page.svelte:35-48) - within the first viewport"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/nyanvas/20260222/+page.svelte:24::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; old logo at the top of the announcement article (nyanvas/*/+page.svelte:22-24) - above the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/nyanvas/20260222/+page.svelte:28::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; the new logo inside the page <h1> near the top (nyanvas/*/+page.svelte:26-29) - above the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/nyanvas/20260222/+page.svelte:67::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; cat stamp in the last paragraph after the full announcement and the concert button (nyanvas/20260222/+page.svelte:33-67) - below the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/support-us/+page.svelte:77::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; supporter logo under the \"ご支援者さま\" <h2> after the <h1> and five long paragraphs (support-us/+page.svelte:59-79) - below the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/image-loading-hint::src/routes/support-us/+page.svelte:79::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; supporter logo under the \"ご支援者さま\" <h2> after the <h1> and five long paragraphs (support-us/+page.svelte:59-79) - below the fold"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/+layout.svelte:202::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread; read: headerLogo = $derived(isNyanvasEvent ? nyanvasLogo : logo) (+layout.svelte:27), the imported ./logo.svg except on the two nyanvas event routes (png) - a vector on 9 of 11 routes, but a $derived of an .svg import is outside the docs' static SVG detection"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/+layout.svelte:203::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: headerLogoSp is the imported canvas_symbol_white.png (or the nyanvas small png) (+layout.svelte:28) - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/+layout.svelte:254::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread; read: sns.icon values are imported instagram/facebook/x/youtube-brands.svg files (+layout.svelte:11-14,150-170) - vectors, but an object field holding an .svg import is outside the docs' static SVG detection"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/+layout.svelte:282::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread; read: item.icon values are imported instagram/facebook/x/youtube-brands.svg files (+layout.svelte:11-14,150-170) - vectors, but an object field holding an .svg import is outside the docs' static SVG detection"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/about/concepts/+page.svelte:59::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: src is the imported ./organization-chart.png - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/concerts/[slug]/+page.svelte:167::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: credit.image.src is an imported png (hollywood-latte.png, lib/concerts/regular/regular4/5/10.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/concerts/[slug]/+page.svelte:227::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no src and no srcset; its image is the SVG set by CSS content:url(./teket-logo-v-white.svg / -dark.svg) (concerts/[slug]/+page.svelte:379-388) - a vector, outside the docs' static SVG detection"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/nyanvas/20250401/+page.svelte:28::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: src is an imported png (../orchestra-nyanvas-tokyo.png or ../catStamp.png) - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/nyanvas/20250401/+page.svelte:48::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: src is an imported png (../orchestra-nyanvas-tokyo.png or ../catStamp.png) - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/nyanvas/20260222/+page.svelte:28::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: src is an imported png (../orchestra-nyanvas-tokyo.png or ../catStamp.png) - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/nyanvas/20260222/+page.svelte:67::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: src is an imported png (../orchestra-nyanvas-tokyo.png or ../catStamp.png) - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/support-us/+page.svelte:77::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: src is an imported png (hollywood-latte.png / mizuya.png) - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::performance/responsive-image::src/routes/support-us/+page.svelte:79::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread; read: src is an imported png (hollywood-latte.png / mizuya.png) - raster, one fixed-size asset"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; +page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/about/accounting/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; about/accounting/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/about/concepts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; about/concepts/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/concerts/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; concerts/[slug]/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/concerts/archives/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; concerts/archives/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/contact/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; contact/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/news/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; news/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/nyanvas/20250401/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; nyanvas/20250401/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/nyanvas/20260222/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; nyanvas/20260222/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/recruit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; recruit/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/description-presence::src/routes/support-us/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=\"description\"> anywhere in src or app.html; support-us/+page.svelte renders $lib/components/Meta.svelte whose svelte-meta-tags 5.0.2 <MetaTags> gets only title/canonical/twitter (no description prop); public orchestra website (Cloudflare Pages, www.orch-canvas.tokyo), no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); / has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/about/accounting/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /about/accounting has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/about/concepts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /about/concepts has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/concerts/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /concerts/[slug] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/concerts/archives/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /concerts/archives has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /contact has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/news/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /news has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/nyanvas/20250401/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /nyanvas/20250401 has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/nyanvas/20260222/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /nyanvas/20260222 has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/recruit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /recruit has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/json-ld::src/routes/support-us/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD in src or app.html; svelte-meta-tags used only as MetaTags (no JsonLd); /support-us has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/about/accounting/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about/accounting (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/about/concepts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about/concepts (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/concerts/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /concerts/[slug] (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/concerts/archives/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /concerts/archives (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/contact/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /contact (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/news/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /news (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/nyanvas/20250401/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /nyanvas/20250401 (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/nyanvas/20260222/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /nyanvas/20260222 (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/recruit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recruit (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-description::src/routes/support-us/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /support-us (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/about/accounting/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about/accounting (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/about/concepts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about/concepts (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/concerts/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /concerts/[slug] (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/concerts/archives/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /concerts/archives (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/contact/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /contact (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/news/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /news (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/nyanvas/20250401/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /nyanvas/20250401 (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/nyanvas/20260222/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /nyanvas/20260222 (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/recruit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recruit (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-image::src/routes/support-us/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /support-us (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/about/accounting/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about/accounting (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/about/concepts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about/concepts (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/concerts/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /concerts/[slug] (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/concerts/archives/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /concerts/archives (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/contact/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /contact (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/news/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /news (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/nyanvas/20250401/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /nyanvas/20250401 (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/nyanvas/20260222/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /nyanvas/20260222 (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/recruit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recruit (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-title::src/routes/support-us/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /support-us (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/about/accounting/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about/accounting (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/about/concepts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about/concepts (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/concerts/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /concerts/[slug] (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/concerts/archives/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /concerts/archives (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/contact/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /contact (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/news/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /news (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/nyanvas/20250401/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /nyanvas/20250401 (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/nyanvas/20260222/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /nyanvas/20260222 (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/recruit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recruit (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/og-url::src/routes/support-us/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /support-us (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); the route renders $lib/components/Meta.svelte, whose <MetaTags> (svelte-meta-tags@5.0.2 per package-lock) gets title/canonical/twitter but never openGraph; dist/MetaTags.svelte:153 wraps every og:* tag (incl. og:url at :154-155, despite canonical) in {#if openGraph}; no other og tag in src/app.html; public site; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/ (icons/fonts/manifest only), routes or hooks; public orchestra website (www.orch-canvas.tokyo, Google Search Console per README)"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/single-h1::src/routes/+layout.svelte:264::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: +page.svelte renders Meta, a Splide carousel of Flyer slides and no heading; the root +layout.svelte (only layout) has just the news <h2> (:264); grep finds <h1> only on other routes -> / has no <h1>"
+  },
+  {
+    "key": "orchestra-canvas-tokyo/homepage::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/, routes or hooks, no generator; public orchestra website with concerts/news/about pages"
+  }
+]

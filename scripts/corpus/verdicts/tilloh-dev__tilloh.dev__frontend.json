@@ -1,0 +1,777 @@
+[
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::a11y/deprecated-attr::src/lib/components/hitstar/HitstarSpotifyEmbed.svelte:113::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read HitstarSpotifyEmbed.svelte:113: frameborder=\"0\" on <iframe> is a deprecated attribute as a literal attribute in live markup"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::a11y/duplicate-landmark::src/routes/admin/+layout.svelte:176::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:72-75 renders <main><slot/></main> in the verified arm; admin/+layout.svelte:176 renders <main> around {@render children()} in its own verified arm (:154-231); for a verified admin both render, one main inside the other"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::a11y/interactive-nesting::src/lib/components/todo/Todo.svelte:146::<input> is nested inside interactive <section role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/ctx.mjs): literal <input> at Todo.svelte:146 has the literal interactive container <section role=\"button\"> as an ancestor in the same template, no component boundary between"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::a11y/interactive-nesting::src/lib/components/todo/Todo.svelte:159::<input> is nested inside interactive <section role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/ctx.mjs): literal <input> at Todo.svelte:159 has the literal interactive container <section role=\"button\"> as an ancestor in the same template, no component boundary between"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::a11y/interactive-nesting::src/lib/components/todo/Todo.svelte:197::<div> is nested inside interactive <section role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/ctx.mjs): literal <div> at Todo.svelte:197 has the literal interactive container <section role=\"button\"> as an ancestor in the same template, no component boundary between; the inner element claims interactivity by its literal role=\"button\", not only by its negative tabindex, so the tabindex exemption does not apply"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::a11y/top-level-landmark::src/routes/admin/+layout.svelte:176::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:72-75 renders <main><slot/></main> in the verified arm; admin/+layout.svelte:176 renders <main> around {@render children()} in its own verified arm (:154-231); for a verified admin both render, one main inside the other"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/food-scan/FoodScan.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/food-scan/FoodScan.svelte has 277 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/hitstar/HitstarClassic.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/hitstar/HitstarClassic.svelte has 507 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/hitstar/HitstarRange.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/hitstar/HitstarRange.svelte has 601 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/hitstar/HitstarSpotifyEmbed.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/hitstar/HitstarSpotifyEmbed.svelte has 213 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/memorandum/Folder.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/memorandum/Folder.svelte has 460 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/memorandum/FolderOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/memorandum/FolderOverlay.svelte has 287 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/memorandum/Link.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/memorandum/Link.svelte has 335 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/memorandum/PresetOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/memorandum/PresetOverlay.svelte has 319 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/settings/OnlinePersistenceCheck.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/OnlinePersistenceCheck.svelte has 328 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/shared/ColorPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/ColorPicker.svelte has 732 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/shared/EmojiPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/EmojiPicker.svelte has 228 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/shared/GlobalMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/GlobalMenu.svelte has 208 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/todo/Todo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/todo/Todo.svelte has 353 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/todo/TodoInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/todo/TodoInput.svelte has 221 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/todo/TodoList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/todo/TodoList.svelte has 723 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/lib/components/todo/TodoListOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/todo/TodoListOverlay.svelte has 467 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/routes/admin/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+layout.svelte has 294 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/routes/todo/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/todo/+page.svelte has 414 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/component-size::src/routes/uno-sort/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/uno-sort/+page.svelte has 318 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/prop-count::src/lib/components/food-scan/DebugInformation.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/food-scan/DebugInformation.svelte has a single destructured $props() with 11 named props (> 6): selectedModel, availableModels, systemPromptText, userPromptText, ocrResponseTimeText, llmResponseTimeText, completionTokens, promptTokens, totalTokens, prefillTokensPerS, decodeTokensPerS"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/prop-count::src/lib/components/memorandum/Link.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/memorandum/Link.svelte has a single destructured $props() with 7 named props (> 6): linkId, folderId, linkName, linkUrl, faviconLink, onEditLink, onDeleteLink"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/prop-count::src/lib/components/shared/ConfirmOverlay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/ConfirmOverlay.svelte has a single destructured $props() with 8 named props (> 6): open, questionHeader, questionContent, noActionText, noAction, yesActionText, yesAction, onClose"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/prop-count::src/lib/components/shared/Masonry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/Masonry.svelte has a single destructured $props() with 7 named props (> 6): stretchFirst, gridGap, colWidth, items, reset, justifyContent, children"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/prop-count::src/lib/components/todo/GenericListOverlay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/todo/GenericListOverlay.svelte has a single destructured $props() with 13 named props (> 6): open, title, items, emptyMessage, clearTooltip, itemClickTooltip, displayText, itemKey, onItemClick, onRemoveItem, onClearAll, onClose, preventFocusSteal"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::architecture/prop-count::src/lib/components/todo/Todo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/todo/Todo.svelte has a single destructured $props() with 7 named props (> 6): id, title, done, category, categories, deleteTodo, todoChecked"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/admin/Activities.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/Activities.svelte:50 '{#each activities as activity}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list (activities prop fed getLatestActivities() built from admin stores, Activities.svelte:38 / routes/admin/+page.svelte:42)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/admin/Identifiers.svelte:73::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/Identifiers.svelte:73 '{#each $adminIdentifiersStore as identifier}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list ($adminIdentifiersStore (admin API data), Identifiers.svelte:3)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/admin/Jokes.svelte:68::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/Jokes.svelte:68 '{#each $adminJokesStore as joke}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list ($adminJokesStore (admin API data), Jokes.svelte:5)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/admin/LinkPresets.svelte:42::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/LinkPresets.svelte:42 '{#each $adminLinkPresetStore as linkPreset}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list ($adminLinkPresetStore (admin API data), LinkPresets.svelte:2)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/admin/Toggles.svelte:106::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/Toggles.svelte:106 '{#each $adminTogglesStore as toggle}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list ($adminTogglesStore (admin API data), Toggles.svelte:7)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/food-scan/ContentOutput.svelte:26::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/food-scan/ContentOutput.svelte:26 '{#each llmResults as line, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (llmResults = llmResult.split(';') text segments, ContentOutput.svelte:15)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/food-scan/FoodScan.svelte:215::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/food-scan/FoodScan.svelte:215 '{#each followUpQuestions as question}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (followUpQuestions = $derived([...4 literal strings]), FoodScan.svelte:45)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/hitstar/HitstarResultsScreen.svelte:43::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/hitstar/HitstarResultsScreen.svelte:43 '{#each roundResults as result}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list (roundResults prop: per-round game results fed by HitstarClassic/HitstarRange, HitstarResultsScreen.svelte:11)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/shared/EmojiPicker.svelte:83::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shared/EmojiPicker.svelte:83 '{#each filteredEmojis as category}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list (filteredEmojis: emojiCategories filtered by user search query, EmojiPicker.svelte:23; categories inserted/removed while mounted)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/shared/EmojiPicker.svelte:87::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shared/EmojiPicker.svelte:87 '{#each category.emojis as emoji}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list (category.emojis filtered by user search query, EmojiPicker.svelte:23)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/shared/GlobalMenu.svelte:48::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shared/GlobalMenu.svelte:48 '{#each appLinks as link}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list (appLinks mapped from $activeApplicationRoutes, a store filtered by backend feature toggles set after load (src/lib/config/applications.ts:79), GlobalMenu.svelte:14)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/shared/GlobalMenu.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/GlobalMenu.svelte:59 '{#each utilLinks as link}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (utilLinks = Object.values(utilityRoutes) of a const config object (src/lib/config/applications.ts:85), GlobalMenu.svelte:20)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/shared/Navigation.svelte:128::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/Navigation.svelte:128 '{#each Object.values(activeRoutes) as route}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (activeRoutes = routes.filter(r => r.toggle), routes prop's only caller passes Object.values(adminSubRoutes) of a static config object (routes/admin/+layout.svelte:50), Navigation.svelte:15)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/lib/components/todo/TodoList.svelte:543::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/todo/TodoList.svelte:543 '{#each Object.entries(categorizedTodos) as [category, todos]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list (categorizedTodos grouped from runtime todos, TodoList.svelte:67)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/each-key::src/routes/todo/+page.svelte:225::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/todo/+page.svelte:225 '{#each $todoStore as list}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime list ($todoStore (todo lists from API), src/routes/todo/+page.svelte:11)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/effect-as-derived::src/lib/components/todo/TodoListOverlay.svelte:71::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/todo/TodoListOverlay.svelte:71 the effect only copies listName/listEmoji into locals that are then bound (262, 273) or reassigned (215-216), the writable-$derived override pattern (svelte ^5.30 in the app)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/effect-as-derived::src/routes/food-scan/+page.svelte:22::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/food-scan/+page.svelte:22 the effect only does locale = $languageStore; locale is never written elsewhere (only its declaration, 11), a plain $derived as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/effect-as-derived::src/routes/todo/+page.svelte:41::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/todo/+page.svelte:41 the effect only does locale = $languageStore; locale is never written elsewhere (only its declaration, 31), a plain $derived as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::correctness/effect-as-derived::src/routes/uno-sort/+page.svelte:55::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/uno-sort/+page.svelte:55 the effect only does locale = $languageStore; locale is never written elsewhere (only its declaration, 19), a plain $derived as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::performance/image-dimensions::src/routes/catch-em-all/+page.svelte:87::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .mobile_message img sets width:50vw; height:auto (:120-124) — natural aspect decides the height"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::performance/image-loading-hint::src/routes/catch-em-all/+page.svelte:87::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the mobile message illustration, shown (display:block) only on tablet/phone where it is the page's first visible content above its <h1> (:86-90,116-130) — above the fold there"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::performance/namespace-import::src/lib/components/food-scan/FoodScan.svelte:5::Namespace import \"import * as … from '@mlc-ai/web-llm'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "tp",
+    "basis": "read FoodScan.svelte:5,14: `import * as webllm from '@mlc-ai/web-llm'` is destructured whole (`const { prebuiltAppConfig } = webllm;`) — a whole-namespace use, like the ledger's maplibregl destructuring tp; other uses are static (webllm.CreateMLCEngine, types)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::performance/responsive-image::src/routes/catch-em-all/+page.svelte:87::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/catch-em-all/LookAway.png at 50vw — raster, one fixed-size asset"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::security/raw-html::src/lib/components/about/AboutInfo.svelte:56::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/about/AboutInfo.svelte:56: {@html $t('page.about.weirdJsText1')} is a sveltekit-i18n message (lib/util/translations.ts, repo translation files) with no params — repo constants, reported per docs"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::security/raw-html::src/lib/components/about/AboutInfo.svelte:64::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/about/AboutInfo.svelte:64: {@html $t('page.about.weirdJsText2')} is a sveltekit-i18n message (lib/util/translations.ts, repo translation files) with no params — repo constants, reported per docs"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::security/raw-html::src/lib/components/about/AboutInfo.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/about/AboutInfo.svelte:72: {@html $t('page.about.usefulWorkText')} is a sveltekit-i18n message (lib/util/translations.ts, repo translation files) with no params — repo constants, reported per docs"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::security/raw-html::src/lib/components/food-scan/FoodScan.svelte:193::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/food-scan/FoodScan.svelte:193: {@html $t('page.foodScan.warning')} is a sveltekit-i18n message (lib/util/translations.ts, repo translation files) with no params — repo constants, reported per docs"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::security/raw-html::src/lib/components/home/Greeting.svelte:67::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/home/Greeting.svelte:27-45,67: repo i18n greeting whose only param is the identifier name after &/</>/\" escaping — escaped, reported per docs"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::security/raw-html::src/lib/components/memorandum/LinkOverlay.svelte:82::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/memorandum/LinkOverlay.svelte:12,82-85: repo i18n message whose params are the link name the user is typing into this overlay and their own current folder name — self-only, not a cross-user vector; reported per docs (ledger self-only convention)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::security/raw-html::src/lib/components/settings/OnlinePersistenceCheck.svelte:160::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/settings/OnlinePersistenceCheck.svelte:160: {@html $t('page.settings.onlinePersistence.description1')} is a sveltekit-i18n message (lib/util/translations.ts, repo translation files) with no params — repo constants, reported per docs"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::security/raw-html::src/routes/uno-sort/+page.svelte:76::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/uno-sort/+page.svelte:76: {@html $t('page.unoSort.rules')} is a sveltekit-i18n message (lib/util/translations.ts, repo translation files) with no params — repo constants, reported per docs"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 27 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/admin/identifiers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/admin/jokes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/admin/presets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/admin/toggles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/catch-em-all/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 37 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/food-scan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/hitstar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/jokes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/memorandum/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 34 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/todo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/canonical-url::src/routes/uno-sort/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it) but not a search target (auth-gated (client-side): root +layout.svelte:68-74 renders GlobalLogin (identifier verified via verifyId) instead of <slot/> until verified, and :25 goto(/) for unverified visitors), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/admin/identifiers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/admin/jokes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/admin/presets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/admin/toggles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/catch-em-all/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/food-scan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/hitstar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/jokes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/memorandum/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/todo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/json-ld::src/routes/uno-sort/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in the repo (frontend src, app.html) and no meta/JSON-LD package among its deps (carbon-components-svelte, sveltekit-i18n, web-llm); the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 27 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/admin/identifiers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/admin/jokes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/admin/presets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/admin/toggles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/catch-em-all/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 37 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/food-scan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/hitstar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/jokes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/memorandum/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 34 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/todo/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-description::src/routes/uno-sort/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 27 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/admin/identifiers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/admin/jokes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/admin/presets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/admin/toggles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/catch-em-all/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 37 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/food-scan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/hitstar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/jokes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/memorandum/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 34 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/todo/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-image::src/routes/uno-sort/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 27 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/admin/identifiers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/admin/jokes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/admin/presets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/admin/toggles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/catch-em-all/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 37 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/food-scan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/hitstar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/jokes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/memorandum/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 34 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/todo/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-title::src/routes/uno-sort/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 27 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/admin/identifiers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/admin/jokes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/admin/presets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/admin/toggles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/catch-em-all/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 37 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/food-scan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/hitstar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 38 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/jokes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 31 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/memorandum/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 44 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 34 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/todo/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 39 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/og-url::src/routes/uno-sort/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html (heads are <title> + <meta name={route.name[locale]}> only); no meta-tag library among deps (carbon-components-svelte, sveltekit-i18n emit none); ssr=false app-wide (+layout.ts:5), so client heads count and none emit it; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/single-h1::src/lib/components/hitstar/HitstarRange.svelte:214::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: Hitstar.svelte renders both HitstarClassic and HitstarRange in carbon-components-svelte@0.101.0 TabContent (package-lock), whose TabContent.svelte (jsDelivr) always renders its <div role=\"tabpanel\"> and slot, only adding hidden when unselected; both default to gameState 'MENU', so HitstarClassic's <h1 class=\"headline\"> (:182) and HitstarRange's (:214) are both in the DOM (GlobalLogin's <h1> is in the exclusive !isVerified layout arm)"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: frontend/static has only config/images/robots.txt, no sitemap.xml file/route/generator (literal claim holds); the whole app is gated: root +layout.svelte:64-76 renders only <GlobalLogin> until an identifier verifies against the backend (and redirects to / while unverified), content in <main> only after, ssr=false SPA (root +layout.ts:5), so nothing public to list"
+  },
+  {
+    "key": "tilloh-dev/tilloh.dev:frontend::seo/ssr-disabled::src/routes/+layout.ts:5::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:5 (claim holds); deliberate SPA for a personal toolbox whose root +layout.svelte:64-76 renders only <GlobalLogin> until an identifier verifies against the backend (and redirects to / while unverified), content in <main> only after (README: jokes/todo/games toggled from an admin panel), not content for search"
+  }
+]

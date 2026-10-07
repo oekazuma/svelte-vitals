@@ -1,0 +1,1237 @@
+[
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/deprecated-attr::src/routes/dev/media/components/DeviceIframe.svelte:118::`frameborder`, `scrolling` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read DeviceIframe.svelte:118: literal <iframe> (not in svg) with static frameborder/scrolling attribute(s); obsolete iframe presentational attributes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/disallowed-aria-props::src/routes/(seo)/announcements/[slug]/+page.svelte:115::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, ctx.mjs) + read: literal <div> at +page.svelte:115 carries aria-label, no role attribute, no spread, not in svg; generic role prohibits naming"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::../../packages/ui/src/components/newsroom/NewsroomSurface.svelte:280::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (publications)/+layout@.svelte resets to the root layout and adds no wrapper; routes/+layout.svelte:395-397 renders children inside an unconditional <main>; page -> PublicationRoute.svelte:73 <NewsroomSurface> unconditionally, which has a <main> in both arms of {#if view === \"social-post\"} (:280 / :341) -> two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(minimal)/status/+page.svelte:62::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:62 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(seo)/events/+page.svelte:58::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:58 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(seo)/events/[slug]/+page.svelte:61::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:61 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(seo)/example/+page.svelte:49::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:49 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(seo)/example/[slug]/+page.svelte:56::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:56 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(seo)/intro/[slug]/+page.svelte:94::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:94 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(seo)/legal/[slug]/+page.svelte:55::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:55 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/(seo)/tips/[slug]/+page.svelte:52::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:52 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/block-email/+page.svelte:94::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:94 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/dev/preview/assistant-acknowledgements/+page.svelte:271::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:271 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/oauth/revolut-business/callback/+page.svelte:33::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:33 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/plans/+page.svelte:40::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:40 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/share/workflow-template/[templateId]/+page.svelte:76::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:76 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/tasks/+page.svelte:39::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:39 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/unsubscribe/+page.svelte:86::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:86 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/workflows/+page.svelte:679::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:679 unconditional top-level page <main> (or one arm of an if whose every arm has one); routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so the route renders two main landmarks"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/id-duplication::../../packages/ui/src/components/AppSettingsMemoriesPermissionDialog.svelte:179::Duplicate id \"permission-dialog-title\"",
+    "verdict": "design",
+    "basis": "read: span#permission-dialog-title (:179) is under {#if dialogVisible && displayedRequest}; copies come from ChatHistory.svelte:3001 {#if shouldShowPermissionDialog} (live permission request) and LandingPrivacySafetyDemo.svelte:201 previewMode (DailyInspirationBanner.svelte:1814, only under isGuestIntroVariant, a stage of the guest story); on /projects and /tasks the banner is never given variant=\"guest-intro\" (WorkspaceHomeShell:175, TasksPage:663) so its copies never render; separately-toggled UI, documented separate-{#if} co-render model (cobalt/kite convention)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/interactive-nesting::src/routes/(seo)/announcements/[slug]/+page.svelte:173::<video> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse) + read +page.svelte:173: <video controls> directly inside <div class=\"video-wrapper\" role=\"button\" tabindex=\"0\"> (128)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/permitted-contents::src/lib/components/docs/DocsSidebar.svelte:341::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <h2> at DocsSidebar.svelte:341 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <h2> is outside <button>'s permitted content"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/permitted-contents::src/lib/components/docs/DocsSidebar.svelte:386::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at DocsSidebar.svelte:386 has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <button>'s permitted content"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/(minimal)/status/+page.svelte:62::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:62 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/(seo)/events/+page.svelte:58::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:58 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/(seo)/events/[slug]/+page.svelte:61::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:61 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/(seo)/example/+page.svelte:49::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:49 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/(seo)/example/[slug]/+page.svelte:56::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:56 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/(seo)/intro/[slug]/+page.svelte:94::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:94 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/(seo)/legal/[slug]/+page.svelte:55::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:55 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/(seo)/tips/[slug]/+page.svelte:52::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:52 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/block-email/+page.svelte:94::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:94 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/dev/preview/[...path]/+page.svelte:769::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:769 is a bare/named <aside> (complementary, not under sectioning content) in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/dev/preview/assistant-acknowledgements/+page.svelte:271::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:271 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/oauth/revolut-business/callback/+page.svelte:33::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:33 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/plans/+page.svelte:40::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:40 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/plans/+page.svelte:43::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:43 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/plans/+page.svelte:61::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:61 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/projects/+page.svelte:26::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:26 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/projects/+page.svelte:29::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:29 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/projects/+page.svelte:54::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:54 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/share/workflow-template/[templateId]/+page.svelte:76::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:76 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/tasks/+page.svelte:39::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:39 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/tasks/+page.svelte:42::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:42 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/tasks/+page.svelte:60::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:60 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/unsubscribe/+page.svelte:86::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:86 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/workflows/+page.svelte:679::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:679 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/workflows/+page.svelte:685::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:685 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/top-level-landmark::src/routes/workflows/+page.svelte:701::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:701 is a <main> in the route's page/layout; routes/+layout.svelte:395-397 renders {@render children()} inside an unconditional <main>; (seo)/(minimal) +layout@.svelte reset to that root layout and add no wrapper, so it is nested inside that main"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/lib/components/docs/DocsMessage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/lib/components/docs/DocsMessage.svelte has 217 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/lib/components/docs/DocsSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/lib/components/docs/DocsSidebar.svelte has 747 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/(seo)/announcements/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/(seo)/announcements/[slug]/+page.svelte has 349 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/(seo)/events/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/(seo)/events/+page.svelte has 226 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/(seo)/events/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/(seo)/events/[slug]/+page.svelte has 212 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/(seo)/example/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/(seo)/example/[slug]/+page.svelte has 276 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/(seo)/intro/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/(seo)/intro/[slug]/+page.svelte has 207 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/+layout.svelte has 421 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/+page.svelte has 3926 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/media/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/media/+page.svelte has 229 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/media/templates/instagram-carousel/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/media/templates/instagram-carousel/+page.svelte has 297 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/og-image/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/og-image/+page.svelte has 570 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/preview/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/preview/+page.svelte has 423 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/preview/[...path]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/preview/[...path]/+page.svelte has 1367 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/preview/assistant-acknowledgements/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/preview/assistant-acknowledgements/+page.svelte has 707 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte has 1875 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/preview/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/preview/settings/+page.svelte has 1160 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/dev/preview/video-timeline/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/dev/preview/video-timeline/+page.svelte has 819 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/docs/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/docs/+layout.svelte has 319 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/docs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/docs/+page.svelte has 247 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/docs/[...slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/docs/[...slug]/+page.svelte has 249 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/docs/api/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/docs/api/+page.svelte has 415 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/s/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/s/+page.svelte has 239 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/share/chat/[chatId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/share/chat/[chatId]/+page.svelte has 1225 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/share/embed/[embedId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/share/embed/[embedId]/+page.svelte has 714 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/component-size::src/routes/workflows/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: frontend/apps/web_app/src/routes/workflows/+page.svelte has 1204 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/prop-count::src/routes/dev/media/components/BrandHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): headline, subtitle, features, logoSize, headlineSize, featureSize, showLogo, showFeatures"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/prop-count::src/routes/dev/media/components/DeviceLaptop.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): screenWidth, screenHeight, browserBarHeight, bezelTop, bezelSide, chin, baseHeight, addressUrl, screen"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/route-component-import::src/routes/plans/[plan_id]/+page.svelte:8::src/routes/plans/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route (header comment: \"Canonical Plan detail route. The parent Plans route preserves authentication, feature gates...\") rendering <PlansRoute /> with no props; the imported parent +page.svelte declares no $props()/data and reads page.params.plan_id from $app/state, and neither route has a load file, so nothing Kit would give it is missing; reported as documented, not a defect"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::architecture/route-component-import::src/routes/tasks/[task_id]/+page.svelte:8::src/routes/tasks/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route (header comment: \"Canonical Task detail route. The parent Tasks route preserves authentication, feature gates...\") rendering <TasksRoute /> with no props; the imported parent +page.svelte declares no $props()/data and reads page.params.task_id from $app/state, and neither route has a load file, so nothing Kit would give it is missing; reported as documented, not a defect"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(minimal)/status/components/IncidentEntry.svelte:39::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(minimal)/status/components/IncidentEntry.svelte:39 header '{#each incident.updates as update}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props().updates), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(minimal)/status/components/IncidentHistory.svelte:22::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(minimal)/status/components/IncidentHistory.svelte:22 header '{#each incidents as incident}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(minimal)/status/components/IntraDayPanel.svelte:34::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(minimal)/status/components/IntraDayPanel.svelte:34 header '{#each checks as check}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(minimal)/status/components/IntraDayPanel.svelte:41::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(minimal)/status/components/IntraDayPanel.svelte:41 header '{#each checks as check}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(minimal)/status/components/IntraDayPanel.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(minimal)/status/components/IntraDayPanel.svelte:57 header '{#each runs as run}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(minimal)/status/components/ResponseTimeChart.svelte:61::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(minimal)/status/components/ResponseTimeChart.svelte:61 header '{#each points.yLabels as label, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (chart axis labels): items have no identity beyond position"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(minimal)/status/components/ResponseTimeChart.svelte:73::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(minimal)/status/components/ResponseTimeChart.svelte:73 header '{#each points.xLabels as xl}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (chart axis labels): items have no identity beyond position"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(minimal)/status/components/UptimeBar.svelte:21::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(minimal)/status/components/UptimeBar.svelte:21 header '{#each entries as entry, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(seo)/events/+page.svelte:72::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(seo)/events/+page.svelte:72 header '{#each data.events as event}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props().events), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(seo)/events/[slug]/+page.svelte:88::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(seo)/events/[slug]/+page.svelte:88 header '{#each descriptionParagraphs as paragraph}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (paragraphs of one description string (split)): items have no identity beyond position"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(seo)/example/+page.svelte:62::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(seo)/example/+page.svelte:62 header '{#each data.chats as chat}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props().chats), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(seo)/example/[slug]/+page.svelte:112::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(seo)/example/[slug]/+page.svelte:112 header '{#each data.followUpSuggestions as suggestion}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props().followUpSuggestions), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(seo)/example/[slug]/+page.svelte:71::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(seo)/example/[slug]/+page.svelte:71 header '{#each data.messages as message}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props().messages), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(seo)/example/[slug]/+page.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(seo)/example/[slug]/+page.svelte:85 header '{#each message.sources as source}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: item($props().messages).sources), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/(seo)/intro/[slug]/+page.svelte:110::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(seo)/intro/[slug]/+page.svelte:110 header '{#each data.followUpSuggestions as suggestion}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props().followUpSuggestions), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/+page.svelte:3506::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:3506 header '{#each LANGUAGE_CODES as lang}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (LANGUAGE_CODES imported from the workspace package @repo/ui; the docs keep lists from a package reported): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/media/+page.svelte:61::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dev/media/+page.svelte:61 header '{#each templates as tmpl}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $state initialised empty and assigned at runtime), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/media/components/BrandHeader.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/media/components/BrandHeader.svelte:56 header '{#each features as feature}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (BrandHeader callers pass config.brand.features from loadTemplateConfig(), a YAML template config bundled via import.meta.glob (dev/media/data/loader.ts:28); fixed per template): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/+page.svelte:193::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dev/preview/+page.svelte:193 header '{#each nodes as node}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: snippet-param), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/[...path]/+page.svelte:753::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dev/preview/[...path]/+page.svelte:753 header '{#each Object.keys(variants) as variantName}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: Object.keys($state object filled at runtime)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1013::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1013 header '{#each ALL_APPS as appSlug}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (const ALL_APPS array literal built with a spread, which the docs keep reported): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1053::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1053 header '{#each sections as section, si}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sections come from the constant APP_REGISTRY (dev embed preview); variants are author-defined): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1069::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1069 header '{#each Object.keys(s.variants).filter((v) => v !== \"mobile\") as vname}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sections come from the constant APP_REGISTRY (dev embed preview); variants are author-defined): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1198::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1198 header '{#each dataVars as [vname, vprops]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sections come from the constant APP_REGISTRY (dev embed preview); variants are author-defined): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1276::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte:1276 header '{#each dataVars2 as [vname], vi}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (sections come from the constant APP_REGISTRY (dev embed preview); variants are author-defined): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/video-timeline/+page.svelte:447::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/video-timeline/+page.svelte:447 header '{#each parsed as example, idx}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (same-file const array literal .map() of example manifests (dev preview)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/video-timeline/+page.svelte:466::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/video-timeline/+page.svelte:466 header '{#each rulerMarks(example.manifest.meta.durationSeconds) as sec}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; positional list (ruler tick marks): items have no identity beyond position"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/video-timeline/+page.svelte:478::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/video-timeline/+page.svelte:478 header '{#each example.manifest.tracks as track}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (same-file const array literal .map() of example manifests (dev preview)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/each-key::src/routes/dev/preview/video-timeline/+page.svelte:493::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/dev/preview/video-timeline/+page.svelte:493 header '{#each track.items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (same-file const array literal .map() of example manifests (dev preview)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::correctness/unmutated-state::src/routes/workflows/+page.svelte:82::$state \"runContentRetention\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/workflows/+page.svelte:82; every mention of runContentRetention in the file listed (cwork grep); only read, including as a shorthand string property in an object passed to createWorkflow (a primitive copy, not an escape of the state)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/iframe-loading::src/routes/dev/media/components/DeviceIframe.svelte:118::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: app-preview iframe inside the device mock-ups of the dev media templates (og-social/+page.svelte:44-61), the composition's main visible content captured by screenshot"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-dimensions::src/routes/(seo)/events/+page.svelte:75::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img width:100%; height:100%; min-height:150px in an auto-height grid row ((seo)/events/+page.svelte:166-171) — only a 150px floor is reserved, the image's natural aspect sizes the row"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-dimensions::src/routes/(seo)/events/[slug]/+page.svelte:64::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: scoped CSS img width:100%; height:auto ((seo)/events/[slug]/+page.svelte:117-121) — natural aspect decides the height"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-dimensions::src/routes/dev/media/templates/instagram-carousel/+page.svelte:142::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (scoped .cta-logo 80px x 80px, instagram-carousel/+page.svelte:239-242), so no CLS from the missing attributes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-dimensions::src/routes/dev/og-image/+page.svelte:94::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (scoped .og-logo-icon 40px x 40px, og-image/+page.svelte:269-272), so no CLS from the missing attributes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-dimensions::src/routes/s/+page.svelte:124::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (scoped .openmates-logo 96px x 96px, s/+page.svelte:171-174), so no CLS from the missing attributes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-dimensions::src/routes/s/+page.svelte:130::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (scoped .openmates-logo 96px x 96px, s/+page.svelte:171-174), so no CLS from the missing attributes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-dimensions::src/routes/share/chat/[chatId]/+page.svelte:1074::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (scoped .openmates-logo 96px x 96px, share/chat/[chatId]/+page.svelte:1154-1157), so no CLS from the missing attributes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-loading-hint::src/routes/dev/media/templates/instagram-carousel/+page.svelte:142::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the CTA slide; the template renders one 1080x1080 slide at a time (instagram-carousel/+page.svelte:2-10) — visible when rendered"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-loading-hint::src/routes/dev/og-image/+page.svelte:94::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top-left of the OG image canvas — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-loading-hint::src/routes/s/+page.svelte:124::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the centred loading/redirecting status container, the page's only content in that state — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-loading-hint::src/routes/s/+page.svelte:130::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the centred loading/redirecting status container, the page's only content in that state — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/image-loading-hint::src/routes/share/chat/[chatId]/+page.svelte:1074::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo in the {#if isLoading} loading container, the page's only content in that state — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/lcp-image::src/routes/(seo)/events/+page.svelte:75::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route ((seo)/+layout@.svelte and root +layout.svelte have no direct img), a 220px-wide event photo — a plausible LCP: first event card directly under the header h1 + intro ((seo)/events/+page.svelte:57-75), and the static event list is non-empty — in view on load, yet loading=\"lazy\""
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/responsive-image::src/routes/(seo)/events/+page.svelte:75::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: event image_url from the static list (packages/ui/src/data/openmatesEvents.ts:64 /event-assets/openmates/*.jpg) — raster, one fixed-size asset"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/responsive-image::src/routes/(seo)/events/[slug]/+page.svelte:64::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: event image_url from the static list (packages/ui/src/data/openmatesEvents.ts:64 /event-assets/openmates/*.jpg) — raster, one fixed-size asset"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::performance/state-raw::src/routes/dev/media/+page.svelte:20::\"templates\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding in src/routes/dev/media/+page.svelte: only whole-binding reassignments and template/read-only uses; no member writes, method calls, bind:, call-arg or prop escapes; each-items only read — $state.raw fits per docs"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/lib/components/docs/DocsMessage.svelte:83::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/docs/DocsMessage.svelte:83: `content` is the repo docs manifest HTML (docs/[...slug]) — repo-authored"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/lib/components/publications/PublicationRoute.svelte:70::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/components/publications/PublicationRoute.svelte:70: `<script type=application/ld+json>${data.jsonLd}` where jsonLd = JSON.stringify(non-literal object: titles/descriptions/keywords from content data, publications articleBody markdown) with no '<' escaping — docs: non-literal JSON-LD needs script-safe serialization (ledger convention for per-post data)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/announcements/[slug]/+page.svelte:106::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(seo)/announcements/[slug]/+page.svelte:106: non-literal JSON-LD, but announcements/[slug]/+page.server.ts always redirect(308)s, so the page never renders and data.jsonLd never exists — not a live defect"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/announcements/[slug]/+page.svelte:198::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(seo)/announcements/[slug]/+page.svelte:198: markdown-it with html:false (escapes raw HTML); and the route always redirect(308)s"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/events/+page.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(seo)/events/+page.svelte:55: `<script type=application/ld+json>${data.jsonLd}` where jsonLd = JSON.stringify(non-literal object: titles/descriptions/keywords from content data, publications articleBody markdown) with no '<' escaping — docs: non-literal JSON-LD needs script-safe serialization (ledger convention for per-post data)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/events/[slug]/+page.svelte:58::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(seo)/events/[slug]/+page.svelte:58: `<script type=application/ld+json>${data.jsonLd}` where jsonLd = JSON.stringify(non-literal object: titles/descriptions/keywords from content data, publications articleBody markdown) with no '<' escaping — docs: non-literal JSON-LD needs script-safe serialization (ledger convention for per-post data)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/example/[slug]/+page.svelte:53::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(seo)/example/[slug]/+page.svelte:53: `<script type=application/ld+json>${data.jsonLd}` where jsonLd = JSON.stringify(non-literal object: titles/descriptions/keywords from content data, publications articleBody markdown) with no '<' escaping — docs: non-literal JSON-LD needs script-safe serialization (ledger convention for per-post data)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/intro/[slug]/+page.svelte:86::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(seo)/intro/[slug]/+page.svelte:86: `<script type=application/ld+json>${data.jsonLd}` where jsonLd = JSON.stringify(non-literal object: titles/descriptions/keywords from content data, publications articleBody markdown) with no '<' escaping — docs: non-literal JSON-LD needs script-safe serialization (ledger convention for per-post data)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/legal/[slug]/+page.svelte:52::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(seo)/legal/[slug]/+page.svelte:52: `<script type=application/ld+json>${data.jsonLd}` where jsonLd = JSON.stringify(non-literal object: titles/descriptions/keywords from content data, publications articleBody markdown) with no '<' escaping — docs: non-literal JSON-LD needs script-safe serialization (ledger convention for per-post data)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/tips/[slug]/+page.svelte:49::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/routes/(seo)/tips/[slug]/+page.svelte:49: `<script type=application/ld+json>${data.jsonLd}` where jsonLd = JSON.stringify(non-literal object: titles/descriptions/keywords from content data, publications articleBody markdown) with no '<' escaping — docs: non-literal JSON-LD needs script-safe serialization (ledger convention for per-post data)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::security/raw-html::src/routes/(seo)/tips/[slug]/+page.svelte:75::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/(seo)/tips/[slug]/+page.svelte:75: bodyHtml = new MarkdownIt({ html: false }).render(repo newsletter text) — escaped"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/(minimal)/status/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false ((minimal)/status/+layout.ts:4), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/block-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/media/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/media/templates/instagram-carousel/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/media/templates/instagram-single/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/media/templates/instagram-story/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/media/templates/og-github/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/media/templates/og-social/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/og-image/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/preview/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/preview/[...path]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/preview/assistant-acknowledgements/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/preview/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/preview/video-timeline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/dev/video/background/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (dev/+layout.ts:15), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/oauth/revolut-business/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent from the SSR head (read) but not a search target (literal noindex robots meta at oauth/revolut-business/callback/+page.svelte:30), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/plans/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/plans/[plan_id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/projects/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (projects/+page.ts:8), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/s/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (s/+page.ts:7), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/share/chat/[chatId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/share/embed/[embedId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/share/workflow-template/[templateId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/tasks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/tasks/[task_id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/unsubscribe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "read: SSR route: the served head has no canonical (app.html:89-102 carries og/twitter defaults only; root +layout.svelte:390 mounts @repo/ui MetaTags, the only canonical emitter for this route, behind {#if loaded} which onMount sets, so it is absent from the SSR document and appears only after hydration, pointing at https://openmates.org); no other canonical in page/layouts/imports"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/canonical-url::src/routes/workflows/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "read: route is ssr=false (workflows/+page.ts:9), so the only render is client-side, and there the root +layout.svelte:137,390 (not reset by any @ layout) dynamically imports @repo/ui/components/MetaTags.svelte and mounts <MetaTagsComponent/> once onMount sets loaded (route is not an isSeoRoute); packages/ui/src/components/MetaTags.svelte emits an unconditional <link rel=\"canonical\" href={url}> (defaultMeta.url https://openmates.org). Analyzer does not follow the dynamic import of a workspace-package component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/description-length::src/routes/(seo)/example/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (seo)/example/+page.svelte head literal <meta name=\"description\"> is 172 chars; hooks.server.ts strips the app.html default block on isSeoRoute paths, so it is the route's only description; length matches"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:103 literal <meta name=\"description\"> ships on every non-(seo) route (hooks.server.ts:22 strips it only on isSeoRoute paths); the 28 routes (incl. public /, /block-email, /plans, /share/*) set no own description, so they share it; client-mounted MetaTags adds the same defaultMeta description"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/heading-level-skip::src/routes/(seo)/example/[slug]/+page.svelte:83::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "(seo)/example/[slug]/+page.svelte:83 \"Sources used\" <h3> inside assistant messages follows the page <h1> (:59) with no <h2> in between (message content is plain <p>); the <h2> (:110) comes after"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/indexability::src/routes/oauth/revolut-business/callback/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: oauth/revolut-business/callback/+page.svelte:30 unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; noindex as claimed"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/(minimal)/status/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/(seo)/example/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: /example is an isSeoRoute (root +layout.svelte:29-33), so MetaTags (the only non-(seo) JSON-LD emitter) is not mounted; (seo)/example/+page.svelte:19-47 head has title/description/OG but no ld+json; (seo)/+layout@.svelte renders none"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/block-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/media/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/media/templates/instagram-carousel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/media/templates/instagram-single/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/media/templates/instagram-story/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/media/templates/og-github/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/media/templates/og-social/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/og-image/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/preview/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/preview/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/preview/assistant-acknowledgements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/preview/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/preview/video-timeline/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/dev/video/background/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: its only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount, so the server-rendered HTML has none; same reading as the other SSR routes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/docs/[...slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: its only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount, so the server-rendered HTML has none; same reading as the other SSR routes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/docs/api/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: its only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount, so the server-rendered HTML has none; same reading as the other SSR routes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/oauth/revolut-business/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: its only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount, so the server-rendered HTML has none; same reading as the other SSR routes"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/plans/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/plans/[plan_id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/projects/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/s/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/share/chat/[chatId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/share/embed/[embedId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/share/workflow-template/[templateId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/tasks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/tasks/[task_id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/unsubscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "SSR route: the only JSON-LD comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/json-ld::src/routes/workflows/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte emits {@html jsonLdScript} = '<script type=\"application/ld+json\">'+JSON.stringify(...) unconditionally; route is not in isSeoRoute; analyzer does not follow the dynamically imported component"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::../../packages/ui/src/components/DailyInspirationBanner.svelte:1643::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "only zero or one <h1> can render: the anchored <h1> (:1643) is under {#if isGuestIntroVariant} (variant === 'guest-intro', :166), and every instance on /projects, /tasks, /tasks/[task_id] comes from WorkspaceHomeShell.svelte:175 / TasksPage.svelte:663, which pass no variant (default 'default'); TasksPage.svelte:673 <h1> is under {#if !compact && !isCentralTasksWorkspace} (:661), false for ProjectsPage's compact use (:847) and for /tasks (focus defaults to 'tasks' -> isCentralTasksWorkspace); the one left is ChatSettingsHeader:86, a closed Settings sub-view"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::../../packages/ui/src/components/settings/ChatSettingsHeader.svelte:86::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "3 routes, two shapes. /plans and /plans/[plan_id]: the 2 counted are DailyInspirationBanner.svelte:1643 (under {#if isGuestIntroVariant}; WorkspaceHomeShell/TasksPage never pass variant='guest-intro', so it never renders) plus this <h1>, rendered only when Settings.svelte:3354 isChatSettingsPage (activeSettingsView starts 'main') -> at most one <h1>, fp. /: a guest/login-time <h1> plus this closed Settings sub-view <h1> (design shape). Majority fp"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::../../packages/ui/src/components/workflows/WorkflowDetailPage.svelte:51::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "this key exists only because of a misread: workflows/+page.svelte authenticated arm counts DailyInspirationBanner.svelte:1643 (via WorkspaceHomeShell in {#if !showManageView}, variant never 'guest-intro' -> never renders) as h1[0], putting WorkflowDetailPage:51 (in the separate {#if showManageView} / {#if selectedWorkflow}) at h1[1]; the other counted is ChatSettingsHeader:86 (closed Settings sub-view). Rendered: WorkflowDetailPage's <h1> is the page's single one; correctly analysed, the anchor would move to ChatSettingsHeader:86"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::/::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 rendered through workspace package @repo/ui (not followed): +page.svelte (ssr=false, client-rendered) ActiveChat → DailyInspirationBanner.svelte:1643 <h1 class=\"landing-intro-headline\"> on the guest intro slide (openmates-intro, bundled in demo_chats/guestProductInspirations.ts and selected by default for guests, :570-577), and Login.svelte:2397 <h1> when login is open"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::/[[locale=publicationLocale]]/[section=publicationSection]/[[slug]]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 rendered through workspace package @repo/ui (not followed): PublicationRoute.svelte:73 NewsroomSurface renders PublicationHero.svelte:40 <h1> for every non-social view ({#if hero}; heroNews is always set by lib/server/publications.ts:281 toHero(news[0])) and NewsroomSurface.svelte:308 <h1> for the social-post view"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/single-h1::/status::Missing <h#>",
+    "verdict": "tp",
+    "basis": "(minimal)/status/+page.svelte renders StatusBanner (no heading) + ServiceGroup/TestsSection/IncidentHistory <h2>s only; +layout@ resets to root layout, which has no <h1>; no <h1> anywhere in chain"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/(minimal)/status/+layout.ts:4::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at (minimal)/status/+layout.ts:4; live status dashboard whose data is fetched client-side every 60s (status/+page.svelte onMount), not content for search"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/+page.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+page.ts:6 next to prerender = true (\"Pre-render for SEO\") on the public home page; with ssr off the prerendered page is an empty shell (Anki precedent)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/dev/+layout.ts:15::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at dev/+layout.ts:15; dev-only tooling (dev/+layout.svelte shows \"Not Available\" outside dev hosts), not content for search"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/dev/media/+layout.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at dev/media/+layout.ts:6; dev-only tooling (dev/+layout.svelte shows \"Not Available\" outside dev hosts), not content for search"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/dev/og-image/+page.ts:13::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at dev/og-image/+page.ts:13; dev-only tooling (dev/+layout.svelte shows \"Not Available\" outside dev hosts), not content for search"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/projects/+page.ts:8::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at projects/+page.ts:8; authenticated workspace view (file comment: depends on authenticated browser state/crypto stores), not content for search"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/s/+layout.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at s/+layout.ts:6; short-URL redirect page that must read window.location.hash (never sent to the server), so SSR cannot render it (chithi URL-fragment precedent)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/s/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at s/+page.ts:7; short-URL redirect page that must read window.location.hash (never sent to the server), so SSR cannot render it (chithi URL-fragment precedent)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/workflows/+page.ts:9::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at workflows/+page.ts:9; authenticated workspace view (file comment: depends on authenticated browser state/crypto stores), not content for search"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/workflows/[workflow_id]/+page.ts:8::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at workflows/[workflow_id]/+page.ts:8; authenticated workspace view (file comment: depends on authenticated browser state/crypto stores), not content for search"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/ssr-disabled::src/routes/workflows/[workflow_id]/runs/+page.ts:8::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at workflows/[workflow_id]/runs/+page.ts:8; authenticated workspace view (file comment: depends on authenticated browser state/crypto stores), not content for search"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-length::src/routes/(minimal)/status/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (minimal)/status/+page.svelte:60 literal <title>OpenMates Status</title> (16), and onMount forces document.title to the same string; length matches"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-length::src/routes/(seo)/events/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (seo)/events/+page.svelte literal <title>OpenMates Events</title> (16); isSeoRoute, so no MetaTags override; length matches"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-length::src/routes/(seo)/example/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: (seo)/example/+page.svelte:20 literal <title>Example Chats — OpenMates</title> (25); isSeoRoute, so no MetaTags override; length matches"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-length::src/routes/docs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: docs/+page.svelte literal <title>Documentation | OpenMates</title> (25) in the SSR+prerendered head (docs/+page.ts ssr/prerender true); length matches the shipped title (client-mounted MetaTags later swaps document.title)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/media/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/media/templates/instagram-carousel/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/media/templates/instagram-single/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/media/templates/instagram-story/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/media/templates/og-github/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/media/templates/og-social/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/og-image/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/preview/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/preview/[...path]/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/preview/embeds/[app=embedApp]/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/preview/settings/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/preview/video-timeline/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/dev/video/background/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/plans/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "SSR route: the only <title> comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/plans/[plan_id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "SSR route: the only <title> comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/projects/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/s/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/share/chat/[chatId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "SSR route: the only <title> comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/share/embed/[embedId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "SSR route: the only <title> comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/share/workflow-template/[templateId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "SSR route: the only <title> comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/tasks/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "SSR route: the only <title> comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/tasks/[task_id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "SSR route: the only <title> comes from MetaTags, which the root +layout.svelte mounts via import() in onMount (:137-143), so the server-rendered HTML has none; same reading as this route's canonical-url verdict"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::seo/title-presence::src/routes/workflows/+page.svelte::Missing <title>",
+    "verdict": "fp",
+    "basis": "title IS rendered (client-side): root +layout.svelte:390 renders <MetaTagsComponent /> (dynamic import('@repo/ui/components/MetaTags.svelte') in onMount, :137-143) on every non-(seo) route once loaded; packages/ui/src/components/MetaTags.svelte has an unconditional <title>{title}</title> (default defaultMeta.title); route is not in isSeoRoute (:29-33); analyzer does not follow the dynamically imported component. Note the SSR shell itself ships no <title> (app.html has none)"
+  },
+  {
+    "key": "glowingkitty/OpenMates:frontend/apps/web_app::a11y/duplicate-landmark::src/routes/projects/+page.svelte:26::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:395-397 renders children inside an unconditional <main>; projects/+page.svelte has a <main> in its loading (:26), feature-disabled and signed-out arms and, signed in, renders <ProjectsPage /> whose {#if selectedProject} arm has <main class=\"project-main\"> (ProjectsPage.svelte:879), so every arm renders a second main landmark"
+  }
+]

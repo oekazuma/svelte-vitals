@@ -1,0 +1,1887 @@
+[
+  {
+    "key": "mtaanquist/Codex::a11y/aria-hidden-focus::src/lib/components/ReviewMarginRail.svelte:21::<button> inside <div aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "tp",
+    "basis": "read ReviewMarginRail.svelte:19-30: <div class=\"review-rail\" aria-hidden=\"true\"> wraps an {#each} of <button title=\"Jump to this note\"> markers with no tabindex=\"-1\", so each is tabbable but hidden from AT"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/deprecated-aria::src/lib/components/ModeSwitcher.svelte:44::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read ModeSwitcher.svelte:44: <span class=\"seg-btn\" aria-disabled=\"true\"> (the {:else} arm of the mode links) with no role; aria-disabled is not supported on generic in ARIA 1.2+"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/disallowed-aria-props::src/lib/components/ModeSwitcher.svelte:36::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): <div aria-label> at ModeSwitcher.svelte:36 has no role attribute, spread or use: action, so its role is generic, which prohibits a name; the label is not exposed"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/disallowed-aria-props::src/lib/components/ReviewPanel.svelte:229::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): <div aria-label> at ReviewPanel.svelte:229 has no role attribute, spread or use: action, so its role is generic, which prohibits a name; the label is not exposed"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/interactive-nesting::src/lib/components/ReviewCommentCard.svelte:136::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ReviewCommentCard.svelte:136: <button type=\"submit\"> inside a <form> nested in the card <div role=\"button\" tabindex=\"0\" aria-label=\"Go to this comment in the manuscript\">; a button inside a children-presentational button role"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/interactive-nesting::src/lib/components/ReviewCommentCard.svelte:153::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ReviewCommentCard.svelte:153: <button type=\"submit\"> inside a <form> nested in the card <div role=\"button\" tabindex=\"0\" aria-label=\"Go to this comment in the manuscript\">; a button inside a children-presentational button role"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/interactive-nesting::src/lib/components/ReviewCommentCard.svelte:161::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ReviewCommentCard.svelte:161: <button type=\"submit\"> inside a <form> nested in the card <div role=\"button\" tabindex=\"0\" aria-label=\"Go to this comment in the manuscript\">; a button inside a children-presentational button role"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/interactive-nesting::src/lib/components/ReviewCommentCard.svelte:85::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ReviewCommentCard.svelte:85: <button type=\"submit\"> inside a <form> nested in the card <div role=\"button\" tabindex=\"0\" aria-label=\"Go to this comment in the manuscript\">; a button inside a children-presentational button role"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/interactive-nesting::src/lib/components/ReviewSuggestionCard.svelte:108::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ReviewSuggestionCard.svelte:108: <button type=\"submit\"> inside a <form> nested in the card <div role=\"button\" tabindex=\"0\" aria-label=\"Go to this suggestion in the manuscript\">; a button inside a button role"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/interactive-nesting::src/lib/components/ReviewSuggestionCard.svelte:120::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ReviewSuggestionCard.svelte:120: <button type=\"submit\"> inside a <form> nested in the card <div role=\"button\" tabindex=\"0\" aria-label=\"Go to this suggestion in the manuscript\">; a button inside a button role"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/interactive-nesting::src/lib/components/ReviewSuggestionCard.svelte:173::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read ReviewSuggestionCard.svelte:173: <button type=\"submit\"> inside a <form> nested in the card <div role=\"button\" tabindex=\"0\" aria-label=\"Go to this suggestion in the manuscript\">; a button inside a button role"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/label-has-control::src/routes/account/[[section]]/AccountDisplay.svelte:94::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read AccountDisplay.svelte:94-96: <label id=\"accent-label\"> with no for and no wrapped control; it names the swatch role=\"radiogroup\" via aria-labelledby (:96), which the docs list as an association the rule cannot see and still reports; no control is associated with the label (radio-group caption precedent; author svelte-ignored a11y_label_has_associated_control)"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/label-has-control::src/routes/account/[[section]]/AccountProfile.svelte:254::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "script-verified (source scan): <label> at account/[[section]]/AccountProfile.svelte:254 has no for attribute or spread and wraps only static text (no input/select/textarea/button/meter/output/progress, expression, or component); the control is a sibling, so the label is associated with nothing"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/label-has-control::src/routes/account/[[section]]/AccountProfile.svelte:310::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "script-verified (source scan): <label> at account/[[section]]/AccountProfile.svelte:310 has no for attribute or spread and wraps only static text (no input/select/textarea/button/meter/output/progress, expression, or component); the control is a sibling, so the label is associated with nothing"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/no-autofocus::src/lib/components/StoryOutline.svelte:330::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; chapter rename input under {#if renamingChapterId === chapter.id} (:316), a $bindable(null) set by the rename action; focus on user action"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/no-autofocus::src/routes/+page.svelte:139::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; new-universe input under {#if creatingUniverse} (creatingUniverse = $state(false) :18, set by the add button or after a failed submit); focus on user action"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/no-autofocus::src/routes/+page.svelte:271::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; new-story input under {#if newStoryFor === universe.id} (newStoryFor = $state(null) :19, set by the add-story action); focus on user action"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/no-autofocus::src/routes/+page.svelte:362::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; standalone-story input under {#if newStoryFor === 'standalone'} (newStoryFor = $state(null) :19, set by the action :69 or a failed submit); focus on user action"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/no-autofocus::src/routes/universes/[id]/plan/+page.svelte:77::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; new-story input under {#if creatingStory} (creatingStory = $state(false) :21, set by the add action or a failed submit); focus on user action"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/pattern-title::src/routes/account/[[section]]/AccountProfile.svelte:185::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read AccountProfile.svelte:185-193: <input name=\"handle\" pattern=\"[a-z0-9][a-z0-9-]+\" required> with no title in a validating <form> (:181, onsubmit only intercepts the pen-name prompt); the visible hint (:194) is not associated, so a mismatch shows the generic message"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/pattern-title::src/routes/login/totp/+page.svelte:43::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read login/totp/+page.svelte:43-53: <input type=\"text\" pattern=\"[0-9]*\" required> with no title in <form method=\"POST\"> (:17); a mismatch shows the generic message"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/permitted-contents::src/lib/components/CrumbMenu.svelte:58::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at CrumbMenu.svelte:58 has literal parent <span> at :39 in the same template (blocks only between, no component/snippet/{@render} boundary); <div> is outside <span>'s content model as reported"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/permitted-contents::src/lib/components/EntityEditor.svelte:568::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at EntityEditor.svelte:568 has literal parent <button> at :567 in the same template (blocks only between, no component/snippet/{@render} boundary); <div> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/permitted-contents::src/lib/components/EntityEditor.svelte:569::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at EntityEditor.svelte:569 has literal parent <button> at :567 in the same template (blocks only between, no component/snippet/{@render} boundary); <div> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/permitted-contents::src/lib/components/NewMenu.svelte:81::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at NewMenu.svelte:81 has literal parent <span> at :62 in the same template (blocks only between, no component/snippet/{@render} boundary); <div> is outside <span>'s content model as reported"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/permitted-contents::src/routes/admin/[[section]]/AdminBackups.svelte:56::`<form>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <form> at admin/[[section]]/AdminBackups.svelte:56 has literal parent <span> at :55 in the same template (blocks only between, no component/snippet/{@render} boundary); <form> is outside <span>'s content model as reported"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/permitted-contents::src/routes/admin/[[section]]/AdminUsage.svelte:55::`<form>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <form> at admin/[[section]]/AdminUsage.svelte:55 has literal parent <span> at :54 in the same template (blocks only between, no component/snippet/{@render} boundary); <form> is outside <span>'s content model as reported"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/permitted-contents::src/routes/admin/[[section]]/AdminUsage.svelte:58::`<form>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <form> at admin/[[section]]/AdminUsage.svelte:58 has literal parent <span> at :54 in the same template (blocks only between, no component/snippet/{@render} boundary); <form> is outside <span>'s content model as reported"
+  },
+  {
+    "key": "mtaanquist/Codex::a11y/permitted-contents::src/routes/admin/[[section]]/AdminUsers.svelte:117::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at admin/[[section]]/AdminUsers.svelte:117 has literal parent <label> at :109 in the same template (blocks only between, no component/snippet/{@render} boundary); <div> is outside <label>'s content model as reported"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/AssistantPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AssistantPanel.svelte has 1175 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/CoauthorPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CoauthorPanel.svelte has 282 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/CommandPalette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CommandPalette.svelte has 447 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/EditorToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EditorToolbar.svelte has 469 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/EntityBadgePicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EntityBadgePicker.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/EntityCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EntityCard.svelte has 263 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/EntityEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EntityEditor.svelte has 844 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/EntityRelationships.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EntityRelationships.svelte has 229 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/ImportStoryModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ImportStoryModal.svelte has 354 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/Landing.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Landing.svelte has 454 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/NotificationBell.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NotificationBell.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/PlanSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/PlanSidebar.svelte has 454 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/QuickNote.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/QuickNote.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/RelationshipWeb.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RelationshipWeb.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/ReviewEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReviewEditor.svelte has 394 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/ReviewModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReviewModal.svelte has 574 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/ReviewPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReviewPanel.svelte has 290 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/ReviewSurface.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReviewSurface.svelte has 376 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/ReviewWorkspace.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReviewWorkspace.svelte has 640 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/RoleTuningModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RoleTuningModal.svelte has 316 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/SceneBoard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SceneBoard.svelte has 265 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/SceneEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SceneEditor.svelte has 558 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/SelectionMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SelectionMenu.svelte has 325 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/StoryOutline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/StoryOutline.svelte has 479 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/lib/components/StoryRowMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/StoryRowMenu.svelte has 294 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 517 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/account/[[section]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/[[section]]/+page.svelte has 295 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/account/[[section]]/AccountAssistant.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/[[section]]/AccountAssistant.svelte has 780 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/account/[[section]]/AccountEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/[[section]]/AccountEditor.svelte has 307 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/account/[[section]]/AccountProfile.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/[[section]]/AccountProfile.svelte has 350 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/account/[[section]]/AccountSecurity.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/[[section]]/AccountSecurity.svelte has 627 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/admin/[[section]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/[[section]]/+page.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/admin/[[section]]/AdminUsers.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/[[section]]/AdminUsers.svelte has 449 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/stories/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/stories/[id]/+page.svelte has 1066 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/stories/[id]/plan/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/stories/[id]/plan/+page.svelte has 307 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/stories/[id]/settings/[[section]]/SettingsPageSetup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/stories/[id]/settings/[[section]]/SettingsPageSetup.svelte has 268 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/universes/[id]/[[section]]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/universes/[id]/[[section]]/+page.svelte has 635 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/universes/[id]/insights/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/universes/[id]/insights/+page.svelte has 720 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/component-size::src/routes/universes/[id]/plan/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/universes/[id]/plan/+page.svelte has 380 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/AppBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/AppBar.svelte has a single destructured $props() with 9 named props (> 6): shell, crumbs, pathLabel, saveStatus, helpTopic, helpLabel, pill, byline, who"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/AssistantPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/AssistantPanel.svelte has a single destructured $props() with 12 named props (> 6): scope, sceneId, name, muted, suggestions, initialMessages, onConfirmSplit, onRevertSplit, onInsert, onReplaceSelection, getSelection, reviewHref"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/EditorToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/EditorToolbar.svelte has a single destructured $props() with 10 named props (> 6): view, onSplitScene, viewMenu, storyView, nonPrintingActive, onToggleNonPrinting, commandMarkersActive, onToggleCommandMarkers, onCoauthor, coauthorActive"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/EntityEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/EntityEditor.svelte has a single destructured $props() with 15 named props (> 6): kind, entity, categories, assetsConfigured, relationTypes, relationships, targets, storyId, storyNotesMd, membership, entityHref, universeRef, assistantEnabled, assistantSuggestions, onStatus"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/NewMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/NewMenu.svelte has a single destructured $props() with 7 named props (> 6): label, items, importItem, note, variant, size, align"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/NotesSidebar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/NotesSidebar.svelte has a single destructured $props() with 10 named props (> 6): notes, selectedId, notesPath, planHref, writeHref, reviewHref, modeNote, universeNotes, universeNotesPath, form"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/PlanSidebar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PlanSidebar.svelte has a single destructured $props() with 16 named props (> 6): characters, places, categories, lore, selectedId, planPath, writeHref, reviewHref, modeNote, insightsHref, boardHref, boardActive, boardLabel, form, availableCharacters, availablePlaces"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/ReviewCommentCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReviewCommentCard.svelte has a single destructured $props() with 7 named props (> 6): thread, excerpt, role, focused, onFocus, assistant, onAssistantReply"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/ReviewEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReviewEditor.svelte has a single destructured $props() with 19 named props (> 6): scene, chapterTitle, threads, suggestions, filter, focusedId, setFocused, canSuggest, entities, mentionMembers, mentionPins, entityHref, nonPrintingMarks, commandMarkers, editorStyle, viewMenu, onStartComment, onStartSuggest, onStatus"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/ReviewPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReviewPanel.svelte has a single destructured $props() with 16 named props (> 6): scene, threads, suggestions, discussions, filter, setFilter, focusedId, setFocused, role, canSuggest, composer, onCloseComposer, onStartSceneComment, onAccepted, assistant, onAssistantReply"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/ReviewReplyForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReviewReplyForm.svelte has a single destructured $props() with 7 named props (> 6): action, fieldName, fieldValue, assistant, assistantAnswers, threadIdFromResult, onAssistantReply"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/ReviewSuggestionCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReviewSuggestionCard.svelte has a single destructured $props() with 8 named props (> 6): suggestion, discussion, role, focused, onFocus, onAccepted, assistant, onAssistantReply"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/ReviewSurface.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReviewSurface.svelte has a single destructured $props() with 14 named props (> 6): scene, chapterTitle, threads, suggestions, filter, focusedId, setFocused, canSuggest, entities, mentionMembers, mentionPins, entityHref, onStartComment, onStartSuggest"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/ReviewWorkspace.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ReviewWorkspace.svelte has a single destructured $props() with 21 named props (> 6): chapters, scenes, trashedScenes, threads, suggestions, role, storyId, storySlug, book, canSuggest, seg, entities, mentionMembers, mentionPins, entityHref, nonPrintingMarks, commandMarkers, editorStyle, assistant, assistantChat, onSaveStatus"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/SceneEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SceneEditor.svelte has a single destructured $props() with 30 named props (> 6): sceneId, storyId, title, body, entities, mentionOptions, assistantContinuation, autocompleteMode, editingMode, spellCheck, writingLanguage, markers, imageUniverseId, findText, findAt, compact, editorStyle, loreCategories, onCrossBoundary, onCreateEntity, onAskAssistant, onSplitScene, onFocus, storyView, viewMenu, nonPrintingMarks, commandMarkers, onToggleNonPrinting, onToggleCommandMarkers, onStatus"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/StoryOutline.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/StoryOutline.svelte has a single destructured $props() with 16 named props (> 6): story, universeName, storySiblings, chapters, scenes, trashedScenes, selectedSceneId, viewStory, storyPath, query, mergeSelection, renamingChapterId, onOpenRowMenu, canManage, onSelectScene, sceneMeta"
+  },
+  {
+    "key": "mtaanquist/Codex::architecture/prop-count::src/lib/components/StoryRowMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/StoryRowMenu.svelte has a single destructured $props() with 11 named props (> 6): menu, chapterCount, assistantEnabled, selectedSceneId, mergeSelection, onClose, onRenameChapter, onOpenReview, onSuggestSplit, onDuplicateScene, onMergeSelected"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/AppBar.svelte:106::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AppBar.svelte:106 '{#each crumbs as crumb, index (index)}' keyed by its index binding; crumbs prop: the app-bar breadcrumb trail; positional list (breadcrumb items)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/AssistantPanel.svelte:687::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AssistantPanel.svelte:687 '{#each messages as message, index (index)}' keyed by its index binding; messages $state chat turns appended and rebuilt during the assistant conversation (AssistantPanel.svelte:131-598); runtime chat messages (ledger chat-messages convention)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/AssistantPanel.svelte:701::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AssistantPanel.svelte:701 '{#each paragraphs(message.content) as para, pi (pi)}' keyed by its index binding; paragraphs(message.content)/segments(para) text parts of one message (AssistantPanel.svelte:647-657); positional list (text segments)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/AssistantPanel.svelte:703::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AssistantPanel.svelte:703 '{#each segments(para) as seg, si (si)}' keyed by its index binding; paragraphs(message.content)/segments(para) text parts of one message (AssistantPanel.svelte:647-657); positional list (text segments)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/AssistantPanel.svelte:731::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AssistantPanel.svelte:731 '{#each message.proposals ?? [] as proposal, pi (pi)}' keyed by its index binding; message.proposals appended to the streamed assistant message (AssistantPanel.svelte:168), each an AssistantProposal with confirm/revert state; runtime records"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/CommandPalette.svelte:387::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CommandPalette.svelte:387 '{#each items as item, index (index)}' keyed by its index binding; items = $derived.by([...matchingCommands, ...results.map(...)]) (CommandPalette.svelte:283) includes server search results that change as the user types; runtime list"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/CrumbMenu.svelte:59::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CrumbMenu.svelte:59 '{#each groups as items, group (group)}' keyed by its index binding; groups prop = crumb.groups, authored menu-group literals built in lib/chrome.ts:65+; static menu list"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/EntityEditor.svelte:529::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/EntityEditor.svelte:529 '{#each details as detail, index (index)}' keyed by its index binding; details $state rows the user appends (:153) and removes with splice (:273, :557); editable rows whose input state follows positions"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/Landing.svelte:244::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Landing.svelte:244 '{#each trail as place, index (index)}' keyed by its index binding; trail: path labels of a decorative workspace bar snippet on the landing page (Landing.svelte:238-246); positional list (breadcrumb items)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/ReviewModal.svelte:367::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ReviewModal.svelte:367 '{#each progress.failures as failure, i (i)}' keyed by its index binding; progress.failures of a running review job ($state, ReviewModal.svelte:119-255); runtime result list (ledger error-list convention)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/ReviewModal.svelte:385::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ReviewModal.svelte:385 '{#each estimate.lines as line, i (i)}' keyed by its index binding; estimate.lines from the estimate API response (estimate = body, ReviewModal.svelte:228), recomputed per request; runtime result list"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/ReviewSurface.svelte:287::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ReviewSurface.svelte:287 '{#each prose as run, i (i)}' keyed by its index binding; prose runs parsed from one text (ReviewSurface.svelte:70); positional list (text segments)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/RevisionPreview.svelte:110::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/RevisionPreview.svelte:110 '{#each snapshot.details as detail, index (index)}' keyed by its index binding; snapshot.details/relationships of one stored revision snapshot (RevisionPreview.svelte:33), an immutable historical record; positional list (structure of one fixed document)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/RevisionPreview.svelte:116::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/RevisionPreview.svelte:116 '{#each snapshot.relationships as relationship, index (index)}' keyed by its index binding; snapshot.details/relationships of one stored revision snapshot (RevisionPreview.svelte:33), an immutable historical record; positional list (structure of one fixed document)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/RevisionPreview.svelte:129::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/RevisionPreview.svelte:129 '{#each parts as part, index (index)}' keyed by its index binding; diff parts / paragraphs of one revision body text (RevisionPreview.svelte:39-40); positional list (text/diff segments)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/lib/components/RevisionPreview.svelte:136::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/RevisionPreview.svelte:136 '{#each paragraphs as paragraph, index (index)}' keyed by its index binding; diff parts / paragraphs of one revision body text (RevisionPreview.svelte:39-40); positional list (text/diff segments)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/routes/@[handle]/+page.svelte:91::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/@[handle]/+page.svelte:91 '{#each profile.links as link, i (i)}' keyed by its index binding; profile.links of the user profile loaded for @[handle] (data.profile), user-edited records; navigating between handles reuses the page; runtime data"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/routes/@[handle]/[story=uuid]/+page.svelte:116::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/@[handle]/[story=uuid]/+page.svelte:116 '{#each chapter.scenes as scene, si (si)}' keyed by its index binding; chapter.scenes of a story loaded from the database; scenes are added, removed and reordered by authors; runtime records"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/routes/account/[[section]]/AccountProfile.svelte:257::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/account/[[section]]/AccountProfile.svelte:257 '{#each links as link, i (i)}' keyed by its index binding; links $state rows the user appends (:44) and removes by index (:47) with inputs; editable rows whose input state follows positions"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/routes/account/[[section]]/AccountSecurity.svelte:353::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/account/[[section]]/AccountSecurity.svelte:353 '{#each otpDigits as digit, i (i)}' keyed by its index binding; otpDigits = $state(['', '', '', '', '', '']) six OTP inputs (AccountSecurity.svelte:68); positional list (fixed slots)"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/routes/stories/[id]/+page.svelte:862::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/stories/[id]/+page.svelte:862 '{#each data.storyTodos as todo, ti (ti)}' keyed by its index binding; data.storyTodos, todo records loaded for the story; runtime data"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/routes/stories/[id]/plan/+page.svelte:251::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/stories/[id]/plan/+page.svelte:251 '{#each mentions as mention, mi (mi)}' keyed by its index binding; mentions filtered from the story's appearsIn records per scene ({@const ... filter}); runtime data from the database"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/each-index-key::src/routes/universes/[id]/plan/+page.svelte:295::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/universes/[id]/plan/+page.svelte:295 '{#each mentions as mention, mi (mi)}' keyed by its index binding; mentions filtered from the story's appearsIn records per scene ({@const ... filter}); runtime data from the database"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/effect-as-onmount::src/lib/components/AssistantPanel.svelte:143::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AssistantPanel.svelte:143 `$effect(() => { return () => pending?.abort(); })`; the body only returns a cleanup, nothing is read when it runs, so it runs once and acts as onDestroy, as claimed"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/effect-as-onmount::src/routes/+layout.svelte:41::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/+layout.svelte:41 the effect only does document.documentElement.dataset.hydrated = 'true'; nothing reactive is read, so it runs once like onMount, as claimed"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/prop-mutation::src/lib/components/StoryRowMenu.svelte:244::Prop \"mergeSelection\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/StoryRowMenu.svelte:78-79,244 mergeSelection.add/delete/clear on the mergeSelection prop typed SvelteSet<string> (:33), shared with the outline on purpose; a reactive class instance whose methods are its API, the docs' class-instance limitation"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/prop-mutation::src/lib/components/StoryRowMenu.svelte:78::Prop \"mergeSelection\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/StoryRowMenu.svelte:78-79,244 mergeSelection.add/delete/clear on the mergeSelection prop typed SvelteSet<string> (:33), shared with the outline on purpose; a reactive class instance whose methods are its API, the docs' class-instance limitation"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/prop-mutation::src/lib/components/StoryRowMenu.svelte:79::Prop \"mergeSelection\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/StoryRowMenu.svelte:78-79,244 mergeSelection.add/delete/clear on the mergeSelection prop typed SvelteSet<string> (:33), shared with the outline on purpose; a reactive class instance whose methods are its API, the docs' class-instance limitation"
+  },
+  {
+    "key": "mtaanquist/Codex::correctness/stale-prop-derivation::src/lib/components/AssistantPanel.svelte:109::\"isStory\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AssistantPanel.svelte:109 const isStory = 'storyId' in scope is structurally a snapshot (rendered at :677), but every caller passes a scope of one fixed kind for its mount site (stories/* pass storyId, universes/* pass universeId, ReviewWorkspace.svelte:569), so the value never changes for an instance; author comment says so"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/image-dimensions::src/routes/+page.svelte:95::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: .shelf-cover (lib/styles/surfaces.css:454) has aspect-ratio 3/4 and the img is width/height 100% — box reserved"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/image-dimensions::src/routes/@[handle]/+page.svelte:123::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: .shelf-cover aspect-ratio 3/4, img 100% — box reserved"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/image-dimensions::src/routes/@[handle]/+page.svelte:61::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: .shelf-avatar is 58x58 and its img 100% (surfaces.css:363-381) — box reserved"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/image-loading-hint::src/routes/+page.svelte:95::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: story cover in the storyCard snippet rendered for every card of the library's recent and per-universe {#each} grids — most cards are offscreen on load"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/image-loading-hint::src/routes/@[handle]/+page.svelte:123::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: book cover in the {#each} shelf grid below the profile head — rows past the first are offscreen"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/image-loading-hint::src/routes/@[handle]/+page.svelte:61::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: author avatar in the shelf head at the top of the public profile — above the fold"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/responsive-image::src/routes/+page.svelte:95::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: /assets/{coverAssetId}, an uploaded cover image — one fixed-size asset"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/responsive-image::src/routes/@[handle]/+page.svelte:123::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: /assets/{coverAssetId} uploaded cover — one fixed-size asset"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/responsive-image::src/routes/@[handle]/+page.svelte:61::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: /assets/{avatarAssetId} uploaded avatar shown at 58px — one fixed-size asset"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/sequential-awaits::src/routes/+page.server.ts:40::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :35-40: listTrashedUniverses(db, user.id) uses only the session user id, nothing from the preceding universes select — independent pg queries (lib/server/db/index.ts: drizzle node-postgres pool) serialized"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/sequential-awaits::src/routes/+page.server.ts:45::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :35-62: the stories aggregate SQL uses only user.id, nothing from the universes/trashed queries before it — independent pg queries (lib/server/db/index.ts: drizzle node-postgres pool) serialized"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/sequential-awaits::src/routes/account/[[section]]/+page.server.ts:128::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :113-128: totpStatus(db, user.id) uses only the session user id, nothing from the preceding profile select (not a gate) — independent pg queries (lib/server/db/index.ts: drizzle node-postgres pool) serialized"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/sequential-awaits::src/routes/stories/[id]/settings/[[section]]/+page.server.ts:110::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :79-110: effectiveAssetConfig(db) (lib/server/assets.ts:58, a settings db read) uses nothing from ownedStory or the Promise.all before it — an independent query that could join that Promise.all; serialized"
+  },
+  {
+    "key": "mtaanquist/Codex::performance/sequential-awaits::src/routes/universes/[id]/plan/+page.server.ts:96::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :91-96: assistantLayout(db, userId) reads the viewer's own account preferences, nothing from the preceding ownedUniverse (universe-access.ts:11, a 404 gate that does not protect the viewer's own row) — independent pg queries serialized (ledger viewer-own-row convention)"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/lib/components/EntityCard.svelte:66::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read EntityCard.svelte:66 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/lib/components/StoryPreview.svelte:105::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read StoryPreview.svelte:105 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/lib/components/StoryPreview.svelte:94::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read StoryPreview.svelte:94 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/routes/@[handle]/+page.svelte:136::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read @[handle]/+page.svelte:136 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/routes/@[handle]/+page.svelte:78::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read @[handle]/+page.svelte:78 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — the public profile bio is escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/routes/@[handle]/[story=uuid]/+page.svelte:121::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read @[handle]/[story=uuid]/+page.svelte:121 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/routes/@[handle]/[story=uuid]/+page.svelte:89::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read @[handle]/[story=uuid]/+page.svelte:89 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/routes/docs/[topic]/+page.svelte:33::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read docs/[topic]/+page.svelte:33 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/routes/stories/[id]/print/+page.svelte:107::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read print/+page.svelte:107 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/routes/stories/[id]/print/+page.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read print/+page.svelte:33,39 + lib/page-setup.ts:158-159,267-275: pageRule is built only from the PAGE_SIZES/PAGE_MARGINS/GUTTERS tables, with keys validated by isKey on load — fixed CSS, no user text, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::security/raw-html::src/routes/stories/[id]/print/+page.svelte:96::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read print/+page.svelte:96 + lib/markdown.ts:66-79: renderMarkdown is markdown-it with html: false (raw HTML in the source is escaped; its default validateLink drops javascript:/vbscript:/data: links), plus plugins that only add fixed class/style values — escaped, reported per docs"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 67 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/@[handle]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; public reader profile (hooks PUBLIC_PREFIXES /@); noindex only inside {#if hasAdult} at @[handle]/+page.svelte:36-37"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/@[handle]/[story=uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; public reader page (hooks PUBLIC_PREFIXES /@); noindex only inside {#if data.gate || data.isAdult} at +page.svelte:44-45"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/account/[[section]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/admin/[[section]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 73 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/cancel-deletion/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/confirm-email-change/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/docs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/docs/[topic]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/login/totp/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: login/totp/+page.server.ts:24-25 redirects to /login without the signed TOTP challenge cookie, which a crawler never has), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/review-email-opt-out/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/review/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 101 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (literal noindex robots meta at review/[token]/+page.svelte:14), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/stories/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 97 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/stories/[id]/notes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/stories/[id]/plan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/stories/[id]/print/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/stories/[id]/review/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 103 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/stories/[id]/settings/[[section]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/universes/[id]/[[section]]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/universes/[id]/insights/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 72 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/universes/[id]/notes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/universes/[id]/plan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:54-58 redirects every guest request outside PUBLIC_PATHS/PUBLIC_PREFIXES to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/canonical-url::src/routes/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> anywhere in src (root +layout.svelte head has only the icon, app.html none; src/routes/+page.svelte sets only a <title>); / is a public page (hooks.server.ts PUBLIC_PATHS/PUBLIC_PREFIXES: landing, public reader pages or help), no noindex, robots.txt allows all"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/@[handle]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> anywhere in src (root +layout.svelte head has only the icon, app.html none; src/routes/@[handle]/+page.svelte sets only a <title>); /@[handle] is a public page (hooks.server.ts PUBLIC_PATHS/PUBLIC_PREFIXES: landing, public reader pages or help), no noindex, robots.txt allows all"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/@[handle]/[story=uuid]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> anywhere in src (root +layout.svelte head has only the icon, app.html none; src/routes/@[handle]/[story=uuid]/+page.svelte sets only a <title>); /@[handle]/[story=uuid] is a public page (hooks.server.ts PUBLIC_PATHS/PUBLIC_PREFIXES: landing, public reader pages or help), no noindex, robots.txt allows all"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/account/[[section]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /account/[[section]] is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/admin/[[section]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /admin/[[section]] is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/cancel-deletion/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /cancel-deletion is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/confirm-email-change/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /confirm-email-change is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/docs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> anywhere in src (root +layout.svelte head has only the icon, app.html none; src/routes/docs/+page.svelte sets only a <title>); /docs is a public page (hooks.server.ts PUBLIC_PATHS/PUBLIC_PREFIXES: landing, public reader pages or help), no noindex, robots.txt allows all"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/docs/[topic]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> anywhere in src (root +layout.svelte head has only the icon, app.html none; src/routes/docs/[topic]/+page.svelte sets only a <title>); /docs/[topic] is a public page (hooks.server.ts PUBLIC_PATHS/PUBLIC_PREFIXES: landing, public reader pages or help), no noindex, robots.txt allows all"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /forgot-password is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /login is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/login/totp/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /login/totp is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /reset-password is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/review-email-opt-out/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /review-email-opt-out is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/review/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on /review/[token] (literal claim holds); magic-link guest review page with literal noindex (review/[token]/+page.svelte:14), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /signup is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/stories/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /stories/[id] is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/stories/[id]/notes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /stories/[id]/notes is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/stories/[id]/plan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /stories/[id]/plan is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/stories/[id]/print/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /stories/[id]/print is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/stories/[id]/review/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /stories/[id]/review is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/stories/[id]/settings/[[section]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /stories/[id]/settings/[[section]] is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/universes/[id]/[[section]]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /universes/[id]/[[section]] is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/universes/[id]/insights/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /universes/[id]/insights is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/universes/[id]/notes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /universes/[id]/notes is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/universes/[id]/plan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /universes/[id]/plan is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/description-presence::src/routes/verify-email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> anywhere in src or app.html (literal claim holds); but /verify-email is a login/account flow or signed-in workspace view of the self-hosted writing app (hooks.server.ts:51-57 redirects session-less requests outside PUBLIC_PATHS to /login), not a search target"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/heading-level-skip::src/routes/stories/[id]/+page.svelte:812::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the flagged <h5>On this scene (:812) is in the 'notes' panel snippet of PanelStrip, which renders <h2 class=panel-head-title> (PanelStrip.svelte:75) above a single panel, or follows the page's <h1>/<h2>s otherwise -> h2 to h5 either way"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/indexability::src/routes/review/[token]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: review/[token]/+page.svelte:14 unconditional literal <meta name=\"robots\" content=\"noindex\"> on the magic-link guest review page; noindex as claimed, intentional"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; / has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/@[handle]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /@[handle] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/@[handle]/[story=uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /@[handle]/[story=uuid] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/account/[[section]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /account/[[section]] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/admin/[[section]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /admin/[[section]] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/cancel-deletion/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /cancel-deletion has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/confirm-email-change/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /confirm-email-change has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/docs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /docs has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/docs/[topic]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /docs/[topic] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /forgot-password has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /login has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/login/totp/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /login/totp has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /reset-password has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/review-email-opt-out/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /review-email-opt-out has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/review/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /review/[token] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /signup has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/stories/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /stories/[id] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/stories/[id]/notes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /stories/[id]/notes has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/stories/[id]/plan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /stories/[id]/plan has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/stories/[id]/print/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /stories/[id]/print has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/stories/[id]/review/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /stories/[id]/review has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/stories/[id]/settings/[[section]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /stories/[id]/settings/[[section]] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/universes/[id]/[[section]]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /universes/[id]/[[section]] has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/universes/[id]/insights/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /universes/[id]/insights has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/universes/[id]/notes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /universes/[id]/notes has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/universes/[id]/plan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /universes/[id]/plan has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/json-ld::src/routes/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter anywhere in Codex; /verify-email has none"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 67 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/@[handle]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/@[handle]/[story=uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/account/[[section]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/admin/[[section]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 73 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/cancel-deletion/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/confirm-email-change/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/docs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/docs/[topic]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/login/totp/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/review-email-opt-out/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/review/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 101 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/stories/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 97 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/stories/[id]/notes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/stories/[id]/plan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/stories/[id]/print/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/stories/[id]/review/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 103 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/stories/[id]/settings/[[section]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/universes/[id]/[[section]]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/universes/[id]/insights/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 72 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/universes/[id]/notes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/universes/[id]/plan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-description::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 67 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/@[handle]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/@[handle]/[story=uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/account/[[section]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/admin/[[section]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 73 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/cancel-deletion/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/confirm-email-change/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/docs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/docs/[topic]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/login/totp/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/review-email-opt-out/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/review/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 101 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/stories/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 97 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/stories/[id]/notes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/stories/[id]/plan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/stories/[id]/print/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/stories/[id]/review/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 103 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/stories/[id]/settings/[[section]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/universes/[id]/[[section]]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/universes/[id]/insights/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 72 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/universes/[id]/notes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/universes/[id]/plan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-image::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 67 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/@[handle]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/@[handle]/[story=uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/account/[[section]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/admin/[[section]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 73 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/cancel-deletion/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/confirm-email-change/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/docs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/docs/[topic]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/login/totp/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/review-email-opt-out/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/review/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 101 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/stories/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 97 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/stories/[id]/notes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/stories/[id]/plan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/stories/[id]/print/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/stories/[id]/review/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 103 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/stories/[id]/settings/[[section]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/universes/[id]/[[section]]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/universes/[id]/insights/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 72 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/universes/[id]/notes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/universes/[id]/plan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-title::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 67 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/@[handle]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/@[handle]/[story=uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/account/[[section]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/admin/[[section]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 73 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/cancel-deletion/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/confirm-email-change/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/docs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/docs/[topic]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/login/totp/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/review-email-opt-out/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/review/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 101 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/stories/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 97 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/stories/[id]/notes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/stories/[id]/plan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/stories/[id]/print/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/stories/[id]/review/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 103 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/stories/[id]/settings/[[section]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/universes/[id]/[[section]]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/universes/[id]/insights/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 72 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/universes/[id]/notes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/universes/[id]/plan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/og-url::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/single-h1::/docs/[topic]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: docs/[topic]/+page.svelte:33 renders {@html renderMarkdown(body)} of the committed help article (lib/docs.ts import.meta.glob('./docs/*.md'), markdown-it); every one of the 10 articles starts with a '# ' line (e.g. docs/getting-started.md:1 '# Getting started'), and lib/docs.ts:headingOf even reads that first h1 as the page title -> one <h1> per topic; the analyzer does not read headings in {@html}"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/single-h1::/stories/[id]/notes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: stories/[id]/notes/+page.svelte renders AppBar, NotesSidebar, NoteEditor, PanelStrip (an <h2>) and revision components — no <h1>; whole lib/components grep: <h1> only in Landing/AuthShell/StoryPreview/ReviewSceneHead, none rendered here; root layout renders no heading; note bodies are user content -> no <h1>"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/single-h1::/universes/[id]/notes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: universes/[id]/notes/+page.svelte renders AppBar, NotesSidebar, NoteEditor, PanelStrip (an <h2>) and revision components — no <h1>; whole lib/components grep: <h1> only in Landing/AuthShell/StoryPreview/ReviewSceneHead, none rendered here; root layout renders no heading; note bodies are user content -> no <h1>"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/single-h1::src/routes/account/[[section]]/AccountSecurity.svelte:109::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: account/[[section]]/+page.svelte renders all eight section components unconditionally (only the class:active toggles which is visible; AccountInvites behind {#if hasInvites}), each with its own <h1> -> 7-8 <h1>s in the DOM, the claim holds"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/single-h1::src/routes/admin/[[section]]/AdminUsers.svelte:68::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: admin/[[section]]/+page.svelte renders all eight Admin* section components unconditionally (class:active only toggles visibility), each with its own <h1> -> 8 <h1>s in the DOM"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/single-h1::src/routes/stories/[id]/plan/+page.svelte:187::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: plan page headings are <h5>s (first :187) plus PanelStrip's <h2>; no <h1> in the page, its components (EntityEditor, SceneBoard, PlanSidebar, AssistantPanel) or the root layout"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/single-h1::src/routes/stories/[id]/print/+page.svelte:82::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: print/+page.svelte renders <h1>Print preview</h1> (:61, toolbar) and <h1>{story.title}</h1> (:82), both unconditional -> 2 <h1>s"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/single-h1::src/routes/universes/[id]/plan/+page.svelte:231::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: plan page headings are <h5>s (first :231) plus PanelStrip's <h2>; no <h1> in the page, its components (EntityEditor, StoryBoard, PlanSidebar, AssistantPanel) or the root layout"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ (robots.txt allows all, no Sitemap line), routes or hooks; the app publishes public reader pages (/@[handle], /@[handle]/[story]) that a sitemap would list"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/account/[[section]]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Account - Codex\" at src/routes/account/[[section]]/+page.svelte:64, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 15 as reported); src/routes/account/[[section]]/+page.svelte unconditional svelte:head literal <title> of 15 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/admin/[[section]]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Site admin - Codex\" at src/routes/admin/[[section]]/+page.svelte:36, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/admin/[[section]]/+page.svelte unconditional svelte:head literal <title> of 18 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/cancel-deletion/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Cancel deletion - Codex\" at src/routes/cancel-deletion/+page.svelte:10, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 23 as reported); src/routes/cancel-deletion/+page.svelte unconditional svelte:head literal <title> of 23 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/confirm-email-change/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Confirm email change - Codex\" at src/routes/confirm-email-change/+page.svelte:10, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 28 as reported); src/routes/confirm-email-change/+page.svelte unconditional svelte:head literal <title> of 28 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/docs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Help - Codex\" at src/routes/docs/+page.svelte:10, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 12 as reported); src/routes/docs/+page.svelte unconditional svelte:head literal <title> of 12 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/forgot-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Reset your password - Codex\" at src/routes/forgot-password/+page.svelte:10, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 27 as reported); src/routes/forgot-password/+page.svelte unconditional svelte:head literal <title> of 27 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Sign in - Codex\" at src/routes/login/+page.svelte:44, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 15 as reported); src/routes/login/+page.svelte unconditional svelte:head literal <title> of 15 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/login/totp/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Two-factor - Codex\" at src/routes/login/totp/+page.svelte:13, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/login/totp/+page.svelte unconditional svelte:head literal <title> of 18 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Choose a new password - Codex\" at src/routes/reset-password/+page.svelte:10, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 29 as reported); src/routes/reset-password/+page.svelte unconditional svelte:head literal <title> of 29 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/review-email-opt-out/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Review emails - Codex\" at src/routes/review-email-opt-out/+page.svelte:9, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); src/routes/review-email-opt-out/+page.svelte unconditional svelte:head literal <title> of 21 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/title-length::src/routes/verify-email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Confirm your email - Codex\" at src/routes/verify-email/+page.svelte:10, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 26 as reported); src/routes/verify-email/+page.svelte unconditional svelte:head literal <title> of 26 chars, the route's only title (root layout head has only the icon, app.html none); under 30 as claimed, no noindex"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 67 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/@[handle]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/@[handle]/[story=uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/account/[[section]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/admin/[[section]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 73 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/cancel-deletion/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/confirm-email-change/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/docs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/docs/[topic]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 66 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/login/totp/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/review-email-opt-out/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/review/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 101 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/stories/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 97 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/stories/[id]/notes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/stories/[id]/plan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/stories/[id]/print/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/stories/[id]/review/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 103 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/stories/[id]/settings/[[section]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 79 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/universes/[id]/[[section]]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 65 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/universes/[id]/insights/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 72 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/universes/[id]/notes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 83 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/universes/[id]/plan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 88 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "mtaanquist/Codex::seo/twitter-card::src/routes/verify-email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in src or app.html; no meta-tag library; hooks.server.ts has no transformPageChunk"
+  }
+]

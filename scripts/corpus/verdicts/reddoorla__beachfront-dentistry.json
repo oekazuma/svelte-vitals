@@ -1,0 +1,407 @@
+[
+  {
+    "key": "reddoorla/beachfront-dentistry::a11y/duplicate-landmark::src/routes/dev/a11y-fixtures/+page.svelte:197::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read dev/a11y-fixtures/+page.svelte:197: page-level <main> rendered inside root +layout.svelte:162-163 <main id=\"main-content\"> (the {:else} of {#if page.data.frozen}; the page's load (+page.ts) returns no frozen); the route renders in dev and the a11y-gate build (dev/+layout.server.ts 404s only in production), so two main landmarks, one nested"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::a11y/id-duplication::src/lib/components/Form.svelte:37::Duplicate id \"form-error-summary-title\"",
+    "verdict": "fp",
+    "basis": "read dev/a11y-fixtures/+page.svelte:289/318: h2#form-error-summary-title (Form.svelte:37) renders only in {#if errorEntries.length > 0} (:28), errorEntries = $derived(errors ? Object.entries(errors) : []); the first <Form> passes errors={{}} (no summary) and only the second passes errors, so exactly one copy renders; the analyzer does not resolve prop-decided arms for ids (decidedArms is applied to headings only); same class as the ledger's RoomBar/ConnectionCard prop-decided id fps"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::a11y/permitted-contents::src/lib/components/Accordion.svelte:50::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E15w/pc.mjs): literal <div> at lib/components/Accordion.svelte:50 has literal parent <button>@42 in the same template (no component/snippet/{@render} boundary between, not inside <svg>); <div> is outside that parent's content model as reported"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::a11y/top-level-landmark::src/routes/dev/a11y-fixtures/+page.svelte:197::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read dev/a11y-fixtures/+page.svelte:197: page-level <main> rendered inside root +layout.svelte:162-163 <main id=\"main-content\"> (the {:else} of {#if page.data.frozen}; the page's load (+page.ts) returns no frozen); the route renders in dev and the a11y-gate build (dev/+layout.server.ts 404s only in production), so two main landmarks, one nested"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/blux/Grid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/blux/Grid.svelte has 277 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/components/AppointmentModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AppointmentModal.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/components/CtaBand.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CtaBand.svelte has 254 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/components/Footer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Footer.svelte has 375 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/components/Modal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Modal.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/components/Nav.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Nav.svelte has 702 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/components/ScreenWidthMedia.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ScreenWidthMedia.svelte has 216 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/components/Slider.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Slider.svelte has 719 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/components/SubpageHero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SubpageHero.svelte has 334 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/slices/Carousel/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/slices/Carousel/index.svelte has 712 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/slices/CollectionList/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/slices/CollectionList/index.svelte has 778 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/slices/ExamTimeline/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/slices/ExamTimeline/index.svelte has 305 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/slices/Hero/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/slices/Hero/index.svelte has 429 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/slices/QuestionList/QuestionCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/slices/QuestionList/QuestionCard.svelte has 391 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/slices/QuestionList/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/slices/QuestionList/index.svelte has 360 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/slices/SectionGrid/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/slices/SectionGrid/index.svelte has 780 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/lib/slices/ServiceCategoryBand/index.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/slices/ServiceCategoryBand/index.svelte has 293 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/component-size::src/routes/dev/a11y-fixtures/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/a11y-fixtures/+page.svelte has 436 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/ContentBand.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ContentBand.svelte has a single destructured $props() with 8 named props (> 6): sliceType, variation, sectionClass, contentClass, fallbackHeight, reveal, background, children"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/CountUp.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CountUp.svelte has a single destructured $props() with 12 named props (> 6): value, startValue, duration, decimals, prefix, suffix, useGrouping, locale, startOnVisible, once, label, class"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/CtaBand.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CtaBand.svelte has a single destructured $props() with 8 named props (> 6): heading, body, ctaLabel, ctaLink, backgroundImage, caption, sliceType, sliceVariation"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/Field.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Field.svelte has a single destructured $props() with 15 named props (> 6): name, label, type, value, description, error, required, autocomplete, placeholder, minlength, maxlength, pattern, inputmode, rows, autofocus"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/Footer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Footer.svelte has a single destructured $props() with 8 named props (> 6): columns, socials, text, heading, legal, showMap, mapQuery, waveFill"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/Nav.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Nav.svelte has a single destructured $props() with 7 named props (> 6): navLinks, items, logo, logoClass, transparentAtTop, hamburgerOnly, hamburgerSrc"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/ScreenWidthMedia.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ScreenWidthMedia.svelte has a single destructured $props() with 9 named props (> 6): src, field, altText, vimeoId, darken, backdrop, percentHeight, class, children"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/Seo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Seo.svelte has a single destructured $props() with 10 named props (> 6): title, description, image, imageAlt, url, type, siteName, locale, noindex, jsonLd"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/Slider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Slider.svelte has a single destructured $props() with 33 named props (> 6): itemCount, label, children, cardsPerView, mobileCardsPerView, gap, mobileGap, mode, loop, infinite, autoplay, showDots, showArrows, arrowLayout, prevArrow, nextArrow, edgeFadeColor, itemWidth, tabletItemWidth, mobileItemWidth, trackPadStart, tabletTrackPadStart, xsTrackPadStart, mobileTrackPadStart, tabletGap, transitionClass, navigationClass, arrowClass, slideClass, pauseClass, dotClass, activeDotClass, class"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::architecture/prop-count::src/lib/components/SubpageHero.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SubpageHero.svelte has a single destructured $props() with 11 named props (> 6): heading, backgroundImage, subtitle, subheadings, intro, align, headingStyle, imagePosition, wash, botGradient, ariaLevel"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/blux/BandTitle.svelte:35::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: BandTitle.svelte:35 '{#each subtitle.split(\"\\n\") as line, i (i)}' keyed by its index binding; lines of one subtitle string: positional list (text lines)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/blux/Grid.svelte:115::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Grid.svelte:115 '{#each node.cells as cell, i (i)}' keyed by its index binding; cells of a Prismic-authored layout grid node: positional list (layout cells of one authored page)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/blux/Grid.svelte:142::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Grid.svelte:142 '{#each node.children as child, i (i)}' keyed by its index binding; children of a Prismic-authored layout node: positional list (structure of one authored page)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/blux/Grid.svelte:176::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Grid.svelte:176 '{#each captionChildren as child, i (i)}' keyed by its index binding; caption nodes of an authored grid cell (:153): positional list (structure of one authored page)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/blux/Grid.svelte:88::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Grid.svelte:88 '{#each node.cells as cell, i (i)}' keyed by its index binding; cells of a Prismic-authored layout grid node: positional list (layout cells of one authored page)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/blux/LocationMap.svelte:92::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: LocationMap.svelte:92 '{#each config.toggles as t, i (i)}' keyed by its index binding; authored map layer toggles of the map config prop, selected by index (:26-27): static list fixed at author time"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/components/Accordion.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Accordion.svelte:37 '{#each items as item, i (i)}' keyed by its index binding; items are the Prismic-authored accordion entries of a slice (slices/Accordion/index.svelte:42): static CMS content, never reordered in the page"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/components/Footer.svelte:129::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Footer.svelte:129 '{#each col.items as item, itemIndex (itemIndex)}' keyed by its index binding; authored footer link items from the Prismic settings document: static list fixed at author time"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/components/Footer.svelte:288::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Footer.svelte:288 '{#each columns.slice(1) as col, colIndex (colIndex)}' keyed by its index binding; authored footer columns from the Prismic settings document: static list fixed at author time"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/components/Footer.svelte:336::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Footer.svelte:336 '{#each known as social, i (i)}' keyed by its index binding; known = $derived authored social links filtered to known platforms (:83): static list fixed at author time"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/components/Nav.svelte:336::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Nav.svelte:336 '{#each items as item, i (i)}' keyed by its index binding; items = the Prismic-authored navigation passed from +layout.svelte:152: static list fixed at author time"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/components/Nav.svelte:359::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Nav.svelte:359 '{#each item.children as child, ci (ci)}' keyed by its index binding; children of an authored nav item: static list fixed at author time"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/components/Nav.svelte:663::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Nav.svelte:663 '{#each menuLeafItems as item, i (i)}' keyed by its index binding; menuLeafItems = authored nav items filtered to those with an href (:143): static list fixed at author time"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/components/Seo.svelte:94::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Seo.svelte:94 '{#each jsonLdNodes as node, i (i)}' keyed by its index binding; JSON-LD script nodes of the page (:50): positional list, no element state"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/slices/Carousel/index.svelte:477::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Carousel/index.svelte:477 '{#each trackItems as item, i (i)}' keyed by its index binding; trackItems = the Prismic-authored slide items of one slice (:81), addressed by index: static CMS content"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/slices/Carousel/index.svelte:541::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Carousel/index.svelte:541 '{#each trackItems as item, i (i)}' keyed by its index binding; trackItems = the Prismic-authored slide items of one slice (:81), addressed by index: static CMS content"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/slices/Gallery/index.svelte:39::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Gallery/index.svelte:39 '{#each media as frame, i (i)}' keyed by its index binding; media = band.gallery, the authored gallery frames of one slice (:22): static CMS content"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/each-index-key::src/lib/slices/TextColumns/index.svelte:71::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: TextColumns/index.svelte:71 '{#each slice.primary.columns as column, i (i)}' keyed by its index binding; authored text columns of one Prismic slice: static CMS content"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/effect-as-onmount::src/lib/components/TransitionOverlay.svelte:92::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: TransitionOverlay.svelte:92; $effect(() => { return clearTimers; }) is teardown-only and reads nothing reactive, so it runs once like onDestroy"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::correctness/unmutated-state::src/lib/blux/Grid.svelte:21::$state \"ownPanelState\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "fp",
+    "basis": "read: blux/Grid.svelte:21 ownPanelState = $state({ active: 0 }) is aliased by `const panels = $derived(panelState ?? ownPanelState)` (:22), passed to nested <Grid panelState={panels}> (:90-177) and mutated through the alias (onselect={(i) => (panels.active = i)}, :251); the state is mutated, the claim is false (a write or hand-off through a $derived alias is not traced)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::performance/iframe-loading::src/lib/components/ScreenWidthMedia.svelte:183::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute, no spread; read: decorative background Vimeo player whose src is set after requestIdleCallback (:47-60) regardless of visibility, so an offscreen section still loads the player document; only used by the dev a11y-fixtures route (dev/a11y-fixtures/+page.svelte:380, 404 outside dev)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::performance/iframe-loading::src/lib/components/VimeoBanner.svelte:167::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute, no spread; read: the iframe is created only {#if mount}, and mount turns true only once an IntersectionObserver reports the banner within 300px of the viewport and the user has interacted (:44-75) — it is never created offscreen, so loading=\"lazy\" would add nothing"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::performance/sequential-awaits::src/routes/[[preview=preview]]/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/[[preview=preview]]/+page.server.ts:22 + lib/blux-frozen/load.ts:54-66, artifacts.ts:16-49: the only preceding await is resolveFrozen(), which returns null without any query when no frozen artifact exists (lib/blux-frozen/frozen/ is empty) and, when one exists, short-circuits the page query — nothing real serialized; the routes also prerender (+layout.server.ts prerender = \"auto\", entries())"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::performance/sequential-awaits::src/routes/[[preview=preview]]/[uid]/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/[[preview=preview]]/[uid]/+page.server.ts:28 + lib/blux-frozen/load.ts:54-66, artifacts.ts:16-49: the only preceding await is resolveFrozen(), which returns null without any query when no frozen artifact exists (lib/blux-frozen/frozen/ is empty) and, when one exists, short-circuits the page query — nothing real serialized; the routes also prerender (+layout.server.ts prerender = \"auto\", entries())"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux-catalog/BluxCell.svelte:63::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux-catalog/BluxCell.svelte:63: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux-catalog/BluxCell.svelte:75::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux-catalog/BluxCell.svelte:75: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux-catalog/BluxCell.svelte:79::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux-catalog/BluxCell.svelte:79: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux-catalog/BluxWidget.svelte:151::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux-catalog/BluxWidget.svelte:151: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux-frozen/FrozenPage.svelte:158::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux-frozen/FrozenPage.svelte:158: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux-frozen/FrozenPage.svelte:162::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux-frozen/FrozenPage.svelte:162: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux/Grid.svelte:211::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux/Grid.svelte:211: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux/Grid.svelte:217::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux/Grid.svelte:217: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/blux/Grid.svelte:248::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/blux/Grid.svelte:248: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/components/Seo.svelte:96::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read components/Seo.svelte:96 + lib/seo.ts:74-77: jsonLdScript = JSON.stringify(data).replaceAll(\"<\",\"\\\\u003c\") — script-safe serialization per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/slices/BluxBlock/BluxNode.svelte:25::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/slices/BluxBlock/BluxNode.svelte:25: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/slices/BluxEmbed/index.svelte:9::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/slices/BluxEmbed/index.svelte:9: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/slices/BluxMedia/index.svelte:43::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/slices/BluxMedia/index.svelte:43: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/lib/slices/BluxTable/index.svelte:13::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/slices/BluxTable/index.svelte:13: Blux/Prismic slice HTML (embeds, body/table html, frozen build-time templates) authored by the site owner in their own Prismic repo for a single dental-practice site — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::security/raw-html::src/routes/dev/blux-pointe/+page.svelte:21::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read dev/blux-pointe/+page.svelte:4,21: themeCss is the repo file ./theme.css?raw — repo constant; reported per docs"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::/[[preview=preview]]/[uid]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page renders a Prismic <SliceZone> whose components come from the $lib/slices lookup map; of the four seeded [uid] pages (beachfront-pages.js) only your-first-visit opens with an <h1> (groupphoto hero, Hero/index.svelte:299); our-team, services and ask-the-doctor open with a subpage hero whose heading is heading2 and SubpageHero renders it as <h2> (SubpageHero.svelte:237/314), and their other slices have no heading1 -> no <h1> on most pages of the route (labelled by the majority)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::/[[preview=preview]]::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: the page renders a Prismic <SliceZone> whose components come from the $lib/slices lookup map; the home document's assembly (src/lib/beachfront-pages.js:269-288, the source the seed script publishes and dev/match renders) opens with a hero slice, variation \"default\", whose heading is a heading1 block, and Hero/index.svelte renders it as <h1> (:387-393, the brandParts <h1> or PrismicRichText heading1 via @prismicio/svelte) — matching/SPEC.md documents the live h1.home-hero-heading"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::/dev/blux-frozen::Missing <h#>",
+    "verdict": "fp",
+    "basis": "read: <h1> IS rendered: dev/blux-frozen/+page.ts loads the-pointe.html as the template and FrozenPage outputs it with {@html html} (FrozenPage.svelte:61,162); the template contains <h1 class=\"block-title text5\"> (dev-only fixture route, 404 outside dev)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::/dev/blux-page::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page renders a Prismic <SliceZone> whose components come from the $lib/slices lookup map over dev/blux-page/fixtures.ts: the hero band has a subtitle so BandTitle renders <h2> (blux/BandTitle.svelte:34), the default carousel has no <h1> arm (only the fullbleed-tour arm, Carousel/index.svelte:174-211), and the title band is headingLevel 2 -> no <h1> (dev-only fixture route)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::/dev/blux-pointe::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page renders a Prismic <SliceZone> whose components come from the $lib/slices lookup map over the fixture.json slices (blux_grid/blux_section), none of which carries a heading1 block; the document title (fixture.json:7-11, the only heading1) is not rendered by the page -> no <h1> (dev-only fixture route)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::/dev/match/[uid]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: the page renders a Prismic <SliceZone> whose components come from the $lib/slices lookup map over assemblies(…)[uid] (dev/match/[uid]/+page.server.ts:63); home and your-first-visit open with an <h1> hero, but our-team, services and ask-the-doctor open with a heading2 subpage hero (SubpageHero <h2>) -> no <h1> on 3 of the 5 pages (majority; dev-only route)"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::/slice-simulator::Missing <h#>",
+    "verdict": "design",
+    "basis": "read: slice-simulator/+page.svelte is the Slice Machine simulator: <SliceSimulator let:slices><SliceZone {slices} …/> renders whichever single slice the editor is previewing; it is a tooling page with no document of its own, so a missing page <h1> is not a defect"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::node_modules/@prismicio/svelte/dist/PrismicRichText/DefaultComponent.svelte:25::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: contact-us has no <h1> at all: its two rich-text headings are const fields of type heading2 — SubpageHero's heading (contact-us/+page.svelte:22-23, rendered as <h2>) and CtaBand's ctaHeading (:36-37), rendered by PrismicRichText whose DefaultComponent emits <h2> for heading2; the counted <h1>s are the heading1 arm of @prismicio/svelte DefaultComponent (:25), which these literal heading2 fields never select"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::src/lib/slices/Hero/index.svelte:299::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: /dev/a11y-fixtures renders one <h1> (+page.svelte:199, \"Accessibility fixtures\"); its <Hero slice={heroSliceFixture}/> passes variation \"default\" with a heading2 field and no \"Beachfront Dentistry\" phrase, so Hero renders the PrismicRichText arm (an <h2>), not the groupphoto <h1> at Hero/index.svelte:299 nor the brandParts <h1>"
+  },
+  {
+    "key": "reddoorla/beachfront-dentistry::seo/single-h1::src/routes/contact-us/+page.svelte:79::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /contact-us has no <h1>: SubpageHero gets a heading2 field (contact-us/+page.svelte:22-23) and CtaBand a heading2 (:37), both rendered as <h2> by PrismicRichText; the root layout renders no heading"
+  }
+]

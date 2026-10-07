@@ -1,0 +1,977 @@
+[
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::a11y/disallowed-aria-props::src/routes/[slug]/community/_components/PresenceDot.svelte:10::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/ctx.mjs): literal <span> at this line carries aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role is generic, which prohibits naming (ARIA 1.2/1.3)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::a11y/duplicate-landmark::../../packages/ui/src/components/AppShell.svelte:37::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "mixed, labelled by majority (first look 40 routes, local run 39): root +layout.svelte:94-146 renders children inside <AppShell> (main at AppShell.svelte:37) only in the {#if isOrphan} arm (/settings, /notifications, /u/, /d/, :18-23) and bare in {:else}; on /[slug]/*, /admin/*, /auth/*, /email/* the {:else} arm renders, so only the route layout's own AppShell/<main> exists; the fold credits the arm with the most occurrences without evaluating the route condition (documented; angple/logdash precedent). /[slug]/about additionally has its own <main> (about/+page.svelte:29), a real duplicate there"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::a11y/permitted-contents::src/routes/[slug]/community/discussions/[postId]/+page.svelte:326::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 320) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::a11y/permitted-contents::src/routes/[slug]/new/+page.svelte:137::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 129) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::a11y/permitted-contents::src/routes/[slug]/post/[postId]/+page.svelte:493::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 487) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::a11y/permitted-contents::src/routes/d/[id]/+page.svelte:461::`<form>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <form> at this line has nearest non-transparent literal parent <span> (line 450) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <span>'s content model does not admit <form>"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::a11y/permitted-contents::src/routes/d/[id]/+page.svelte:888::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 879) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/lib/AppSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/AppSidebar.svelte has 207 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/+page.svelte has 858 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/about/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/about/+page.svelte has 416 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/community/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/community/+layout.svelte has 218 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/community/channels/[channelSlug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/community/channels/[channelSlug]/+page.svelte has 238 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/community/discussions/[postId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/community/discussions/[postId]/+page.svelte has 597 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/community/dms/[conversationId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/community/dms/[conversationId]/+page.svelte has 281 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/new/+page.svelte has 225 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/post/[postId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/post/[postId]/+page.svelte has 793 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/uninews/[articleId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/uninews/[articleId]/+page.svelte has 573 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/[slug]/uninews/write/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[slug]/uninews/write/+page.svelte has 249 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 247 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/admin/analytics/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/analytics/+page.svelte has 209 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/admin/campuses/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/campuses/[slug]/+page.svelte has 350 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/admin/emails/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/emails/+page.svelte has 294 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/admin/emails/ComposeTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/emails/ComposeTab.svelte has 494 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/admin/emails/LogsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/emails/LogsTab.svelte has 245 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/admin/imports/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/imports/new/+page.svelte has 277 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/admin/reports/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/reports/+page.svelte has 492 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/d/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/d/[id]/+page.svelte has 924 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 410 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/component-size::src/routes/u/[username]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/u/[username]/+page.svelte has 207 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/prop-count::src/routes/[slug]/community/_components/MessageList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/routes/[slug]/community/_components/MessageList.svelte has a single destructured $props() with 9 named props (> 6): messages, currentUserId, emptyTitle, emptySubtitle, buildThreadHref, buildPermalink, onDelete, onReply, showDateDividers"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/prop-count::src/routes/[slug]/community/_components/MessageRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/routes/[slug]/community/_components/MessageRow.svelte has a single destructured $props() with 7 named props (> 6): message, groupStart, currentUserId, threadHref, permalink, onReply, onDelete"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/prop-count::src/routes/admin/emails/ComposeTab.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/routes/admin/emails/ComposeTab.svelte has a single destructured $props() with 17 named props (> 6): data, form, templateKey, subject, textBody, htmlBody, sourceType, campusId, selectedRecipients, selectedRecipientsJson, recipientQuery, recipientSearchState, recipientSearchResults, selectableResults, addRecipient, removeRecipient, composeEnhance"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::architecture/prop-count::src/routes/admin/emails/LogsTab.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/routes/admin/emails/LogsTab.svelte has a single destructured $props() with 13 named props (> 6): messages, totalMessages, page, totalPages, campaignFilter, campaignFilterSubject, deliveryEvents, totalDeliveryEvents, deliveryPage, deliveryTotalPages, deliveryFilters, pageHref, deliveryPageHref"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/[slug]/community/_components/MessageRow.svelte:119::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[slug]/community/_components/MessageRow.svelte:119 '{#each bodyParts as part}' has no key; bodyParts = $derived(parseBody(message.body)) (line 44), segments parsed from one message body; positional list (text segments): no identity beyond position"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/[slug]/community/search/+page.svelte:102::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/[slug]/community/search/+page.svelte:102 '{#each highlight(r.body, data.q) as part}' has no key; highlight() (line 20) splits one result body into hit/non-hit text segments; positional list (text segments)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/emails/ComposeTab.svelte:110::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/emails/ComposeTab.svelte:110 '{#each data.templates as t}' has no key; data.templates is the code constant EMAIL_TEMPLATES (admin/emails/+page.server.ts:231, lib/server/email-campaigns.ts) rendered as <option>s; static list (fixed catalog)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/emails/ComposeTab.svelte:177::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/emails/ComposeTab.svelte:177 '{#each Object.entries(SOURCE_LABELS) as [value, label]}' has no key; SOURCE_LABELS is a const object literal in the same script (line 87); static list (Object.entries of a constant), never reorders"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/emails/ComposeTab.svelte:292::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/emails/ComposeTab.svelte:292 '{#each data.campuses as campus}' has no key; campuses are DB records from the page load, which admins create/edit; runtime data (ledger convention for API/load records)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/emails/ComposeTab.svelte:456::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/emails/ComposeTab.svelte:456 '{#each preview.resolution.sample as r}' has no key; preview = $derived(form?.preview) (line 81), a recipient sample returned by the preview form action and recomputed per submit; runtime results"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/imports/[batchId]/+page.svelte:96::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/imports/[batchId]/+page.svelte:96 '{#each data.errors as e}' has no key; the import batch's error rows from the page load; runtime data"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/imports/new/+page.svelte:184::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/imports/new/+page.svelte:184 '{#each c.availableFields as f}' has no key; the selected campus's configured CSV field names (parsed from campuses.availableFields in +page.server.ts:35), rendered as inline column hints; static list per campus, never reorders while shown"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/reports/+page.svelte:137::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/reports/+page.svelte:137 '{#each data.targetTypes as type}' has no key; data.targetTypes is the constant REPORT_TARGET_TYPES from @lifeatuni/shared (+page.server.ts:817); static list (fixed catalog)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/reports/+page.svelte:143::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/reports/+page.svelte:143 '{#each data.campuses as campus}' has no key; campus DB records from the page load; runtime data (ledger convention for API/load records)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/each-key::src/routes/admin/reports/+page.svelte:277::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/admin/reports/+page.svelte:277 '{#each r.target.meta as item}' has no key; r.target.meta is a fixed label/value detail list built server-side per report (+page.server.ts:124-607) inside a keyed {#each data.reports as r (r.id)}; positional list (detail rows of one record)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-derived::src/lib/NicknameEditor.svelte:19::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/NicknameEditor.svelte:19; the effect only assigns nickname/draft/editing from the initialNickname/compact props; later writes are top-level reassignments and bind:value (45-91), the writable-$derived override pattern (svelte resolves to 5.55.5 in pnpm-lock.yaml)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-derived::src/routes/+layout.svelte:55::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/+layout.svelte:55; the effect only does unreadCount = data.unreadNotifications ?? 0; the other write is a top-level reassignment from a push payload (45), the writable-$derived override pattern (svelte 5.55.5)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-derived::src/routes/[slug]/+page.svelte:37::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/[slug]/+page.svelte:37; the effect only assigns searchQ/facets/latestNews from data; later writes are bind:value and top-level reassignments (85-86, 359), the writable-$derived override pattern (svelte 5.55.5)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-derived::src/routes/[slug]/community/dms/+page.svelte:15::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/[slug]/community/dms/+page.svelte:15 `$effect(() => { mounted = true; })`; mounted picks relTime vs stableDate (line 54) to avoid a hydration mismatch, the docs-listed mount-flag limitation"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-derived::src/routes/[slug]/community/dms/[conversationId]/+page.svelte:50::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/[slug]/community/dms/[conversationId]/+page.svelte:50 `$effect(() => { mounted = true; })`; mounted picks relTime vs stableDate (line 57) to avoid a hydration mismatch, the docs-listed mount-flag limitation"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-derived::src/routes/[slug]/community/search/+page.svelte:11::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/[slug]/community/search/+page.svelte:11; the effect only does q = data.q ?? ''; the other write is bind:value={q} (57), the writable-$derived override pattern (svelte 5.55.5)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-derived::src/routes/[slug]/uninews/write/+page.svelte:28::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/[slug]/uninews/write/+page.svelte:28; the effect only assigns title/body/thumbnail fields from the existing prop; later writes are top-level reassignments (56-70) and binds, the writable-$derived override pattern (svelte 5.55.5)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-derived::src/routes/u/[username]/+page.svelte:48::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/u/[username]/+page.svelte:48; the effect only does nickname = user.nickname ?? null; later writes are top-level reassignments, the writable-$derived override pattern (svelte 5.55.5)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::correctness/effect-as-onmount::src/routes/[slug]/community/+layout.svelte:60::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/[slug]/community/+layout.svelte:60; the effect only adds/removes a window listener bound to a local function (openNewChannel, line 55); it reads nothing reactive, so it runs once per mount like onMount/onDestroy"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/+page.svelte:476::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-64 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/+page.svelte:492::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-80 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/+page.svelte:592::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-20 w-28), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/+page.svelte:678::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-24 w-36), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/+page.svelte:687::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class mt-2 max-h-64 w-full rounded-xl object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/+page.svelte:697::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-64 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/+page.svelte:718::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-64 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/+page.svelte:762::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-20 w-28), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/community/discussions/[postId]/+page.svelte:217::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-[520px] w-full object-contain only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/community/discussions/[postId]/+page.svelte:283::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-60 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/community/discussions/[postId]/+page.svelte:367::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-80 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/community/discussions/[postId]/+page.svelte:443::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-52 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/community/discussions/[postId]/+page.svelte:500::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-64 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/community/discussions/[postId]/+page.svelte:561::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-52 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/new/+page.svelte:201::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-52 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/post/[postId]/+page.svelte:283::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class w-full only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/post/[postId]/+page.svelte:443::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-60 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/post/[postId]/+page.svelte:538::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-80 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/post/[postId]/+page.svelte:617::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-52 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/post/[postId]/+page.svelte:677::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-64 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/post/[postId]/+page.svelte:742::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-52 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/uninews/+page.svelte:133::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside an aspect-[16/9] w-full thumbnail box), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/uninews/+page.svelte:89::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (absolute inset-0 h-full w-full inside the aspect-[16/7] w-full featured link), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/uninews/[articleId]/+page.svelte:187::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside an aspect-[2/1] w-full cover box), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/uninews/[articleId]/+page.svelte:285::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-60 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/uninews/[articleId]/+page.svelte:349::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-80 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/uninews/[articleId]/+page.svelte:426::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-52 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/uninews/[articleId]/+page.svelte:471::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside an aspect-[16/9] w-full thumbnail box), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/[slug]/uninews/write/+page.svelte:156::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside an aspect-[16/9] w-full max-w-xs preview box), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/d/[id]/+page.svelte:540::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-60 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/d/[id]/+page.svelte:607::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-80 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/d/[id]/+page.svelte:676::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-52 w-full object-cover only — natural size decides the height, content below shifts"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/d/[id]/+page.svelte:714::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside a relative aspect-[3/4] gallery box), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-dimensions::src/routes/u/[username]/+page.svelte:197::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class mt-1.5 h-20 w-28), so no CLS from the missing attributes"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/community/discussions/[postId]/+page.svelte:283::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/community/discussions/[postId]/+page.svelte:443::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/community/discussions/[postId]/+page.svelte:561::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/new/+page.svelte:201::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/post/[postId]/+page.svelte:443::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/post/[postId]/+page.svelte:617::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/post/[postId]/+page.svelte:742::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/uninews/+page.svelte:133::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: article thumbnails in the masonry list below the featured hero (uninews/+page.svelte:120-133) — offscreen on load"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/uninews/+page.svelte:89::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: hero image of the featured article at the top of UniNews — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/uninews/[articleId]/+page.svelte:187::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: article cover at the top of the article, before the <h1> (:187-198) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/uninews/[articleId]/+page.svelte:285::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/uninews/[articleId]/+page.svelte:426::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/uninews/[articleId]/+page.svelte:471::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: \"more articles\" thumbnails after the article body and comments (:460-471) — offscreen on load"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/[slug]/uninews/write/+page.svelte:156::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: thumbnail preview in the write form (existing or just-uploaded thumbnail) — visible form content, where the docs keep the image eager"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/d/[id]/+page.svelte:540::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/d/[id]/+page.svelte:676::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview of the file the user just picked, rendered only after that choice — created when shown and then visible"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/image-loading-hint::src/routes/d/[id]/+page.svelte:714::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: profile photo gallery at the top of the sticky right column (d/[id]/+page.svelte:709-714) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/lcp-image::src/routes/[slug]/+page.svelte:476::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in the route source, but it is the attachment of a profile_comment post in the infinite feed (only that post kind, [slug]/+page.svelte:464-476), after each post's Avatar component image — not a reliable LCP candidate; lazy is a reasonable feed default"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/lcp-image::src/routes/[slug]/community/discussions/[postId]/+page.svelte:217::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route: the discussion post's own image right after its title and body (discussions/[postId]/+page.svelte:180-217) — the likely LCP, in view on load, yet marked loading=\"lazy\""
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/lcp-image::src/routes/[slug]/post/[postId]/+page.svelte:283::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route: the post's own image right after its heading/body in the article (post/[postId]/+page.svelte:250-283) — the likely LCP, in view on load, yet marked loading=\"lazy\""
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/lcp-image::src/routes/u/[username]/+page.svelte:197::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in the route source, but it is a 112x80 comment-attachment thumbnail in the activity comments list under the profile header and tabs — not the LCP candidate"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/+page.svelte:476::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/+page.svelte:492::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/+page.svelte:592::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/+page.svelte:678::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/+page.svelte:687::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/+page.svelte:697::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/+page.svelte:718::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/+page.svelte:762::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/community/discussions/[postId]/+page.svelte:217::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/community/discussions/[postId]/+page.svelte:283::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/community/discussions/[postId]/+page.svelte:367::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/community/discussions/[postId]/+page.svelte:443::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/community/discussions/[postId]/+page.svelte:500::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/community/discussions/[postId]/+page.svelte:561::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/new/+page.svelte:201::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/post/[postId]/+page.svelte:283::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/post/[postId]/+page.svelte:443::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/post/[postId]/+page.svelte:538::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/post/[postId]/+page.svelte:617::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/post/[postId]/+page.svelte:677::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/post/[postId]/+page.svelte:742::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/uninews/+page.svelte:133::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/uninews/+page.svelte:89::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/uninews/[articleId]/+page.svelte:187::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/uninews/[articleId]/+page.svelte:285::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/uninews/[articleId]/+page.svelte:349::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/uninews/[articleId]/+page.svelte:426::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/uninews/[articleId]/+page.svelte:471::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/[slug]/uninews/write/+page.svelte:156::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: thumbnailPreview is /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list or the upload response URL — raster, one fixed-size asset"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/d/[id]/+page.svelte:540::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/d/[id]/+page.svelte:607::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/d/[id]/+page.svelte:676::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: client-generated URL.createObjectURL(file) of the file the user just picked — no alternate sizes exist"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/d/[id]/+page.svelte:714::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: gallery image url is /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list (d/[id]/+page.server.ts:353) — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/responsive-image::src/routes/u/[username]/+page.svelte:197::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote upload served as /api/v1/media/<key>?v=feed from mediaUrl (lib/media.ts:15-19); the app also stores a smaller \"thumb\" webp variant that a srcset could list — raster"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/sequential-awaits::src/routes/+layout.server.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read +layout.server.ts:10-33: for logged-in users the primaryCampus D1 query (locals.db = drizzle over env.DB via createTimedD1, hooks.server.ts:31) uses only locals.user.campusSlug, nothing from the preceding getActiveCampusBySlug D1 query (lib/server/campus-context.ts:22-36) — two network D1 round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/sequential-awaits::src/routes/+page.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read +page.server.ts:8-14: the `first` query runs only when getActiveCampusBySlug returned null (a found campus redirects at :12, a logged-in user at :13), and without a lastCampusSlug cookie that helper returns null with no query (campus-context.ts:23-24) — redirect short-circuit; parallelizing would waste a D1 query on the redirect path (ledger short-circuit convention)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::performance/sequential-awaits::src/routes/admin/reports/+page.server.ts:760::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/reports/+page.server.ts:746-782: the reports D1 query's where clause (status/targetType, :756-759) uses nothing from the preceding campusRows query (campusId is only used later) — two D1 round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::security/raw-html::src/routes/[slug]/uninews/[articleId]/+page.svelte:230::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read uninews/[articleId]/+page.server.ts:108 + lib/content/news-markdown.ts: bodyHtml = renderNewsMarkdown(article.body), a marked renderer that escapes every raw HTML token (renderer.html -> escapeHtml, :37) and allows only http(s)/relative link and image URLs — escaped output, reported per docs"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::security/raw-html::src/routes/[slug]/uninews/write/+page.svelte:247::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read uninews/write/+page.svelte:100: previewHtml = renderNewsMarkdown(body), the escaping marked renderer (news-markdown.ts:37 html tokens escaped, :12-29 link scheme allowlist) over the author's own draft — escaped output, reported per docs"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::security/raw-html::src/routes/admin/emails/ComposeTab.svelte:471::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read admin/emails/+page.server.ts:68-80 + packages/shared/src/email-campaigns.ts:238-262: preview.html is the admin's own campaign HTML run through sanitizeEmailHtml (regex strip of script/iframe tags, on* attrs, javascript: URLs) and shown back to that admin in the form response — self-authored admin preview, no cross-user path; reported per docs"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/canonical-url::src/routes/[slug]/community/announcements/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...); public campus surface ([slug]/+layout.server.ts: no auth required; page load sets public cache-control for guests), no noindex"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/canonical-url::src/routes/[slug]/community/events/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...); public campus surface ([slug]/+layout.server.ts: no auth required; page load sets public cache-control for guests), no noindex"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/canonical-url::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...); public campus surface ([slug]/+layout.server.ts: no auth required; page load sets public cache-control for guests), no noindex"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/canonical-url::src/routes/email/unsubscribe/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)) but not a search target (literal noindex,nofollow robots meta at email/unsubscribe/[token]/+page.svelte:12), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/description-presence::src/routes/[slug]/community/announcements/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no Seo/<meta name=description> on the page or its layouts, none in app.html; public campus page ([slug]/+layout.server.ts \"No auth required\", publicCache headers)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/description-presence::src/routes/[slug]/community/events/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no Seo/<meta name=description> on the page or its layouts, none in app.html; public campus page (publicCache for anonymous visitors)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/description-presence::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no Seo/<meta name=description> on the page or its layouts, none in app.html; public event page (publicCache for anonymous visitors)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/description-presence::src/routes/email/unsubscribe/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: page head only <title> and literal robots noindex,nofollow (literal claim holds); tokenised email-unsubscribe page, deliberately noindex, not a search target"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/heading-level-skip::src/routes/[slug]/community/announcements/+page.svelte:68::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "announcements/+page.svelte:25 <h1> then the announcement <h3> (:68); the only heading between is RevealDrawer's title <h2>, which @lifeatuni/ui RevealDrawer.svelte:30 renders only {#if open} (closed by default) -> h1 to h3"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/indexability::src/routes/email/unsubscribe/[token]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: email/unsubscribe/[token]/+page.svelte:12 unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\">; noindex as claimed"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/json-ld::src/routes/[slug]/community/announcements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: route renders no Seo (the only JSON-LD emitter, via its jsonLd prop) and no ld+json in page/layouts/app.html; route has no JSON-LD"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/json-ld::src/routes/[slug]/community/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: route renders no Seo (the only JSON-LD emitter, via its jsonLd prop) and no ld+json in page/layouts/app.html; route has no JSON-LD"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/json-ld::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: route renders no Seo (the only JSON-LD emitter, via its jsonLd prop) and no ld+json in page/layouts/app.html; route has no JSON-LD"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/json-ld::src/routes/email/unsubscribe/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: route renders no Seo (the only JSON-LD emitter, via its jsonLd prop) and no ld+json in page/layouts/app.html; route has no JSON-LD"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-description::src/routes/[slug]/community/announcements/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-description::src/routes/[slug]/community/events/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-description::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-description::src/routes/email/unsubscribe/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-image::src/routes/[slug]/community/announcements/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-image::src/routes/[slug]/community/events/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-image::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-image::src/routes/email/unsubscribe/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-title::src/routes/[slug]/community/announcements/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-title::src/routes/[slug]/community/events/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-title::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-title::src/routes/email/unsubscribe/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-url::src/routes/[slug]/community/announcements/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-url::src/routes/[slug]/community/events/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-url::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/og-url::src/routes/email/unsubscribe/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/single-h1::src/routes/[slug]/+page.svelte:814::Missing <h#>",
+    "verdict": "tp",
+    "basis": "campus feed [slug]/+page.svelte has only <h2>s (UniNews :814, Quick links :835); workspace @lifeatuni/ui components used (Seo, Avatar, FilterChips, EmptyState<h3>, AppShell/Topbar/Sidebar) render no <h1> (only PageHeader/ProfileHero do, unused here); no <h1>"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/single-h1::src/routes/[slug]/community/+layout.svelte:131::Missing <h#>",
+    "verdict": "tp",
+    "basis": "DM page has <h2> Messages (:145), community layout <h2> Group Chats (:131); its components (MessageList, Composer, @lifeatuni/ui Avatar/Button/...) and RevealDrawer (<h2>, only when open) render no <h1>"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/single-h1::src/routes/[slug]/uninews/write/+page.svelte:245::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "page <h1> (:111) is the single real one; the second is inside the preview <Dialog open={previewOpen}> (:243-245), and @lifeatuni/ui Dialog.svelte:57 renders nothing {#if open} is false — only after the user clicks preview"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-length::src/routes/auth/add-email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: page's literal \"<X> · Life @ Uni\" <title> (e.g. \"Log in · Life @ Uni\" 19) renders after the auth layout's Seo title and wins; length as reported"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-length::src/routes/auth/forgot/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: page's literal \"<X> · Life @ Uni\" <title> (e.g. \"Log in · Life @ Uni\" 19) renders after the auth layout's Seo title and wins; length as reported"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-length::src/routes/auth/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: page's literal \"<X> · Life @ Uni\" <title> (e.g. \"Log in · Life @ Uni\" 19) renders after the auth layout's Seo title and wins; length as reported"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-length::src/routes/auth/magic/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: page's literal \"<X> · Life @ Uni\" <title> (e.g. \"Log in · Life @ Uni\" 19) renders after the auth layout's Seo title and wins; length as reported"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-length::src/routes/auth/signup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: page's literal \"<X> · Life @ Uni\" <title> (e.g. \"Log in · Life @ Uni\" 19) renders after the auth layout's Seo title and wins; length as reported"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-length::src/routes/auth/verify/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: page's literal \"<X> · Life @ Uni\" <title> (e.g. \"Log in · Life @ Uni\" 19) renders after the auth layout's Seo title and wins; length as reported"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-length::src/routes/email/unsubscribe/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: email/unsubscribe/[token]/+page.svelte:11 literal <title>Unsubscribe · Life @ Uni</title> (24), the route's only title (root layout renders no Seo); length as reported"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-presence::src/routes/[slug]/community/announcements/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: announcements/+page.svelte renders no Seo and no svelte:head (imports only @lifeatuni/ui Button/EmptyState/... and UserHandle), [slug]/community, [slug] and root layouts render no Seo/svelte:head, the workspace @lifeatuni/ui's only head emitter is Seo.svelte (not on this route), app.html none; public campus page (publicCache for anonymous) SSR-renders untitled"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-presence::src/routes/[slug]/community/events/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: events/+page.svelte renders no Seo and no svelte:head (only @lifeatuni/ui Button/EmptyState/Icon/...), community/[slug]/root layouts none, @lifeatuni/ui heads only via Seo.svelte (unused here), app.html none; public page SSR-renders untitled"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/title-presence::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: events/[eventId]/+page.svelte renders no Seo and no svelte:head (Avatar/Button/HeatRing/ReportButton/StatPill), layouts none, app.html none, no document.title write (PageViewTracker only reads it); public event page SSR-renders untitled"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/twitter-card::src/routes/[slug]/community/announcements/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/twitter-card::src/routes/[slug]/community/events/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/twitter-card::src/routes/[slug]/community/events/[eventId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 59 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  },
+  {
+    "key": "mony-dropout/lifeatuni:apps/app::seo/twitter-card::src/routes/email/unsubscribe/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 54 transitively imported local/workspace files incl. app.html/hooks; packages/ui Seo.svelte is reached only through the @lifeatuni/ui barrel; neither the page nor its layouts render <Seo>; the only emitter is @lifeatuni/ui Seo.svelte (workspace), rendered by other routes (auth/admin layouts, settings, directory, ...)"
+  }
+]

@@ -1,0 +1,312 @@
+[
+  {
+    "key": "gentleloop-labs/patterns:website::a11y/disallowed-aria-props::src/lib/sections/YbocsSpotlight.svelte:51::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <div aria-label> at src/lib/sections/YbocsSpotlight.svelte:51 has no role attribute, spread or use: action; implicit role generic prohibits naming (ARIA 1.3 / ARIA in HTML), so the label is not exposed"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::a11y/duplicate-landmark::src/routes/dev/analytics-qa/+page.svelte:117::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: dev/analytics-qa/+page.svelte:117 top-level <main class=qa>; /dev/analytics-qa is not in bareRoutes (root +layout.svelte:17-18), so the {:else} arm wraps it in the layout <main> (:68-70); two mains"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::a11y/duplicate-landmark::src/routes/get/+page.svelte:75::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:63-70 renders children bare in {#if bare} and inside <main> only in {:else}; bare = bareRoutes.includes(pathname) with bareRoutes = ['/get'] (:17-18), so on /get only the page's <main class=lp> (:75) renders; the fold credits the <main> arm without evaluating the route condition (documented; haydenkoch/damoang/logdash precedent)"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::a11y/top-level-landmark::src/routes/dev/analytics-qa/+page.svelte:117::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: dev/analytics-qa/+page.svelte:117 <main> renders inside root +layout.svelte:68 <main> ({:else} arm, route not in bareRoutes :17); main nested in main"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::a11y/top-level-landmark::src/routes/get/+page.svelte:75::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "root +layout.svelte:63-70 renders children bare in {#if bare} and inside <main> only in {:else}; bare holds exactly on /get (bareRoutes = ['/get'], :17-18), so get/+page.svelte:75 <main class=lp> is not nested in any main; the analyzer placed the page at the {@render children()} inside <main>, and top-level-landmark docs carry no branch-fold caveat (haydenkoch top-level fp precedent)"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/components/AnalyticsDebugPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AnalyticsDebugPanel.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/components/GuidePage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/GuidePage.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/components/Navbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Navbar.svelte has 443 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/Download.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/Download.svelte has 233 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/Faq.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/Faq.svelte has 231 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/Footer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/Footer.svelte has 219 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/Hero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/Hero.svelte has 273 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/Preview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/Preview.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/PriceDrop.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/PriceDrop.svelte has 277 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/PrivacyContent.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/PrivacyContent.svelte has 235 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/RecoveryToolkit.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/RecoveryToolkit.svelte has 333 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/Understanding.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/Understanding.svelte has 327 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/lib/sections/YbocsSpotlight.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/sections/YbocsSpotlight.svelte has 276 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/blog/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/+page.svelte has 246 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/blog/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/[slug]/+page.svelte has 550 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/dev/analytics-qa/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dev/analytics-qa/+page.svelte has 445 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/editorial-policy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/editorial-policy/+page.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/get/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/get/+page.svelte has 487 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/learn/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/learn/+page.svelte has 281 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/learn/[category]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/learn/[category]/+page.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/roadmap/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/roadmap/+page.svelte has 659 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/component-size::src/routes/toolkit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/toolkit/+page.svelte has 552 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::architecture/prop-count::src/lib/components/Seo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Seo.svelte has a single destructured $props() with 10 named props (> 6): title, description, path, image, imageAlt, ogType, twitterCard, keywords, jsonLd, article"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/lib/components/BlogList.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/BlogList.svelte:31 '{#each post.tags.slice(0, 3) …}' has no key; post.tags of a post from $lib/data/blog, built at build time from import.meta.glob of markdown (blog.ts:123); static content, never reorders while mounted"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/lib/components/GuidePage.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/GuidePage.svelte:52 '{#each related …}' has no key; related prop; callers (CbtGuide.svelte, ErpGuide.svelte) pass fixed guide content; static list"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/lib/components/Seo.svelte:75::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/Seo.svelte:75 '{#each jsonLd …}' has no key; jsonLd prop, JSON-LD objects for the page head; static per-page list with no element state"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/lib/sections/Faq.svelte:40::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/sections/Faq.svelte:40 '{#each items …}' has no key; items prop; callers pass the static FAQ data (routes/+page.svelte:167 items={homepageFaqs}, defaults from $lib/data/faq); static list"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/lib/sections/RecoveryToolkit.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/sections/RecoveryToolkit.svelte:59 '{#each proPreview …}' has no key; proPreview = proTools.slice(0, 6) (line 8) from the static $lib/data/toolkit; static list, not the exempt shape (a slice)"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/blog/[slug]/+page.svelte:133::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/blog/[slug]/+page.svelte:133 '{#each post.tags …}' has no key; post.tags from the build-time blog data (blog.ts, import.meta.glob; prerendered entries); static content"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/blog/[slug]/+page.svelte:147::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/blog/[slug]/+page.svelte:147 '{#each post.faq …}' has no key; post.faq from the build-time blog data; static content"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/blog/[slug]/+page.svelte:179::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/blog/[slug]/+page.svelte:179 '{#each related …}' has no key; related = relatedPosts(...) over the build-time blog data; static content"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/blog/tag/[tag]/+page.svelte:77::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/blog/tag/[tag]/+page.svelte:77 '{#each others …}' has no key; others = allTags.filter(...) (13) over the build-time allTags constant (blog.ts:204); static list"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/dev/analytics-qa/+page.svelte:212::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dev/analytics-qa/+page.svelte:212 '{#each events …}' has no key; events is $state of recorded analytics events, most recent first (prepended); runtime data with insertions at the top"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/learn/+page.svelte:78::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/learn/+page.svelte:78 '{#each categoryPosts.slice(0, 3) …}' has no key; postsByCategory(slug) over the build-time blog data (blog.ts:220); static content"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/learn/[category]/+page.svelte:82::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/learn/[category]/+page.svelte:82 '{#each otherCategories …}' has no key; otherCategories = $derived filter of the static blog categories; static list"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/roadmap/+page.svelte:246::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/roadmap/+page.svelte:246 '{#each column.items …}' has no key; column.items of the same-file const columns literal (line 156), fixed roadmap content; static list"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::correctness/each-key::src/routes/roadmap/+page.svelte:267::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/roadmap/+page.svelte:267 '{#each column.more …}' has no key; column.more of the same-file const columns literal (line 156); static list"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::performance/image-loading-hint::src/routes/dev/analytics-qa/+page.svelte:235::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute and no spread; QR code in section \"6. Destinations\", the last section of the QA page (analytics-qa/+page.svelte:230-236) — below the fold"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::performance/image-loading-hint::src/routes/get/+page.svelte:139::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; hero app mockup with fetchpriority=\"high\" in the landing's media column (get/+page.svelte:137-146) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::performance/image-loading-hint::src/routes/get/+page.svelte:152::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; desktop QR code in the hero media column beside the mockup (get/+page.svelte:148-154) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::performance/image-loading-hint::src/routes/get/+page.svelte:79::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute and no spread; brand logo at the top of the landing pitch, above the <h1> (get/+page.svelte:78-82) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::performance/responsive-image::src/routes/get/+page.svelte:139::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not a static .svg; static /assets/mockups/mobile-hero.jpg 443x960 — raster, one fixed-size asset"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::performance/responsive-image::src/routes/get/+page.svelte:79::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread, src not a static .svg; static /assets/logo.png shown at 56px — raster, one fixed-size asset"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::performance/state-raw::src/lib/components/AnalyticsDebugPanel.svelte:26::\"attribution\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"attribution\" in src/lib/components/AnalyticsDebugPanel.svelte: only whole-binding reassignments and read-only uses (template reads, member reads, spread-copy reassignments); no member writes, mutating method calls, bind:, call-arg/prop escapes of the binding; {#each} items only read (script-checked) — $state.raw fits per docs"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::performance/state-raw::src/routes/dev/analytics-qa/+page.svelte:43::\"navigations\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"navigations\" in src/routes/dev/analytics-qa/+page.svelte: only whole-binding reassignments and read-only uses (template reads, member reads, spread-copy reassignments); no member writes, mutating method calls, bind:, call-arg/prop escapes of the binding; {#each} items only read (script-checked) — $state.raw fits per docs"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::security/raw-html::src/lib/components/Seo.svelte:76::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read Seo.svelte:75-76 + blog/[slug]/+page.svelte:28-90: JSON.stringify(block) of per-post title/description/tags/FAQ (markdown frontmatter) injected into <script type=ld+json> with no '<' escaping — docs: non-literal JSON-LD needs script-safe serialization (ledger per-post JSON-LD convention)"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::security/raw-html::src/routes/get/+page.svelte:72::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read get/+page.svelte:18-21,72: platformScript is a literal inline script string constant — reported per docs"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/canonical-url::src/routes/dev/analytics-qa/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only emitter is lib/components/Seo.svelte, rendered by the public pages, not this dev page; root +layout.svelte:48-61 head is global chrome only (charset/viewport/theme meta)) but not a search target (literal noindex,nofollow robots meta at dev/analytics-qa/+page.svelte:114), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/description-presence::src/routes/dev/analytics-qa/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: dev/analytics-qa/+page.svelte:112-115 head has only <title>Analytics QA harness</title> and robots noindex, nofollow; it renders no <Seo> (lib/components/Seo.svelte, the site's only description/JSON-LD source), root +layout.svelte:48-61 head is global chrome only, app.html none (literal claim holds); not a search target (literal noindex, internal analytics QA harness for StoreLink placements)"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/indexability::src/routes/dev/analytics-qa/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: dev/analytics-qa/+page.svelte:114 unconditional literal <meta name=\"robots\" content=\"noindex, nofollow\">; noindex as claimed (dev QA harness)"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/json-ld::src/routes/dev/analytics-qa/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: dev/analytics-qa/+page.svelte:112-115 head has only <title>Analytics QA harness</title> and robots noindex, nofollow; it renders no <Seo> (lib/components/Seo.svelte, the site's only description/JSON-LD source), root +layout.svelte:48-61 head is global chrome only, app.html none; /dev/analytics-qa has no JSON-LD"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/og-description::src/routes/dev/analytics-qa/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 15 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only emitter is lib/components/Seo.svelte, rendered by the public pages, not this dev page; root +layout.svelte:48-61 head is global chrome only (charset/viewport/theme meta)); missing as claimed"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/og-image::src/routes/dev/analytics-qa/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 15 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only emitter is lib/components/Seo.svelte, rendered by the public pages, not this dev page; root +layout.svelte:48-61 head is global chrome only (charset/viewport/theme meta)); missing as claimed"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/og-title::src/routes/dev/analytics-qa/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 15 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only emitter is lib/components/Seo.svelte, rendered by the public pages, not this dev page; root +layout.svelte:48-61 head is global chrome only (charset/viewport/theme meta)); missing as claimed"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/og-url::src/routes/dev/analytics-qa/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 15 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only emitter is lib/components/Seo.svelte, rendered by the public pages, not this dev page; root +layout.svelte:48-61 head is global chrome only (charset/viewport/theme meta)); missing as claimed"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/title-length::src/routes/dev/analytics-qa/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: dev/analytics-qa/+page.svelte:113 unconditional literal <title>Analytics QA harness</title> (20 chars), the only <title> on the route"
+  },
+  {
+    "key": "gentleloop-labs/patterns:website::seo/twitter-card::src/routes/dev/analytics-qa/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 15 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; the only emitter is lib/components/Seo.svelte, rendered by the public pages, not this dev page; root +layout.svelte:48-61 head is global chrome only (charset/viewport/theme meta)); missing as claimed"
+  }
+]

@@ -1,0 +1,1182 @@
+[
+  {
+    "key": "rivenmedia/riven-frontend::a11y/deprecated-aria::src/lib/components/ui/extras/ipv4address-input/ipv4address-input.svelte:70::`aria-invalid` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read: bare <span>/<div> (no role, no spread on that element) carrying aria-disabled/aria-invalid, deprecated on generic since ARIA 1.2"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::a11y/deprecated-aria::src/lib/components/ui/extras/tags-input/tags-input.svelte:188::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read: bare <span>/<div> (no role, no spread on that element) carrying aria-disabled/aria-invalid, deprecated on generic since ARIA 1.2"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::a11y/disallowed-aria-props::src/lib/components/ui/extras/tags-input/tags-input-tag.svelte:18::`aria-selected` is not supported by role `generic`",
+    "verdict": "tp",
+    "basis": "read: <div aria-selected={active}> with no role/spread: generic does not support aria-selected"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::a11y/duplicate-landmark::src/lib/components/page-shell.svelte:10::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (protected)/+layout.svelte:64 unconditional <main>; pages render <PageShell> whose root is <main> (no role passed through restProps)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::a11y/permitted-contents::src/lib/components/media/riven/item-manual-scrape.svelte:1349::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::a11y/permitted-contents::src/lib/components/tmdb-now-playing.svelte:451::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::a11y/permitted-contents::src/lib/components/ui/extras/file-drop-zone/file-drop-zone.svelte:143::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <label> with no component/snippet/svelte:element boundary between (crossed: IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::a11y/permitted-contents::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:717::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::a11y/permitted-contents::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:729::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/lib/components/auth/passkeys.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/auth/passkeys.svelte has 209 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/lib/components/filter-popover.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/filter-popover.svelte has 256 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/lib/components/media/riven/item-manual-scrape.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/media/riven/item-manual-scrape.svelte has 1904 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/lib/components/notification-center.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/notification-center.svelte has 256 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/lib/components/sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar.svelte has 219 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/lib/components/tmdb-now-playing.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tmdb-now-playing.svelte has 506 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/lib/components/ui/extras/tags-input/tags-input.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/extras/tags-input/tags-input.svelte has 208 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/routes/(protected)/calendar/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(protected)/calendar/+page.svelte has 380 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/routes/(protected)/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(protected)/dashboard/+page.svelte has 388 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(protected)/details/entity/[id]/[type]/+page.svelte has 475 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte has 1199 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/routes/(protected)/explore/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(protected)/explore/+page.svelte has 419 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/routes/(protected)/library/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(protected)/library/+page.svelte has 404 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/routes/(protected)/logs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(protected)/logs/+page.svelte has 269 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/component-size::src/routes/(public)/auth/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(public)/auth/login/+page.svelte has 394 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/heatmap.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): data, onclick, onmouseout, onmouseover, onfocus, onblur, colors, class, year, lday, lmonth"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/media/landscape-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): title, image, overview, topRight, meta, class, tmdbId, mediaType, initialRating, episodeNumber"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/media/portrait-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): title, subtitle, image, selected, isSelectable, isSelected, onSelectToggle, class, topRight, showContent"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/media/riven/item-manual-scrape.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): title, itemId, externalId, mediaType, variant, size, seasons"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/media/riven/item-request.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): title, ids, mediaType, seasons, buttonLabel, externalId, variant, size, class, children"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/poster.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): title, riven_id, src, class, isSelectable, selectStore, mediaURL, children"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 14 named props (> 6): ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): open, ref, value, title, description, portalProps, children"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/extras/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): ref, variant, size, href, type, loading, disabled, tabindex, onclick, onClickPromise, class, children"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/extras/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): open, ref, value, title, description, portalProps, children"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/extras/copy-button/copy-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): ref, text, icon, animationDuration, variant, size, onCopy, class, tabindex, children"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/extras/file-drop-zone/file-drop-zone.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): id, children, maxFiles, maxFileSize, fileCount, disabled, onUpload, onFileRejected, accept, class"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::architecture/prop-count::src/lib/components/ui/extras/phone-input/phone-input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): class, defaultCountry, country, options, placeholder, readonly, disabled, value, valid, detailedValue, order, name"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-index-key::src/lib/components/heatmap.svelte:65::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: header '{#each calendar as w, i (i)}' keyed by its index binding (claim literally true); positional list (heatmap calendar weeks): items have no identity beyond position"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: header '{#each errors ?? [] as error, index (index)}' keyed by its index binding (claim literally true); list source is runtime data (query/state/prop/fetched records), not static or positional; source read"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-index-key::src/routes/(protected)/logs/+page.svelte:230::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: header '{#each logs.slice().reverse() as log, i (i)}' keyed by its index binding (claim literally true); list source is runtime data — live log stream reversed: every new entry shifts every index, not static or positional; source read"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-index-key::src/routes/(protected)/logs/+page.svelte:245::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: header '{#each historicalLogs.slice().reverse() as log, i (i)}' keyed by its index binding (claim literally true); list source is runtime data — log list reversed, not static or positional; source read"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/lib/components/tmdb-now-playing.svelte:292::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each ratings[item.id].scores as score}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/lib/components/tmdb-now-playing.svelte:442::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each data as _, i}' has no key; item binding unused (progress dots): nodes depend only on index"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:467::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each data.entity.also_known_as as alias}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:310::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each meta.audio_tracks as track}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:637::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each details as detail, i}' has no key; not an exempt shape; positional list (metadata pieces (year, runtime, ...)): items have no identity beyond position"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:988::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each validLinks as [key, value]}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/routes/(protected)/explore/+page.svelte:230::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each searchStore.warnings as warning}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/routes/(protected)/library/+page.svelte:160::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each Object.keys(typeOptions) as option}' has no key; not an exempt shape; static list (Object.keys of imported typeOptions constant): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/each-key::src/routes/(protected)/library/+page.svelte:188::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each Object.keys(stateOptions) as option}' has no key; not an exempt shape; static list (Object.keys of imported stateOptions constant): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/effect-as-derived::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:72::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/prop-mutation::src/lib/components/ui/extras/phone-input/country-selector.svelte:78::Prop \"countries\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: countries.sort(order) in the template sorts the parent's array in place (phone-input passes svelte-tel-input normalizedCountries, a shared module array); toSorted is the non-mutating form"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/unmutated-state::src/routes/(protected)/calendar/+page.svelte:19::$state \"isMobile\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: every reference of the name in the file listed (hc grep); no reassignment/mutation/bind:/call-arg/directive/component prop; IsMobile class instance (not proxied); only .current read; already const"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::correctness/unmutated-state::src/routes/(public)/auth/login/+page.svelte:91::$state \"supportsPasskey\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: every reference of the name in the file listed (hc grep); no reassignment/mutation/bind:/call-arg/directive/component prop; only read in {#if}"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/iframe-loading::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:437::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: trailer iframe created on demand when the user clicks play (autoplay=1), visible when rendered"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:229::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — h-full w-full in fixed h-screen w-full backdrop container"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:244::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — h-full w-full in fixed h-screen w-full backdrop container"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:252::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: aspect-video w-full reserves the box"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:369::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — h-full w-full in fixed h-screen w-full backdrop container"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:407::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: only max-h/max-w + object-contain; natural size decides the box"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:677::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-6 w-6 fixed box"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:718::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — h-full w-full in absolute inset-0 layer of a min-h card"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/explore/+page.svelte:127::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — absolute inset-0 in fixed h-screen container"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(protected)/explore/+page.svelte:268::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-4 w-4 fixed box"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(public)/auth/login/+page.svelte:244::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-4 w-4 fixed box"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-dimensions::src/routes/(public)/auth/login/+page.svelte:389::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — absolute inset-0 h-full w-full in side panel"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-loading-hint::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:229::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: fixed full-viewport backdrop, always in view"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-loading-hint::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:244::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: fixed full-viewport backdrop, always in view"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-loading-hint::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:677::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: rating logos in the hero details block near the top"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-loading-hint::src/routes/(protected)/explore/+page.svelte:268::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: ratings of the hero item at the top of explore"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-loading-hint::src/routes/(public)/auth/login/+page.svelte:244::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: provider icon on login button, above the fold"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/image-loading-hint::src/routes/(public)/auth/login/+page.svelte:389::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: login side-panel image, above the fold on lg"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/lcp-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:252::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "fp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: img sits in {#snippet episodeBody} (def. line 241) rendered only at lines 821/840 inside the episode accordion; the first rendered <img> is the backdrop at line 369 — analyzer took snippet-definition order as document order. Line misattribution, not a clean route: the real first img (369) is also loading=\"lazy\" and would be the correct finding"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/lcp-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:369::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "read: first rendered <img> (fixed backdrop) is loading=lazy; replaces the misplaced snippet-definition finding"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/lcp-image::src/routes/(protected)/explore/+page.svelte:127::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in DOM order: fixed full-viewport backdrop, in view on load, marked loading=\"lazy\"; no earlier img in page or layout chain"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:229::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: TMDB raster backdrop"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:244::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: TMDB raster image"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:252::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: TMDB raster episode still"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:369::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: TMDB raster backdrop"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:407::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: TMDB raster logo"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:677::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src \"/rating-logos/{score.image}\" resolves to static .svg files (tmdb.svg, imdb.svg, rt_*.svg) — dynamic SVG outside the docs detection list"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte:718::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: TMDB raster backdrop"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/explore/+page.svelte:127::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: TMDB raster backdrop"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(protected)/explore/+page.svelte:268::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: rating-logos/{score.image} are static .svg files — dynamic SVG outside docs detection list"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(public)/auth/login/+page.svelte:244::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: provider icon (default plex .svg from jsdelivr, or configured icon) — 16px icon, dynamic SVG outside detection list"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/responsive-image::src/routes/(public)/auth/login/+page.svelte:389::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote pexels raster jpeg"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(protected)/+page.server.ts:22::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body: independent request after unrelated preceding request(s); argument uses none of their bindings, no setup/side-effect coupling — Promise.all would work"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(protected)/auth/+page.server.ts:24::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: superValidate(zod4(schema)) with no input — in-process form defaults, no request"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(protected)/auth/+page.server.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: superValidate(zod4(schema)) with no input — in-process form defaults, no request"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(protected)/auth/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: superValidate(zod4(schema)) with no input — in-process form defaults, no request"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(protected)/auth/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: the only preceding awaits are in-process superValidate() calls (no I/O), so nothing is actually serialized behind a request"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(protected)/explore/+page.server.ts:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: only preceding await is superValidate(url.searchParams) — in-process parsing, no request; parallelizing gains nothing"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(protected)/settings/+page.server.ts:38::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body: independent request after unrelated preceding request(s); argument uses none of their bindings, no setup/side-effect coupling — Promise.all would work"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(public)/auth/login/+page.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: superValidate(zod4(loginSchema)) — in-process form defaults, no request"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/sequential-awaits::src/routes/(public)/auth/login/+page.server.ts:31::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "fp",
+    "basis": "read: `canRegister ? await superValidate(...) : null` where canRegister = isSignupEnabled || isFirstUser and isFirstUser = await noUserExists() — the await is guarded by the earlier result; analyzer only checks the await argument"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::performance/state-raw::src/lib/components/media/riven/item-manual-scrape.svelte:210::\"streamingProgress\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference: only whole-binding reassignments and template/read-only uses; no member writes, method calls, bind:, call args of the binding, or each-item escapes"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::security/raw-html::src/lib/components/ui/extras/phone-input/flag.svelte:30::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html flag}; read: SVG strings from the country-flag-icons package — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/auth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/calendar/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/explore/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/library/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/lists/trending/anime/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/lists/trending/movie/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/lists/trending/tv/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/logs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(protected)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/canonical-url::src/routes/(public)/auth/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/auth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/calendar/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/explore/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/library/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/lists/trending/anime/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/lists/trending/movie/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/lists/trending/tv/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/logs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(protected)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (auth-gated: hooks.server.ts betterAuthHandler redirects /(protected) route ids to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/description-presence::src/routes/(public)/auth/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <meta name=\"description\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/duplicate-title::src/routes/(protected)/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: (protected)/+layout and (public)/+layout both <title>Riven</title>, inherited by /library and /auth/login (no own title); /library is auth-gated (hooks), so the pair never competes in search"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/duplicate-title::src/routes/(public)/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: same pair as (protected) key — /auth/login shares \"Riven\" only with auth-gated /library"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte:463::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>{data.entity.name}</h1> (+page.svelte:333) is followed by {@render metadataBadges()} (no headings) and {@render alsoKnownAs(...)} (:345), whose snippet renders <h3>Also known as</h3> (:463) when also_known_as is non-empty -> h1 to h3 with no h2 between"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/library/+page.svelte:275::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1> (:105) then the {:else} empty-state <h3> (:275) with no h2 between"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/logs/+page.svelte:122::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1>System Logs</h1> (+page.svelte:183) then, in the same {:else if logs...} arm, {:else if historicalError} renders {@render errorDisplay(...)} (:240) whose snippet has <h3>Error Loading Logs</h3> (:122); tabButton/statusIndicator snippets between have no heading -> h1 to h3 on the historical-error state (same shape as the tp library :275 empty-state h3)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/heading-level-skip::src/routes/(protected)/logs/+page.svelte:262::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "<h1> (:183) is in {:else if logs…} and the flagged <h3> (:262) in the final {:else} of the same chain -> never adjacent in the DOM"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/calendar/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/explore/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/library/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/lists/trending/anime/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/lists/trending/movie/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/lists/trending/tv/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/logs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(protected)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/json-ld::src/routes/(public)/auth/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/auth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/calendar/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/explore/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/library/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/lists/trending/anime/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/lists/trending/movie/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/lists/trending/tv/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/logs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(protected)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-description::src/routes/(public)/auth/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:description meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/auth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/calendar/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/explore/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/library/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/lists/trending/anime/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/lists/trending/movie/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/lists/trending/tv/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/logs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(protected)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-image::src/routes/(public)/auth/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:image meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/auth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/calendar/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/explore/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/library/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/lists/trending/anime/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/lists/trending/movie/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/lists/trending/tv/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/logs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(protected)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-title::src/routes/(public)/auth/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:title meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/auth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/calendar/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/explore/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/library/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/lists/trending/anime/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/lists/trending/movie/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/lists/trending/tv/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/logs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(protected)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/og-url::src/routes/(public)/auth/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no og:url meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/single-h1::/auth/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "walker-verified: page+layouts+followed components have no <h1>; unfollowed are bits-ui/formsnap/@sjsf form primitives (no h1)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/single-h1::/calendar::Missing <h#>",
+    "verdict": "tp",
+    "basis": "walker-verified: page+layouts+followed components have no <h1>; unfollowed are bits-ui/formsnap/@sjsf form primitives (no h1)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "walker-verified: page+layouts+followed components have no <h1>; unfollowed are bits-ui/formsnap/@sjsf form primitives (no h1)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/single-h1::src/lib/components/tmdb-now-playing.svelte:244::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "page <h1> (:333) plus TmdbNowPlaying renders an <h1> per carousel item lacking a logo ({#each}…{:else}<h1>) -> multiple"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap file, endpoint or generator; self-hosted app, every route but login is auth-gated (hooks)"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/auth/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/calendar/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/dashboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/explore/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/lists/trending/anime/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/lists/trending/movie/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/lists/trending/tv/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/logs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(protected)/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/title-length::src/routes/(public)/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> is the only/winning title for the route(s) (no component or document.title override found); length matches"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/auth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/calendar/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/details/entity/[id]/[type]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/details/media/[id]/[mediaType]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/explore/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/library/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/lists/trending/anime/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/lists/trending/movie/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/lists/trending/tv/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/logs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(protected)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: (protected)]"
+  },
+  {
+    "key": "rivenmedia/riven-frontend::seo/twitter-card::src/routes/(public)/auth/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (h-seo-social-check.mjs): no twitter:card meta in page, ancestor layouts, transitively imported components (incl. barrel re-exports) or app.html; repo-wide grep finds no og:*/twitter:* meta at all; no meta-tag library dep; transformPageChunk only substitutes lang/placeholders [route path segment: auth]"
+  }
+]

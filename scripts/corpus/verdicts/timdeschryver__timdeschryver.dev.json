@@ -1,0 +1,137 @@
+[
+  {
+    "key": "timdeschryver/timdeschryver.dev::a11y/permitted-contents::src/routes/+page.svelte:134::`<h#>` is not permitted content here — `<dt>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <h2> at this line has literal parent <dt> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::a11y/top-level-landmark::src/routes/blog/[slug]/+page.svelte:295::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:303 unconditional <main> around children; blog/[slug]/+page.svelte:295 <aside> at page top level (no sectioning ancestor) → complementary inside main"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/component-size::src/lib/Head.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/Head.svelte has 214 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/component-size::src/lib/Share.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/Share.svelte has 233 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/component-size::src/lib/YearProgression.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/YearProgression.svelte has 228 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 591 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 339 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/component-size::src/routes/bits/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/bits/+page.svelte has 226 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/component-size::src/routes/blog/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/+page.svelte has 618 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/component-size::src/routes/blog/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/[slug]/+page.svelte has 756 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::architecture/prop-count::src/lib/Head.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 16 named props (> 6): title, description, canonical, image, imageWidth, imageHeight, imageType, type, markdown, author, published, modified, tags, section, items, standardDocument"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::performance/image-loading-hint::src/routes/bits/[slug]/+page.svelte:52::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: banner with fetchpriority=\"high\" at top of the bit — the intended LCP, must stay eager"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::performance/image-loading-hint::src/routes/blog/[slug]/+page.svelte:212::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: tag logos in the post header, above the fold"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::performance/image-loading-hint::src/routes/blog/[slug]/+page.svelte:217::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author image in the post header, above the fold"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::performance/responsive-image::src/routes/bits/[slug]/+page.svelte:52::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: raster .webp banner"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::performance/responsive-image::src/routes/blog/[slug]/+page.svelte:212::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /images/{logo.src} maps tags to a mix of .svg and .png 64px logos — dynamic, partly SVG"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::performance/responsive-image::src/routes/blog/[slug]/+page.svelte:217::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster tim-96.webp"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::security/raw-html::src/routes/bits/[slug]/+page.svelte:66::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: HTML compiled from the repo's own markdown posts/bits (prerendered TLDR endpoint) or a <style> template over post.metadata.color"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::security/raw-html::src/routes/blog/[slug]/+page.svelte:325::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: HTML compiled from the repo's own markdown posts/bits (prerendered TLDR endpoint) or a <style> template over post.metadata.color"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::security/raw-html::src/routes/blog/[slug]/+page.svelte:333::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: HTML compiled from the repo's own markdown posts/bits (prerendered TLDR endpoint) or a <style> template over post.metadata.color"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::security/raw-html::src/routes/blog/[slug]/+page.svelte:340::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: HTML compiled from the repo's own markdown posts/bits (prerendered TLDR endpoint) or a <style> template over post.metadata.color"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::seo/heading-level-skip::src/routes/blog/[slug]/+page.svelte:298::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "<h1> (:201) then the TOC aside <h3> (:298) with only summary/tags between -> real skip"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS emitted: page renders $lib/Head.svelte whose <svelte:head> has unconditional <svelte:element this={\"script\"} type=\"application/ld+json\"> (Head.svelte:213); analyzer skips SvelteElement in head"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::seo/json-ld::src/routes/bits/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS emitted: page renders $lib/Head.svelte whose <svelte:head> has unconditional <svelte:element this={\"script\"} type=\"application/ld+json\"> (Head.svelte:213); analyzer skips SvelteElement in head"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::seo/json-ld::src/routes/bits/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS emitted: page renders $lib/Head.svelte whose <svelte:head> has unconditional <svelte:element this={\"script\"} type=\"application/ld+json\"> (Head.svelte:213); analyzer skips SvelteElement in head"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS emitted: page renders $lib/Head.svelte whose <svelte:head> has unconditional <svelte:element this={\"script\"} type=\"application/ld+json\"> (Head.svelte:213); analyzer skips SvelteElement in head"
+  },
+  {
+    "key": "timdeschryver/timdeschryver.dev::seo/json-ld::src/routes/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS emitted: page renders $lib/Head.svelte whose <svelte:head> has unconditional <svelte:element this={\"script\"} type=\"application/ld+json\"> (Head.svelte:213); analyzer skips SvelteElement in head"
+  }
+]

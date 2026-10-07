@@ -1,0 +1,787 @@
+[
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::a11y/disallowed-aria-props::src/lib/components/LanguageToggle.svelte:13::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/LanguageToggle.svelte:13-16: <div class=inline-flex ... aria-label='Language switcher'> with no role/spread/use:; a generic div prohibits a name (would need role=group)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::a11y/placeholder-label-option::src/routes/admin/certification/[id]/+page.svelte:199::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read src/routes/admin/certification/[id]/+page.svelte:199-205: <select id=status required> whose options are all valid statuses, one marked selected={status === …} from the record's current status; a preselected valid default is intentional, spec placeholder unmet but no user-facing defect (ledger preselected-default precedent)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 312 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/admin/certification/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/certification/[id]/+page.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/admin/users/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/users/[id]/+page.svelte has 232 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/contact/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/contact/+page.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/dashboard/request/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/request/+page.svelte has 517 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/halal-awareness/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/halal-awareness/+page.svelte has 506 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/component-size::src/routes/procedures/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/procedures/+page.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) beside a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::architecture/prop-count::src/lib/components/ui/switch/switch.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/switch/switch.svelte has a single destructured $props() with 7 named props (> 6): checked, disabled, ariaLabel, ariaLabelledby, ariaDescribedby, className, onchange"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::correctness/each-index-key::src/routes/admin/certification/[id]/+page.svelte:116::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/certification/[id]/+page.svelte:116 keyed by its index binding and not an exempt shape; products/ingredients of a certification request record loaded from the database (data.request): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::correctness/each-index-key::src/routes/admin/certification/[id]/+page.svelte:139::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/certification/[id]/+page.svelte:139 keyed by its index binding and not an exempt shape; products/ingredients of a certification request record loaded from the database (data.request): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::correctness/each-index-key::src/routes/admin/certification/[id]/+page.svelte:162::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/admin/certification/[id]/+page.svelte:162 '{#each Object.entries(data.request.halal_control_plan) as [key, value], i (i)}' keyed by its index binding; entries of a certification request's database record: runtime records (ledger convention)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::correctness/each-key::src/routes/dashboard/request/+page.svelte:331::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/request/+page.svelte:331 '{#each products as product}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; products = $state([makeProduct()]) rows the user adds and removes, each with inputs (dashboard/request/+page.svelte:82): input state follows position"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::correctness/each-key::src/routes/dashboard/request/+page.svelte:372::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/dashboard/request/+page.svelte:372 '{#each product.ingredients as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; ingredient rows of a product the user adds and removes, each with inputs: input state follows position"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/image-dimensions::src/routes/+layout.svelte:34::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; header logo with own class h-8 w-8 (+layout.svelte:34) — fixed box, no CLS"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/image-dimensions::src/routes/+page.svelte:242::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; partner logo with own class h-36 w-auto object-contain (+page.svelte:242) — fixed-height box, width only varies inside its row"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/image-dimensions::src/routes/+page.svelte:25::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; hero logo with own class h-48 w-48 (+page.svelte:25) — fixed box, no CLS"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/image-loading-hint::src/routes/+layout.svelte:34::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo in the sticky top header (+layout.svelte:27-34) — above the fold on every route, where the docs keep the image eager"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/image-loading-hint::src/routes/+page.svelte:242::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading attribute, no spread; Halal Formosa partner logo in the fifth and last homepage section (+page.svelte:221-242), after the hero, scope, and two py-20/py-24 sections — offscreen on load"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/image-loading-hint::src/routes/+page.svelte:25::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; hero logo at the top of the first section (+page.svelte:22-25) — above the fold, the likely LCP, where the docs keep the image eager"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/responsive-image::src/routes/+layout.svelte:34::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src imports $lib/assets/logo/halal-ima-transparent.png (+layout.svelte:11), a 1000x1000 147KB raster shown at 32px — one fixed-size asset"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/responsive-image::src/routes/+page.svelte:242::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src imports $lib/assets/partners/halal-formosa.png (+page.svelte:4), a 2000x2000 114KB raster shown at 144px — one fixed-size asset"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/responsive-image::src/routes/+page.svelte:25::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset, no spread; src imports $lib/assets/logo/halal-ima-transparent.png (+page.svelte:3), a 1000x1000 147KB raster shown at 192px — one fixed-size asset"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/sequential-awaits::src/routes/admin/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/+page.server.ts:6-18: the unverified-count Supabase query uses nothing from the preceding profiles query - independent HTTP requests serialized; Promise.all would work"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::performance/sequential-awaits::src/routes/admin/+page.server.ts:24::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/+page.server.ts:15-28: the certification_requests Supabase query uses nothing from the profiles/count queries before it - independent HTTP requests serialized"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: hooks.server.ts redirects every non-admin request under /admin to /login before resolve), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/admin/certification/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: hooks.server.ts redirects every non-admin request under /admin to /login before resolve), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/admin/users/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: hooks.server.ts redirects every non-admin request under /admin to /login before resolve), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/certifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /certifications: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/contact/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /contact: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: hooks.server.ts redirects every guest request under /dashboard to /login before resolve), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/dashboard/request/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: hooks.server.ts redirects every guest request under /dashboard to /login before resolve), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/halal-awareness/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /halal-awareness: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/procedures/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /procedures: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /register: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a <meta name=description>; src/routes/about/+page.svelte's svelte:head has none, root +layout.svelte and app.html none; public page of the halal certification site (no hooks gate outside /admin and /dashboard, robots.txt allows all)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a description; none on /admin (literal claim holds); not a search target (hooks.server.ts:112 redirects every non-admin request under /admin to /login)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/admin/certification/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a description; none on /admin/certification/[id] (literal claim holds); not a search target (hooks.server.ts:112 redirects every non-admin request under /admin to /login)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/admin/users/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a description; none on /admin/users/[id] (literal claim holds); not a search target (hooks.server.ts:112 redirects every non-admin request under /admin to /login)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/certifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a <meta name=description>; src/routes/certifications/+page.svelte's svelte:head has none, root +layout.svelte and app.html none; public page of the halal certification site (no hooks gate outside /admin and /dashboard, robots.txt allows all)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/contact/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a <meta name=description>; src/routes/contact/+page.svelte's svelte:head has none, root +layout.svelte and app.html none; public page of the halal certification site (no hooks gate outside /admin and /dashboard, robots.txt allows all)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/dashboard/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a description; none on /dashboard (literal claim holds); not a search target (hooks.server.ts:116 redirects every session-less request under /dashboard to /login)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/dashboard/request/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a description; none on /dashboard/request (literal claim holds); not a search target (hooks.server.ts:116 redirects every session-less request under /dashboard to /login)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a <meta name=description>; src/routes/forgot-password/+page.svelte's svelte:head has none, root +layout.svelte and app.html none; public page of the halal certification site (no hooks gate outside /admin and /dashboard, robots.txt allows all)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a <meta name=description>; src/routes/login/+page.svelte's svelte:head has none, root +layout.svelte and app.html none; public page of the halal certification site (no hooks gate outside /admin and /dashboard, robots.txt allows all)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/procedures/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a <meta name=description>; src/routes/procedures/+page.svelte's svelte:head has none, root +layout.svelte and app.html none; public page of the halal certification site (no hooks gate outside /admin and /dashboard, robots.txt allows all)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a <meta name=description>; src/routes/register/+page.svelte's svelte:head has none, root +layout.svelte and app.html none; public page of the halal certification site (no hooks gate outside /admin and /dashboard, robots.txt allows all)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/description-presence::src/routes/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): only routes/+page.svelte:17 and halal-awareness/+page.svelte:113 set a <meta name=description>; src/routes/reset-password/+page.svelte's svelte:head has none, root +layout.svelte and app.html none; public page of the halal certification site (no hooks gate outside /admin and /dashboard, robots.txt allows all)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/heading-level-skip::src/routes/contact/+page.svelte:53::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: contact/+page.svelte:36 <h1> is followed by the contact card's <h3>Email</h3> (:53) with only a lucide Mail icon between — h1 to h3"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/heading-level-skip::src/routes/dashboard/+page.svelte:65::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: dashboard/+page.svelte:34 <h1> then the {#if !data.user.is_verified} notice <h3> (:65), only Buttons/icons between — h1 to h3 when it renders"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/heading-level-skip::src/routes/procedures/+page.svelte:139::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: procedures/+page.svelte:102 <h1> then each step's <h3> in {#each steps} (:139) with no heading between — h1 to h3"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; / has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /about has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /admin has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/admin/certification/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /admin/certification/[id] has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/admin/users/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /admin/users/[id] has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/certifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /certifications has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /contact has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /dashboard has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/dashboard/request/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /dashboard/request has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /forgot-password has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/halal-awareness/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /halal-awareness has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /login has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/procedures/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /procedures has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /register has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in src; /reset-password has none"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/admin/certification/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/certification/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/admin/users/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/certifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /certifications: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/contact/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /contact: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/dashboard/request/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /dashboard/request: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /forgot-password: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/halal-awareness/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /halal-awareness: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/procedures/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /procedures: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-description::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/admin/certification/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/certification/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/admin/users/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/certifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /certifications: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/contact/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /contact: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/dashboard/request/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /dashboard/request: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/halal-awareness/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /halal-awareness: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/procedures/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /procedures: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/admin/certification/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/certification/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/admin/users/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/certifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /certifications: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/contact/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /contact: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/dashboard/request/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /dashboard/request: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /forgot-password: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/halal-awareness/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /halal-awareness: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/procedures/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /procedures: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-title::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/admin/certification/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/certification/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/admin/users/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/users/[id]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/certifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /certifications: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/contact/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /contact: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/dashboard/request/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/request: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/halal-awareness/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /halal-awareness: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/procedures/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /procedures: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/single-h1::/forgot-password::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (page + root layout + transitive local imports scanned for <h1>/svelte:element/role=heading/{@html}): no <h1> on /forgot-password; the card heading is <Card.Title>, a <div data-slot=\"card-title\"> (lib/components/ui/card/card-title.svelte), in forgot-password/+page.svelte, and the root layout header shows the logo + a <span> site name (+layout.svelte:33-35); the page renders for signed-out visitors"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (page + root layout + transitive local imports scanned for <h1>/svelte:element/role=heading/{@html}): no <h1> on /login; the card heading is <Card.Title>, a <div data-slot=\"card-title\"> (lib/components/ui/card/card-title.svelte), in login/+page.svelte, and the root layout header shows the logo + a <span> site name (+layout.svelte:33-35); the page renders for signed-out visitors"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/single-h1::/register::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (page + root layout + transitive local imports scanned for <h1>/svelte:element/role=heading/{@html}): no <h1> on /register; the card heading is <Card.Title>, a <div data-slot=\"card-title\"> (lib/components/ui/card/card-title.svelte), in register/+page.svelte, and the root layout header shows the logo + a <span> site name (+layout.svelte:33-35); the page renders for signed-out visitors"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/single-h1::/reset-password::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (page + root layout + transitive local imports scanned for <h1>/svelte:element/role=heading/{@html}): no <h1> on /reset-password; the card heading is <Card.Title>, a <div data-slot=\"card-title\"> (lib/components/ui/card/card-title.svelte), in reset-password/+page.svelte, and the root layout header shows the logo + a <span> site name (+layout.svelte:33-35); the page renders for signed-out visitors"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/single-h1::src/routes/dashboard/request/+page.svelte:195::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (page + root layout + transitive local imports scanned): no <h1> on /dashboard/request; the form's headings are <h3>/<h4> (dashboard/request/+page.svelte:195, 326, 334) and the root layout renders no heading"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has robots.txt (allow all), favicon, manifest, no sitemap.xml file, route or generator; public halal-certification site with about/procedures/certifications/awareness pages to list"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 12 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/admin/certification/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/certification/[id]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/admin/users/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/users/[id]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/certifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /certifications: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/contact/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /contact: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/dashboard/request/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /dashboard/request: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 23 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/halal-awareness/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /halal-awareness: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/procedures/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /procedures: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 19 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  },
+  {
+    "key": "rakharamadhana/halal-ima-taiwan::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 28 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library (bits-ui/shadcn-svelte/mode-watcher emit none)"
+  }
+]

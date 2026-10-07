@@ -1,0 +1,1667 @@
+[
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/aria-hidden-focus::src/routes/(app)/vehicles/[id]/finance/+page.svelte:806::<button aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "tp",
+    "basis": "read vehicles/[id]/finance/+page.svelte:806-812: placeholder <button style=\"opacity: 0;\" aria-hidden=\"true\"> with no tabindex/disabled; opacity keeps it in the tab order, so keyboard users tab onto an invisible control hidden from AT"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/disallowed-aria-props::src/routes/(app)/dashboard/+page.svelte:178::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read +page.svelte:178: motomate dashboard <span class=\"vehicle-status-dot\" aria-label={vStatus}> empty status dot; no role, no spread, no use: action on the element (svelte parse); aria-label is prohibited on its generic role as claimed"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/disallowed-aria-props::src/routes/(app)/vehicles/[id]/documents/+page.svelte:282::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read vehicles/[id]/documents/+page.svelte:282: <label for=\"file-input\" aria-label> upload zone (no role/spread); docs name exactly the <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (daisyUI/skeleton <label aria-label> precedent)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/disallowed-aria-props::src/routes/(app)/vehicles/[id]/edit/+page.svelte:398::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read +page.svelte:398: motomate vehicles/[id]/edit <div class=\"unit-toggle\" aria-label>; no role, no spread, no use: action on the element (svelte parse); aria-label is prohibited on its generic role as claimed"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/disallowed-aria-props::src/routes/(auth)/+layout.svelte:190::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read +layout.svelte:190: motomate (auth)/+layout <div class=\"lang-dropdown\" aria-label>; no role, no spread, no use: action on the element (svelte parse); aria-label is prohibited on its generic role as claimed"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/id-duplication::src/lib/components/charts/LineChart.svelte:196::Duplicate id \"area-grad-line\"",
+    "verdict": "tp",
+    "basis": "read: insights/+page.svelte renders <LineChart> at :373 ({:else} of mileagePoints.length < 2) and :433 ({:else} of costPoints/costMode), both reachable together with data; each has <linearGradient id=\"area-grad-line\"> (LineChart.svelte:196) with its own accentColor, so the id is duplicated and url(#area-grad-line) resolves to the first"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/id-duplication::src/lib/components/ui/Modal.svelte:31::Duplicate id \"modal-title\"",
+    "verdict": "design",
+    "basis": "read: <h2 id=\"modal-title\"> is inside Modal.svelte {#if open} (:26); on /settings/account and the other routes the copies are separate ConfirmDialog/Modal instances (e.g. (app)/+layout.svelte:923 and settings/account/+page.svelte:385), each opened by its own user action; checked vehicles/[id]/edit (Modal :571, ConfirmDialogs :493-553) and settings/workflows (:549/:586): no dialog is triggered from inside another, so they never open together"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/interactive-nesting::src/routes/(app)/vehicles/[id]/notes/+page.svelte:357::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): <button> at +page.svelte:357 is a literal descendant of the <div role=\"button\"> at :324 in the same template, no component boundary between"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/interactive-nesting::src/routes/(app)/vehicles/[id]/notes/+page.svelte:368::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): <button> at +page.svelte:368 is a literal descendant of the <div role=\"button\"> at :324 in the same template, no component boundary between"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/permitted-contents::src/routes/(app)/onboarding/+page.svelte:305::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at +page.svelte:305 has <label> (:291) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <label> excludes <div> as reported"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/permitted-contents::src/routes/(app)/settings/profile/+page.svelte:189::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at +page.svelte:189 has <label> (:187) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <label> excludes <div> as reported"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/permitted-contents::src/routes/(app)/vehicles/[id]/+layout.svelte:459::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at +layout.svelte:459 has <label> (:455) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <label> excludes <div> as reported"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/permitted-contents::src/routes/(app)/vehicles/[id]/documents/+page.svelte:298::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at +page.svelte:298 has <label> (:282) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <label> excludes <div> as reported"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/permitted-contents::src/routes/(app)/vehicles/[id]/edit/+page.svelte:192::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at +page.svelte:192 has <label> (:190) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <label> excludes <div> as reported"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/permitted-contents::src/routes/(app)/vehicles/[id]/edit/+page.svelte:321::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at +page.svelte:321 has <label> (:319) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <label> excludes <div> as reported"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/permitted-contents::src/routes/(app)/vehicles/[id]/edit/+page.svelte:336::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at +page.svelte:336 has <label> (:334) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <label> excludes <div> as reported"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::a11y/permitted-contents::src/routes/(auth)/login/+page.svelte:136::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e_walk.mjs): literal <div> at +page.svelte:136 has <label> (:134) as its nearest element parent in the same template, outside any svg/snippet boundary; the HTML content model of <label> excludes <div> as reported"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/charts/BarChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/charts/BarChart.svelte has 241 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/charts/LineChart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/charts/LineChart.svelte has 371 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/documents/DocumentUploadForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/documents/DocumentUploadForm.svelte has 310 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/finance/TransactionForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/finance/TransactionForm.svelte has 655 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/maintenance/EditTrackerForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/maintenance/EditTrackerForm.svelte has 352 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/travels/TravelEntry.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/travels/TravelEntry.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/travels/TravelFormModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/travels/TravelFormModal.svelte has 1069 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/travels/TravelMap.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/travels/TravelMap.svelte has 451 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/ui/AppSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/AppSheet.svelte has 230 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/ui/RichEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/RichEditor.svelte has 788 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/ui/TrackerCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/TrackerCard.svelte has 614 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/ui/VehicleCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/VehicleCard.svelte has 243 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/vehicle/OdometerForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vehicle/OdometerForm.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/vehicle/ServiceLogEditForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vehicle/ServiceLogEditForm.svelte has 655 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/vehicle/ServiceLogForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vehicle/ServiceLogForm.svelte has 681 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/lib/components/vehicle/VehicleNoteForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/vehicle/VehicleNoteForm.svelte has 433 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+layout.svelte has 1853 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/+page.svelte has 561 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/insights/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/insights/+page.svelte has 717 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/onboarding/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/onboarding/+page.svelte has 810 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/+layout.svelte has 385 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/account/+page.svelte has 699 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/changelog/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/changelog/+page.svelte has 325 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/developer/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/developer/+page.svelte has 629 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/integrations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/integrations/+page.svelte has 693 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/notifications/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/notifications/+page.svelte has 928 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/notifications/all/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/notifications/all/+page.svelte has 346 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/profile/+page.svelte has 653 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/settings/workflows/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/workflows/+page.svelte has 1060 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/[id]/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/[id]/+layout.svelte has 1327 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/[id]/+page.svelte has 1828 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/[id]/documents/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/[id]/documents/+page.svelte has 1077 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/[id]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/[id]/edit/+page.svelte has 1066 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/[id]/finance/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/[id]/finance/+page.svelte has 1574 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/[id]/maintenance/+page.svelte has 1504 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/[id]/notes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/[id]/notes/+page.svelte has 728 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/[id]/travels/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/[id]/travels/+page.svelte has 579 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(app)/vehicles/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vehicles/new/+page.svelte has 369 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(auth)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/+layout.svelte has 649 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(auth)/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/login/+page.svelte has 746 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/component-size::src/routes/(auth)/register/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/register/+page.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/prop-count::src/lib/components/charts/BarChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/charts/BarChart.svelte has a single destructured $props() with 8 named props (> 6): bars, formatValue, accentColor, height, locale, ariaLabel, onbarclick, clickHint"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/prop-count::src/lib/components/charts/LineChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/charts/LineChart.svelte has a single destructured $props() with 9 named props (> 6): points, events, formatValue, accentColor, height, locale, ariaLabel, oneventclick, viewLogLabel"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/prop-count::src/lib/components/finance/TransactionForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/finance/TransactionForm.svelte has a single destructured $props() with 8 named props (> 6): vehicleId, locale, currency, odometerUnit, allDocs, pagePrefsCategory, editData, onSwitchType"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/prop-count::src/lib/components/travels/TravelFormModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/travels/TravelFormModal.svelte has a single destructured $props() with 10 named props (> 6): open, mode, travel, existingGpxDocs, excludedGpxDays, availableRouteDocs, vehicleId, currency, locale, onclose"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 9 named props (> 6): variant, size, loading, disabled, type, href, class, onclick, children"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/prop-count::src/lib/components/ui/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/ConfirmDialog.svelte has a single destructured $props() with 9 named props (> 6): open, title, description, confirmLabel, cancelLabel, danger, loading, onconfirm, onclose"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/prop-count::src/lib/components/ui/RichEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/RichEditor.svelte has a single destructured $props() with 9 named props (> 6): content, placeholder, docs, name, minHeight, docSearchPlaceholder, docSearchEmpty, onchange, ondocref"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::architecture/prop-count::src/lib/components/ui/TrackerCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/TrackerCard.svelte has a single destructured $props() with 15 named props (> 6): tracker, vehicleUnit, locale, serviceLogs, forecastMode, forecastData, forecastDateEstimate, monthsOfUsage, isLogging, isRecentlyLogged, showHistory, isMenuOpen, onlogclick, onhistoryclick, …"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-index-key::src/routes/(app)/settings/changelog/+page.svelte:109::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each block.entries as entry, i (i)}' keyed by its index binding; entries are the lines of one release section parsed from the changelog text (parseChangelog :26), fixed release-note content that never reorders; static list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/travels/TravelFormModal.svelte:166::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each Object.entries(removedSlots) as [slotIdx, docId]}' has no key; removedSlots = $state record (:45) grown as the user removes GPX slots (:95) and reset (:60); runtime list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/travels/TravelFormModal.svelte:169::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each Object.entries(selectedExistingIds) as [i, docId]}' has no key; selectedExistingIds = $state record (:53) changed by the user's picks (:499); runtime list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/travels/TravelFormModal.svelte:505::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each availableRouteDocs as doc}' has no key; availableRouteDocs prop (:20) is the vehicle's uploaded route documents (runtime records)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/ui/ColumnPicker.svelte:81::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each columns as col}' has no key; columns prop; callers pass the pages' constant column definitions (e.g. finance/+page.svelte:522 columns={financeColumns}, the const literal at :213); static list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/ui/ShortcutsModal.svelte:42::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each shortcut.keys as key}' has no key; shortcut comes from the outer each over the same-file const literal shortcuts (:4), so keys are a static author-written list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/ui/TrackerCard.svelte:238::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each historyGrouped as [yearMonth, logs]}' has no key; historyGrouped = $derived.by (:114) grouping the tracker's service logs by month (runtime records)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/ui/TrackerCard.svelte:244::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each logs as log}' has no key; the service-log records of one month group from historyGrouped (runtime records)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/ui/ViewToggle.svelte:19::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each options as opt}' has no key; options prop; callers pass inline literal option lists (e.g. insights/+page.svelte:323 options={[ {value:'6m'}, ... ]}); static list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/lib/components/vehicle/VehicleNoteForm.svelte:161::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each [...selectedDocIds] as docId}' has no key; selectedDocIds is the user's selection set of attached documents; runtime list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/+layout.svelte:724::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.vehicles as v}' has no key; load data (the user's vehicles from the database), runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/onboarding/+page.svelte:290::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each presets as preset}' has no key; presets = $derived (:71) from the constant PRESETS_BY_TYPE/HOUR_PRESETS_BY_TYPE tables per vehicle type (:66); static list replaced wholesale, never reorders"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/onboarding/+page.svelte:371::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each presets.filter((p) => selectedCategories.includes(p.id)) as preset}' has no key; filtered by the user's selectedCategories, so entries are inserted/removed as the user toggles; runtime list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/settings/changelog/+page.svelte:117::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each parseSegments(entry.text) as seg}' has no key; the text/issue/link segments of one changelog line (parseSegments :51); positional list (text segments)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/settings/integrations/+page.svelte:386::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each form.summary.skipped as name}' has no key; form action result (import summary), runtime results"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/settings/integrations/+page.svelte:398::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each form.summary.errors as err}' has no key; form action result (import errors), runtime results"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/settings/notifications/+page.svelte:496::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.notifications as n}' has no key; load data (notification records), runtime"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/settings/notifications/all/+page.svelte:94::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.notifications as n}' has no key; load data (notification records), runtime"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/settings/workflows/+page.svelte:182::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.rules as rule}' has no key; load data (user workflow rules from the database), runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/+layout.svelte:426::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each filteredDocList as doc}' has no key; filteredDocList = $derived (:41) filter of the vehicle's documents, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/+layout.svelte:497::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each tabs as tab}' has no key; tabs = $derived([...]) (:91), a literal list of the vehicle's section tabs (only hrefs vary with the id); static list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/+page.svelte:687::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each upcoming as t}' has no key; upcoming = $derived (:203) of the vehicle's due trackers, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/+page.svelte:765::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each grouped as [ym, entries]}' has no key; grouped = $derived.by (:365) grouping the vehicle's timeline entries by month, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/+page.svelte:774::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each displayEntries as entry}' has no key; displayEntries (:766) are the timeline records of one month group, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/+page.svelte:804::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each attached as doc}' has no key; attached = resolvedAttachments(log) (:777), a log's attached document records (runtime)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/documents/+page.svelte:339::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each Object.entries(docTypeLabels) as [val, label]}' has no key; docTypeLabels = $derived({...}) (:133), a literal map of the fixed document types to translated labels; static list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/documents/+page.svelte:376::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.docs as doc}' has no key; load data (the vehicle's documents), runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/documents/+page.svelte:482::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each Object.entries(timelineDocs()) as [month, docs]}' has no key; timelineDocs (:236) groups the vehicle's documents by month, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/documents/+page.svelte:486::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each docs as doc}' has no key; the document records of one month group (runtime)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/edit/+page.svelte:578::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.reportTrackers as tracker}' has no key; load data (the vehicle's trackers), runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/finance/+page.svelte:536::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each groupedData.items as item}' has no key; groupedData = $derived.by (:308) aggregating the vehicle's transactions, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/finance/+page.svelte:594::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each pagedTransactions as tx}' has no key; pagedTransactions = $derived (:209) page of the vehicle's transactions, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/finance/+page.svelte:682::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each financeColumns as col}' has no key; financeColumns is a same-file const literal (:213) also passed to ColumnPicker (:522), so not the exempt shape; static column list that never reorders"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/finance/+page.svelte:720::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each pagedTransactions as tx}' has no key; pagedTransactions = $derived (:209) page of the vehicle's transactions, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/finance/+page.svelte:753::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each attached as doc}' has no key; attached = resolvedAttachments(tx) (:750), a transaction's attached document records (runtime)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:468::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each historyGrouped as [yearMonth, logs]}' has no key; historyGrouped {@const} (:426) groups the service logs by month, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:474::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each logs as log}' has no key; the service-log records of one month group (runtime)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:568::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each (() => { const logs = [...filteredHistory]; logs.sort(...) })() ...}' has no key; user-sorted copy of the filtered service history, runtime records reordered by the sort column"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:675::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each sortedTrackers as tracker}' has no key; sortedTrackers = $derived (:167) sort of the vehicle's trackers, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:805::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each otherTrackers as ot}' has no key; otherTrackers {@const} (:677) filter of data.trackers, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/notes/+page.svelte:251::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each notesGrouped as [yearMonth, groupNotes]}' has no key; notesGrouped = $derived.by (:172) grouping the vehicle's notes by month, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/notes/+page.svelte:275::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each docs as doc}' has no key; docs = resolvedDocRefs(note) (:258), a note's attached document records (runtime)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/travels/+page.svelte:352::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each grouped as [ym, group]}' has no key; grouped = $derived.by (:192) grouping the vehicle's travels by month, runtime records"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/each-key::src/routes/(app)/vehicles/[id]/travels/+page.svelte:355::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each group as travel}' has no key; the travel records of one month group (runtime)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/effect-as-derived::src/routes/(app)/dashboard/+page.svelte:19::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: permissionDenied = typeof Notification !== 'undefined' && Notification.permission === 'denied' (:20) reads a browser global post-mount; a $derived would compute false on the server and the real value during hydration, the docs-listed browser-global-capture limitation"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/effect-as-derived::src/routes/(app)/onboarding/+page.svelte:88::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: the effect only does selectedCategories = [...presetKeys] (:89); later writes are top-level reassignments (:101, :103), the writable-$derived override pattern the ledger labels tp"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::correctness/effect-as-onmount::src/routes/(app)/vehicles/[id]/+page.svelte:249::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: the effect only adds/removes a window beforeunload listener bound to prefsSync.flush (prefsSync = createPrefsSync('timeline') :244, a plain method reference); nothing reactive is read, so it runs once like onMount"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/+layout.svelte:570::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .topnav-avatar-img width:26px height:26px (:1183-1186) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/+layout.svelte:576::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .topnav-avatar-img width:26px height:26px (:1183-1186) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/dashboard/+page.svelte:158::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .avatar-img 100% x 100% (:401-404) inside the 32x32 .entry-avatar (:389-393) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/settings/profile/+page.svelte:126::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .avatar-img 100% x 100% (:488-491) inside the 56x56 .user-avatar button (:465-468) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/settings/profile/+page.svelte:128::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .avatar-img 100% x 100% (:488-491) inside the 56x56 .user-avatar button (:465-468) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/settings/profile/+page.svelte:243::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .popover-preview-img 100% x 100% (:554-556) inside the 96x96 .popover-preview (:542-544) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/settings/profile/+page.svelte:245::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .popover-preview-img 100% x 100% (:554-556) inside the 96x96 .popover-preview (:542-544) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/settings/profile/+page.svelte:274::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .dice-btn img 100% x 100% (:640-642) inside the aspect-ratio:1 .dice-btn (:624-626) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/vehicles/[id]/+layout.svelte:218::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .vehicle-avatar--image img 100% x 100% (:826-828) inside the 56x56 (44x44 mobile) .vehicle-avatar (:646-648) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-dimensions::src/routes/(app)/vehicles/[id]/+layout.svelte:537::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: .popover-preview-img 100% x 100% (:908-910) inside the 96x96 .popover-preview (:896-898) — box reserved by CSS"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/+layout.svelte:390::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: 22x22 /favicon.svg logo in the top nav (:388-391) — above the fold on every app route, where the docs keep the image eager"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/+layout.svelte:570::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: user avatar in the top-nav profile button (:561-573) — above the fold on every app route, where the docs keep the image eager"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/+layout.svelte:576::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: src is topnavAvatarUri = dicebearUri(seed) (:63-66), createAvatar(...).toDataUri() (lib/utils/dicebear.ts:6) — an inline data: URL with no network request, in the top nav"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/dashboard/+page.svelte:158::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: 32px vehicle avatar in the garage list, the section right after the greeting h1 and the optional needs-attention list (:102-158) — a personal garage of a few rows at or near the first viewport; not demonstrably offscreen"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/settings/profile/+page.svelte:126::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: avatar button in the first section (Avatar) right under the page title (:111-127) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/settings/profile/+page.svelte:128::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: src is previewUri = dicebearUri(seed) (:65), an inline data: URL — no network request for loading to defer"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/settings/profile/+page.svelte:243::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: preview inside the avatar popover dialog, rendered only {#if showAvatarPopover} after the user clicks the avatar (:122, :230-243) — on-screen by construction"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/settings/profile/+page.svelte:245::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: src is previewUri = dicebearUri(seed), an inline data: URL, inside the user-opened avatar popover — no network request for loading to defer"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/settings/profile/+page.svelte:274::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: src is gridUris[i] = dicebearUri(seed) (:45), inline data: URLs in the user-opened avatar popover — no network request for loading to defer"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/vehicles/[id]/+layout.svelte:218::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: vehicle avatar in the vehicle header identity row right under the back link (:205-218) — above the fold on every vehicle route, where the docs keep the image eager"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(app)/vehicles/[id]/+layout.svelte:537::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: preview inside the avatar popover dialog, rendered only {#if showAvatarPopover} after the user clicks the avatar (:214, :518-537) — on-screen by construction"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/image-loading-hint::src/routes/(auth)/+layout.svelte:162::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: 40x40 /favicon.svg logo in the auth card header (:150-163) — above the fold on every auth route, where the docs keep the image eager"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/+layout.svelte:570::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: /api/files?key=avatar_key serves the uploaded avatar as stored (JPEG/PNG/WebP/GIF up to 2 MB, settings/profile/+page.server.ts:62-106, no resizing) shown at 26px — one fixed-size raster"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/+layout.svelte:576::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: src is dicebearUri(seed) = createAvatar(funEmoji).toDataUri() (lib/utils/dicebear.ts:6), an inline SVG data URI — a vector, but dynamic, outside the docs' static SVG detection list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/dashboard/+page.svelte:158::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: /api/files?key=cover_image_key serves the uploaded vehicle image as stored (no resizing) shown at 32px — one fixed-size raster"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/settings/profile/+page.svelte:126::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: avatarSrc = /api/files?key=avatar_key (:58-61), the uploaded avatar as stored (up to 2 MB, no resizing) shown at 56px — one fixed-size raster"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/settings/profile/+page.svelte:128::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: src is previewUri = dicebearUri(seed) (:65), an inline SVG data URI — a vector, but dynamic, outside the docs' static SVG detection list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/settings/profile/+page.svelte:243::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: avatarSrc = /api/files?key=avatar_key (:58-61), the uploaded avatar as stored (no resizing) shown at 96px — one fixed-size raster"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/settings/profile/+page.svelte:245::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: src is previewUri = dicebearUri(seed) (:65), an inline SVG data URI — a vector, but dynamic, outside the docs' static SVG detection list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/settings/profile/+page.svelte:274::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: src is gridUris[i] = dicebearUri(seed) (:45), inline SVG data URIs — vectors, but dynamic, outside the docs' static SVG detection list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/vehicles/[id]/+layout.svelte:218::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: avatarSrc = /api/files?key=cover_image_key (:87-88), the uploaded vehicle image as stored shown at 56px — one fixed-size raster"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/responsive-image::src/routes/(app)/vehicles/[id]/+layout.svelte:537::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: avatarSrc = /api/files?key=cover_image_key (:87-88), the uploaded vehicle image as stored shown at 96px — one fixed-size raster"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/sequential-awaits::src/routes/(app)/+layout.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read (app)/+layout.server.ts:19,27: getUnreadCount (lib/workflow/channels/inapp.ts:61) is independent of getVehiclesByUser, but both are drizzle-orm/better-sqlite3 queries (src/lib/db/index.ts:1-13), a synchronous driver — Promise.all cannot overlap them (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/sequential-awaits::src/routes/(app)/vehicles/[id]/+layout.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read vehicles/[id]/+layout.server.ts:8-14: after the getVehicleById 404 gate, the Promise.all of tracker/document queries runs on drizzle-orm/better-sqlite3 (src/lib/db/index.ts:1-13), a synchronous driver — nothing real serialized (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/sequential-awaits::src/routes/(app)/vehicles/[id]/finance/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read finance/+page.server.ts:17-26: independent repository queries, but on drizzle-orm/better-sqlite3 (src/lib/db/index.ts:1-13), a synchronous driver — Promise.all cannot overlap them (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/sequential-awaits::src/routes/(app)/vehicles/[id]/finance/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read finance/+page.server.ts:17-26: independent repository queries, but on drizzle-orm/better-sqlite3 (src/lib/db/index.ts:1-13), a synchronous driver — Promise.all cannot overlap them (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::performance/state-raw::src/lib/components/travels/TravelFormModal.svelte:51::\"slotPickMode\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read TravelFormModal.svelte:51,63,491,501,512,546: slotPickMode is only reassigned (= {} / spread copies { ...slotPickMode, [i]: … }) and read as slotPickMode[i] — no member writes or escapes, reassign-only"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/lib/components/vehicle/VehicleNoteForm.svelte:124::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read VehicleNoteForm.svelte:55 + lib/utils/markdown.ts:5-35: renderMarkdown uses a Marked renderer that escapes raw HTML tokens and drops non-http/mailto/relative hrefs and srcs — sanitizing renderer, reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/routes/(app)/vehicles/[id]/documents/+page.svelte:300::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read documents/+page.svelte:300: a literal inline SVG template string with no interpolation — reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/routes/(app)/vehicles/[id]/documents/+page.svelte:369::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read documents/+page.svelte:369: a literal inline SVG template string with no interpolation — reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/routes/(app)/vehicles/[id]/documents/+page.svelte:384::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read documents/+page.svelte:175-181: fileIconSvg(mime) returns one of three literal SVG strings chosen by the mime type — reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:384::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read maintenance/+page.svelte:384: a literal inline SVG template string with no interpolation — reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:438::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read maintenance/+page.svelte:438: a literal inline SVG template string with no interpolation — reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:653::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read maintenance/+page.svelte:653: a literal inline SVG template string with no interpolation — reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte:663::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read maintenance/+page.svelte:663: a literal inline SVG template string with no interpolation — reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/raw-html::src/routes/(app)/vehicles/[id]/travels/+page.svelte:345::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read travels/+page.svelte:345: a literal inline SVG template string with no interpolation — reported per docs"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/server-module-state::src/hooks.server.ts:146::module-scope variable \"_demoSeeded\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/hooks.server.ts:145-148: _demoSeeded is a run-once flag guarding seedDemo() on the first request when PUBLIC_DEMO_ENABLED — process-wide init state with no request data (ledger run-once flag convention)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/server-module-state::src/hooks.server.ts:58::module-scope variable \"_secretChecked\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/hooks.server.ts:54-62,143: _secretChecked is a run-once flag for the short-secret startup check on the first request — process-wide init state with no request data (ledger run-once flag convention)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/server-module-state::src/routes/(app)/settings/changelog/+page.server.ts:31::module-scope variable \"cache\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read settings/changelog/+page.server.ts:6-31: cache is a 1-hour TTL memo of the app's public GitHub CHANGELOG.md (constant URL) — process-wide cache of public data, served identically to everyone"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/server-module-state::src/routes/(auth)/login/+page.server.ts:44::module-scope variable \"_dummyHash\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read (auth)/login/+page.server.ts:42-45: _dummyHash memoizes the argon2 hash of the constant '_timing_dummy_' for timing-safe login — process-wide memo, no request data"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::security/server-module-state::src/routes/(auth)/login/+page.server.ts:55::module-scope variable \"_smtpWarned\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read (auth)/login/+page.server.ts:51-56: _smtpWarned is a once-per-process flag so the SMTP warning is logged once — no request or user data (ledger process-wide flag convention)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/insights/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/onboarding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/settings/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/settings/changelog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/settings/developer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/settings/integrations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/settings/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/settings/notifications/all/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/settings/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/settings/workflows/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/[id]/documents/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/[id]/finance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 42 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 45 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/[id]/notes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/[id]/travels/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(app)/vehicles/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps) but not a search target (auth-gated: (app)/+layout.server.ts:8 redirects !locals.user to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(auth)/magic-link/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal in the location file, entities decoded, whitespace collapsed, grapheme count equals the reported length): app.html:9-11 literal 'Self-hosted vehicle maintenance tracker for motorcycles and scooters.' 69, the only description of the 23 routes; under 70 as claimed"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:9-11 literal description is the only description of all 23 routes, duplicate as claimed; self-hosted vehicle tracker whose (app) routes redirect to /login without locals.user ((app)/+layout.server.ts:8), so no search competition"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /dashboard has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/insights/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /insights has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /onboarding has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/settings/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /settings/account has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/settings/changelog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /settings/changelog has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/settings/developer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /settings/developer has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/settings/integrations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /settings/integrations has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/settings/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /settings/notifications has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/settings/notifications/all/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /settings/notifications/all has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/settings/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /settings/profile has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/settings/workflows/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /settings/workflows has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles/[id] has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/[id]/documents/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles/[id]/documents has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles/[id]/edit has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/[id]/finance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles/[id]/finance has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles/[id]/maintenance has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/[id]/notes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles/[id]/notes has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/[id]/travels/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles/[id]/travels has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(app)/vehicles/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /vehicles/new has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /login has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(auth)/magic-link/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /magic-link has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|schema\\.org|@context|structuredData' over src incl. app.html and the app's workspace packages; no SEO/meta/head dependency in package.json): no JSON-LD emitter; /register has no JSON-LD"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/insights/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/onboarding/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/settings/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/settings/changelog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/settings/developer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/settings/integrations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/settings/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/settings/notifications/all/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/settings/workflows/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/[id]/documents/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/[id]/finance/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 42 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 45 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/[id]/notes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/[id]/travels/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(app)/vehicles/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 2 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(auth)/magic-link/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:description in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/insights/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/onboarding/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/settings/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/settings/changelog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/settings/developer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/settings/integrations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/settings/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/settings/notifications/all/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/settings/workflows/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/[id]/documents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/[id]/finance/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 42 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 45 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/[id]/notes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/[id]/travels/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(app)/vehicles/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 2 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(auth)/magic-link/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:image in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/insights/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/onboarding/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/settings/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/settings/changelog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/settings/developer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/settings/integrations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/settings/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/settings/notifications/all/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/settings/workflows/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/[id]/documents/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/[id]/finance/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 42 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 45 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/[id]/notes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/[id]/travels/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(app)/vehicles/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 2 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(auth)/magic-link/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:title in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/insights/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/onboarding/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/settings/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/settings/changelog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/settings/developer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/settings/integrations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/settings/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/settings/notifications/all/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/settings/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/settings/workflows/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/[id]/documents/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/[id]/finance/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 42 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 45 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/[id]/notes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/[id]/travels/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(app)/vehicles/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 2 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(auth)/magic-link/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no og:url in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has icons/manifest only, no robots.txt route (literal claim holds); self-hosted, login-gated vehicle maintenance tracker, not a search target"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes (literal claim holds); self-hosted, login-gated vehicle maintenance tracker with nothing to list"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/title-length::src/routes/(app)/dashboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal in the location file, entities decoded, whitespace collapsed, grapheme count equals the reported length): src/routes/(app)/dashboard/+page.svelte literal <title> ('Dashboard · MotoMate' 20), the route's only title; under 30 as claimed"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/title-length::src/routes/(auth)/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal in the location file, entities decoded, whitespace collapsed, grapheme count equals the reported length): src/routes/(auth)/login/+page.svelte literal <title> ('Log in · MotoMate' 17), the route's only title; under 30 as claimed"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/title-presence::src/routes/(app)/settings/changelog/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "motomate: no <svelte:head> outside +page files in src (root, (app) and nested layouts carry none), app.html has description but no <title>, hooks transformPageChunk only sets data-theme, no document.title, no Svelte component deps (svelte-i18n only); settings/changelog/+page.svelte (Button/EmptyState only) has no svelte:head while sibling settings pages set <title>; load always returns data; served untitled"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/title-presence::src/routes/(app)/vehicles/[id]/travels/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "motomate: no <svelte:head> outside +page files in src (root, (app) and nested layouts carry none), app.html has description but no <title>, hooks transformPageChunk only sets data-theme, no document.title, no Svelte component deps (svelte-i18n only); vehicles/[id]/travels/+page.svelte (TravelMap/TravelEntry/TravelFormModal/ConfirmDialog, none with a head) has no svelte:head while sibling vehicle tabs set <title>; served untitled"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 2 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/insights/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 2 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/onboarding/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/settings/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/settings/changelog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/settings/developer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/settings/integrations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/settings/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/settings/notifications/all/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 37 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/settings/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/settings/workflows/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 2 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/[id]/documents/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 36 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/[id]/finance/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 42 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/[id]/maintenance/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 45 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/[id]/notes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 44 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/[id]/travels/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 3 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(app)/vehicles/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 2 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; auth-gated route; the tag is absent there too (ledger convention: social-tag absence is tp regardless of gating)"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(auth)/magic-link/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  },
+  {
+    "key": "hawkinslabdev/motomate:motomate::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped; positive control hits glint Meta.svelte og:title and coms root +layout.svelte twitter:card): no twitter:card (name= or property=) in page, 2 ancestor layout(s), 20 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (app.html:4-16 charset/viewport/description/theme-color/manifest/icon only); hooks transformPageChunk only sets data-theme; no Svelte component npm deps; publicly reachable (auth) page outside the (app) guard (its load only redirects signed-in users), no noindex; no robots.txt"
+  }
+]

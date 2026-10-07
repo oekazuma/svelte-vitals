@@ -1,0 +1,1247 @@
+[
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/disallowed-aria-props::src/lib/components/tasks/dwell-symbols/components/DwellSymbol.svelte:115::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/tasks/dwell-symbols/components/DwellSymbol.svelte:115: literal <div> carrying aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role (generic) prohibits naming (ARIA 1.2/1.3), so the label is not exposed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/disallowed-aria-props::src/lib/components/tasks/dwell-symbols/components/DwellSymbolPreview.svelte:15::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/tasks/dwell-symbols/components/DwellSymbolPreview.svelte:15: literal <div> carrying aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role (generic) prohibits naming (ARIA 1.2/1.3), so the label is not exposed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/disallowed-aria-props::src/lib/components/tasks/dwell-symbols/components/DwellSymbolsLevel.svelte:194::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/tasks/dwell-symbols/components/DwellSymbolsLevel.svelte:194: literal <div> carrying aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role (generic) prohibits naming (ARIA 1.2/1.3), so the label is not exposed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/disallowed-aria-props::src/lib/components/tasks/dwell-symbols/components/DwellSymbolsLevel.svelte:202::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/tasks/dwell-symbols/components/DwellSymbolsLevel.svelte:202: literal <div> carrying aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role (generic) prohibits naming (ARIA 1.2/1.3), so the label is not exposed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/disallowed-aria-props::src/lib/components/tasks/paired-reading/components/PairedReadingLevel.svelte:223::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/tasks/paired-reading/components/PairedReadingLevel.svelte:223: literal <div> carrying aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role (generic) prohibits naming (ARIA 1.2/1.3), so the label is not exposed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/disallowed-aria-props::src/lib/components/tasks/paired-reading/components/PairedReadingSentenceListLevel.svelte:233::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/tasks/paired-reading/components/PairedReadingSentenceListLevel.svelte:233: literal <div> carrying aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role (generic) prohibits naming (ARIA 1.2/1.3), so the label is not exposed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/disallowed-aria-props::src/lib/components/tasks/paired-reading/components/PairedReadingSpeaker.svelte:11::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/tasks/paired-reading/components/PairedReadingSpeaker.svelte:11: literal <div> carrying aria-label with no role attribute, no spread and no use: action, not in svg; its implicit role (generic) prohibits naming (ARIA 1.2/1.3), so the label is not exposed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/duplicate-landmark::src/lib/components/layout/DefaultLayout.svelte:19::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte wraps every route in AuthGuard (renders children unconditionally, AuthGuard.svelte:102) > <main>; the pages render <DefaultLayout>, whose DefaultLayout.svelte:19 is a second <main> (unconditional), so each of the 11 routes has two main landmarks"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/duplicate-landmark::src/routes/admin/heatmap/+page.svelte:404::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read admin/heatmap/+page.svelte:395-404: literal <main> inside <DefaultLayout wide> (whose own <main> DefaultLayout.svelte:19) inside the root layout <main>; three main landmarks on the route"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/duplicate-landmark::src/routes/admin/session-sim/+page.svelte:1021::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read admin/session-sim/+page.svelte:369-1021: literal <main> inside <DefaultLayout> (whose own <main> DefaultLayout.svelte:19) inside the root layout <main>; three main landmarks on the route"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/interactive-nesting::src/routes/admin/user-management/components/UsersPanel.svelte:454::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read UsersPanel.svelte:406-454: the row-menu <button aria-haspopup=menu> under {#if canManageUsers} sits inside the clickable row <div role=\"button\" tabindex=\"0\" onclick onkeydown> (:406) in the same template; a button nested in a role=button"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/database/components/ExportWindow.svelte:108::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/database/components/ExportWindow.svelte:108 has literal <label> (line 100) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <label>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/database/components/ExportWindow.svelte:122::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/database/components/ExportWindow.svelte:122 has literal <label> (line 114) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <label>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/database/components/ExportWindow.svelte:94::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/database/components/ExportWindow.svelte:94 has literal <label> (line 86) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <label>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/dyslex-evaluation/+page.svelte:728::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/dyslex-evaluation/+page.svelte:728 has literal <button> (line 719) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/dyslex-evaluation/+page.svelte:736::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/dyslex-evaluation/+page.svelte:736 has literal <button> (line 719) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/session-files/+page.svelte:1000::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/session-files/+page.svelte:1000 has literal <button> (line 985) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/session-files/+page.svelte:1346::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/session-files/+page.svelte:1346 has literal <button> (line 1334) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/session-files/+page.svelte:1363::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/session-files/+page.svelte:1363 has literal <button> (line 1334) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/session-files/+page.svelte:996::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/session-files/+page.svelte:996 has literal <button> (line 985) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/user-management/components/GroupsPanel.svelte:439::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/user-management/components/GroupsPanel.svelte:439 has literal <button> (line 434) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/permitted-contents::src/routes/admin/user-management/components/GroupsPanel.svelte:792::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): literal <div> at src/routes/admin/user-management/components/GroupsPanel.svelte:792 has literal <button> (line 784) as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#await}/{#key} between, no component/snippet boundary, not in svg); outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/top-level-landmark::src/routes/admin/dyslex-evaluation/+page.svelte:428::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "read admin/dyslex-evaluation/+page.svelte:398-428: the unnamed <aside> sits in the children <DefaultLayout> renders inside <section class=\"mt-4 …\"> (DefaultLayout.svelte:44-48); an aside scoped to sectioning content without an accessible name is generic, not complementary (HTML-AAM; the rule's own docs), so no complementary landmark is nested — the analyzer does not see the component's <section> around the snippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/top-level-landmark::src/routes/admin/heatmap/+page.svelte:404::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read admin/heatmap/+page.svelte:395-404: literal <main> inside <DefaultLayout>'s <main> (DefaultLayout.svelte:19) and the root layout <main>; a main is a landmark wherever it sits, so main nested inside main"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/top-level-landmark::src/routes/admin/heatmap/+page.svelte:445::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "read admin/heatmap/+page.svelte:395-445: the unnamed <aside> sits in the children <DefaultLayout> renders inside <section class=\"mt-4 …\"> (DefaultLayout.svelte:44-48); an aside scoped to sectioning content without an accessible name is generic, not complementary (HTML-AAM; the rule's own docs), so no complementary landmark is nested — the analyzer does not see the component's <section> around the snippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/top-level-landmark::src/routes/admin/session-sim/+page.svelte:1021::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read admin/session-sim/+page.svelte:369-1021: literal <main> inside <DefaultLayout>'s <main> (DefaultLayout.svelte:19) and the root layout <main>; main nested inside main"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::a11y/top-level-landmark::src/routes/admin/session-sim/+page.svelte:380::complementary landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "read admin/session-sim/+page.svelte:369-380: the unnamed <aside> sits in the children <DefaultLayout> renders inside <section class=\"mt-4 …\"> (DefaultLayout.svelte:44-48); an aside scoped to sectioning content without an accessible name is generic, not complementary (HTML-AAM; the rule's own docs), so no complementary landmark is nested — the analyzer does not see the component's <section> around the snippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/SessionLoadDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SessionLoadDialog.svelte has 286 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/SessionPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SessionPicker.svelte has 308 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/TaskTrackerLoader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TaskTrackerLoader.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/TestSessionHandler.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TestSessionHandler.svelte has 301 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/common/TrackLevel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/TrackLevel.svelte has 371 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/common/dwellTarget/DwellTarget.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/dwellTarget/DwellTarget.svelte has 308 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/tasks/dwell-symbols/components/DwellSymbolsLevel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tasks/dwell-symbols/components/DwellSymbolsLevel.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/tasks/fonologie/components/FonologieLevel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tasks/fonologie/components/FonologieLevel.svelte has 244 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/tasks/paired-reading/components/PairedReadingLevel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tasks/paired-reading/components/PairedReadingLevel.svelte has 280 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/lib/components/tasks/paired-reading/components/PairedReadingSentenceListLevel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tasks/paired-reading/components/PairedReadingSentenceListLevel.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/database/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/database/+page.svelte has 566 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/dyslex-evaluation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/dyslex-evaluation/+page.svelte has 976 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/fonologie-showcase/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/fonologie-showcase/+page.svelte has 542 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/heatmap/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/heatmap/+page.svelte has 726 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/heatmap/components/HeatmapOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/heatmap/components/HeatmapOverlay.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/session-files/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/session-files/+page.svelte has 1847 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/session-files/components/PostProcessingDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/session-files/components/PostProcessingDialog.svelte has 324 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/session-files/components/RecalculateDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/session-files/components/RecalculateDialog.svelte has 482 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/session-sim/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/session-sim/+page.svelte has 1050 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/session-sim/components/GazeOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/session-sim/components/GazeOverlay.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/stimulus-export/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/stimulus-export/+page.svelte has 470 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/user-management/components/BulkCreateDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/user-management/components/BulkCreateDialog.svelte has 267 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/user-management/components/CreateUserDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/user-management/components/CreateUserDialog.svelte has 239 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/user-management/components/EditUserDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/user-management/components/EditUserDialog.svelte has 262 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/user-management/components/GroupsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/user-management/components/GroupsPanel.svelte has 971 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/admin/user-management/components/UsersPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/user-management/components/UsersPanel.svelte has 566 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 362 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/AudioHint.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/AudioHint.svelte has a single destructured $props() with 7 named props (> 6): width, height, playOnStart, playOnStartDelay, ttsFallback, reportToAnalytics, audioSrc"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/TrackLevel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/TrackLevel.svelte has a single destructured $props() with 14 named props (> 6): id, data, isPractice, onCompleted, validateSymbol, validateStage, stopLoggingValidationCheck, calculateFluencyScore, onStageAdvance, onSpace, playValidationSounds, trackComponent, hintComponent, extraComponent"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/dwellTarget/DwellTarget.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/dwellTarget/DwellTarget.svelte has a single destructured $props() with 11 named props (> 6): id, dwellTimeMs, onDwellComplete, width, height, bufferSize, fitWidthToContent, dwellState, disableOnComplete, onCompleteCooldown, children"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/dwellTarget/eye/DwellEye.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/dwellTarget/eye/DwellEye.svelte has a single destructured $props() with 8 named props (> 6): eyeWidth, eyeHeight, pupilColor, gemStyle, colorTransitionDuration, pupilProportion, reflectionOpacity, pulseEnabled"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/dwellTarget/eye/DwellEyePupil.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/dwellTarget/eye/DwellEyePupil.svelte has a single destructured $props() with 9 named props (> 6): primaryColor, reflectionOpacity, gemStyle, pulseEnabled, colorTransitionDuration, width, height, x, y"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/tracks/ImageSymbolElement.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/tracks/ImageSymbolElement.svelte has a single destructured $props() with 11 named props (> 6): symbol, index, basePath, extension, wordToRead, audioSrc, validateSymbolClick, interactable, letterSpacing, width, height"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/tracks/SymbolElement.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/tracks/SymbolElement.svelte has a single destructured $props() with 7 named props (> 6): symbol, index, validateSymbolClick, interactable, letterSpacing, fontFamily, fontSize"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/tracks/SymbolGroup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/tracks/SymbolGroup.svelte has a single destructured $props() with 7 named props (> 6): id, index, symbols, isCorrect, validateSymbolClick, letterSpacing, symbolSnippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/common/tracks/SymbolTrack.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/common/tracks/SymbolTrack.svelte has a single destructured $props() with 8 named props (> 6): symbols, correctSymbols, validateSymbolClick, letterSpacing, symbolSpacing, flattenRows, splitFiller, symbolSnippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/tasks/dyslex/components/DyslexTrackLevel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/tasks/dyslex/components/DyslexTrackLevel.svelte has a single destructured $props() with 7 named props (> 6): id, repetitions, onCompleted, onSpace, onNextStage, children, offset"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/tasks/fonologie/components/FonologieLevel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/tasks/fonologie/components/FonologieLevel.svelte has a single destructured $props() with 7 named props (> 6): isPractice, id, rawData, useCategories, showShowcaseTitle, taskPreset, excludeTags"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6): class, variant, size, ref, href, type, disabled, children; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/routes/admin/heatmap/components/HeatmapOverlay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/admin/heatmap/components/HeatmapOverlay.svelte has a single destructured $props() with 13 named props (> 6): width, height, gazePath, fixations, i2mcFixations, clicks, aois, showPath, showFixations, showI2mc, showClicks, showAois, onHover"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::architecture/prop-count::src/routes/admin/session-sim/components/GazeOverlay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/admin/session-sim/components/GazeOverlay.svelte has a single destructured $props() with 14 named props (> 6): width, height, gazeBefore, gazeAfter, fixationsBefore, fixationsAfter, fixationsI2mc, aois, timeWindow, showGaze, showBefore, showAfter, showI2mc, showAois"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/lib/components/DialogPopup.svelte:36::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: DialogPopup.svelte:36 '{#each $dialog.options as option, i (i)}' keyed by its index binding; the dialog store's option buttons, set wholesale per dialog from the caller's authored config (lib/stores/dialog.ts:46); static list per dialog, never reordered"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/lib/components/common/tracks/SymbolGroup.svelte:49::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SymbolGroup.svelte:49 '{#each symbols as symbol, groupIndex (groupIndex)}' keyed by its index binding; the characters of one symbol group of an exercise (symbolGroup.split('') or [symbolGroup], SymbolTrack.svelte:62-64), which repeat; positional list, identity is the position"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/lib/components/common/tracks/SymbolTrack.svelte:57::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SymbolTrack.svelte:57 '{#each singleRowSymbols() as symbolGroup, index (index)}' keyed by its index binding; the symbol cells of an exercise track, whose position is their identity (passed as id group-{index} / index to SymbolGroup); positional grid"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/lib/components/common/tracks/SymbolTrack.svelte:73::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: SymbolTrack.svelte:73 '{#each symbolRows as symbolRow, rowIndex (rowIndex)}' keyed by its index binding; rows of the exercise symbol grid (inner cells keyed by row-col position); positional list"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/lib/components/tasks/cibule/levels/4/Practice.svelte:78::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: cibule/levels/4/Practice.svelte:78 '{#each state.dataEntry.correct as syllable, index (index)}' keyed by its index binding; the syllables of the current exercise word in reading order; positional segments with no identity beyond position"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/lib/components/tasks/cibule/levels/4/Task.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: cibule/levels/4/Task.svelte:82 '{#each state.dataEntry.correct as syllable, index (index)}' keyed by its index binding; the syllables of the current exercise word in reading order; positional segments with no identity beyond position"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/routes/admin/database/+page.svelte:484::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: admin/database/+page.svelte:484 '{#each getTableHeaders() as header, colIndex (colIndex)}' keyed by its index binding; getTableHeaders (:194) returns an authored header literal per selected table; positional column list fixed at author time"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/routes/admin/database/+page.svelte:525::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: admin/database/+page.svelte:525 '{#each getTableHeaders() as header, colIndex (colIndex)}' keyed by its index binding; authored header literal per selected table (:194); positional column list fixed at author time"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/routes/admin/session-sim/+page.svelte:599::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: admin/session-sim/+page.svelte:599 '{#each activeMatrix as cell, i (i)}' keyed by its index binding; the fixed 16 cells of a 4x4 correction matrix (:289, default IDENTITY_MATRIX), updated in place by index (updateMatrixCell(i, …)); positional cells, never reordered"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-index-key::src/routes/admin/user-management/components/BulkCreateDialog.svelte:215::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: BulkCreateDialog.svelte:215 '{#each generatedUsers as user, i (i)}' keyed by its index binding; a read-only preview table of generated accounts, cleared and rebuilt wholesale (:56-60, :135), never reordered or edited mid-list; plain text rows"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-key::src/lib/components/tasks/dyslex/components/ParagraphGrid.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ParagraphGrid.svelte:16 '{#each data as line, i}' has no key and is not an exempt shape; lines of a static exercise text from the dyslex data module, positioned by index; positional grid fixed at author time"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-key::src/lib/components/tasks/dyslex/components/ParagraphGrid.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ParagraphGrid.svelte:21 '{#each line.data as item, j}' has no key; words/syllables of one static exercise line, identified by (i, j); positional grid fixed at author time"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-key::src/lib/components/tasks/dyslex/components/SyllableGrid.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SyllableGrid.svelte:24 '{#each data as row, i}' has no key; data is the static syllablesData['content'] grid (levels/1_syllables/Task.svelte:9 from dyslex.data); positional grid fixed at author time"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/each-key::src/lib/components/tasks/dyslex/components/SyllableGrid.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SyllableGrid.svelte:25 '{#each row as syllable, j}' has no key; cells of the static syllablesData grid, identified by (i, j) (syllable-{i}-{j} id); positional grid fixed at author time"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/effect-as-derived::src/lib/components/common/tracks/ImageSymbolElement.svelte:43::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: ImageSymbolElement.svelte:43 the effect only does retryCount = 0 and imgSrc = resolveAny(…symbol…) from props; later writes are top-level reassignments in onImgError (retryCount++, imgSrc = …), the writable-$derived override pattern (svelte ^5.41.0)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/stale-prop-derivation::src/lib/components/tasks/dyslex/components/SyllableGrid.svelte:16::\"rows\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: SyllableGrid.svelte:16 rows = data.length at init, rendered (22); both callers pass the module constant syllablesData['content'] (levels/1_syllables/Task.svelte:9, Practice.svelte), so the prop never changes for a mounted grid"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/stale-prop-derivation::src/lib/components/tasks/dyslex/components/SyllableGrid.svelte:17::\"cols\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: SyllableGrid.svelte:17 cols = data[0]?.length at init, rendered (22); both callers pass the module constant syllablesData['content'], so the prop never changes for a mounted grid"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/stale-prop-derivation::src/routes/tasks/[task]/+page.svelte:45::\"levelCardClass\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: tasks/[task]/+page.svelte:45 levelCardClass = data.modeLevelCardClass at init, rendered (66); the value comes from the ?mode query (+page.ts:7-8,78), and no in-app navigation goes from one tasks/[task] page to another (it is entered from /evaluation or /intervention and leaves to level routes), so the frozen copy never differs"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/stale-prop-derivation::src/routes/tasks/[task]/+page.svelte:46::\"startButtonClass\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: tasks/[task]/+page.svelte:46 startButtonClass = data.modeStartButtonClass at init, rendered (79); same as :45, no in-app navigation reuses this page with another mode, so the frozen copy never differs"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::correctness/unmutated-state::src/routes/admin/user-management/components/BulkCreateDialog.svelte:27::$state \"isGenerating\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w isGenerating in the file): BulkCreateDialog.svelte:27 declared and never mentioned again (dead state); never written, bound or passed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::performance/image-dimensions::src/routes/admin/fonologie-showcase/+page.svelte:319::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: inside .symbol-card__image, a fixed 80x80 flex box (fonologie-showcase/+page.svelte:446), img max 100% - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::performance/lcp-image::src/routes/admin/fonologie-showcase/+page.svelte:319::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route, but an 80px symbol thumbnail in an admin asset-showcase grid of every symbol, after the h1, loading status, filters and an <h2> (:220-319) - not the LCP candidate; lazy is reasonable for the long grid"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::performance/responsive-image::src/routes/admin/fonologie-showcase/+page.svelte:319::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: src is /images/tasks/fonologie/<sym>.webp (:55), raster shown in an 80px box - one fixed-size asset"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::performance/state-raw::src/routes/admin/database/+page.svelte:19::\"childIds\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"childIds\" in src/routes/admin/database/+page.svelte: declared :19, whole reassignment :99, {#each} :420 only reads the strings into <option>; no member writes, mutating calls, bind:, escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::performance/state-raw::src/routes/admin/database/components/ExportWindow.svelte:14::\"childIds\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"childIds\" in src/routes/admin/database/components/ExportWindow.svelte: declared :14, whole reassignment :43, {#each} :139 only reads the strings; no member writes, mutating calls, bind:, escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::performance/state-raw::src/routes/admin/session-sim/+page.svelte:300::\"exportErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"exportErrors\" in src/routes/admin/session-sim/+page.svelte: declared :300, whole reassignments :306 and spread-copy :322, {#each} :972 only reads; no member writes, mutating calls, bind:, escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/database/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/database (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/database/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/dyslex-evaluation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/dyslex-evaluation (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/dyslex-evaluation/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/fonologie-showcase/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/fonologie-showcase (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/fonologie-showcase/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/heatmap/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/heatmap (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 200 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/heatmap/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/session-files/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/session-files (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 181 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/session-files/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/session-sim/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/session-sim (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 199 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/session-sim/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/stimulus-export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/stimulus-export (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 162 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/stimulus-export/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/admin/user-management/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/user-management (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 72 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none but not a search target (auth-gated: admin/user-management/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/evaluation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /evaluation (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/intervention/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /intervention (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 49 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/reeducation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reeducation (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 52 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/tasks/[task]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tasks/[task] (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 54 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/canonical-url::src/routes/tasks/[task]/[level]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tasks/[task]/[level] (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Various develex tasks\" at src/routes/+page.svelte:14 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/admin/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Admin page for DeveLex Tasks\" at src/routes/admin/+page.svelte:14 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 28 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/admin/database/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Database admin page for DeveLex Tasks\" at src/routes/admin/database/+page.svelte:388 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 37 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/admin/dyslex-evaluation/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Spouštění a kontrola výpočtů dyslexie ze zaznamenaných dat pohledu.\" at src/routes/admin/dyslex-evaluation/+page.svelte:392 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 67 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/admin/stimulus-export/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Zobrazovač stimulů úloh\" at src/routes/admin/stimulus-export/+page.svelte:189 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 23 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/admin/user-management/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"User and group management for DeveLex Tasks\" at src/routes/admin/user-management/+page.svelte:44 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 43 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/evaluation/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Various develex tasks\" at src/routes/evaluation/+page.svelte:15 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/intervention/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Various develex tasks\" at src/routes/intervention/+page.svelte:15 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/login/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Login page for DeveLex Tasks\" at src/routes/login/+page.svelte:130 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 28 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-length::src/routes/reeducation/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Various develex tasks\" at src/routes/reeducation/+page.svelte:14 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); the route's only description (root layout/app.html set none); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-presence::src/routes/admin/fonologie-showcase/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in the page, root +layout.svelte (no svelte:head) or app.html (literal claim holds); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-presence::src/routes/admin/heatmap/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in the page, root +layout.svelte (no svelte:head) or app.html (literal claim holds); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-presence::src/routes/admin/session-files/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in the page, root +layout.svelte (no svelte:head) or app.html (literal claim holds); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-presence::src/routes/admin/session-sim/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in the page, root +layout.svelte (no svelte:head) or app.html (literal claim holds); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-presence::src/routes/tasks/[task]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in the page, root +layout.svelte (no svelte:head) or app.html (literal claim holds); /tasks/[task] has no svelte:head at all (tasks/+layout.svelte sets none); DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate, so this rendered public exercise page ships without a description as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/description-presence::src/routes/tasks/[task]/[level]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> in the page, root +layout.svelte (no svelte:head) or app.html (literal claim holds); /tasks/[task]/[level] has no svelte:head at all (tasks/+layout.svelte sets none); DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate, so this rendered public exercise page ships without a description as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/duplicate-description::src/routes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:14, evaluation/+page.svelte:15, intervention/+page.svelte:15 and reeducation/+page.svelte:14 all literal <meta name=\"description\" content=\"Various develex tasks\">, duplicate as claimed; DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate, so the four public pages share one snippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/duplicate-description::src/routes/evaluation/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:14, evaluation/+page.svelte:15, intervention/+page.svelte:15 and reeducation/+page.svelte:14 all literal <meta name=\"description\" content=\"Various develex tasks\">, duplicate as claimed; DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate, so the four public pages share one snippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/duplicate-description::src/routes/intervention/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:14, evaluation/+page.svelte:15, intervention/+page.svelte:15 and reeducation/+page.svelte:14 all literal <meta name=\"description\" content=\"Various develex tasks\">, duplicate as claimed; DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate, so the four public pages share one snippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/duplicate-description::src/routes/reeducation/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:14, evaluation/+page.svelte:15, intervention/+page.svelte:15 and reeducation/+page.svelte:14 all literal <meta name=\"description\" content=\"Various develex tasks\">, duplicate as claimed; DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate, so the four public pages share one snippet"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/duplicate-title::src/routes/evaluation/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: evaluation/+page.svelte:14 and intervention/+page.svelte:14 both literal <title>Evaluace reedukace dyslexie</title> (the intervention one is a copy-paste of evaluation's), duplicate as claimed; DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate, so the two public pages compete as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/duplicate-title::src/routes/intervention/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: evaluation/+page.svelte:14 and intervention/+page.svelte:14 both literal <title>Evaluace reedukace dyslexie</title> (the intervention one is a copy-paste of evaluation's), duplicate as claimed; DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate, so the two public pages compete as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; / renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/database/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin/database renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/dyslex-evaluation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin/dyslex-evaluation renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/fonologie-showcase/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin/fonologie-showcase renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/heatmap/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin/heatmap renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/session-files/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin/session-files renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/session-sim/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin/session-sim renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/stimulus-export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin/stimulus-export renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/admin/user-management/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /admin/user-management renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/evaluation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /evaluation renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/intervention/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /intervention renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /login renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/reeducation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /reeducation renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/tasks/[task]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /tasks/[task] renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/json-ld::src/routes/tasks/[task]/[level]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE 'ld\\+json|jsonld|json-ld|structured.?data|schema\\.org' over src incl. app.html; no meta/JSON-LD library in deps): DevelexTasks has no JSON-LD emitter; /tasks/[task]/[level] renders none (json-ld convention: tp)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/database/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/database (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/database/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/dyslex-evaluation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/dyslex-evaluation (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/dyslex-evaluation/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/fonologie-showcase/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/fonologie-showcase (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/fonologie-showcase/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/heatmap/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/heatmap (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 200 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/heatmap/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/session-files/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/session-files (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 181 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-files/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/session-sim/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/session-sim (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 199 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-sim/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/stimulus-export/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/stimulus-export (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 162 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/stimulus-export/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/admin/user-management/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/user-management (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 72 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/user-management/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/evaluation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /evaluation (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/intervention/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /intervention (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 49 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/reeducation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reeducation (script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 52 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/tasks/[task]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tasks/[task] (script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 54 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-description::src/routes/tasks/[task]/[level]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /tasks/[task]/[level] (script-verified (a1b_reach.py, comments stripped): no og:description in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/database/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/database (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/database/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/dyslex-evaluation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/dyslex-evaluation (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/dyslex-evaluation/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/fonologie-showcase/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/fonologie-showcase (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/fonologie-showcase/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/heatmap/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/heatmap (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 200 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/heatmap/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/session-files/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/session-files (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 181 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-files/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/session-sim/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/session-sim (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 199 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-sim/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/stimulus-export/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/stimulus-export (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 162 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/stimulus-export/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/admin/user-management/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/user-management (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 72 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/user-management/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/evaluation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /evaluation (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/intervention/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /intervention (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 49 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/reeducation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reeducation (script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 52 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/tasks/[task]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tasks/[task] (script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 54 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-image::src/routes/tasks/[task]/[level]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /tasks/[task]/[level] (script-verified (a1b_reach.py, comments stripped): no og:image in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/database/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/database (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/database/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/dyslex-evaluation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/dyslex-evaluation (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/dyslex-evaluation/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/fonologie-showcase/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/fonologie-showcase (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/fonologie-showcase/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/heatmap/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/heatmap (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 200 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/heatmap/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/session-files/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/session-files (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 181 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-files/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/session-sim/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/session-sim (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 199 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-sim/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/stimulus-export/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/stimulus-export (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 162 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/stimulus-export/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/admin/user-management/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/user-management (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 72 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/user-management/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/evaluation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /evaluation (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/intervention/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /intervention (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 49 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/reeducation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reeducation (script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 52 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/tasks/[task]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tasks/[task] (script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 54 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-title::src/routes/tasks/[task]/[level]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /tasks/[task]/[level] (script-verified (a1b_reach.py, comments stripped): no og:title in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/database/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/database (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/database/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/dyslex-evaluation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/dyslex-evaluation (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/dyslex-evaluation/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/fonologie-showcase/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/fonologie-showcase (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/fonologie-showcase/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/heatmap/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/heatmap (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 200 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/heatmap/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/session-files/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/session-files (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 181 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-files/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/session-sim/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/session-sim (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 199 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-sim/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/stimulus-export/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/stimulus-export (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 162 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/stimulus-export/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/admin/user-management/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/user-management (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 72 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/user-management/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/evaluation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /evaluation (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/intervention/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /intervention (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 49 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/reeducation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reeducation (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 52 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/tasks/[task]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tasks/[task] (script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 54 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/og-url::src/routes/tasks/[task]/[level]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tasks/[task]/[level] (script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/single-h1::/admin/database::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: admin/database/+page.svelte renders a BackButton, table/child/session <select>s and the data table - no heading; root +layout.svelte (AuthGuard renders only children, DebugWindow has h3/h4) and ExportWindow have no <h1> -> no <h1>"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/single-h1::src/lib/components/CapabilityGuard.svelte:47::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "only one <h1> renders on /: +page.svelte:18 <h1>Úlohy; the other counted is CapabilityGuard.svelte:47 <h1>Přístup odepřen in the {:else if showError} arm, and the page uses <CapabilityGuard caps={Guards.adminArea}> (:111) without showError, whose default is false (CapabilityGuard.svelte:22) - that arm never renders"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ (robots.txt allows all, no Sitemap: line) or routes, no generator (literal claim holds); DeveLex Tasks is a public dyslexia reading-exercise tool deployed to GitHub Pages (.github/workflows/github-pages-deploy.yml, adapter-static, static/robots.txt allows all), whose /, /evaluation, /intervention, /reeducation, /login and /tasks/* pages prerender (prerender = true in their +page.server.ts) without any route gate"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/ssr-disabled::src/routes/admin/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/+page.server.ts:2 (with prerender = false, served by the adapter-static fallback); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target; docs say ssr=false is fine for routes that do not need SEO"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/ssr-disabled::src/routes/admin/database/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/database/+page.server.ts:2 (with prerender = false, served by the adapter-static fallback); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target; docs say ssr=false is fine for routes that do not need SEO"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/ssr-disabled::src/routes/admin/dyslex-evaluation/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/dyslex-evaluation/+page.server.ts:2 (with prerender = false, served by the adapter-static fallback); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target; docs say ssr=false is fine for routes that do not need SEO"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/ssr-disabled::src/routes/admin/heatmap/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/heatmap/+page.server.ts:2 (with prerender = false, served by the adapter-static fallback); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target; docs say ssr=false is fine for routes that do not need SEO"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/ssr-disabled::src/routes/admin/session-files/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/session-files/+page.server.ts:2 (with prerender = false, served by the adapter-static fallback); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target; docs say ssr=false is fine for routes that do not need SEO"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/ssr-disabled::src/routes/admin/session-sim/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/session-sim/+page.server.ts:2 (with prerender = false, served by the adapter-static fallback); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target; docs say ssr=false is fine for routes that do not need SEO"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/ssr-disabled::src/routes/admin/stimulus-export/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/stimulus-export/+page.server.ts:2 (with prerender = false, served by the adapter-static fallback); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target; docs say ssr=false is fine for routes that do not need SEO"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/ssr-disabled::src/routes/admin/user-management/+page.server.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/admin/user-management/+page.server.ts:2 (with prerender = false, served by the adapter-static fallback); the /admin/* views are staff tools for study data (ssr=false, prerender=false, data from the token-authenticated API, entries shown via hasCapability($authUser,…) on / and /admin), not a search target; docs say ssr=false is fine for routes that do not need SEO"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"DeveLex úlohy\" at src/routes/+page.svelte:13 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 13 as reported); the route's only title (root +layout.svelte has no svelte:head, no later component title); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Admin - DeveLex Tasks\" at src/routes/admin/+page.svelte:13 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); the route's only title (root +layout.svelte has no svelte:head, no later component title); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-length::src/routes/admin/database/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Database - DeveLex Tasks\" at src/routes/admin/database/+page.svelte:387 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 24 as reported); the route's only title (root +layout.svelte has no svelte:head, no later component title); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-length::src/routes/admin/session-files/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Export sezení - DeveLex Tasks\" at src/routes/admin/session-files/+page.svelte:731 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 29 as reported); the route's only title (root +layout.svelte has no svelte:head, no later component title); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-length::src/routes/admin/user-management/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Správa uživatelů\" at src/routes/admin/user-management/+page.svelte:43 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 16 as reported); the route's only title (root +layout.svelte has no svelte:head, no later component title); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-length::src/routes/evaluation/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Evaluace reedukace dyslexie\" at src/routes/evaluation/+page.svelte:14 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 27 as reported); the route's only title (root +layout.svelte has no svelte:head, no later component title); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-length::src/routes/intervention/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Evaluace reedukace dyslexie\" at src/routes/intervention/+page.svelte:14 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 27 as reported); the route's only title (root +layout.svelte has no svelte:head, no later component title); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal <title> \"Login - DeveLex Tasks\" at src/routes/login/+page.svelte:129 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); the route's only title (root +layout.svelte has no svelte:head, no later component title); length rules are tp regardless of gating; too short as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-presence::src/routes/tasks/[task]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/tasks/[task]/+page.svelte has no svelte:head (prerender=true in its +page.server.ts); tasks/+layout.svelte (DiagnosisGuard only) and root +layout.svelte (AuthGuard/DebugWindow, no svelte:head) emit no <title>; grep of src finds <title> only in other routes' own pages, no document.title in src (incl. dynamically globbed lib/components/tasks/*), app.html none; develex-js-sdk@0.3.12 (jsDelivr) has none"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/title-presence::src/routes/tasks/[task]/[level]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/tasks/[task]/[level]/+page.svelte has no svelte:head (prerender=true in its +page.server.ts); tasks/+layout.svelte (DiagnosisGuard only) and root +layout.svelte (AuthGuard/DebugWindow, no svelte:head) emit no <title>; grep of src finds <title> only in other routes' own pages, no document.title in src (incl. dynamically globbed lib/components/tasks/*), app.html none; develex-js-sdk@0.3.12 (jsDelivr) has none"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/database/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/database (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/database/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/dyslex-evaluation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/dyslex-evaluation (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/dyslex-evaluation/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/fonologie-showcase/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/fonologie-showcase (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/fonologie-showcase/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/heatmap/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/heatmap (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 200 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/heatmap/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/session-files/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/session-files (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 181 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-files/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/session-sim/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/session-sim (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 199 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/session-sim/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/stimulus-export/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/stimulus-export (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 162 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/stimulus-export/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/admin/user-management/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/user-management (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 72 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; route context: auth-gated: admin/user-management/+page.ts protectLoad({caps: Guards.adminArea, redirectTo: \"/login\"}) (lib/utils/protectLoad.ts), ssr=false in its +page.server.ts (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/evaluation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /evaluation (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/intervention/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /intervention (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 49 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/reeducation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reeducation (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 52 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/tasks/[task]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tasks/[task] (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 54 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  },
+  {
+    "key": "DevelexGroup/DevelexTasks::seo/twitter-card::src/routes/tasks/[task]/[level]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /tasks/[task]/[level] (script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files or app.html); no og:*/twitter:*/rel=canonical anywhere in src or app.html (heads are per-page <title> only); no meta-tag library; npm Svelte deps (bits-ui, @lucide/svelte, @iconify/svelte, @neoconfetti/svelte; develex-js-sdk@0.3.12 ships no .svelte, jsDelivr) emit none; missing as claimed"
+  }
+]

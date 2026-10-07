@@ -1,0 +1,1147 @@
+[
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/about/+page.svelte:175::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read about/+page.svelte:175: <div class=\"hero-actions\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/ecosystem/+page.svelte:251::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read ecosystem/+page.svelte:251: <div class=\"badges\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/ecosystem/+page.svelte:73::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read ecosystem/+page.svelte:73: <div class=\"architecture-map\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/presets/+page.svelte:190::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read presets/+page.svelte:190: <div class=\"hero-actions\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/presets/+page.svelte:312::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read presets/+page.svelte:312: <div class=\"filter-row\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/presets/+page.svelte:348::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read presets/+page.svelte:348: <div class=\"active-filters\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/settings/+page.svelte:578::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read settings/+page.svelte:578: <div class=\"capability-panel\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/settings/+page.svelte:758::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read settings/+page.svelte:758: <div class=\"data-counts\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/routes/sparql/+page.svelte:319::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read sparql/+page.svelte:319: <div class=\"hero-signals\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/ui/creator/PresetCreator.svelte:1615::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read ui/creator/PresetCreator.svelte:1615: <div class=\"param-mods\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/disallowed-aria-props::src/ui/creator/PresetCreator.svelte:1747::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read ui/creator/PresetCreator.svelte:1747: <div class=\"tempo-bpm-mods\" aria-label=...> with no role or spread; aria-label is prohibited on generic"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/duplicate-landmark::src/routes/logbook/+page.svelte:629::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read logbook/+page.svelte:499-503 loading <main class=\"logbook-status\"> in {#if !auth.ready || (logbookAccessible && !logbookReady)} and :527/:629 page <main> in a separate {#if logbookAccessible && logbookReady}; logbookAccessible requires auth.ready (:16), so the two never render together; separate {#if} blocks the docs count as both rendering"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/interactive-nesting::src/ui/creator/Knob.svelte:185::<button> is nested inside interactive <div role=\"slider\">",
+    "verdict": "tp",
+    "basis": "read ui/creator/Knob.svelte:158-191: <button class=\"mod-dot\" tabindex=\"-1\"> inside <div role=\"slider\" tabindex=\"0\">; slider is children-presentational and the docs keep a native button with tabindex=-1 flagged"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/permitted-contents::src/routes/presets/+page.svelte:289::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read presets/+page.svelte:287-289: <div class=\"search-control\"> inside <label for=\"preset-search\">; phrasing content only"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/permitted-contents::src/ui/navigation/AppTopBar.svelte:103::`<div>` is not permitted content here — `<header>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "read ui/navigation/AppTopBar.svelte:102-103: <div class=\"topbar-main\"> inside <header> contains <footer class=\"scope-panel-foot\"> (:222); <header> admits flow content with no header/footer descendants, so the div is not permitted there (message names the div, the cause is the footer)"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/top-level-landmark::src/routes/about/+page.svelte:186::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read about/+page.svelte:186: <aside> (no sectioning ancestor) inside the page's own <main class=\"about-page\"> (:160); root +layout.svelte wraps children in a plain div; complementary nested in main as reported"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/top-level-landmark::src/routes/presets/+page.svelte:196::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read presets/+page.svelte:196: <aside> (no sectioning ancestor) inside the page's own <main class=\"presets-page\"> (:180); root +layout.svelte wraps children in a plain div; complementary nested in main as reported"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/top-level-landmark::src/routes/settings/+page.svelte:495::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read settings/+page.svelte:495: <aside> (no sectioning ancestor) inside the page's own <main class=\"settings-page\"> (:424), via div.settings-layout; root +layout.svelte wraps children in a plain div; complementary nested in main as reported"
+  },
+  {
+    "key": "w3c-cg/sstim::a11y/top-level-landmark::src/routes/sparql/+page.svelte:601::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read sparql/+page.svelte:601: <aside> (no sectioning ancestor) inside the page's own <main class=\"sparql-page\"> (:308), via div.workspace; root +layout.svelte wraps children in a plain div; complementary nested in main as reported"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 427 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/about/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/about/+page.svelte has 941 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/ecosystem/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ecosystem/+page.svelte has 543 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/logbook/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/logbook/+page.svelte has 1459 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/namespace/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/namespace/+page.svelte has 367 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/presets/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/presets/+page.svelte has 1224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 252 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 1484 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/sparql/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/sparql/+page.svelte has 1447 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/routes/transition/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/transition/+page.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/annotation/AnnotationPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/annotation/AnnotationPanel.svelte has 471 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/creator/Knob.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/creator/Knob.svelte has 340 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/creator/PresetCreator.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/creator/PresetCreator.svelte has 4989 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/creator/SpatialTrackInspector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/creator/SpatialTrackInspector.svelte has 258 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/creator/VisualStageControls.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/creator/VisualStageControls.svelte has 262 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/entrance/CiteSstimModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/entrance/CiteSstimModal.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/entrance/ContributeProtocolModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/entrance/ContributeProtocolModal.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/field/FieldStage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/field/FieldStage.svelte has 247 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/field/SensoryField.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/field/SensoryField.svelte has 749 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/field/scene/SceneStage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/field/scene/SceneStage.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/field/scene/SceneStereo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/field/scene/SceneStereo.svelte has 274 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/field/tree/TreeStage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/field/tree/TreeStage.svelte has 286 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/field/tree/TreeStereo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/field/tree/TreeStereo.svelte has 337 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/graph/OntologyGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/graph/OntologyGraph.svelte has 3797 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/component-size::src/ui/navigation/AppTopBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/ui/navigation/AppTopBar.svelte has 956 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/prop-count::src/ui/creator/Knob.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/ui/creator/Knob.svelte has a single destructured $props() with 15 named props (> 6): value, min, max, step, label, modActive, modAvailable, onmod, onchange, liveValue, liveValueRef, rangeLow, rangeHigh, onlabel, labelTitle"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/prop-count::src/ui/creator/StudioVisualStage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/ui/creator/StudioVisualStage.svelte has a single destructured $props() with 8 named props (> 6): tracks, liveValues, stage, controllerTime, active, preview, transparentBackground, label"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/prop-count::src/ui/field/FieldStage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/ui/field/FieldStage.svelte has a single destructured $props() with 8 named props (> 6): color, opacity, active, fullscreen, depth, depthSeparationPx, markerOffsetX, markerOffsetY"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/prop-count::src/ui/field/scene/SceneStage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/ui/field/scene/SceneStage.svelte has a single destructured $props() with 9 named props (> 6): scene, mode, viewingMode, theta, zoom, depthScalePx, strokeWidth, depthColor, active"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/prop-count::src/ui/field/scene/SceneStereo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/ui/field/scene/SceneStereo.svelte has a single destructured $props() with 7 named props (> 6): scene, view, title, intro, controls, onRegenerate, regenerateLabel"
+  },
+  {
+    "key": "w3c-cg/sstim::architecture/prop-count::src/ui/field/tree/TreeStage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/ui/field/tree/TreeStage.svelte has a single destructured $props() with 11 named props (> 6): tree, mode, viewingMode, theta, zoom, depthScalePx, strokeWidth, showLeaves, showRoots, depthColor, active"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/+page.svelte:183::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/+page.svelte:183 '{#each door.primary as action}' has no key; door iterates the same-file const doors literal (:31-110, its own each keyed by door.id at :177), so door.primary is a fixed author-time action list: static list, never reorders"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/+page.svelte:192::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: routes/+page.svelte:192 '{#each door.secondary as action, i}' has no key; door.secondary is a fixed action list inside the same-file const doors literal (:31-110): static list, never reorders"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/ecosystem/+page.svelte:252::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: ecosystem/+page.svelte:252 '{#each entry.relationships as relationshipId}' has no key; entry iterates the imported constant DIRECTORY_ENTRIES (:239), so relationships is a fixed author-time id list: static list, never reorders"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/logbook/+page.svelte:541::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: logbook/+page.svelte:541 '{#each Object.entries(TYPES) as [key, def]}' has no key; TYPES is a same-file const object literal of entry types (:23-90), only read elsewhere: static list (Object.entries of a const object), never reorders"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/logbook/+page.svelte:582::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: logbook/+page.svelte:582 '{#each field.options as opt}' has no key; field iterates TYPES[selType].fields of the same-file const TYPES literal (:23-90), so options is a fixed <option> list: static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/presets/+page.svelte:317::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: presets/+page.svelte:317 '{#each groupOptions as group}' has no key; groupOptions = unique labels of the presets read once from the bundled static knowledge graph (loadStaticKnowledgeGraph, :141-142), rendered as filter <option>s: static option catalog (ledger fixed-option-catalog convention)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/presets/+page.svelte:326::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: presets/+page.svelte:326 '{#each bandOptions as band}' has no key; bandOptions = unique labels of the presets read once from the bundled static knowledge graph (:141-142), rendered as filter <option>s: static option catalog"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/presets/+page.svelte:337::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: presets/+page.svelte:337 '{#each tierOptions as tier}' has no key; tierOptions = unique labels of the presets read once from the bundled static knowledge graph (:141-142), rendered as filter <option>s: static option catalog"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/presets/+page.svelte:390::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: presets/+page.svelte:390 '{#each preset.groups as group}' has no key; the groups of one preset inside the keyed {#each filteredPresets as preset (preset.iri)} (:384), presets read from the bundled static knowledge graph: static fields of one record, never reorder"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/presets/+page.svelte:427::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: presets/+page.svelte:427 '{#each preset.cautions as caution}' has no key; the cautions of one preset inside the keyed outer each (:384), from the bundled static knowledge graph: static fields of one record"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/presets/+page.svelte:455::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: presets/+page.svelte:455 '{#each preset.references as reference}' has no key; the references of one preset inside the keyed outer each (:384), from the bundled static knowledge graph: static fields of one record"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/settings/+page.svelte:548::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: settings/+page.svelte:548 '{#each skin.swatches as color}' has no key; skin iterates the imported constant skins (ui/theme/skins.js) in a keyed each (:528): fixed colour swatches, static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/sparql/+page.svelte:404::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sparql/+page.svelte:404 '{#each EXAMPLE_QUERY_CATEGORIES as category}' has no key; EXAMPLE_QUERY_CATEGORIES = [...new Set(EXAMPLE_QUERIES.map(...))] (ui/sparql/exampleQueries.js:193), not an array literal, so the imported-constant exemption does not apply; static list fixed at author time"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/sparql/+page.svelte:406::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sparql/+page.svelte:406 '{#each EXAMPLE_QUERIES.filter(...) as example}' has no key; a filter of the imported constant example-query catalog by a constant category: static list, never reorders"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/sparql/+page.svelte:536::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sparql/+page.svelte:536 '{#each columns as column}' has no key; columns = result.columns of the current SPARQL result (:236): positional list (column headers of one query result), ledger convention"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/sparql/+page.svelte:541::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: sparql/+page.svelte:541 '{#each displayedRows as row}' has no key; displayedRows = $derived(rows.slice(0, LIMIT)) (:98), the rows of the user's SPARQL query result, replaced on every run: runtime data"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/sparql/+page.svelte:543::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sparql/+page.svelte:543 '{#each columns as column}' has no key; the result columns of one query, one cell per column in a row: positional list (cells of one row), ledger convention"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/sparql/+page.svelte:741::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sparql/+page.svelte:741 '{#each ontologySources as source}' has no key; ontologySources = Object.values(ONTOLOGY_SOURCES) (:46), a constant module inventory: static list fixed at author time"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/routes/sparql/+page.svelte:755::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sparql/+page.svelte:755 '{#each staticDataSources as source}' has no key; staticDataSources = staticInstanceSources() (:47), the bundled static data inventory computed once: static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:1512::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:1512 '{#each entries as item}' has no key; entries = one section of a starter bundle's conversion report (:1507), messages produced once per conversion: positional list (report lines of one record)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:1981::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:1981 '{#each CONTROL_TYPES as t}' has no key; CONTROL_TYPES = ['LFO', 'Permutation', 'Sinusoid'] (presetDraft.js:75) is handed to choice(), a function presetDraft.js declares (:394, :470), which the docs say keeps the import reported; static list, never reorders"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2001::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2001 '{#each MARTIGLI_WAVEFORMS as w}' has no key; MARTIGLI_WAVEFORMS (presetDraft.js:93) is handed to the module-declared choice() (:480), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2061::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2061 '{#each symRow as value, i}' has no key; symRow = the current permutation row or Array.from({length: symN}), drawn as SVG bars in a symmetry widget: positional list (chart geometry), ledger convention"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2138::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2138 '{#each AUDIO_TRACK_TYPES as t}' has no key; AUDIO_TRACK_TYPES (presetDraft.js:132) is handed to the module-declared choice() (:511), which keeps it reported per the docs; static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2303::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2303 '{#each ISO_ENVELOPES as e}' has no key; ISO_ENVELOPES (presetDraft.js:186) is handed to the module-declared choice() (:532), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2313::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2313 '{#each BINAURAL_MODES as m}' has no key; BINAURAL_MODES (presetDraft.js:198) is handed to the module-declared choice() (:540), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2323::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2323 '{#each NOISE_COLORS as c}' has no key; NOISE_COLORS (presetDraft.js:145) is handed to the module-declared choice() (:543), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2329::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2329 '{#each NOISE_FILTERS as f}' has no key; NOISE_FILTERS (presetDraft.js:148) is handed to the module-declared choice() (:544), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2339::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2339 '{#each DRONE_VOICES as v}' has no key; DRONE_VOICES (presetDraft.js:141) is handed to the module-declared choice() (:547), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2349::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2349 '{#each SAMPLE_CLIPS as c}' has no key; SAMPLE_CLIPS (presetDraft.js:135) is handed to the module-declared choice() (:550), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2367::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2367 '{#each TREMOLO_MODES as m}' has no key; TREMOLO_MODES (presetDraft.js:202) is handed to the module-declared choice() (:525), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2405::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2405 '{#each voiceParamNames(track.trackType) as pname}' has no key; voiceParamNames (presetDraft.js:181) returns the fixed parameter-name list for a track type: static list fixed at author time"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2430::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2430 '{#each VISUAL_TRACK_TYPES as t}' has no key; VISUAL_TRACK_TYPES (presetDraft.js:215-225) is a literal with a spread of CONFIGURED_VISUAL_TRACK_TYPES and is handed to the module-declared choice() (:558), so the docs keep it reported; static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2517::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2517 '{#each BLEND_MODES as b}' has no key; BLEND_MODES (presetDraft.js:292) is handed to the module-declared choice() (:566), which keeps it reported per the docs; static <option> list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2524::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2524 '{#each visualParamNames(track.trackType) as pname}' has no key; visualParamNames (presetDraft.js:307) returns the fixed parameter-name list for a track type: static list fixed at author time"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2544::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2544 '{#each HAPTIC_TRACK_TYPES as t}' has no key; HAPTIC_TRACK_TYPES (presetDraft.js:312) is handed to the module-declared choice() (:579), which keeps it reported per the docs; static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2567::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: PresetCreator.svelte:2567 '{#each HAPTIC_PARAMS as pname}' has no key; HAPTIC_PARAMS (presetDraft.js:315) is passed by the component to applyMods(…, HAPTIC_PARAMS) (:761), which the docs say keeps it reported; static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/creator/PresetCreator.svelte:2587::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: PresetCreator.svelte:2587 '{#each issues as iss}' has no key; issues = $derived(validateDraft(draft)) (:313), validation messages recomputed as the user edits the draft: runtime data (ledger validation-list convention)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/FieldStage.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FieldStage.svelte:91 '{#each stereoPanels as panel, pi}' has no key; stereoPanels = $derived(buildStereoPanels(depth, …)) (:16), the one or two eye panels of the stereo view: positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/FieldStage.svelte:93::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FieldStage.svelte:93 '{#each GRID_POSITIONS as pos}' has no key; GRID_POSITIONS = $derived(buildGridPositions(gridSize)) (:56): positional list (grid geometry), items have no identity beyond position"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/FieldStage.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FieldStage.svelte:97 '{#each trajectoryByPanel[pi] as pt, k}' has no key; trajectory dots computed per panel (:83), styled by index k: positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/SensoryField.svelte:646::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SensoryField.svelte:646 '{#each semList as info}' has no key; semList = buildSemList(field) (:229-245), constant FIELD_SEMANTICS entries included by the field's flags: static list filtered by flags, fixed order (ledger convention)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/scene/SceneStage.svelte:199::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SceneStage.svelte:199 '{#each drawList as it}' has no key; drawList = $derived(buildDrawList(scene)) (:51), the projected shapes of a generated scene drawn in SVG: positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/scene/SceneStage.svelte:213::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SceneStage.svelte:213 '{#each drawList as it}' has no key; drawList = $derived(buildDrawList(scene)) (:51), projected scene geometry drawn in SVG: positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/scene/SceneStage.svelte:225::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SceneStage.svelte:225 '{#each (viewingMode === 'cross' ? [right, left] : [left, right]) as …}' has no key; a ternary between two two-item inline literals (the stereo panes): not the exempt plain inline literal, but a static list fixed at author time"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/scene/SceneStage.svelte:227::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SceneStage.svelte:227 '{#each drawList as it}' has no key; drawList = $derived(buildDrawList(scene)) (:51), projected scene geometry drawn in SVG: positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/tree/TreeStage.svelte:199::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TreeStage.svelte:199 '{#each projLeaves as l}' has no key; projLeaves = $derived(projectLeaves(tree.leaves)) (:75), projected leaf geometry drawn in SVG: positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/tree/TreeStage.svelte:208::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TreeStage.svelte:208 '{#each panes as pane}' has no key; panes = $derived ternary between two two-item literals (:79-83): static list fixed at author time"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/tree/TreeStage.svelte:211::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TreeStage.svelte:211 '{#each projRoots as s}' has no key; projRoots = $derived(projectSegments(tree.roots)) (:74): positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/tree/TreeStage.svelte:215::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TreeStage.svelte:215 '{#each projBranches as s}' has no key; projBranches = $derived(projectSegments(tree.branches)) (:73): positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/field/tree/TreeStage.svelte:219::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: TreeStage.svelte:219 '{#each projLeaves as l}' has no key; projLeaves = $derived(projectLeaves(tree.leaves)) (:75): positional list (computed render geometry)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/graph/OntologyGraph.svelte:2363::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: OntologyGraph.svelte:2363 '{#each Object.entries(SCHEME_COLORS) as [iri, color]}' has no key; SCHEME_COLORS is a same-file const object literal (:322): static legend list, never reorders"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/graph/OntologyGraph.svelte:2555::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: OntologyGraph.svelte:2555 '{#each selected.externalParents as parent, index}' has no key; selected = the clicked graph node's data (:1257, :1280), so the list is swapped in place as the user selects nodes: runtime data"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/graph/OntologyGraph.svelte:2669::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: OntologyGraph.svelte:2669 '{#each selected.sources ?? selected.sourceLinks as source, index}' has no key; selected = the clicked graph node's data (:1257, :1280), swapped as the user selects nodes: runtime data"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/graph/OntologyGraph.svelte:2705::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: OntologyGraph.svelte:2705 '{#each connectionKinds as [kind, count]}' has no key; connectionKinds = edge-kind counts over the selected node's neighbors (:1229-1235), rendered as toggle pills: runtime facets with counts (ledger facet convention)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/graph/OntologyGraph.svelte:2821::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: OntologyGraph.svelte:2821 '{#each graphStats.nodeCounts as [kind, count]}' has no key; graphStats = computeGraphStats(visible) recomputed as scope filters change (:956): runtime counts (ledger facet-count convention)"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/graph/OntologyGraph.svelte:2828::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: OntologyGraph.svelte:2828 '{#each graphStats.edgeCounts as [kind, count]}' has no key; graphStats = computeGraphStats(visible) recomputed as scope filters change (:956): runtime counts"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/navigation/AppTopBar.svelte:139::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AppTopBar.svelte:139 '{#each $graphNavigation.layers as layer}' has no key; the store's layers are the same-file constant GRAPH_LAYERS literal OntologyGraph publishes (OntologyGraph.svelte:88, :1925): static list, never reorders"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/navigation/AppTopBar.svelte:155::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AppTopBar.svelte:155 '{#each $graphNavigation.profiles as profile}' has no key; the store's profiles are the constant GRAPH_PROFILES = ONTOLOGY_PROFILES.map(...) (OntologyGraph.svelte:120, :1927): static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/navigation/AppTopBar.svelte:178::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AppTopBar.svelte:178 '{#each $graphNavigation.modules as module}' has no key; the store's modules are the constant GRAPH_MODULES OntologyGraph publishes (OntologyGraph.svelte:1926): static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/navigation/AppTopBar.svelte:209::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AppTopBar.svelte:209 '{#each $graphNavigation.concerns as concern}' has no key; the store's concerns are the constant GRAPH_CONCERNS OntologyGraph publishes (OntologyGraph.svelte:1928): static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/navigation/AppTopBar.svelte:247::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: AppTopBar.svelte:247 '{#each $graphNavigation.focusNodeOptions as option}' has no key; focusNodeOptions = $derived(nodeOptionsForCurrentView()) (OntologyGraph.svelte:840), the graph nodes visible under the current scope filters: runtime list that changes with filters"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/navigation/AppTopBar.svelte:353::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AppTopBar.svelte:353 '{#each shortcut.keys as key, i}' has no key; key tokens of one shortcut of the same-file const SHORTCUTS literal (:16): positional list (tokens of one shortcut), ledger convention"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/navigation/AppTopBar.svelte:379::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AppTopBar.svelte:379 '{#each $graphNavigation.layers as layer}' has no key; the constant GRAPH_LAYERS literal published by OntologyGraph (:88, :1925): static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/each-key::src/ui/navigation/AppTopBar.svelte:412::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AppTopBar.svelte:412 '{#each $graphNavigation.concerns as concern}' has no key; the constant GRAPH_CONCERNS published by OntologyGraph (:1928): static list"
+  },
+  {
+    "key": "w3c-cg/sstim::correctness/prop-mutation::src/ui/field/scene/SceneStereo.svelte:66::Prop \"view\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: SceneStereo.svelte:66 view.rotation.autoRotate = false writes into the non-bindable view prop (:19); callers pass view={state.view} of their own $state (abstract/AbstractField.svelte:13, :26), so the child mutates parent-owned state (ownership_invalid_mutation), as documented"
+  },
+  {
+    "key": "w3c-cg/sstim::performance/state-raw::src/routes/settings/+page.svelte:61::\"deploymentProblems\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "read src/routes/settings/+page.svelte:61 — script-listed every reference to \"deploymentProblems\" in +page.svelte: only whole-binding reassignments and read-only template uses (reassigned from getRuntimeConfigProblems() at :402; read via .length and {#each} at :988-995); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing; {#each} items only read — $state.raw fits"
+  },
+  {
+    "key": "w3c-cg/sstim::security/raw-html::src/ui/brand/Isotype.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/ui/brand/Isotype.svelte:24-48: MARKS is an in-file object of generated SVG path constants — constant markup, reported per docs"
+  },
+  {
+    "key": "w3c-cg/sstim::security/raw-html::src/ui/seo/StructuredData.svelte:15::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/ui/seo/StructuredData.svelte + datasetJsonLd.js:122: JSON-LD of a literal dataset object, serialized with JSON.stringify(...).replace(/</g,'\\u003c') — script-safe, the docs' suppress case"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/description-length::src/routes/presets/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <meta name=\"description\"> at src/routes/presets/+page.svelte:175 in the page's top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 162 as reported); public prerendered site, too long as claimed (it ships after app.html's site-wide description, which it does not replace)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/description-length::src/routes/transition/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <meta name=\"description\"> at src/routes/transition/+page.svelte:30 in the page's top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 172 as reported); public prerendered site, too long as claimed (it ships after app.html's site-wide description, which it does not replace)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:14 literal site-wide description is the only description of the 9 routes in the key (/, /creator, /field, /field/abstract|landscape|tree, /graph, /logbook, /profile; local CLI list), duplicate as claimed; public prerendered site with Search Console verification (static/googlea948f7a8f3e8eed2.html), none of these is noindex"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/about/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/creator/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/creator/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/ecosystem/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/ecosystem/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/field/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/field/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/field/abstract/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/field/abstract/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/field/landscape/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/field/landscape/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/field/tree/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/field/tree/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/graph/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/graph/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/logbook/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/logbook/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/presets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/presets/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/profile/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/settings/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/sparql/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/sparql/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/json-ld::src/routes/transition/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep ld+json/@html over src incl. app.html): the only JSON-LD emitter is ui/seo/StructuredData.svelte, rendered only by routes/namespace/+page.svelte:108 (not flagged); src/routes/transition/+page.svelte, root +layout.svelte (CanonicalLink, AppTopBar, ...) and app.html carry none"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/creator/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /creator (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/ecosystem/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ecosystem (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/field/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /field (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/field/abstract/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /field/abstract (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/field/landscape/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /field/landscape (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/field/tree/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /field/tree (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/graph/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /graph (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/logbook/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /logbook (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/namespace/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /namespace (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/presets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /presets (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /profile (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/sparql/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sparql (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-description::src/routes/transition/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /transition (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (the page sets og:title/description and twitter:card but deliberately no og:url/og:image)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/creator/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /creator (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/ecosystem/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ecosystem (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/field/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /field (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/field/abstract/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /field/abstract (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/field/landscape/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /field/landscape (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/field/tree/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /field/tree (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/graph/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /graph (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/logbook/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /logbook (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/namespace/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /namespace (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/presets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /presets (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/sparql/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sparql (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-image::src/routes/transition/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /transition (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/creator/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /creator (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/ecosystem/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ecosystem (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/field/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /field (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/field/abstract/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /field/abstract (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/field/landscape/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /field/landscape (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/field/tree/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /field/tree (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/graph/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /graph (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/logbook/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /logbook (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/namespace/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /namespace (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/presets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /presets (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /profile (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/sparql/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sparql (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-title::src/routes/transition/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /transition (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (the page sets og:title/description and twitter:card but deliberately no og:url/og:image)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/creator/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /creator (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/ecosystem/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ecosystem (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/field/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /field (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/field/abstract/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /field/abstract (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/field/landscape/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /field/landscape (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/field/tree/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /field/tree (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/graph/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /graph (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/logbook/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /logbook (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/namespace/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /namespace (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/presets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /presets (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/sparql/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sparql (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/og-url::src/routes/transition/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /transition (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "no static/robots.txt or robots.txt endpoint in the checkout (literal claim holds), but package.json build runs scripts/gen-discovery.mjs, which writes robots.txt (and sitemap.xml) into the built dist/ from the prerendered pages (:258-288), so the deployed site ships it (meshcore-ninja/ow-mods build-generator precedent)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/single-h1::/creator::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds <h1> only in other route pages and legacy ui/field + ui/graph components that no flagged route imports; root +layout.svelte (AppTopBar, AppBottomDock, modals) renders none; creator/+page.svelte renders PresetCreator, whose headings are <h3>s (ui/creator/PresetCreator.svelte:1509/1954/2603)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/single-h1::/field/abstract::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds <h1> only in other route pages and legacy ui/field + ui/graph components that no flagged route imports; root +layout.svelte (AppTopBar, AppBottomDock, modals) renders none; field/abstract/+page.svelte is a client-redirect stub (goto /creator/?starter=... in onMount) rendering one <p> - redirect-stub convention"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/single-h1::/field/landscape::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds <h1> only in other route pages and legacy ui/field + ui/graph components that no flagged route imports; root +layout.svelte (AppTopBar, AppBottomDock, modals) renders none; field/landscape/+page.svelte is a client-redirect stub (goto /creator/?starter=... in onMount) rendering one <p> - redirect-stub convention"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/single-h1::/field/tree::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds <h1> only in other route pages and legacy ui/field + ui/graph components that no flagged route imports; root +layout.svelte (AppTopBar, AppBottomDock, modals) renders none; field/tree/+page.svelte is a client-redirect stub (goto /creator/?starter=... in onMount) rendering one <p> - redirect-stub convention"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/single-h1::/field::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds <h1> only in other route pages and legacy ui/field + ui/graph components that no flagged route imports; root +layout.svelte (AppTopBar, AppBottomDock, modals) renders none; field/+page.svelte is a client-redirect stub (goto /creator/?starter=... in onMount) rendering one <p> - redirect-stub convention"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/single-h1::src/routes/logbook/+page.svelte:512::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: grep of src finds <h1> only in other route pages and legacy ui/field + ui/graph components that no flagged route imports; root +layout.svelte (AppTopBar, AppBottomDock, modals) renders none; logbook/+page.svelte headings are <h2>s (gate title :512), no <h1>"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "no static/sitemap.xml or sitemap.xml endpoint in the checkout (literal claim holds), but package.json build runs scripts/gen-discovery.mjs, which writes sitemap.xml listing every prerendered page into the built dist/ (:258-288), so the deployed site ships it (meshcore-ninja/ow-mods build-generator precedent)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/title-length::src/routes/+page.svelte::Title is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"SSTIM Workbench · Sensory stimulation, made open and reproducible\" at src/routes/+page.svelte:136, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 65 as reported); the route's only svelte:head title, after app.html <title>SSTIM Workbench</title> (the layout chain sets none); public prerendered site of the W3C SSTIM community group, too long as claimed"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/title-length::src/routes/about/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"About | SSTIM Workbench\" at src/routes/about/+page.svelte:153, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 23 as reported); the route's only svelte:head title, after app.html <title>SSTIM Workbench</title> (the layout chain sets none); public prerendered site of the W3C SSTIM community group, too short as claimed"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/title-length::src/routes/logbook/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Logbook | SSTIM Workbench\" at src/routes/logbook/+page.svelte:495, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 25 as reported); the route's only svelte:head title, after app.html <title>SSTIM Workbench</title> (the layout chain sets none); public prerendered site of the W3C SSTIM community group, too short as claimed"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/title-length::src/routes/namespace/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"The SSTIM namespace\" at src/routes/namespace/+page.svelte:96, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 19 as reported); the route's only svelte:head title, after app.html <title>SSTIM Workbench</title> (the layout chain sets none); public prerendered site of the W3C SSTIM community group, too short as claimed"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/title-length::src/routes/profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Profile · SSTIM Workbench\" at src/routes/profile/+page.svelte:83, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 25 as reported); the route's only svelte:head title, after app.html <title>SSTIM Workbench</title> (the layout chain sets none); public prerendered site of the W3C SSTIM community group, too short as claimed"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_25_len.js: literal <title> \"Settings | SSTIM Workbench\" at src/routes/settings/+page.svelte:415, top-level svelte:head, entities decoded, whitespace collapsed, grapheme count = 26 as reported); the route's only svelte:head title, after app.html <title>SSTIM Workbench</title> (the layout chain sets none); public prerendered site of the W3C SSTIM community group, too short as claimed"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/creator/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /creator (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/ecosystem/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ecosystem (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/field/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /field (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/field/abstract/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /field/abstract (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/field/landscape/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /field/landscape (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/field/tree/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /field/tree (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route (a compatibility link that goto()s to Patch Studio on mount, but its prerendered HTML renders)"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/graph/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /graph (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/logbook/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /logbook (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/namespace/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /namespace (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/presets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /presets (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /profile (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/sparql/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sparql (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  },
+  {
+    "key": "w3c-cg/sstim::seo/twitter-card::src/routes/transition/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /transition (script-verified (repo-wide grep of src and packages/* excl. node_modules, incl. app.html): the only og:*/twitter:* tags are in routes/+page.svelte:149-155 (route / only: og:type/site_name/title/description, twitter:card/title/description; no og:url/og:image, omitted on purpose per the comment at :143-147); root +layout.svelte renders CanonicalLink/StructuredData only (no og/twitter); app.html has description/manifest/theme meta only); prerendered, publicly reachable route"
+  }
+]

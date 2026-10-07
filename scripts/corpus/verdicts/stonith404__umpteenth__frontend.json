@@ -1,0 +1,1607 @@
+[
+  {
+    "key": "stonith404/umpteenth:frontend::a11y/disallowed-aria-props::src/lib/components/layout/app-sidebar.svelte:74::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): <span aria-label> at layout/app-sidebar.svelte:74 has no role attribute, spread or use: action, so its role is generic, which prohibits a name; the label is not exposed"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::a11y/disallowed-aria-props::src/routes/(app)/(dashboard)/+page.svelte:229::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): <div aria-label> at (app)/(dashboard)/+page.svelte:229 has no role attribute, spread or use: action, so its role is generic, which prohibits a name; the label is not exposed"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::a11y/id-duplication::src/lib/components/jobs/run-now-dialog.svelte:128::Duplicate id \"run-now-form\"",
+    "verdict": "design",
+    "basis": "read: jobs/[id]/+layout.svelte:217 and jobs/[id]/+page.svelte:188 each render <RunNowDialog> with their own runNowOpen = $state(false), opened by separate buttons; form#run-now-form (:128) is inside the bits-ui Dialog.Content, mounted only while open, so the two modals never render together; documented co-render"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::a11y/permitted-contents::src/routes/(app)/mcp/tool-list.svelte:38::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at (app)/mcp/tool-list.svelte:38 has literal parent <button> at :30 in the same template (blocks only between, no component/snippet/{@render} boundary); <div> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::a11y/top-level-landmark::src/routes/(app)/jobs/new/+page.svelte:1024::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read (app)/jobs/new/+page.svelte:1024 <aside aria-label=\"Save the job\"> in the page, rendered inside (app)/+layout.svelte:26-32 <main> around {@render children()}; labelled aside is complementary, nested in main"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/lib/components/data-table/data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data-table/data-table.svelte has 851 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/lib/components/error-mark.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/error-mark.svelte has 255 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/lib/components/layout/command-palette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/command-palette.svelte has 342 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/lib/components/runs/runs-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/runs/runs-table.svelte has 477 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/chart/chart-tooltip.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/(dashboard)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/(dashboard)/+page.svelte has 547 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/admin/users/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/users/+page.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/jobs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/jobs/+page.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/jobs/[id]/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/jobs/[id]/+layout.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/jobs/[id]/environment/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/jobs/[id]/environment/+page.svelte has 408 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/jobs/[id]/graduation-chart.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/jobs/[id]/graduation-chart.svelte has 500 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/jobs/[id]/playbook/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/jobs/[id]/playbook/+page.svelte has 787 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/jobs/[id]/settings/tool-allow-list.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/jobs/[id]/settings/tool-allow-list.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/jobs/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/jobs/new/+page.svelte has 1104 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/jobs/new/questions-card.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/jobs/new/questions-card.svelte has 325 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/mcp/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/mcp/+page.svelte has 411 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/mcp/server-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/mcp/server-dialog.svelte has 386 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/runs/[id]/event-step.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/runs/[id]/event-step.svelte has 326 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/runs/[id]/run-header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/runs/[id]/run-header.svelte has 291 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/runs/[id]/run-view.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/runs/[id]/run-view.svelte has 322 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/runs/[id]/timeline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/runs/[id]/timeline.svelte has 254 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/runs/[id]/waterfall.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/runs/[id]/waterfall.svelte has 387 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/settings/members/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/members/+page.svelte has 388 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/settings/providers/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/providers/+page.svelte has 617 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/settings/providers/model-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/providers/model-dialog.svelte has 398 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/settings/providers/provider-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/settings/providers/provider-dialog.svelte has 244 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/skills/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/skills/+page.svelte has 308 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/skills/skill-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/skills/skill-dialog.svelte has 291 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/(app)/skills/skill-sheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/skills/skill-sheet.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 290 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/code/code-editor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/code/code-editor.svelte has a single destructured $props() with 9 named props (> 6): value, language, readonly, placeholder, label, id, invalid, lineWrapping, class"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/data-table/data-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/data-table/data-table.svelte has a single destructured $props() with 20 named props (> 6): columns, fetchPage, getRowId, defaultSort, filters, searchable, searchPlaceholder, urlPrefix, label, rowHref, onRowClick, actions, selectable, canSelect, selectionActions, rowLabel, empty, isEmpty, flush, skeletonRowClass"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/form/form-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/form/form-card.svelte has a single destructured $props() with 9 named props (> 6): title, description, actions, footer, dirty, saving, readOnly, onsubmit, children"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/form/form-input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/form/form-input.svelte has a single destructured $props() with 14 named props (> 6) plus ...rest: input, label, description, placeholder, type, children, labelFor, monospace, suffix, step, futureOnly, optional, autocomplete, class"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/model-select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/model-select.svelte has a single destructured $props() with 7 named props (> 6): models, value, id, noneLabel, invalid, disabled, includeUnavailable"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 11 named props (> 6) plus ...rest: class, variant, size, floating, softDisabled, ref, href, type, disabled, isLoading, children"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) plus ...rest: ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 16 named props (> 6) plus ...rest: ref, class, hideLabel, indicator, hideIndicator, hideZero, labelKey, label, labelFormatter, labelClassName, formatter, valueFormatter, total, emptyLabel, nameKey, color"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: open, ref, value, title, description, showCloseButton, portalProps, children, class"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/dropdown-menu/dropdown-menu-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/dropdown-menu/dropdown-menu-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, sideOffset, align, collisionPadding, portalProps, class, long"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/input/input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/input/input.svelte has a single destructured $props() with 10 named props (> 6) plus ...rest: ref, value, type, files, class, mono, suffixed, prefixed, numeric, data-slot"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/popover/popover-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/popover/popover-content.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: ref, class, sideOffset, align, collisionPadding, sameWidth, fitScreen, padding, portalProps"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 15 named props (> 6) plus ...rest: ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth, padding"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/select/select-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/select/select-content.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: ref, class, sideOffset, align, collisionPadding, portalProps, children, preventScroll"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/sheet/sheet-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sheet/sheet-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, side, showCloseButton, focusable, portalProps, children"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: ref, class, sideOffset, side, children, arrowClasses, portalProps, mono"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/routes/(app)/(dashboard)/bucket-bar-chart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/(dashboard)/bucket-bar-chart.svelte has a single destructured $props() with 11 named props (> 6): rows, config, series, bucket, bucketMs, integer, tickFormat, valueFormatter, total, emptyLabel, label"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/routes/(app)/jobs/new/questions-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/jobs/new/questions-card.svelte has a single destructured $props() with 7 named props (> 6): questions, answers, backLabel, locked, onback, onsubmit, oncancel"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/routes/(app)/runs/[id]/run-header.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/runs/[id]/run-header.svelte has a single destructured $props() with 14 named props (> 6): run, live, cost, tokensIn, tokensOut, turns, canLearn, showLearn, hideCancel, ref, onCancel, onRetry, onLearn, onDelete"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/prop-count::src/routes/(app)/runs/[id]/step-shell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/runs/[id]/step-shell.svelte has a single destructured $props() with 10 named props (> 6): glyph, title, tone, ts, startTs, compact, quiet, pulse, meta, children"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/route-component-import::src/demo/demo.svelte:6::src/routes/+layout.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/demo/demo.svelte:6 default-imports ../routes/+layout.svelte and renders <RootLayout> (line 22) in the landing-page demo, a separate Vite build (vite.demo.config.ts, root src/demo, $app/state and $app/navigation aliased to src/demo/kit, mounted by src/demo/main.ts); the root layout takes only children, which the demo supplies -- a deliberate harness rendering route entries by hand like a story, outside the narrow default exemptImporters (same shape as the ledger immich test-wrapper / intuitem design entries); reported as documented, not a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/route-component-import::src/demo/demo.svelte:7::src/routes/(app)/+layout.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/demo/demo.svelte:7 default-imports ../routes/(app)/+layout.svelte and renders <AppLayout data={{ user }}> (line 23) with fixture data in the landing-page demo, a separate Vite build (vite.demo.config.ts, $app modules aliased to src/demo/kit, mounted by src/demo/main.ts); the layout reads data.user only, which the demo supplies by hand -- a deliberate harness outside the narrow default exemptImporters (same shape as the ledger immich test-wrapper / intuitem design entries); reported as documented, not a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::architecture/route-component-import::src/demo/demo.svelte:8::src/routes/(app)/runs/[id]/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: src/demo/demo.svelte:8 default-imports ../routes/(app)/runs/[id]/+page.svelte and renders <RunPage data={{ user, run: director.run, breadcrumbLabels: {} }}> (line 27) in the landing-page demo, a separate Vite build (vite.demo.config.ts, $app modules aliased to src/demo/kit, mounted by src/demo/main.ts); the page reads data.run, supplied by the demo director -- a deliberate harness outside the narrow default exemptImporters (same shape as the ledger immich test-wrapper / intuitem design entries); reported as documented, not a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/data-table/row-actions.svelte:102::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/data-table/row-actions.svelte:102 '{#each menuItems.destructive as item, i (i)}' keyed by its index binding; menuItems.regular/destructive = $derived filters of the items prop, the row-action list each table caller defines (row-actions.svelte:32-38); static menu list"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/data-table/row-actions.svelte:96::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/data-table/row-actions.svelte:96 '{#each menuItems.regular as item, i (i)}' keyed by its index binding; menuItems.regular/destructive = $derived filters of the items prop, the row-action list each table caller defines (row-actions.svelte:32-38); static menu list"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/diff-view.svelte:38::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/diff-view.svelte:38 '{#each shown as line, i (i)}' keyed by its index binding; shown = hunks.slice(0, MAX_ROWS) lines of one diff (diff-view.svelte:22); positional list (diff segments)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/error-mark.svelte:38::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/error-mark.svelte:38 '{#each rows as row, i (i)}' keyed by its index binding; rows built from a fixed dither pattern of a decorative error mark (error-mark.svelte:6-15); positional decoration list"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/form/io-fields-editor.svelte:43::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/form/io-fields-editor.svelte:43 '{#each fields as field, i (i)}' keyed by its index binding; fields/entries $bindable rows with inputs the user appends and removes by index (io-fields-editor.svelte:22-26, key-value-editor.svelte:44-48); editable rows whose input state follows positions"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/form/key-value-editor.svelte:61::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/form/key-value-editor.svelte:61 '{#each entries as entry, i (i)}' keyed by its index binding; fields/entries $bindable rows with inputs the user appends and removes by index (io-fields-editor.svelte:22-26, key-value-editor.svelte:44-48); editable rows whose input state follows positions"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/layout/app-header.svelte:41::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/app-header.svelte:41 '{#each breadcrumbs as crumb, i (i)}' keyed by its index binding; breadcrumbs = $derived path crumbs (app-header.svelte:19); positional list (breadcrumb items)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/playbook/ops-list.svelte:17::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/playbook/ops-list.svelte:17 '{#each ops as op, i (i)}' keyed by its index binding; ops prop: applied playbook operations of a run/version, runtime records"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/playbook/ops-list.svelte:66::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/playbook/ops-list.svelte:66 '{#each op.flags ?? [] as flag, index (index)}' keyed by its index binding; op.flags: the short flag labels of one stored applied op; a fixed list of one record, positional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/playbook/version-change.svelte:89::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/playbook/version-change.svelte:89 '{#each op.flags ?? [] as flag, index (index)}' keyed by its index binding; op.flags: the short flag labels of one stored applied op; a fixed list of one record, positional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/ui/calendar/calendar.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:85 '{#each weekdays as weekday, i (i)}' keyed by its index binding; weekdays header of a bits-ui calendar; positional list (calendar weekday header)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; errors prop of the shadcn field-error component: form validation errors; runtime list (ledger field-error convention)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/lib/components/ui/range-calendar/range-calendar.svelte:86::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:86 '{#each weekdays as weekday, i (i)}' keyed by its index binding; weekdays header of a bits-ui calendar; positional list (calendar weekday header)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/jobs/[id]/+page.svelte:147::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/jobs/[id]/+page.svelte:147 '{#each tile.detail as phrase, i (i)}' keyed by its index binding; tile.detail phrases of one summary tile; positional list (text segments)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/jobs/[id]/graduation-chart.svelte:382::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/jobs/[id]/graduation-chart.svelte:382 '{#each durationSegments as segment, i (i)}' keyed by its index binding; durationSegments = $derived.by chart segments (graduation-chart.svelte:147); positional list (chart geometry)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/jobs/[id]/settings/secrets-card.svelte:125::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/jobs/[id]/settings/secrets-card.svelte:125 '{#each mappings as mapping, i (i)}' keyed by its index binding; mappings = $inputs.mappings.value, secret-mapping form rows with selects/inputs that the user adds and removes (secrets-card.svelte:41-67); editable rows whose input state follows positions"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/jobs/[id]/settings/tool-allow-list.svelte:185::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/jobs/[id]/settings/tool-allow-list.svelte:185 '{#each tool.name.split(/(?<=_)/) as part, i (i)}' keyed by its index binding; tool.name.split(/(?<=_)/) parts of one name; positional list (text segments)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/jobs/new/mcp-matcher.svelte:45::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/jobs/new/mcp-matcher.svelte:45 '{#each matched as need, i (i)}' keyed by its index binding; matched = needs filtered by the workspace's MCP servers (mcp-matcher.svelte:27-29), from the compiled job and fetched servers; runtime data"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/jobs/new/questions-card.svelte:158::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/jobs/new/questions-card.svelte:158 '{#each questions as q, i (i)}' keyed by its index binding; questions prop: the fixed question set of one wizard card, indexed in step with parallel per-index state arrays custom/customText (questions-card.svelte:44-45); position is the identity by construction, the list never changes while mounted"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/jobs/new/questions-card.svelte:182::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/jobs/new/questions-card.svelte:182 '{#each questions.slice(0, trail) as q, i (i)}' keyed by its index binding; questions prop: the fixed question set of one wizard card, indexed in step with parallel per-index state arrays custom/customText (questions-card.svelte:44-45); position is the identity by construction, the list never changes while mounted"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/runs/[id]/json-view.svelte:55::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/runs/[id]/json-view.svelte:55 '{#each tokens as token, i (i)}' keyed by its index binding; tokens = tokenize(text) of one JSON document (json-view.svelte:47); positional list (text tokens)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/each-index-key::src/routes/(app)/runs/[id]/timeline.svelte:227::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/runs/[id]/timeline.svelte:227 '{#each stream.liveToolCalls as name, i (i)}' keyed by its index binding; stream.liveToolCalls appended as the run streams (run-stream.svelte.ts:169); runtime streamed list (ledger streamed-chat convention)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::correctness/server-browser-global::src/demo/director.svelte.ts:17::matchMedia is accessed at module scope — it does not exist on the server, so importing this file crashes SSR with \"matchMedia is not defined\"",
+    "verdict": "design",
+    "basis": "read: src/demo/director.svelte.ts:17 module-scope matchMedia(...) in a runes module, unguarded (structurally true), but the module belongs to the separately built client-only demo (src/demo/main.ts mounts it with svelte mount(), embedded in an iframe) and SSR is off app-wide anyway (src/routes/+layout.ts:17 ssr = false, the only ssr export; adapter-static SPA fallback); it never runs on a server (ledger app-wide ssr=false convention)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::performance/image-dimensions::src/routes/login/+page.svelte:129::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: own class size-4 (16x16) — box reserved"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::performance/image-loading-hint::src/routes/login/+page.svelte:129::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: provider icon inside the sign-in buttons of the login card — above the fold"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::performance/load-waterfall::src/routes/(app)/account/+page.ts:7::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read :6-7 + routes/+layout.ts:16-17: the chain is real (listPasskeys runs only for user.passkeyAccount from await parent()), but the app is an ssr=false static SPA served by a Go backend, so there is no server load to move it to, and the root layout untracks url so on client navigation parent() costs no round trip — reported per docs, not a demonstrable waterfall (ledger ssr=false SPA convention)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::performance/load-waterfall::src/routes/login/+page.ts:10::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read :6-10 + routes/+layout.ts:16-17: setup() runs only when loginProviders() reports a passkey provider — a real dependent chain, but in an ssr=false static SPA with a Go backend (no SvelteKit server load to move it to) — reported per docs (ledger ssr=false SPA convention)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::performance/responsive-image::src/routes/login/+page.svelte:129::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: no srcset, src not a literal .svg; read: provider.icon is an admin-configured auth.providers.<id>.icon, an http(s) URL or data:image/ URI of any format (docs deployment/configuration.md:107), shown at 16px — dynamic, possibly vector, outside the docs' static SVG detection (ledger convention for OIDC provider icons)"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::security/raw-html::src/lib/components/markdown.svelte:12::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read markdown.svelte:7,12 + lib/utils/markdown-util.ts:1-80: renderMarkdown = marked then DOMPurify.sanitize with a narrow ALLOWED_TAGS list (agent output treated as untrusted) — sanitized, reported per docs"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/(dashboard)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 282 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/admin/workspaces/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/jobs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 278 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/jobs/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 297 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/jobs/[id]/environment/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 304 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 303 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/jobs/[id]/runs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 310 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/jobs/[id]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 317 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/jobs/[id]/state/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 287 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/jobs/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/mcp/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 302 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/runs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/runs/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 329 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/settings/general/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/settings/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/settings/providers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 293 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/settings/secrets/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/settings/tokens/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 289 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/(app)/skills/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 286 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/invite/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 50 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 105 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/canonical-url::src/routes/login/link/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 48 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either but not a search target (literal site-wide noindex robots meta at app.html:7), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/(dashboard)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/admin/workspaces/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/jobs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/jobs/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/jobs/[id]/environment/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/jobs/[id]/runs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/jobs/[id]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/jobs/[id]/state/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/jobs/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/mcp/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/runs/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/runs/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/settings/general/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/settings/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/settings/providers/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/settings/secrets/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/settings/tokens/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/(app)/skills/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/invite/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/description-presence::src/routes/login/link/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in frontend/src or app.html (literal claim holds); but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA, so not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/duplicate-title::src/routes/login/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: login/+page.svelte:95 and login/link/[token]/+page.svelte:37 both literal <title>Sign in · Umpteenth</title>, duplicate as claimed; but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/duplicate-title::src/routes/login/link/[token]/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: login/+page.svelte:95 and login/link/[token]/+page.svelte:37 both literal <title>Sign in · Umpteenth</title>, duplicate as claimed; but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/(dashboard)/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/account/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/admin/users/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/admin/workspaces/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/jobs/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/jobs/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/jobs/[id]/environment/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/jobs/[id]/runs/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/jobs/[id]/settings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/jobs/[id]/state/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/jobs/new/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/mcp/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/runs/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/runs/[id]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/settings/general/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/settings/members/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/settings/providers/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/settings/secrets/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/settings/tokens/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/(app)/skills/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/invite/[token]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/indexability::src/routes/login/link/[token]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA (no route overrides it); noindex as claimed, intentional"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/(dashboard)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; / has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /account has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /admin/users has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/admin/workspaces/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /admin/workspaces has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/jobs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /jobs has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/jobs/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /jobs/[id] has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/jobs/[id]/environment/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /jobs/[id]/environment has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /jobs/[id]/playbook has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/jobs/[id]/runs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /jobs/[id]/runs has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/jobs/[id]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /jobs/[id]/settings has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/jobs/[id]/state/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /jobs/[id]/state has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/jobs/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /jobs/new has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/mcp/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /mcp has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/runs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /runs has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/runs/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /runs/[id] has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/settings/general/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /settings/general has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/settings/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /settings/members has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/settings/providers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /settings/providers has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/settings/secrets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /settings/secrets has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/settings/tokens/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /settings/tokens has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/(app)/skills/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /skills has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/invite/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /invite/[token] has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /login has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/json-ld::src/routes/login/link/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): no JSON-LD emitter in frontend/src; /login/link/[token] has none"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/(dashboard)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 282 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/admin/workspaces/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/jobs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 278 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/jobs/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 297 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/jobs/[id]/environment/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 304 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 303 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/jobs/[id]/runs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 310 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/jobs/[id]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 317 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/jobs/[id]/state/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 287 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/jobs/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/mcp/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 302 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/runs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/runs/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 329 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/settings/general/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/settings/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/settings/providers/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 293 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/settings/secrets/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/settings/tokens/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 289 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/(app)/skills/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 286 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 50 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 105 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-description::src/routes/login/link/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 48 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/(dashboard)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 282 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/admin/workspaces/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/jobs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 278 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/jobs/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 297 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/jobs/[id]/environment/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 304 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 303 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/jobs/[id]/runs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 310 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/jobs/[id]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 317 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/jobs/[id]/state/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 287 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/jobs/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/mcp/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 302 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/runs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/runs/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 329 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/settings/general/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/settings/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/settings/providers/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 293 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/settings/secrets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/settings/tokens/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 289 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/(app)/skills/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 286 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 50 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 105 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-image::src/routes/login/link/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 48 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/(dashboard)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 282 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/admin/workspaces/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/jobs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 278 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/jobs/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 297 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/jobs/[id]/environment/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 304 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 303 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/jobs/[id]/runs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 310 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/jobs/[id]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 317 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/jobs/[id]/state/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 287 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/jobs/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/mcp/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 302 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/runs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/runs/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 329 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/settings/general/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/settings/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/settings/providers/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 293 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/settings/secrets/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/settings/tokens/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 289 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/(app)/skills/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 286 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 50 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 105 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-title::src/routes/login/link/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 48 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/(dashboard)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 282 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/admin/workspaces/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/jobs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 278 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/jobs/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 297 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/jobs/[id]/environment/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 304 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 303 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/jobs/[id]/runs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 310 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/jobs/[id]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 317 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/jobs/[id]/state/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 287 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/jobs/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/mcp/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 302 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/runs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/runs/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 329 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/settings/general/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/settings/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/settings/providers/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 293 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/settings/secrets/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/settings/tokens/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 289 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/(app)/skills/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 286 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/invite/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 50 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 105 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/og-url::src/routes/login/link/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 48 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: frontend/static has favicon.svg only, no robots.txt route (the robots.txt.ts is in the separate Astro docs site; literal claim holds); self-hosted app with app.html noindex, not a search target"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in frontend/static or routes (literal claim holds); self-hosted, login-gated noindex app with nothing to list"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/ssr-disabled::src/routes/+layout.ts:17::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:17 (\"the Go backend serves index.html for every route\"); deliberate client-only SPA of a self-hosted, noindex job runner, not content for search"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/(app)/(dashboard)/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Dashboard · Umpteenth\" at src/routes/(app)/(dashboard)/+page.svelte:198, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 21 as reported); src/routes/(app)/(dashboard)/+page.svelte unconditional literal <title> of 21 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/(app)/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Account · Umpteenth\" at src/routes/(app)/account/+page.svelte:72, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/(app)/account/+page.svelte unconditional literal <title> of 19 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/(app)/jobs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Jobs · Umpteenth\" at src/routes/(app)/jobs/+page.svelte:251, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 16 as reported); src/routes/(app)/jobs/+page.svelte unconditional literal <title> of 16 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/(app)/jobs/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"New job · Umpteenth\" at src/routes/(app)/jobs/new/+page.svelte:598, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/(app)/jobs/new/+page.svelte unconditional literal <title> of 19 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/(app)/mcp/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"MCP servers · Umpteenth\" at src/routes/(app)/mcp/+page.svelte:355, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 23 as reported); src/routes/(app)/mcp/+page.svelte unconditional literal <title> of 23 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/(app)/runs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Runs · Umpteenth\" at src/routes/(app)/runs/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 16 as reported); src/routes/(app)/runs/+page.svelte unconditional literal <title> of 16 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/(app)/skills/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Skills · Umpteenth\" at src/routes/(app)/skills/+page.svelte:260, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/(app)/skills/+page.svelte unconditional literal <title> of 18 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/invite/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Invite · Umpteenth\" at src/routes/invite/[token]/+page.svelte:82, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/invite/[token]/+page.svelte unconditional literal <title> of 18 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Sign in · Umpteenth\" at src/routes/login/+page.svelte:95, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/login/+page.svelte unconditional literal <title> of 19 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/title-length::src/routes/login/link/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Sign in · Umpteenth\" at src/routes/login/link/[token]/+page.svelte:37, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/login/link/[token]/+page.svelte unconditional literal <title> of 19 chars, the route's only svelte:head title (client-rendered, ssr=false); under 30 as claimed, but app.html:7 literal <meta name=\"robots\" content=\"noindex\"> ships on every route of this self-hosted job-runner SPA"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/(dashboard)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 282 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/admin/workspaces/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/jobs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 278 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/jobs/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 297 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/jobs/[id]/environment/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 304 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/jobs/[id]/playbook/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 303 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/jobs/[id]/runs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 310 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/jobs/[id]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 317 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/jobs/[id]/state/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 287 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/jobs/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 299 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/mcp/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 302 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/runs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/runs/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 329 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/settings/general/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 298 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/settings/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 288 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/settings/providers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 293 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/settings/secrets/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 280 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/settings/tokens/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 289 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/(app)/skills/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 286 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/invite/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 50 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 105 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  },
+  {
+    "key": "stonith404/umpteenth:frontend::seo/twitter-card::src/routes/login/link/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 48 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:*/canonical anywhere in frontend/src or app.html; no meta-tag library; ssr=false app-wide (routes/+layout.ts:17), no client-side emitter either"
+  }
+]

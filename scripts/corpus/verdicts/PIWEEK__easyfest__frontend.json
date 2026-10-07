@@ -1,0 +1,1097 @@
+[
+  {
+    "key": "PIWEEK/easyfest:frontend::a11y/accessible-name::src/lib/Footer.svelte:97::<a> has no accessible name",
+    "verdict": "tp",
+    "basis": "read src/lib/Footer.svelte:97: icon-only <a href> containing only an empty <i> icon with no text, aria-label/labelledby, title or alt (svg has no <title>; onmouseenter hover text and name= are not names)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::a11y/permitted-contents::src/routes/news-items/+page.svelte:22::`<h#>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/news-items/+page.svelte:22 literal <h3> whose nearest literal element ancestor is <ul> (ul; only control-flow blocks between, no component/snippet boundary), outside <ul>'s content model"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::a11y/permitted-contents::src/routes/news-items/+page.svelte:23::`<p>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/news-items/+page.svelte:23 literal <p> whose nearest literal element ancestor is <ul> (ul; only control-flow blocks between, no component/snippet boundary), outside <ul>'s content model"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::a11y/permitted-contents::src/routes/news-items/+page.svelte:30::`<img>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/news-items/+page.svelte:30 literal <img> whose nearest literal element ancestor is <ul> (ul; only control-flow blocks between, no component/snippet boundary), outside <ul>'s content model"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::a11y/permitted-contents::src/routes/news-items/+page.svelte:35::`<a>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): src/routes/news-items/+page.svelte:35 literal <a> whose nearest literal element ancestor is <ul> (ul; only control-flow blocks between, no component/snippet boundary), outside <ul>'s content model"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 463 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::architecture/component-size::src/routes/agenda/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/agenda/+page.svelte has 414 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/lib/Footer.svelte:83::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/Footer.svelte:83 '{#each data.social_media_links as link}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/lib/Header.svelte:145::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/Header.svelte:145 '{#each data.nav_menu as nav_menu_item}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/lib/ProfileModal.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/ProfileModal.svelte:50 '{#each profile.activities as activity}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/+page.svelte:229::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:229 '{#each featuredActivities as activityWrapper}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/+page.svelte:247::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:247 '{#each activity.public_faces as profileWrapper}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/+page.svelte:284::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:284 '{#each speakers as profileWrapper}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/+page.svelte:324::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:324 '{#each locations.locations as location, index}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/+page.svelte:360::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:360 '{#each accommodation.places as place}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/activities/+page.svelte:17::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/activities/+page.svelte:17 '{#each data.activities as activity}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/+page.svelte:188::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/+page.svelte:188 '{#each data.days as day}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/+page.svelte:202::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/+page.svelte:202 '{#each current_day.tracks as track}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/+page.svelte:210::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/+page.svelte:210 '{#each track.activities as activity}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/+page.svelte:247::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/+page.svelte:247 '{#each data.days as day}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/+page.svelte:256::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/+page.svelte:256 '{#each day.tracks as track}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/+page.svelte:265::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/+page.svelte:265 '{#each track.activities as activity}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/+page.svelte:311::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/+page.svelte:311 '{#each current_day.tracks as track}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/+page.svelte:320::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/+page.svelte:320 '{#each track.activities as activity}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/agenda/ActivityCard.svelte:42::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/agenda/ActivityCard.svelte:42 '{#each activity.public_faces as pf}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/faqs/+page.svelte:10::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/faqs/+page.svelte:10 '{#each data.faqs as faq}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/news-items/+page.svelte:21::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/news-items/+page.svelte:21 '{#each data.news_items as news_item}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/news-items/+page.svelte:34::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/news-items/+page.svelte:34 '{#each news_item.attachments as attachment}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/org-team/+page.svelte:35::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/org-team/+page.svelte:35 '{#each data.org_profiles as publicprofile, i}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/price/+page.svelte:30::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/price/+page.svelte:30 '{#each data.prices as priceObj}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/speakers/+page.svelte:33::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/speakers/+page.svelte:33 '{#each data.speaker_profiles as speaker_profile, i}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/speakers/[slug]/+page.svelte:22::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/speakers/[slug]/+page.svelte:22 '{#each data.profile.activities as a}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/sponsors/+page.svelte:11::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/sponsors/+page.svelte:11 '{#each data.sponsors as sponsor}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/each-key::src/routes/tracks/+page.svelte:11::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tracks/+page.svelte:11 '{#each data.tracks as track}' has no key and is not an exempt shape; list source is runtime data (CMS records from the load/props: data.*, homepage sections, activities, tracks), items can be inserted/removed/reordered"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/stale-prop-derivation::src/lib/Header.svelte:18::\"username\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/Header.svelte:18 'const username = data.username;' computes from the data prop at init (claim structurally true), but Header gets the root layout data (+layout.svelte:45) whose load (+layout.server.js) reads only cookies, never url/params, and no form uses use:enhance/invalidateAll (login/logout are full POST/redirect round trips), so data cannot change while Header is mounted; not a demonstrable stale value"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/stale-prop-derivation::src/lib/Header.svelte:19::\"isLoggedIn\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/Header.svelte:19 'const isLoggedIn = (data.username !== undefined);' computes from the data prop at init (claim structurally true), but Header gets the root layout data (+layout.svelte:45) whose load (+layout.server.js) reads only cookies, never url/params, and no form uses use:enhance/invalidateAll (login/logout are full POST/redirect round trips), so data cannot change while Header is mounted; not a demonstrable stale value"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/stale-prop-derivation::src/lib/Header.svelte:21::\"isRegistrationOpen\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/Header.svelte:21 'const isRegistrationOpen = data.registration === REGISTRATION.OPEN' computes from the data prop at init (claim structurally true), but Header gets the root layout data (+layout.svelte:45) whose load (+layout.server.js) reads only cookies, never url/params, and no form uses use:enhance/invalidateAll (login/logout are full POST/redirect round trips), so data cannot change while Header is mounted; not a demonstrable stale value"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/stale-prop-derivation::src/lib/Header.svelte:22::\"isLoginEnabled\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/Header.svelte:22 'const isLoginEnabled = data.loginEnabled' computes from the data prop at init (claim structurally true), but Header gets the root layout data (+layout.svelte:45) whose load (+layout.server.js) reads only cookies, never url/params, and no form uses use:enhance/invalidateAll (login/logout are full POST/redirect round trips), so data cannot change while Header is mounted; not a demonstrable stale value"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/stale-prop-derivation::src/lib/Header.svelte:24::\"isRegistrationInfoActive\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/Header.svelte:24 'const isRegistrationInfoActive = !isRegistrationOpen && data.registration !== REGISTRATION.HIDDEN' computes from the data prop at init (claim structurally true), but Header gets the root layout data (+layout.svelte:45) whose load (+layout.server.js) reads only cookies, never url/params, and no form uses use:enhance/invalidateAll (login/logout are full POST/redirect round trips), so data cannot change while Header is mounted; not a demonstrable stale value"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::correctness/stale-prop-derivation::src/lib/Header.svelte:25::\"showMenu\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/Header.svelte:25 'const showMenu = data.show_about_us ||' computes from the data prop at init (claim structurally true), but Header gets the root layout data (+layout.svelte:45) whose load (+layout.server.js) reads only cookies, never url/params, and no form uses use:enhance/invalidateAll (login/logout are full POST/redirect round trips), so data cannot change while Header is mounted; not a demonstrable stale value"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/+page.svelte:290::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: speaker photo in <figure class=\"image\"> with no bulma ratio class (+page.svelte:289-291) — natural aspect decides the height"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/+page.svelte:333::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (bulma <figure class=\"image is-4by3\">, img absolutely positioned in the ratio box, +page.svelte:332)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/+page.svelte:366::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (bulma <figure class=\"image is-16by9\">, +page.svelte:365)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/about-us/+page.svelte:20::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: no class/size (about-us/+page.svelte:20), plain flex column — natural size decides the box"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/get-link/+page.svelte:11::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: no class/size; only base CSS — the 140x140 envelope PNG decides the box, the <h1> below shifts"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/get-link/+page.svelte:17::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: no class/size; only base CSS — the 140x140 envelope PNG decides the box, the <h1> below shifts"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/news-items/+page.svelte:30::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: no class/size (news-items/+page.svelte:30) — natural size decides the box"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/org-team/+page.svelte:42::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (bulma <figure class=\"image is-64x64\">, org-team/+page.svelte:41)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/register/+page.svelte:11::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: no class/size; only base CSS — the 140x140 envelope PNG decides the box, the <h1> below shifts"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/seo/+page.svelte:22::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: no class/size (seo/+page.svelte:22) — natural size decides the box"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/speakers/+page.svelte:38::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: in bulma .card-image with no figure ratio class (speakers/+page.svelte:37-38) — natural aspect decides the height"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-dimensions::src/routes/speakers/[slug]/+page.svelte:19::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: no class/size (speakers/[slug]/+page.svelte:19) — natural size decides the box"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/+page.svelte:290::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: speaker carousel {#each speakers}, a later homepage section after hero, about and activities sections — offscreen on load"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/+page.svelte:333::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: location images in {#each locations} in the venue section further down the homepage — offscreen on load"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/+page.svelte:366::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: accommodation images in {#each accommodation.places}, a late homepage section — offscreen on load"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/about-us/+page.svelte:20::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: about image in the right column of the first content section under the page title — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/get-link/+page.svelte:11::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: envelope icon at the top of the section above the page <h1> — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/get-link/+page.svelte:17::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: envelope icon at the top of the section above the page <h1> — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/news-items/+page.svelte:30::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: featured image per item in the {#each data.news_items} list — later items offscreen"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/org-team/+page.svelte:42::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: profile photos in the {#each data.org_profiles} card grid below the CMS intro — later cards offscreen"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/register/+page.svelte:11::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: envelope icon at the top of the success state above the page <h1> — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/seo/+page.svelte:22::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: thumbnail directly under the <h1>/<h2> at the top of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/speakers/+page.svelte:38::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: speaker photos in the {#each data.speaker_profiles} card grid — later cards offscreen"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/image-loading-hint::src/routes/speakers/[slug]/+page.svelte:19::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: speaker photo right after the <h1> and four short text lines at the top of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/+page.svelte:290::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: remote Strapi upload {storage_url}{…url} — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/+page.svelte:333::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: remote Strapi upload {storage_url}{…url} — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/+page.svelte:366::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: remote Strapi upload {storage_url}{…url} — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/about-us/+page.svelte:20::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: data.image from the CMS about-us single — raster in the general case, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/get-link/+page.svelte:11::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: static /img/envelope-open.png (140x140) — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/get-link/+page.svelte:17::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: static /img/envelope-closed.png (140x140) — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/news-items/+page.svelte:30::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: remote Strapi upload {storage_url}{…url} — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/org-team/+page.svelte:42::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: remote Strapi upload {storage_url}{…url} — raster, one fixed-size asset (shown at 64px)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/register/+page.svelte:11::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: static /img/envelope-open.png (140x140) — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/seo/+page.svelte:22::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: remote Strapi upload {storage_url}{…url} — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/speakers/+page.svelte:38::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: remote Strapi upload {storage_url}{…url} — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/responsive-image::src/routes/speakers/[slug]/+page.svelte:19::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg; read: remote Strapi upload {storage_url}{…url} — raster, one fixed-size asset"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/sequential-awaits::src/routes/agenda/+page.js:6::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/agenda/+page.js:6: independent API request (no binding from the preceding request) after an unrelated fetch — Promise.all would work"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/sequential-awaits::src/routes/registration/+page.server.js:45::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/registration/+page.server.js:45: independent API request (no binding from the preceding request) after an unrelated fetch — Promise.all would work"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::performance/sequential-awaits::src/routes/registration/+page.server.js:50::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/registration/+page.server.js:50: `await superValidate(schema)` builds form defaults in-process (no request) — nothing to parallelize (ledger superValidate convention)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::security/raw-html::src/routes/activities/+page.svelte:22::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/activities/+page.svelte:22: activity.short_description is a Strapi 'text' field authored by the festival's own organizers in the Strapi admin (backend/src/api/activity) — first-party CMS content (ledger Ghost/site-owner convention), reported per docs"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 11 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/[...path]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/about-us/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/accommodation-info/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/activities/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/activities/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/agenda/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/agenda/[documentId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/code-of-conduct/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/contact-info/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/cookie-policy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/faqs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/faqs/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/get-link/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/new-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/news-items/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/news-items/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/org-team/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/preinscripcion/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/press-kit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/price/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/privacy-policy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/registration/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/seo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/speakers/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/speakers/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/sponsors/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/sponsors/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/streaming/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/tracks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/tracks/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/canonical-url::src/routes/venue-info/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/heading-level-skip::src/routes/news-items/+page.svelte:22::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: news-items/+page.svelte:18 <h1>News items</h1> then {#each} <h3>{news_item.title}</h3> (:22) with no <h2> between"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/image-alt::src/routes/news-items/+page.svelte:30::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img src={featured_image}/> with no alt attribute and no spread (news-items/+page.svelte:30)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/image-alt::src/routes/org-team/+page.svelte:42::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img onclick=… src={photo}/> with no alt attribute and no spread (org-team/+page.svelte:42)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/image-alt::src/routes/seo/+page.svelte:22::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img src={thumbnail}/> with no alt attribute and no spread (seo/+page.svelte:22)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/image-alt::src/routes/speakers/+page.svelte:38::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img onclick=… src={photo}/> with no alt attribute and no spread (speakers/+page.svelte:38)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/image-alt::src/routes/speakers/[slug]/+page.svelte:19::Missing <img> alt text",
+    "verdict": "tp",
+    "basis": "<img src={photo}/> with no alt attribute and no spread (speakers/[slug]/+page.svelte:19)"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/[...path]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/about-us/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/accommodation-info/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/activities/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/activities/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/agenda/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/agenda/[documentId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/code-of-conduct/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/contact-info/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/cookie-policy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/faqs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/faqs/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/get-link/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/new-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/news-items/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/news-items/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/org-team/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/preinscripcion/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/press-kit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/price/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/privacy-policy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/registration/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/seo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/speakers/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/speakers/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/sponsors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/sponsors/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/streaming/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/tracks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/tracks/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/json-ld::src/routes/venue-info/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in the app source (incl. app.html, hooks) and no meta-tag library among its dependencies; route has no JSON-LD"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "no robots.txt/sitemap.xml in frontend/static (img only), routes, hooks or build scripts (repo-wide grep); public festival website builder"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::/faqs/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: faqs/[slug]/+page.svelte renders only a text line of faq fields; root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::/registration::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: registration/+page.svelte renders CMS markdown and a form, no heading element; root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::/sponsors/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: sponsors/[slug]/+page.svelte renders only a text line of sponsor fields; root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::/tracks/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: tracks/[slug]/+page.svelte renders only two text lines of track fields; root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/+page.svelte:338::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: +page.svelte renders the hero <h1> (:133) plus an <h1> per location in {#each locations.locations} (:338) and per place in {#each accommodation.places} (:369) — several <h1>s really render when those CMS sections are enabled"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/[...path]/+page.svelte:6::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> ([...path]/+page.svelte:6); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/about-us/+page.svelte:6::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (about-us/+page.svelte:6); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/accommodation-info/+page.svelte:6::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (accommodation-info/+page.svelte:6); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/agenda/+page.svelte:181::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (agenda/+page.svelte:181), day/track headings are <h4>; ActivityCard/ActivityFiller have no headings; root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/agenda/[documentId]/+page.svelte:6::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (agenda/[documentId]/+page.svelte:6); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/code-of-conduct/+page.svelte:7::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (code-of-conduct/+page.svelte:7); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/contact-info/+page.svelte:7::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (contact-info/+page.svelte:7); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/cookie-policy/+page.svelte:7::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (cookie-policy/+page.svelte:7); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/forgot-password/+page.svelte:9::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (forgot-password/+page.svelte:9); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/login/+page.svelte:9::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (login/+page.svelte:9); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/new-password/+page.svelte:9::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (new-password/+page.svelte:9); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/news-items/[slug]/+page.svelte:16::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: article title is <h2> and summary <h3> (news-items/[slug]/+page.svelte:16-17); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/org-team/+page.svelte:24::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (org-team/+page.svelte:24); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/preinscripcion/+page.svelte:15::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (preinscripcion/+page.svelte:15); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/press-kit/+page.svelte:8::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (press-kit/+page.svelte:8); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/price/+page.svelte:13::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (price/+page.svelte:13); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/privacy-policy/+page.svelte:7::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (privacy-policy/+page.svelte:7); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/speakers/+page.svelte:23::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (speakers/+page.svelte:23); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/sponsors/+page.svelte:6::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (sponsors/+page.svelte:6); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/streaming/+page.svelte:13::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (streaming/+page.svelte:13); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/single-h1::src/routes/venue-info/+page.svelte:7::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: page title is <h3 class=\"title\"> (venue-info/+page.svelte:7); root +layout.svelte renders only Header/Footer (no headings); no <h1>, svelte:element or {@html} heading in page+layout; SvelteMarkdown body is CMS (Strapi) data, not a page heading"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "no robots.txt/sitemap.xml in frontend/static (img only), routes, hooks or build scripts (repo-wide grep); public festival website builder"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 11 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/[...path]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/about-us/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/accommodation-info/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/activities/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/activities/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/agenda/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 13 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/agenda/[documentId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/code-of-conduct/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/contact-info/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/cookie-policy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/faqs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/faqs/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/get-link/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/new-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/news-items/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/news-items/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/org-team/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 10 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/preinscripcion/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/press-kit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/price/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/privacy-policy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/registration/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/seo/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/speakers/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 10 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/speakers/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/sponsors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/sponsors/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/streaming/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/tracks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/tracks/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  },
+  {
+    "key": "PIWEEK/easyfest:frontend::seo/twitter-card::src/routes/venue-info/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 9 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; root +layout.svelte:18-32 renders og:title/description/url/image only (no twitter:card, no canonical); ParaglideJS from @inlang/paraglide-sveltekit@0.15.0 (dist/runtime/AlternateLinks.svelte) emits only <link rel=\"alternate\" hreflang>"
+  }
+]

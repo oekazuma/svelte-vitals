@@ -1,0 +1,1302 @@
+[
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:14::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read beheer/+layout.svelte:52-75 wraps {@render children()} in <Sidebar.Inset>, whose sidebar-inset.svelte:14 renders <main>; beheer/verkiezingen/[id]/+page.svelte:47 adds its own <main>; two mains"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/component-size::src/lib/components/activiteiten_beheer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/activiteiten_beheer.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/component-size::src/lib/components/activiteitenmodal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/activiteitenmodal.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/component-size::src/lib/components/data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data-table.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/component-size::src/lib/components/netwerkvoegtoemodal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/netwerkvoegtoemodal.svelte has 297 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/component-size::src/routes/(openbaar)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(openbaar)/+layout.svelte has 313 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/component-size::src/routes/(openbaar)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(openbaar)/+page.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/component-size::src/routes/(openbaar)/homeraad/werking/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(openbaar)/homeraad/werking/+page.svelte has 220 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/prop-count::src/lib/components/input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/input.svelte has a single destructured $props() with 9 named props (> 6): value, placeholder, id, label, type, disabled, required, binding, errors"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: class, variant, size, ref, href, type, children"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/academiejaarselector.svelte:48::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/academiejaarselector.svelte:48 '{#each academiejaren as academiejaar}' has no key; academiejaren prop comes from a PocketBase query in the server load (e.g. augustjes/+page.server.ts:9); runtime database records"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/input.svelte:45::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/input.svelte:45 '{#each errors as error}' has no key; errors prop: form validation errors, recomputed as the user edits; runtime list (ledger error-list convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/loginform.svelte:67::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/loginform.svelte:67 '{#each sorted_praesidium_leden as praesidium_lid}' has no key; praesidium_leden prop, PocketBase member records (sorted copy in loginform.svelte:20); runtime data"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/praesidiumlidselector.svelte:64::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/praesidiumlidselector.svelte:64 '{#each praesidium_leden as praesidium_lid}' has no key; praesidium_leden prop, PocketBase member records (sorted copy in loginform.svelte:20); runtime data"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/calendar/calendar.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:35 '{#each months as month}' has no key; months/weekdays/weeks/dates of a bits-ui calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/calendar/calendar.svelte:39::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:39 '{#each weekdays as weekday}' has no key; months/weekdays/weeks/dates of a bits-ui calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/calendar/calendar.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:47 '{#each month.weeks as weekDates}' has no key; months/weekdays/weeks/dates of a bits-ui calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/calendar/calendar.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:49 '{#each weekDates as date}' has no key; months/weekdays/weeks/dates of a bits-ui calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/form/form-field-errors.svelte:26::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/form/form-field-errors.svelte:26 '{#each errors as error}' has no key; errors prop: form validation errors, recomputed as the user edits; runtime list (ledger error-list convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/range-calendar/range-calendar.svelte:31::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:31 '{#each months as month}' has no key; months/weekdays/weeks/dates of a bits-ui calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/range-calendar/range-calendar.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:35 '{#each weekdays as weekday}' has no key; months/weekdays/weeks/dates of a bits-ui calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/range-calendar/range-calendar.svelte:43::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:43 '{#each month.weeks as weekDates}' has no key; months/weekdays/weeks/dates of a bits-ui calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/lib/components/ui/range-calendar/range-calendar.svelte:45::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:45 '{#each weekDates as date}' has no key; months/weekdays/weeks/dates of a bits-ui calendar; positional list (calendar grid)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/routes/(openbaar)/+layout.svelte:157::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(openbaar)/+layout.svelte:157 '{#each nav_items as group}' has no key; nav_items is a same-file const literal in <script module> (+layout.svelte:2) but it is also passed to <ThuisPaginaSidebar {nav_items} /> (:138), which the docs say keeps it reported; static nav list"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/routes/(openbaar)/+layout.svelte:170::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(openbaar)/+layout.svelte:170 '{#each group.items as subitem}' has no key; group.items of the authored nav_items literal (+layout.svelte:2); static nav list"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/routes/(openbaar)/homeraad/clublied/+page.svelte:90::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(openbaar)/homeraad/clublied/+page.svelte:90 '{#each academiejaren as aj}' has no key; academiejaren is a same-file `let academiejaren = ['2023 - nu', 'Pré 2023']` (clublied/+page.svelte:2; a let, so not the exempt shape); static list"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/routes/(openbaar)/homeraad/clublied/+page.svelte:97::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(openbaar)/homeraad/clublied/+page.svelte:97 '{#each getStrofes(clublied[geselecteerd_academiejaar]) as strofe}' has no key; getStrofes(text) verses split from one song text (clublied/+page.svelte:66); positional list (text segments)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte:40::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte:40 '{#each vertrouwensleden as lid}' has no key; vertrouwensleden is a same-file `let vertrouwensleden = [ … ]` literal (vertrouwenscontacten/+page.svelte:2; a let); static authored list"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/each-key::src/routes/beheer/verkiezingen/[id]/resultaten.svelte:6::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/beheer/verkiezingen/[id]/resultaten.svelte:6 '{#each opties as optie}' has no key; opties prop: election options with result counts rendered per row by the results data table (resultaten-columns.ts); runtime database records"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/instance-browser-global::src/lib/components/augustje.svelte:8::window is accessed during component initialisation — during SSR this runs on the server, where window is not defined",
+    "verdict": "design",
+    "basis": "read: src/lib/components/augustje.svelte:8 window.localStorage read at instance top level, unguarded (structurally true), but its only importer renders it in the {:then} of {#await data.augustjes} (augustjes/+page.svelte:46+), a promise the server load returns unawaited (augustjes/+page.server.ts:13), so SSR renders only the pending block and the component never runs on the server"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::correctness/instance-browser-global::src/lib/components/verslag.svelte:8::window is accessed during component initialisation — during SSR this runs on the server, where window is not defined",
+    "verdict": "design",
+    "basis": "read: src/lib/components/verslag.svelte:8 window.localStorage read at instance top level, unguarded (structurally true), but its only importer renders it in the {:then} of {#await data.verslagen} (homeraad/verslagen/+page.svelte:46-69), a promise the server load returns unawaited (verslagen/+page.server.ts:13), so SSR renders only the pending block and the component never runs on the server"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-dimensions::src/routes/(openbaar)/+layout.svelte:143::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height, no spread; read: own class h-10 w-10 object-contain reserves the box ((openbaar)/+layout.svelte, all 13 public routes)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-dimensions::src/routes/(openbaar)/+layout.svelte:153::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height, no spread; read: own class h-10 w-10 object-contain reserves the box ((openbaar)/+layout.svelte, all 13 public routes)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-dimensions::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte:42::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: no width/height; read: own class w-32 h-32 object-cover reserves the box"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/+layout.svelte:143::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: site logo in the mobile header link (sm:hidden) at the top of (openbaar)/+layout.svelte, all 13 public routes — above the fold"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/+layout.svelte:153::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: site logo in the fixed desktop nav bar at the top of (openbaar)/+layout.svelte, all 13 public routes — above the fold"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/+layout.svelte:285::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: crest in the <footer> after {@render children()} ((openbaar)/+layout.svelte, all 13 public routes) — offscreen on load"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:100::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: Panotto logo card in row 2+ of the sponsors grid (each card ~250px image + header) — offscreen on load"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:112::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: Mayana logo card in row 2+ of the sponsors grid (each card ~250px image + header) — offscreen on load"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:131::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: Kuiperskano logo card in row 2+ of the sponsors grid (each card ~250px image + header) — offscreen on load"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:146::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: Overpoort Bowl logo card in row 2+ of the sponsors grid (each card ~250px image + header) — offscreen on load"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:158::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: Paul's Boutique logo card in row 2+ of the sponsors grid (each card ~250px image + header) — offscreen on load"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:28::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: Benji's logo in the first row of the sponsors grid (lg:grid-cols-3) under the page title — above the fold"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:43::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: Delilunch logo in the first row of the sponsors grid (lg:grid-cols-3) under the page title — above the fold"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:58::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: Cappuccino logo in the first row of the sponsors grid (lg:grid-cols-3) under the page title — above the fold"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:73::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: Studentendrukker logo card in row 2+ of the sponsors grid (each card ~250px image + header) — offscreen on load"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:88::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: no loading attr; read: Snack Tosi logo card in row 2+ of the sponsors grid (each card ~250px image + header) — offscreen on load"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte:42::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: avatar in the {#each vertrouwensleden} grid, which has two entries side by side (md:grid-cols-2) right under the title — above the fold"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/image-loading-hint::src/routes/(openbaar)/info/geschiedenis/+page.svelte:37::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: no loading attr; read: photo in the first section beside the opening paragraphs, under the title — above the fold"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/+layout.svelte:143::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static/logo.png is a 901x1080 PNG shown at 40px ((openbaar)/+layout.svelte, all 13 public routes) — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/+layout.svelte:153::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static/logo.png is a 901x1080 PNG shown at 40px ((openbaar)/+layout.svelte, all 13 public routes) — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/+layout.svelte:285::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: static/logo.png 901x1080 PNG shown at 80px ((openbaar)/+layout.svelte, all 13 public routes) — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:100::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static PNG sponsor logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:112::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static PNG sponsor logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:131::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static PNG sponsor logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:146::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static PNG sponsor logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:158::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static PNG sponsor logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:28::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static /benjis PNG logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:43::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static /delilunch PNG logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:58::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static /cappuccino PNG logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:73::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static PNG sponsor logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte:88::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset, src not .svg; read: static PNG sponsor logo shown at 250px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte:42::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: /nefeli.jpeg (1536x2048) and /kyano.jpg (2000x1126) shown at 128px — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/info/geschiedenis/+page.svelte:37::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: static/foto_home_geschiedenis.jpg (166x124 JPEG) — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/responsive-image::src/routes/(openbaar)/info/geschiedenis/+page.svelte:64::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: no srcset; read: static/augustvermeylen.jpg (90x106 JPEG) — raster, one fixed-size asset"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/sequential-awaits::src/routes/(openbaar)/homeraad/leden/+page.server.ts:13::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :7-17: the praesidium_leden getFullList filters on the aj query param / locals.praesidium, nothing from the preceding praesidia academiejaren list — two independent PocketBase requests serialized; Promise.all would work"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/sequential-awaits::src/routes/(openbaar)/stem/[uuid]/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read :23: flagged await is superValidate(zod(StemSchema)) — in-process form defaults, no request (ledger superValidate convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/sequential-awaits::src/routes/beheer/verkiezingen/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read :14-28: flagged await is superValidate(zod(VerkiezingenSchema)) after the kiescomite authorization lookups — in-process form defaults, no request (ledger superValidate convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::performance/sequential-awaits::src/routes/beheer/verkiezingen/[id]/+page.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read :27: flagged await is superValidate(zod(VerkiezingenSchema)) — in-process form defaults, no request (ledger superValidate convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::security/raw-html::src/routes/(openbaar)/homeraad/clublied/+page.svelte:99::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read clublied/+page.svelte:5-30,97-99: strofe comes from getStrofes() over the literal clublied Record of repo-authored song text with <b>/<br /> markup — constant repo content, reported per docs"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/(openbaar)/stem/+page@.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 38 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (literal noindex,nofollow robots meta at (openbaar)/stem/+page@.svelte:18), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (literal noindex,nofollow robots meta at (openbaar)/stem/[uuid]/+page.svelte:18), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/beheer/activiteiten/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 160 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:22-23 redirects every /beheer request without a valid PocketBase session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/beheer/augustjes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:22-23 redirects every /beheer request without a valid PocketBase session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/beheer/fakkels_bakken/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 116 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:22-23 redirects every /beheer request without a valid PocketBase session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/beheer/verkiezingen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 129 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:22-23 redirects every /beheer request without a valid PocketBase session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/beheer/verkiezingen/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 148 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:22-23 redirects every /beheer request without a valid PocketBase session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/beheer/verkiezingen/[id]/stemmingen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 125 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:22-23 redirects every /beheer request without a valid PocketBase session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/beheer/verslagen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:22-23 redirects every /beheer request without a valid PocketBase session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/canonical-url::src/routes/beheer/vriendschapsnetwerk/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk but not a search target (auth-gated: hooks.server.ts:22-23 redirects every /beheer request without a valid PocketBase session to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Thuispagina Home Vermeylen\" at src/routes/(openbaar)/+page.svelte:30, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 26 as reported); src/routes/(openbaar)/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 26 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/augustjes/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Het studentikoos tijdschrift van Home Vermeylen, het Augustje.\" at src/routes/(openbaar)/augustjes/+page.svelte:14, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 62 as reported); src/routes/(openbaar)/augustjes/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 62 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/homeraad/clublied/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Het clublied van de studentenvereniging Home Vermeylen.\" at src/routes/(openbaar)/homeraad/clublied/+page.svelte:76, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 55 as reported); src/routes/(openbaar)/homeraad/clublied/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 55 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/homeraad/contact/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Contactgegevens homeraad Home Vermeylen\" at src/routes/(openbaar)/homeraad/contact/+page.svelte:8, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 39 as reported); src/routes/(openbaar)/homeraad/contact/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 39 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/homeraad/leden/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"De leden van de homeraad Home Vermeylen.\" at src/routes/(openbaar)/homeraad/leden/+page.svelte:18, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 40 as reported); src/routes/(openbaar)/homeraad/leden/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 40 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/homeraad/sponsors/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Sponsors homeraad Home Vermeylen\" at src/routes/(openbaar)/homeraad/sponsors/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 32 as reported); src/routes/(openbaar)/homeraad/sponsors/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 32 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Vertrouwenscontacten Home Vermeylen\" at src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte:24, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 35 as reported); src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 35 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/homeraad/werking/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Een woordje uitleg over de werking van de homeraad\" at src/routes/(openbaar)/homeraad/werking/+page.svelte:8, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 50 as reported); src/routes/(openbaar)/homeraad/werking/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 50 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/info/geschiedenis/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Een korte uiteenzetting over de geschiedenis van Home Vermeylen.\" at src/routes/(openbaar)/info/geschiedenis/+page.svelte:3, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 64 as reported); src/routes/(openbaar)/info/geschiedenis/+page.svelte unconditional svelte:head literal <meta name=\"description\"> of 64 chars, the route's only description; under 70 as claimed, public page of homevermeylen.org"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/stem/+page@.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Stempagina voor Homeraadsleden\" at src/routes/(openbaar)/stem/+page@.svelte:17, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 30 as reported); src/routes/(openbaar)/stem/+page@.svelte:17 literal description \"Stempagina voor Homeraadsleden\" (30), identical on /stem and /stem/[uuid] (claim holds); but both pages are literal noindex,nofollow council voting pages (/stem load redirects to / without auth, /stem/[uuid] errors 403 on an unknown code), not search targets"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Stempagina voor Homeraadsleden\" at src/routes/(openbaar)/stem/[uuid]/+page.svelte:17, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 30 as reported); src/routes/(openbaar)/stem/[uuid]/+page.svelte:17 literal description \"Stempagina voor Homeraadsleden\" (30), identical on /stem and /stem/[uuid] (claim holds); but both pages are literal noindex,nofollow council voting pages (/stem load redirects to / without auth, /stem/[uuid] errors 403 on an unknown code), not search targets"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/description-length::src/routes/beheer/+layout.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"De beheerspagina van de website van Home Vermeylen\" at src/routes/beheer/+layout.svelte:43, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 50 as reported); beheer/+layout.svelte:41-44 literal <title>Beheer</title> and description \"De beheerspagina van de website van Home Vermeylen\" (50) are the only title/description of the 8 /beheer routes (description-length as claimed); but beheer is the council admin area: hooks.server.ts:22-24 redirects every request without a valid PocketBase auth to /login and static/robots.txt has Disallow: /beheer/, so not a search target"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/duplicate-description::src/routes/(openbaar)/stem/+page@.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/(openbaar)/stem/+page@.svelte:17 literal description \"Stempagina voor Homeraadsleden\" (30), identical on /stem and /stem/[uuid] (claim holds); but both pages are literal noindex,nofollow council voting pages (/stem load redirects to / without auth, /stem/[uuid] errors 403 on an unknown code), not search targets"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/duplicate-description::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: src/routes/(openbaar)/stem/[uuid]/+page.svelte:17 literal description \"Stempagina voor Homeraadsleden\" (30), identical on /stem and /stem/[uuid] (claim holds); but both pages are literal noindex,nofollow council voting pages (/stem load redirects to / without auth, /stem/[uuid] errors 403 on an unknown code), not search targets"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/duplicate-description::src/routes/beheer/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: beheer/+layout.svelte:41-44 literal <title>Beheer</title> and description \"De beheerspagina van de website van Home Vermeylen\" (50) are the only title/description of the 8 /beheer routes (duplicate-description as claimed); but beheer is the council admin area: hooks.server.ts:22-24 redirects every request without a valid PocketBase auth to /login and static/robots.txt has Disallow: /beheer/, so not a search target"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/duplicate-title::src/routes/beheer/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: beheer/+layout.svelte:41-44 literal <title>Beheer</title> and description \"De beheerspagina van de website van Home Vermeylen\" (50) are the only title/description of the 8 /beheer routes (duplicate-title as claimed); but beheer is the council admin area: hooks.server.ts:22-24 redirects every request without a valid PocketBase auth to /login and static/robots.txt has Disallow: /beheer/, so not a search target"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/heading-level-skip::src/routes/(openbaar)/augustjes/+page.svelte:63::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:23), then (in the resolved state) Academiejaarselector (no heading) and <h3>Vers van de pers. (:63) -> h1 to h3; Alert.Title role=heading level 5 appears only in the pending/catch arms"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/heading-level-skip::src/routes/(openbaar)/homeraad/verslagen/+page.svelte:62::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:22), then Academiejaarselector (no heading; academiejaren is awaited in load) and <h3>Vers van de pers. (:62) -> h1 to h3"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/heading-level-skip::src/routes/(openbaar)/homeraad/werking/+page.svelte:19::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:14) directly followed by <h3>Homeraad? (:19) -> h1 to h3"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/heading-level-skip::src/routes/(openbaar)/info/geschiedenis/+page.svelte:18::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1>Geschiedenis (:12) directly followed by <h3>Onze Home (:18) -> h1 to h3"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/indexability::src/routes/(openbaar)/stem/+page@.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(openbaar)/stem/+page@.svelte:18 unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\"> on the council voting page; noindex as claimed, intentional"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/indexability::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: src/routes/(openbaar)/stem/[uuid]/+page.svelte:18 unconditional literal <meta name=\"robots\" content=\"noindex,nofollow\"> on the council voting page; noindex as claimed, intentional"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld-validity::src/routes/(openbaar)/+page.svelte::JSON-LD is not valid JSON",
+    "verdict": "tp",
+    "basis": "read: (openbaar)/+page.svelte:33-35 <script type=\"application/ld+json\">{JSON.stringify(homepageStructuredData)}</script>; Svelte emits a script body verbatim, so the shipped JSON-LD is the literal text {JSON.stringify(...)}, not valid JSON, as claimed"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/activiteiten/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /activiteiten has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/augustjes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /augustjes has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/homeraad/clublied/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /homeraad/clublied has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/homeraad/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /homeraad/contact has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/homeraad/leden/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /homeraad/leden has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/homeraad/sponsors/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /homeraad/sponsors has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/homeraad/verslagen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /homeraad/verslagen has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /homeraad/vertrouwenscontacten has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/homeraad/werking/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /homeraad/werking has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/info/faq/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /info/faq has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/info/geschiedenis/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /info/geschiedenis has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/stem/+page@.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /stem has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /stem/[uuid] has none"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/beheer/activiteiten/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /beheer/activiteiten has none (admin route; JSON-LD claim holds per convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/beheer/augustjes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /beheer/augustjes has none (admin route; JSON-LD claim holds per convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/beheer/fakkels_bakken/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /beheer/fakkels_bakken has none (admin route; JSON-LD claim holds per convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/beheer/verkiezingen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /beheer/verkiezingen has none (admin route; JSON-LD claim holds per convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/beheer/verkiezingen/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /beheer/verkiezingen/[id] has none (admin route; JSON-LD claim holds per convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/beheer/verkiezingen/[id]/stemmingen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /beheer/verkiezingen/[id]/stemmingen has none (admin route; JSON-LD claim holds per convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/beheer/verslagen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /beheer/verslagen has none (admin route; JSON-LD claim holds per convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/json-ld::src/routes/beheer/vriendschapsnetwerk/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): the only JSON-LD is (openbaar)/+page.svelte on /; /beheer/vriendschapsnetwerk has none (admin route; JSON-LD claim holds per convention)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/activiteiten/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/augustjes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/homeraad/clublied/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/homeraad/contact/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/homeraad/leden/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/homeraad/sponsors/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 120 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/homeraad/verslagen/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/homeraad/werking/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/info/faq/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/info/geschiedenis/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/stem/+page@.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 38 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/beheer/activiteiten/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 160 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/beheer/augustjes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/beheer/fakkels_bakken/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 116 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/beheer/verkiezingen/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 129 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/beheer/verkiezingen/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 148 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/beheer/verkiezingen/[id]/stemmingen/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 125 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/beheer/verslagen/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-description::src/routes/beheer/vriendschapsnetwerk/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/activiteiten/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/augustjes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/homeraad/clublied/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/homeraad/contact/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/homeraad/leden/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/homeraad/sponsors/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 120 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/homeraad/verslagen/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/homeraad/werking/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/info/faq/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/info/geschiedenis/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/stem/+page@.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 38 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/beheer/activiteiten/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 160 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/beheer/augustjes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/beheer/fakkels_bakken/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 116 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/beheer/verkiezingen/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 129 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/beheer/verkiezingen/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 148 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/beheer/verkiezingen/[id]/stemmingen/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 125 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/beheer/verslagen/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-image::src/routes/beheer/vriendschapsnetwerk/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/activiteiten/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/augustjes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/homeraad/clublied/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/homeraad/contact/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/homeraad/leden/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/homeraad/sponsors/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 120 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/homeraad/verslagen/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/homeraad/werking/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/info/faq/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/info/geschiedenis/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/stem/+page@.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 38 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/beheer/activiteiten/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 160 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/beheer/augustjes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/beheer/fakkels_bakken/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 116 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/beheer/verkiezingen/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 129 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/beheer/verkiezingen/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 148 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/beheer/verkiezingen/[id]/stemmingen/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 125 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/beheer/verslagen/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-title::src/routes/beheer/vriendschapsnetwerk/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/activiteiten/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/augustjes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/homeraad/clublied/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/homeraad/contact/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/homeraad/leden/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/homeraad/sponsors/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 120 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/homeraad/verslagen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/homeraad/werking/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/info/faq/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/info/geschiedenis/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/stem/+page@.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 38 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/beheer/activiteiten/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 160 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/beheer/augustjes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/beheer/fakkels_bakken/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 116 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/beheer/verkiezingen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 129 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/beheer/verkiezingen/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 148 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/beheer/verkiezingen/[id]/stemmingen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 125 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/beheer/verslagen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/og-url::src/routes/beheer/vriendschapsnetwerk/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::/beheer/activiteiten::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: beheer/+layout.svelte renders BeheerSidebar, a Breadcrumb header and {@render children()}, no heading; the page (src/routes/beheer/activiteiten/+page.svelte) and its DataTable/modals/AlertDialog render no <h1> (grep: the only h1s outside (openbaar) are in beheer/verkiezingen/[id]); root layout renders none -> no <h1> (route is login-gated by hooks.server.ts but renders for members)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::/beheer/augustjes::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: beheer/+layout.svelte renders BeheerSidebar, a Breadcrumb header and {@render children()}, no heading; the page (src/routes/beheer/augustjes/+page.svelte) and its DataTable/modals/AlertDialog render no <h1> (grep: the only h1s outside (openbaar) are in beheer/verkiezingen/[id]); root layout renders none -> no <h1> (route is login-gated by hooks.server.ts but renders for members)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::/beheer/fakkels_bakken::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: beheer/+layout.svelte renders BeheerSidebar, a Breadcrumb header and {@render children()}, no heading; the page (src/routes/beheer/fakkels_bakken/+page.svelte) and its DataTable/modals/AlertDialog render no <h1> (grep: the only h1s outside (openbaar) are in beheer/verkiezingen/[id]); root layout renders none -> no <h1> (route is login-gated by hooks.server.ts but renders for members)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::/beheer/verkiezingen/[id]/stemmingen::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: beheer/+layout.svelte renders BeheerSidebar, a Breadcrumb header and {@render children()}, no heading; the page (src/routes/beheer/verkiezingen/[id]/stemmingen/+page.svelte) and its DataTable/modals/AlertDialog render no <h1> (grep: the only h1s outside (openbaar) are in beheer/verkiezingen/[id]); root layout renders none -> no <h1> (route is login-gated by hooks.server.ts but renders for members)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::/beheer/verkiezingen::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: beheer/+layout.svelte renders BeheerSidebar, a Breadcrumb header and {@render children()}, no heading; the page (src/routes/beheer/verkiezingen/+page.svelte) and its DataTable/modals/AlertDialog render no <h1> (grep: the only h1s outside (openbaar) are in beheer/verkiezingen/[id]); root layout renders none -> no <h1> (route is login-gated by hooks.server.ts but renders for members)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::/beheer/verslagen::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: beheer/+layout.svelte renders BeheerSidebar, a Breadcrumb header and {@render children()}, no heading; the page (src/routes/beheer/verslagen/+page.svelte) and its DataTable/modals/AlertDialog render no <h1> (grep: the only h1s outside (openbaar) are in beheer/verkiezingen/[id]); root layout renders none -> no <h1> (route is login-gated by hooks.server.ts but renders for members)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::/beheer/vriendschapsnetwerk::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: beheer/+layout.svelte renders BeheerSidebar, a Breadcrumb header and {@render children()}, no heading; the page (src/routes/beheer/vriendschapsnetwerk/+page.svelte) and its DataTable/modals/AlertDialog render no <h1> (grep: the only h1s outside (openbaar) are in beheer/verkiezingen/[id]); root layout renders none -> no <h1> (route is login-gated by hooks.server.ts but renders for members)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::src/routes/(openbaar)/+page.svelte:70::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: (openbaar)/+page.svelte renders five unconditional <h1>s (:49 hero, :70, :106, :165, :189) -> multiple <h1>, the claim holds"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::src/routes/(openbaar)/activiteiten/+page.svelte:59::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: <h1> (:25) and a second <h1> (:59) for past activities in the {:then} arm, both render once activities load -> 2 <h1>s"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::src/routes/(openbaar)/augustjes/+page.svelte:76::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the page's single <h1>Augustjes (:23) renders always; the second counted is <h1>error</h1> (:76) in the {:catch} arm of {#await data.augustjes}, rendered only when the fetch fails — reported per the docs' max-arm counting, not a defect of the normal page"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/single-h1::src/routes/(openbaar)/homeraad/verslagen/+page.svelte:75::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the page's single <h1>Verslagen (:22) renders always; the second counted is <h1>error</h1> (:75) in the {:catch} arm of {#await data.verslagen}, rendered only when the fetch fails — reported per the docs' max-arm counting, not a defect of the normal page"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Thuispagina\" at src/routes/(openbaar)/+page.svelte:29, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 11 as reported); src/routes/(openbaar)/+page.svelte unconditional svelte:head literal <title> of 11 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/activiteiten/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Activiteiten\" at src/routes/(openbaar)/activiteiten/+page.svelte:16, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 12 as reported); src/routes/(openbaar)/activiteiten/+page.svelte unconditional svelte:head literal <title> of 12 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/augustjes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Augustjes\" at src/routes/(openbaar)/augustjes/+page.svelte:13, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 9 as reported); src/routes/(openbaar)/augustjes/+page.svelte unconditional svelte:head literal <title> of 9 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/homeraad/clublied/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Homeraad - Clublied\" at src/routes/(openbaar)/homeraad/clublied/+page.svelte:75, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/(openbaar)/homeraad/clublied/+page.svelte unconditional svelte:head literal <title> of 19 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/homeraad/contact/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Homeraad - Contact\" at src/routes/(openbaar)/homeraad/contact/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/(openbaar)/homeraad/contact/+page.svelte unconditional svelte:head literal <title> of 18 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/homeraad/leden/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Homeraad - Homeraadsleden\" at src/routes/(openbaar)/homeraad/leden/+page.svelte:17, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 25 as reported); src/routes/(openbaar)/homeraad/leden/+page.svelte unconditional svelte:head literal <title> of 25 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/homeraad/sponsors/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Homeraad - Sponsors\" at src/routes/(openbaar)/homeraad/sponsors/+page.svelte:6, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/(openbaar)/homeraad/sponsors/+page.svelte unconditional svelte:head literal <title> of 19 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/homeraad/verslagen/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Homeraad - Verslagen\" at src/routes/(openbaar)/homeraad/verslagen/+page.svelte:12, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 20 as reported); src/routes/(openbaar)/homeraad/verslagen/+page.svelte unconditional svelte:head literal <title> of 20 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/homeraad/werking/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Homeraad - Werking\" at src/routes/(openbaar)/homeraad/werking/+page.svelte:7, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 18 as reported); src/routes/(openbaar)/homeraad/werking/+page.svelte unconditional svelte:head literal <title> of 18 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/info/faq/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Veelgestelde vragen\" at src/routes/(openbaar)/info/faq/+page.svelte:8, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 19 as reported); src/routes/(openbaar)/info/faq/+page.svelte unconditional svelte:head literal <title> of 19 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/(openbaar)/info/geschiedenis/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.js: literal \"Geschiedenis\" at src/routes/(openbaar)/info/geschiedenis/+page.svelte:2, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 12 as reported); src/routes/(openbaar)/info/geschiedenis/+page.svelte unconditional svelte:head literal <title> of 12 chars, the route's only title ((openbaar) and root layouts and app.html set none); under 30 as claimed, public page of homevermeylen.org (in static/sitemap.xml)"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-length::src/routes/beheer/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Beheer\" at src/routes/beheer/+layout.svelte:42, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 6 as reported); beheer/+layout.svelte:41-44 literal <title>Beheer</title> and description \"De beheerspagina van de website van Home Vermeylen\" (50) are the only title/description of the 8 /beheer routes (title-length as claimed); but beheer is the council admin area: hooks.server.ts:22-24 redirects every request without a valid PocketBase auth to /login and static/robots.txt has Disallow: /beheer/, so not a search target"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-presence::src/routes/(openbaar)/stem/+page@.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/(openbaar)/stem/+page@.svelte:16-19 svelte:head holds only description + robots noindex,nofollow, no <title>; +page@ resets to root +layout.svelte (head: prod umami script only); app.html none, no document.title; npm deps on jsDelivr (mode-watcher@0.4.1 theme-color/script only, bits-ui@1.3.19, lucide-svelte@0.456.0, svelte-sonner@0.3.28) emit no <title>; the voting page renders for council members (load redirects/403 only conditionally) untitled"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/title-presence::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/(openbaar)/stem/[uuid]/+page.svelte:16-19 svelte:head holds only description + robots noindex,nofollow, no <title>; (openbaar)/+layout.svelte has no svelte:head, root +layout.svelte head is a prod umami script only; app.html none, no document.title; npm deps on jsDelivr (mode-watcher@0.4.1 theme-color/script only, bits-ui@1.3.19, lucide-svelte@0.456.0, svelte-sonner@0.3.28) emit no <title>; the voting page renders for council members (load redirects/403 only conditionally) untitled"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/activiteiten/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/augustjes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/homeraad/clublied/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/homeraad/contact/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/homeraad/leden/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/homeraad/sponsors/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 120 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/homeraad/verslagen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/homeraad/vertrouwenscontacten/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/homeraad/werking/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/info/faq/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 117 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/info/geschiedenis/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 113 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/stem/+page@.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 38 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/(openbaar)/stem/[uuid]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 128 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/beheer/activiteiten/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 160 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/beheer/augustjes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/beheer/fakkels_bakken/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 116 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/beheer/verkiezingen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 129 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/beheer/verkiezingen/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 148 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/beheer/verkiezingen/[id]/stemmingen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 125 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/beheer/verslagen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 126 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  },
+  {
+    "key": "Home-Vermeylen/homevermeylen-svelte::seo/twitter-card::src/routes/beheer/vriendschapsnetwerk/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 127 files incl. transitively imported local/workspace files and app.html; no og:*/twitter:* anywhere in src or app.html; canonical only as literal tags in other (openbaar) route pages; no meta-tag library among npm deps (bits-ui/formsnap/mode-watcher/svelte-sonner/vaul-svelte emit none); hooks.server.ts has no transformPageChunk"
+  }
+]

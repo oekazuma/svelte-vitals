@@ -1,0 +1,1157 @@
+[
+  {
+    "key": "simonbrunou/diversif::a11y/disallowed-aria-props::src/lib/components/ui/Card.svelte:75::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/ui/Card.svelte:75: the {:else} (as='div', default) arm forwards aria-label={ariaLabel} aria-labelledby={ariaLabelledby} to a generic <div>, prohibited as reported; but every Card use that passes a name sets as=\"article\" (StatTiles.svelte:55/72, CarnetStats.svelte:72/81/87) and none passes aria-labelledby, so the div arm never renders the attribute; a reusable component's forwarded prop, not a live defect"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/disallowed-aria-props::src/lib/components/ui/Card.svelte:75::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/ui/Card.svelte:75: the {:else} (as='div', default) arm forwards aria-label={ariaLabel} aria-labelledby={ariaLabelledby} to a generic <div>, prohibited as reported; but every Card use that passes a name sets as=\"article\" (StatTiles.svelte:55/72, CarnetStats.svelte:72/81/87) and none passes aria-labelledby, so the div arm never renders the attribute; a reusable component's forwarded prop, not a live defect"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/ChildCardRow.svelte:22::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at ChildCardRow.svelte:22 has literal <span>@21 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/ChildCardRow.svelte:23::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at ChildCardRow.svelte:23 has literal <span>@21 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/RecentFeed.svelte:66::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at RecentFeed.svelte:66 has literal <span>@65 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/RecentFeed.svelte:81::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at RecentFeed.svelte:81 has literal <span>@65 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/RecentFeed.svelte:96::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at RecentFeed.svelte:96 has literal <span>@95 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/RecentFeed.svelte:99::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at RecentFeed.svelte:99 has literal <span>@95 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/StagesBentoGrid.svelte:30::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at StagesBentoGrid.svelte:30 has literal <button>@20 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/StagesBentoGrid.svelte:31::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at StagesBentoGrid.svelte:31 has literal <button>@20 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/SymptomRow.svelte:38::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at SymptomRow.svelte:38 has literal <span>@37 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/bento/SymptomRow.svelte:40::`<p>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at SymptomRow.svelte:40 has literal <span>@37 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/guide/GuideAllergensSection.svelte:51::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at GuideAllergensSection.svelte:51 has literal <button>@46 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/guide/GuideAllergensSection.svelte:57::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at GuideAllergensSection.svelte:57 has literal <button>@46 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/lib/components/guide/GuideStagesSection.svelte:20::`<div>` is not permitted content here — `<summary>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at GuideStagesSection.svelte:20 has literal <summary>@19 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/routes/allergens/+page.svelte:110::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at +page.svelte:110 has literal <button>@105 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::a11y/permitted-contents::src/routes/allergens/+page.svelte:116::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <p> at +page.svelte:116 has literal <button>@105 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <p> is not phrasing content"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/component-size::src/lib/components/FoodCombobox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FoodCombobox.svelte has 212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/component-size::src/routes/child/[id]/log/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/child/[id]/log/+page.svelte has 343 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/component-size::src/routes/child/[id]/log/[entryId]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/child/[id]/log/[entryId]/+page.svelte has 336 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/component-size::src/routes/child/[id]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/child/[id]/settings/+page.svelte has 271 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/FoodCombobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FoodCombobox.svelte has a single destructured $props() with 8 named props (> 6): foods, name, customName, initialFoodId, initialFoodIds, multiple, onCustomToggle, onSelectionChange"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/FoodComboboxMultiSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FoodComboboxMultiSelect.svelte has a single destructured $props() with 8 named props (> 6): name, selectedFoods, filtered, isCapped, query, onToggle, isSelected, customFoodSection"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/FoodComboboxSingleSelect.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FoodComboboxSingleSelect.svelte has a single destructured $props() with 8 named props (> 6): selected, name, filtered, isCapped, query, onPick, changeButtonEl, customFoodSection"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/Seo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Seo.svelte has a single destructured $props() with 9 named props (> 6): title, description, path, ogType, ogImage, noindex, publishedTime, modifiedTime, alternateLocales"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/TipCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/TipCard.svelte has a single destructured $props() with 8 named props (> 6): tone, eyebrow, title, body, icon, sources, class, children"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/bento/AujourdhuiBento.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/bento/AujourdhuiBento.svelte has a single destructured $props() with 7 named props (> 6): childId, recent, stats, streak, streakRecord, reminders, allergens"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/bento/CarnetBento.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/bento/CarnetBento.svelte has a single destructured $props() with 7 named props (> 6): childId, foods, foodCount, categoryCount, allergens, stats, currentSegment"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/bento/ReactionDetailBento.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/bento/ReactionDetailBento.svelte has a single destructured $props() with 10 named props (> 6): childId, entryId, food, nth, date, time, texture, symptoms, printHref, editHref"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 9 named props (> 6) beside a ...rest element: variant, size, class, href, type, disabled, loading, onclick, children"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/ui/Card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Card.svelte has a single destructured $props() with 8 named props (> 6): as, variant, padding, class, id, aria-label, aria-labelledby, children"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/ui/ConfirmModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/ConfirmModal.svelte has a single destructured $props() with 12 named props (> 6): open, title, description, action, confirmLabel, loadingLabel, destructive, requireText, requirePassword, passwordLabel, ..."
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/ui/DashedActionRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/DashedActionRow.svelte has a single destructured $props() with 7 named props (> 6): href, onclick, icon, iconSize, type, class, children"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/ui/DetailSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/DetailSheet.svelte has a single destructured $props() with 8 named props (> 6): open, title, intro, onOpenChange, onclose, class, children, footer"
+  },
+  {
+    "key": "simonbrunou/diversif::architecture/prop-count::src/lib/components/ui/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Modal.svelte has a single destructured $props() with 10 named props (> 6): open, onOpenChange, side, title, description, class, scrollableBody, children, footer, onclose"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/AllergenInfoDialog.svelte:51::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AllergenInfoDialog.svelte:51 '{#each guidance.howToOffer as item, i (i)}' keyed by its index binding; static list (guidance.howToOffer of the constant ALLERGEN_GUIDANCE content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/AllergenInfoDialog.svelte:59::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AllergenInfoDialog.svelte:59 '{#each guidance.firstSigns as item, i (i)}' keyed by its index binding; static list (guidance.firstSigns of the constant ALLERGEN_GUIDANCE content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/AllergenInfoDialog.svelte:68::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/AllergenInfoDialog.svelte:68 '{#each guidance.severeSigns as item, i (i)}' keyed by its index binding; static list (guidance.severeSigns of the constant ALLERGEN_GUIDANCE content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/bento/CarnetStats.svelte:107::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bento/CarnetStats.svelte:107 '{#each weeklyEntries as count, i (i)}' keyed by its index binding; positional list (weeklyEntries: one count per week of a bar chart): bars have no identity beyond position"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/bento/CarnetStats.svelte:120::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bento/CarnetStats.svelte:120 '{#each weeklyEntries as _, i (i)}' keyed by its index binding; positional list (weeklyEntries, item unused: one label per week of a bar chart): items have no identity beyond position"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/bento/StageDetailSheet.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bento/StageDetailSheet.svelte:28 '{#each stage.principles as p, i (i)}' keyed by its index binding; static list (stage.principles of the constant diversification-stage content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/bento/StageDetailSheet.svelte:36::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bento/StageDetailSheet.svelte:36 '{#each stage.focus as f, i (i)}' keyed by its index binding; static list (stage.focus of the constant diversification-stage content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/bento/StageDetailSheet.svelte:61::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/bento/StageDetailSheet.svelte:61 '{#each stage.redFlags as f, i (i)}' keyed by its index binding; static list (stage.redFlags of the constant diversification-stage content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/guide/GuideApproachesSection.svelte:23::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/guide/GuideApproachesSection.svelte:23 '{#each a.pros as p, i (i)}' keyed by its index binding; static list (a.pros of the constant guide content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/guide/GuideApproachesSection.svelte:31::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/guide/GuideApproachesSection.svelte:31 '{#each a.cons as p, i (i)}' keyed by its index binding; static list (a.cons of the constant guide content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/guide/GuideReactionsSection.svelte:25::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/guide/GuideReactionsSection.svelte:25 '{#each r.signs as s, i (i)}' keyed by its index binding; static list (r.signs of the constant guide content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/guide/GuideStagesSection.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/guide/GuideStagesSection.svelte:37 '{#each s.principles as p, i (i)}' keyed by its index binding; static list (s.principles of the constant guide content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/guide/GuideStagesSection.svelte:47::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/guide/GuideStagesSection.svelte:47 '{#each s.focus as p, i (i)}' keyed by its index binding; static list (s.focus of the constant guide content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/guide/GuideStagesSection.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/guide/GuideStagesSection.svelte:75 '{#each s.redFlags as f, i (i)}' keyed by its index binding; static list (s.redFlags of the constant guide content): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/landing/LandingFeaturesBento.svelte:37::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/landing/LandingFeaturesBento.svelte:37 '{#each features as f, i (i)}' keyed by its index binding; static list (features = $derived([...]) literal of translated feature cards): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/lib/components/menu/MenuDay.svelte:119::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/menu/MenuDay.svelte:119 '{#each menu.redFlags as flag, i (i)}' keyed by its index binding; static list (menu.redFlags = [...stage.redFlags] copied from the constant stage content, engine.ts:358): fixed authored content"
+  },
+  {
+    "key": "simonbrunou/diversif::correctness/each-index-key::src/routes/child/[id]/foods/[entryId]/print/+page.svelte:52::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/foods/[entryId]/print/+page.svelte:52 '{#each data.symptoms as s, i (i)}' keyed by its index binding; static list (data.symptoms of one food entry on a print-only page): never changes after load"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/account/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/account/+page.server.ts:15: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:138::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:138: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:155::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:155: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:173::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:173: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:183::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:183: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:184::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:184: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:185::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:185: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:186::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:186: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:192::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:192: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/+page.server.ts:237::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/+page.server.ts:237: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/foods/+page.server.ts:196::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/foods/+page.server.ts:196: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/foods/[entryId]/+page.server.ts:50::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/foods/[entryId]/+page.server.ts:50: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/foods/[entryId]/+page.server.ts:56::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/foods/[entryId]/+page.server.ts:56: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/foods/[entryId]/print/+page.server.ts:35::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/foods/[entryId]/print/+page.server.ts:35: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/log/+page.server.ts:73::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/log/+page.server.ts:73: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/log/+page.server.ts:78::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/log/+page.server.ts:78: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/log/[entryId]/+page.server.ts:61::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/log/[entryId]/+page.server.ts:61: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/menu/+page.server.ts:58::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/menu/+page.server.ts:58: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/settings/+page.server.ts:52::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/settings/+page.server.ts:52: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/settings/+page.server.ts:69::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/settings/+page.server.ts:69: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::performance/sequential-awaits::src/routes/child/[id]/suggestions/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/child/[id]/suggestions/+page.server.ts:23: flagged await is a Drizzle query (or a loader over one) independent of the earlier awaits, but diversif's db is drizzle-orm/bun-sqlite over a single synchronous bun:sqlite connection (lib/server/db/index.ts: `new Database(DATABASE_PATH)`, 'bun:sqlite is synchronous') — Promise.all cannot overlap anything (ledger local-file-DB design convention)"
+  },
+  {
+    "key": "simonbrunou/diversif::security/raw-html::src/lib/components/JsonLd.svelte:13::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/JsonLd.svelte:13: JsonLd.svelte:8 builds the block with JSON.stringify(data).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 61 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /account (private per-family state) and hooks.server.ts:191-192 sets X-Robots-Tag noindex on /account*), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/account/delete/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /account (private per-family state) and hooks.server.ts:191-192 sets X-Robots-Tag noindex on /account*), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/account/locale/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /account (private per-family state) and hooks.server.ts:191-192 sets X-Robots-Tag noindex on /account*), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/account/passkeys/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /account (private per-family state) and hooks.server.ts:191-192 sets X-Robots-Tag noindex on /account*), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/account/password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /account (private per-family state) and hooks.server.ts:191-192 sets X-Robots-Tag noindex on /account*), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/account/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 39 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /account (private per-family state) and hooks.server.ts:191-192 sets X-Robots-Tag noindex on /account*), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/account/sessions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /account (private per-family state) and hooks.server.ts:191-192 sets X-Robots-Tag noindex on /account*), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/account/theme/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /account (private per-family state) and hooks.server.ts:191-192 sets X-Robots-Tag noindex on /account*), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 65 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/foods/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/foods/[entryId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 52 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/foods/[entryId]/print/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (literal noindex robots meta: page renders <PrintShell> (print/+page.svelte:18), PrintShell.svelte:26 <meta name=\"robots\" content=\"noindex\">; also robots.txt/+server.ts:17 Disallow: /child/), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/guide/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/log/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/log/[entryId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 56 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/menu/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/report/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/child/[id]/suggestions/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /child/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/join/[code]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only) but not a search target (robots.txt/+server.ts:16-18 Disallow: /join/ (private per-family state)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/canonical-url::src/routes/offline/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only; publicly reachable, rendered route, no noindex (prerendered offline fallback, not Disallowed in robots.txt/+server.ts)"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); requireUser-gated account page, X-Robots-Tag noindex for /account in hooks.server.ts:192, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/account/delete/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/delete/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); requireUser-gated account page, X-Robots-Tag noindex for /account in hooks.server.ts:192, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/account/locale/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/locale/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); requireUser-gated account page, X-Robots-Tag noindex for /account in hooks.server.ts:192, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/account/passkeys/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/passkeys/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); requireUser-gated account page, X-Robots-Tag noindex for /account in hooks.server.ts:192, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/account/password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/password/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); requireUser-gated account page, X-Robots-Tag noindex for /account in hooks.server.ts:192, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/account/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/profile/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); requireUser-gated account page, X-Robots-Tag noindex for /account in hooks.server.ts:192, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/account/sessions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/sessions/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); requireUser-gated account page, X-Robots-Tag noindex for /account in hooks.server.ts:192, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/account/theme/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/account/theme/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); requireUser-gated account page, X-Robots-Tag noindex for /account in hooks.server.ts:192, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/foods/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/foods/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/foods/[entryId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/foods/[entryId]/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/foods/[entryId]/print/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/foods/[entryId]/print/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/guide/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/guide/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/log/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/log/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/log/[entryId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/log/[entryId]/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/menu/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/menu/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/report/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/report/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/settings/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/child/[id]/suggestions/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/child/[id]/suggestions/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); per-child tracker view behind child/[id]/+layout.server.ts requireChildContext (session required), not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/join/[code]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/join/[code]/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); code-addressed invitation page, not a search target"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/description-presence::src/routes/offline/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: src/routes/offline/+page.svelte does not render $lib/components/Seo.svelte (the only description source, used by the public pages) and root +layout.svelte head has no description, app.html none (literal claim holds); PWA offline fallback screen, not a page for search"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:31 literal <title> is the only title of the 19 /account/* and /child/[id]/* routes that set none, duplicate as claimed; all require a session (requireUser / requireChildContext) and hooks.server.ts sets X-Robots-Tag noindex for /account and signed-in responses, so no search competition"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/indexability::src/routes/child/[id]/foods/[entryId]/print/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: page renders $lib/components/PrintShell.svelte whose unconditional svelte:head (:23-26) has literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/indexability::src/routes/child/[id]/report/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: page renders $lib/components/PrintShell.svelte whose unconditional svelte:head (:23-26) has literal <meta name=\"robots\" content=\"noindex\">; noindex as claimed"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 61 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/account/delete/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/account/locale/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/account/passkeys/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/account/password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/account/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 39 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/account/sessions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/account/theme/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 65 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/foods/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/foods/[entryId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 52 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/foods/[entryId]/print/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/guide/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/log/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/log/[entryId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 56 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/menu/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/report/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/child/[id]/suggestions/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/join/[code]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-description::src/routes/offline/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 61 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/account/delete/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/account/locale/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/account/passkeys/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/account/password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/account/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 39 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/account/sessions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/account/theme/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 65 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/foods/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/foods/[entryId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 52 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/foods/[entryId]/print/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/guide/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/log/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/log/[entryId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 56 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/menu/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/report/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/child/[id]/suggestions/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/join/[code]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-image::src/routes/offline/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 61 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/account/delete/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/account/locale/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/account/passkeys/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/account/password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/account/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 39 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/account/sessions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/account/theme/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 65 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/foods/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/foods/[entryId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 52 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/foods/[entryId]/print/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/guide/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/log/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/log/[entryId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 56 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/menu/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/report/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/child/[id]/suggestions/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/join/[code]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-title::src/routes/offline/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 61 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/account/delete/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/account/locale/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/account/passkeys/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/account/password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/account/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 39 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/account/sessions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/account/theme/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 65 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/foods/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/foods/[entryId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 52 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/foods/[entryId]/print/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/guide/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/log/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/log/[entryId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 56 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/menu/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/report/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/child/[id]/suggestions/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/join/[code]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/og-url::src/routes/offline/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/single-h1::src/lib/components/AppShellBento.svelte:158::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "mixed 11 fp / 3 tp, labelled by the majority and the first-look route /account/deleted: root +layout.svelte:251 renders AppShellBento only {#if isChildRoute || isAccountRoute} (path starts with /child/ or /account), and AppShellBento's sr-only <h1> renders only {#if currentPath === '/account'} (:157) {:else if currentChild} (:159, currentChildId = params.id, +layout.server.ts:34). On /account/deleted (not exactly /account, no child id), the nine public pages (/aide, /cgu, /sources…; isPublicShell arm) and /join/[code] ({:else} arm) no AppShell <h1> renders, so each has only its page <h1> (e.g. account/deleted/+page.svelte:10); only /child/[id]/foods/[entryId], …/print and /child/[id]/report really pair the sr-only <h1>{currentChild.name} with a page <h1>. The analyzer put every page in the AppShellBento arm"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/single-h1::src/lib/components/bento/BentoAuthLayout.svelte:17::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "/login and /signup take the root layout's {:else} arm (not /child or /account, excluded from isPublicShell, +layout.svelte:33-40,266-269), so AppShellBento never renders and BentoAuthLayout's <h1> (BentoAuthLayout.svelte:17) is the only <h1>; the counted second is AppShellBento's sr-only <h1> from the arm these routes never take"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/single-h1::src/lib/components/bento/CarnetHeader.svelte:17::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "/child/[id]/foods takes the AppShellBento arm with a child id, so AppShellBento's sr-only <h1>{currentChild.name} (:159-160) renders together with CarnetHeader's unconditional <h1>{m.carnetTitle()} (CarnetHeader.svelte:17) — two <h1>s"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/single-h1::src/lib/components/bento/OnboardingForm.svelte:47::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "/child/new does take the AppShellBento arm, but it has no id param, so currentChildId is null (parseChildIdParamOrNull, +layout.server.ts:28-34) and neither arm of AppShellBento's {#if currentPath === '/account'}/{:else if currentChild} (:157-160) renders an <h1>; OnboardingForm's <h1> (:47) is the only one"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/single-h1::src/lib/components/landing/LandingHeroBento.svelte:13::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "/ never takes the AppShellBento arm (root +layout.svelte:251, path is not /child or /account), and the page renders LandingHeroBento's <h1> only {#if data.kind === 'landing'} (+page.svelte:59-67) and its own <h1> (:90) only in the {:else} arm (:88) — one <h1> either way; the analyzer added AppShellBento's sr-only <h1> from a layout arm never taken here"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/single-h1::src/lib/components/ui/BackHeader.svelte:56::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "mixed 7 fp / 5 tp, labelled by the majority and the first-look route /account/delete: root +layout.svelte:251 renders AppShellBento only {#if isChildRoute || isAccountRoute} (path starts with /child/ or /account), and AppShellBento's sr-only <h1> renders only {#if currentPath === '/account'} (:157) {:else if currentChild} (:159, currentChildId = params.id, +layout.server.ts:34). On the seven /account/* subpages currentPath is not '/account' and there is no child id, so only BackHeader's <h1>{title} (BackHeader.svelte:56) renders; the five /child/[id]/log|menu|settings|suggestions pages do pair it with AppShellBento's sr-only <h1>"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 61 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/account/delete/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/account/locale/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/account/passkeys/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/account/password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/account/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 39 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/account/sessions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/account/theme/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 65 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/foods/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 46 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/foods/[entryId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 52 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/foods/[entryId]/print/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/guide/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/log/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/log/[entryId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 56 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/menu/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/report/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 47 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 41 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/child/[id]/suggestions/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 43 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/join/[code]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  },
+  {
+    "key": "simonbrunou/diversif::seo/twitter-card::src/routes/offline/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html; the only emitter, lib/components/Seo.svelte:27-65 (canonical/og:*/twitter:card), is rendered by public pages (/, signup, login, legal, guide...) but not on this route; root +layout.svelte:233-243 head is PWA/app metas only"
+  }
+]

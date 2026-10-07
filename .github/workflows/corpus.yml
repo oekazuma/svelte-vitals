@@ -5,7 +5,7 @@ name: Corpus
 #
 # Reports what a change adds or removes on real code, like a coverage comment. The `gate` job fails
 # when a finding with a `tp` verdict disappears, one with an `fp` verdict comes back, or
-# measurement.json is stale; editing the verdict in scripts/corpus/verdicts.json is the explicit way
+# measurement.json is stale; editing the verdict in scripts/corpus/verdicts/ is the explicit way
 # through. Whether `gate` blocks merging is the ruleset's call, not this file's.
 on:
   pull_request:
@@ -110,7 +110,7 @@ jobs:
         id: report
         run: |
           status=0
-          node scripts/corpus-measure.js diff "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" --measurement scripts/corpus/measurement.json --base-verdicts .corpus-base/scripts/corpus/verdicts.json > "$RUNNER_TEMP/report.md" || status=$?
+          node scripts/corpus-measure.js diff "$RUNNER_TEMP/base.json" "$RUNNER_TEMP/head.json" --measurement scripts/corpus/measurement.json --base-verdicts .corpus-base/scripts/corpus/verdicts > "$RUNNER_TEMP/report.md" || status=$?
           # 3 is the gate failing; anything else non-zero is the script itself failing.
           if [ "$status" -ne 0 ] && [ "$status" -ne 3 ]; then exit "$status"; fi
           echo "failed=$([ "$status" -eq 3 ] && echo true || echo false)" >> "$GITHUB_OUTPUT"

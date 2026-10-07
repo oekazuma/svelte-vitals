@@ -1,0 +1,1212 @@
+[
+  {
+    "key": "glennsyang/synapse::a11y/disallowed-aria-props::src/lib/components/tasks/TaskKanbanView.svelte:349::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "fp",
+    "basis": "read TaskKanbanView.svelte:349: the <div aria-label={task.title}> is a direct {#each} child of the <div use:dndzone> (:343/:463, svelte-dnd-action 0.9.79 per package-lock); the action sets role=\"listitem\" on every zone child (src/keyboardAction.js:397, autoAriaDisabled defaults false, not set in getDndZoneOptions :130) and reads the item's aria-label for announcements (:344); listitem takes a name, so the prohibition does not hold; dndzone (src/action.js:31-40) always runs keyboardDndZone next to the pointer zone; the analyzer treats only a use: on the element itself as unknowable (same class as the ledger fp for svelte-dnd-action use:dragHandle setting role=button)"
+  },
+  {
+    "key": "glennsyang/synapse::a11y/disallowed-aria-props::src/lib/components/tasks/TaskKanbanView.svelte:469::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "fp",
+    "basis": "read TaskKanbanView.svelte:469: the <div aria-label={task.title}> is a direct {#each} child of the <div use:dndzone> (:343/:463, svelte-dnd-action 0.9.79 per package-lock); the action sets role=\"listitem\" on every zone child (src/keyboardAction.js:397, autoAriaDisabled defaults false, not set in getDndZoneOptions :130) and reads the item's aria-label for announcements (:344); listitem takes a name, so the prohibition does not hold; dndzone (src/action.js:31-40) always runs keyboardDndZone next to the pointer zone; the analyzer treats only a use: on the element itself as unknowable (same class as the ledger fp for svelte-dnd-action use:dragHandle setting role=button)"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/fitness/dashboard/ActivityHistorySheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/fitness/dashboard/ActivityHistorySheet.svelte has 370 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/fitness/dashboard/FitnessMomentumPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/fitness/dashboard/FitnessMomentumPanel.svelte has 236 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/fitness/dashboard/RecentActivityPreview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/fitness/dashboard/RecentActivityPreview.svelte has 302 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/fitness/dialogs/LogMealDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/fitness/dialogs/LogMealDialog.svelte has 202 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/fitness/dialogs/LogWorkoutDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/fitness/dialogs/LogWorkoutDialog.svelte has 281 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/journal/JournalEntryEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/journal/JournalEntryEditor.svelte has 480 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/journal/JournalEntryForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/journal/JournalEntryForm.svelte has 241 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/tasks/DailyAgendaView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tasks/DailyAgendaView.svelte has 988 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/lib/components/tasks/TaskKanbanView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tasks/TaskKanbanView.svelte has 522 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/+page.svelte has 299 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/dashboard/+page.svelte has 462 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/fitness/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/fitness/+page.svelte has 479 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/journal/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/journal/+page.svelte has 261 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/meditation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/meditation/+page.svelte has 528 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/meditation/routines/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/meditation/routines/[id]/+page.svelte has 761 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/profile/+page.svelte has 781 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/tasks/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/tasks/+page.svelte has 311 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/tasks/[id]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/tasks/[id]/edit/+page.svelte has 219 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/visits/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/visits/+page.svelte has 279 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/component-size::src/routes/(app)/visits/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/visits/[id]/+page.svelte has 634 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/fitness/dashboard/ActivityHistorySheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/fitness/dashboard/ActivityHistorySheet.svelte has a single destructured $props() with 10 named props (> 6): open, workouts, weightEntries, meals, onEditWorkout, onDeleteWorkout, onEditWeight, onDeleteWeight, onEditMeal, onDeleteMeal"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/fitness/dashboard/RecentActivityPreview.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/fitness/dashboard/RecentActivityPreview.svelte has a single destructured $props() with 10 named props (> 6): workouts, weightEntries, meals, onEditWorkout, onDeleteWorkout, onEditWeight, onDeleteWeight, onEditMeal, onDeleteMeal, onViewAll"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/shared/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/ConfirmDialog.svelte has a single destructured $props() with 7 named props (> 6): open, title, message, id, confirmButtonText, actionUrl, hiddenFields"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/tasks/DailyAgendaRadial.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/tasks/DailyAgendaRadial.svelte has a single destructured $props() with 7 named props (> 6): completionPercentage, completedCount, totalCount, rollingAverage, previousAverage, trendDelta, hasComparisonData"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) (plus a ...rest element, not counted, per docs): class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) (plus a ...rest element, not counted, per docs): ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) (plus a ...rest element, not counted, per docs): ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6) (plus a ...rest element, not counted, per docs): ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6) (plus a ...rest element, not counted, per docs): open, ref, value, title, description, showCloseButton, portalProps, children, class"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) (plus a ...rest element, not counted, per docs): ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) (plus a ...rest element, not counted, per docs): ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "glennsyang/synapse::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) (plus a ...rest element, not counted, per docs): ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "glennsyang/synapse::correctness/each-index-key::src/lib/components/dashboard/AgendaItemScorecard.svelte:69::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/dashboard/AgendaItemScorecard.svelte:69 '{#each item.dowCompletionPct as pct, i (i)}' keyed by its index binding; positional list (item.dowCompletionPct: Mon..Sun completion values (AgendaItemScorecard.svelte:6)): weekday slots"
+  },
+  {
+    "key": "glennsyang/synapse::correctness/each-index-key::src/lib/components/fitness/ExerciseInput.svelte:34::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/fitness/ExerciseInput.svelte:34 '{#each exercises as exercise, index (index)}' keyed by its index binding; runtime list (exercises $bindable prop appended at :11, filtered at :15): user adds/removes rows"
+  },
+  {
+    "key": "glennsyang/synapse::correctness/each-index-key::src/lib/components/mood/MoodCalendarHeatmap.svelte:103::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/mood/MoodCalendarHeatmap.svelte:103 '{#each calendarGrid as week, weekIndex (weekIndex)}' keyed by its index binding; positional list (calendarGrid $derived.by week columns of the current month (MoodCalendarHeatmap.svelte:24)): calendar weeks"
+  },
+  {
+    "key": "glennsyang/synapse::correctness/each-index-key::src/lib/components/mood/MoodCalendarHeatmap.svelte:105::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/mood/MoodCalendarHeatmap.svelte:105 '{#each week as cell, dayIndex (dayIndex)}' keyed by its index binding; positional list (week: day cells of one calendar week (outer each at :103)): calendar days"
+  },
+  {
+    "key": "glennsyang/synapse::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; runtime list (errors prop of shadcn field-error (field-error.svelte:6)): runtime validation errors (ledger field-error convention)"
+  },
+  {
+    "key": "glennsyang/synapse::correctness/each-index-key::src/routes/(app)/dashboard/+page.svelte:193::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/dashboard/+page.svelte:193 '{#each weekDays as d, i (i)}' keyed by its index binding; positional list (weekDays $derived of a fixed Mon..Sun literal .map (dashboard/+page.svelte:127)): calendar weekdays"
+  },
+  {
+    "key": "glennsyang/synapse::correctness/effect-as-derived::src/lib/components/app/RunningHead.svelte:29::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/lib/components/app/RunningHead.svelte:29 today = new Date().toLocaleDateString(...) reads nothing reactive; the comment (27) says it is deliberately client-only because the server timezone is not the reader's; a $derived would render the server date and flip on hydration, the same SSR-divergent class as the ledger's browser-global-capture design entries"
+  },
+  {
+    "key": "glennsyang/synapse::correctness/unmutated-state::src/routes/(auth)/forgot-password/+page.svelte:26::$state \"submitted\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file) + read: src/routes/(auth)/forgot-password/+page.svelte:26 submitted; its only other mention ({#if submitted}, 31) is a read; no reassignment, member write, mutating call, bind:, call argument or directive, so it is never written as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/admin/+page.server.ts:65::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/admin/+page.server.ts:65: flagged `const [users, archivedPeople, apiKeyRecords, auditEntries] = await Pro` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:100::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:100: flagged `const reminders = await db.query.workoutReminders.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:56::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:56: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:57::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:57: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:58::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:58: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:59::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:59: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:60::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:60: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:67::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:67: flagged `const weights = await db.query.weightEntries.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:73::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:73: flagged `const goalWeight = await db.query.goalWeights.findFirst({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:78::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:78: flagged `const workouts = await db.query.workoutLogs.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:88::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:88: flagged `const meals = await db.query.mealLogs.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/fitness/+page.server.ts:95::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/fitness/+page.server.ts:95: flagged `const calorieTarget = await db.query.dailyCalorieTargets.findFirst({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/meditation/+page.server.ts:100::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/meditation/+page.server.ts:100: flagged `const sessions = await db.query.meditationSessions.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/meditation/+page.server.ts:109::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/meditation/+page.server.ts:109: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/meditation/+page.server.ts:86::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/meditation/+page.server.ts:86: flagged `const schedules = await db.query.meditationSchedules.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/meditation/routines/[id]/+page.server.ts:53::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/meditation/routines/[id]/+page.server.ts:53: flagged `const schedule = await db.query.meditationSchedules.findFirst({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/meditation/routines/[id]/+page.server.ts:61::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/meditation/routines/[id]/+page.server.ts:61: flagged `const sessions = await db.query.meditationSessions.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/meditation/routines/[id]/+page.server.ts:95::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/meditation/routines/[id]/+page.server.ts:95: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/meditation/routines/[id]/+page.server.ts:97::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/meditation/routines/[id]/+page.server.ts:97: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/profile/+page.server.ts:49::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/profile/+page.server.ts:49: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/tasks/+page.server.ts:505::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/tasks/+page.server.ts:505: flagged `const [tasksWithParsedFields, allTags, moodEntries, calendarEntries] =` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/visits/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/visits/+page.server.ts:26: flagged `const userPeople = await db.query.people.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/visits/[id]/+page.server.ts:46::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/visits/[id]/+page.server.ts:46: flagged `const personVisits = await db.query.visits.findMany({` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/visits/[id]/+page.server.ts:55::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/visits/[id]/+page.server.ts:55: flagged `const visitStatusThresholds = await getVisitStatusThresholdsForUser(us` is a db query/helper over getDb() — independent of earlier awaits, but synapse's db is drizzle-orm over better-sqlite3 (lib/server/db/index.ts:14-26, package.json better-sqlite3), whose queries run synchronously in-process — Promise.all cannot overlap them, nothing is serialized that could run concurrently (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "glennsyang/synapse::performance/sequential-awaits::src/routes/(app)/visits/[id]/+page.server.ts:73::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/visits/[id]/+page.server.ts:73: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "glennsyang/synapse::security/raw-html::src/lib/components/journal/JournalEntryCard.svelte:102::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/journal/JournalEntryCard.svelte:102 + lib/utils/markdown.ts:3-8,24-30: previewHtml = markdown-it with html:false (raw HTML escaped, links validated) — escaped, reported per docs"
+  },
+  {
+    "key": "glennsyang/synapse::security/raw-html::src/lib/components/journal/JournalEntryEditor.svelte:469::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read lib/components/journal/JournalEntryEditor.svelte:469 + lib/utils/markdown.ts:3-8,24-30: previewHtml = markdown-it with html:false (raw HTML escaped, links validated) — escaped, reported per docs"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 93 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/fitness/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 125 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/journal/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/journal/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/journal/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/meditation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 87 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/meditation/routines/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 64 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/meditation/routines/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 33 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/tasks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 141 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/tasks/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 58 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/tasks/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/visits/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 26 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/visits/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 52 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(app)/visits/people/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps) but not a search target (auth-gated: (app)/+layout.server.ts:8-9 redirects guests to sign-in), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(auth)/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(auth)/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(auth)/sign-in/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(auth)/sign-out/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(auth)/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "glennsyang/synapse::seo/canonical-url::src/routes/(splash)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "glennsyang/synapse::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "key covers 22 routes (CLI on the clone): app.html:10 unconditional literal <meta name=\"description\" content=\"Synapse - Your Personal Second Brain\"> (36) is the only description of every route (no route sets one); under 70 as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "key covers 22 routes (CLI on the clone), labelled by majority: app.html:10 literal description is the only one of all 22 routes, duplicate as claimed; 16 are (app) routes auth-gated by (app)/+layout.server.ts:8-10 redirects every session-less request to /sign-in (only /, /sign-in and the password/verify pages are public), so no search competition among most of them"
+  },
+  {
+    "key": "glennsyang/synapse::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "key covers 16 routes (CLI on the clone), labelled by majority: app.html:24 literal <title>Synapse</title> is the only title of /, /sign-out and 14 (app) routes, duplicate as claimed; the 14 (app) routes are auth-gated ((app)/+layout.server.ts:8-10 redirects every session-less request to /sign-in), so no search competition"
+  },
+  {
+    "key": "glennsyang/synapse::seo/heading-level-skip::src/routes/(app)/meditation/+page.svelte:341::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk: <h1 class=\"page-title\"> (:168), then the history tab's Card.Title (ui/card/card-title.svelte: a <div>) and the session <h3> (:341, {#each data.sessions}); the routines list has no headings -> <h1> to <h3>"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/fitness/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/journal/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/journal/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/journal/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/meditation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/meditation/routines/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/meditation/routines/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/tasks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/tasks/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/tasks/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/visits/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/visits/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(app)/visits/people/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(auth)/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(auth)/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(auth)/sign-in/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(auth)/sign-out/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(auth)/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/json-ld::src/routes/(splash)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/@context anywhere in src, static or app.html, and no meta/JSON-LD package among the deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 93 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/fitness/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 125 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/journal/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/journal/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/journal/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/meditation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 87 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/meditation/routines/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 64 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/meditation/routines/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 33 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 141 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/tasks/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 58 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/tasks/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/visits/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 26 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/visits/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 52 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(app)/visits/people/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(auth)/sign-in/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(auth)/sign-out/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-description::src/routes/(splash)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 93 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/fitness/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 125 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/journal/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/journal/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/journal/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/meditation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 87 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/meditation/routines/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 64 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/meditation/routines/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 33 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 141 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/tasks/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 58 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/tasks/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/visits/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 26 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/visits/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 52 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(app)/visits/people/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(auth)/sign-in/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(auth)/sign-out/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-image::src/routes/(splash)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 93 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/fitness/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 125 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/journal/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/journal/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/journal/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/meditation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 87 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/meditation/routines/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 64 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/meditation/routines/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 33 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 141 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/tasks/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 58 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/tasks/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/visits/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 26 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/visits/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 52 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(app)/visits/people/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(auth)/sign-in/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(auth)/sign-out/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-title::src/routes/(splash)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 93 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/fitness/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 125 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/journal/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/journal/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/journal/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/meditation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 87 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/meditation/routines/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 64 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/meditation/routines/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 33 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/tasks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 141 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/tasks/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 58 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/tasks/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/visits/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 26 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/visits/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 52 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(app)/visits/people/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(auth)/sign-in/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(auth)/sign-out/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/og-url::src/routes/(splash)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has robots.txt (allow all) but no sitemap.xml file/route/generator (literal claim holds); auth-gated personal productivity app ((app)/+layout.server.ts:8-10 redirects every session-less request to /sign-in), whose public surface is only the splash and sign-in/password pages, nothing to list (traceway precedent)"
+  },
+  {
+    "key": "glennsyang/synapse::seo/title-length::src/app.html::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "key covers 16 routes (CLI on the clone): app.html:24 unconditional literal <title>Synapse</title> (7) is the only title of /, /sign-out and the 14 (app) routes that set none; under 30 as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/title-length::src/routes/(app)/dashboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/dashboard/+page.svelte:141 literal <title>Today - Synapse</title> (15) in the page's top-level svelte:head (app.html:24's <title>Synapse</title> precedes it in the SSR head, 7 chars, so the shipped title is under 30 either way); under 30 as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/title-length::src/routes/(app)/profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/profile/+page.svelte:218 literal <title>Profile</title> (7) in the page's top-level svelte:head (app.html:24's <title>Synapse</title> precedes it in the SSR head, 7 chars, so the shipped title is under 30 either way); under 30 as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/title-length::src/routes/(auth)/forgot-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/forgot-password/+page.svelte:29 literal <title>Forgot Password - Synapse</title> (25) in the page's top-level svelte:head (app.html:24's <title>Synapse</title> precedes it in the SSR head, 7 chars, so the shipped title is under 30 either way); under 30 as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/title-length::src/routes/(auth)/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/reset-password/+page.svelte:26 literal <title>Reset Password - Synapse</title> (24) in the page's top-level svelte:head (app.html:24's <title>Synapse</title> precedes it in the SSR head, 7 chars, so the shipped title is under 30 either way); under 30 as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/title-length::src/routes/(auth)/sign-in/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/sign-in/+page.svelte:25 literal <title>Sign In - Synapse</title> (17) in the page's top-level svelte:head (app.html:24's <title>Synapse</title> precedes it in the SSR head, 7 chars, so the shipped title is under 30 either way); under 30 as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/title-length::src/routes/(auth)/verify-email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/verify-email/+page.svelte:15 literal <title>Verify Your Email - Synapse</title> (27) in the page's top-level svelte:head (app.html:24's <title>Synapse</title> precedes it in the SSR head, 7 chars, so the shipped title is under 30 either way); under 30 as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 93 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/dashboard/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/fitness/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 125 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/journal/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/journal/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/journal/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 73 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/meditation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 87 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/meditation/routines/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 64 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/meditation/routines/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 33 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/tasks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 141 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/tasks/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 58 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/tasks/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 46 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/visits/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 26 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/visits/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 52 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(app)/visits/people/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 30 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(auth)/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(auth)/sign-in/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 4 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(auth)/sign-out/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 5 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(auth)/verify-email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/twitter-card::src/routes/(splash)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src; app.html has description/manifest/theme-color only; no meta-tag library among deps; rendered route, tag missing as claimed"
+  },
+  {
+    "key": "glennsyang/synapse::seo/single-h1::/meditation/routines/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /meditation/routines/[id] titles are Card.Title/Dialog.Title <div>s (ui/card/card-title.svelte:13); (app)/(auth) and root layouts have no <h1>; npm bits-ui@2.19.3, @lucide/svelte@1.48.0, layerchart@2.5.0, svelte-sonner@1.2.1, mode-watcher@1.1.0 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "glennsyang/synapse::seo/single-h1::/meditation/routines/new::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /meditation/routines/new titles are Card.Title/Dialog.Title <div>s (ui/card/card-title.svelte:13); (app)/(auth) and root layouts have no <h1>; npm bits-ui@2.19.3, @lucide/svelte@1.48.0, layerchart@2.5.0, svelte-sonner@1.2.1, mode-watcher@1.1.0 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "glennsyang/synapse::seo/single-h1::/reset-password::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /reset-password titles are Card.Title/Dialog.Title <div>s (ui/card/card-title.svelte:13); (app)/(auth) and root layouts have no <h1>; npm bits-ui@2.19.3, @lucide/svelte@1.48.0, layerchart@2.5.0, svelte-sonner@1.2.1, mode-watcher@1.1.0 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "glennsyang/synapse::seo/single-h1::/sign-in::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /sign-in titles are Card.Title/Dialog.Title <div>s (ui/card/card-title.svelte:13); (app)/(auth) and root layouts have no <h1>; npm bits-ui@2.19.3, @lucide/svelte@1.48.0, layerchart@2.5.0, svelte-sonner@1.2.1, mode-watcher@1.1.0 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "glennsyang/synapse::seo/single-h1::src/routes/(app)/dashboard/+page.svelte:230::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; dashboard headings are <h2> (:161, :230, :301) and <h3>; Card.Title is a <div> (ui/card/card-title.svelte:13); (app) and root layouts have no <h1>; npm bits-ui@2.19.3, @lucide/svelte@1.48.0, layerchart@2.5.0, svelte-sonner@1.2.1, mode-watcher@1.1.0 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "glennsyang/synapse::seo/single-h1::src/routes/(auth)/forgot-password/+page.svelte:46::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page heading is <h2> (forgot-password/+page.svelte:46) plus a Card.Title <div> (ui/card/card-title.svelte:13); (auth) and root layouts have no <h1>; npm bits-ui@2.19.3, @lucide/svelte@1.48.0, layerchart@2.5.0, svelte-sonner@1.2.1, mode-watcher@1.1.0 (jsDelivr) render no <h1>"
+  }
+]

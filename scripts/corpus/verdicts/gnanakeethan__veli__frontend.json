@@ -1,0 +1,487 @@
+[
+  {
+    "key": "gnanakeethan/veli:frontend::a11y/disallowed-aria-props::src/lib/components/ui/VeliMark.svelte:14::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): <span aria-label> at ui/VeliMark.svelte:14 has no role attribute, spread or use: action, so its role is generic, which prohibits a name; the label is not exposed"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::a11y/placeholder-label-option::src/routes/admin/(authed)/documents/[id]/+page.svelte:155::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read documents/[id]/+page.svelte:155-166: <select name=\"tier\" required> whose options take selected from formValues.tier, which defaults to 'self_asserted' (:41); an intentional valid default, so a placeholder would add nothing (revel/primo precedent)"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::a11y/placeholder-label-option::src/routes/users/new/+page.svelte:89::<select required> is missing a placeholder label option",
+    "verdict": "design",
+    "basis": "read users/new/+page.svelte:89-99: <select name=\"locale\" required> whose first option is selected when vals.locale is 'ta' or empty (default locale 'ta' :14); an intentional valid default (revel/primo precedent)"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::architecture/component-size::src/lib/components/ui/Icon.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/Icon.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 319 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::architecture/component-size::src/routes/admin/(authed)/documents/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/(authed)/documents/[id]/+page.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::architecture/component-size::src/routes/procedures/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/procedures/[slug]/+page.svelte has 250 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 9 named props (> 6): kind, size, block, disabled, type, class, onclick, children, aria-label"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::architecture/prop-count::src/lib/components/ui/LRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/LRow.svelte has a single destructured $props() with 7 named props (> 6): icon, title, meta, en, bilingual, trail, href"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::correctness/each-index-key::src/routes/procedures/[slug]/+page.svelte:221::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/procedures/[slug]/+page.svelte:221 '{#each data.proc.body_ta.split(/\\n{2,}' keyed by its index binding; paragraphs split from one procedure body text (data.proc.body_ta/body_en.split(/\\n{2,}/)); positional list (text segments of one document)"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::correctness/each-index-key::src/routes/procedures/[slug]/+page.svelte:232::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/routes/procedures/[slug]/+page.svelte:232 '{#each data.proc.body_en.split(/\\n{2,}' keyed by its index binding; paragraphs split from one procedure body text (data.proc.body_ta/body_en.split(/\\n{2,}/)); positional list (text segments of one document)"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::correctness/each-key::src/lib/components/ui/Phone.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/Phone.svelte:41 '{#each tabIcons as iconName, i}' has no key; tabIcons prop defaults to the literal ['home', 'file', 'map-pin', 'user'] (Phone.svelte:18) and Phone has no importer; static list"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::correctness/each-key::src/lib/components/ui/Receipt.svelte:27::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/Receipt.svelte:27 '{#each rows as row}' has no key; rows/steps props of a generic UI component (Receipt.svelte / Steps.svelte) exported from ui/index.ts with no importer in the app; static list, no dynamic caller"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::correctness/each-key::src/lib/components/ui/Steps.svelte:17::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/Steps.svelte:17 '{#each steps as step, i}' has no key; rows/steps props of a generic UI component (Receipt.svelte / Steps.svelte) exported from ui/index.ts with no importer in the app; static list, no dynamic caller"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::performance/sequential-awaits::src/routes/+page.server.ts:37::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read :24-40: client.health() uses nothing from the preceding client.hello() (whose failure only sets loadError and does not stop the load) — two independent backend requests serialized; Promise.allSettled would work"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::security/raw-html::src/routes/+page.svelte:75::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read +page.svelte:18-53,75: JSON.stringify of literal schema data plus $page.url.origin and a literal description — a fully literal, reviewed JSON-LD block apart from the request origin (ledger: constant strings plus page.url.origin = literal reviewed block), reported per docs"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::security/raw-html::src/routes/procedures/+page.svelte:64::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read procedures/+page.svelte:20-38,64 + +page.server.ts: JSON.stringify of the backend API's procedure titles (proc.title_ta/title_en) with no '<' escaping inside <script type=application/ld+json> — docs: non-literal JSON-LD needs script-safe serialization (ledger JSON.stringify-no-escape tp convention)"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::security/raw-html::src/routes/procedures/[slug]/+page.svelte:144::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read procedures/[slug]/+page.svelte:55-100,144: JSON.stringify of the backend procedure record (title_ta/title_en, description, source_url) with no '<' escaping inside <script type=application/ld+json> — docs: non-literal JSON-LD needs script-safe serialization (ledger JSON.stringify-no-escape tp convention)"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/documents/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/documents/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 20 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/documents/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 13 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/procedures/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/procedures/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/procedures/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/(authed)/users/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library but not a search target (auth-gated: admin/(authed)/+layout.server.ts:20-24 redirects to /admin/login when /auth/me returns 401), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/admin/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 9 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library; public admin sign-in page, no noindex (robots.txt/+server.ts:12 Disallows /admin/, which the ledger does not treat as a gate on its own, aqsha sign-in precedent)"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/users/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 16 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/canonical-url::src/routes/users/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 11 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/description-length::src/app.html::Description is too long (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal \"Veḷi — Tamil-first navigator for Sri Lankan Northern Province government procedures. Find the right office, fee, form, and hours, with the date each entry was last verified by a Veḷi field worker.\" at src/app.html:9, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 196 as reported); key covers 12 routes (CLI on the clone), labelled by majority: app.html:9-12 literal description is 196 graphemes, the only description on these routes (length as claimed); 10 are /admin routes behind the (authed)/+layout.server.ts 401 redirect, private no-store, and Disallow: /admin/ in routes/robots.txt (mixed: /users/[id] and /users/new are public), so the snippet never shows in search"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "key covers 12 routes (CLI on the clone), labelled by majority: app.html:9-12 literal description is the only description of all 12 (duplicate as claimed); 10 are /admin routes behind the (authed) auth redirect and Disallow: /admin/ (mixed: /users/[id], /users/new public), so no search competition"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/documents/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/documents (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/documents/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/documents/[id] (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/documents/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/documents/new (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/procedures/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/procedures (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/procedures/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/procedures/[id] (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/procedures/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/procedures/new (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/users (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/(authed)/users/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/users/[id] (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/admin/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /admin/login (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/users/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /users/[id] (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/json-ld::src/routes/users/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rliE \"ld\\+json|jsonld|json-ld|schema\\.org|structuredData\" over the app incl. app.html and workspace packages; local CLI findings match the installed run key for key): JSON-LD only in routes/+page.svelte and procedures pages; /users/new (no svelte:head JSON-LD in its page, (authed) layout, root layout or app.html) has none"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/documents/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/documents/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 20 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/documents/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 13 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/procedures/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/procedures/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/procedures/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/(authed)/users/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 9 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/users/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 16 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-description::src/routes/users/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 11 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 19 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/documents/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/documents/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 20 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/documents/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 13 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/procedures/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/procedures/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/procedures/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/(authed)/users/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 9 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/procedures/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 11 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/procedures/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 8 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/users/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 16 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-image::src/routes/users/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 11 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/documents/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/documents/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 20 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/documents/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 13 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/procedures/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/procedures/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/procedures/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/(authed)/users/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 9 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/users/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 16 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-title::src/routes/users/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 11 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/documents/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/documents/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 20 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/documents/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 13 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/procedures/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/procedures/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/procedures/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 12 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/(authed)/users/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 14 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/admin/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 9 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/users/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 16 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/og-url::src/routes/users/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 11 files incl. transitively imported local/workspace files and app.html; app.html:21-27 carries only og:site_name/og:locale/twitter:card; og:title/description/url/type and canonical are literal tags only in the /, /procedures and /procedures/[slug] pages (none has og:image); hooks transformPageChunk only replaces %paraglide.lang%; no meta-tag library"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/title-presence::src/routes/users/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/users/[id]/+page.svelte has no svelte:head (Card/Badge/LRow/Field/Button ui components have none; grep of src finds <title> only in /, /procedures, /procedures/[slug], admin pages), root +layout.svelte renders only LocaleSwitcher, app.html has description/og defaults but no <title>, hooks only replace %paraglide.lang%; @lucide/svelte@1.14.0 and bits-ui@2.18.0 (jsDelivr) emit no <title>; load never always-redirects, so the public user page renders untitled"
+  },
+  {
+    "key": "gnanakeethan/veli:frontend::seo/title-presence::src/routes/users/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/users/new/+page.svelte has no svelte:head (Card/Badge/LRow/Field/Button ui components have none; grep of src finds <title> only in /, /procedures, /procedures/[slug], admin pages), root +layout.svelte renders only LocaleSwitcher, app.html has description/og defaults but no <title>, hooks only replace %paraglide.lang%; @lucide/svelte@1.14.0 and bits-ui@2.18.0 (jsDelivr) emit no <title>; load never always-redirects, so the public user page renders untitled"
+  }
+]

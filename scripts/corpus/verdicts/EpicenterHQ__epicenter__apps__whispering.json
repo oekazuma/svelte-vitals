@@ -1,0 +1,812 @@
+[
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::a11y/duplicate-landmark::../../packages/ui/src/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "10 routes per CLI (/recipes, /recordings, /settings + 7 settings/*), all tp: (app)/+layout.svelte:76-78 wide-viewport {:else} arm wraps the page in Sidebar.Inset, whose root is <main> (sidebar-inset.svelte:13); recipes/+page.svelte:71, recordings/+page.svelte:368 and settings/+layout.svelte:17/57 render their own unconditional <main> inside it -> nested main landmarks"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::a11y/duplicate-landmark::src/routes/(app)/(config)/settings/+layout.svelte:57::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: settings/+layout.svelte has <main> at 17 wrapping a second <main> at 57 in the same file, both unconditional"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::a11y/permitted-contents::src/routes/(app)/_components/VerticalNav.svelte:28::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e-a11y/pc.mjs): literal <div> at this line has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary; child not permitted by <button>'s content model"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::a11y/permitted-contents::src/routes/(app)/_components/VerticalNav.svelte:33::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e-a11y/pc.mjs): literal <div> at this line has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary; child not permitted by <button>'s content model"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::a11y/top-level-landmark::src/routes/(app)/(config)/settings/+layout.svelte:56::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings/+layout.svelte:56 bare <aside> (div above) inside the same file's <main> at 17"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::a11y/top-level-landmark::src/routes/(app)/(config)/settings/+layout.svelte:57::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings/+layout.svelte:57 <main> literally inside the same file's <main> at 17"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::architecture/component-size::src/lib/components/settings/ProviderConfigFields.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/whispering/src/lib/components/settings/ProviderConfigFields.svelte has 310 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::architecture/component-size::src/lib/components/settings/TranscriptionRuntimeConfig.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/whispering/src/lib/components/settings/TranscriptionRuntimeConfig.svelte has 521 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::architecture/component-size::src/lib/components/settings/selectors/TranscriptionSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/whispering/src/lib/components/settings/selectors/TranscriptionSelector.svelte has 229 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::architecture/component-size::src/lib/recording-pill/RecordingPill.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/whispering/src/lib/recording-pill/RecordingPill.svelte has 258 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::architecture/component-size::src/routes/(app)/(config)/recordings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/whispering/src/routes/(app)/(config)/recordings/+page.svelte has 684 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::architecture/component-size::src/routes/(app)/(config)/recordings/RecordingDetailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/whispering/src/routes/(app)/(config)/recordings/RecordingDetailModal.svelte has 326 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::architecture/component-size::src/routes/(app)/(config)/settings/shortcuts/keyboard-shortcut-recorder/KeyboardShortcutRecorder.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/whispering/src/routes/(app)/(config)/settings/shortcuts/keyboard-shortcut-recorder/KeyboardShortcutRecorder.svelte has 204 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::architecture/component-size::src/routes/(app)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/whispering/src/routes/(app)/+page.svelte has 349 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/lib/components/MoreDetailsDialog.svelte:76::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/MoreDetailsDialog.svelte:76 header '{#each moreDetailsDialog.buttons as button}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (const-computed: moreDetailsDialog), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/lib/components/settings/ProviderConfigFields.svelte:291::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/ProviderConfigFields.svelte:291 header '{#each field.description as part}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; positional list (text/link parts of a field description): items have no identity beyond position"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/lib/components/settings/SettingSelect.svelte:57::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/SettingSelect.svelte:57 header '{#each items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (both SettingSelect call sites pass imported constants (RECORDING_TRIGGER_OPTIONS, BITRATE_OPTIONS)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/lib/components/settings/TranscriptionRuntimeConfig.svelte:281::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/TranscriptionRuntimeConfig.svelte:281 header '{#each modelItems as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (models of a static TRANSCRIPTION_PROVIDERS registry entry): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/lib/components/settings/TranscriptionRuntimeConfig.svelte:485::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/TranscriptionRuntimeConfig.svelte:485 header '{#each SUPPORTED_LANGUAGES_OPTIONS as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (SUPPORTED_LANGUAGES_OPTIONS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/(config)/debug/+page.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/(config)/debug/+page.svelte:86 header '{#each metrics.current.tables as table}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (const-computed: metrics), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/(config)/recordings/+page.svelte:592::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/(config)/recordings/+page.svelte:592 header '{#each table.getHeaderGroups() as headerGroup}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; positional list (table header groups (TanStack)): items have no identity beyond position"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/(config)/recordings/+page.svelte:594::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/(config)/recordings/+page.svelte:594 header '{#each headerGroup.headers as header}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; positional list (table header cells): items have no identity beyond position"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/(config)/recordings/+page.svelte:611::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/(config)/recordings/+page.svelte:611 header '{#each row.getVisibleCells() as cell}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; positional list (table row cells): items have no identity beyond position"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/(config)/settings/recording/ManualSelectRecordingDevice.svelte:88::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/(config)/settings/recording/ManualSelectRecordingDevice.svelte:88 header '{#each items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: items), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/(config)/settings/recording/VadSelectRecordingDevice.svelte:66::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/(config)/settings/recording/VadSelectRecordingDevice.svelte:66 header '{#each items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: items), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/(config)/settings/shortcuts/keyboard-shortcut-recorder/ShortcutTable.svelte:47::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/(config)/settings/shortcuts/keyboard-shortcut-recorder/ShortcutTable.svelte:47 header '{#each filteredCommands as command}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: filteredCommands), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/each-key::src/routes/(app)/+page.svelte:230::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/+page.svelte:230 header '{#each CAPTURE_SURFACE_OPTIONS as option}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (CAPTURE_SURFACE_OPTIONS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/prop-mutation::src/lib/components/settings/SettingSelect.svelte:49::Prop \"store\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/SettingSelect.svelte:49; store is the settings/deviceConfig store object with get/set methods (callers pass app.settings / deviceConfig); store.set is its persistence API, the docs' class-instance limitation"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::correctness/unmutated-state::src/routes/(app)/(config)/debug/+page.svelte:25::$state \"current\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "fp",
+    "basis": "read + probe: src/routes/(app)/(config)/debug/+page.svelte:25; `let current = $state.raw(snapshot())` is declared inside the createMetrics() factory and reassigned in its refresh() method (line 32), and is already $state.raw as the message suggests; collectStateWrites (component-parse.ts:392) resolves the write through walkScoped, which treats the declaration's own function scope as a shadowing local, so writes to a $state declared inside a function are never seen (repro: ek/t.svelte)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::performance/image-dimensions::src/routes/(app)/+page.svelte:171::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class size-8), so no CLS from the missing attributes"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::performance/image-loading-hint::src/routes/(app)/+page.svelte:171::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in the SectionHeader at the top of the main page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::performance/responsive-image::src/routes/(app)/+page.svelte:171::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: imported $lib/assets/studio-microphone.png at 32px — raster, one fixed-size asset"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::security/raw-html::src/lib/components/settings/TranscriptionRuntimeConfig.svelte:130::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: transcriber/provider icon strings are repo SVG assets imported with ?raw (services/transcription/provider-ui.ts:9-13) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::security/raw-html::src/lib/components/settings/selectors/TranscriberRow.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: transcriber/provider icon strings are repo SVG assets imported with ?raw (services/transcription/provider-ui.ts:9-13) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::security/raw-html::src/lib/components/settings/selectors/TranscriptionSelector.svelte:106::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: transcriber/provider icon strings are repo SVG assets imported with ?raw (services/transcription/provider-ui.ts:9-13) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/debug/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 417 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/recipes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 418 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/recordings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 471 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/settings/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/settings/analytics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/settings/dictation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/settings/processing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/settings/recording/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/settings/shortcuts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 453 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/(config)/settings/sound/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 462 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/auth/callback/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (OAuth callback handoff: $effect runs auth.startSignIn() then goto()s away), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/canonical-url::src/routes/recording-overlay/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 226 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/debug/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/recipes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/recordings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/settings/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/settings/analytics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/settings/dictation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/settings/processing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/settings/recording/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/settings/shortcuts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/(config)/settings/sound/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/auth/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; publicly reachable route of the public web SPA build (no auth gate; cigale convention for a public local-first SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/description-presence::src/routes/recording-overlay/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in any svelte:head of the layout chain + transitively imported local files (incl. @epicenter workspace packages), none in app.html; not a search target (Tauri overlay webview route driven by Tauri IPC events, not a page for visitors)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/duplicate-title::src/routes/(app)/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:34 and (app)/+page.svelte:164 both literal <title>Whispering</title>; debug, analytics, auth/callback, recording-overlay set none, so they ship the same title (public SPA, cigale convention)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:34 and (app)/+page.svelte:164 both literal <title>Whispering</title>; debug, analytics, auth/callback, recording-overlay set none, so they ship the same title (public SPA, cigale convention)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/debug/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/recipes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/recordings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/settings/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/settings/analytics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/settings/dictation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/settings/processing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/settings/recording/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/settings/shortcuts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/(config)/settings/sound/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/auth/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/json-ld::src/routes/recording-overlay/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in apps/whispering source (incl. app.html)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/debug/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 417 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/recipes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 418 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/recordings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 471 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/settings/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/settings/analytics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/settings/dictation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/settings/processing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/settings/recording/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/settings/shortcuts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 453 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/(config)/settings/sound/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 462 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-description::src/routes/recording-overlay/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 226 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/debug/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 417 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/recipes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 418 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/recordings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 471 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/settings/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/settings/analytics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/settings/dictation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/settings/processing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/settings/recording/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/settings/shortcuts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 453 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/(config)/settings/sound/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 462 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-image::src/routes/recording-overlay/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 226 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/debug/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 417 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/recipes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 418 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/recordings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 471 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/settings/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/settings/analytics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/settings/dictation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/settings/processing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/settings/recording/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/settings/shortcuts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 453 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/(config)/settings/sound/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 462 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-title::src/routes/recording-overlay/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 226 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/debug/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 417 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/recipes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 418 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/recordings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 471 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/settings/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/settings/analytics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/settings/dictation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/settings/processing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/settings/recording/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/settings/shortcuts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 453 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/(config)/settings/sound/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 462 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/auth/callback/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/og-url::src/routes/recording-overlay/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 226 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt/sitemap.xml in apps/whispering static/ or routes (only apps/landing has them, a separate site); the SPA is also deployed publicly on Cloudflare (svelte.config.js), cigale convention for a public web app"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/single-h1::../../packages/ui/src/section-header/section-title.svelte:18::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "both routes: section-title.svelte renders <h1> (:18) only {#if level === 1}; settings/+layout.svelte:22 passes level={2} and analytics/+page.svelte:16 level={3} (0 real <h1>), shortcuts/+page.svelte:30 level={1} (1 real <h1>) -> never two; the analyzer counts the level-1 arm of every SectionHeader.Title (heading behind a prop never given)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/single-h1::/auth/callback::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; ssr=false Tauri app; page is {#if errorMessage}<div>{:else}<Loading label=\"Signing in…\">, no heading"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/single-h1::/recording-overlay::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; ssr=false Tauri overlay window rendering only RecordingPill, no heading"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt/sitemap.xml in apps/whispering static/ or routes (only apps/landing has them, a separate site); the SPA is also deployed publicly on Cloudflare (svelte.config.js), cigale convention for a public web app"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/ssr-disabled::src/routes/+layout.ts:4::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:4; deliberate SPA for the Tauri desktop shell (comment: Tauri has no Node server), docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/title-length::src/routes/(app)/(config)/recipes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> (one-line svelte:head) is the winning title for the route, no component or document.title override; length matches"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/title-length::src/routes/(app)/(config)/recordings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> (one-line svelte:head) is the winning title for the route, no component or document.title override; length matches"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/title-length::src/routes/(app)/(config)/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> (one-line svelte:head) is the winning title for the route, no component or document.title override; length matches"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/title-length::src/routes/(app)/(config)/settings/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> (one-line svelte:head) is the winning title for the route, no component or document.title override; length matches"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/title-length::src/routes/(app)/(config)/settings/sound/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> (one-line svelte:head) is the winning title for the route, no component or document.title override; length matches"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/title-length::src/routes/(app)/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> (one-line svelte:head) is the winning title for the route, no component or document.title override; length matches"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "title text verified in source: the flagged static <title> (one-line svelte:head) is the winning title for the route, no component or document.title override; length matches"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/debug/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 417 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/recipes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 418 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/recordings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 471 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/settings/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/settings/analytics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/settings/dictation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/settings/processing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/settings/recording/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 422 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/settings/shortcuts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 453 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/(config)/settings/sound/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 419 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 462 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/auth/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  },
+  {
+    "key": "EpicenterHQ/epicenter:apps/whispering::seo/twitter-card::src/routes/recording-overlay/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 226 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; no og/twitter/canonical tag in apps/whispering or packages/* (ssr=false SPA)"
+  }
+]

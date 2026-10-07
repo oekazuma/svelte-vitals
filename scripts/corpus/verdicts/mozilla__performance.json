@@ -1,0 +1,647 @@
+[
+  {
+    "key": "mozilla/performance::architecture/component-size::src/lib/speedometer/Dashboard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/speedometer/Dashboard.svelte has 413 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 413 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/component-size::src/routes/android/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/android/+page.svelte has 441 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/component-size::src/routes/jetstream/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/jetstream/+page.svelte has 430 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/component-size::src/routes/memory/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/memory/+page.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/component-size::src/routes/ml-engine/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ml-engine/+page.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/component-size::src/routes/ml/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ml/+page.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/component-size::src/routes/navbench/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/navbench/+page.svelte has 467 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/component-size::src/routes/speedometer_job_debug/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/speedometer_job_debug/+page.svelte has 319 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mozilla/performance::architecture/prop-count::src/lib/components/VideoPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/VideoPanel.svelte has a single destructured $props() with 9 named props (> 6): groups, selectedGroup, selectedReplicate, unit, task, jobUrl, onselectGroup, onselectReplicate, onclose"
+  },
+  {
+    "key": "mozilla/performance::architecture/prop-count::src/lib/speedometer/SubtestChart.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/speedometer/SubtestChart.svelte has a single destructured $props() with 8 named props (> 6): suite, naming, test, signatures, days, replicates, hidden, href"
+  },
+  {
+    "key": "mozilla/performance::architecture/prop-count::src/lib/speedometer/SubtestCharts.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/speedometer/SubtestCharts.svelte has a single destructured $props() with 7 named props (> 6): suite, naming, signatures, days, replicates, hidden, href"
+  },
+  {
+    "key": "mozilla/performance::security/raw-html::src/routes/networking/NetChart.svelte:53::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/networking/NetChart.svelte + +page.svelte:63 + lib/networking/config.ts:32+: config.title comes from the repo literal CHARTS constant — repo-authored, reported per docs"
+  },
+  {
+    "key": "mozilla/performance::security/raw-html::src/routes/networking/NetChart.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/networking/NetChart.svelte + +page.svelte:63 + lib/networking/config.ts:32+: config.description comes from the repo literal CHARTS constant — repo-authored, reported per docs"
+  },
+  {
+    "key": "mozilla/performance::security/raw-html::src/routes/networking/NetChart.svelte:62::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read routes/networking/NetChart.svelte + +page.svelte:63 + lib/networking/config.ts:32+: entry.definition comes from the repo literal CHARTS constant — repo-authored, reported per docs"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/android/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /android (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/jetstream/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /jetstream (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/memory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /memory (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/ml-engine/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ml-engine (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/ml/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /ml (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/navbench/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /navbench (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/networking/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /networking (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/speedometer-experimental/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /speedometer-experimental (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/speedometer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /speedometer (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/canonical-url::src/routes/speedometer_job_debug/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /speedometer_job_debug (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/android/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/jetstream/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/memory/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/ml-engine/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/ml/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/navbench/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/networking/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/speedometer-experimental/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/speedometer/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/description-presence::src/routes/speedometer_job_debug/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in src or app.html (page heads carry only <title>) (literal claim holds); public, linked page of performance.mozilla.org (Sidebar nav), no noindex or robots.txt"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; / has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/android/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /android has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/jetstream/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /jetstream has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/memory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /memory has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/ml-engine/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /ml-engine has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/ml/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /ml has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/navbench/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /navbench has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/networking/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /networking has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/speedometer-experimental/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /speedometer-experimental has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/speedometer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /speedometer has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/json-ld::src/routes/speedometer_job_debug/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /speedometer_job_debug has no JSON-LD"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/android/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /android (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/jetstream/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /jetstream (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/memory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /memory (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/ml-engine/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ml-engine (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/ml/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /ml (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/navbench/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /navbench (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/networking/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /networking (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/speedometer-experimental/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /speedometer-experimental (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/speedometer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /speedometer (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-description::src/routes/speedometer_job_debug/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /speedometer_job_debug (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/android/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /android (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/jetstream/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /jetstream (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/memory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /memory (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/ml-engine/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ml-engine (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/ml/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /ml (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/navbench/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /navbench (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/networking/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /networking (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/speedometer-experimental/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /speedometer-experimental (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/speedometer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /speedometer (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-image::src/routes/speedometer_job_debug/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /speedometer_job_debug (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/android/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /android (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/jetstream/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /jetstream (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/memory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /memory (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/ml-engine/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ml-engine (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/ml/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /ml (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/navbench/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /navbench (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/networking/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /networking (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/speedometer-experimental/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /speedometer-experimental (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/speedometer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /speedometer (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-title::src/routes/speedometer_job_debug/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /speedometer_job_debug (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/android/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /android (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/jetstream/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /jetstream (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/memory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /memory (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/ml-engine/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ml-engine (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/ml/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /ml (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/navbench/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /navbench (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/networking/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /networking (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/speedometer-experimental/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /speedometer-experimental (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/speedometer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /speedometer (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/og-url::src/routes/speedometer_job_debug/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /speedometer_job_debug (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has favicon.ico only, no robots.txt route (adapter-static, no server); public site performance.mozilla.org"
+  },
+  {
+    "key": "mozilla/performance::seo/single-h1::/speedometer-experimental::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1>, role=heading or heading <svelte:element> anywhere in src/lib (only <h3>s in speedometer/Dashboard.svelte and SubtestChart.svelte); the root layout renders a .top bar with a <b> title and Sidebar, no heading; /speedometer-experimental/+page.svelte renders only <Dashboard suite=…> (ssr=false), whose titles are <h3> — no <h1>"
+  },
+  {
+    "key": "mozilla/performance::seo/single-h1::/speedometer::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1>, role=heading or heading <svelte:element> anywhere in src/lib (only <h3>s in speedometer/Dashboard.svelte and SubtestChart.svelte); the root layout renders a .top bar with a <b> title and Sidebar, no heading; /speedometer/+page.svelte renders only <Dashboard suite=…> (ssr=false), whose titles are <h3> — no <h1>"
+  },
+  {
+    "key": "mozilla/performance::seo/single-h1::src/routes/+page.svelte:134::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1>, role=heading or heading <svelte:element> anywhere in src/lib (only <h3>s in speedometer/Dashboard.svelte and SubtestChart.svelte); the root layout renders a .top bar with a <b> title and Sidebar, no heading; +page.svelte:134 is an <h2>/<h3> section title and the page has no <h1> (only memory, networking, ml and ml-engine pages have one) — no <h1>"
+  },
+  {
+    "key": "mozilla/performance::seo/single-h1::src/routes/android/+page.svelte:235::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1>, role=heading or heading <svelte:element> anywhere in src/lib (only <h3>s in speedometer/Dashboard.svelte and SubtestChart.svelte); the root layout renders a .top bar with a <b> title and Sidebar, no heading; android/+page.svelte:235 is an <h2>/<h3> section title and the page has no <h1> (only memory, networking, ml and ml-engine pages have one) — no <h1>"
+  },
+  {
+    "key": "mozilla/performance::seo/single-h1::src/routes/jetstream/+page.svelte:191::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1>, role=heading or heading <svelte:element> anywhere in src/lib (only <h3>s in speedometer/Dashboard.svelte and SubtestChart.svelte); the root layout renders a .top bar with a <b> title and Sidebar, no heading; jetstream/+page.svelte:191 is an <h2>/<h3> section title and the page has no <h1> (only memory, networking, ml and ml-engine pages have one) — no <h1>"
+  },
+  {
+    "key": "mozilla/performance::seo/single-h1::src/routes/navbench/+page.svelte:234::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1>, role=heading or heading <svelte:element> anywhere in src/lib (only <h3>s in speedometer/Dashboard.svelte and SubtestChart.svelte); the root layout renders a .top bar with a <b> title and Sidebar, no heading; navbench/+page.svelte:234 is an <h2>/<h3> section title and the page has no <h1> (only memory, networking, ml and ml-engine pages have one) — no <h1>"
+  },
+  {
+    "key": "mozilla/performance::seo/single-h1::src/routes/speedometer_job_debug/+page.svelte:156::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: no <h1>, role=heading or heading <svelte:element> anywhere in src/lib (only <h3>s in speedometer/Dashboard.svelte and SubtestChart.svelte); the root layout renders a .top bar with a <b> title and Sidebar, no heading; speedometer_job_debug/+page.svelte:156 is an <h2>/<h3> section title and the page has no <h1> (only memory, networking, ml and ml-engine pages have one) — no <h1>"
+  },
+  {
+    "key": "mozilla/performance::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ or routes (adapter-static, no server); public site performance.mozilla.org"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/+page.ts:6::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+page.ts:6; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/android/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/android/+page.ts:2; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/jetstream/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/jetstream/+page.ts:2; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/memory/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/memory/+page.ts:2; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/ml-engine/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/ml-engine/+page.ts:2; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/ml/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/ml/+page.ts:2; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/navbench/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/navbench/+page.ts:2; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/networking/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/networking/+page.ts:2; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/speedometer-experimental/+page.ts:9::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/speedometer-experimental/+page.ts:9; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/speedometer/+page.ts:9::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/speedometer/+page.ts:9; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/ssr-disabled::src/routes/speedometer_job_debug/+page.ts:9::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/speedometer_job_debug/+page.ts:9; every route sets it deliberately and documents why (+layout.ts:1-3, speedometer/+page.ts: components read page.url.searchParams), making the portal a deliberate full SPA of telemetry charts fetched in the browser from Treeherder/Bugzilla/Redash (status-dashboard / LD-Explorer convention; docs say turn the rule off for a deliberate SPA)"
+  },
+  {
+    "key": "mozilla/performance::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte unconditional literal <title>Performance Bugs (16)</title>, the route's only title (client-rendered on this ssr=false route, which counts as rendered); under 30 as claimed, page linked from lib/nav.ts"
+  },
+  {
+    "key": "mozilla/performance::seo/title-length::src/routes/memory/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/memory/+page.svelte unconditional literal <title>Firefox Memory — Desktop (24)</title>, the route's only title (client-rendered on this ssr=false route, which counts as rendered); under 30 as claimed, page linked from lib/nav.ts"
+  },
+  {
+    "key": "mozilla/performance::seo/title-length::src/routes/ml-engine/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/ml-engine/+page.svelte unconditional literal <title>Firefox AI Runtime Engines (26)</title>, the route's only title (client-rendered on this ssr=false route, which counts as rendered); under 30 as claimed, page linked from lib/nav.ts"
+  },
+  {
+    "key": "mozilla/performance::seo/title-length::src/routes/ml/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/ml/+page.svelte unconditional literal <title>Firefox AI Runtime (18)</title>, the route's only title (client-rendered on this ssr=false route, which counts as rendered); under 30 as claimed, page linked from lib/nav.ts"
+  },
+  {
+    "key": "mozilla/performance::seo/title-length::src/routes/networking/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/networking/+page.svelte unconditional literal <title>Firefox Networking (18)</title>, the route's only title (client-rendered on this ssr=false route, which counts as rendered); under 30 as claimed, page linked from lib/nav.ts"
+  },
+  {
+    "key": "mozilla/performance::seo/title-length::src/routes/speedometer_job_debug/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/speedometer_job_debug/+page.svelte unconditional literal <title>Speedometer 3 Job Debug (23)</title>, the route's only title (client-rendered on this ssr=false route, which counts as rendered); under 30 as claimed, page linked from lib/nav.ts"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/android/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /android (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/jetstream/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /jetstream (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/memory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /memory (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/ml-engine/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ml-engine (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/ml/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /ml (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/navbench/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /navbench (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/networking/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /networking (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/speedometer-experimental/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /speedometer-experimental (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/speedometer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /speedometer (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "mozilla/performance::seo/twitter-card::src/routes/speedometer_job_debug/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /speedometer_job_debug (read + repo-wide grep): repo-wide grep of src/** incl. app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; every <svelte:head> holds only <title> (e.g. routes/+page.svelte:125), root +layout.svelte has no head, app.html has charset/viewport/icon/font links only, hooks.ts is a reroute only; no meta-tag library among deps; public dashboard (no auth, no noindex, no robots.txt); ssr=false pages, but no client head emits it either; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  }
+]

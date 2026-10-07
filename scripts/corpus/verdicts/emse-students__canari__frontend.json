@@ -1,0 +1,1382 @@
+[
+  {
+    "key": "emse-students/canari:frontend::a11y/aria-hidden-focus::src/lib/components/calendar/MonthCalendarGridRich.svelte:212::<div aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "design",
+    "basis": "read lib/components/calendar/MonthCalendarGridRich.svelte:212: empty padding cell <div role=\"gridcell\" aria-hidden=\"true\"> with no tabindex; reported per the docs, which count a literal interactive role as focusable, but the role=\"grid\" (:204) has no keyboard handler or focus() call, so the hidden cell is never actually keyboard-reachable"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/disallowed-aria-props::src/lib/components/chat/ConversationTile.svelte:209::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_attr.mjs) and read: <span aria-label> at lib/components/chat/ConversationTile.svelte:209 has no role, spread or use: action, so its role is generic and a name is prohibited, as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/disallowed-aria-props::src/lib/components/navigation/BottomNav.svelte:70::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_attr.mjs) and read: <span aria-label> at lib/components/navigation/BottomNav.svelte:70 has no role, spread or use: action, so its role is generic and a name is prohibited, as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/disallowed-aria-props::src/lib/components/shared/AnonymousAvatar.svelte:30::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_attr.mjs) and read: <div aria-label> at lib/components/shared/AnonymousAvatar.svelte:30 has no role, spread or use: action, so its role is generic and a name is prohibited, as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/disallowed-aria-props::src/lib/components/shared/AssociationAvatar.svelte:87::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_attr.mjs) and read: <div aria-label> at lib/components/shared/AssociationAvatar.svelte:87 has no role, spread or use: action, so its role is generic and a name is prohibited, as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/disallowed-aria-props::src/lib/components/shared/Avatar.svelte:111::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_attr.mjs) and read: <div aria-label> at lib/components/shared/Avatar.svelte:111 has no role, spread or use: action, so its role is generic and a name is prohibited, as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/disallowed-aria-props::src/lib/components/shared/Avatar.svelte:119::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_attr.mjs) and read: <div aria-label> at lib/components/shared/Avatar.svelte:119 has no role, spread or use: action, so its role is generic and a name is prohibited, as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/disallowed-aria-props::src/lib/components/shared/MediaLightbox.svelte:856::`aria-label` is prohibited on role `presentation`",
+    "verdict": "tp",
+    "basis": "read lib/components/shared/MediaLightbox.svelte:856: <aside role=\"presentation\" aria-label={m.media_viewer_info()}>; the explicit role presentation prohibits a name, as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/disallowed-aria-props::src/routes/calendar/export/+page.svelte:389::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_attr.mjs) and read: <div aria-label> at calendar/export/+page.svelte:389 has no role, spread or use: action, so its role is generic and a name is prohibited, as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/duplicate-landmark::src/lib/components/MainChatPage.svelte:1063::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: /chat and /communities render <MainChatPage>, whose <main class=\"main-content\"> (:1063, under {#if session.isLoggedIn}) sits inside root +layout.svelte:662 <main id=\"main-content\">; two mains for a logged-in user"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/auth/ChangePinModal.svelte:156::Duplicate id \"current-pin\"",
+    "verdict": "design",
+    "basis": "read: the two #current-pin copies are ChangePinModal instances in SettingsSecuritySection.svelte:365 (open={showChangePinModal}, set by a button) and ChatBackgroundService.svelte:1742 (open={showRecoverModal}, recovery flow); both sit inside Modal.svelte {#if open} (:200), so they never co-render in practice; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/auth/ChangePinModal.svelte:170::Duplicate id \"new-pin\"",
+    "verdict": "design",
+    "basis": "read: the two #new-pin copies are ChangePinModal instances in SettingsSecuritySection.svelte:365 (open={showChangePinModal}, set by a button) and ChatBackgroundService.svelte:1742 (open={showRecoverModal}, recovery flow); both sit inside Modal.svelte {#if open} (:200), so they never co-render in practice; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/auth/ChangePinModal.svelte:186::Duplicate id \"confirm-pin\"",
+    "verdict": "design",
+    "basis": "read: the two #confirm-pin copies are ChangePinModal instances in SettingsSecuritySection.svelte:365 (open={showChangePinModal}, set by a button) and ChatBackgroundService.svelte:1742 (open={showRecoverModal}, recovery flow); both sit inside Modal.svelte {#if open} (:200), so they never co-render in practice; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarCommunityAdminPanel.svelte:745::Duplicate id \"server-name\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #server-name sits in SidebarCommunityAdminPanel, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewChannelModal.svelte:47::Duplicate id \"new-channel-name\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #new-channel-name sits in SidebarNewChannelModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewChatModal.svelte:121::Duplicate id \"tab-contact\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #tab-contact sits in SidebarNewChatModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewChatModal.svelte:131::Duplicate id \"tab-group\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #tab-group sits in SidebarNewChatModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewChatModal.svelte:145::Duplicate id \"tabpanel-contact\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #tabpanel-contact sits in SidebarNewChatModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewChatModal.svelte:151::Duplicate id \"new-contact-form\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #new-contact-form sits in SidebarNewChatModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewChatModal.svelte:207::Duplicate id \"tabpanel-group\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #tabpanel-group sits in SidebarNewChatModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewChatModal.svelte:208::Duplicate id \"new-group-form\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #new-group-form sits in SidebarNewChatModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewChatModal.svelte:213::Duplicate id \"new-group-name\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #new-group-name sits in SidebarNewChatModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/id-duplication::src/lib/components/sidebar/SidebarNewCommunityModal.svelte:34::Duplicate id \"new-community-name\"",
+    "verdict": "design",
+    "basis": "read: on /chat and /communities MainChatPage renders the desktop <Sidebar> (:1065) and the mobile drawer <Sidebar> under {#if convs.isConversationDrawerOpen} (:1238); #new-community-name sits in SidebarNewCommunityModal, which Sidebar.svelte:723-791 mounts with open={show...} inside Modal/SidePanel {#if open}, so each copy appears only when that instance's dialog is opened; separate-{#if} modal precedent"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/interactive-nesting::src/lib/components/posts/PostPolls.svelte:279::<div> is nested inside interactive <button>",
+    "verdict": "tp",
+    "basis": "read lib/components/posts/PostPolls.svelte:279: <div> sits inside the <button> ancestor in the same template; interactive content nested in interactive content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/pattern-title::src/routes/admin/platform/+page.svelte:281::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read admin/platform/+page.svelte:281: <input type=\"text\" pattern> (version pattern) with no title or spread; the format hint is a separate <p>, not linked, so a failed match gives no format description (sibling-hint precedent)"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/pattern-title::src/routes/admin/platform/+page.svelte:427::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read admin/platform/+page.svelte:427: <input type=\"text\" pattern> (version pattern) with no title or spread; the format hint is a separate <p>, not linked, so a failed match gives no format description (sibling-hint precedent)"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/pattern-title::src/routes/admin/platform/+page.svelte:440::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read admin/platform/+page.svelte:440: <input type=\"text\" pattern> (version pattern) with no title or spread; the format hint is a separate <p>, not linked, so a failed match gives no format description (sibling-hint precedent)"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/associations/AssociationDocumentManager.svelte:614::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/associations/AssociationDocumentManager.svelte:614 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/calendar/CalendarDayEventsPanel.svelte:98::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/calendar/CalendarDayEventsPanel.svelte:98 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/calendar/MonthCalendarGridRich.svelte:276::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/calendar/MonthCalendarGridRich.svelte:276 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/calendar/MonthCalendarGridRich.svelte:435::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/calendar/MonthCalendarGridRich.svelte:435 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/calendar/MonthCalendarGridRich.svelte:443::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/calendar/MonthCalendarGridRich.svelte:443 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/chat/ConversationTile.svelte:165::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/chat/ConversationTile.svelte:165 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/chat/ConversationTile.svelte:183::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/chat/ConversationTile.svelte:183 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/chat/ForwardMessageModal.svelte:171::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/chat/ForwardMessageModal.svelte:171 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/chat/SharedMediaThumb.svelte:114::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/chat/SharedMediaThumb.svelte:114 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/chat/SharedMediaThumb.svelte:92::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/chat/SharedMediaThumb.svelte:92 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/forms/FormBuilder.svelte:415::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/forms/FormBuilder.svelte:415 has <label> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<label>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/notifications/NotificationRow.svelte:201::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/notifications/NotificationRow.svelte:201 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/posts/PollSection.svelte:143::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/posts/PollSection.svelte:143 has <label> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<label>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/posts/PollSection.svelte:169::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/posts/PollSection.svelte:169 has <label> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<label>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/posts/PostPolls.svelte:221::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/posts/PostPolls.svelte:221 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/posts/PostPolls.svelte:230::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/posts/PostPolls.svelte:230 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/ui/PaymentModal.svelte:167::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/ui/PaymentModal.svelte:167 has <label> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<label>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/ui/Toggle.svelte:29::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/ui/Toggle.svelte:29 has <label> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<label>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/lib/components/ui/Toggle.svelte:38::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at lib/components/ui/Toggle.svelte:38 has <label> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<label>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/routes/documents/+page.svelte:239::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at documents/+page.svelte:239 has <button> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<button>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/routes/forms/[id]/+page.svelte:804::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at forms/[id]/+page.svelte:804 has <label> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<label>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::a11y/permitted-contents::src/routes/forms/[id]/+page.svelte:821::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_pc.mjs): <div> at forms/[id]/+page.svelte:821 has <label> as its nearest non-transparent element ancestor (no component/snippet/svg boundary between); `<label>`'s content model is phrasing content as reported"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/MainChatPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/MainChatPage.svelte has 1285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/AssociationCalendarSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/AssociationCalendarSection.svelte has 582 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/AssociationDetailView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/AssociationDetailView.svelte has 613 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/AssociationDocumentManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/AssociationDocumentManager.svelte has 767 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/AssociationLogoCropper.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/AssociationLogoCropper.svelte has 294 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/AssociationTile.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/AssociationTile.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/EditAchatsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/EditAchatsTab.svelte has 280 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/EditBoutiqueTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/EditBoutiqueTab.svelte has 770 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/EditCotisationsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/EditCotisationsTab.svelte has 1330 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/EditDelegationTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/EditDelegationTab.svelte has 437 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/EditFormsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/EditFormsTab.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/EditMembersTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/EditMembersTab.svelte has 269 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/EditPartnershipsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/EditPartnershipsTab.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/EditProfileTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/EditProfileTab.svelte has 379 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/LydiaBusinessOnboardingForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/LydiaBusinessOnboardingForm.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/associations/edit/PartnershipEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/associations/edit/PartnershipEditor.svelte has 419 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/auth/ChangePinModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/auth/ChangePinModal.svelte has 251 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/auth/LoginPage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/auth/LoginPage.svelte has 231 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/auth/PinModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/auth/PinModal.svelte has 585 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/calendar/CalendarEventDetailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/calendar/CalendarEventDetailModal.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/calendar/CalendarScheduleList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/calendar/CalendarScheduleList.svelte has 328 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/calendar/EventFormModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/calendar/EventFormModal.svelte has 368 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/calendar/MonthCalendarGridRich.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/calendar/MonthCalendarGridRich.svelte has 452 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/carte/PosterCanvas.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/carte/PosterCanvas.svelte has 890 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/CallOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/CallOverlay.svelte has 924 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/ChannelSettingsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChannelSettingsPanel.svelte has 823 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/ChatArea.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatArea.svelte has 1488 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/ChatComposer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatComposer.svelte has 1382 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/ChatGroupPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatGroupPanel.svelte has 607 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/ChatHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatHeader.svelte has 451 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/ChatMessageGroups.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ChatMessageGroups.svelte has 325 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/ConversationMediaPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ConversationMediaPanel.svelte has 322 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/ConversationTile.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/ConversationTile.svelte has 228 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/DeviceManagementPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/DeviceManagementPanel.svelte has 641 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/GifGrid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/GifGrid.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/chat/VoiceRecorder.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/VoiceRecorder.svelte has 428 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/forms/FormAdvancedSettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/forms/FormAdvancedSettings.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/forms/FormBuilder.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/forms/FormBuilder.svelte has 714 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/forms/FormPaymentSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/forms/FormPaymentSection.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/forms/FormQuestion.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/forms/FormQuestion.svelte has 255 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/forms/FormSubmissionsTable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/forms/FormSubmissionsTable.svelte has 292 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/layout/ChatBackgroundService.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout/ChatBackgroundService.svelte has 1821 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/legal/LegalDocument.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/legal/LegalDocument.svelte has 357 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/messages/EmojiGrid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/messages/EmojiGrid.svelte has 267 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/messages/LinkPreviewCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/messages/LinkPreviewCard.svelte has 442 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/messages/MessageBubble.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/messages/MessageBubble.svelte has 972 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/messages/MessageBubbleToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/messages/MessageBubbleToolbar.svelte has 414 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/messages/MessageMediaRenderer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/messages/MessageMediaRenderer.svelte has 460 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/messages/MessageMobileActions.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/messages/MessageMobileActions.svelte has 318 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/messages/VoiceMessagePlayer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/messages/VoiceMessagePlayer.svelte has 309 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/navigation/AppSidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/navigation/AppSidebar.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/navigation/NativeTabBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/navigation/NativeTabBar.svelte has 228 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/notifications/NotificationRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/notifications/NotificationRow.svelte has 262 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/ConversationsMiniPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/ConversationsMiniPanel.svelte has 272 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/CreatePostForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/CreatePostForm.svelte has 684 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/EditPostForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/EditPostForm.svelte has 568 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/PollSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/PollSection.svelte has 225 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/PostActionsMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/PostActionsMenu.svelte has 244 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/PostCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/PostCard.svelte has 758 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/PostComments.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/PostComments.svelte has 733 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/PostComposerBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/PostComposerBar.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/PostContent.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/PostContent.svelte has 269 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/PostMedia.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/PostMedia.svelte has 553 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/posts/PostPolls.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/posts/PostPolls.svelte has 362 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/pricing/CriterionEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pricing/CriterionEditor.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/pricing/PriceGridEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/pricing/PriceGridEditor.svelte has 269 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/profile/ProfileRoleHistorySection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/profile/ProfileRoleHistorySection.svelte has 250 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/reels/CameraScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reels/CameraScreen.svelte has 304 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/reels/ReelCapture.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reels/ReelCapture.svelte has 286 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/reels/ReelPublishSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reels/ReelPublishSheet.svelte has 243 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/reels/ReelViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/reels/ReelViewer.svelte has 335 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/settings/MinesweeperModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/MinesweeperModal.svelte has 1078 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/settings/SettingsSecuritySection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingsSecuritySection.svelte has 382 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/shared/FullScreenViewer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/FullScreenViewer.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/shared/MediaLightbox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/MediaLightbox.svelte has 948 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/shared/MentionComposerInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/MentionComposerInput.svelte has 726 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/shared/Modal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/Modal.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/shared/PdfViewerModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/PdfViewerModal.svelte has 617 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/shared/UserAutocomplete.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/UserAutocomplete.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/shared/VideoPlayer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shared/VideoPlayer.svelte has 467 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/shop/PartnershipCardList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shop/PartnershipCardList.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/sidebar/Sidebar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/Sidebar.svelte has 799 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/sidebar/SidebarCommunityAdminPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/SidebarCommunityAdminPanel.svelte has 1066 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/sidebar/SidebarNewChatModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sidebar/SidebarNewChatModal.svelte has 270 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/ui/ColorPicker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/ColorPicker.svelte has 301 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/ui/DateTimeField.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/DateTimeField.svelte has 300 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/ui/PaymentModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/PaymentModal.svelte has 215 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/lib/components/ui/Picker.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/Picker.svelte has 217 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 708 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/account/purchases/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/purchases/+page.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+layout.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 307 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/agenda/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/agenda/+page.svelte has 301 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/carte/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/carte/+page.svelte has 375 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/carte/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/carte/[id]/+page.svelte has 1245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/cercle/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/cercle/+page.svelte has 501 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/legacy-cotisations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/legacy-cotisations/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/moderation/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/moderation/+page.svelte has 913 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/platform/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/platform/+page.svelte has 482 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/status/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/status/+page.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/admin/storage/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/storage/+page.svelte has 556 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/associations/[slug]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/associations/[slug]/edit/+page.svelte has 792 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/calendar/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/calendar/+page.svelte has 711 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/calendar/export/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/calendar/export/+page.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/directory/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/directory/+page.svelte has 262 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/documents/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/documents/+page.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/forms/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/forms/+page.svelte has 341 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/forms/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/forms/[id]/+page.svelte has 962 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/forms/[id]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/forms/[id]/edit/+page.svelte has 435 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/forms/create/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/forms/create/+page.svelte has 318 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/legal/cgu/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/legal/cgu/+page.svelte has 418 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/legal/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/legal/privacy/+page.svelte has 279 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/posts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/posts/+page.svelte has 662 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 445 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/profile/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/[id]/+page.svelte has 460 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/component-size::src/routes/shop/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/shop/+page.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/auth/ChangePinModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/auth/ChangePinModal.svelte has a single destructured $props() with 7 named props (> 6): open, onSubmit, onClose, externalError, isLoading, loadingProgress, variant"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/auth/LoginForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/auth/LoginForm.svelte has a single destructured $props() with 8 named props (> 6): isLoggingIn, loginError, biometricAvailable, maintenanceNotice, loginDisabled, showStoreBadges, onLogin, onPasswordLogin"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/auth/PinModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/auth/PinModal.svelte has a single destructured $props() with 14 named props (> 6): open, onSubmit, onClose, onSignOut, onBiometricRequest, showBiometricButton, showStaySignedIn, staySignedIn, externalError, isLoading, isFirstSetup, loadingStep, onForgotPinReset, onRecoverPin"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/calendar/CalendarEventDetailModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/calendar/CalendarEventDetailModal.svelte has a single destructured $props() with 7 named props (> 6): open, event, canEdit, showAssociation, onClose, onEdit, onDelete"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/calendar/EventFormModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/calendar/EventFormModal.svelte has a single destructured $props() with 13 named props (> 6): open, heading, note, editing, values, capabilities, associations, linkableForms, poster, submitLabel, savingLabel, onSubmit, onClose"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/carte/PosterCanvas.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/carte/PosterCanvas.svelte has a single destructured $props() with 18 named props (> 6): model, content, bubbles, decorations, theme, title, background, directoryVisible, editable, viewScale, selectedId, selectedDecorationId, flaggedIds, onSelect, onSelectDecoration, onChange, onChangeDecoration, el"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/chat/ChatArea.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/ChatArea.svelte has a single destructured $props() with 59 named props (> 6): conversation, messageText, isChannel, onMessageChange, onSend, onTyping, onSendGif, onCreatePoll, onVotePoll, onClosePoll, onOpenMedia, onSearchAll, onTogglePin, onInviteMembers, onBack, onOpenConversations, onOpenSettings, isHidden, groupMembers, pendingInvites, allowedUserIds, canWrite, sendError, onGroupRename, onGroupSetImage, onGroupDelete, onGroupDeleteLocally, onGroupLeave, onGroupRemoveMember, messageReactions, replyingTo, onReply, onForward, onNavigateToMessage, onReact, onDelete, canModerate, onEdit, onCancelReply, authToken, onJoinChannel, onFilesSelected, onSendVoiceNote, pendingFiles, onRemovePendingFile, videoPreparation, isUploading, onStartAudioCall, onStartVideoCall, imageMediaId, onOpenMembers, membersActive, currentUserId, isLoadingHistory, isCatchingUpMessages, isCatchupAnnounced, onLoadOlderMessages, onRequestOlderFromPeers, onMessagesScrollEl"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/chat/ChatComposer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/ChatComposer.svelte has a single destructured $props() with 19 named props (> 6): messageText, onMessageChange, onSend, onFocusChange, onTyping, onSendGif, onCreatePoll, replyingTo, onCancelReply, editingText, onCancelEdit, onConfirmEdit, onFilesSelected, onSendVoiceNote, pendingFiles, onRemovePendingFile, videoPreparation, isUploading, allowedUserIds"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/chat/ChatGroupPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/ChatGroupPanel.svelte has a single destructured $props() with 15 named props (> 6): effectiveDisplayName, contactName, groupId, isGroupConversation, imageMediaId, currentUserId, groupMembers, pendingInvites, onClose, onRename, onSetImage, onRemoveMember, onGroupDelete, onGroupLeave, onInviteMembers"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/chat/ChatHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/ChatHeader.svelte has a single destructured $props() with 25 named props (> 6): contactName, groupId, displayName, isReady, isGroupConversation, isChannel, imageMediaId, onInviteMembers, onBack, groupMembers, pendingInvites, currentUserId, onGroupRename, onGroupSetImage, onGroupDelete, onGroupLeave, onGroupRemoveMember, onOpenSettings, onOpenMedia, onToggleSearch, searchActive, onOpenMembers, membersActive, onStartAudioCall, onStartVideoCall"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/chat/ChatMessageGroups.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/ChatMessageGroups.svelte has a single destructured $props() with 22 named props (> 6): visibleMessageGroups, isLoadingOlder, searchQuery, messageReactions, onReply, onForward, onNavigateToMessage, onReact, onVotePoll, onClosePoll, onDelete, canModerate, onBeginEdit, onTogglePin, onJoinChannel, pinnedIds, switchTime, currentUserId, authToken, isDirect, isMobile, readWatermarks"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/chat/ConversationTile.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/ConversationTile.svelte has a single destructured $props() with 12 named props (> 6): conversationId, contactName, displayName, displayNameResolved, conversationType, lastMessage, isReady, isRemoved, isSelected, unreadCount, imageMediaId, onClick"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/chat/ForwardMessageModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/ForwardMessageModal.svelte has a single destructured $props() with 7 named props (> 6): open, conversations, excludeKey, currentUserId, channelWorkspaces, onClose, onSelect"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/forms/FormAdvancedSettings.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/FormAdvancedSettings.svelte has a single destructured $props() with 13 named props (> 6): maxSubmissions, allowMultipleSubmissions, anonymous, anonymousFixed, isPublic, requiresPayment, opensAt, submitCondition, settings, tiers, formations, grantBlocker, associationName"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/forms/FormBuilder.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/FormBuilder.svelte has a single destructured $props() with 13 named props (> 6): item, onRemove, showPriceModifier, pricedByGrid, questionIndex, onMoveUp, onMoveDown, canMoveUp, canMoveDown, allItems, tiers, formations, imageUploadFn"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/forms/FormPaymentSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/FormPaymentSection.svelte has a single destructured $props() with 12 named props (> 6): requiresPayment, anonymous, isPublic, basePrice, allowCashPayment, cashPaymentExpiryDays, priceMatrix, tiers, formations, items, associationName, associationCanBePaid"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/forms/FormQuestion.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/FormQuestion.svelte has a single destructured $props() with 8 named props (> 6): item, index, value, disabled, formId, currency, optionModifier, optionClosed"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/forms/FormSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/forms/FormSection.svelte has a single destructured $props() with 7 named props (> 6): title, icon, badge, collapsible, startOpen, dense, children"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/messages/EcosystemCoverPreview.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/messages/EcosystemCoverPreview.svelte has a single destructured $props() with 8 named props (> 6): url, preview, isLoading, siteLabel, fallbackTitle, squareCoverUrl, standalone, onnear"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/messages/MessageBubble.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/messages/MessageBubble.svelte has a single destructured $props() with 34 named props (> 6): messageId, senderId, content, timestamp, editedAt, isOwn, isSystem, replyTo, reactions, readBy, isLastOwn, isReadReceiptAnchor, isEdited, isDeleted, groupPosition, onJoinChannel, onReply, onForward, onNavigateToMessage, onReact, onVotePoll, onClosePoll, onDelete, canModerate, onBeginEdit, pinned, onTogglePin, currentUserId, authToken, shouldAnimate, isHighlighted, searchTerm, status, isMobile"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/messages/MessageBubbleToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/messages/MessageBubbleToolbar.svelte has a single destructured $props() with 14 named props (> 6): isOwn, isDeleted, hasMedia, showEmojiPicker, onReply, onForward, onReact, userReactions, onToggleEmojiPicker, pinned, onPin, onEdit, onDelete, canModerate"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/messages/MessageMediaRenderer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/messages/MessageMediaRenderer.svelte has a single destructured $props() with 12 named props (> 6): mediaRef, blobUrl, failure, onRetry, textContent, isOwn, textSegments, onNavigateLink, onNear, bleed, senderId, sentAt"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/messages/MessageMetadata.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/messages/MessageMetadata.svelte has a single destructured $props() with 7 named props (> 6): isEdited, isOwn, isLastOwn, isReadReceiptAnchor, status, readBy, outsideBubble"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/messages/MessageMobileActions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/messages/MessageMobileActions.svelte has a single destructured $props() with 21 named props (> 6): visible, anchor, isOwn, isDeleted, hasMedia, canReply, canReact, canEdit, canDelete, userReactions, onReactEmoji, onOpenFullPicker, onReply, onForward, onCopy, pinned, onPin, onEdit, onDelete, onClose, canModerate"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/messages/MessageReplyQuote.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/messages/MessageReplyQuote.svelte has a single destructured $props() with 7 named props (> 6): replyId, displayName, content, isOwn, replierDisplayName, quotedIsReader, onNavigateToMessage"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/posts/PollSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/posts/PollSection.svelte has a single destructured $props() with 9 named props (> 6): question, options, multipleChoice, maxSelections, endsAt, anonymous, anonymousFixed, issue, onRemove"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/posts/PostActions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/posts/PostActions.svelte has a single destructured $props() with 8 named props (> 6): userReaction, showReactionPicker, reactionList, onToggleReactionPicker, onReactionSelect, commentCount, onCommentClick, reactionSummary"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/posts/PostActionsMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/posts/PostActionsMenu.svelte has a single destructured $props() with 12 named props (> 6): pinned, canManage, canPin, canReport, canUnmaskAnonymous, isLoggedIn, onTogglePin, onStartEdit, onDelete, onReport, onUnmaskAnonymous, postId"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/posts/PostComments.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/posts/PostComments.svelte has a single destructured $props() with 18 named props (> 6): comments, topLevelComments, showComments, commentText, submittingComment, currentUserId, authToken, totalCommentCount, onToggleComments, onCommentTextChange, onAddComment, onLikeComment, onEditComment, onDeleteComment, onReport, onLoadAllComments, onKeyDown, pendingCommentIds"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/posts/PostComposerBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/posts/PostComposerBar.svelte has a single destructured $props() with 9 named props (> 6): onFiles, onFormat, pollActive, onTogglePoll, formActive, onToggleForm, scheduledAt, status, action"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/posts/PostMedia.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/posts/PostMedia.svelte has a single destructured $props() with 7 named props (> 6): media, authToken, onOpen, galleryMode, letterbox, deferred, postInfo"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/pricing/CotisationTierPicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pricing/CotisationTierPicker.svelte has a single destructured $props() with 7 named props (> 6): tiers, value, label, hint, anyTierLabel, disabled, onValueChange"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/pricing/CriterionEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/pricing/CriterionEditor.svelte has a single destructured $props() with 8 named props (> 6): dimension, tiers, formations, items, onAddBucket, onRemoveBucket, onRemove, onChange"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/Banner.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/Banner.svelte has a single destructured $props() with 7 named props (> 6): variant, tone, busy, center, class, children, action"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/FullScreenViewer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/FullScreenViewer.svelte has a single destructured $props() with 12 named props (> 6): ariaLabel, onClose, onEscape, maxWidthClass, lockTouch, headerLead, headerActions, children, footer, immersive, chromeHidden, backdropOpacity"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/GlassMenuButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/GlassMenuButton.svelte has a single destructured $props() with 8 named props (> 6): icon, label, items, alignEnd, variant, open, onOpenChange, keepsFocus"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/InlineVideo.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/InlineVideo.svelte has a single destructured $props() with 9 named props (> 6): src, onOpen, openLabel, class, videoClass, disableRemotePlayback, streamed, onMetadata, manualPlay"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/MarkdownComposerField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/MarkdownComposerField.svelte has a single destructured $props() with 16 named props (> 6): value, placeholder, disabled, singleLine, maxlength, minHeight, class, toolbarClass, editorClass, showToolbar, onchange, onkeydown, onpaste, onmedia, onfocus, onblur"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/MediaFrame.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/MediaFrame.svelte has a single destructured $props() with 10 named props (> 6): width, height, measureKey, sizing, fallbackAspect, maxHeight, class, tag, placeholder, children"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/MediaLightbox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/MediaLightbox.svelte has a single destructured $props() with 14 named props (> 6): open, onClose, ariaLabel, title, info, onDownload, showPrev, showNext, onPrev, onNext, dotCount, dotIndex, onDotSelect, children"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/MentionComposerInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/MentionComposerInput.svelte has a single destructured $props() with 16 named props (> 6): value, placeholder, disabled, singleLine, markdownPreview, maxlength, minHeight, class, editorClass, allowedUserIds, onchange, onkeydown, onpaste, onmedia, onfocus, onblur"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/Modal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/Modal.svelte has a single destructured $props() with 13 named props (> 6): open, title, maxWidth, dismissible, panelClass, bodyClass, fullViewport, topAnchored, phoneFullScreen, showTitleBar, onClose, children, footer"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/ModalOverlay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/ModalOverlay.svelte has a single destructured $props() with 8 named props (> 6): open, onClose, label, layer, role, scrim, panelClass, children"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/UserAutocomplete.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/UserAutocomplete.svelte has a single destructured $props() with 9 named props (> 6): value, onValueChange, onSelect, placeholder, inputId, onSubmit, clearOnSelect, excludeIds, filterUserIds"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/shared/VideoPlayer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shared/VideoPlayer.svelte has a single destructured $props() with 7 named props (> 6): src, autoplay, loop, disableRemotePlayback, class, videoClass, soundScope"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/sidebar/Sidebar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sidebar/Sidebar.svelte has a single destructured $props() with 30 named props (> 6): viewMode, conversations, channelWorkspaces, selectedContact, newContactInput, newGroupInput, newChannelInput, onContactInputChange, onGroupInputChange, onChannelInputChange, onAddContact, onCreateGroup, onCreateChannel, onCreateWorkspace, onInviteChannelMember, onUpdateWorkspaceImage, onLeaveWorkspace, onDeleteWorkspace, onReorderCommunities, onSelectConversation, onSelectChannelConversation, onJoinPrivateChannel, onSelectCommunity, selectedChannelId, isHidden, drawerMode, onCloseDrawer, currentUserId, onRefresh, canRefresh"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/sidebar/SidebarCommunityAdminPanel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sidebar/SidebarCommunityAdminPanel.svelte has a single destructured $props() with 8 named props (> 6): open, workspaces, selectedWorkspaceId, onClose, onUpdateWorkspaceImage, onLeaveWorkspace, onDeleteWorkspace, onInviteCommunityMember"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/sidebar/SidebarHeaderControls.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sidebar/SidebarHeaderControls.svelte has a single destructured $props() with 7 named props (> 6): activeSidebarTab, searchQuery, drawerMode, onCloseDrawer, onSearchQueryChange, onOpenNewChat, onOpenCommunityAdmin"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/sidebar/SidebarNewChannelModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sidebar/SidebarNewChannelModal.svelte has a single destructured $props() with 7 named props (> 6): open, channelName, visibility, onClose, onChannelNameChange, onVisibilityChange, onSubmitChannel"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/sidebar/SidebarNewChatModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/sidebar/SidebarNewChatModal.svelte has a single destructured $props() with 15 named props (> 6): open, activeTab, contactId, groupName, currentUserId, recentPeers, error, busy, onClose, onPickPeer, onTabChange, onContactIdChange, onGroupNameChange, onSubmitContact, onSubmitGroup"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: type, disabled, loading, class, onclick, children, variant"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/ui/DateTimeField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/DateTimeField.svelte has a single destructured $props() with 14 named props (> 6): value, onValueChange, label, id, min, clearable, disabled, placeholder, minuteStep, variant, density, invalid, triggerClass, trigger"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/ui/FloatingSurface.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/FloatingSurface.svelte has a single destructured $props() with 8 named props (> 6): open, asSheet, anchor, label, onClose, popoverWidth, children, footer"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/ui/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Input.svelte has a single destructured $props() with 12 named props (> 6) beside a ...rest element: id, type, value, placeholder, label, disabled, required, error, invalid, class, oninput, onkeydown"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/ui/PaymentModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/PaymentModal.svelte has a single destructured $props() with 8 named props (> 6): paymentMethods, totalCents, currency, onPayWithSaved, onPayWithNew, onSuccess, onPaymentFailed, onClose"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/ui/Picker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Picker.svelte has a single destructured $props() with 13 named props (> 6): value, options, onValueChange, label, disabled, id, triggerClass, trigger, leading, placeholder, variant, density, invalid"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/ui/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Select.svelte has a single destructured $props() with 9 named props (> 6): id, label, hint, value, options, disabled, required, class, onValueChange"
+  },
+  {
+    "key": "emse-students/canari:frontend::architecture/prop-count::src/lib/components/ui/Textarea.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Textarea.svelte has a single destructured $props() with 11 named props (> 6) beside a ...rest element: id, value, placeholder, label, disabled, required, rows, error, invalid, class, oninput"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/autoplay-muted::src/lib/components/chat/CallOverlay.svelte:603::<video autoplay> without muted — browsers block audible autoplay, so the video silently never starts playing",
+    "verdict": "design",
+    "basis": "read: CallOverlay.svelte:603 call-tile <video use:attachStream autoplay playsinline> carries the participant's audio on purpose (comment at 601), inside a WebRTC call the user joined by a gesture while capturing the microphone, where Chrome and Safari allow audible playback; adding muted would silence the call, so not a demonstrable never-starts defect"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/autoplay-muted::src/lib/components/chat/CallOverlay.svelte:624::<video autoplay> without muted — browsers block audible autoplay, so the video silently never starts playing",
+    "verdict": "design",
+    "basis": "read: CallOverlay.svelte:624 remote <video> is fed by bindRemoteVideo (186-199), which sets srcObject and calls el.play() explicitly (again on track unmute) during a user-joined call; the autoplay attribute is not what starts it, so the never-starts claim does not hold; reported per the literal-attribute semantics"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/calendar/MonthCalendarGridRich.svelte:205::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/calendar/MonthCalendarGridRich.svelte:205 '{#each calendarCells as day, i (i)}' keyed by its index binding and is not an exempt shape; positional list (calendar cells = monthGridDays(...): month grid days): cell i has no identity beyond position"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/messages/VoiceMessagePlayer.svelte:253::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/messages/VoiceMessagePlayer.svelte:253 '{#each bars as bar, index (index)}' keyed by its index binding and is not an exempt shape; positional list (bars: waveform bars derived from one voice message, VoiceMessagePlayer.svelte:62)"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/pricing/PriceGridEditor.svelte:220::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/pricing/PriceGridEditor.svelte:220 '{#each row.labels as label, i (i)}' keyed by its index binding and is not an exempt shape; positional list (row.labels: label cells of one price-grid row, the row itself keyed, PriceGridEditor.svelte:218)"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/settings/MinesweeperModal.svelte:804::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/MinesweeperModal.svelte:804 '{#each board.cells as cell, i (i)}' keyed by its index binding and is not an exempt shape; positional list (board.cells: fixed-size minesweeper grid cells, MinesweeperModal.svelte:77)"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/shared/EmojiText.svelte:24::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/EmojiText.svelte:24 '{#each splitEmojiText(text) as part, index (index)}' keyed by its index binding and is not an exempt shape; positional list (splitEmojiText(text): parse output of one text)"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/shared/PdfTextLayer.svelte:64::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/PdfTextLayer.svelte:64 '{#each runs as run, index (index)}' keyed by its index binding and is not an exempt shape; positional list (runs prop: text runs of one rendered PDF page)"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/shared/PdfViewerModal.svelte:584::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/shared/PdfViewerModal.svelte:584 '{#each pages as page, index (index)}' keyed by its index binding and is not an exempt shape; positional list (pages = Array.from({ length: numPages }): page slots of one PDF filled as they render, PdfViewerModal.svelte:137)"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/ui/DateTimeField.svelte:231::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/DateTimeField.svelte:231 '{#each cells as day, i (i)}' keyed by its index binding and is not an exempt shape; positional list (calendar cells = monthGridDays(...): month grid days): cell i has no identity beyond position"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/each-index-key::src/lib/components/ui/Picker.svelte:179::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/Picker.svelte:179 '{#each groups as group, gi (gi)}' keyed by its index binding and is not an exempt shape; list source is runtime data (groups = groupPickerOptions(options): option groups of the options prop, which several callers build from API data (EditProfileTab.svelte:257 parentPickerOptions)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/effect-as-derived::src/routes/forms/[id]/+page.svelte:129::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: forms/[id]/+page.svelte:129 bottomNavHeight = document.querySelector('#bottom-nav')?.clientHeight reads the DOM into $state (author comment 120-127 and oxlint disable), the docs-listed browser-global-capture limitation: a $derived would run during SSR"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/effect-as-onmount::src/lib/components/navigation/MobileHeader.svelte:13::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: MobileHeader.svelte:13 the effect only sets/removes a data attribute on document.documentElement; nothing reactive is read, so it runs once after mount like onMount"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/effect-as-onmount::src/lib/components/shared/MediaLightbox.svelte:108::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "design",
+    "basis": "read: MediaLightbox.svelte:108 historyOverlay = bindHistoryOverlay(() => open, ...) is a plain function return whose syncOpen() calls getOpen(), reading the open prop (bindHistoryOverlay.svelte.ts:10-16), so the effect re-runs when open changes; the docs-listed function-return limitation"
+  },
+  {
+    "key": "emse-students/canari:frontend::correctness/prop-mutation::src/lib/components/pricing/CriterionEditor.svelte:120::Prop \"dimension\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "read: CriterionEditor.svelte:120 dimension is a non-$bindable prop; the handler writes dimension.questionId and each bucket's values, mutating a prop as the rule claims"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/image-dimensions::src/routes/admin/agenda/+page.svelte:158::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: absolute inset-0 h-full w-full inside a relative h-12 w-12 date tile (:153-163) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/image-dimensions::src/routes/c/join/[token]/+page.svelte:121::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: h-full w-full object-cover inside an h-16 w-16 tile (:117-125) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/image-dimensions::src/routes/documents/+page.svelte:194::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class h-9 w-9 object-cover (:197) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/image-dimensions::src/routes/forms/[id]/edit/+page.svelte:346::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class max-h-56 w-full object-cover (:349), no height - the natural aspect decides the height up to 14rem, the controls below shift"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/image-loading-hint::src/routes/admin/agenda/+page.svelte:158::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: association logo in the date tile of each event <li> of the agenda {#each} list (:148-163) - later items offscreen on load"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/image-loading-hint::src/routes/c/join/[token]/+page.svelte:121::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: community image at the top of the centered join card (:117-125) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/image-loading-hint::src/routes/documents/+page.svelte:194::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: association logo in the header button of each group of the documents {#each} list (:184-198) - later groups offscreen on load"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/lcp-image::src/routes/forms/[id]/edit/+page.svelte:346::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: form cover image (max-h-56 w-full) in the first FormSection, after the title input, description editor and association line (:305-351) - within the first desktop viewport and its largest element when the form has an image, yet lazy (on phones it sits lower)"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/responsive-image::src/routes/admin/agenda/+page.svelte:158::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: associationLogoSrc(ev.associationLogoUrl), an uploaded association logo URL (lib/associations/api.ts:348-355) - raster, one fixed-size asset"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/responsive-image::src/routes/c/join/[token]/+page.svelte:121::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /api/media/public/{imageMediaId}, an uploaded raster image - one fixed-size asset"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/responsive-image::src/routes/documents/+page.svelte:194::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: associationLogoSrc(group.logoUrl), an uploaded association logo - raster, one fixed-size asset"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/responsive-image::src/routes/forms/[id]/edit/+page.svelte:346::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: imageUrl, the uploaded form cover - raster, one fixed-size asset"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/state-raw::src/lib/components/carte/PosterCanvas.svelte:137::\"snapLines\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/lib/components/carte/PosterCanvas.svelte:137: \"snapLines\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/state-raw::src/lib/components/forms/FormSubmissionsTable.svelte:85::\"expanded\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/lib/components/forms/FormSubmissionsTable.svelte:85: \"expanded\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/state-raw::src/lib/components/shop/PartnershipCardList.svelte:62::\"claimResults\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/lib/components/shop/PartnershipCardList.svelte:62: \"claimResults\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/state-raw::src/lib/components/shop/PartnershipCardList.svelte:63::\"claimErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/lib/components/shop/PartnershipCardList.svelte:63: \"claimErrors\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/state-raw::src/routes/admin/users/+page.svelte:23::\"saving\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/admin/users/+page.svelte:23: \"saving\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "emse-students/canari:frontend::performance/state-raw::src/routes/admin/users/+page.svelte:24::\"feedback\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-verified + read src/routes/admin/users/+page.svelte:24: \"feedback\" is a container-literal $state whose every use is a whole reassignment (spread copy or new value) or a member/each read (each bodies only render options/rows, no bind/props of items) - no mutation or escape; $state.raw fits (ledger state-raw convention)"
+  },
+  {
+    "key": "emse-students/canari:frontend::security/raw-html::src/lib/components/seo/SeoHead.svelte:135::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read SeoHead.svelte:80,135 + lib/seo/jsonLd.ts:18-29: renderJsonLdScript uses serializeJsonLd = JSON.stringify().replace(/</g,\"\\u003c\").replace(/&/g,\"\\u0026\") - script-safe serialization per docs"
+  },
+  {
+    "key": "emse-students/canari:frontend::security/raw-html::src/routes/admin/status/+page.svelte:213::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/status/+page.svelte: {@html m.admin_status_legend_*_html()} - paraglide repo i18n messages with no params - reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "emse-students/canari:frontend::security/raw-html::src/routes/admin/status/+page.svelte:220::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/status/+page.svelte: {@html m.admin_status_legend_*_html()} - paraglide repo i18n messages with no params - reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "emse-students/canari:frontend::security/raw-html::src/routes/admin/status/+page.svelte:227::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/status/+page.svelte: {@html m.admin_status_legend_*_html()} - paraglide repo i18n messages with no params - reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "emse-students/canari:frontend::security/raw-html::src/routes/admin/status/+page.svelte:239::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/admin/status/+page.svelte: {@html m.admin_status_legend_*_html()} - paraglide repo i18n messages with no params - reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "emse-students/canari:frontend::security/raw-html::src/routes/calendar/export/+page.svelte:394::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read calendar/export/+page.svelte:118,394 + lib/utils/calendarExport.ts:213-215,477-720: buildPreviewInnerHtml escapes weekday/event titles (safe(), emojiHtml -> escapeHtml in utils/emojiSvg.ts:123-131); the rest is numbers, chosen colors and stored logo upload URLs - escaped, reported per docs"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/heading-level-skip::src/routes/admin/carte/[id]/+page.svelte:852::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the flagged <h3> (:852) is under {#if canEdit} (:848); the only <h2> before it (:604) is in the {#if !canEdit} arm, so on the editing path the previous heading is the admin layout <h1> (admin/+layout.svelte:169) or PosterCanvas's <h1> (:553, rendered at :821) - h1 to h3"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/heading-level-skip::src/routes/lists/+page.svelte:98::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: PageHeader <h1> (layout/PageHeader.svelte:73), then the empty-state <h3> (:98) with no <h2> between - h1 to h3"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/heading-level-skip::src/routes/posts/+page.svelte:601::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: PageHeader <h1> (PageHeader.svelte:73), then ConversationsMiniPanel/ScheduledPostsPanel (no headings), the closed CreatePostForm Modal and the feedList empty-state <h3> (:601); the :577 <h3> is in the exclusive {:catch} arm - h1 to h3"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/heading-level-skip::src/routes/posts/[postId]/+page.svelte:75::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: PageHeader <h1> (:38, PageHeader.svelte:73), then the not-found {:else} arm's <h3> (:75) - h1 to h3"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/single-h1::src/lib/components/associations/AssociationDetailView.svelte:282::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: AssociationDetailView's <h1> (:282) is the page's single one on /associations/[slug] and /lists/[slug]; the other counted <h1> is PinModal's (auth/PinModal.svelte:230), rendered in <Modal open={showPinModal}> by ChatBackgroundService in the root layout (+layout.svelte:637, ChatBackgroundService.svelte:297 showPinModal = $state(false)) - a PIN gate closed until an unlock is needed"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/single-h1::src/lib/components/auth/LoginForm.svelte:62::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: LoginForm's <h1>Canari (:62) is /login's single one; the other counted <h1> is PinModal's (auth/PinModal.svelte:230), rendered in <Modal open={showPinModal}> by ChatBackgroundService in the root layout (+layout.svelte:637, ChatBackgroundService.svelte:297 showPinModal = $state(false)) - a PIN gate closed until an unlock is needed"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/single-h1::src/lib/components/auth/PinModal.svelte:230::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "key covers 14 routes, majority design: the counted extra <h1> is PinModal's (:230), in <Modal open={showPinModal}> rendered by ChatBackgroundService in the root layout (showPinModal = $state(false), ChatBackgroundService.svelte:297) - closed until an unlock is needed; most of these routes have one page or admin-layout <h1> otherwise (admin/+layout.svelte:169 plus a PageHeader <h1> on admin/legacy-cotisations, moderation, status and users really is two)"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/single-h1::src/lib/components/forms/FormHeader.svelte:44::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: FormHeader's two <h1>s (:44, :62) are exclusive {#if form.imageUrl}/{:else} arms, so /f/[id] and /forms/[id] have one; the other counted <h1> is PinModal's (auth/PinModal.svelte:230), rendered in <Modal open={showPinModal}> by ChatBackgroundService in the root layout (+layout.svelte:637, ChatBackgroundService.svelte:297 showPinModal = $state(false)) - a PIN gate closed until an unlock is needed"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/single-h1::src/lib/components/layout/PageHeader.svelte:73::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "key covers 21 routes: PageHeader renders a single <h1>{title} (:73) per page; the other counted <h1> is PinModal's (auth/PinModal.svelte:230), rendered in <Modal open={showPinModal}> by ChatBackgroundService in the root layout (+layout.svelte:637, ChatBackgroundService.svelte:297 showPinModal = $state(false)) - a PIN gate closed until an unlock is needed"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/single-h1::src/lib/components/legal/LegalDocument.svelte:135::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: LegalDocument's <h1>{title} (:135) is each legal page's single one; the other counted <h1> is PinModal's (auth/PinModal.svelte:230), rendered in <Modal open={showPinModal}> by ChatBackgroundService in the root layout (+layout.svelte:637, ChatBackgroundService.svelte:297 showPinModal = $state(false)) - a PIN gate closed until an unlock is needed"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/single-h1::src/lib/components/reels/ReelPublishSheet.svelte:160::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: the counted <h1>s on /camera are ReelPublishSheet's (:160), shown only {#if publishOpen && limits} in the review step after recording (ReelCapture.svelte:274-277), and PinModal's closed gate - neither renders on load"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/single-h1::src/routes/admin/database/+page.svelte:49::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte renders <h1>{scope.title()} (:169) in its ready arm with {@render children()} (:206), and the page adds <h1>{m.admin_database_title()} (:49) - two real <h1>"
+  },
+  {
+    "key": "emse-students/canari:frontend::seo/ssr-disabled::src/routes/+layout.ts:11::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:11 (SPA mode shared with the Tauri build); the web build serves public posts/associations/shop/calendar pages that robots.txt allows and the sitemap.xml endpoint lists, yet their body ships as an empty shell to non-JS crawlers, as claimed (hooks.server.ts:56-78 injects only the per-route title/meta/OG head, not content) (Granthalay public-SPA precedent)"
+  }
+]

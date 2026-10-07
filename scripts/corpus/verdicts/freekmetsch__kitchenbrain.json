@@ -1,0 +1,1372 @@
+[
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/deprecated-aria::src/routes/shopping/+page.svelte:380::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read routes/shopping/+page.svelte:380: bare <span class=\"shopping-edit-plan ui-action\" aria-disabled=\"true\"> (no role/spread) standing in for the disabled link; aria-disabled is deprecated on generic since ARIA 1.2"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/lib/components/BenchSheet.svelte:520::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read lib/components/BenchSheet.svelte:520: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"segmented\" aria-label=\"{m.benchsheet_view_label()}\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/lib/components/BenchSheet.svelte:525::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read lib/components/BenchSheet.svelte:525: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"segmented language\" aria-label=\"{m.recipes_language_label()}\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/lib/components/cook-mode/CookStepCard.svelte:69::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read lib/components/cook-mode/CookStepCard.svelte:69: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"mb-2 flex flex-wrap gap-1.5\" aria-label=\"{m.benchsheet_ingredients_label()}\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/lib/components/settings/MealPlanSettingsPreview.svelte:46::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read lib/components/settings/MealPlanSettingsPreview.svelte:46: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"mt-3 grid grid-cols-7 gap-1\" aria-label=\"{m.settings_mealplan_preview_week_label()}); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/lib/components/settings/MealPlanSettingsPreview.svelte:71::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read lib/components/settings/MealPlanSettingsPreview.svelte:71: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"grid grid-cols-7 gap-1\" aria-label=\"{m.settings_mealplan_preview_by_day()}\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/lib/components/shopping/ShoppingLists.svelte:509::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/shopping/ShoppingLists.svelte:509: <label class=\"market-check-hit\" aria-label> wrapping the item's checkbox <input>, no role/spread/use:; docs name the <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (ledger: all prior <label> verdicts are design)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/lib/components/shopping/ShoppingLists.svelte:645::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read lib/components/shopping/ShoppingLists.svelte:645: <label class=\"market-check-hit\" aria-label> wrapping the item's checkbox <input>, no role/spread/use:; docs name the <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (ledger: all prior <label> verdicts are design)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/lib/components/shopping/ShoppingMealPortions.svelte:265::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read lib/components/shopping/ShoppingMealPortions.svelte:265: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"shopping-meal-stepper\" aria-label=\"{m.mealplan_servings_label()}\" aria-busy=\"{meal.); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/inventory/+page.svelte:329::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/inventory/+page.svelte:329: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"stock-coverage\" aria-label=\"{m.inventory_recipe_coverage_label()}\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/meal-plan/+page.svelte:241::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/meal-plan/+page.svelte:241: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"meal-serving-stepper\" aria-label=\"{m.mealplan_servings_label()}\" aria-busy=\"{!!cont); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/recipes/+page.svelte:641::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/recipes/+page.svelte:641: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"recipe-card-meta\" aria-label=\"{statuses.map((status) => status.label).join(', ')}\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/ai/+page.svelte:162::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/ai/+page.svelte:162: literal <div> with aria-labelledby and no role, spread or use: action (attrs: Class:pointer-events-none Class:opacity-60 aria-labelledby=\"thinking-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/ai/+page.svelte:176::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/ai/+page.svelte:176: literal <div> with aria-labelledby and no role, spread or use: action (attrs: Class:pointer-events-none Class:opacity-60 aria-labelledby=\"provider-sort-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/display/+page.svelte:74::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/display/+page.svelte:74: literal <div> with aria-labelledby and no role, spread or use: action (attrs: Class:pointer-events-none Class:opacity-60 aria-labelledby=\"theme-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/display/+page.svelte:81::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/display/+page.svelte:81: literal <div> with aria-labelledby and no role, spread or use: action (attrs: aria-labelledby=\"language-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/meal-plan/+page.svelte:103::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/meal-plan/+page.svelte:103: literal <div> with aria-labelledby and no role, spread or use: action (attrs: Class:pointer-events-none Class:opacity-60 aria-labelledby=\"plan-ahead-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/meal-plan/+page.svelte:136::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/meal-plan/+page.svelte:136: literal <div> with aria-labelledby and no role, spread or use: action (attrs: Class:pointer-events-none Class:opacity-60 aria-labelledby=\"day-planning-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/recipes/+page.svelte:258::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/recipes/+page.svelte:258: literal <div> with aria-labelledby and no role, spread or use: action (attrs: Class:pointer-events-none Class:opacity-60 aria-labelledby=\"recipe-language-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/recipes/+page.svelte:272::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/recipes/+page.svelte:272: literal <div> with aria-labelledby and no role, spread or use: action (attrs: Class:pointer-events-none Class:opacity-60 aria-labelledby=\"default-sort-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/settings/recipes/+page.svelte:293::`aria-labelledby` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/settings/recipes/+page.svelte:293: literal <div> with aria-labelledby and no role, spread or use: action (attrs: Class:pointer-events-none Class:opacity-60 aria-labelledby=\"auto-translate-label\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/disallowed-aria-props::src/routes/shopping/+page.svelte:247::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (AST) + read routes/shopping/+page.svelte:247: literal <div> with aria-label and no role, spread or use: action (attrs: class=\"shopping-market-dock\" aria-label=\"{m.shopping_heading()}\"); its role is generic, which prohibits a name, so the label is not exposed"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/duplicate-landmark::src/routes/inventory/+page.svelte:220::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: inventory/+page.svelte:220 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so the route has two main landmarks"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/duplicate-landmark::src/routes/login/+page.svelte:21::Duplicate main landmark (# of #)",
+    "verdict": "fp",
+    "basis": "fp: root +layout.svelte renders {@render children()} inside <main> only in {#if data.user} (:120-127) and bare in {:else} (:132-133); login/+page.server.ts:22-24 redirects to / whenever locals.user is set, and +layout.server.ts returns user: locals.user, so on /login data.user is always null and login/+page.svelte:21 <main> is the only main, not nested; the analyzer counted the layout's {#if data.user} arm on /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/duplicate-landmark::src/routes/meal-plan/+page.svelte:200::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: meal-plan/+page.svelte:200 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so the route has two main landmarks"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/duplicate-landmark::src/routes/recipes/+page.svelte:594::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: recipes/+page.svelte:594 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so the route has two main landmarks"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/duplicate-landmark::src/routes/settings/+page.svelte:81::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte:81 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so the route has two main landmarks"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/duplicate-landmark::src/routes/shopping/+page.svelte:233::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: shopping/+page.svelte:233 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so the route has two main landmarks"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/id-duplication::src/lib/components/shopping/ShoppingLists.svelte:621::Duplicate id \"shopping-basket-toggle\"",
+    "verdict": "design",
+    "basis": "read ShoppingLists.svelte: id=\"shopping-basket-toggle\" at :558 sits in {:else if controller.viewMode === 'complete'} (:553) and at :622 in a separate {#if controller.completed.length && controller.activePending.length}; list-controller.svelte.ts:193-194 returns 'complete' only when activePending is empty, so they never render together; separate-blocks convention"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/permitted-contents::src/lib/components/chat/RecipeEnhancementReview.svelte:238::`<details>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <details> at lib/components/chat/RecipeEnhancementReview.svelte:238 has literal <span> (line 231) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <span>'s permitted content as reported"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/permitted-contents::src/lib/components/inventory/ItemEditor.svelte:129::`<a>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <a> at lib/components/inventory/ItemEditor.svelte:129 has literal <ul> (line 127) as its nearest non-transparent element ancestor in the same template (crossed: {#each}), no component/snippet/svelte:element boundary, not in svg; outside <ul>'s permitted content as reported"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/permitted-contents::src/lib/components/inventory/ItemEditor.svelte:130::`<span>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <span> at lib/components/inventory/ItemEditor.svelte:130 has literal <ul> (line 127) as its nearest non-transparent element ancestor in the same template (crossed: a,{#each}), no component/snippet/svelte:element boundary, not in svg; outside <ul>'s permitted content as reported"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/permitted-contents::src/routes/login/+page.svelte:62::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at routes/login/+page.svelte:62 has literal <label> (line 61) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <label>'s permitted content as reported"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/permitted-contents::src/routes/login/+page.svelte:73::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at routes/login/+page.svelte:73 has literal <label> (line 72) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <label>'s permitted content as reported"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/top-level-landmark::src/routes/inventory/+page.svelte:220::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: inventory/+page.svelte:220 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so it is a main nested in main"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/top-level-landmark::src/routes/login/+page.svelte:21::main landmark is nested inside main",
+    "verdict": "fp",
+    "basis": "fp: root +layout.svelte renders {@render children()} inside <main> only in {#if data.user} (:120-127) and bare in {:else} (:132-133); login/+page.server.ts:22-24 redirects to / whenever locals.user is set, and +layout.server.ts returns user: locals.user, so on /login data.user is always null and login/+page.svelte:21 <main> is the only main, not nested; the analyzer counted the layout's {#if data.user} arm on /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/top-level-landmark::src/routes/meal-plan/+page.svelte:200::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: meal-plan/+page.svelte:200 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so it is a main nested in main"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/top-level-landmark::src/routes/meal-plan/+page.svelte:361::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: meal-plan/+page.svelte:361 <aside aria-labelledby> (labelled, so complementary even inside <section> :204) inside the page <main> (:200); root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/top-level-landmark::src/routes/recipes/+page.svelte:594::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: recipes/+page.svelte:594 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so it is a main nested in main"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/top-level-landmark::src/routes/settings/+page.svelte:81::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings/+page.svelte:81 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so it is a main nested in main"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::a11y/top-level-landmark::src/routes/shopping/+page.svelte:233::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: shopping/+page.svelte:233 page <main>; root +layout.svelte:120-127 renders {@render children()} inside <main class=app-main> in {#if data.user}; +layout.server.ts:9-11 redirects every non-/login request without locals.user to /login, so on this route data.user is always set and the layout <main> always wraps the page, so it is a main nested in main"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/BenchSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BenchSheet.svelte has 773 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/ChatView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ChatView.svelte has 691 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/chat/AssistantAhReview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/AssistantAhReview.svelte has 300 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/chat/MealPlanReview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/MealPlanReview.svelte has 340 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/chat/RecipeEnhancementReview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/chat/RecipeEnhancementReview.svelte has 372 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/inventory/FacetChips.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/inventory/FacetChips.svelte has 293 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/recipe-detail/FreezerStockPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/recipe-detail/FreezerStockPanel.svelte has 234 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/recipe-edit/IngredientListEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/recipe-edit/IngredientListEditor.svelte has 209 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/shopping/AhPreviewItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shopping/AhPreviewItem.svelte has 461 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/shopping/AhSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shopping/AhSheet.svelte has 886 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/shopping/InlineWeeklyItemsEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shopping/InlineWeeklyItemsEditor.svelte has 411 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/shopping/PushHistory.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shopping/PushHistory.svelte has 591 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/shopping/ShoppingLists.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shopping/ShoppingLists.svelte has 1244 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/shopping/ShoppingMealPortions.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/shopping/ShoppingMealPortions.svelte has 417 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/ui/HeaderActionMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/HeaderActionMenu.svelte has 338 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/lib/components/ui/KitchenPageHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/KitchenPageHeader.svelte has 312 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count (style block ~250 of them; docs count physical lines and the ledger has no CSS-share exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/inventory/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/inventory/+page.svelte has 719 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/meal-plan/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/meal-plan/+page.svelte has 876 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/recipes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/recipes/+page.svelte has 1150 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/recipes/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/recipes/[slug]/+page.svelte has 444 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/recipes/[slug]/edit/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/recipes/[slug]/edit/+page.svelte has 312 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/settings/ai/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/ai/+page.svelte has 212 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/settings/connections/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/connections/+page.svelte has 252 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/settings/data/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/data/+page.svelte has 310 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/settings/recipes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/recipes/+page.svelte has 388 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/component-size::src/routes/shopping/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/shopping/+page.svelte has 531 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/BenchSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/BenchSheet.svelte has a single destructured $props() with 20 named props (> 6): recipeSlug, recipeRevision, recipeTitle, initial, progressSignature, fallback, view, viewLang, languageSwitchable, translationLoading, translationMessage, translationStatus, planOccurrences, onViewChange, onLanguageChange, onRetryTranslation, onCooked, planMealId, planMealEditable, controller"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/OriginalRecipeView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/OriginalRecipeView.svelte has a single destructured $props() with 8 named props (> 6): directions, ingredients, ingredientStock, viewLang, servings, targetServings, sourceUrl, provenance"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/chat/RecipeEnhancementReview.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/chat/RecipeEnhancementReview.svelte has a single destructured $props() with 7 named props (> 6): proposal, onApplied, isLatest, verifyStatus, initialSelection, onSelectionChange, onFindDifferent"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/cook-mode/CookStepCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/cook-mode/CookStepCard.svelte has a single destructured $props() with 8 named props (> 6): step, index, current, palette, incomingPalettes, streamName, mergeNames, onSelect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/cook-mode/CounterBoard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/cook-mode/CounterBoard.svelte has a single destructured $props() with 10 named props (> 6): ingredients, canonicalIngredients, checks, swaps, streamLabelsByIngredient, paletteByIngredient, onToggle, onSwap, onSaveDefault, savingIngredientId"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/inventory/FacetChips.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inventory/FacetChips.svelte has a single destructured $props() with 16 named props (> 6): item, link, matches, signalLabel, relationshipInteractive, portionEditing, portionValue, onOpenLinkPicker, onOpenPortionEdit, onCommitPortionEdit, onCancelPortionEdit, onOpenEdit, onResolveReview, stapleAdded, stapleBusy, onAddStaple"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/inventory/ItemEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inventory/ItemEditor.svelte has a single destructured $props() with 10 named props (> 6): editing, link, matches, history, draft, saving, onDelete, onCancel, onSave, onUndoEvent"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/inventory/ItemRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inventory/ItemRow.svelte has a single destructured $props() with 23 named props (> 6): item, link, matches, signalLabel, relationshipInteractive, qtyEditing, qtyEditVal, portionEditing, portionEditVal, stapleAdded, stapleBusy, onOpenEdit, onDelete, onStepQty, onOpenQtyEdit, onCommitQtyEdit, onCancelQtyEdit, onResolveReview, onAddStaple, onOpenLinkPicker, onOpenPortionEdit, onCommitPortionEdit, onCancelPortionEdit"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/inventory/LinkRecipeSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inventory/LinkRecipeSheet.svelte has a single destructured $props() with 9 named props (> 6): open, item, link, relationship, search, options, onPick, onSetStatus, onClear"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/inventory/QtyControl.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/inventory/QtyControl.svelte has a single destructured $props() with 9 named props (> 6): item, target, editing, value, onStep, onCommit, onCancel, onOpenEdit, onOpenRowEdit"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/meal-plan/MealSourceChoice.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/meal-plan/MealSourceChoice.svelte has a single destructured $props() with 7 named props (> 6): source, baselineServings, frozenPortions, servings, disabled, compact, onselect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/recipe-detail/AddToPlanSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/recipe-detail/AddToPlanSheet.svelte has a single destructured $props() with 7 named props (> 6): open, weeks, recipeSlug, dinnerTitle, frozenPortions, baselineServings, scalingMode"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/recipe-detail/RecipeHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/recipe-detail/RecipeHeader.svelte has a single destructured $props() with 10 named props (> 6): recipe, displayTitle, onAddToPlan, addToPlanOpen, onEditRaw, hasCookProgress, onResetCookProgress, onRemovePhoto, canPlan, onArchivedChange"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/shopping/AhPreviewItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shopping/AhPreviewItem.svelte has a single destructured $props() with 21 named props (> 6): item, dec, favoriteId, expanded, needsAttention, searchTerm, searching, searchError, searchEnabled, onToggleExclude, onPickProduct, onQuantityChange, onQuantityConfirm, onToggleFavorite, onDemoteToText, onConfirmReview, onSearchTermChange, onSearch, onToggleExpanded, showFavorite, compact"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/shopping/ShoppingLists.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shopping/ShoppingLists.svelte has a single destructured $props() with 25 named props (> 6): pending, done, sources, weekStart, recurring, legacy, excludedWeekItems, notices, emptyState, editable, showCovered, bonusByName, onToggleBought, onDeleteManual, onRestoreManual, onRemoveThisWeek, onRestoreThisWeek, onChangeSourceTerm, onChangeSourceNeed, onSetSourceIncluded, onAddRecurring, onEditRecurring, onSetRecurringIncluded, onDisableRecurring, onResolveLegacy"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/shopping/ShoppingMealPortions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shopping/ShoppingMealPortions.svelte has a single destructured $props() with 7 named props (> 6): meals, editable, weekStart, hasPriorPush, active, onpendingchange, onservingssettled"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/shopping/WeekNav.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/shopping/WeekNav.svelte has a single destructured $props() with 9 named props (> 6): weekStart, currentWeekStart, prevWeek, nextWeek, isDefaultWeek, deliveryDate, ahConnected, onOpenSetup, setupOpen"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/ui/BottomSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/BottomSheet.svelte has a single destructured $props() with 10 named props (> 6): open, id, title, desktopCentered, desktopSide, dismissible, initialFocus, restoreFocus, children, onclose"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/ui/CombinedFilterMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/CombinedFilterMenu.svelte has a single destructured $props() with 10 named props (> 6): id, open, label, summary, activeCount, panelLabel, doneLabel, closeAt, tone, children"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/ui/HeaderActionMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/HeaderActionMenu.svelte has a single destructured $props() with 9 named props (> 6): id, triggerLabel, sheetTitle, triggerText, triggerClass, wrapperClass, iconOnly, focusAfterSelect, items"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::architecture/prop-count::src/lib/components/ui/KitchenPageHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/KitchenPageHeader.svelte has a single destructured $props() with 8 named props (> 6): eyebrow, title, layout, variant, leading, action, actions, children"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/ChatView.svelte:323::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ChatView.svelte:323 '{#each messages as msg, mi}' has no key; messages = $derived(controller.messages) (:26), the chat conversation that grows as messages stream in; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/ChatView.svelte:340::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ChatView.svelte:340 '{#each msg.images as src}' has no key; msg.images of a chat message; nested runtime list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/ChatView.svelte:353::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ChatView.svelte:353 '{#each toolRows(msg.toolCalls) as row}' has no key; toolRows(msg.toolCalls) (:202) over a message's tool calls; nested runtime list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/ChatView.svelte:369::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ChatView.svelte:369 '{#each row.tools as activity}' has no key; row.tools of a tool row built from a message's tool calls; nested runtime list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/ChatView.svelte:398::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ChatView.svelte:398 '{#each d.diff as chip}' has no key; d.diff chips of a tool call's display result; nested runtime list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/OriginalRecipeView.svelte:63::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/OriginalRecipeView.svelte:63 '{#each ingredients as ingredient, index}' has no key; ingredients prop (Ingredient[]) of a stored recipe; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/OriginalRecipeView.svelte:84::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/OriginalRecipeView.svelte:84 '{#each directions as direction, index}' has no key; directions prop (string[]) of a stored recipe; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/chat/MealPlanReview.svelte:213::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/MealPlanReview.svelte:213 '{#each proposal.recommendation.evidence as fact}' has no key; proposal.recommendation.evidence of an AI meal-plan proposal prop; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/chat/MealPlanReview.svelte:225::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/chat/MealPlanReview.svelte:225 '{#each proposal.recommendation.alternatives as alternative}' has no key; proposal.recommendation.alternatives of an AI meal-plan proposal prop; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/cook-mode/CookStepCard.svelte:44::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/cook-mode/CookStepCard.svelte:44 '{#each incomingPalettes as incomingPalette}' has no key; incomingPalettes prop; the caller (BenchSheet.svelte:611) passes palettes[index]?.sources from the cook session state; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/cook-mode/CookStepCard.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/cook-mode/CookStepCard.svelte:70 '{#each step.ingredients as ingredient}' has no key; step.ingredients of a cook-mode step prop built from the recipe; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/cook-mode/CounterBoard.svelte:135::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/cook-mode/CounterBoard.svelte:135 '{#each swapIngredient.substitutes as substitute, substituteIndex}' has no key; swapIngredient.substitutes of the $derived selected ingredient (:42); runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/cook-mode/CounterBoard.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/cook-mode/CounterBoard.svelte:86 '{#each ingredients as ingredient}' has no key; ingredients prop (Ingredient[]) of the recipe in cook mode; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/cook-mode/InstructionLines.svelte:11::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/cook-mode/InstructionLines.svelte:11 '{#each line.segments as segment}' has no key; line.segments, text segments of one parsed instruction line (projectInstruction); positional text segments"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/cook-mode/InstructionLines.svelte:9::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/cook-mode/InstructionLines.svelte:9 '{#each lines as line}' has no key; lines = $derived(projectInstruction(text)) (:5), the parsed lines of one instruction text; positional text segments"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/meal-plan/MealSourceChoice.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/meal-plan/MealSourceChoice.svelte:46 '{#each sourceOptions as option}' has no key; sourceOptions = $derived([...]) (:29), fixed meal-source options with translated labels; static option list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/recipe-detail/AddToPlanSheet.svelte:135::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/recipe-detail/AddToPlanSheet.svelte:135 '{#each weeks as week}' has no key; weeks prop; callers pass actionWeeks = labelWeeks(data.weeks) (recipes/+page.svelte:85), the plan weeks loaded from the database; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/recipe-detail/SubstituteSuggestions.svelte:40::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/recipe-detail/SubstituteSuggestions.svelte:40 '{#each entry.substitutes as substitute}' has no key; entry.substitutes of a substitution entry; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/AhPreviewItem.svelte:148::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/AhPreviewItem.svelte:148 '{#each item.quantitySources as source}' has no key; item.quantitySources of a shopping preview item; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/AhPushResult.svelte:63::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/AhPushResult.svelte:63 '{#each result.failed as f}' has no key; result.failed of the AH push outcome prop; runtime results"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/LegacyShoppingReview.svelte:26::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/LegacyShoppingReview.svelte:26 '{#each item.candidates as candidate}' has no key; item.candidates of a legacy shopping item from the items prop; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/PushHistory.svelte:131::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/PushHistory.svelte:131 '{#each items as item}' has no key; items snippet parameter, orderedItems(push) of a shopping push record (:141); runtime records"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/PushHistory.svelte:254::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/PushHistory.svelte:254 '{#each previous as push}' has no key; previous = $derived(visibleHistory.slice(1)) (:42), past push records; runtime records"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/ShoppingNotices.svelte:41::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/ShoppingNotices.svelte:41 '{#each mealsWithoutRecipe as meal}' has no key; mealsWithoutRecipe prop (string[]) of the planned meals; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/ShoppingNotices.svelte:49::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/ShoppingNotices.svelte:49 '{#each freezerMeals as meal}' has no key; freezerMeals prop (MealRef[]) of the planned meals; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/ShoppingNotices.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/ShoppingNotices.svelte:57 '{#each freezerMealsMissingFreshInfo as meal}' has no key; freezerMealsMissingFreshInfo prop (MealRef[]); runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/shopping/ShoppingSourceQuickControls.svelte:94::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/shopping/ShoppingSourceQuickControls.svelte:94 '{#each source.approvedTerms as term}' has no key; source.approvedTerms of a shopping-list source the user edits (onTerm callback); runtime editable list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/ui/Spinner.svelte:58::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/Spinner.svelte:58 '{#each bodyPaths as pd}' has no key; bodyPaths = $derived(pot.paths.slice(0, -2).map(toPathDef)) (:31), the SVG path data of the pot icon of the active icon set; static icon geometry, replaced wholesale on set change"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/lib/components/ui/icons/Icon.svelte:27::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/icons/Icon.svelte:27 '{#each icon.paths as p}' has no key; icon.paths of a named icon in the const ICON_SETS / active icon set (:14); static icon geometry, replaced wholesale"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/routes/meal-plan/+page.svelte:795::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/meal-plan/+page.svelte:795 '{#each controller.drawerCategories as category}' has no key; controller.drawerCategories = presentFoodCategories(this.recipeList.map(...)) (meal-plan/controller.svelte.ts:207) of the loaded recipes; runtime data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/routes/meal-plan/+page.svelte:827::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/meal-plan/+page.svelte:827 '{#each controller.filteredRecipes as recipe}' has no key; controller.filteredRecipes, recipes filtered by the user's drawer search; runtime data (filtered-list)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/routes/recipes/+page.svelte:508::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/recipes/+page.svelte:508 '{#each data.dishTypes as dishType}' has no key; data.dishTypes = DISH_TYPES, a server constant (lib/server/workflows/recipe-pages.ts:171); static option list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/routes/recipes/+page.svelte:645::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/recipes/+page.svelte:645 '{#each statuses.slice(0, 3) as status}' has no key; statuses = recipeCardStatuses(recipe) (:615/411), status badges of a recipe card present or absent per the recipe's data; runtime data (record tags)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/each-key::src/routes/settings/ai/+page.svelte:114::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/settings/ai/+page.svelte:114 '{#each spendDays as day}' has no key; spendDays = Array.from({ length: 7 }, ...) (:88), the last seven days of a spend chart; positional chart bars"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::correctness/effect-as-derived::src/routes/shopping/+page.svelte:44::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/shopping/+page.svelte:44 the effect only re-copies data.items into items; the deep writes (item.bought, :104/114) are each followed by a wholesale reassignment items = [...items] (:105/115) and markBought reassigns (:192), so a writable $derived works (svelte ^5.56.6)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::performance/state-raw::src/lib/components/ui/SegmentedControl.svelte:29::\"indicator\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"indicator\" in src/lib/components/ui/SegmentedControl.svelte (and each {#each} body over it): only whole-binding reassignments and read-only template/expression uses (member reads, .length, item fields); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::security/server-module-state::src/routes/api/chat/+server.ts:61::module-scope variable \"systemPromptTemplate\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/api/chat/+server.ts:57-66: `systemPromptTemplate` memoizes readFileSync of the committed src/lib/server/ai/prompts/system.md on first call — a run-once process-wide cache of a static file, no request/user data (per-request locale/date are applied after, not stored); docs name a deliberate process-wide cache as a suppress case"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/design/icons/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /design/icons (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/inventory/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /inventory (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/meal-plan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/recipes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/recipes/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recipes/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/recipes/[slug]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /recipes/[slug]/edit (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/account (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/advanced/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/advanced (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/ai/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/ai (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/connections/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/connections (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/data/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/data (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/display/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/display (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/meal-plan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/settings/recipes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings/recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/canonical-url::src/routes/shopping/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /shopping (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; but not a search target (auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on / (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/design/icons/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /design/icons (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/inventory/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /inventory (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /login (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/meal-plan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /meal-plan (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/recipes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /recipes (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/recipes/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /recipes/[slug] (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/recipes/[slug]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /recipes/[slug]/edit (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings/account (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/advanced/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings/advanced (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/ai/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings/ai (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/connections/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings/connections (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/data/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings/data (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/display/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings/display (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/meal-plan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings/meal-plan (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/settings/recipes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /settings/recipes (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/description-presence::src/routes/shopping/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html and every svelte:head): no <meta name=description> on /shopping (literal claim holds); not a search target: Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/design/icons/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /design/icons"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/inventory/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /inventory"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /login"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/meal-plan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /meal-plan"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/recipes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /recipes"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/recipes/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /recipes/[slug]"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/recipes/[slug]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /recipes/[slug]/edit"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings/account"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/advanced/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings/advanced"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/ai/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings/ai"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/connections/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings/connections"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/data/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings/data"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/display/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings/display"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/meal-plan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings/meal-plan"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/settings/recipes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /settings/recipes"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/json-ld::src/routes/shopping/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) (ai/recipe_ingest.ts only parses JSON-LD from scraped recipe pages) on /shopping"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/design/icons/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /design/icons (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/inventory/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /inventory (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/meal-plan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/recipes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/recipes/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recipes/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/recipes/[slug]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /recipes/[slug]/edit (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/account (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/advanced/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/advanced (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/ai/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/ai (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/connections/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/connections (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/data/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/data (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/display/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/display (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/meal-plan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/settings/recipes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-description::src/routes/shopping/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /shopping (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/design/icons/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /design/icons (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/inventory/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /inventory (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/meal-plan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/recipes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/recipes/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recipes/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/recipes/[slug]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /recipes/[slug]/edit (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/account (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/advanced/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/advanced (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/ai/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/ai (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/connections/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/connections (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/data/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/data (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/display/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/display (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/meal-plan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/settings/recipes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-image::src/routes/shopping/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /shopping (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/design/icons/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /design/icons (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/inventory/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /inventory (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/meal-plan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/recipes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/recipes/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recipes/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/recipes/[slug]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /recipes/[slug]/edit (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/account (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/advanced/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/advanced (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/ai/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/ai (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/connections/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/connections (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/data/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/data (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/display/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/display (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/meal-plan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/settings/recipes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-title::src/routes/shopping/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /shopping (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/design/icons/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /design/icons (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/inventory/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /inventory (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/meal-plan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/recipes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/recipes/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recipes/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/recipes/[slug]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /recipes/[slug]/edit (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/account (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/advanced/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/advanced (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/ai/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/ai (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/connections/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/connections (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/data/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/data (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/display/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/display (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/meal-plan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/settings/recipes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/og-url::src/routes/shopping/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /shopping (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/ or routes (literal claim holds); Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login, nothing to list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: +page.svelte renders only <ChatView> (lib/components/ChatView.svelte, no heading; chat bubbles are runtime AI/user text), the root +layout.svelte renders the page plus NavBar/Toast; the app's only <h1>s are KitchenPageHeader.svelte:41 (not used here) and design/icons -> no <h1> (login-gated, renders for signed-in users)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes (literal claim holds); Keukenbrein is a self-hosted single-household app (README: \"zelf te hosten ... gebouwd voor één huishouden\") and root +layout.server.ts:9-11 redirects every session-less request except /login to /login, nothing to list"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/title-length::src/routes/design/icons/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.py: literal \"Icon design shotgun\" in src/routes/design/icons/+page.svelte, whitespace collapsed, 19 chars as reported) (literal claim holds); but /design/icons is an internal icon-design scratch page behind the login of a self-hosted single-household app (root +layout.server.ts:9-11)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte has no svelte:head (imports only KitchenNotice/KitchenPageHeader/PendingButton, none emit head), root +layout.svelte has no svelte:head, app.html has no <title>, no document.title in src; /login renders for every logged-out visitor (+layout.server.ts:9 exempts it, login load redirects only when locals.user), while every other app page sets a <title>"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/design/icons/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /design/icons (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/inventory/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /inventory (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/meal-plan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/recipes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/recipes/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recipes/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/recipes/[slug]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /recipes/[slug]/edit (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/account (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/advanced/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/advanced (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/ai/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/ai (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/connections/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/connections (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/data/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/data (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/display/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/display (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/meal-plan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/meal-plan (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/settings/recipes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "freekmetsch/kitchenbrain::seo/twitter-card::src/routes/shopping/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /shopping (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no og:*/twitter:*/rel=\"canonical\" emitter anywhere; app.html head has icons/manifest/theme metas only; hooks.server.ts only rate-limits login and rewrites %lang%/%dir%; npm deps (daisyui, paraglide-js) emit no head tags; route context: auth-gated: root +layout.server.ts:9-11 redirects every guest request except /login to /login (the og/twitter rules have no search-target exemption)"
+  }
+]

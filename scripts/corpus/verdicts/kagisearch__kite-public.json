@@ -1,0 +1,1367 @@
+[
+  {
+    "key": "kagisearch/kite-public::a11y/disallowed-aria-props::src/lib/components/contribute/ContributeFeedStep.svelte:184::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (h-a11y/dap.mjs): literal <span> at this line carries the attribute with no role attribute, no spread, not in svg; generic/paragraph prohibit naming in ARIA 1.2/1.3"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/disallowed-aria-props::src/lib/components/story/StorySources.svelte:186::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (h-a11y/dap.mjs): literal <span> at this line carries the attribute with no role attribute, no spread, not in svg; generic/paragraph prohibit naming in ARIA 1.2/1.3"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/duplicate-landmark::src/lib/components/ChaosIndex.svelte:497::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: both <Header> instances in +page.svelte (744, 795) bind:chaosModalOpen to the same state and each renders a renderModal=true <ChaosIndex> (Header.svelte:719); opening the modal portals two <main> (ChaosIndex:497) alongside the page <main> (+page:787)"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/duplicate-landmark::src/lib/components/Settings.svelte:765::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: Settings modal <main> (line 765, inside {#if visible} role=dialog) co-exists in the DOM with the page <main> (+page.svelte:787) whenever settings is open"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/duplicate-landmark::src/routes/+page.svelte:787::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: page <main> (line 787) co-exists with the Settings modal <main> and the two ChaosIndex modal <main>s when those open (see ChaosIndex/Settings findings)"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/BaseModal.svelte:195::Duplicate id \"modal-title\"",
+    "verdict": "design",
+    "basis": "read: id inside {#if isOpen} of BaseModal; the reusing modals (WikipediaPopup, SyncSetupModal, ReportButton) each open independently — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/ChaosIndex.svelte:477::Duplicate id \"chaos-title\"",
+    "verdict": "tp",
+    "basis": "read: both Header instances bind the same chaosModalOpen and each renders a renderModal=true ChaosIndex, so opening it portals two modals with id=\"chaos-title\""
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:10::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:11::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:12::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:13::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:14::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:15::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:18::Duplicate id \"Stroke-#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:2::Duplicate id \"Page-#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:3::Duplicate id \"apple-touch-icon-copy-#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:4::Duplicate id \"kite\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:5::Duplicate id \"#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:6::Duplicate id \"Group-#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:7::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:8::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/id-duplication::src/lib/components/KiteSvg.svelte:9::Duplicate id \"path#\"",
+    "verdict": "design",
+    "basis": "read: KiteSvg ids appear only in KiteSvg.svelte, rendered under {#if showFlyingKite} in each of the two Header instances; showFlyingKite is per-instance $state set by hovering that instance's logo, and one Header is always CSS-hidden, and the Header logo does not inline static/svg/kite.svg, so the ids never co-render — documented separate-{#if} co-render model"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/no-autofocus::src/lib/components/Settings.svelte:493::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; input inside the Settings modal (<div role=\"dialog\" aria-modal=\"true\"> under {#if visible}, PIN/lock sub-forms behind further {#if}); autofocus in an opened modal is the correct use, but docs only carve out the <dialog> element/popover"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/no-autofocus::src/lib/components/Settings.svelte:537::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; input inside the Settings modal (<div role=\"dialog\" aria-modal=\"true\"> under {#if visible}, PIN/lock sub-forms behind further {#if}); autofocus in an opened modal is the correct use, but docs only carve out the <dialog> element/popover"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/no-autofocus::src/lib/components/settings/SettingsAccount.svelte:353::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; input inside the Settings modal (<div role=\"dialog\" aria-modal=\"true\"> under {#if visible}, PIN/lock sub-forms behind further {#if}); autofocus in an opened modal is the correct use, but docs only carve out the <dialog> element/popover"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/no-autofocus::src/lib/components/story/StoryHeader.svelte:544::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; input under {#if showAssistantInput && ...}, showAssistantInput toggled by a button click; focus moves on user action, not page load; docs only carve out <dialog>/popover"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/pattern-title::src/lib/components/Settings.svelte:493::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read: <input type=text|password pattern=\"[0-9]*\"> with no title attribute and no spread"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/pattern-title::src/lib/components/Settings.svelte:537::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read: <input type=text|password pattern=\"[0-9]*\"> with no title attribute and no spread"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/pattern-title::src/lib/components/settings/SettingsAccount.svelte:353::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read: <input type=text|password pattern=\"[0-9]*\"> with no title attribute and no spread"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/pattern-title::src/lib/components/settings/SettingsAccount.svelte:368::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "tp",
+    "basis": "read: <input type=text|password pattern=\"[0-9]*\"> with no title attribute and no spread"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/ChaosIndex.svelte:448::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/ReportButton.svelte:256::`<legend>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <legend> at this line has literal parent <div> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/Select.svelte:445::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/TimeTravel.svelte:468::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/TimeTravel.svelte:530::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/contribute/ContributeFeedStep.svelte:198::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <span> with no component/snippet/svelte:element boundary between (crossed: IfBlock,IfBlock,IfBlock,IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/contribute/ContributeHistory.svelte:110::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/contribute/ContributeHistory.svelte:93::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/search/SearchInput.svelte:194::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/search/SearchResults.svelte:420::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/search/SearchResults.svelte:424::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: IfBlock,IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/search/SearchResults.svelte:445::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/settings/SettingsAccount.svelte:435::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <label> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/settings/SettingsAccount.svelte:478::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <label> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/settings/SettingsFilters.svelte:363::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <label> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/settings/SettingsFilters.svelte:382::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <label> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/settings/SyncSetupModal.svelte:143::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/settings/SyncSetupModal.svelte:165::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::a11y/permitted-contents::src/lib/components/settings/SyncSetupModal.svelte:187::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/AppNavigation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AppNavigation.svelte has 710 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/BaseModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BaseModal.svelte has 245 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/CategoryNavigation.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CategoryNavigation.svelte has 584 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/ChaosIndex.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ChaosIndex.svelte has 761 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/ClusteringExplainerModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ClusteringExplainerModal.svelte has 665 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Header.svelte has 846 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/HistoryManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/HistoryManager.svelte has 259 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/KeyboardNavigationHandler.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/KeyboardNavigationHandler.svelte has 273 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/NativeAppBanner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NativeAppBanner.svelte has 224 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/ReportButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ReportButton.svelte has 355 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/Select.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Select.svelte has 762 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/Settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Settings.svelte has 795 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/ShareButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ShareButton.svelte has 273 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/SourceOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SourceOverlay.svelte has 482 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/StoryList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/StoryList.svelte has 567 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/TimeTravel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TimeTravel.svelte has 584 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/Tooltip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Tooltip.svelte has 348 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/WikipediaTooltip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/WikipediaTooltip.svelte has 428 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/common/GlobePreview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/common/GlobePreview.svelte has 446 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/contribute/ContributeCategoryStep.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/contribute/ContributeCategoryStep.svelte has 322 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/contribute/ContributeFeedStep.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/contribute/ContributeFeedStep.svelte has 250 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/contribute/ContributeHistory.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/contribute/ContributeHistory.svelte has 260 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/contribute/ContributeOnboarding.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/contribute/ContributeOnboarding.svelte has 982 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/contribute/ContributeSubmitStep.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/contribute/ContributeSubmitStep.svelte has 247 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/crypto/CryptoGrid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/crypto/CryptoGrid.svelte has 215 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/crypto/CryptoPrice.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/crypto/CryptoPrice.svelte has 219 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/f1/F1Schedule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/f1/F1Schedule.svelte has 249 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/f1/F1Standings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/f1/F1Standings.svelte has 251 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/nfl/NFLScores.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/nfl/NFLScores.svelte has 525 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/nfl/NFLStandings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/nfl/NFLStandings.svelte has 346 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/nhl/NHLScores.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/nhl/NHLScores.svelte has 529 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/nhl/NHLStandings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/nhl/NHLStandings.svelte has 321 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte has 330 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/search/SearchInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/search/SearchInput.svelte has 228 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/search/SearchModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/search/SearchModal.svelte has 560 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/search/SearchResults.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/search/SearchResults.svelte has 593 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/ContributeCategoryModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/ContributeCategoryModal.svelte has 246 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/SettingsAbout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingsAbout.svelte has 260 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/SettingsAccount.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingsAccount.svelte has 750 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/SettingsAppearance.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingsAppearance.svelte has 275 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/SettingsCategories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingsCategories.svelte has 801 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/SettingsFilters.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingsFilters.svelte has 575 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/SettingsLanguage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingsLanguage.svelte has 324 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/SettingsStories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SettingsStories.svelte has 249 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/SyncSetupModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/SyncSetupModal.svelte has 248 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/snippets/DataLanguageSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/snippets/DataLanguageSelector.svelte has 373 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/settings/snippets/SectionsList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/settings/snippets/SectionsList.svelte has 218 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/CitationText.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/CitationText.svelte has 692 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/CitationTooltip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/CitationTooltip.svelte has 534 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/SelectableText.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/SelectableText.svelte has 297 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/StoryCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/StoryCard.svelte has 443 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/StoryHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/StoryHeader.svelte has 560 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/StoryPerspectives.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/StoryPerspectives.svelte has 286 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/StorySectionManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/StorySectionManager.svelte has 660 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/StorySources.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/StorySources.svelte has 216 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/StorySummary.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/StorySummary.svelte has 260 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/StoryTimeline.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/StoryTimeline.svelte has 205 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/lib/components/story/TranslationExplainerModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/story/TranslationExplainerModal.svelte has 696 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 1097 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/component-size::src/routes/contribute/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/contribute/+page.svelte has 480 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/BaseModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 13 named props (> 6): isOpen, onClose, title, size, position, closeOnBackdrop, closeOnEscape, showCloseButton, lockScroll, zIndex, ariaLabel, class, children"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/CategoryNavigation.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): categories, currentCategory, onCategoryChange, onCategoryDoubleClick, onCategoryHover, mobilePosition, temporaryCategory, showTemporaryTooltip, onTemporaryScrollStart, onTemporaryScrollEnd"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/Header.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): totalReadCount, totalStoriesRead, offlineMode, getLastUpdated, lastUpdatedTimestamp, chaosIndex, onSearchClick, isSharedView, onLogoClick, dataLoaded, chaosModalOpen, onChaosModalChange"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/HistoryManager.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): batchId, dateSlug, batchCreatedAt, categoryId, storyIndex, stories, isLatestBatch, isSharedView, onNavigate"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/KeyboardNavigationHandler.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 13 named props (> 6): stories, currentCategory, categories, expandedStories, showSourceOverlay, wikipediaPopupVisible, settingsModalOpen, showSearchModal, onStoryToggle, onToggleReadStatus, onMarkAllAsRead, onToggleSearchModal, onCategoryChange"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/LottieAnimation.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): animationData, loop, autoplay, width, height, class, loopFrameOffset"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/Select.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): value, options, placeholder, className, searchable, onChange, id, label, hideLabel, height"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/ShareButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): title, description, batchId, categoryId, storyIndex, clusterId, languageCode, class"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/StoryList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 23 named props (> 6): stories, currentCategory, categoryUuid, batchId, batchDateSlug, readStories, expandedStories, onStoryToggle, showSourceOverlay, currentSource, sourceArticles, currentMediaInfo, isLoadingMediaInfo, storyCountOverride, isSharedView, sharedArticleIndex, sharedClusterId, initiallyExpandedIndex, showCategoryLabels, skipStoryCountLimit, filteredCountOverride, pendingSections, onDisplayedStoriesChange"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/contribute/ContributeCategoryStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): mode, feedsData, loadingFeeds, loadError, pendingPrs, selectedCategory, newCategoryName, newCategoryLanguage, showExistingFeeds, onModeChange, onCategoryChange, onLoadRetry"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/contribute/ContributeFeedStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): addedFeeds, duplicateFeeds, validFeeds, errorFeeds, unknownFeeds, pendingFeeds, allErrored, parseError, onAddFeeds, onRemoveFeed, onRemoveAllErrored"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/contribute/ContributeSubmitStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): submitResult, isSubmitting, canSubmit, allErrored, mode, githubMode, activeCategoryName, submittableFeeds, errorFeeds, pendingFeeds, onSubmit, onReset"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/search/SearchInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): filters, suggestions, selectedSuggestionIndex, isLoading, onInput, onKeydown, onApplySuggestion, onRemoveFilter, onFocus, onBlur"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/search/SearchResults.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): results, selectedIndex, isLoading, isSearchingHistorical, isLoadingMore, hasMore, query, totalCount, localCount, historicalCount, onSelectResult, onLoadMore"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/CitationText.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): text, showFavicons, showNumbers, inline, articles, citationMapping, citationTooltip, storyLocalizer"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/SelectableText.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): text, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick, section"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryActionItems.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): actionItems, articles, citationMapping, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryActions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): story, onClose, batchId, batchDateSlug, categoryId, storyIndex, isSharedView, storyLocalizer"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 21 named props (> 6): story, storyIndex, batchId, batchDateSlug, categoryId, isRead, isExpanded, shouldAutoScroll, onToggle, onReadToggle, showSourceOverlay, currentSource, sourceArticles, currentMediaInfo, isLoadingMediaInfo, priority, isFiltered, filterKeywords, isSharedView, isLinkedStory, isKeyboardSelected"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryDidYouKnow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): content, articles, citationMapping, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 23 named props (> 6): story, contentDir, categoryDir, isRead, isSharedView, isExpanded, titleTranslating, onTitleClick, onReadClick, onFlashcardsClick, onExportClick, onDownloadClick, onTtsClick, onTtsDownloadClick, onSimplifyLevelSelect, citationMapping, isSimplifying, selectedLevel, flashcardMode, isExporting, exportedCSV, selectedWordsCount, ttsStatus"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryHighlights.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): points, articles, citationMapping, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): article, imagesPreloaded, showCaption, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryInternationalReactions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): reactions, articles, citationMapping, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryListSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): title, items, showAsList, articles, citationMapping, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick, section"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryPerspectives.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): perspectives, articles, citationMapping, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryQuote.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): quote, author, attribution, sourceUrl, sourceDomain, articles, citationMapping, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StorySectionManager.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 15 named props (> 6): story, imagesPreloaded, showSourceOverlay, currentSource, sourceArticles, currentMediaInfo, isLoadingMediaInfo, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick, isFieldPending, fieldDirection"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StorySources.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): domains, articles, showSourceOverlay, currentSource, sourceArticles, currentMediaInfo, isLoadingMediaInfo, storyLocalizer"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StorySuggestedQnA.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): qna, articles, citationMapping, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StorySummary.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): summaryDir, locationDir, story, citationMapping, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryTextSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): title, content, articles, citationMapping, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick, section"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/prop-count::src/lib/components/story/StoryTimeline.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): timeline, articles, citationMapping, storyLocalizer, flashcardMode, selectedWords, selectedPhrases, shouldJiggle, onWordClick"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/[batchId=batchId]/+page.svelte:5::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/[batchId=batchId]/[categoryId=categoryId]/+page.svelte:5::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/[batchId=batchId]/[categoryId=categoryId]/[storyIndex]/+page.svelte:5::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/[categoryId=categoryId]/[encodedId=encodedId]/+page.svelte:4::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/[categoryId=categoryId]/[encodedId=encodedId]/[slug]/+page.svelte:4::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/[categoryId=categoryId]/latest/+page.svelte:4::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/about/+page.svelte:4::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/latest/+page.svelte:5::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/latest/[categoryId]/+page.svelte:4::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::architecture/route-component-import::src/routes/latest/[categoryId]/[storyIndex]/+page.svelte:4::src/routes/+page.svelte is a SvelteKit route entry — imported here it renders without the data Kit would give it",
+    "verdict": "design",
+    "basis": "read: deliberate wrapper route that re-renders the root page; root +page.svelte documents this (\"re-rendered as <Page /> by wrapper routes\"), takes an optional data prop and each wrapper passes its own server-load data or relies on the client DataLoader path"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/KeyboardShortcutsHelp.svelte:68::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each helpSections as section}' has no key; not an exempt shape; static list ($derived literal help sections): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/KeyboardShortcutsHelp.svelte:74::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each section.shortcuts as shortcut}' has no key; not an exempt shape; static list (static shortcut lists): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/ReportButton.svelte:264::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each sourceUrls as sourceUrl, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — editable URL inputs with add/remove; source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/Select.svelte:518::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each filteredOptions as option, idx}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — options filtered as the user types; source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/Settings.svelte:623::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each tabs as tab}' has no key; not an exempt shape; static list ($derived literal tabs): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/Settings.svelte:711::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each tabs as tab}' has no key; not an exempt shape; static list ($derived literal tabs): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/SourceOverlay.svelte:280::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each sourceArticles as article}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/TimeTravel.svelte:338::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each (s('timeTravel.description') || 'Access historical daily summaries.\\nReserved for K' has no key; not an exempt shape; positional list (lines of one description string): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/TimeTravel.svelte:375::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each availableYears as year}' has no key; not an exempt shape; positional list (derived year range): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/TimeTravel.svelte:434::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each weekdayHeaders as day}' has no key; not an exempt shape; positional list (weekday headers): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/TimeTravel.svelte:441::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each calendarDays as date}' has no key; not an exempt shape; positional list (calendar days): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/TimeTravel.svelte:519::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each selectedDayBatches as batch, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/contribute/ContributeCategoryStep.svelte:235::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each currentCategoryData.feeds as feed}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/contribute/ContributeFeedStep.svelte:124::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each duplicateFeeds as url}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/contribute/ContributeOnboarding.svelte:327::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each BIP_LINES as line}' has no key; not an exempt shape; static list (BIP_LINES built from a constant): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/f1/F1Schedule.svelte:138::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each upcomingRaces as race}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/f1/F1Schedule.svelte:182::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each data.races as race}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/f1/F1Standings.svelte:125::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each topDrivers as driver, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/f1/F1Standings.svelte:171::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each data.drivers as driver}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/f1/F1Standings.svelte:221::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each data.constructors as constructor}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/nfl/NFLStandings.svelte:153::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each topTeams as team, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/nfl/NFLStandings.svelte:193::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each data.conferences as conference}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/nfl/NFLStandings.svelte:194::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each conference.divisions as division}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/nfl/NFLStandings.svelte:246::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each division.teams as team, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/nhl/NHLStandings.svelte:145::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each topTeams as team, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/nhl/NHLStandings.svelte:183::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each data.divisions as division}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/nhl/NHLStandings.svelte:232::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each division.teams as team, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/onthisday/OnThisDayEventTimeline.svelte:24::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each events as event, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/onthisday/OnThisDayEventTimeline.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each event._matchedKeywords.slice(0, 3) as keyword}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:173::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each chunkedPeople as slide, slideIndex}' has no key; not an exempt shape; positional list (fixed-size chunks of a list (slides)): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:175::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each slide as person, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:225::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each person._matchedKeywords.slice(0, 2) as keyword}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:264::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each chunkedPeople as _, i}' has no key; item binding unused (carousel dots): nodes depend only on index"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:280::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each people as person, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:317::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each person._matchedKeywords.slice(0, 3) as keyword}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/search/SearchInput.svelte:128::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each filters as filter, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/search/SearchInput.svelte:185::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each suggestions as suggestion, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/search/SearchResults.svelte:434::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each results as result, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/settings/SettingsCategories.svelte:690::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each allLetters as letter}' has no key; not an exempt shape; static list (alphabet letters): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/settings/SettingsFilters.svelte:229::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each localizedPresets as preset}' has no key; not an exempt shape; static list (localized constant presets): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/settings/SettingsFilters.svelte:291::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each contentFilter.activePresets as presetId}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/settings/SettingsFilters.svelte:299::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each getPresetKeywords(preset) as keyword}' has no key; not an exempt shape; static list (constant preset keywords): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/settings/SettingsFilters.svelte:318::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each customKeywords as keyword}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — user-editable keywords; source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/settings/SettingsLanguage.svelte:232::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each enabledCategories as category}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/settings/SettingsStories.svelte:197::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each preferredSources.list as domain}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/settings/snippets/DataLanguageSelector.svelte:248::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each languageSettings.contentLanguages as lang, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/CitationText.svelte:369::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each groupedSegments.formattedSegments as segment}' has no key; not an exempt shape; positional list (citation text segments): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/CitationText.svelte:452::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each groupedSegments.paragraphs as paragraph, paragraphIndex}' has no key; not an exempt shape; positional list (paragraphs of one text): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/CitationText.svelte:458::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each paragraph.segments as segment}' has no key; not an exempt shape; positional list (segments of one paragraph): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/CitationText.svelte:584::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each uniqueDomains.slice(0, 5) as domain, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/CitationText.svelte:618::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each parsedData.citations as citation, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/CitationTooltip.svelte:432::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each uniqueItems as item}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/CitationTooltip.svelte:523::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each uniqueItems as item}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/SelectableText.svelte:212::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each parts as part, index}' has no key; not an exempt shape; positional list (word/other parts of one text): items have no identity beyond position"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryActionItems.svelte:46::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each displayItems as item}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryCard.svelte:423::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each filterKeywords.slice(0, 3) as keyword}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryCorrections.svelte:122::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each corrections as correction}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryHighlights.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each displayPoints as point, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryInternationalReactions.svelte:71::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each displayReactions as reaction}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryListSection.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each displayItems as item}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryListSection.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each displayItems as item}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryPerspectives.svelte:126::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each displayPerspectives as perspective}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryPerspectives.svelte:216::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each perspective.sources as source, idx}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StorySectionManager.svelte:237::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each sectionsToRender as section, sectionIndex}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — user-configurable section order; source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StorySectionManager.svelte:442::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each story.business_angle_points as point}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StorySources.svelte:154::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each sortedDomains as domain, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StorySuggestedQnA.svelte:53::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each displayQna as qa}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/each-key::src/lib/components/story/StoryTimeline.svelte:75::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each displayEvents as event, index}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/SettingsAppearance.svelte:63::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/SettingsAppearance.svelte:67::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/SettingsAppearance.svelte:71::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/SettingsCategories.svelte:146::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/SettingsCategories.svelte:97::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/SettingsStories.svelte:75::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/SettingsStories.svelte:79::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/SettingsStories.svelte:83::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/settings/snippets/SectionsList.svelte:23::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-derived::src/lib/components/story/StoryCard.svelte:80::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect body only assigns $state from reactive sources (props/data/store/state); local writes/binds (if any) are the writable-$derived override pattern, available in the app's svelte (>=5.46; bind to a $derived compiles under 5.57.1, hc/bindder.mjs)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-onmount::src/lib/components/search/SearchModal.svelte:443::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: body only returns a teardown; searchService is read at destroy time, nothing tracked"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-onmount::src/routes/+page.svelte:572::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "design",
+    "basis": "read: state = usePageState() (plain function return whose getters expose $state, usePageState.svelte.ts:14-22), so the effect IS reactive; this is the docs-listed known limitation (reactive value reached through a function return)"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/effect-as-onmount::src/routes/+page.svelte:578::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "design",
+    "basis": "read: same usePageState() function-return limitation as line 572; state.* reads are reactive getters"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/unmutated-state::src/lib/components/CategoryNavigation.svelte:53::$state \"temporaryCategoryElement\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: every reference of the name in the file listed (hc grep); no reassignment/mutation/bind:/call-arg/directive/component prop; declared, never used"
+  },
+  {
+    "key": "kagisearch/kite-public::correctness/unmutated-state::src/lib/components/WikipediaTooltip.svelte:56::$state \"isMobile\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: every reference of the name in the file listed (hc grep); no reassignment/mutation/bind:/call-arg/directive/component prop; only read in handlers/{#if}"
+  },
+  {
+    "key": "kagisearch/kite-public::performance/image-dimensions::src/routes/contribute/+page.svelte:388::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-8 h-8 fixed box"
+  },
+  {
+    "key": "kagisearch/kite-public::performance/image-loading-hint::src/routes/contribute/+page.svelte:388::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: favicon in page header, above the fold"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:104::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.principles.title') || 'Our Principles'}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:124::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.customization.title') || 'Customization'}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:127::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.customization.description') || 'Customize}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:134::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.contact.title') || 'Contact'}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:137::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.contact.description') || 'Questions or fe}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:157::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.understand.button') || 'Got it!'}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:80::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.why.title') || 'Why Kite?'}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:83::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.why.description') || 'Kite provides a bet}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:89::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.approach.title') || 'Our Approach'}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:92::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.approach.description1') || 'We aggregate }; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:95::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.approach.description2') || 'We provide su}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/IntroScreen.svelte:98::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('about.approach.description3') || 'We respect yo}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/KeyboardShortcutsHelp.svelte:60::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html s('keyboard.help.closeInstructions', { key1: '<kbd}; read: repo i18n strings (s()) / literal <kbd> markup — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/contribute/ContributeOnboarding.svelte:318::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html `<style>${networkCSS}</style>`}; read: CSS generated at module scope from constants (buildNetworkCSS) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/onthisday/OnThisDayEventTimeline.svelte:56::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html event.content.replace( /href=/g, 'class=\"underline}; read: event/person .content comes from the Kite API (external, HTML with links) and is injected with only an href->class regex replace; no sanitizer"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:214::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html person.content.replace( /href=/g, 'class=\"underlin}; read: event/person .content comes from the Kite API (external, HTML with links) and is injected with only an href->class regex replace; no sanitizer"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/onthisday/OnThisDayPeopleCarousel.svelte:304::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html person.content.replace( /href=/g, 'class=\"underlin}; read: event/person .content comes from the Kite API (external, HTML with links) and is injected with only an href->class regex replace; no sanitizer"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/search/SearchResults.svelte:453::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html highlightMatch(result.story.title || '', query)}; read: highlightMatch/getSnippetWithHighlight concatenate API story title/snippet into <mark> markup without escaping; external news text rendered unsanitized"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/search/SearchResults.svelte:467::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html getSnippetWithHighlight(result.story.snippet, quer}; read: highlightMatch/getSnippetWithHighlight concatenate API story title/snippet into <mark> markup without escaping; external news text rendered unsanitized"
+  },
+  {
+    "key": "kagisearch/kite-public::security/raw-html::src/lib/components/search/SearchResults.svelte:471::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html getSnippetWithHighlight(result.story.short_summary}; read: highlightMatch/getSnippetWithHighlight concatenate API story title/snippet into <mark> markup without escaping; external news text rendered unsanitized"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/[batchId=batchId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/[batchId=batchId]/[categoryId=categoryId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/[batchId=batchId]/[categoryId=categoryId]/[storyIndex]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/[categoryId=categoryId]/[encodedId=encodedId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/[categoryId=categoryId]/[encodedId=encodedId]/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/[categoryId=categoryId]/latest/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/contribute/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/latest/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/latest/[categoryId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/json-ld::src/routes/latest/[categoryId]/[storyIndex]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/ or routes, no hooks handling; public site"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/single-h1::src/lib/components/KeyboardShortcutsHelp.svelte:56::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "main page has no <h1>; the two counted are IntroScreen overlay (first visit) and KeyboardShortcutsHelp dialog ({#if showHelp}) -> separate conditionals, co-render only if help opened over intro"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/single-h1::src/lib/components/contribute/ContributeOnboarding.svelte:173::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "ContributeOnboarding <h1> is in {#if showOnboarding} and page <h1> (:391) in its {:else} (+page.svelte:374-376) -> exclusive"
+  },
+  {
+    "key": "kagisearch/kite-public::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap file, +server endpoint, generator dep or hooks handling; public news site"
+  }
+]

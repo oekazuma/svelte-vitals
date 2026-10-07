@@ -1,0 +1,357 @@
+[
+  {
+    "key": "carlelieser/yuki:apps/web::architecture/component-size::src/routes/(docs)/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(docs)/privacy/+page.svelte has 297 physical lines (> 200), matches reported count 297"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::architecture/component-size::src/routes/(docs)/terms/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(docs)/terms/+page.svelte has 239 physical lines (> 200), matches reported count 239"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::architecture/prop-count::src/lib/components/storefront/product-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/storefront/product-card.svelte with 8 named props (> 6): title, href, badge, description, image, icon, badges, variant"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::architecture/prop-count::src/lib/components/storefront/product-carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() in src/lib/components/storefront/product-carousel.svelte with 10 named props (> 6): items, item, isLoading, skeletonCount, empty, variant, itemClass, opts, plugins, hasDots"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::correctness/each-index-key::src/lib/components/storefront/image-carousel.svelte:59::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "script-classified + read: src/lib/components/storefront/image-carousel.svelte:59 header '{#each images as image, index (index)}' keyed by its index binding; positional list (images prop: listing.screenshots gallery (listings/[slug]/+page.svelte:104), addressed by index through activeIndex/ImageViewer): items have no identity beyond position"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::correctness/each-index-key::src/lib/components/storefront/product-carousel.svelte:79::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/storefront/product-carousel.svelte:79 header '{#each items as entry, index (index)}' keyed by its index binding; list source is runtime data (items prop: listing feed/search results (data.results, data.recent, listing-feed results)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::correctness/each-index-key::src/lib/components/storefront/product-grid.svelte:45::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "script-classified + read: src/lib/components/storefront/product-grid.svelte:45 header '{#each items as entry, index (index)}' keyed by its index binding; list source is runtime data (items prop: listing feed/search results (data.results, data.recent, listing-feed results)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::correctness/effect-as-onmount::src/routes/(app)/+layout.svelte:17::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/+layout.svelte:17 architectures.loadLocal() on architectures = createArchitectureStore(() => data.user?..., () => data.user !== null) (a function return); loadLocal reads this.#isSignedIn(), i.e. the data prop (architecture-store.svelte.ts:27), so the effect re-runs on sign-in/out; the docs' function-return limitation"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::performance/image-dimensions::src/routes/(app)/listings/[slug]/+page.svelte:46::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: banner snippet rendered by ProductCard's detail arm inside <AspectRatio ratio={16/9}> in a size-full box (storefront/product-card.svelte:48-51) — box reserved"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::performance/image-dimensions::src/routes/(app)/listings/[slug]/+page.svelte:56::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: icon snippet rendered in ProductCard's size-16 icon box (storefront/product-card.svelte:64-70) — box reserved"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::performance/image-loading-hint::src/routes/(app)/listings/[slug]/+page.svelte:46::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: listing banner, the first element of the detail page (ProductCard detail hero) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::performance/image-loading-hint::src/routes/(app)/listings/[slug]/+page.svelte:56::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: listing icon beside the h1 right under the banner — above the fold"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::performance/responsive-image::src/routes/(app)/listings/[slug]/+page.svelte:46::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: listing.bannerUrl remote banner image (PNG URLs in lib/server/listings.test.ts) — raster, one fixed-size asset"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::performance/responsive-image::src/routes/(app)/listings/[slug]/+page.svelte:56::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: listing.iconUrl remote app icon (PNG URLs in lib/server/listings.test.ts) shown at 64px — raster, one fixed-size asset"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::security/raw-html::src/lib/components/seo/seo-head.svelte:44::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read seo-head.svelte:44 + lib/seo/listing-schema.ts:6-18,55: the only jsonLd caller (listings/[slug]/+page.svelte:75) passes toSoftwareApplicationSchema(), which escapes < > & U+2028/9 as \\u sequences — script-safe serialization per docs"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/canonical-url::src/routes/(auth)/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages) but not a search target (literal noindex robots meta at (auth)/+layout.svelte:10), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/canonical-url::src/routes/(auth)/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages) but not a search target (literal noindex robots meta at (auth)/+layout.svelte:10), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/canonical-url::src/routes/(auth)/signin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages) but not a search target (literal noindex robots meta at (auth)/+layout.svelte:10), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/canonical-url::src/routes/(auth)/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages) but not a search target (literal noindex robots meta at (auth)/+layout.svelte:10), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/canonical-url::src/routes/(auth)/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1a-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 235 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages) but not a search target (literal noindex robots meta at (auth)/+layout.svelte:10), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/description-presence::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> (page head only a <title>, seo-head not rendered, layouts/app.html none); not a search target ((auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\">)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/description-presence::src/routes/(auth)/reset-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> (page head only a <title>, seo-head not rendered, layouts/app.html none); not a search target ((auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\">)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/description-presence::src/routes/(auth)/signin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> (page head only a <title>, seo-head not rendered, layouts/app.html none); not a search target ((auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\">)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/description-presence::src/routes/(auth)/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> (page head only a <title>, seo-head not rendered, layouts/app.html none); not a search target ((auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\">)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/description-presence::src/routes/(auth)/verify-email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> (page head only a <title>, seo-head not rendered, layouts/app.html none); not a search target ((auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\">)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/indexability::src/routes/(auth)/forgot-password/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/indexability::src/routes/(auth)/reset-password/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/indexability::src/routes/(auth)/signin/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/indexability::src/routes/(auth)/signup/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/indexability::src/routes/(auth)/verify-email/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (auth)/+layout.svelte:9-11 unconditional literal <meta name=\"robots\" content=\"noindex,follow\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/json-ld::src/routes/(auth)/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitter is lib/components/seo/seo-head.svelte:44, rendered only by (app)/(docs) pages; this (auth) page, (auth)/+layout.svelte and root layout never reach it, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/json-ld::src/routes/(auth)/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitter is lib/components/seo/seo-head.svelte:44, rendered only by (app)/(docs) pages; this (auth) page, (auth)/+layout.svelte and root layout never reach it, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/json-ld::src/routes/(auth)/signin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitter is lib/components/seo/seo-head.svelte:44, rendered only by (app)/(docs) pages; this (auth) page, (auth)/+layout.svelte and root layout never reach it, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/json-ld::src/routes/(auth)/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitter is lib/components/seo/seo-head.svelte:44, rendered only by (app)/(docs) pages; this (auth) page, (auth)/+layout.svelte and root layout never reach it, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/json-ld::src/routes/(auth)/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read: the only JSON-LD emitter is lib/components/seo/seo-head.svelte:44, rendered only by (app)/(docs) pages; this (auth) page, (auth)/+layout.svelte and root layout never reach it, app.html none; no JSON-LD as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-description::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-description::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-description::src/routes/(auth)/signin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-description::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-description::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 235 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-image::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-image::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-image::src/routes/(auth)/signin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-image::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-image::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 235 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-title::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-title::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-title::src/routes/(auth)/signin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-title::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-title::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 235 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-url::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-url::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-url::src/routes/(auth)/signin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-url::src/routes/(auth)/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/og-url::src/routes/(auth)/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 235 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/single-h1::/forgot-password::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /forgot-password: (auth)/forgot-password/+page.svelte titles are <CardTitle> from workspace @yuki/ui (packages/ui/src/lib/components/ui/card/card-title.svelte:13 renders a <div data-slot=card-title>); (auth)/+layout.svelte (SiteLogo, ModeToggle) and root +layout.svelte (ModeWatcher, Toaster) have no heading; load redirects only an existing session (same Card.Title-is-a-div convention as bocchio.dev/cosmic auth pages)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/single-h1::/reset-password::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /reset-password: (auth)/reset-password/+page.svelte titles are <CardTitle> from workspace @yuki/ui (packages/ui/src/lib/components/ui/card/card-title.svelte:13 renders a <div data-slot=card-title>); (auth)/+layout.svelte (SiteLogo, ModeToggle) and root +layout.svelte (ModeWatcher, Toaster) have no heading; load redirects only an existing session (same Card.Title-is-a-div convention as bocchio.dev/cosmic auth pages)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/single-h1::/signin::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /signin: (auth)/signin/+page.svelte titles are <CardTitle> from workspace @yuki/ui (packages/ui/src/lib/components/ui/card/card-title.svelte:13 renders a <div data-slot=card-title>); (auth)/+layout.svelte (SiteLogo, ModeToggle) and root +layout.svelte (ModeWatcher, Toaster) have no heading; load redirects only an existing session (same Card.Title-is-a-div convention as bocchio.dev/cosmic auth pages)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/single-h1::/signup::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /signup: (auth)/signup/+page.svelte titles are <CardTitle> from workspace @yuki/ui (packages/ui/src/lib/components/ui/card/card-title.svelte:13 renders a <div data-slot=card-title>); (auth)/+layout.svelte (SiteLogo, ModeToggle) and root +layout.svelte (ModeWatcher, Toaster) have no heading; load redirects only an existing session (same Card.Title-is-a-div convention as bocchio.dev/cosmic auth pages)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/single-h1::/verify-email::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /verify-email: (auth)/verify-email/+page.svelte titles are <CardTitle> from workspace @yuki/ui (packages/ui/src/lib/components/ui/card/card-title.svelte:13 renders a <div data-slot=card-title>); (auth)/+layout.svelte (SiteLogo, ModeToggle) and root +layout.svelte (ModeWatcher, Toaster) have no heading; load redirects only an existing session (same Card.Title-is-a-div convention as bocchio.dev/cosmic auth pages)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/single-h1::src/lib/components/storefront/product-card.svelte:76::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "key covers 3 routes (/, /browse, /search): the counted <h1> is ProductCard's {#if variant === 'detail'} arm (product-card.svelte:46-76), but these routes render ProductCard only through ListingCard, whose variant prop excludes 'detail' (listing-card.svelte:10, default 'default'/'wide') — it never renders; each route has one <h1> (+page.svelte:70 sr-only, browse:36, search:60)"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/title-length::src/routes/(auth)/forgot-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/forgot-password/+page.svelte unconditional top-level svelte:head literal \"… · Yuki\" <title> (e.g. \"Sign in · Yuki\"); too short as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/title-length::src/routes/(auth)/reset-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/reset-password/+page.svelte unconditional top-level svelte:head literal \"… · Yuki\" <title> (e.g. \"Sign in · Yuki\"); too short as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/title-length::src/routes/(auth)/signin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/signin/+page.svelte unconditional top-level svelte:head literal \"… · Yuki\" <title> (e.g. \"Sign in · Yuki\"); too short as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/title-length::src/routes/(auth)/signup/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/signup/+page.svelte unconditional top-level svelte:head literal \"… · Yuki\" <title> (e.g. \"Sign in · Yuki\"); too short as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/title-length::src/routes/(auth)/verify-email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/(auth)/verify-email/+page.svelte unconditional top-level svelte:head literal \"… · Yuki\" <title> (e.g. \"Sign in · Yuki\"); too short as claimed"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/twitter-card::src/routes/(auth)/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/twitter-card::src/routes/(auth)/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/twitter-card::src/routes/(auth)/signin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/twitter-card::src/routes/(auth)/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 236 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  },
+  {
+    "key": "carlelieser/yuki:apps/web::seo/twitter-card::src/routes/(auth)/verify-email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a-reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 235 transitively imported local files ($lib/relative/barrels) or app.html; workspace @yuki/* followed (packages/ui has no <svelte:head>); the only emitter lib/components/seo/seo-head.svelte is rendered only by (app)/(docs) pages; route carries noindex ((auth)/+layout.svelte:10), og/twitter still absent"
+  }
+]

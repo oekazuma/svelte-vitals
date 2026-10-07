@@ -1,0 +1,1362 @@
+[
+  {
+    "key": "MartinoPolo/prejemesi::a11y/disallowed-aria-props::src/lib/components/blocks/notification/NotificationItem.svelte:121::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <span> at lib/components/blocks/notification/NotificationItem.svelte:121 carries aria-label with no role attribute, no spread and no use: action, so it resolves to generic, where ARIA 1.3 prohibits naming"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::a11y/disallowed-aria-props::src/lib/components/blocks/wishlist/WishlistGiftDisplay.svelte:386::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at lib/components/blocks/wishlist/WishlistGiftDisplay.svelte:386 carries aria-label with no role attribute, no spread and no use: action, so it resolves to generic, where ARIA 1.3 prohibits naming"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::a11y/disallowed-aria-props::src/routes/playground/ControlSizingShowcase.svelte:232::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at routes/playground/ControlSizingShowcase.svelte:232 carries aria-label with no role attribute, no spread and no use: action, so it resolves to generic, where ARIA 1.3 prohibits naming"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::a11y/interactive-nesting::src/lib/components/derived/image-upload/ImageUpload.svelte:226::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs) + read: interactive element at lib/components/derived/image-upload/ImageUpload.svelte:226 is a literal descendant of the container <div role=\"button\"> in the same template, no component boundary between; the nested <input type=\"file\" class=\"sr-only\" tabindex={-1}> is natively interactive; CSS hiding does not change the markup claim (cigale convention)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::a11y/permitted-contents::src/lib/components/blocks/import/ImportSourceFileDrop.svelte:106::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/blocks/import/ImportSourceFileDrop.svelte:106 has nearest literal non-transparent element ancestor <button> (line 95) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::a11y/permitted-contents::src/lib/components/blocks/import/ImportSourceFileDrop.svelte:109::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/blocks/import/ImportSourceFileDrop.svelte:109 has nearest literal non-transparent element ancestor <button> (line 95) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::a11y/permitted-contents::src/lib/components/blocks/import/ImportSourceFileDrop.svelte:113::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/blocks/import/ImportSourceFileDrop.svelte:113 has nearest literal non-transparent element ancestor <button> (line 95) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::a11y/permitted-contents::src/lib/components/blocks/landing/LandingDemo.svelte:85::`<style>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <style> at lib/components/blocks/landing/LandingDemo.svelte:85 has nearest literal non-transparent element ancestor <div> (line 45) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <style> is outside <div>'s content model as reported; <style> is metadata content, permitted only in <head> (through the transparent <noscript>); crossed transparent <noscript>"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::a11y/permitted-contents::src/lib/components/blocks/wishlist/SlotPreviewCard.svelte:55::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/pc.mjs): literal <div> at lib/components/blocks/wishlist/SlotPreviewCard.svelte:55 has nearest literal non-transparent element ancestor <button> (line 44) with only control-flow blocks between, no component/snippet/{@render}/svelte:element boundary, not in svg; <div> is outside <button>'s content model as reported"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/accordion/Accordion.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/accordion/Accordion.stories.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/badge/Badge.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/badge/Badge.stories.svelte has 313 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/button/Button.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/button/Button.stories.svelte has 528 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/dropdown-menu/DropdownMenu.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/dropdown-menu/DropdownMenu.stories.svelte has 394 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/kbd/Kbd.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/kbd/Kbd.stories.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/popover/Popover.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/popover/Popover.stories.svelte has 490 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/radio-group/RadioGroup.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/radio-group/RadioGroup.stories.svelte has 303 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/select/Select.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/select/Select.stories.svelte has 452 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/toggle-group/ToggleGroup.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/toggle-group/ToggleGroup.stories.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/base/tooltip/Tooltip.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/base/tooltip/Tooltip.stories.svelte has 443 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/auth/AuthBrandPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/auth/AuthBrandPanel.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/auth/RegisterForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/auth/RegisterForm.svelte has 229 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/dashboard/WishlistCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/dashboard/WishlistCard.svelte has 218 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift-draft-grid/GiftDraftGrid.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift-draft-grid/GiftDraftGrid.stories.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift-draft-grid/GiftDraftGrid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift-draft-grid/GiftDraftGrid.svelte has 414 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift-draft-grid/GiftDraftRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift-draft-grid/GiftDraftRow.svelte has 389 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift/GiftActionRow.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift/GiftActionRow.svelte has 342 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift/GiftCard.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift/GiftCard.stories.svelte has 274 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift/GiftCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift/GiftCard.svelte has 339 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift/GiftDetailForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift/GiftDetailForm.svelte has 1493 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift/GiftDetailModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift/GiftDetailModal.svelte has 301 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift/GiftListItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift/GiftListItem.svelte has 463 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/gift/WishlistHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/gift/WishlistHeader.svelte has 623 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/import/ImportReviewStep.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/import/ImportReviewStep.svelte has 536 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/import/ImportWizard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/import/ImportWizard.svelte has 600 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/landing/LandingDemoInteractive.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/landing/LandingDemoInteractive.svelte has 420 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/landing/LandingFeatureHighlights.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/landing/LandingFeatureHighlights.svelte has 283 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/landing/LandingHero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/landing/LandingHero.svelte has 761 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/moderator/ModeratorPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/moderator/ModeratorPanel.svelte has 548 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/navbar/NavDropdown.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/navbar/NavDropdown.svelte has 337 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/navbar/Navbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/navbar/Navbar.svelte has 508 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/reservation/ReserveModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/reservation/ReserveModal.svelte has 275 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/settings/SettingsProfileSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/settings/SettingsProfileSection.svelte has 220 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/sharing/ShareWizard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/sharing/ShareWizard.svelte has 476 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/CreateWishlistModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/CreateWishlistModal.svelte has 361 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/GiftContextActions.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/GiftContextActions.svelte has 404 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistCategorySettings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistCategorySettings.svelte has 508 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistCropEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistCropEditor.svelte has 469 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistDetailToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistDetailToolbar.svelte has 1406 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistGiftDisplay.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistGiftDisplay.stories.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistGiftDisplay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistGiftDisplay.svelte has 417 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistGiftDraggableWrapper.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistGiftDraggableWrapper.svelte has 399 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistModals.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistModals.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistSelectionToolbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistSelectionToolbar.svelte has 939 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/blocks/wishlist/WishlistSettingsModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/blocks/wishlist/WishlistSettingsModal.svelte has 1007 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/derived/filter-menu/FilterMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/derived/filter-menu/FilterMenu.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/derived/image-crop/ImageCropStage.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/derived/image-crop/ImageCropStage.svelte has 575 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/derived/image-frame/ImageFrame.stories.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/derived/image-frame/ImageFrame.stories.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/derived/image-frame/ImageFrame.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/derived/image-frame/ImageFrame.svelte has 293 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/lib/components/derived/image-upload/ImageUpload.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/derived/image-upload/ImageUpload.svelte has 272 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/routes/(app)/w/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/w/[id]/+page.svelte has 2105 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/routes/(auth)/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(auth)/login/+page.svelte has 328 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/routes/playground/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/playground/+page.svelte has 489 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/component-size::src/routes/playground/ControlSizingShowcase.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/playground/ControlSizingShowcase.svelte has 257 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/badge/Badge.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/badge/Badge.svelte has a single destructured $props() with 10 named props (> 6) plus ...rest: class, tone, badgeStyle, format, size, collapsed, dot, icon, ref, children"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/button/button.svelte has a single destructured $props() with 10 named props (> 6) plus ...rest: class, surfaceClass, intent, size, format, ref, href, type, disabled, children"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/calendar/calendar.svelte has a single destructured $props() with 15 named props (> 6) plus ...rest: ref, value, placeholder, class, weekdayFormat, weekStartsOn, buttonIntent, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/dropdown-menu/dropdown-menu-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/dropdown-menu/dropdown-menu-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, sideOffset, align, sticky, collisionPadding, portalProps, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/dropdown-menu/dropdown-menu-sub-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/dropdown-menu/dropdown-menu-sub-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, align, alignOffset, sideOffset, sticky, collisionPadding, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/input-group/input-group-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/input-group/input-group-button.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, surfaceClass, children, type, intent, size"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/input/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/input/Input.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: ref, value, type, files, size, state, class, data-slot"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/popover/popover-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/popover/popover-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, sideOffset, side, align, children, portalProps"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/range-calendar/range-calendar.svelte has a single destructured $props() with 15 named props (> 6) plus ...rest: ref, value, placeholder, weekdayFormat, weekStartsOn, class, buttonIntent, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/select/select-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/select/select-content.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: ref, class, sideOffset, sticky, collisionPadding, portalProps, children, preventScroll"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/select/select-trigger.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/select/select-trigger.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, surfaceClass, children, size, state, appearance"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/slider/Slider.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/slider/Slider.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: value, min, max, step, disabled, onValueChange, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/toast/SonnerToastWrapper.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/toast/SonnerToastWrapper.svelte has a single destructured $props() with 7 named props (> 6): tone, title, body, dismissible, closeToast, actionLabel, onAction"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/toast/Toast.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/toast/Toast.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: ref, class, tone, title, body, icon, action, onDismiss"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/toggle-group/ToggleGroup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/toggle-group/ToggleGroup.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: class, intent, size, format, children, ref, value"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/toggle-group/toggle-group-item.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/toggle-group/toggle-group-item.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: class, surfaceClass, intent, size, format, children, ref"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/toggle/Toggle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/toggle/Toggle.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: class, surfaceClass, intent, size, format, ref, children"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/tooltip/SimpleTooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/tooltip/SimpleTooltip.svelte has a single destructured $props() with 7 named props (> 6): text, side, sideOffset, delayDuration, disabled, children, asChild"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/base/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/base/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/auth/AuthPasswordInput.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/auth/AuthPasswordInput.svelte has a single destructured $props() with 8 named props (> 6): fieldId, value, autocomplete, placeholder, hasError, errorDescribedById, disabled, onblur"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/dashboard/DashboardToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/dashboard/DashboardToolbar.svelte has a single destructured $props() with 7 named props (> 6): sortValue, sortOptions, viewMode, showArchived, showUnfollowed, unfollowedValue, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/dashboard/WishlistCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/dashboard/WishlistCard.svelte has a single destructured $props() with 9 named props (> 6): wishlist, recipientDisplayName, giftCount, reservationProgress, availableGifts, myReservations, extraContent, actions, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift-draft-grid/GiftDraftDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift-draft-grid/GiftDraftDialog.svelte has a single destructured $props() with 10 named props (> 6): open, wishlistTitle, isSubmitting, priorityAvailable, categoryOptions, serverDuplicateCount, onsubmit, onresetduplicatewarning, oncancel, onOpenChange"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift-draft-grid/GiftDraftGrid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift-draft-grid/GiftDraftGrid.svelte has a single destructured $props() with 10 named props (> 6): context, initialRows, existingGifts, allowAddRow, showLegend, priorityAvailable, categoryOptions, resolvedImportedCategoryLabels, onchange, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift-draft-grid/GiftDraftRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift-draft-grid/GiftDraftRow.svelte has a single destructured $props() with 9 named props (> 6): row, exiting, status, showPriority, categoryOptions, resolvedImportedCategoryLabels, onchange, ondelete, ondismissduplicate"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftActionRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftActionRow.svelte has a single destructured $props() with 12 named props (> 6): children, secondary, onmore, moreOpen, moreSurface, controlSizing, contentWidth, secondaryAction, primaryAction, persistentMore, onplacementchange, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftActionRowTestHost.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftActionRowTestHost.svelte has a single destructured $props() with 9 named props (> 6): contentWidth, hostWidth, persistentMore, enableMore, moreOpen, secondaryLabel, primaryLabel, onplacementchange, onmore"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftCard.svelte has a single destructured $props() with 15 named props (> 6): gift, role, isArchived, hideReservationState, contextualMode, allowArchivedLike, onreserve, onunreserve, onreceived, receivedPending, onmore, persistentMore, moreOpen, moreSurface, showPriority"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftCompactRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftCompactRow.svelte has a single destructured $props() with 10 named props (> 6): gift, role, isArchived, hideReservationState, onclick, onreserve, onunreserve, onreceived, receivedPending, showPriority"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftDescription.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftDescription.svelte has a single destructured $props() with 7 named props (> 6): description, descriptionAppends, maxVisibleAppends, showAppends, preview, descriptionClass, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftDetailForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftDetailForm.svelte has a single destructured $props() with 21 named props (> 6): mode, gift, wishlistId, priorityLevels, categoryOptions, role, hideReservationState, postShareLocked, canDelete, graceExpiresAt, graceMessage, graceNow, isSubmitting, isDeleting, oncreate, onupdate, ondelete, oncancel, ondirtychange, onpendingchange, onsavesuccess"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftDetailModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftDetailModal.svelte has a single destructured $props() with 23 named props (> 6): open, mode, gift, wishlistId, priorityLevels, categoryOptions, role, readOnly, isArchived, hideReservationState, postShareLocked, canDelete, graceExpiresAt, graceMessage, graceNow, isSubmitting, isDeleting, oncreate, onupdate, ondelete, onreserve, onunreserve, onclose"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftImage.svelte has a single destructured $props() with 8 named props (> 6): imageUrl, imageMeta, target, alt, variant, eagerLoading, tokenScope, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftImagePreviewSlots.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftImagePreviewSlots.svelte has a single destructured $props() with 9 named props (> 6): src, alt, imageMeta, activeTarget, onTileSelect, tokenScope, loading, disabled, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftLinkRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftLinkRow.svelte has a single destructured $props() with 12 named props (> 6): link, isPrimary, isOnly, canMoveUp, canMoveDown, urlError, disabled, onurlchange, onlabelchange, onremove, onmoveup, onmovedown"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftListItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftListItem.svelte has a single destructured $props() with 14 named props (> 6): gift, role, isArchived, hideReservationState, contextualMode, onreserve, onunreserve, onreceived, receivedPending, onmore, persistentMore, moreOpen, moreSurface, showPriority"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/GiftReceivedToggle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/GiftReceivedToggle.svelte has a single destructured $props() with 10 named props (> 6): giftId, received, role, isArchived, size, compactLabel, pending, class, surfaceClass, onreceived"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/LikeButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/LikeButton.svelte has a single destructured $props() with 8 named props (> 6): giftId, giftName, likeCount, size, appearance, showCount, class, surfaceClass"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/WishlistHeader.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/WishlistHeader.svelte has a single destructured $props() with 23 named props (> 6): title, recipientDisplayName, recipientImage, isForSomeoneElse, managerNames, description, imageKey, imageSrc, imageSlots, themeEmoji, eventDate, status, role, giftCount, recipientIsModerator, adminSettingsAvailable, headingLevel, onshare, onmoderators, onarchive, oneditimage, oneditrecipient, onsettings"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/gift/WishlistHeaderActions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/gift/WishlistHeaderActions.svelte has a single destructured $props() with 12 named props (> 6): canManage, settingsAvailable, canShare, canEditImage, canEditRecipient, canArchive, onshare, onmoderators, onsettings, oneditimage, oneditrecipient, onarchive"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/import/ImportConfirmStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/import/ImportConfirmStep.svelte has a single destructured $props() with 11 named props (> 6): formId, mode, selectedDrafts, title, wishlistTitle, duplicateCount, serverDuplicateCount, oncommit, commitStatus, commitError, suppressNavigation"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/import/ImportReviewStep.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/import/ImportReviewStep.svelte has a single destructured $props() with 8 named props (> 6): parsedRows, filename, mode, existingGifts, priorityAvailable, categoryOptions, titleTouched, onready"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/import/ImportWizard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/import/ImportWizard.svelte has a single destructured $props() with 10 named props (> 6): open, mode, existingGifts, categoryOptions, suppressNavigation, onsuccess, wishlistId, wishlistShortId, wishlistTitle, priorityLevelCount"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/landing/LandingDemoPane.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/landing/LandingDemoPane.svelte has a single destructured $props() with 11 named props (> 6): role, gifts, label, hint, likeControls, reservedGiftIds, likePopupGiftId, testId, onreserve, onunreserve, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/navbar/NavDropdown.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/navbar/NavDropdown.svelte has a single destructured $props() with 9 named props (> 6): title, viewAllHref, items, totalCount, grouped, active, defaultOpen, open, footer"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/reservation/ReleaseReservationTestHost.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/reservation/ReleaseReservationTestHost.svelte has a single destructured $props() with 9 named props (> 6): gift, capability, reservations, release, placement, role, hideReservationState, isSubmitting, isDeleting"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/reservation/ReserveButton.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/reservation/ReserveButton.svelte has a single destructured $props() with 7 named props (> 6): gift, isArchived, size, class, surfaceClass, onreserve, onunreserve"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/reservation/ReserveModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/reservation/ReserveModal.svelte has a single destructured $props() with 7 named props (> 6): open, gift, redirectHref, isAuthenticated, isSubmitting, onreserve, onclose"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/settings/SettingsProfileSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/settings/SettingsProfileSection.svelte has a single destructured $props() with 8 named props (> 6): email, isOAuthUser, hasGoogleAccount, initialName, initialAvatarUrl, initialImageValue, onSave, onFetchGoogleAvatar"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/GiftBulkCopyDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/GiftBulkCopyDialog.svelte has a single destructured $props() with 10 named props (> 6): open, destinations, selectedDestinationId, selectedCount, loading, submitting, onopenchange, onback, ondestinationchange, onconfirm"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/GiftContextActions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/GiftContextActions.svelte has a single destructured $props() with 34 named props (> 6): sessionId, programmaticOpen, mobile, desktopAnchor, anchorPoint, name, role, primaryUrl, readOnly, received, canReserve, ownsReservation, canTrackPurchased, purchased, priorityReady, categoryReady, priorityLevels, categories, priorityLevelId, categoryId, placementSnapshot, onclose, oncomplete, onfinish, onedit, onpriority, oncategory, onreceived, onselect, onreserve, oncancelreservation, onpurchased, oncopysuccess, oncopyerror"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/GiftContextDesktopActions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/GiftContextDesktopActions.svelte has a single destructured $props() with 22 named props (> 6): kind, actions, disabledActions, safePrimaryUrl, received, purchased, priorityReady, categoryReady, priorityLevels, categories, priorityLevelId, categoryId, onfinish, oncopy, onedit, onpriority, oncategory, onreceived, onselect, onreserve, oncancelreservation, onpurchased"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/SlotPreviewCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/SlotPreviewCard.svelte has a single destructured $props() with 8 named props (> 6): slot, label, src, frame, themeEmoji, active, onclick, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistCropEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistCropEditor.svelte has a single destructured $props() with 10 named props (> 6): imageKey, imageSlots, themeEmoji, title, isSaving, formId, commitVersion, ondirtychange, ondraftchange, onsave"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistDetailToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistDetailToolbar.svelte has a single destructured $props() with 27 named props (> 6): canManage, role, isArchived, isAuthenticated, viewMode, sortOption, filters, grouping, groupingAvailability, categoryFilterOptions, priorityFilterOptions, reorderMode, reorderDonePending, reorderRecoveryPending, giftDataReady, recipientViewPreview, onrecipientviewpreviewchange, onreordermodechange, onviewmodechange, onsortchange, onfilterchange, ongroupingchange, onunfollow, onaddgift, onbatchadd, onselectionstart, selectionContent"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistGiftCardGrid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistGiftCardGrid.svelte has a single destructured $props() with 20 named props (> 6): sections, role, isArchived, hideReservationState, reorderEnabled, onedit, onreserve, onunreserve, onreceived, receivedPendingGiftIds, onreorderpreview, onreordercommit, onreordercancel, selectionMode, onselectiontoggle, oncontextactions, hascontextactions, activeContextGiftId, contextSurface, showPriority"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistGiftCompactTable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistGiftCompactTable.svelte has a single destructured $props() with 11 named props (> 6): sections, role, isArchived, hideReservationState, canManage, onedit, onreserve, onunreserve, onreceived, receivedPendingGiftIds, showPriority"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistGiftDisplay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistGiftDisplay.svelte has a single destructured $props() with 33 named props (> 6): sections, motionKey, role, isArchived, hideReservationState, viewMode, isLoading, isEmpty, isFilteredEmpty, reorderMode, reorderInteractionEnabled, onedit, onreserve, onunreserve, onreceived, onaddgift, onclearfilters, onreorderpreview, onreordercommit, onreordercancel, selectionMode, selectedIds, onselectiontoggle, oncontextactions, hascontextactions, contextContent, nativeContextOpen, nativeContextSessionId, onnativecontextcomplete, activeContextGiftId, contextSurface, grouping, receivedPendingGiftIds"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistGiftDraggableWrapper.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistGiftDraggableWrapper.svelte has a single destructured $props() with 20 named props (> 6): index, totalCount, giftId, reorderEnabled, draggedGiftId, dragOverGiftId, dragOverStyle, giftName, primaryLink, class, children, onopendetail, onreorderpointerdown, onreordermove, selectionMode, selectionLayout, selected, onselectiontoggle, oncontextmenu, onlongpress"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistGiftItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistGiftItem.svelte has a single destructured $props() with 16 named props (> 6): gift, index, totalCount, reorderEnabled, draggedGiftId, dragOverGiftId, dragOverStyle, class, selectionMode, selectionLayout, onselectiontoggle, oncontextactions, onedit, onreorderpointerdown, onreordermove, children"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistGiftListView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistGiftListView.svelte has a single destructured $props() with 20 named props (> 6): sections, role, isArchived, hideReservationState, reorderEnabled, onedit, onreserve, onunreserve, onreceived, receivedPendingGiftIds, onreorderpreview, onreordercommit, onreordercancel, selectionMode, onselectiontoggle, oncontextactions, hascontextactions, activeContextGiftId, contextSurface, showPriority"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistModals.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistModals.svelte has a single destructured $props() with 43 named props (> 6): role, canManage, isAuthenticated, redirectHref, wishlistId, wishlistTitle, giftCount, recipientIsModerator, isArchived, hideReservationState, giftModalOpen, giftModalMode, selectedGift, priorityLevels, categoryOptions, postShareLocked, canDeleteSelectedGift, graceExpiresAt, graceMessage, graceNow, isSubmitting, isDeleting, reserveModalOpen, reservingGift, isReserving, batchAddDialogOpen, isBatchSubmitting, batchServerDuplicateCount, moderatorPanelOpen, authPromptOpen, ongiftmodalclose, oncreate, onupdate, ondelete, ongiftreserve, ongiftunreserve, onreservemodalclose, onreserve, onshared, onmoderatorselfpromoted, onbatchsubmit, onbatchdialogopenchange, onbatchresetduplicatewarning"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistSelectionToolbar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistSelectionToolbar.svelte has a single destructured $props() with 19 named props (> 6): selectedCount, hiddenCount, visibleState, pending, priorityReady, categoryReady, priorityLevels, categories, commonPriorityId, commonCategoryId, commonImageFit, commonImageBackground, commonReceived, onselectvisible, onpriority, oncategory, onaction, oncopy, ondone"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistSettingsModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistSettingsModal.svelte has a single destructured $props() with 15 named props (> 6): open, activeTab, wishlist, canManage, role, revertCapability, recipientDisplayName, themeEmoji, onsaved, onpaletteselect, ondeleted, onreverted, onimport, onexport, oneditrecipient"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/blocks/wishlist/WishlistSlotImage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/blocks/wishlist/WishlistSlotImage.svelte has a single destructured $props() with 7 named props (> 6): src, frame, themeEmoji, alt, variant, eagerLoading, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/avatar/Avatar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/avatar/Avatar.svelte has a single destructured $props() with 8 named props (> 6): src, alt, initials, size, shape, bordered, appearance, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/choice-row/ChoiceRow.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/choice-row/ChoiceRow.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: selected, onSelect, leading, children, disabled, onclick, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/date-picker/DatePicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/date-picker/DatePicker.svelte has a single destructured $props() with 8 named props (> 6): value, id, ariaLabelledby, ariaDescribedby, disabled, placeholder, class, size"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/field/Field.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/field/Field.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: ref, fieldId, label, errorMessage, help, class, children"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/filter-menu/ActiveFilterPills.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/filter-menu/ActiveFilterPills.svelte has a single destructured $props() with 7 named props (> 6): items, clearAllLabel, onclearall, removeFilterLabel, triggerElement, disabled, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/filter-menu/FilterMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/filter-menu/FilterMenu.svelte has a single destructured $props() with 18 named props (> 6): definitions, facets, activeFilters, showActivePills, alwaysShowClearAllInMenu, triggerLabel, menuHeading, clearAllLabel, onclearall, removeFilterLabel, activeCountLabel, align, open, onopenchange, triggerElement, triggerClass, disabled, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/image-crop/ImageCropStage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/image-crop/ImageCropStage.svelte has a single destructured $props() with 15 named props (> 6): src, alt, targetAspect, targetLabel, realSizeText, cropRect, onchange, fillColor, tokenScope, interactive, disabled, containMode, onWheelPromote, showLabelChip, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/image-frame/ImageFrame.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/image-frame/ImageFrame.svelte has a single destructured $props() with 18 named props (> 6): src, alt, variant, eagerLoading, fitMode, focal, zoom, fillColor, tokenScope, fallbackEmoji, fallbackLabel, shape, interactive, natural, loading, onerror, referrerPolicy, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/image-upload/ImageUpload.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/image-upload/ImageUpload.svelte has a single destructured $props() with 12 named props (> 6): target, accept, maxSize, size, disabled, label, initialPreviewUrl, onUpload, onPendingChange, onError, onRemove, class"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::architecture/prop-count::src/lib/components/derived/segmented-toggle/SegmentedToggle.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script, style blanked): src/lib/components/derived/segmented-toggle/SegmentedToggle.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: value, class, children, onValueChange, onReselect, presentation, size"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/each-index-key::src/lib/components/base/calendar/calendar.svelte:105::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/base/calendar/calendar.svelte:105 '{#each weekdays ...}' keyed by its index binding; shadcn calendar weekdays header from the bits-ui children snippet; positional list (calendar weekdays), ledger calendar convention"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/each-index-key::src/lib/components/base/range-calendar/range-calendar.svelte:102::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/base/range-calendar/range-calendar.svelte:102 '{#each weekdays ...}' keyed by its index binding; shadcn range-calendar weekdays header; positional list (calendar weekdays), ledger calendar convention"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/each-index-key::src/lib/components/blocks/gift/GiftLinkList.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/blocks/gift/GiftLinkList.svelte:32 '{#each visibleLinks ...}' keyed by its index binding; visibleLinks = $derived(links.slice(0, maxVisible)) (line 20) over the gift's links prop (user data): runtime list"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/each-index-key::src/lib/storybook/KeyboardHint.svelte:13::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/storybook/KeyboardHint.svelte:13 '{#each keyParts ...}' keyed by its index binding; keyParts = $derived(keys.split(' / ')) (line 9): the parts of one keyboard-shortcut string; positional list (text segments)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/effect-as-onmount::src/lib/components/blocks/gift/GiftDetailForm.svelte:839::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/blocks/gift/GiftDetailForm.svelte:839 teardown-only effect (returns () => pendingUploads.discardAll()); the body reads nothing, so it runs once like onMount/onDestroy"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/effect-as-onmount::src/lib/components/blocks/settings/SettingsProfileSection.svelte:111::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/blocks/settings/SettingsProfileSection.svelte:111 teardown-only effect (returns () => pendingUploads.discardAll()); reads nothing, runs once like onMount/onDestroy"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/effect-as-onmount::src/lib/components/blocks/wishlist/WishlistCropEditor.svelte:318::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/blocks/wishlist/WishlistCropEditor.svelte:318 teardown-only effect (returns () => pendingUploads.discardAll()); reads nothing, runs once like onMount/onDestroy"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/effect-as-onmount::src/lib/components/blocks/wishlist/WishlistGiftCardGrid.svelte:107::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/blocks/wishlist/WishlistGiftCardGrid.svelte:107 $effect(() => () => reorder.destroy()) is teardown-only; reads nothing, runs once like onMount/onDestroy"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/effect-as-onmount::src/lib/components/blocks/wishlist/WishlistGiftDraggableWrapper.svelte:75::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/blocks/wishlist/WishlistGiftDraggableWrapper.svelte:75 $effect(() => () => longPress.cancel()) is teardown-only; reads nothing, runs once like onMount/onDestroy"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/effect-as-onmount::src/lib/components/blocks/wishlist/WishlistGiftListView.svelte:107::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/blocks/wishlist/WishlistGiftListView.svelte:107 $effect(() => () => reorder.destroy()) is teardown-only; reads nothing, runs once like onMount/onDestroy"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::correctness/effect-as-onmount::src/lib/components/derived/image-upload/ImageUpload.svelte:207::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/derived/image-upload/ImageUpload.svelte:207 teardown-only effect (returns () => activeAbortController?.abort()); reads nothing, runs once like onMount/onDestroy"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::security/raw-html::src/routes/(auth)/login/+page.svelte:156::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (auth)/login/+page.svelte:156 + messages/en.json,cs.json: m.auth_tagline_login() is a paraglide repo message with a literal <br>, no params — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::security/raw-html::src/routes/(auth)/register/+page.svelte:27::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (auth)/register/+page.svelte:27 + messages/*.json: m.auth_tagline_register() is a paraglide repo message with a literal <br>, no params — reported per docs"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::security/raw-html::src/routes/(auth)/reset-password/+page.svelte:32::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read (auth)/reset-password/+page.svelte:32 + messages/*.json: m.auth_tagline_reset() is a paraglide repo message with a literal <br>, no params — reported per docs"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::security/server-module-state::src/hooks.server.ts:53::module-scope variable \"initializedSentryHandle\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/hooks.server.ts:30,43-53: initializedSentryHandle ??= a Sentry handle built once from the deployment's platform env (DSN, release) — same for every request, lazy singleton by design (ledger lazy-singleton convention)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(app)/followed/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /followed (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(app)/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(app)/moderated/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /moderated (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(app)/my-lists/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /my-lists (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(app)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(app)/w/[id]/claim/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[id]/claim/[token] (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(app)/w/[id]/invite/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[id]/invite/[token] (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(app)/w/[id]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /w/[id]/settings (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(auth)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /login (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(auth)/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /register (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/(auth)/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/playground/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /playground (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (dev-only showcase: playground/+page.ts load throws error(404) whenever !dev), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/canonical-url::src/routes/unsubscribe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /unsubscribe (script-verified (a1b/verify.py, comments stripped: no <link rel=\"canonical\"> in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets but not a search target (literal noindex robots meta at unsubscribe/+page.svelte:72, plus X-Robots-Tag via lib/seo/robots.ts AUTH_PAGE_PATHS), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/followed/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/followed/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/home/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/home/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/moderated/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/moderated/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/my-lists/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/my-lists/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/settings/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/w/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/w/[id]/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/w/[id]/claim/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/w/[id]/claim/[token]/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/w/[id]/invite/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/w/[id]/invite/[token]/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/(app)/w/[id]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in (app)/w/[id]/settings/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: hooks.server.ts:89-90 sends X-Robots-Tag noindex for this path (lib/seo/robots.ts PRIVATE_PAGE_PATHS / wishlist /w/* paths)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/playground/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in playground/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: dev-only showcase, playground/+page.ts throws error(404) whenever !dev"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/description-presence::src/routes/unsubscribe/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=\"description\"> in unsubscribe/+page.svelte, (app)/root layouts or imports (only /, login, register, reset-password set one), none in app.html; not a search target: unsubscribe/+page.svelte:72 literal noindex (and hooks X-Robots-Tag)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/indexability::src/routes/unsubscribe/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: unsubscribe/+page.svelte:72 literal content=\"noindex, nofollow, noarchive\" unconditional in the page's svelte:head; noindex as claimed"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/followed/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /followed has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /home has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/moderated/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /moderated has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/my-lists/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /my-lists has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /settings has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/w/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /w/[id] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/w/[id]/claim/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /w/[id]/claim/[token] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/w/[id]/invite/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /w/[id]/invite/[token] has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(app)/w/[id]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /w/[id]/settings has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(auth)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /login has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(auth)/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /register has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/(auth)/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /reset-password has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; / has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/playground/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /playground has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/json-ld::src/routes/unsubscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JSON-LD emitter in src (only ingestion test fixtures mention it) or app.html; /unsubscribe has no JSON-LD block through its page, layouts or components"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(app)/followed/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /followed (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /home (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(app)/moderated/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /moderated (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(app)/my-lists/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /my-lists (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(app)/w/[id]/claim/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[id]/claim/[token] (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(app)/w/[id]/invite/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[id]/invite/[token] (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(app)/w/[id]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /w/[id]/settings (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /register (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /reset-password (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/playground/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /playground (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: dev-only showcase: playground/+page.ts load throws error(404) whenever !dev (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-description::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /unsubscribe (script-verified (a1b/verify.py, comments stripped: no og:description in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at unsubscribe/+page.svelte:72, plus X-Robots-Tag via lib/seo/robots.ts AUTH_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(app)/followed/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /followed (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(app)/moderated/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /moderated (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(app)/my-lists/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /my-lists (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(app)/w/[id]/claim/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[id]/claim/[token] (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(app)/w/[id]/invite/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[id]/invite/[token] (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(app)/w/[id]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /w/[id]/settings (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /register (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/playground/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /playground (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: dev-only showcase: playground/+page.ts load throws error(404) whenever !dev (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-image::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /unsubscribe (script-verified (a1b/verify.py, comments stripped: no og:image in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at unsubscribe/+page.svelte:72, plus X-Robots-Tag via lib/seo/robots.ts AUTH_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(app)/followed/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /followed (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /home (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(app)/moderated/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /moderated (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(app)/my-lists/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /my-lists (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(app)/w/[id]/claim/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[id]/claim/[token] (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(app)/w/[id]/invite/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[id]/invite/[token] (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(app)/w/[id]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /w/[id]/settings (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /register (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /reset-password (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/playground/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /playground (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: dev-only showcase: playground/+page.ts load throws error(404) whenever !dev (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-title::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /unsubscribe (script-verified (a1b/verify.py, comments stripped: no og:title in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at unsubscribe/+page.svelte:72, plus X-Robots-Tag via lib/seo/robots.ts AUTH_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(app)/followed/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /followed (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(app)/home/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(app)/moderated/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /moderated (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(app)/my-lists/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /my-lists (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(app)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(app)/w/[id]/claim/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[id]/claim/[token] (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(app)/w/[id]/invite/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[id]/invite/[token] (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(app)/w/[id]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /w/[id]/settings (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(auth)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(auth)/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /register (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/(auth)/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/playground/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /playground (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: dev-only showcase: playground/+page.ts load throws error(404) whenever !dev (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/og-url::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /unsubscribe (script-verified (a1b/verify.py, comments stripped: no og:url in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at unsubscribe/+page.svelte:72, plus X-Robots-Tag via lib/seo/robots.ts AUTH_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/single-h1::src/lib/components/blocks/auth/AuthFormCard.svelte:41::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read (3 routes /login /register /reset-password): each page renders AuthBrandPanel, whose tagline is an <h1> (AuthBrandPanel.svelte:23), and AuthFormCard with <h1 class=\"form-heading\">{title}</h1> (AuthFormCard.svelte:41) -> two <h1>s"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/robots.txt (allow all) but no sitemap.xml file/route/generator (literal claim holds); every non-landing route is X-Robots-Tag noindex (lib/seo/robots.ts shouldNoindexPath: auth, private and /w/* wishlist paths), only / is indexable, nothing to list"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/title-presence::src/routes/(app)/followed/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (reach): (app)/followed/+page.svelte and its imports (PageHeader/DashboardToolbar/WishlistCard etc.; src/lib has no svelte:head/<title>) emit no title; (app)/+layout.svelte has no svelte:head, root +layout.svelte:67-77 head is favicon/font preloads only, app.html none; root afterNavigate (:44-53) only prefixes an existing document.title in dev; signed-in route renders untitled"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/title-presence::src/routes/(app)/home/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (reach): (app)/home/+page.svelte and its imports (PageHeader/DashboardToolbar/WishlistCard etc.; src/lib has no svelte:head/<title>) emit no title; (app)/+layout.svelte has no svelte:head, root +layout.svelte:67-77 head is favicon/font preloads only, app.html none; root afterNavigate (:44-53) only prefixes an existing document.title in dev; signed-in route renders untitled"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/title-presence::src/routes/(app)/moderated/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (reach): (app)/moderated/+page.svelte and its imports (PageHeader/DashboardToolbar/WishlistCard etc.; src/lib has no svelte:head/<title>) emit no title; (app)/+layout.svelte has no svelte:head, root +layout.svelte:67-77 head is favicon/font preloads only, app.html none; root afterNavigate (:44-53) only prefixes an existing document.title in dev; signed-in route renders untitled"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/title-presence::src/routes/(app)/my-lists/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (reach): (app)/my-lists/+page.svelte and its imports (PageHeader/DashboardToolbar/WishlistCard etc.; src/lib has no svelte:head/<title>) emit no title; (app)/+layout.svelte has no svelte:head, root +layout.svelte:67-77 head is favicon/font preloads only, app.html none; root afterNavigate (:44-53) only prefixes an existing document.title in dev; signed-in route renders untitled"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/title-presence::src/routes/(app)/w/[id]/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: w/[id]/settings/+page.svelte is a legacy redirect shim (onMount goto to /w/<id>?settings=<tab>) with no svelte:head; (app)/+layout.svelte and root layout heads carry no <title>, app.html none (root afterNavigate only prefixes an existing title in dev); publicly reachable (/w/ is in (app)/+layout.server.ts PUBLIC_PATH_PREFIXES), SSR-served untitled before the client redirect (PauseAI onMount-redirect precedent)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/title-presence::src/routes/playground/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "read: playground/+page.svelte (component/design-token showcase) has no svelte:head, root +layout.svelte head is favicon/font preloads only, app.html none; dev-only page: playground/+page.ts load throws error(404) whenever !dev, so production never renders it (chipi/orrery, PauseAI dev-only precedent)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(app)/followed/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /followed (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(app)/home/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(app)/moderated/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /moderated (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(app)/my-lists/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /my-lists (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(app)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: auth-gated: (app)/+layout.server.ts:15-19 redirects guests to /login; also X-Robots-Tag noindex via hooks.server.ts:89-90 / lib/seo/robots.ts PRIVATE_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(app)/w/[id]/claim/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[id]/claim/[token] (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(app)/w/[id]/invite/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[id]/invite/[token] (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(app)/w/[id]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /w/[id]/settings (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: X-Robots-Tag noindex header on every /w/* path: hooks.server.ts:89-90, lib/seo/robots.ts isWishlistPath (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(auth)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(auth)/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /register (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/(auth)/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at (auth)/+layout.svelte:13 (ROBOTS_NOINDEX_CONTENT), plus X-Robots-Tag via hooks.server.ts:89-90 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/playground/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /playground (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: dev-only showcase: playground/+page.ts load throws error(404) whenever !dev (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/twitter-card::src/routes/unsubscribe/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /unsubscribe (script-verified (a1b/verify.py, comments stripped: no twitter:card in page, layout chain, reachable components/workspace pkgs, app.html/hooks)); only emitters are two other routes' pages (+page.svelte:19-30 landing, (app)/w/[id]/+page.svelte:2090-2105 wishlist), which a flagged route never renders; root/(app)/(auth) layouts emit only icon/font-preload and robots; app.html charset/viewport only; no meta-tag library (mode-watcher/embla/lucide emit none); no +page@ resets; route context: literal noindex robots meta at unsubscribe/+page.svelte:72, plus X-Robots-Tag via lib/seo/robots.ts AUTH_PAGE_PATHS (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/single-h1::/w/[id]/claim/[token]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /w/[id]/claim/[token]: page title is a Card.Title (<div>) at src/routes/(app)/w/[id]/claim/[token]/+page.svelte:99, no heading element; script-verified (own layout-chain+import walker incl. barrels/import(), comments not stripped): no <h1>, heading svelte:element or heading {@html} reachable in page+layouts+local components (WishlistHeader svelte:element h1/h2 and AuthFormCard/AuthBrandPanel <h1> not reached); npm components fetched from jsDelivr at pnpm-lock versions (bits-ui 2.18.2, svelte-sonner 1.1.1, mode-watcher 1.1.0, @lucide/svelte 1.17.0) render no <h1>; shadcn Card.Title is a <div> (base/card/card-title.svelte); the only npm <svelte:element>s in reach are @lucide/svelte Icon.svelte (SVG node tags) and bits-ui button.svelte (a/button), neither a heading"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/single-h1::/w/[id]/invite/[token]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /w/[id]/invite/[token]: page title is a Card.Title (<div>) at src/routes/(app)/w/[id]/invite/[token]/+page.svelte:102, no heading element; script-verified (own layout-chain+import walker incl. barrels/import(), comments not stripped): no <h1>, heading svelte:element or heading {@html} reachable in page+layouts+local components (WishlistHeader svelte:element h1/h2 and AuthFormCard/AuthBrandPanel <h1> not reached); npm components fetched from jsDelivr at pnpm-lock versions (bits-ui 2.18.2, svelte-sonner 1.1.1, mode-watcher 1.1.0, @lucide/svelte 1.17.0) render no <h1>; shadcn Card.Title is a <div> (base/card/card-title.svelte); the only npm <svelte:element>s in reach are @lucide/svelte Icon.svelte (SVG node tags) and bits-ui button.svelte (a/button), neither a heading"
+  },
+  {
+    "key": "MartinoPolo/prejemesi::seo/single-h1::/w/[id]/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> renders on /w/[id]/settings: page is a script-only client redirect stub (onMount goto /w/[id]?settings=), no markup; script-verified (own layout-chain+import walker incl. barrels/import(), comments not stripped): no <h1>, heading svelte:element or heading {@html} reachable in page+layouts+local components (WishlistHeader svelte:element h1/h2 and AuthFormCard/AuthBrandPanel <h1> not reached); npm components fetched from jsDelivr at pnpm-lock versions (bits-ui 2.18.2, svelte-sonner 1.1.1, mode-watcher 1.1.0, @lucide/svelte 1.17.0) render no <h1>; shadcn Card.Title is a <div> (base/card/card-title.svelte); the only npm <svelte:element>s in reach are @lucide/svelte Icon.svelte (SVG node tags) and bits-ui button.svelte (a/button), neither a heading"
+  }
+]

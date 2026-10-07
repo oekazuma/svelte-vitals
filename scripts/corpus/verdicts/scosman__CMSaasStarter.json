@@ -1,0 +1,1212 @@
+[
+  {
+    "key": "scosman/CMSaasStarter::a11y/interactive-nesting::src/routes/(admin)/account/(menu)/settings/settings_module.svelte:167::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read: <a href> directly wraps <button>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/interactive-nesting::src/routes/(marketing)/+page.svelte:288::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read: <a href> directly wraps <button>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/interactive-nesting::src/routes/(marketing)/+page.svelte:293::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read: <a href> directly wraps <button>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/interactive-nesting::src/routes/(marketing)/+page.svelte:422::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read: <a href> directly wraps <button>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/interactive-nesting::src/routes/(marketing)/blog/(posts)/how_we_built_our_41kb_saas_website/+page.svelte:21::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read: <a href> directly wraps <button>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/interactive-nesting::src/routes/(marketing)/login/+page.svelte:13::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read: <a href> directly wraps <button>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/interactive-nesting::src/routes/(marketing)/login/+page.svelte:8::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read: <a href> directly wraps <button>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/label-has-control::src/routes/(marketing)/+layout.svelte:45::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read: <label tabindex=0> wraps only an <svg>, no for= and no labelable descendant (daisyUI dropdown trigger)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/permitted-contents::src/routes/(marketing)/contact_us/+page.svelte:119::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <label> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/permitted-contents::src/routes/(marketing)/pricing/pricing_module.svelte:42::`<ul>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): literal parent, no component/snippet/svelte:element boundary; read: empty <ul></ul> is a direct child of the features <ul>, outside any <li>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::a11y/top-level-landmark::src/routes/(marketing)/+layout.svelte:102::complementary landmark is nested inside contentinfo",
+    "verdict": "tp",
+    "basis": "read: bare <aside> in top-level <footer> (contentinfo), not in sectioning content -> complementary nested in contentinfo"
+  },
+  {
+    "key": "scosman/CMSaasStarter::architecture/component-size::src/routes/(marketing)/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(marketing)/+page.svelte has 432 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scosman/CMSaasStarter::architecture/component-size::src/routes/(marketing)/pricing/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(marketing)/pricing/+page.svelte has 215 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "scosman/CMSaasStarter::architecture/prop-count::src/routes/(admin)/account/(menu)/settings/settings_module.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): editable, dangerous, title, message, fields, formTarget, successTitle, successBody, editButtonTitle, editLink, saveButtonTitle"
+  },
+  {
+    "key": "scosman/CMSaasStarter::correctness/each-key::src/routes/(admin)/account/(menu)/settings/settings_module.svelte:99::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each fields as field}' has no key and is not an inline literal/length-only/itemless shape; static list (all SettingsModule call sites pass inline literal fields arrays): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "scosman/CMSaasStarter::correctness/each-key::src/routes/(marketing)/blog/+page.svelte:29::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each sortedBlogPosts as post}' has no key and is not an inline literal/length-only/itemless shape; static list (import:./posts): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "scosman/CMSaasStarter::correctness/each-key::src/routes/(marketing)/pricing/pricing_module.svelte:39::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each plan.features as feature}' has no key and is not an inline literal/length-only/itemless shape; static list (template-scope): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "scosman/CMSaasStarter::correctness/each-key::src/routes/(marketing)/search/+page.svelte:137::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each results as result, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (state: results), not shown static; sheet-read"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/image-dimensions::src/routes/(marketing)/+page.svelte:381::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: CSS does not fix both dimensions (natural size decides the box)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/image-dimensions::src/routes/(marketing)/+page.svelte:393::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: CSS does not fix both dimensions (natural size decides the box)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/image-dimensions::src/routes/(marketing)/blog/+page.svelte:20::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (own class w-5 h-5), so no CLS from the missing attributes"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/image-loading-hint::src/routes/(marketing)/+page.svelte:381::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/image-loading-hint::src/routes/(marketing)/+page.svelte:393::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/image-loading-hint::src/routes/(marketing)/blog/+page.svelte:20::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/load-waterfall::src/routes/(admin)/account/+layout.ts:40::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "tp",
+    "basis": "read: load_helper awaits supabase.auth.getSession()/getUser() (network), then supabase.from('profiles')…eq('id', user.id) — dependent round trip"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/responsive-image::src/routes/(marketing)/+page.svelte:381::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/responsive-image::src/routes/(marketing)/+page.svelte:393::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "scosman/CMSaasStarter::performance/sequential-awaits::src/routes/(admin)/account/+layout.ts:46::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "script-verified + read: independent of preceding non-setup await(s) supabase@40; argument uses none of their bindings, no store/state coupling"
+  },
+  {
+    "key": "scosman/CMSaasStarter::security/raw-html::src/routes/(marketing)/+page.svelte:229::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored (JSON-LD from config/blog metadata constants, literal SVG path strings) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "scosman/CMSaasStarter::security/raw-html::src/routes/(marketing)/+page.svelte:334::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored (JSON-LD from config/blog metadata constants, literal SVG path strings) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "scosman/CMSaasStarter::security/raw-html::src/routes/(marketing)/blog/(posts)/+layout.svelte:65::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); value is repo-authored (JSON-LD from config/blog metadata constants, literal SVG path strings) — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/billing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (literal claim holds) but not a search target (auth-gated: (admin)/account/(menu)/billing/+page.server.ts:12 load redirects to /login when safeGetSession() from locals has no session or user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/create_profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 3 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/select_plan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(admin)/account/sign_out/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 3 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 4 transitively imported files, or app.html; no meta-tag library in deps; risks read and cleared (@html-in-head:src/routes/(marketing)/+page.svelte: <style>/<script>/JSON-LD injection, no <link rel=canonical>)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/blog/(posts)/awesome_post/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps; risks read and cleared (@html-in-head:src/routes/(marketing)/blog/(posts)/+layout.svelte: <style>/<script>/JSON-LD injection, no <link rel=canonical>)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/blog/(posts)/example_blog_post/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps; risks read and cleared (@html-in-head:src/routes/(marketing)/blog/(posts)/+layout.svelte: <style>/<script>/JSON-LD injection, no <link rel=canonical>)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/blog/(posts)/how_we_built_our_41kb_saas_website/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps; risks read and cleared (@html-in-head:src/routes/(marketing)/blog/(posts)/+layout.svelte: <style>/<script>/JSON-LD injection, no <link rel=canonical>)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/contact_us/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 4 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/login/current_password_error/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/login/forgot_password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/login/sign_in/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/login/sign_up/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/pricing/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/canonical-url::src/routes/(marketing)/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 4 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-length::src/routes/(marketing)/blog/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Our blog posts.\" = 15 graphemes (<70)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-length::src/routes/(marketing)/search/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Search our website.\" = 19 graphemes (<70)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/billing/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "<meta name=description> absent (literal claim holds) but not a search target (auth-gated: (admin)/account/(menu)/billing/+page.server.ts:12 load redirects to /login when safeGetSession() from locals has no session or user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/create_profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 3 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/select_plan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(admin)/account/sign_out/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 3 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(marketing)/contact_us/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 4 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(marketing)/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(marketing)/login/current_password_error/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 5 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(marketing)/login/forgot_password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(marketing)/login/sign_in/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/description-presence::src/routes/(marketing)/login/sign_up/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [3 layouts], 6 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/heading-level-skip::src/routes/(marketing)/blog/(posts)/awesome_post/+page.svelte:8::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: blog (posts)/+layout renders <h1>{title}</h1> then the post body, whose first heading is <h3>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/heading-level-skip::src/routes/(marketing)/blog/(posts)/example_blog_post/+page.svelte:8::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: blog (posts)/+layout renders <h1>{title}</h1> then the post body, whose first heading is <h3>"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 4 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/billing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 6 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/create_profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 3 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/select_plan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 4 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(admin)/account/sign_out/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 3 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 3 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/contact_us/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 3 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 4 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/login/current_password_error/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 4 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/login/forgot_password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 4 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/login/sign_in/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 4 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/login/sign_up/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 4 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/pricing/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 4 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/json-ld::src/routes/(marketing)/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 3 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep; app JSON-LD exists only on docs/home/blog-post routes outside this chain"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/billing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/create_profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/select_plan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(admin)/account/sign_out/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server; {@html} in head read: jsonldScript"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/blog/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/contact_us/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/login/current_password_error/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/login/forgot_password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/login/sign_in/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/login/sign_up/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/pricing/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-description::src/routes/(marketing)/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/billing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/create_profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/select_plan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(admin)/account/sign_out/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server; {@html} in head read: jsonldScript"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/blog/(posts)/awesome_post/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "src/routes/(marketing)/blog/(posts)/+layout.svelte:54 is an HTML comment <!-- <meta property=\"og:image\"> -->; no live og:image in chain/app.html; {@html} in head is jsonldScript"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/blog/(posts)/example_blog_post/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "src/routes/(marketing)/blog/(posts)/+layout.svelte:54 is an HTML comment <!-- <meta property=\"og:image\"> -->; no live og:image in chain/app.html; {@html} in head is jsonldScript"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/blog/(posts)/how_we_built_our_41kb_saas_website/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "src/routes/(marketing)/blog/(posts)/+layout.svelte:54 is an HTML comment <!-- <meta property=\"og:image\"> -->; no live og:image in chain/app.html; {@html} in head is jsonldScript"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/blog/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/contact_us/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/login/current_password_error/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/login/forgot_password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/login/sign_in/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/login/sign_up/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/pricing/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-image::src/routes/(marketing)/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/billing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/create_profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/select_plan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(admin)/account/sign_out/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server; {@html} in head read: jsonldScript"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/blog/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/contact_us/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/login/current_password_error/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/login/forgot_password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/login/sign_in/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/login/sign_up/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/pricing/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-title::src/routes/(marketing)/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/billing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/create_profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/select_plan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(admin)/account/sign_out/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server; {@html} in head read: jsonldScript"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/blog/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/contact_us/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/login/current_password_error/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/login/forgot_password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/login/sign_in/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/login/sign_up/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/pricing/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/og-url::src/routes/(marketing)/search/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/single-h1::/blog::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> in chain or components"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/single-h1::/search::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> in chain or components"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/single-h1::src/routes/(admin)/account/(menu)/+page.svelte:42::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "four unconditional <h1> (Dashboard/Users/Accounts/Revenue) in the page"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/single-h1::src/routes/(marketing)/+page.svelte:337::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> in chain or components"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/single-h1::src/routes/(marketing)/login/+page.svelte:11::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two unconditional <h1> in login/+page.svelte (lines 6, 11)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/single-h1::src/routes/(marketing)/pricing/+page.svelte:64::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "three unconditional <h1> in pricing/+page.svelte (57, 64, 145)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/sitemap-in-robots::(site)::robots.txt does not reference your sitemap",
+    "verdict": "tp",
+    "basis": "read: static/robots.txt is \"User-agent: * / Disallow:\" with no Sitemap: line; src/routes/(marketing)/sitemap.xml/+server.ts (super-sitemap, prerendered) exists; no robots +server endpoint or hook"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/ssr-disabled::src/routes/(marketing)/login/forgot_password/+page.server.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "literal `export const ssr = false` at src/routes/(marketing)/login/forgot_password/+page.server.ts:1 (valid page-option file)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/ssr-disabled::src/routes/(marketing)/login/sign_in/+page.server.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "literal `export const ssr = false` at src/routes/(marketing)/login/sign_in/+page.server.ts:1 (valid page-option file)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/ssr-disabled::src/routes/(marketing)/login/sign_up/+page.server.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "literal `export const ssr = false` at src/routes/(marketing)/login/sign_up/+page.server.ts:1 (valid page-option file)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Account\" = 7 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/billing/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Billing\" = 7 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Settings\" = 8 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Change Email\" = 12 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Change Email Subscription\" = 25 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Change Password\" = 15 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Delete Account\" = 14 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Edit Profile\" = 12 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Reset Password\" = 14 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/create_profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Create Profile\" = 14 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(admin)/account/select_plan/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Select a Plan\" = 13 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(marketing)/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Log In\" = 6 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(marketing)/login/current_password_error/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Current Password Incorrect\" = 26 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(marketing)/login/forgot_password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Forgot Password\" = 15 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(marketing)/login/sign_in/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Sign in\" = 7 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(marketing)/login/sign_up/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Sign up\" = 7 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(marketing)/pricing/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Pricing\" = 7 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-length::src/routes/(marketing)/search/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Search\" = 6 graphemes (<30)"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-presence::src/routes/(admin)/account/sign_out/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [2 layouts], 3 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/title-presence::src/routes/(marketing)/contact_us/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [2 layouts], 4 transitively imported files, or app.html; no meta-tag library in deps"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/billing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/settings/change_email/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/settings/change_email_subscription/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/settings/change_password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/settings/delete_account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/settings/edit_profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/(menu)/settings/reset_password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/create_profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/select_plan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(admin)/account/sign_out/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server; {@html} in head read: jsonldScript"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/contact_us/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/login/current_password_error/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/login/forgot_password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/login/sign_in/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/login/sign_up/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/pricing/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "scosman/CMSaasStarter::seo/twitter-card::src/routes/(marketing)/search/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  }
+]

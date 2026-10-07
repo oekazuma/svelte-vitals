@@ -1,0 +1,757 @@
+[
+  {
+    "key": "4www/enlist::a11y/disallowed-aria-props::src/lib/components/SuggestionCard.svelte:48::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label18/e_attr.mjs) and read: <div aria-label> at lib/components/SuggestionCard.svelte:48 has no role, spread or use: action, so its role is generic and a name is prohibited, as reported"
+  },
+  {
+    "key": "4www/enlist::a11y/id-duplication::src/lib/screens/SyncScreen.svelte:18::Duplicate id \"sync-title\"",
+    "verdict": "tp",
+    "basis": "read: on /sync and /[lang=locale]/sync SyncScreen.svelte:18 <h1 id=\"sync-title\"> and its unconditional child RemoteStoragePanel.svelte:40 <h2 id=\"sync-title\"> both render; aria-labelledby=\"sync-title\" on both sections resolves to the first"
+  },
+  {
+    "key": "4www/enlist::architecture/component-size::src/lib/screens/FeedScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/screens/FeedScreen.svelte has 212 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "4www/enlist::architecture/component-size::src/lib/screens/ItemDetailScreen.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/screens/ItemDetailScreen.svelte has 285 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "4www/enlist::correctness/each-key::src/lib/components/ActivityChart.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ActivityChart.svelte:41 '{#each days as day, index}' has no key and is not an exempt shape; positional list (days = timeDay.range(today-34, today+1): a fixed 35-day window of chart cells, ActivityChart.svelte:10)"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale]/add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/items/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale]/items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/items/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale]/items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale]/settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/settings/language/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale]/settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/settings/sync/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale]/settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/settings/theme/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale]/settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/[lang=locale]/sync/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[lang=locale]/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/items/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/items/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/settings/language/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/settings/sync/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/settings/theme/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/canonical-url::src/routes/sync/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); publicly reachable rendered route, no noindex/robots disallow/auth gate"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/[lang=locale]/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/[lang=locale]/add/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/[lang=locale]/items/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/[lang=locale]/items/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/[lang=locale]/items/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/[lang=locale]/items/[id]/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/[lang=locale]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/[lang=locale]/settings/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/[lang=locale]/settings/language/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/[lang=locale]/settings/language/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/[lang=locale]/settings/sync/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/[lang=locale]/settings/sync/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/[lang=locale]/settings/theme/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/[lang=locale]/settings/theme/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/[lang=locale]/sync/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/[lang=locale]/sync/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/add/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/items/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/items/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/items/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/items/[id]/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/settings/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/settings/language/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/settings/language/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/settings/sync/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/settings/sync/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/settings/theme/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/settings/theme/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/description-presence::src/routes/sync/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): the only <meta name=description> in src is FeedScreen.svelte:27, rendered by / and /[lang=locale] only; src/routes/sync/+page.svelte renders a screen from src/lib/screens whose svelte:head has a <title> only, root +layout.svelte and app.html have none; publicly hosted static GitHub Pages app (deploy.yml, prerender = true, no gate), description missing as claimed (cigale convention for a public local-first app)"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; / has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale] has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale]/add has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/items/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale]/items has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/items/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale]/items/[id] has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale]/settings has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/settings/language/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale]/settings/language has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/settings/sync/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale]/settings/sync has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/settings/theme/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale]/settings/theme has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/[lang=locale]/sync/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /[lang=locale]/sync has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /add has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/items/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /items has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/items/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /items/[id] has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /settings has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/settings/language/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /settings/language has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/settings/sync/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /settings/sync has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/settings/theme/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /settings/theme has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/json-ld::src/routes/sync/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no ld+json/schema.org anywhere in src or app.html; /sync has no JSON-LD"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale]/add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/items/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale]/items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/items/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale]/items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale]/settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/settings/language/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale]/settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/settings/sync/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale]/settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/settings/theme/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale]/settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/[lang=locale]/sync/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[lang=locale]/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/items/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/items/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/settings/language/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/settings/sync/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/settings/theme/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-description::src/routes/sync/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:description in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale]/add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/items/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale]/items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/items/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale]/items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale]/settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/settings/language/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale]/settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/settings/sync/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale]/settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/settings/theme/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale]/settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/[lang=locale]/sync/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[lang=locale]/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/items/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/items/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/settings/language/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/settings/sync/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/settings/theme/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-image::src/routes/sync/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:image in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale]/add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/items/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale]/items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/items/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale]/items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale]/settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/settings/language/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale]/settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/settings/sync/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale]/settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/settings/theme/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale]/settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/[lang=locale]/sync/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[lang=locale]/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/items/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/items/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/settings/language/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/settings/sync/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/settings/theme/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-title::src/routes/sync/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:title in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale]/add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/items/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale]/items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/items/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale]/items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale]/settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/settings/language/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale]/settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/settings/sync/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale]/settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/settings/theme/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale]/settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/[lang=locale]/sync/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[lang=locale]/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/items/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/items/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/settings/language/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/settings/sync/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/settings/theme/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/og-url::src/routes/sync/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no og:url in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has favicon/icon/manifest only, no robots.txt route; public GitHub Pages site (Anki-xiehanzi convention for a GitHub Pages project path; note BASE_PATH=/enlist means a robots.txt in static/ would not sit at the host root)"
+  },
+  {
+    "key": "4www/enlist::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/ or routes (literal claim holds); every route of this local-first app (README, docs/local-first.md) renders the visitor's own device-local items/settings (remoteStorage sync), so there is nothing per-URL to list (dledger precedent)"
+  },
+  {
+    "key": "4www/enlist::seo/ssr-disabled::src/routes/[lang=locale]/items/[id]/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/[lang=locale]/items/[id]/+page.ts:2 (with prerender = false); the item-detail view of a local-first app whose item ids exist only in the visitor's device storage (enlist-store), so there is no server-side content to render (ochorus device-local precedent)"
+  },
+  {
+    "key": "4www/enlist::seo/ssr-disabled::src/routes/items/[id]/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/items/[id]/+page.ts:2 (with prerender = false); the item-detail view of a local-first app whose item ids exist only in the visitor's device storage (enlist-store), so there is no server-side content to render (ochorus device-local precedent)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale]/add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/items/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale]/items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/items/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale]/items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale]/settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/settings/language/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale]/settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/settings/sync/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale]/settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/settings/theme/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale]/settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/[lang=locale]/sync/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[lang=locale]/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /add (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/items/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /items (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/items/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /items/[id] (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/settings/language/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/language (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/settings/sync/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 14 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/settings/theme/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings/theme (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 13 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  },
+  {
+    "key": "4www/enlist::seo/twitter-card::src/routes/sync/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /sync (script-verified (a1a/reach.py, comments stripped; positive control finds dotsem root-layout og:url/canonical/twitter:card): no twitter:card in page, 1 ancestor layout(s), 15 transitively reached local files, app.html or hooks); repo-wide grep: no og:*/twitter:*/rel=canonical anywhere in src, static or app.html; heads come from lib/screens/*Screen.svelte (<title> + description only); hooks.server.ts transformPageChunk only replaces %lang%; npm Svelte deps at lockfile versions scanned on jsDelivr (a1a/npmscan.py) emit none (@lucide/svelte@1.13.0); route renders (every redirect in its load chain is conditional)"
+  }
+]

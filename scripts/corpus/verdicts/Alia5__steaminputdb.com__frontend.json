@@ -1,0 +1,517 @@
+[
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/id-duplication::src/lib/components/Modal.svelte:64::Duplicate id \"modal\"",
+    "verdict": "design",
+    "basis": "read: dialog#modal is inside Modal.svelte {#if open} (:62); on /buddy-app and /config/[fileid] the copies are the header menu Modal (header/Header.svelte:140, opened by the menu button) and the page modal (buddy-app/+page.svelte:426 / BuddyApplyButton.svelte:139, opened by an action; beforeNavigate closes all); two modals never open together; documented co-render model"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/id-duplication::src/routes/app/[appid]/ControllerSupportEditor.svelte:93::Duplicate id \"controller-support\"",
+    "verdict": "tp",
+    "basis": "read: app/[appid]/+page.svelte:236-242 renders ControllerSupportEditor in the {#if editControllerSupport} arm; the editor's <form id=\"controller-support\"> (:93) contains, under {#if preview} (:119-124), <ControllerSupport> whose <section id=\"controller-support\"> (ControllerSupport.svelte:183) is then in the DOM too; reached by edit -> preview but non-modal, so the id is really duplicated"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/permitted-contents::src/routes/(buddy-app)/buddy-app/+page.svelte:307::`<strong>` is not permitted content here — `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <strong> at this line has nearest non-transparent literal parent <dl> (line 306) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <dl>'s content model does not admit <strong>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/permitted-contents::src/routes/(buddy-app)/buddy-app/+page.svelte:319::`<strong>` is not permitted content here — `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <strong> at this line has nearest non-transparent literal parent <dl> (line 306) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <dl>'s content model does not admit <strong>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/permitted-contents::src/routes/(buddy-app)/buddy-app/+page.svelte:502::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at this line has nearest non-transparent literal parent <button> (line 500) with no component/snippet/{@render}/svelte:element boundary between (crossed: IfBlock), not in svg; <button>'s content model does not admit <div>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/permitted-contents::src/routes/app/[appid]/ControllerSupportEditor.svelte:440::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <label> at this line has nearest non-transparent literal parent <label> (line 439) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <label>'s content model does not admit <label>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/permitted-contents::src/routes/app/[appid]/ControllerSupportEditor.svelte:480::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <label> at this line has nearest non-transparent literal parent <label> (line 479) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <label>'s content model does not admit <label>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/permitted-contents::src/routes/app/[appid]/ControllerSupportEditor.svelte:495::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <label> at this line has nearest non-transparent literal parent <label> (line 494) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <label>'s content model does not admit <label>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/permitted-contents::src/routes/app/[appid]/ControllerSupportEditor.svelte:593::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <label> at this line has nearest non-transparent literal parent <label> (line 592) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <label>'s content model does not admit <label>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::a11y/permitted-contents::src/routes/app/[appid]/ControllerSupportEditor.svelte:619::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <label> at this line has nearest non-transparent literal parent <label> (line 618) with no component/snippet/{@render}/svelte:element boundary between (crossed: none), not in svg; <label>'s content model does not admit <label>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/attachments/tooltip.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/attachments/tooltip.svelte has 564 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/components/header/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/header/Header.svelte has 413 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/components/header/Search.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/header/Search.svelte has 238 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/components/header/SearchResults.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/header/SearchResults.svelte has 361 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/components/layout_preview/LayoutPreview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout_preview/LayoutPreview.svelte has 429 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/components/layout_preview/glyphs/glyphFor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout_preview/glyphs/glyphFor.svelte has 343 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/components/layout_preview/presetPreview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout_preview/presetPreview.svelte has 437 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/components/layout_preview/sourcePreview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/layout_preview/sourcePreview.svelte has 239 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/lib/components/search/searchform.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/search/searchform.svelte has 744 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/(buddy-app)/buddy-app/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(buddy-app)/buddy-app/+page.svelte has 764 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/(buddy-app)/buddy-app/install/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(buddy-app)/buddy-app/install/+page.svelte has 383 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 254 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/HotTodayBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/HotTodayBar.svelte has 260 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/app/[appid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/[appid]/+page.svelte has 682 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/app/[appid]/AppInfoHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/[appid]/AppInfoHeader.svelte has 518 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/app/[appid]/ControllerSupport.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/[appid]/ControllerSupport.svelte has 793 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/app/[appid]/ControllerSupportEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/app/[appid]/ControllerSupportEditor.svelte has 1035 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/config/[fileid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/config/[fileid]/+page.svelte has 213 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/config/[fileid]/BuddyApplyButton.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/config/[fileid]/BuddyApplyButton.svelte has 393 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/config/[fileid]/configInfoHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/config/[fileid]/configInfoHeader.svelte has 577 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/config/[fileid]/sectionInfo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/config/[fileid]/sectionInfo.svelte has 394 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/config/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/config/search/+page.svelte has 657 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/component-size::src/routes/user/[userid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/user/[userid]/+page.svelte has 873 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/prop-count::src/lib/components/layout_preview/sourcePreview.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/layout_preview/sourcePreview.svelte has a single destructured $props() with 7 named props (> 6): source, cls, selectedController, parsedVdf, getSourceGroups, findGyroButton, findModeShiftTriggers"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::architecture/prop-count::src/lib/components/search/searchform.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/search/searchform.svelte has a single destructured $props() with 11 named props (> 6) plus ...rest: showAdvancedFilters, showFeatureFilter, showExcludedFeatureFilter, form, searchtext, disabled, method, values, submitOnChange, showTotalCount, enhanceParams"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::correctness/each-index-key::src/lib/components/layout_preview/mappingPreview.svelte:28::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout_preview/mappingPreview.svelte:28 '{#each leftBumperInputs as input, idx (idx)}' keyed by its index binding; leftBumperInputs = getInputs(prefix, device) (line 22), a fixed-slot array (GroupInput | undefined)[] for one controller group; positional list (input slots): no identity beyond position"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::correctness/each-index-key::src/lib/components/layout_preview/sourcePreview.svelte:48::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/layout_preview/sourcePreview.svelte:48 '{#each groups as { group, binding }, idx (idx)}' keyed by its index binding; groups = $derived(getSourceGroups(source)) (line 29), the binding groups (base and mode-shift) of a loaded controller layout, replaced when another layout/preset is shown; runtime data"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::correctness/each-index-key::src/routes/(buddy-app)/buddy-app/+page.svelte:193::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/(buddy-app)/buddy-app/+page.svelte:193 '{#each e?.body?.err?.errors as err, idx (idx)}' keyed by its index binding; validation errors returned by an API error body; runtime data (ledger convention for error lists)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::correctness/each-index-key::src/routes/app/[appid]/ControllerSupport.svelte:500::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/app/[appid]/ControllerSupport.svelte:500 '{#each mixedInputMods as mod, idx (idx)}' keyed by its index binding; mixedInputMods = steaminputdbInfo?.mixed_input?.mixed_input_mods (line 457), per-game data on an [appid] route; runtime data"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::correctness/each-index-key::src/routes/app/[appid]/ControllerSupportEditor.svelte:694::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/routes/app/[appid]/ControllerSupportEditor.svelte:694 '{#each steaminputdbInfo.mixed_input.mixed_input_mods ?? [] as mod, idx (idx)}' keyed by its index binding; the editor's per-game mixed-input mod list (steaminputdbInfo, line 56), edited by the user; runtime data"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::correctness/effect-as-derived::src/routes/app/[appid]/+page.svelte:83::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/app/[appid]/+page.svelte:83; results = data?.configs is then deeply written by load-more (results.items = results.items... at 108); a $derived value is not deeply proxied, so converting would break that write (ledger convention)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::correctness/effect-as-derived::src/routes/user/[userid]/+page.svelte:106::$effect only assigns state — use $derived instead",
+    "verdict": "design",
+    "basis": "read: src/routes/user/[userid]/+page.svelte:106; results = data?.configs is then deeply written by load-more (results.items = results.items... at 131); a $derived value is not deeply proxied (ledger convention)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::security/raw-html::src/lib/components/markdown/markdown.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read markdown.svelte:24 + mdprocess.ts:14-37: processMarkdown runs rehype-raw then rehype-sanitize (defaultSchema + a few class attrs) before stringify — sanitized, reported per docs"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::security/raw-html::src/lib/components/markdown/markdownSSR.svelte:25::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read markdownSSR.svelte:16-25 + mdprocess.ts:14-37: html = processMarkdown() with rehype-sanitize (defaultSchema) over config descriptions/notes — sanitized, reported per docs"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::security/server-module-state::src/routes/+page.server.ts:48::module-scope variable \"lastHotUpdate\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read +page.server.ts:15-58: lastHotUpdate/hotToday are a 6-hour process-wide cache of the public trending-config search (query_text '', no user filter or request data in the body) served identically to every visitor — deliberate process-wide cache of non-personal data per docs"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::security/server-module-state::src/routes/+page.server.ts:49::module-scope variable \"hotToday\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read +page.server.ts:15-58: lastHotUpdate/hotToday are a 6-hour process-wide cache of the public trending-config search (query_text '', no user filter or request data in the body) served identically to every visitor — deliberate process-wide cache of non-personal data per docs"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::security/server-module-state::src/routes/+page.server.ts:55::module-scope variable \"hotToday\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read +page.server.ts:15-58: lastHotUpdate/hotToday are a 6-hour process-wide cache of the public trending-config search (query_text '', no user filter or request data in the body) served identically to every visitor — deliberate process-wide cache of non-personal data per docs"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/description-length::src/routes/config/search/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=description> in the page's svelte:head, length as reported (e.g. faq \"Frequently Asked Questions about SteamInputDB\" 45), not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/description-length::src/routes/faq/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=description> in the page's svelte:head, length as reported (e.g. faq \"Frequently Asked Questions about SteamInputDB\" 45), not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/description-length::src/routes/imprint/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=description> in the page's svelte:head, length as reported (e.g. faq \"Frequently Asked Questions about SteamInputDB\" 45), not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/description-length::src/routes/login/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=description> in the page's svelte:head, length as reported (e.g. faq \"Frequently Asked Questions about SteamInputDB\" 45), not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/description-length::src/routes/privacy/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <meta name=description> in the page's svelte:head, length as reported (e.g. faq \"Frequently Asked Questions about SteamInputDB\" 45), not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/description-presence::src/routes/(buddy-app)/buddy-app/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> in (buddy-app)/buddy-app/+page.svelte, its layouts or app.html; publicly reachable (no load gate, only ssr=false)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/description-presence::src/routes/login/callback/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (literal claim holds); OpenID return endpoint whose load (login/callback/+page.server.ts) throws error(400) on every request lacking openid.* params, so a crawler never gets it; not a search target"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/description-presence::src/routes/news/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: no <meta name=description> in news/+page.svelte, root layout, Header/Footer or app.html; public news index"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/duplicate-description::src/routes/(buddy-app)/buddy-app/install/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:28-31 and (buddy-app)/buddy-app/install/+page.svelte:57-60 carry the identical literal \"Community-driven database of Steam Input configurations using the Steam API.\"; both public with robots index,follow"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/duplicate-description::src/routes/+page.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:28-31 and (buddy-app)/buddy-app/install/+page.svelte:57-60 carry the identical literal \"Community-driven database of Steam Input configurations using the Steam API.\"; both public with robots index,follow"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/heading-level-skip::src/routes/(buddy-app)/buddy-app/+page.svelte:162::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "(buddy-app)/buddy-app/+page.svelte:80 <h1> then the {:else if !BuddyState.reachable} arm's <h3> (:162); the <h2>s (:179,:261) render only {#if BuddyState.reachable}, so h1 -> h3 when the buddy is unreachable"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/(buddy-app)/buddy-app/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/(buddy-app)/buddy-app/install/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/config/[fileid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/faq/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/imprint/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/login/callback/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/news/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD in src is on /, /config/search, /app/[appid], /user/[userid] (svelte:element script ld+json); this route's page and layout chain have none, app.html none"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-description::src/routes/(buddy-app)/buddy-app/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially); ssr=false (src/routes/(buddy-app)/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-description::src/routes/imprint/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 30 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-description::src/routes/login/callback/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 28 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-description::src/routes/news/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-description::src/routes/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-image::src/routes/(buddy-app)/buddy-app/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially); ssr=false (src/routes/(buddy-app)/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-image::src/routes/faq/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-image::src/routes/imprint/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 30 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-image::src/routes/login/callback/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 28 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-image::src/routes/news/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-title::src/routes/(buddy-app)/buddy-app/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially); ssr=false (src/routes/(buddy-app)/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-title::src/routes/login/callback/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 28 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/og-title::src/routes/news/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/single-h1::/faq::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: faq/+page.svelte renders <Content/> imported from ./content.svx, an mdsvex page (svelte.config.js extensions [\".svelte\",\".svx\"], mdsvex preprocessor) whose # FAQ (content.svx:6) compiles to <h1>; the analyzer does not follow the .svx component"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/single-h1::/imprint::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: imprint/+page.svelte renders <Content/> imported from ./content.svx, an mdsvex page (svelte.config.js extensions [\".svelte\",\".svx\"], mdsvex preprocessor) whose # Imprint (content.svx:1) compiles to <h1>; the analyzer does not follow the .svx component"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/single-h1::/login/callback::Missing <h#>",
+    "verdict": "tp",
+    "basis": "login/callback/+page.svelte renders only a spinner or an error <p> ({#if loginErr}); load errors only without openid params; no <h1> in page or root layout"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "login/+page.svelte renders content.svx whose only heading is ### (content.svx:6, with a markdownlint first-line-heading disable) -> <h3>; root layout Header and the page have no <h1>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/single-h1::/news::Missing <h#>",
+    "verdict": "tp",
+    "basis": "news/+page.svelte is a card list of articles (titles in <span>), Author component and root layout Header have no heading; no <h1>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/single-h1::/privacy::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: privacy/+page.svelte renders <Content/> imported from ./content.svx, an mdsvex page (svelte.config.js extensions [\".svelte\",\".svx\"], mdsvex preprocessor) whose # Privacy Policy (content.svx:1) compiles to <h1>; the analyzer does not follow the .svx component"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/single-h1::src/routes/config/search/+page.svelte:233::Missing <h#>",
+    "verdict": "tp",
+    "basis": "own heading walk: config/search page renders SearchForm (only an <h3> in BPM_Select.svelte:31) and an error <h2> (:233); root layout Header has none; no <h1>"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap in static/ (robots.txt has no Sitemap: line), no sitemap.xml route, hook or generator repo-wide; public site"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/ssr-disabled::src/routes/(buddy-app)/+layout.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at (buddy-app)/+layout.ts:1; it also covers /buddy-app/install, a public page with robots \"index, follow\", description and full OG, which now ships as an empty shell"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/title-length::src/routes/config/search/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in the page's svelte:head (e.g. \"SteamInputDB - FAQ\" 18), no later title on the route, not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/title-length::src/routes/faq/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in the page's svelte:head (e.g. \"SteamInputDB - FAQ\" 18), no later title on the route, not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/title-length::src/routes/imprint/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in the page's svelte:head (e.g. \"SteamInputDB - FAQ\" 18), no later title on the route, not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in the page's svelte:head (e.g. \"SteamInputDB - FAQ\" 18), no later title on the route, not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/title-length::src/routes/privacy/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal <title> in the page's svelte:head (e.g. \"SteamInputDB - FAQ\" 18), no later title on the route, not inside an {#if}"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/title-presence::src/routes/(buddy-app)/buddy-app/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: (buddy-app)/buddy-app/+page.svelte has no svelte:head, (buddy-app)/+layout.svelte only renders children, root +layout.svelte head has no <title>, app.html none, no document.title anywhere in src; the ssr=false page stays untitled in the browser too"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/title-presence::src/routes/login/callback/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: login/callback/+page.svelte has no svelte:head (Spinner/@iconify Icon only), root layout head has no <title>, app.html none, no document.title; the page renders (load errors only without openid.* params) untitled"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/title-presence::src/routes/news/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: news/+page.svelte has no svelte:head (import.meta.glob pulls only svx `metadata`, Author.svelte has no head), root +layout.svelte head has favicon/canonical/og only, Header/Footer none, app.html none, no document.title; public news index renders untitled"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/twitter-card::src/routes/(buddy-app)/buddy-app/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 31 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially); ssr=false (src/routes/(buddy-app)/+layout.ts), and no client-rendered emitter either"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/twitter-card::src/routes/login/callback/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 28 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  },
+  {
+    "key": "Alia5/steaminputdb.com:frontend::seo/twitter-card::src/routes/news/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 29 transitively imported local/workspace files incl. app.html/hooks; root +layout.svelte:89,96 emits only canonical + og:url; og:title/description/image and twitter:card exist only per page (+page.svelte, app/[appid], config/*, user/*, faq/imprint/login/privacy partially)"
+  }
+]

@@ -1,0 +1,587 @@
+[
+  {
+    "key": "nikolat/nos-haiku::a11y/deprecated-aria::src/lib/components/CreateEntry.svelte:561::`aria-haspopup` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read CreateEntry.svelte:561-565: <div aria-haspopup=\"listbox\" aria-owns aria-expanded class=\"input-wrapper\"> with no role (combobox markup copied without role=\"combobox\"); aria-haspopup is deprecated on generic as reported"
+  },
+  {
+    "key": "nikolat/nos-haiku::a11y/disallowed-aria-props::src/lib/components/CreateEntry.svelte:561::`aria-expanded` is not supported by role `generic`",
+    "verdict": "tp",
+    "basis": "read CreateEntry.svelte:561-565: <div aria-expanded=\"false\"> with no role or spread; aria-expanded is not supported on generic as reported"
+  },
+  {
+    "key": "nikolat/nos-haiku::a11y/id-duplication::src/lib/components/CreateEntry.svelte:816::Duplicate id \"poll-period\"",
+    "verdict": "design",
+    "basis": "script-verified (CLI on local clone: 34 findings, CreateEntry poll ids on every route): the copies are Page.svelte:895 <CreateEntry> and the reply <CreateEntry eventToReply={event}> in Entry.svelte:2637 ({#if showForm}); the poll <dl> sits in {#if addPoll} (CreateEntry.svelte:793), and addPoll is only set by the poll button in {#if ... eventToReply === undefined} (:662-669), so the reply copy never shows it; separate state-gated blocks the docs count as both rendering"
+  },
+  {
+    "key": "nikolat/nos-haiku::a11y/id-duplication::src/lib/components/CreateEntry.svelte:825::Duplicate id \"poll-type\"",
+    "verdict": "design",
+    "basis": "script-verified (CLI on local clone: 34 findings, CreateEntry poll ids on every route): the copies are Page.svelte:895 <CreateEntry> and the reply <CreateEntry eventToReply={event}> in Entry.svelte:2637 ({#if showForm}); the poll <dl> sits in {#if addPoll} (CreateEntry.svelte:793), and addPoll is only set by the poll button in {#if ... eventToReply === undefined} (:662-669), so the reply copy never shows it; separate state-gated blocks the docs count as both rendering"
+  },
+  {
+    "key": "nikolat/nos-haiku::a11y/pattern-title::src/lib/components/Page.svelte:603::<input pattern> without a title — a failed match tells the user nothing about the expected format",
+    "verdict": "design",
+    "basis": "read Page.svelte:603-611: <input type=\"text\" pattern=\"[^\\s#]+\"> without title, but it is in no <form> (dl.edit-channel :548-625) and the page never calls checkValidity/reportValidity; a mismatch only disables the Add button (:615-616), so no validation message where a title would show (support/+page.svelte precedent)"
+  },
+  {
+    "key": "nikolat/nos-haiku::a11y/permitted-contents::src/lib/components/Page.svelte:613::`<button>` is not permitted content here — `<dl>` admits only `<dt>`, `<dd>`, `<div>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "read Page.svelte:613: <button class=\"Button\"> is a direct child of <dl class=\"edit-channel\"> (:548-625); <dl> admits only dt/dd/div"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/AddStar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AddStar.svelte has 253 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/App.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/App.svelte has 1276 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/Content.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Content.svelte has 454 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/CreateEntry.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CreateEntry.svelte has 957 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/Entry.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Entry.svelte has 2977 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Header.svelte has 644 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/Page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Page.svelte has 1178 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/Settings.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Settings.svelte has 490 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/kinds/MuteList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/kinds/MuteList.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/component-size::src/lib/components/kinds/Profile.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/kinds/Profile.svelte has 383 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/AddStar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/AddStar.svelte has a single destructured $props() with 8 named props (> 6): sendReaction, sendDeletion, loginPubkey, profileMap, eventsReactionToTheEvent, eventsEmojiSet, mutedWords, isEmojiPickerOpened"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/Content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Content.svelte has a single destructured $props() with 36 named props (> 6): rc, content, tags, channelMap, profileMap, loginPubkey, mutedPubkeys, mutedChannelIds, mutedWords, mutedHashtags, followingPubkeys, eventFollowList, eventEmojiSetList, eventMuteList, eventsTimeline, eventsQuoted, eventsReaction, eventsBadge, eventsPoll, eventsEmojiSet, eventsChannelBookmark, getSeenOn, uploaderSelected, uploaderType, channelToPost, currentChannelId, level, isPreview, callInsertText, baseEventToEdit, isAbout, enableAutoLink, isEnabledRelativeTime, isEnabledEventProtection, clientTag, nowRealtime"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/CreateEntry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CreateEntry.svelte has a single destructured $props() with 20 named props (> 6): rc, loginPubkey, currentChannelId, currentBitchatGTag, eventToReply, isTopPage, channelMap, profileMap, isEnabledEventProtection, clientTag, uploaderSelected, uploaderType, eventsEmojiSet, eventFollowList, preInput, channelToPost, showForm, previewEvent, callInsertText, baseEventToEdit"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/Entry.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Entry.svelte has a single destructured $props() with 34 named props (> 6): event, rc, channelMap, profileMap, loginPubkey, mutedPubkeys, mutedChannelIds, mutedWords, mutedHashtags, followingPubkeys, eventFollowList, eventEmojiSetList, eventMuteList, eventsTimeline, eventsQuoted, eventsReaction, eventsBadge, eventsPoll, eventsEmojiSet, eventsChannelBookmark, getSeenOn, uploaderSelected, uploaderType, channelToPost, currentChannelId, isEnabledRelativeTime, isEnabledEventProtection, clientTag, nowRealtime, level, isFullDisplayMode, isPreview, callInsertText, baseEventToEdit"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/Header.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Header.svelte has a single destructured $props() with 15 named props (> 6): rc, loginPubkey, eventsMention, eventFollowList, readTimeOfNotification, currentProfilePointer, query, urlSearchParams, profileMap, mutedPubkeys, mutedWords, mutedHashtags, isEnabledRelativeTime, nowRealtime, isEnabledScrollInfinitely"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/Page.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Page.svelte has a single destructured $props() with 39 named props (> 6): rc, loginPubkey, eventsMention, readTimeOfNotification, eventsTimeline, eventsQuoted, eventsReaction, eventsChannelBookmark, eventsBadge, eventsPoll, eventsPinList, eventsEmojiSet, eventFollowList, eventMuteList, eventMyPublicChatsList, eventEmojiSetList, isAntenna, currentProfilePointer, currentChannelPointer, currentEventPointer, currentAddressPointer, query, urlSearchParams, hashtag, category, profileMap, channelMap, mutedPubkeys, mutedChannelIds, mutedWords, mutedHashtags, followingPubkeys, uploaderSelected, uploaderType, isEnabledEventProtection, isEnabledUseClientTag, isEnabledRelativeTime, nowRealtime, isLoading"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/Search.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Search.svelte has a single destructured $props() with 15 named props (> 6): rc, loginPubkey, eventsMention, eventFollowList, readTimeOfNotification, currentProfilePointer, query, urlSearchParams, profileMap, channelMap, mutedPubkeys, mutedWords, mutedHashtags, isEnabledRelativeTime, nowRealtime"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/Settings.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Settings.svelte has a single destructured $props() with 39 named props (> 6): rc, loginPubkey, eventsMention, eventFollowList, readTimeOfNotification, query, urlSearchParams, lang, setLang, isEnabledDarkMode, setIsEnabledDarkMode, isEnabledRelativeTime, setIsEnabledRelativeTime, isEnabledHideMutedEvents, setIsEnabledHideMutedEvents, isEnabledUseClientTag, setIsEnabledUseClientTag, isEnabledEventProtection, setIsEnabledEventProtection, eventMuteList, eventRelayList, eventNip96ServerList, eventBlossomServerList, uploaderSelected, setUploaderSelected, setUploaderType, kindsSelected, setKindsSelected, eventsBadge, eventsPoll, eventsQuoted, profileMap, channelMap, mutedPubkeys, mutedChannelIds, mutedWords, mutedHashtags, followingPubkeys, nowRealtime"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/kinds/MuteList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/kinds/MuteList.svelte has a single destructured $props() with 10 named props (> 6): rc, loginPubkey, profileMap, channelMap, mutedPubkeys, mutedChannelIds, mutedWords, mutedHashtags, eventMuteList, isAuthor"
+  },
+  {
+    "key": "nikolat/nos-haiku::architecture/prop-count::src/lib/components/kinds/Profile.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/kinds/Profile.svelte has a single destructured $props() with 20 named props (> 6): rc, loginPubkey, currentPubkey, profileMap, channelMap, eventsTimeline, eventsQuoted, eventsReaction, eventsBadge, eventsPoll, eventsEmojiSet, eventsChannelBookmark, mutedPubkeys, mutedChannelIds, mutedWords, mutedHashtags, followingPubkeys, eventFollowList, eventEmojiSetList, eventMuteList"
+  },
+  {
+    "key": "nikolat/nos-haiku::correctness/each-index-key::src/lib/components/Content.svelte:284::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Content.svelte:284 '{#each ats.children as ct, i (i)}' keyed by its index binding; ats = $derived(getExpandTagsList(content, tags)) (:255), the parsed text/link/emoji segments of one note's content: positional list (segments of one string), items have no identity beyond position"
+  },
+  {
+    "key": "nikolat/nos-haiku::correctness/each-index-key::src/lib/components/CreateEntry.svelte:800::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: CreateEntry.svelte:800 '{#each pollItems.concat('') as item, i (i)}' keyed by its index binding; poll-option inputs bound by index (bind:value={pollItems[i]}, :807), only appended through the trailing empty input and cleared wholesale (:489, :537), never removed mid-list; string items have no other identity: positional list (inputs bound by index)"
+  },
+  {
+    "key": "nikolat/nos-haiku::correctness/each-index-key::src/lib/components/Entry.svelte:1582::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Entry.svelte:1582 '{#each event.tags as tag, i (i)}' keyed by its index binding; the tags of one signed (immutable) Nostr event, whose order is fixed: positional list (fields of one record), items have no identity beyond position"
+  },
+  {
+    "key": "nikolat/nos-haiku::correctness/each-index-key::src/lib/components/Entry.svelte:2618::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: Entry.svelte:2618 '{#each emojiTags as emojiTag, i (i)}' keyed by its index binding; emojiTags = the emoji tags filtered from one signed (immutable) Nostr event's tags (:2592): positional list (fields of one record), never reorders"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/[id=nip05]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[id=nip05] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/[id=nip05]/[...date]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[id=nip05]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/[id=nprofile]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[id=nprofile] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/[id=nprofile]/[...date]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[id=nprofile]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/[id=npub]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[id=npub] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/[id=npub]/[...date]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[id=npub]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/antenna/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /antenna (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/antenna/[...date]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /antenna/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/category/[tag]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /category/[tag] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/entry/[id=naddr]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /entry/[id=naddr] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/entry/[id=nevent]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /entry/[id=nevent] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/entry/[id=note]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /entry/[id=note] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/hashtag/[tag]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /hashtag/[tag] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/keyword/[id=nevent]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /keyword/[id=nevent] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/search/[query]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /search/[query] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; / renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/[id=nip05]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /[id=nip05] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/[id=nip05]/[...date]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /[id=nip05]/[...date] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/[id=nprofile]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /[id=nprofile] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/[id=nprofile]/[...date]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /[id=nprofile]/[...date] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/[id=npub]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /[id=npub] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/[id=npub]/[...date]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /[id=npub]/[...date] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/antenna/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /antenna renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/antenna/[...date]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /antenna/[...date] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/category/[tag]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /category/[tag] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/entry/[id=naddr]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /entry/[id=naddr] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/entry/[id=nevent]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /entry/[id=nevent] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/entry/[id=note]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /entry/[id=note] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/hashtag/[tag]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /hashtag/[tag] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/keyword/[id=nevent]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /keyword/[id=nevent] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/search/[query]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /search/[query] renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html): no <meta name=\"description\"> anywhere; /settings renders only $lib/components/App.svelte, whose svelte:head (:1130-1139) has og:* tags and a title but no description; public Nostr mini-blog (README) with static/robots.txt allowing all, so the claim holds"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so / ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/[id=nip05]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /[id=nip05] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/[id=nip05]/[...date]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /[id=nip05]/[...date] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/[id=nprofile]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /[id=nprofile] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/[id=nprofile]/[...date]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /[id=nprofile]/[...date] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/[id=npub]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /[id=npub] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/[id=npub]/[...date]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /[id=npub]/[...date] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/antenna/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /antenna ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/antenna/[...date]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /antenna/[...date] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/category/[tag]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /category/[tag] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/entry/[id=naddr]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /entry/[id=naddr] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/entry/[id=nevent]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /entry/[id=nevent] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/entry/[id=note]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /entry/[id=note] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/hashtag/[tag]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /hashtag/[tag] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/keyword/[id=nevent]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /keyword/[id=nevent] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/search/[query]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /search/[query] ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (repo-wide grep for ld+json/application/ld/jsonld/schema.org/structuredData over .svelte/.ts/.js/.html, incl. app.html and workspace packages): no JSON-LD emitter anywhere in the app, so /settings ships none"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/[id=nip05]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[id=nip05] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/[id=nip05]/[...date]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[id=nip05]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/[id=nprofile]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[id=nprofile] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/[id=nprofile]/[...date]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[id=nprofile]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/[id=npub]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[id=npub] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/[id=npub]/[...date]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[id=npub]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/antenna/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /antenna (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/antenna/[...date]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /antenna/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/category/[tag]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /category/[tag] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/entry/[id=naddr]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /entry/[id=naddr] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/entry/[id=nevent]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /entry/[id=nevent] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/entry/[id=note]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /entry/[id=note] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/hashtag/[tag]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /hashtag/[tag] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/keyword/[id=nevent]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /keyword/[id=nevent] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/search/[query]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search/[query] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/single-h1::src/lib/components/Settings.svelte:436::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: key covers 17 routes, 16 fp / 1 tp: every route renders <App up={{...}}/> with a literal object, and App.svelte:1142-1275 renders {#if up.isError}...{:else if up.isSettings === true}<Settings/>...{:else}<Page/>; only settings/+page.svelte passes isSettings (=true), so on / and the 15 other routes Settings' three <h1>s (:197/:436/:460) never render and Page renders exactly one <h1> from its exclusive arms (Page.svelte:399-878). /settings really has 3 <h1>s (tp). The analyzer does not decide a member test of a prop passed as an object literal"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has robots.txt (allow all, no Sitemap: line) but no sitemap.xml, no route or generator; public Nostr mini-blog (README) with public entry/profile/hashtag pages"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/[id=nip05]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[id=nip05] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/[id=nip05]/[...date]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[id=nip05]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/[id=nprofile]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[id=nprofile] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/[id=nprofile]/[...date]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[id=nprofile]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/[id=npub]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[id=npub] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/[id=npub]/[...date]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[id=npub]/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/antenna/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /antenna (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/antenna/[...date]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /antenna/[...date] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/category/[tag]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /category/[tag] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/entry/[id=naddr]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /entry/[id=naddr] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/entry/[id=nevent]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /entry/[id=nevent] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/entry/[id=note]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /entry/[id=note] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/hashtag/[tag]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /hashtag/[tag] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/keyword/[id=nevent]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /keyword/[id=nevent] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/search/[query]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /search/[query] (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  },
+  {
+    "key": "nikolat/nos-haiku::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (script-verified (repo-wide grep of src excl. node_modules, incl. app.html): every page renders only <App> (lib/components/App.svelte), whose head (:1130-1139) emits og:title/type/image/url, icons, manifest and <title> but no og:description, no twitter:card and no rel=canonical; no other <svelte:head>, no +layout.svelte, app.html is charset/icon/viewport; hooks.server.ts only sets the locale; npm deps (nostr-login, nostr-zap, emoji-mart) are JS imports, not head emitters); publicly reachable, rendered route (no auth gate: the Nostr client renders for guests), no noindex"
+  }
+]

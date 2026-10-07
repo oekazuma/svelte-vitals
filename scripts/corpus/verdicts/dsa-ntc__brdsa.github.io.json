@@ -1,0 +1,347 @@
+[
+  {
+    "key": "dsa-ntc/brdsa.github.io::a11y/deprecated-attr::src/routes/get-involved/+page.svelte:55::`frameborder`, `scrolling` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read routes/get-involved/+page.svelte:55: Google Calendar <iframe> with literal frameborder=\"0\" scrolling=\"no\" (also style=\"border: 0\"); both are obsolete iframe attributes"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::a11y/deprecated-attr::src/routes/get-involved/nextcloud/+page.svelte:55::`scrolling` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read routes/get-involved/nextcloud/+page.svelte:55: calendar <iframe> with literal scrolling=\"no\"; scrolling is an obsolete iframe attribute"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::a11y/permitted-contents::src/routes/+layout.svelte:89::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <div> at routes/+layout.svelte:89 has literal <button> (line 83) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <button>'s permitted content as reported"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::a11y/permitted-contents::src/routes/+page.svelte:63::`<style>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label26/e_walk.mjs + e_pc.py): literal <style> at routes/+page.svelte:63 has literal <div> (line 62) as its nearest non-transparent element ancestor in the same template (crossed: none), no component/snippet/svelte:element boundary, not in svg; outside <div>'s permitted content as reported"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::architecture/component-size::src/lib/components/Socials.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/Socials.svelte has 203 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::architecture/component-size::src/routes/resources/qr/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/resources/qr/+page.svelte has 203 physical lines at the run's sha (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/iframe-loading::src/routes/get-involved/+page.svelte:55::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "read: <iframe> has no loading attribute and no spread; Google Calendar embed (height 600) below the PaletteHeader, the Ella Baker quote with its full-width hero figure and the intro paragraph (:14-55) - offscreen on load"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/iframe-loading::src/routes/get-involved/nextcloud/+page.svelte:55::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "read: <iframe> has no loading attribute and no spread; calendar embed (height 750) below the PaletteHeader, the quote with its full-width hero figure and the intro paragraph - offscreen on load"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-dimensions::src/routes/+layout.svelte:113::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: .search p.instructions img {height:1em; display:inline} (app.css:138-142) - fixed-height inline icon inside the closed #searchbox popover, no CLS (key covers all 15 routes, root layout)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-dimensions::src/routes/+layout.svelte:114::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: .search p.instructions img {height:1em; display:inline} (app.css:138-142) - fixed-height inline icon inside the closed #searchbox popover, no CLS (key covers all 15 routes, root layout)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-dimensions::src/routes/+layout.svelte:135::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: .search .results img {height:1.5em} (app.css:168-172) - fixed-height inline icon in a search result, rendered only after the user types into the opened popover (key covers all 15 routes, root layout)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-dimensions::src/routes/+layout.svelte:137::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: .search .results img {height:1.5em} (app.css:168-172) - fixed-height inline icon in a search result, rendered only after the user types into the opened popover (key covers all 15 routes, root layout)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-dimensions::src/routes/+layout.svelte:88::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: nav li.searchIcon img {height:1em} (+layout.svelte style) - fixed-height box, the vector width only varies inline, so no CLS (key covers all 15 routes, root layout)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-loading-hint::src/routes/+layout.svelte:113::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in the #searchbox popover (popover=\"auto\", hidden until opened); imported .svg (1.6-3.0 KB) under Vite's default 4 KB assetsInlineLimit (vite.config.ts sets none), so it ships as an inline data: URL with no network request (15 routes)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-loading-hint::src/routes/+layout.svelte:114::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in the #searchbox popover (popover=\"auto\", hidden until opened); imported .svg (1.6-3.0 KB) under Vite's default 4 KB assetsInlineLimit (vite.config.ts sets none), so it ships as an inline data: URL with no network request (15 routes)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-loading-hint::src/routes/+layout.svelte:135::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in each {#each results} search result, rendered only after the user searches; imported .svg (1.6-3.0 KB) under Vite's default 4 KB assetsInlineLimit (vite.config.ts sets none), so it ships as an inline data: URL with no network request (15 routes)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-loading-hint::src/routes/+layout.svelte:137::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: icon in each {#each results} search result, rendered only after the user searches; imported .svg (1.6-3.0 KB) under Vite's default 4 KB assetsInlineLimit (vite.config.ts sets none), so it ships as an inline data: URL with no network request (15 routes)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::performance/image-loading-hint::src/routes/+layout.svelte:88::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: search icon in the header nav, rendered {#if search === \"ready\"} after onMount - above the fold; imported .svg (1.6-3.0 KB) under Vite's default 4 KB assetsInlineLimit (vite.config.ts sets none), so it ships as an inline data: URL with no network request (15 routes)"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::security/raw-html::src/routes/+layout.svelte:140::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:140 + lib/search.ts + routes/search.json/+server.ts: search results built from the repo's own committed src/lib/posts/*.md and recipes/*.md (prerendered search.json; category is a literal, title from repo frontmatter, text from stripMarkdown) with matched substrings wrapped in <mark>; the search term itself is never inserted — repo content, reported per docs"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::security/raw-html::src/routes/+layout.svelte:142::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:142 + lib/search.ts + routes/search.json/+server.ts: search results built from the repo's own committed src/lib/posts/*.md and recipes/*.md (prerendered search.json; category is a literal, title from repo frontmatter, text from stripMarkdown) with matched substrings wrapped in <mark>; the search term itself is never inserted — repo content, reported per docs"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::security/raw-html::src/routes/+layout.svelte:145::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:145 + lib/search.ts + routes/search.json/+server.ts: search results built from the repo's own committed src/lib/posts/*.md and recipes/*.md (prerendered search.json; category is a literal, title from repo frontmatter, text from stripMarkdown) with matched substrings wrapped in <mark>; the search term itself is never inserted — repo content, reported per docs"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/about/bylaws/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/bylaws (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/about/campaigns/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/campaigns (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/blog/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /blog/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/donate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /donate (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/fite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /fite (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/fite/donate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /fite/donate (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/fite/recipes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /fite/recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/fite/recipes/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /fite/recipes/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/get-involved/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /get-involved (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/get-involved/nextcloud/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /get-involved/nextcloud (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/resources/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /resources (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/canonical-url::src/routes/resources/qr/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /resources/qr (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/description-length::src/routes/resources/qr/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (a2_len.py: literal \"Batch-generate QR codes in BRDSA style presets\" in src/routes/resources/qr/+page.svelte, whitespace collapsed, 46 chars as reported) via HeadSummary.svelte:11 <meta name=\"description\" content={description}> with the literal prop at resources/qr/+page.svelte:95-98 (root +layout.svelte:57 adds the 84-char config description before it, so the page ships both tags; the flagged one is 46 as claimed); public page"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /about; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/about/bylaws/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /about/bylaws; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/about/campaigns/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /about/campaigns; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /blog; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/blog/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /blog/[slug]; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/donate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /donate; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/fite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /fite; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/fite/donate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /fite/donate; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/fite/recipes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /fite/recipes; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/fite/recipes/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /fite/recipes/[slug]; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/get-involved/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /get-involved; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/get-involved/nextcloud/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /get-involved/nextcloud; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/resources/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /resources; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/json-ld::src/routes/resources/qr/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep for ld+json/jsonld/json-ld/schema.org over src, static and app.html: no hit; no head/JSON-LD library in deps) on /resources/qr; public prerendered chapter website (adapter-static), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/single-h1::src/routes/about/bylaws/bylaws.md:8::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: PaletteHeader (about/bylaws/+page.svelte:16) renders an unconditional <h1> (lib/components/PaletteHeader.svelte:12), and the page renders <About/> = bylaws.md (mdsvex), which opens with \"# Bylaws of the Baton Rouge LA Local Chapter...\" (bylaws.md:8) -> two <h1>s co-render"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/single-h1::src/routes/resources/resources.md:1::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: PaletteHeader (resources/+page.svelte:23) renders an unconditional <h1> (PaletteHeader.svelte:12), and <Resources/> = resources.md (mdsvex) opens with \"# Materials, resources, and links\" (resources.md:1) -> two <h1>s co-render"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/about/bylaws/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about/bylaws (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/about/campaigns/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about/campaigns (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/blog/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /blog/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/donate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /donate (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/fite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /fite (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/fite/donate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /fite/donate (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/fite/recipes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /fite/recipes (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/fite/recipes/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /fite/recipes/[slug] (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/get-involved/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /get-involved (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/get-involved/nextcloud/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /get-involved/nextcloud (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/resources/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /resources (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  },
+  {
+    "key": "dsa-ntc/brdsa.github.io::seo/twitter-card::src/routes/resources/qr/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /resources/qr (script-verified: repo-wide grep + layout chain read): repo-wide grep of src + app.html: no rel=\"canonical\" and no twitter:card anywhere (root +layout.svelte:55-62 head has title/description/og:title/og:type/og:image/og:url only; HeadSummary.svelte og:title/description only); no hooks, no meta-tag library; prerendered public site (+layout.ts:3), route renders"
+  }
+]

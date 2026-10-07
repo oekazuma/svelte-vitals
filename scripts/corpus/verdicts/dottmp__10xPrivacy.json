@@ -1,0 +1,322 @@
+[
+  {
+    "key": "dottmp/10xPrivacy::a11y/disallowed-aria-props::src/lib/components/navbar.svelte:66::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read navbar.svelte:66: daisyUI drawer overlay <label for={DRAWER_ID} aria-label=\"close drawer\" class=\"drawer-overlay\"> with no role/spread; docs name this <label aria-label> case as firing while the spec prohibits a name only when exposed as generic (ledger's daisyUI drawer <label aria-label> precedent)"
+  },
+  {
+    "key": "dottmp/10xPrivacy::a11y/permitted-contents::src/lib/features/awesome-privacy/components/search.svelte:255::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at search.svelte:255 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "dottmp/10xPrivacy::a11y/permitted-contents::src/routes/guides/checklist/+page.svelte:112::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +page.svelte:112 has literal <label> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <label>'s content model as reported"
+  },
+  {
+    "key": "dottmp/10xPrivacy::a11y/permitted-contents::src/routes/guides/checklist/+page.svelte:92::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +page.svelte:92 has literal <label> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <label>'s content model as reported"
+  },
+  {
+    "key": "dottmp/10xPrivacy::architecture/component-size::src/lib/components/icons/icon-logo.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/icons/icon-logo.svelte has 397 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dottmp/10xPrivacy::architecture/component-size::src/lib/features/awesome-privacy/components/search.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/features/awesome-privacy/components/search.svelte has 305 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dottmp/10xPrivacy::architecture/component-size::src/lib/features/awesome-privacy/components/service.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/features/awesome-privacy/components/service.svelte has 288 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dottmp/10xPrivacy::architecture/component-size::src/routes/guides/get-started/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/guides/get-started/+page.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dottmp/10xPrivacy::correctness/each-index-key::src/lib/features/awesome-privacy/components/search.svelte:256::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each parents as parent, index (index)}' keyed by its index binding; parents = entry.meta.parent.split(',') (:254), segments of one string rendered as badges; positional text segments"
+  },
+  {
+    "key": "dottmp/10xPrivacy::performance/image-dimensions::src/routes/security/+page.svelte:24::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: shields.io badge with class h-5 — fixed-height box; width only varies inside its own flex row"
+  },
+  {
+    "key": "dottmp/10xPrivacy::performance/image-loading-hint::src/routes/security/+page.svelte:24::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: Observatory grade badge in the first \"Scores\" section directly under the page header — above the fold"
+  },
+  {
+    "key": "dottmp/10xPrivacy::performance/responsive-image::src/routes/security/+page.svelte:24::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: img.shields.io/mozilla-observatory/grade badge, which shields.io serves as SVG — a vector, but a dynamic SVG is outside the docs' static SVG detection list"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/section.svelte:114::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read section.svelte:114 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/section.svelte:140::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read section.svelte:140 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/section.svelte:156::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read section.svelte:156 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/section.svelte:53::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read section.svelte:53 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/section.svelte:63::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read section.svelte:63 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/section.svelte:92::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read section.svelte:92 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/service.svelte:175::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read service.svelte:175 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/service.svelte:183::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read service.svelte:183 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/service.svelte:78::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read service.svelte:78 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/awesome-privacy/components/service.svelte:87::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read service.svelte:87 + lib/utils/markdown.ts:8-17 + sanitize.ts:6-12: markdownToHtml/markdownToInlineHtml = DOMPurify.sanitize(marked(...)) (isomorphic-dompurify, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::security/raw-html::src/lib/features/feed/components/article.svelte:69::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read feed/components/article.svelte:69 + lib/utils/sanitize.ts:6-12: sanitizeHtml = DOMPurify.sanitize(article.content, html profile) — sanitized, reported per docs"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/awesome-privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /awesome-privacy (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/awesome-privacy/[category]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /awesome-privacy/[category] (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/awesome-privacy/[category]/[section]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /awesome-privacy/[category]/[section] (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/awesome-privacy/[category]/[section]/[service]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /awesome-privacy/[category]/[section]/[service] (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/awesome-privacy/all/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /awesome-privacy/all (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/guides/checklist/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guides/checklist (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/guides/get-started/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guides/get-started (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/privacy-news/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy-news (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/privacy-news/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy-news/[slug] (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/security/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /security (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex; static/robots.txt Disallows /security/ only, which does not match the served /security (default trailingSlash never), and the load is ungated"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/canonical-url::src/routes/websites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /websites (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; / has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/awesome-privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /awesome-privacy has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/awesome-privacy/[category]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /awesome-privacy/[category] has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/awesome-privacy/[category]/[section]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /awesome-privacy/[category]/[section] has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/awesome-privacy/[category]/[section]/[service]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /awesome-privacy/[category]/[section]/[service] has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/awesome-privacy/all/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /awesome-privacy/all has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/guides/checklist/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /guides/checklist has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/guides/get-started/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /guides/get-started has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/privacy-news/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /privacy-news has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/privacy-news/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /privacy-news/[slug] has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/security/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /security has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/json-ld::src/routes/websites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; /websites has no JSON-LD"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has only robots.txt (no Sitemap: line), no sitemap.xml route, hook, script or wrangler config; public privacy-resources/news site"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/ssr-disabled::src/routes/awesome-privacy/[category]/[section]/+page.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/awesome-privacy/[category]/[section]/+page.ts:7; it covers a public content page of the privacy hub (awesome-privacy section/service listing), so its content ships as an empty shell to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/ssr-disabled::src/routes/awesome-privacy/[category]/[section]/[service]/+layout.server.ts:7::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/awesome-privacy/[category]/[section]/[service]/+layout.server.ts:7; it covers a public content page of the privacy hub (awesome-privacy section/service listing), so its content ships as an empty shell to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/ssr-disabled::src/routes/awesome-privacy/[category]/[section]/[service]/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/awesome-privacy/[category]/[section]/[service]/+page.ts:1; it covers a public content page of the privacy hub (awesome-privacy section/service listing), so its content ships as an empty shell to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/ssr-disabled::src/routes/privacy-news/[slug]/+page.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/privacy-news/[slug]/+page.ts:1; it covers a public content page of the privacy hub (news article), so its content ships as an empty shell to non-JS crawlers as claimed"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/awesome-privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /awesome-privacy (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/awesome-privacy/[category]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /awesome-privacy/[category] (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/awesome-privacy/[category]/[section]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /awesome-privacy/[category]/[section] (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/awesome-privacy/[category]/[section]/[service]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /awesome-privacy/[category]/[section]/[service] (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/awesome-privacy/all/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /awesome-privacy/all (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/guides/checklist/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guides/checklist (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/guides/get-started/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guides/get-started (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/privacy-news/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /privacy-news (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/privacy-news/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /privacy-news/[slug] (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/security/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /security (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "dottmp/10xPrivacy::seo/twitter-card::src/routes/websites/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /websites (read + repo-wide grep): root +layout.svelte:12-40 head emits title/description/og:title/og:description/og:image/og:url from page.data.meta but no <link rel=\"canonical\"> and no twitter:card; repo-wide grep of src/** incl. app.html finds neither anywhere; app.html charset/viewport only; no meta-tag library (only @lucide/svelte); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  }
+]

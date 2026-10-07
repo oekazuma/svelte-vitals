@@ -1,0 +1,577 @@
+[
+  {
+    "key": "hoagsmedia/dead-and-tattooed::a11y/label-has-control::src/routes/dashboard/artwork-form.svelte:187::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, label22/e_check.mjs): <label> at src/routes/dashboard/artwork-form.svelte:187 has no for, no spread/use:, and no wrapped labelable control, expression, component, {@render}, {@html} or slot child (<label class=\"block text-sm font-medium\">Photos</label>); the control that follows is not associated"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::architecture/component-size::src/routes/Components/Brand-Outlines.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/Components/Brand-Outlines.svelte has 359 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count; committed SVG artwork component (46 <path>s), ledger convention tp"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::architecture/component-size::src/routes/dashboard/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/+page.svelte has 208 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::architecture/component-size::src/routes/dashboard/artwork-form.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/dashboard/artwork-form.svelte has 339 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6): class, variant, size, ref, href, type, disabled, children; plus a ...rest element (named props still counted per docs); UI-kit component, ledger convention tp"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; validation errors that change with input (ledger form-field-errors convention)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::correctness/each-index-key::src/routes/account/+page.svelte:102::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: account/+page.svelte:102 '{#each o.items as item, i (i)}' keyed by its index binding; the line items of a placed order in the customer's order history, read-only and immutable once ordered; static list, never reordered"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::correctness/each-index-key::src/routes/dashboard/artwork-form.svelte:223::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: dashboard/artwork-form.svelte:223 '{#each uploadStates as fileState, i (i)}' keyed by its index binding; per-file upload progress rows built wholesale from the selected files (:70) and updated in place by index (:74-91), then cleared (:102, :197); positional, never reordered"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::correctness/each-index-key::src/routes/dashboard/orders/+page.svelte:108::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: dashboard/orders/+page.svelte:108 '{#each o.addressLines as line, i (i)}' keyed by its index binding; the lines of one shipping address; positional text lines"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::correctness/each-index-key::src/routes/dashboard/orders/+page.svelte:73::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: dashboard/orders/+page.svelte:73 '{#each o.items as item, i (i)}' keyed by its index binding; the line items of a placed order, read-only and immutable once ordered; static list, never reordered"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/+page.svelte:105::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: /pig.svg with own class h-14 sm:h-20 w-auto - fixed-height box, the vector width only varies inline next to the h2, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/+page.svelte:129::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: /jar.svg with own class h-24 w-auto shrink-0 - fixed-height box, the vector width only varies inline, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/account/+page.svelte:105::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-14 w-14 - fixed box, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/cart/+page.svelte:49::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full h-full inside a fixed w-24 h-24 wrapper (cart/+page.svelte:48) - fixed box, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/checkout/+page.svelte:122::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full h-full inside a fixed w-16 h-16 wrapper (checkout/+page.svelte:121) - fixed box, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/dashboard/+page.svelte:114::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-20 w-20 - fixed box, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/dashboard/+page.svelte:95::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: /jar.svg with own class h-20 w-auto - fixed-height box, the vector width only varies inline, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/dashboard/orders/+page.svelte:76::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class h-14 w-14 - fixed box, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/products/+page.svelte:33::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full h-full inside an aspect-video wrapper (products/+page.svelte:31) - box reserved, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/products/[id]/+page.svelte:73::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full h-full inside an aspect-square wrapper (products/[id]/+page.svelte:71) - box reserved, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-dimensions::src/routes/products/[id]/+page.svelte:91::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full h-full inside an aspect-square thumbnail button in a grid-cols-4 grid (products/[id]/+page.svelte:80-91) - box reserved, so no CLS"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/+page.svelte:105::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: decorative /pig.svg beside the \"How it works\" h2, the section after the tall hero (BrandOutlines, h1, copy, CTAs; +page.svelte:60-100) - offscreen on load"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/+page.svelte:129::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: decorative /jar.svg in the honesty strip after the hero and the how-it-works steps (+page.svelte:125-129) - offscreen on load"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/account/+page.svelte:105::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: item image in each row of each order in the {#each} orders list - later rows offscreen"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/cart/+page.svelte:49::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: product image in each card of the {#each cart.items} list - cards past the first screen are offscreen"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/checkout/+page.svelte:122::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: item image in each row of the {#each cart.items} order summary - later rows offscreen"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/dashboard/+page.svelte:114::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: artwork image in each row of the {#each data.artworks} list - later rows offscreen"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/dashboard/+page.svelte:95::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: /jar.svg in the empty-shelf card, shown only {:else if data.artworks.length === 0} as the first content under the dashboard header - above the fold"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/dashboard/orders/+page.svelte:76::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: item image in each row of each order card - later rows offscreen"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/products/+page.svelte:33::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image in each card of the {#each} product grid - cards past the first row are offscreen"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/products/[id]/+page.svelte:73::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: main product image (aspect-square, first column) at the top of the product page - above the fold, the LCP candidate, where the docs keep the image eager"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/image-loading-hint::src/routes/products/[id]/+page.svelte:91::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: {#each} thumbnail grid under the main square image - offscreen-capable list"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/responsive-image::src/routes/account/+page.svelte:105::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: artwork photo uploaded by the seller to Cloudflare R2 (lib/r2.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/responsive-image::src/routes/cart/+page.svelte:49::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: artwork photo uploaded by the seller to Cloudflare R2 (lib/r2.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/responsive-image::src/routes/checkout/+page.svelte:122::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: artwork photo uploaded by the seller to Cloudflare R2 (lib/r2.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/responsive-image::src/routes/dashboard/+page.svelte:114::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: artwork photo uploaded by the seller to Cloudflare R2 (lib/r2.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/responsive-image::src/routes/dashboard/orders/+page.svelte:76::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: artwork photo uploaded by the seller to Cloudflare R2 (lib/r2.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/responsive-image::src/routes/products/+page.svelte:33::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: artwork photo uploaded by the seller to Cloudflare R2 (lib/r2.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/responsive-image::src/routes/products/[id]/+page.svelte:73::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: artwork photo uploaded by the seller to Cloudflare R2 (lib/r2.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/responsive-image::src/routes/products/[id]/+page.svelte:91::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: artwork photo uploaded by the seller to Cloudflare R2 (lib/r2.ts) - raster, one fixed-size asset"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/sequential-awaits::src/routes/dashboard/+page.server.ts:57::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/dashboard/+page.server.ts:30-57: the subscriber count query uses nothing from the artworks/soldRows queries; db is drizzle node-postgres (src/lib/index.ts:2-12), real async round trips — Promise.all would work"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/sequential-awaits::src/routes/products/+page.server.ts:13::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/products/+page.server.ts:11-17 + lib/inventory.ts:43-48: the preceding releaseExpiredReservations UPDATE resets artwork.status that the published-artworks select returns — deliberate write-then-read setup ordering (docs Limitations)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::performance/sequential-awaits::src/routes/products/[id]/+page.server.ts:12::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/products/[id]/+page.server.ts:10-16 + lib/inventory.ts:43-48: the preceding releaseExpiredReservations UPDATE resets artwork.status that the piece select returns — deliberate write-then-read setup ordering (docs Limitations)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::security/raw-html::src/routes/products/[id]/+page.svelte:57::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/products/[id]/+page.svelte:24-26,57 + lib/seo.ts:25-44: productJsonLd returns JSON.stringify(data).replace(/</g,'\\\\u003c') — script-safe JSON-LD serialization per docs"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (robots.txt/+server.ts:11 Disallow: /account; account/+page.server.ts:9-10 also redirects guests to /auth), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/auth-example/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth-example (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 24 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (admin-only dev scaffold: auth-example/+page.server.ts:11 requireAdmin(locals); robots.txt/+server.ts:12 Disallow: /auth also prefix-matches it), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/auth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (robots.txt/+server.ts:12 Disallow: /auth), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/auth/forgot/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/forgot (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (robots.txt/+server.ts:12 Disallow: /auth), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/auth/reset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /auth/reset (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (robots.txt/+server.ts:12 Disallow: /auth), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/cart/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /cart (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (robots.txt/+server.ts:14 Disallow: /cart), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/checkout/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /checkout (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (robots.txt/+server.ts:13 Disallow: /checkout), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/checkout/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /checkout/success (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (robots.txt/+server.ts:13 Disallow: /checkout), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/dashboard/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 51 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (admin-gated: dashboard/+layout.server.ts requireAdmin(locals); robots.txt/+server.ts:10 Disallow: /dashboard), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/dashboard/orders/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/orders (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (admin-gated: dashboard/+layout.server.ts requireAdmin(locals); robots.txt/+server.ts:10 Disallow: /dashboard), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/dashboard/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /dashboard/profile (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 45 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (admin-gated: dashboard/+layout.server.ts requireAdmin(locals); robots.txt/+server.ts:10 Disallow: /dashboard), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/info/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /info (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 24 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 24 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/products/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /products (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/products/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /products/[id] (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 24 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; publicly reachable, rendered route (no guest redirect, noindex or robots Disallow)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/canonical-url::src/routes/unsubscribe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /unsubscribe (script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library but not a search target (literal noindex robots meta at unsubscribe/+page.svelte:11), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/description-length::src/routes/+layout.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Hand-tattooed, preserved specimens sealed in glass jars. Every piece i\" at src/routes/+layout.svelte:24 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 173 as reported); root +layout.svelte's site-wide description is the only description of the 10 routes in the key (local CLI list; none of their pages sets one); too long as claimed, but 8 of the 10 (/account, /auth, /auth-example, /auth/forgot, /auth/reset, /cart, /checkout, /checkout/success) are under the robots.txt route's Disallow lines and /unsubscribe is literal noindex, so labelled by the majority: only /products ships it to search (mixed)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/description-length::src/routes/dashboard/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Manage your pieces: add, edit, and publish specimens.\" at src/routes/dashboard/+page.svelte:41 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 53 as reported); follows the root layout's 173-char description in the head; length as reported, but /dashboard is the seller dashboard (dashboard/+layout.server.ts requireAdmin) and under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart), so the snippet is not shown in search results"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/description-length::src/routes/dashboard/orders/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Every order: who bought what, where it ships, what moved.\" at src/routes/dashboard/orders/+page.svelte:30 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 57 as reported); follows the root layout's 173-char description in the head; length as reported, but /dashboard/orders is the seller dashboard (dashboard/+layout.server.ts requireAdmin) and under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart), so the snippet is not shown in search results"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/description-length::src/routes/dashboard/profile/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <meta name=\"description\"> \"Update your seller profile and password.\" at src/routes/dashboard/profile/+page.svelte:27 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 40 as reported); follows the root layout's 173-char description in the head; length as reported, but /dashboard/profile is the seller dashboard (dashboard/+layout.server.ts requireAdmin) and under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart), so the snippet is not shown in search results"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/duplicate-description::src/routes/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:24-27 literal site-wide <meta name=\"description\"> is the only description of the 10 routes in the key (local CLI list), duplicate as claimed; but 8 of them are under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart) and /unsubscribe is literal noindex, so labelled by the majority (only /products competes in search; mixed)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:23 literal <title>Dead &amp; Tattooed — one-of-a-kind tattooed specimens in jars</title> is the title of /auth, /auth-example, /cart, /checkout, /checkout/success and /products (local CLI list; no own title) and equals / 's, duplicate as claimed; but 5 of the 6 are under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart), so labelled by the majority (/products vs / is the pair that competes, labelled tp on the / key)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/duplicate-title::src/routes/+page.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:29 literal <title>Dead &amp; Tattooed — one-of-a-kind tattooed specimens in jars</title> is identical to root +layout.svelte:23's, which is the shipped title of /products, /cart, /checkout, /checkout/success, /auth and /auth-example (no own title); the public, indexable homepage and the public /products listing (sitemap route, robots Allow) share one title, duplicate as claimed"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/heading-level-skip::src/routes/cart/+page.svelte:53::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: cart/+page.svelte:26 <h1>Shopping Cart, then in the {:else} arm each cart Card's <h3>{item.title} (:53); Card.Title is a <div> and no <h2> sits between -> h1 to h3"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/indexability::src/routes/unsubscribe/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: unconditional literal <meta name=\"robots\" content=\"noindex\"> at unsubscribe/+page.svelte:10 in the page's top-level svelte:head; noindex as claimed (deliberate for an e-mail unsubscribe confirmation)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on / emits one, so / has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /account emits one, so /account has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/auth-example/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /auth-example emits one, so /auth-example has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /auth emits one, so /auth has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/auth/forgot/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /auth/forgot emits one, so /auth/forgot has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/auth/reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /auth/reset emits one, so /auth/reset has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/cart/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /cart emits one, so /cart has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/checkout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /checkout emits one, so /checkout has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/checkout/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /checkout/success emits one, so /checkout/success has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/dashboard/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /dashboard emits one, so /dashboard has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/dashboard/orders/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /dashboard/orders emits one, so /dashboard/orders has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/dashboard/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /dashboard/profile emits one, so /dashboard/profile has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/info/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /info emits one, so /info has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /privacy emits one, so /privacy has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/products/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /products emits one, so /products has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /terms emits one, so /terms has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/json-ld::src/routes/unsubscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -rn 'productJsonLd|ld+json' over src): the shop's only JSON-LD is products/[id]/+page.svelte:24-26's {@html} Product block (lib/seo.ts productJsonLd), rendered only on /products/[id]; no layout or component on /unsubscribe emits one, so /unsubscribe has none (json-ld convention: tp)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 25 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; missing as claimed"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: robots.txt/+server.ts:11 Disallow: /account; account/+page.server.ts:9-10 also redirects guests to /auth (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/auth-example/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth-example (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 24 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: admin-only dev scaffold: auth-example/+page.server.ts:11 requireAdmin(locals); robots.txt/+server.ts:12 Disallow: /auth also prefix-matches it (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/auth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 53 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: robots.txt/+server.ts:12 Disallow: /auth (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/auth/forgot/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/forgot (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: robots.txt/+server.ts:12 Disallow: /auth (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/auth/reset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /auth/reset (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 34 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: robots.txt/+server.ts:12 Disallow: /auth (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/cart/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /cart (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: robots.txt/+server.ts:14 Disallow: /cart (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/checkout/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /checkout (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: robots.txt/+server.ts:13 Disallow: /checkout (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/checkout/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /checkout/success (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: robots.txt/+server.ts:13 Disallow: /checkout (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/dashboard/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard (script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 51 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: admin-gated: dashboard/+layout.server.ts requireAdmin(locals); robots.txt/+server.ts:10 Disallow: /dashboard (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/dashboard/orders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/orders (script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 34 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: admin-gated: dashboard/+layout.server.ts requireAdmin(locals); robots.txt/+server.ts:10 Disallow: /dashboard (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/dashboard/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /dashboard/profile (script-verified (a1b_reach.py, comments stripped): no og:url in page, 2 ancestor layout(s), 45 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: admin-gated: dashboard/+layout.server.ts requireAdmin(locals); robots.txt/+server.ts:10 Disallow: /dashboard (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/info/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /info (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 24 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; missing as claimed"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 24 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; missing as claimed"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/products/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /products (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; missing as claimed"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /terms (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 24 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; missing as claimed"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/og-url::src/routes/unsubscribe/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /unsubscribe (script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 32 page/layout/transitively imported local files or app.html); root +layout.svelte:19-45 emits og:site_name/type/title/description and (outside /products/[id]) og:image/twitter:*, but no og:url and no canonical; og:url only in products/[id]/+page.svelte:55, canonical nowhere in src; app.html has neither; no meta-tag library; route context: literal noindex robots meta at unsubscribe/+page.svelte:11 (the og/twitter rules have no search-target exemption)"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/single-h1::/auth/forgot::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: auth/forgot/+page.svelte titles its card with Card.Title \"Forgot your password?\" (:38); root +layout.svelte (Site-Header with a closed cart Sheet, Site-Footer) renders no <h1>; Card.Title is a <div data-slot=\"card-title\"> (ui/card/card-title.svelte) -> no <h1>"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/single-h1::/auth/reset::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: auth/reset/+page.svelte titles its card with Card.Title \"Choose a new password\" (:53); root +layout.svelte (Site-Header with a closed cart Sheet, Site-Footer) renders no <h1>; Card.Title is a <div data-slot=\"card-title\"> (ui/card/card-title.svelte) -> no <h1>"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/single-h1::/auth::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: auth/+page.svelte titles its card with Card.Title \"Welcome\" (:15) over the sign-in/sign-up tabs; root +layout.svelte (Site-Header with a closed cart Sheet, Site-Footer) renders no <h1>; Card.Title is a <div data-slot=\"card-title\"> (ui/card/card-title.svelte) -> no <h1>"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/single-h1::/dashboard/profile::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: dashboard/profile/+page.svelte titles its card with Card.Title \"Update Profile\" (:33); dashboard/+layout.svelte renders only children; root +layout.svelte (Site-Header with a closed cart Sheet, Site-Footer) renders no <h1>; Card.Title is a <div data-slot=\"card-title\"> (ui/card/card-title.svelte) -> no <h1>"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/single-h1::src/routes/auth-example/+page.svelte:36::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: auth-example/+page.svelte (an admin-gated scaffold, requireAdmin in its load) has only <h2>s (:36-104); root +layout.svelte (Site-Header with a closed cart Sheet, Site-Footer) renders no <h1>; Card.Title is a <div data-slot=\"card-title\"> (ui/card/card-title.svelte) -> no <h1>"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/single-h1::src/routes/checkout/+page.svelte:126::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: checkout/+page.svelte has Card.Title sections and only the item <h3> (:126); root +layout.svelte (Site-Header with a closed cart Sheet, Site-Footer) renders no <h1>; Card.Title is a <div data-slot=\"card-title\"> (ui/card/card-title.svelte) -> no <h1>"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/title-length::src/routes/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Your orders · Dead & Tattooed\" at src/routes/account/+page.svelte:30 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 29 as reported); the page title renders after root +layout.svelte:23's and wins (Svelte keeps the last <title>); length as reported, but /account is the signed-in buyer's order list and under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart), so the title is not shown in search results"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/title-length::src/routes/dashboard/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Dashboard — Dead & Tattooed\" at src/routes/dashboard/+page.svelte:40 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 27 as reported); the page title renders after root +layout.svelte:23's and wins (Svelte keeps the last <title>); length as reported, but /dashboard is the seller dashboard (dashboard/+layout.server.ts requireAdmin) and under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart), so the title is not shown in search results"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/title-length::src/routes/dashboard/orders/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Orders — Dead & Tattooed\" at src/routes/dashboard/orders/+page.svelte:29 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 24 as reported); the page title renders after root +layout.svelte:23's and wins (Svelte keeps the last <title>); length as reported, but /dashboard/orders is the seller dashboard (dashboard/+layout.server.ts requireAdmin) and under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart), so the title is not shown in search results"
+  },
+  {
+    "key": "hoagsmedia/dead-and-tattooed::seo/title-length::src/routes/dashboard/profile/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "script-verified (a2_len.js: literal <title> \"Profile — Dead & Tattooed\" at src/routes/dashboard/profile/+page.svelte:26 in a top-level svelte:head, outside any {#if}/{#each}/{#await}, entities decoded, whitespace collapsed, grapheme count = 25 as reported); the page title renders after root +layout.svelte:23's and wins (Svelte keeps the last <title>); length as reported, but /dashboard/profile is the seller dashboard (dashboard/+layout.server.ts requireAdmin) and under the robots.txt route's Disallow lines (src/routes/robots.txt/+server.ts:11-15: /dashboard, /account, /auth, which also covers /auth-example, /checkout, /cart), so the title is not shown in search results"
+  }
+]

@@ -1,0 +1,562 @@
+[
+  {
+    "key": "ow-mods/outerwildsmods.com::a11y/permitted-contents::src/lib/components/list-item-card.svelte:13::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at list-item-card.svelte:13 has literal parent <span> (crossed: IfBlock), no component/snippet/svelte:element boundary, not in svg; <div> is outside <span>'s permitted content"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::a11y/permitted-contents::src/lib/components/list-item-card.svelte:19::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST): literal <div> at list-item-card.svelte:19 has literal parent <span> (crossed: none), no component/snippet/svelte:element boundary, not in svg; <div> is outside <span>'s permitted content"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/lib/components/mod-grid/mod-grid.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mod-grid/mod-grid.svelte has 231 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/routes/history/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/history/+page.svelte has 438 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/routes/jam/aug-2026/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/jam/aug-2026/+page.svelte has 499 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/routes/jam/jan-2023/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/jam/jan-2023/+page.svelte has 366 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/routes/jam/jul-2023/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/jam/jul-2023/+page.svelte has 361 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/routes/jam/jul-2025/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/jam/jul-2025/+page.svelte has 479 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/routes/jam/mar-2024/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/jam/mar-2024/+page.svelte has 441 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/routes/jam/oct-2024/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/jam/oct-2024/+page.svelte has 466 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/component-size::src/routes/mod-manager/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/mod-manager/+page.svelte has 240 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/prop-count::src/lib/components/button/link-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): href, rel, isExternal, isSmall, classOverride, onclick, children"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::architecture/prop-count::src/lib/components/downloads-chart/chart-line.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): historyPoints, firstPoint, widthMultiplier, minDownloads, heightMultiplier, chartHeight, hoveredPoint"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/lib/components/heading-list.svelte:14::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/heading-list.svelte:14 header '{#each headings as heading}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/lib/components/mod-grid/mod-card-image.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/mod-grid/mod-card-image.svelte:25 header '{#each mod.tags as tag}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props().tags), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/lib/components/mod-grid/mod-grid.svelte:191::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/mod-grid/mod-grid.svelte:191 header '{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (Object.entries of the imported sortOrders constant object): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/lib/components/mod-info/mod-info.svelte:77::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/mod-info/mod-info.svelte:77 header '{#each mod.tags as tag}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props().tags), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/lib/components/snow.svelte:19::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/snow.svelte:19 header '{#each snowflakes as flake}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (Array.from({length}).map() snowflakes generated once at init): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/lib/components/table-of-contents.svelte:17::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/table-of-contents.svelte:17 header '{#each headings as heading}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/lib/components/tags-selector.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/tags-selector.svelte:16 header '{#each tags as tag}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $props()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/history/+page.svelte:327::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/history/+page.svelte:327 header '{#each years as year}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (const years/months arrays filled by push() in a loop at init (not the exempt literal shape), never changed after): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/history/+page.svelte:344::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/history/+page.svelte:344 header '{#each months as month}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; static list (const years/months arrays filled by push() in a loop at init (not the exempt literal shape), never changed after): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/history/+page.svelte:393::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/history/+page.svelte:393 header '{#each mods as mod, index}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $state initialised empty and assigned at runtime), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/jam/jam-credit-column.svelte:17::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/jam/jam-credit-column.svelte:17 header '{#each peopleList as [displayName, id]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: const=call:sortBy(Object.entries($props()),ArrowFunctionExpression)), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/jam/jan-2023/+page.svelte:106::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/jam/jan-2023/+page.svelte:106 header '{#each firstPlaceMods as mod}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: const=const=const-destructure($props()).filter().filter()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/jam/jan-2023/+page.svelte:113::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/jam/jan-2023/+page.svelte:113 header '{#each secondPlaceMods as mod}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: const=const=const-destructure($props()).filter().filter()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/jam/jul-2025/+page.svelte:200::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/jam/jul-2025/+page.svelte:200 header '{#each jamRootMods as mod}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: $derived(const-destructure($props()).filter())), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/jam/oct-2024/+page.svelte:202::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/jam/oct-2024/+page.svelte:202 header '{#each thirdPlaceMods as mod}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: const=const=const-destructure($props()).filter().filter()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/each-key::src/routes/mods/[mod]/downloads/+page.svelte:61::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/mods/[mod]/downloads/+page.svelte:61 header '{#each modsExceptSelf as mod}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; list source is runtime data (origin: const=const-destructure($props()).filter()), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/effect-as-derived::src/lib/components/downloads-chart/downloads-chart.svelte:78::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/downloads-chart/downloads-chart.svelte:78; the effect only assigns $state from reactive sources (comparePoints[0]; hover handler reassigns); later writes are top-level reassignments or binds, i.e. the writable-$derived override pattern, available in the app's svelte (5.39.0)"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/stale-prop-derivation::src/lib/components/button/link-button.svelte:22::\"element\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/button/link-button.svelte:22 element = href ? 'a' : 'button'; every caller either always passes an href (featured-mod-section, child-mods, jam, downloads, alpha pages) or never does (popup-dialog onclick), so the truthiness never changes for an instance"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/stale-prop-derivation::src/lib/components/mod-info/mod-details.svelte:17::\"badgeMarkdown\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/mod-info/mod-details.svelte:17 interpolates mod.name/modUrl at init and is rendered; ModDetails sits in mod-info on routes/mods/[mod]/+page.svelte, which links to other mods (child-mods), so client-side navigation keeps it mounted with a new mod and the badge text stays on the first mod"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/stale-prop-derivation::src/lib/components/mod-info/mod-details.svelte:18::\"badgeHtml\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/mod-info/mod-details.svelte:18 interpolates mod.name/modUrl at init and is rendered; ModDetails sits in mod-info on routes/mods/[mod]/+page.svelte, which links to other mods (child-mods), so client-side navigation keeps it mounted with a new mod and the badge text stays on the first mod"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::correctness/stale-prop-derivation::src/lib/components/page-section/page-section-image.svelte:18::\"borderClass\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: page-section-image.svelte:18 borderClass from noBorder; every caller passes a literal noBorder or none (error-message.svelte:24,33, page-section.svelte:40, jam pages)"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/aug-2026/+page.svelte:439::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/aug-2026/+page.svelte:465::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: width={400} only; base.css:320-323 img max-width:100% — natural aspect decides the height"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/game-jam-2026/+page.svelte:22::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/jan-2023/+page.svelte:131::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/jan-2023/+page.svelte:294::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/jan-2023/+page.svelte:307::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/jan-2023/+page.svelte:335::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: width={400} only; base.css:320-323 img max-width:100% — natural aspect decides the height"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/jul-2023/+page.svelte:301::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/jul-2023/+page.svelte:327::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: width={400} only; base.css:320-323 img max-width:100% — natural aspect decides the height"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/jul-2025/+page.svelte:416::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/jul-2025/+page.svelte:442::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: width={400} only; base.css:320-323 img max-width:100% — natural aspect decides the height"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/mar-2024/+page.svelte:375::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/mar-2024/+page.svelte:401::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: width={400} only; base.css:320-323 img max-width:100% — natural aspect decides the height"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/oct-2024/+page.svelte:406::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class; only base.css:320-323 img max-width:100% — natural size decides the box"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-dimensions::src/routes/jam/oct-2024/+page.svelte:432::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: width={400} only; base.css:320-323 img max-width:100% — natural aspect decides the height"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/aug-2026/+page.svelte:439::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 498-line jam page (aug-2026/+page.svelte:422) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/aug-2026/+page.svelte:465::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 498-line jam page (aug-2026/+page.svelte:422) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/game-jam-2026/+page.svelte:22::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: banner in the first PageSection right after the intro paragraph (game-jam-2026/+page.svelte:15-22) — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/jan-2023/+page.svelte:131::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the 5th PageSection \"Original Jam Page\" after Results lists, All Submissions and Credits (jan-2023/+page.svelte:95-131) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/jan-2023/+page.svelte:294::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 366-line jam page (jan-2023/+page.svelte:270) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/jan-2023/+page.svelte:307::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 366-line jam page (jan-2023/+page.svelte:270) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/jan-2023/+page.svelte:335::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 366-line jam page (jan-2023/+page.svelte:270) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/jul-2023/+page.svelte:301::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 361-line jam page (jul-2023/+page.svelte:284) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/jul-2023/+page.svelte:327::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 361-line jam page (jul-2023/+page.svelte:284) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/jul-2025/+page.svelte:416::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 479-line jam page (jul-2025/+page.svelte:399) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/jul-2025/+page.svelte:442::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 479-line jam page (jul-2025/+page.svelte:399) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/mar-2024/+page.svelte:375::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 441-line jam page (mar-2024/+page.svelte:358) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/mar-2024/+page.svelte:401::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 441-line jam page (mar-2024/+page.svelte:358) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/oct-2024/+page.svelte:406::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 466-line jam page (oct-2024/+page.svelte:389) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/image-loading-hint::src/routes/jam/oct-2024/+page.svelte:432::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: in the \"How to participate\" section near the end of the 466-line jam page (oct-2024/+page.svelte:389) — offscreen on load"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/load-waterfall::src/routes/mods/[mod]/+page.ts:14::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read src/routes/mods/[mod]/+page.ts:14: upstream is `await parent()` modList from the root +layout.ts, which has no url/params dependency (adapter-static, prerender=true) so it does not rerun on client navigation — no network hop precedes this fetch; same as the ledger's static-parent convention"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/load-waterfall::src/routes/mods/[mod]/downloads/+page.ts:13::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read src/routes/mods/[mod]/downloads/+page.ts:13: upstream is `await parent()` modList from the root +layout.ts, which has no url/params dependency (adapter-static, prerender=true) so it does not rerun on client navigation — no network hop precedes this fetch; same as the ledger's static-parent convention"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/aug-2026/+page.svelte:439::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-deadline.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/aug-2026/+page.svelte:465::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-tag.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/game-jam-2026/+page.svelte:22::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/game-jam-2026.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/jan-2023/+page.svelte:131::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/jan-2023/+page.svelte:294::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-edit.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/jan-2023/+page.svelte:307::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-deadline.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/jan-2023/+page.svelte:335::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-tag.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/jul-2023/+page.svelte:301::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-deadline.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/jul-2023/+page.svelte:327::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-tag.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/jul-2025/+page.svelte:416::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-deadline.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/jul-2025/+page.svelte:442::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-tag.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/mar-2024/+page.svelte:375::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-deadline.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/mar-2024/+page.svelte:401::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-tag.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/oct-2024/+page.svelte:406::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-deadline.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::performance/responsive-image::src/routes/jam/oct-2024/+page.svelte:432::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static /images/jam-tag.webp — raster, one fixed-size asset"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::security/raw-html::src/lib/components/mod-readme/mod-readme.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/mod-readme/mod-readme.svelte:11: readmeHtml from get-mod-readme.ts: remark->rehype-raw->rehype-sanitize pipeline — sanitized"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::security/raw-html::src/routes/jam/aug-2026/+page.svelte:196::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/jam/aug-2026/+page.svelte:196: jamSummary is a literal template of in-file constants"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::security/raw-html::src/routes/jam/aug-2026/+page.svelte:294::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/jam/aug-2026/+page.svelte:294: restrictionDesc is an in-file string literal"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::security/raw-html::src/routes/jam/oct-2024/+page.svelte:254::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/jam/oct-2024/+page.svelte:254: restrictionDesc is an in-file string literal"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/canonical-url::src/routes/history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 23 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; history page does not render PageContainer (the only og/twitter/canonical emitter, src/lib/components/page-container.svelte) and has no svelte:head; root layout has none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/description-presence::src/routes/history/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: history/+page.svelte does not render PageContainer (the only description source), root layout/app.html have no <meta name=description>; prerendered public page"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld-relative-url::src/routes/+page.svelte::Relative URL in JSON-LD: \"${websiteUrl}\" — use an absolute URL",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:39 literal JSON-LD \"url\": \"${websiteUrl}\" inside a <script type=application/ld+json> body, which Svelte ships verbatim, so the value is the scheme-less string ${websiteUrl} (logo likewise)"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/404/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/jam/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/jam/aug-2026/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/jam/game-jam-2026/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/jam/jan-2023/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/jam/jul-2023/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/jam/jul-2025/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/jam/mar-2024/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/jam/oct-2024/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/mod-manager/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/mods/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/mods/[mod]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/mods/[mod]/addons/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/mods/[mod]/downloads/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/json-ld::src/routes/outer-wilds-alpha/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: the only JSON-LD in the repo is the page-level <script type=application/ld+json> in src/routes/+page.svelte:35 (route /), not in the layout chain or PageContainer; this route renders none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/og-description::src/routes/history/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:description in page, 1 ancestor layout(s), 23 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; history page does not render PageContainer (the only og/twitter/canonical emitter, src/lib/components/page-container.svelte) and has no svelte:head; root layout has none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/og-image::src/routes/history/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:image in page, 1 ancestor layout(s), 23 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; history page does not render PageContainer (the only og/twitter/canonical emitter, src/lib/components/page-container.svelte) and has no svelte:head; root layout has none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/og-title::src/routes/history/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:title in page, 1 ancestor layout(s), 23 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; history page does not render PageContainer (the only og/twitter/canonical emitter, src/lib/components/page-container.svelte) and has no svelte:head; root layout has none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/og-url::src/routes/history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no og:url in page, 1 ancestor layout(s), 23 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; history page does not render PageContainer (the only og/twitter/canonical emitter, src/lib/components/page-container.svelte) and has no svelte:head; root layout has none"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/single-h1::src/lib/components/mod-info/mod-info.svelte:75::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "mods/[mod]/+page.svelte renders <ModInfo> twice (:54 in md:hidden, :72 in hidden md:block), each with mod-info.svelte:75 <h1>{mod.name}</h1>; both are in the DOM unconditionally (CSS hides one per breakpoint) — co-rendering duplicate <h1>"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "no static/sitemap.xml or sitemap.xml endpoint (literal claim holds), but package.json build runs post-build.mjs, whose generateSitemap() writes build/sitemap.xml from the prerendered pages, so the site ships a sitemap (cobalt precedent)"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/title-presence::src/routes/history/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: history/+page.svelte has no svelte:head and does not render PageContainer (lib/components/page-container.svelte:30, the site's only <title> source); root +layout.svelte has no svelte:head, app.html has no <title>; prerendered public page ships untitled"
+  },
+  {
+    "key": "ow-mods/outerwildsmods.com::seo/twitter-card::src/routes/history/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b_reach.py, comments stripped): no twitter:card in page, 1 ancestor layout(s), 23 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; history page does not render PageContainer (the only og/twitter/canonical emitter, src/lib/components/page-container.svelte) and has no svelte:head; root layout has none"
+  }
+]

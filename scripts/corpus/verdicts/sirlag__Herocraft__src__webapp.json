@@ -1,0 +1,817 @@
+[
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/aria-hidden-focus::src/lib/components/deck-settings/deck-settings-form.svelte:66::<input aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "design",
+    "basis": "read src/lib/components/deck-settings/deck-settings-form.svelte:66: <input aria-hidden=\"true\"> carries Tailwind class \"hidden\" (display:none; tailwindcss ^4 in package.json), a form-value carrier never rendered, so it is not keyboard-focusable; aria-hidden on it is redundant, not a defect (display:none precedent)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/aria-hidden-focus::src/routes/(app)/deck/[slug]/settings/+page.svelte:26::<input aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/deck/[slug]/settings/+page.svelte:26: <input aria-hidden=\"true\"> carries Tailwind class \"hidden\" (display:none; tailwindcss ^4 in package.json), a form-value carrier never rendered, so it is not keyboard-focusable; aria-hidden on it is redundant, not a defect (display:none precedent)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/aria-hidden-focus::src/routes/(app)/decks/personal/data-table-actions.svelte:40::<input aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/decks/personal/data-table-actions.svelte:40: <input aria-hidden=\"true\"> carries Tailwind class \"hidden\" (display:none; tailwindcss ^4 in package.json), a form-value carrier never rendered, so it is not keyboard-focusable; aria-hidden on it is redundant, not a defect (display:none precedent)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/aria-hidden-focus::src/routes/(app)/decks/personal/data-table-actions.svelte:41::<input aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/decks/personal/data-table-actions.svelte:41: <input aria-hidden=\"true\"> carries Tailwind class \"hidden\" (display:none; tailwindcss ^4 in package.json), a form-value carrier never rendered, so it is not keyboard-focusable; aria-hidden on it is redundant, not a defect (display:none precedent)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/aria-hidden-focus::src/routes/(app)/decks/personal/data-table-actions.svelte:57::<input aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "design",
+    "basis": "read src/routes/(app)/decks/personal/data-table-actions.svelte:57: <input aria-hidden=\"true\"> carries Tailwind class \"hidden\" (display:none; tailwindcss ^4 in package.json), a form-value carrier never rendered, so it is not keyboard-focusable; aria-hidden on it is redundant, not a defect (display:none precedent)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/deprecated-attr::src/lib/components/CardText/renderers/TableCell.svelte:7::`align` on <th> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/lib/components/CardText/renderers/TableCell.svelte:7: markdown table renderer emits <th {align}>, rendering the obsolete align attribute whenever a column has an alignment; deprecated on that element as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/deprecated-attr::src/lib/components/CardText/renderers/TableCell.svelte:9::`align` on <td> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/lib/components/CardText/renderers/TableCell.svelte:9: markdown table renderer emits <td {align}>, rendering the obsolete align attribute whenever a column has an alignment; deprecated on that element as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/id-duplication::src/lib/components/deck-settings/deck-settings-form.svelte:37::Duplicate id \"deckForm\"",
+    "verdict": "tp",
+    "basis": "read: deck/[slug]/settings renders DeckSettingsForm (<form id=\"deckForm\">, deck-settings-form.svelte:37) unconditionally while the (app) layout Header renders NewDeckDialog (Header.svelte:342), whose NewDeckForm <form id=\"deckForm\"> (NewDeckForm.svelte:30) mounts when the dialog opens (command palette 'new deck'); both co-render then, and the dialog's <Button form=\"deckForm\"> resolves to the first match"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/id-duplication::src/lib/images/herocraft.svelte:1::Duplicate id \"Layer_#\"",
+    "verdict": "tp",
+    "basis": "read: Header.svelte renders <HerocraftWordmark> (svg id=\"Layer_6\") in the mobile header (:183, md:hidden) and the desktop header (:207, hidden md:block) unconditionally, and (login)/+layout.svelte does the same (lg:hidden / hidden lg:flex); CSS-toggled copies are both in the DOM on all 29 routes (CSS-toggled copies precedent)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/label-has-control::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:104::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:104: <label> with no for attribute and no wrapped labelable control (the control is a sibling), no spread or dynamic content; unassociated as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/label-has-control::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:108::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:108: <label> with no for attribute and no wrapped labelable control (the control is a sibling), no spread or dynamic content; unassociated as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/label-has-control::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:112::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:112: <label> with no for attribute and no wrapped labelable control (the control is a sibling), no spread or dynamic content; unassociated as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/label-has-control::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:120::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:120: <label> with no for attribute and no wrapped labelable control (the control is a sibling), no spread or dynamic content; unassociated as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/label-has-control::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:125::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:125: <label> with no for attribute and no wrapped labelable control (the control is a sibling), no spread or dynamic content; unassociated as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/label-has-control::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:129::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:129: <label> with no for attribute and no wrapped labelable control (the control is a sibling), no spread or dynamic content; unassociated as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::a11y/label-has-control::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:96::<label> has no associated control",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:96: <label> with no for attribute and no wrapped labelable control (the control is a sibling), no spread or dynamic content; unassociated as reported"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/lib/components/CardStat.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CardStat.svelte has 284 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/lib/components/command/CommandPalette.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/command/CommandPalette.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/lib/components/deck-card/DeckCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/deck-card/DeckCard.svelte has 201 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/routes/(app)/admin/cards/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/cards/[id]/+page.svelte has 517 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/routes/(app)/admin/cards/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/cards/new/+page.svelte has 421 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/routes/(app)/cards/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/cards/+page.svelte has 292 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/routes/(app)/deck/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/deck/[slug]/+page.svelte has 361 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/routes/(home)/about/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(home)/about/privacy/+page.svelte has 337 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/component-size::src/routes/Header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/Header.svelte has 342 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: class, variant, size, ref, href, type, children"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: open, ref, value, title, description, portalProps, children"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/prop-count::src/lib/components/ui/input/password-input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/input/password-input.svelte has a single destructured $props() with 7 named props (> 6): id, value, label, name, error, placeholder, desc"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) plus ...rest: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::architecture/prop-count::src/routes/(app)/deck/[slug]/deck-header-item.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/deck/[slug]/deck-header-item.svelte has a single destructured $props() with 7 named props (> 6): Icon, count, label, state, action, hoverStyle, activeStyle"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/CardText/Parser.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CardText/Parser.svelte:16 '{#each tokens as token}' has no key and is not an exempt shape; positional list (items have no identity beyond position): markdown tokens of one card text (marked token tree)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/CardText/Parser.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CardText/Parser.svelte:24 '{#each header as headerItem, i}' has no key and is not an exempt shape; positional list (items have no identity beyond position): header cells of a markdown table token"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/CardText/Parser.svelte:35::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CardText/Parser.svelte:35 '{#each rows as row}' has no key and is not an exempt shape; positional list (items have no identity beyond position): rows of a markdown table token"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/CardText/Parser.svelte:37::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CardText/Parser.svelte:37 '{#each row as cells, i}' has no key and is not an exempt shape; positional list (items have no identity beyond position): cells of a markdown table row"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/CardText/Parser.svelte:52::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CardText/Parser.svelte:52 '{#each rest.items as item}' has no key and is not an exempt shape; positional list (items have no identity beyond position): items of a markdown list token"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/CardText/Parser.svelte:61::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CardText/Parser.svelte:61 '{#each rest.items as item}' has no key and is not an exempt shape; positional list (items have no identity beyond position): items of a markdown list token"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/atoms/filters/FacetedFilter.svelte:49::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/atoms/filters/FacetedFilter.svelte:49 '{#each filterValues as option}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/atoms/filters/FacetedFilter.svelte:65::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/atoms/filters/FacetedFilter.svelte:65 '{#each options as option}' has no key and is not an exempt shape; static list (author-time constant): options prop, the constant ClassFilters / SpecFilters / FormatFilters lists (deck/[slug]/search/+page.svelte:80-97)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/lib/components/bulk-import/bulk-import-dialog.svelte:101::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/bulk-import/bulk-import-dialog.svelte:101 '{#each listOfDecks.data as deckList}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/admin/cards/+page.svelte:87::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/cards/+page.svelte:87 '{#each cards as c}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:143::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:143 '{#each rulings as r}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/card/[uuid]/+page.svelte:154::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/card/[uuid]/+page.svelte:154 '{#each rulings as r}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/+page.svelte:178::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/deck/[slug]/+page.svelte:178 '{#each traits.deckEntries as entry}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/+page.svelte:208::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/deck/[slug]/+page.svelte:208 '{#each iterableCards as category}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/+page.svelte:222::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/deck/[slug]/+page.svelte:222 '{#each category.deckEntries.sort((a, b) => a.card.name.localeCompare(b.card.name)) as entry}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/+page.svelte:278::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/deck/[slug]/+page.svelte:278 '{#each validated.validationStatuses.entries() as [key, value]}' has no key and is not an exempt shape; static list (author-time constant): validationStatuses Map keyed by the fixed validationRules set (validator.ts:193,226)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/+page.svelte:329::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/deck/[slug]/+page.svelte:329 '{#each validated.validationStatuses.entries() as [key, value]}' has no key and is not an exempt shape; static list (author-time constant): validationStatuses Map keyed by the fixed validationRules set (validator.ts:193,226)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/search/+page.svelte:105::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/deck/[slug]/search/+page.svelte:105 '{#each selectedClasses as clazz}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/search/+page.svelte:108::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/deck/[slug]/search/+page.svelte:108 '{#each selectedSpecs as spec }' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/search/+page.svelte:111::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/deck/[slug]/search/+page.svelte:111 '{#each selectedTypes as type }' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/deck/[slug]/search/+page.svelte:125::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(app)/deck/[slug]/search/+page.svelte:125 '{#each data.cards as card}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/each-key::src/routes/(app)/decks/personal/data-table-actions.svelte:37::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(app)/decks/personal/data-table-actions.svelte:37 '{#each otherVisibilityStates as state}' has no key and is not an exempt shape; static list (author-time constant): otherVisibilityStates filters the constant visibilityStates list (line 22)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/stale-prop-derivation::src/lib/components/CardInfo.svelte:17::\"paddingX\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: CardInfo.svelte:17 paddingX = standalone ? ... at init (claim structurally true), but the only render site (cards/+page.svelte:277) passes the literal standalone={true}, so the frozen value never differs"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/stale-prop-derivation::src/routes/(app)/account/+page.svelte:10::\"user\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: account/+page.svelte:10 user = data.user at init (claim structurally true); /account has no params, its +page.ts is empty and nothing in the account tree invalidates, so data.user (the session user) does not change while the page is mounted"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/stale-prop-derivation::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte:9::\"cardName\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "tp",
+    "basis": "read: rulings/+page.svelte:9 cardName = data.cardName at init and rendered; the page sits under [herocraftId], so client-side navigation between cards reuses the component and the copy stays on the first card (ledger [id]-route convention)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::correctness/unmutated-state::src/routes/Header.svelte:28::$state \"search\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w search): Header.svelte:28 is its only mention; never written"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/image-dimensions::src/routes/(app)/admin/cards/[id]/+page.svelte:439::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: class max-h-80 rounded border only — width and height come from the card image (capped at 320px high), the form below shifts as it loads"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/image-dimensions::src/routes/(app)/admin/cards/[id]/+page.svelte:499::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: class max-h-80 rounded border only — width and height come from the card image (capped at 320px high), content below shifts as it loads"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/image-dimensions::src/routes/(app)/admin/cards/new/+page.svelte:344::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: class max-h-80 rounded border only — width and height come from the card image (capped at 320px high), content below shifts as it loads"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/image-dimensions::src/routes/(app)/admin/cards/new/+page.svelte:404::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: class max-h-80 rounded border only — width and height come from the card image (capped at 320px high), content below shifts as it loads"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/image-loading-hint::src/routes/(app)/admin/cards/[id]/+page.svelte:439::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: front-face preview at the end of the Front Face fieldset, after the long card-field form under the h1 (:262-439), rendered on load from the stored image URLs — offscreen on load"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/image-loading-hint::src/routes/(app)/admin/cards/[id]/+page.svelte:499::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: back-face preview at the end of the Back Face fieldset, the last part of the long edit form (:444-499), rendered on load from stored URLs — offscreen on load"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/image-loading-hint::src/routes/(app)/admin/cards/new/+page.svelte:344::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: preview rendered only {#if frontFull || frontLarge || frontNormal || frontSmall} (all start '', :47,341) right after the admin types a URL into the field above it — visible when rendered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/image-loading-hint::src/routes/(app)/admin/cards/new/+page.svelte:404::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: back preview rendered only {#if backFull || backLarge || backNormal || backSmall} (all start '', :64) right after the admin types a URL into the field above it — visible when rendered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/responsive-image::src/routes/(app)/admin/cards/[id]/+page.svelte:439::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: one of the card's normal/large/small/full raster image URLs (:127,436-439) — one fixed-size asset although the size variants exist"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/responsive-image::src/routes/(app)/admin/cards/[id]/+page.svelte:499::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: one of the card's back-face normal/large/small/full raster image URLs (:146,496-499) — one fixed-size asset although the size variants exist"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/responsive-image::src/routes/(app)/admin/cards/new/+page.svelte:344::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: one of the typed normal/large/small/full raster card image URLs (:341-344) — one fixed-size asset although size variants are entered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/responsive-image::src/routes/(app)/admin/cards/new/+page.svelte:404::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: one of the typed back-face raster card image URLs (:401-404) — one fixed-size asset although size variants are entered"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/sequential-awaits::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.server.ts:32::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read admin/cards/[herocraftId]/rulings/+page.server.ts:10-39: the /card/{id} API fetch uses only params.herocraftId, nothing from the preceding /admin/rulings fetch - two independent backend requests serialized; Promise.all would work"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::performance/sequential-awaits::src/routes/(app)/decks/personal/+page.server.ts:17::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read decks/personal/+page.server.ts:9-17: the only preceding await is superValidate(zod(BulkImportSchema)) - in-process form defaults, nothing real serialized before the decks fetch (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 90 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (guests get a 500: (app)/account/+page.svelte:10-13 reads data.user.email and the root +layout.server.ts returns no user without a session), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/account/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/settings (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 90 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/account/settings/blocked/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/settings/blocked (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 90 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/account/settings/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account/settings/profile (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 91 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (auth-gated client-side: (app)/account/settings/profile/+page.svelte:17-19 sends a 401 to /account/signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/account/settings/security/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/settings/security (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 91 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/admin/cards/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/cards (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 91 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (admin-only: (app)/admin/+layout.server.ts:15-23 redirects guests to /account/signin and non-admins to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/cards/[herocraftId]/rulings (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 90 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (admin-only: (app)/admin/+layout.server.ts:15-23 redirects guests to /account/signin and non-admins to / and literal noindex at rulings/+page.svelte:86), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/admin/cards/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/cards/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 97 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (admin-only: (app)/admin/+layout.server.ts:15-23 redirects guests to /account/signin and non-admins to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/admin/cards/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/cards/new (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 97 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (admin-only: (app)/admin/+layout.server.ts:15-23 redirects guests to /account/signin and non-admins to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/card/[uuid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /card/[uuid] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 104 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/cards/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /cards (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 105 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/deck/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /deck/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 132 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/deck/[slug]/search/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /deck/[slug]/search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 143 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/deck/[slug]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /deck/[slug]/settings (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 125 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/decks/liked/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /decks/liked (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 122 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (auth-gated: (app)/decks/liked/+page.server.ts:7-9 redirects guests to /account/signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/decks/personal/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /decks/personal (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 119 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (auth-gated: (app)/decks/personal/+page.server.ts:13-14 redirects guests to /account/signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/decks/private/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /decks/private (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 122 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none) but not a search target (auth-gated: (app)/decks/private/+page.server.ts:7-9 redirects guests to /account/signin), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/decks/public/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /decks/public (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 122 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(app)/docs/syntax/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /docs/syntax (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 90 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(home)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 93 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(home)/about/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/privacy (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 90 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(home)/about/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about/terms (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 90 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(login)/account/created/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/created (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 31 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(login)/account/forgot/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/forgot (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 33 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(login)/account/forgot/sent/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/forgot/sent (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 31 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(login)/account/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/register (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 33 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(login)/account/reset/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/reset/[token] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 33 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(login)/account/reset/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/reset/success (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 31 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/canonical-url::src/routes/(login)/account/signin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /account/signin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 31 transitively imported local files or app.html; no <link rel=\"canonical\"> anywhere in src or app.html (root +layout.svelte:22-64 emits og:*/twitter:* but no canonical); npm Svelte deps (superforms etc.) emit none); publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/description-length::src/routes/(home)/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 68): src/routes/(home)/+page.svelte:15 \"Herocraft is the Unofficial deckbuilder and card database for Ivion.\"; the only description on / (root +layout.svelte:20-22 emits one only under {#if $page.data?.seo}, and the home route provides no seo data); too short as claimed"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/indexability::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: (app)/admin/cards/[herocraftId]/rulings/+page.svelte:86 unconditional literal <meta name=\"robots\" content=\"noindex\"> in the page svelte:head; noindex as claimed"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/account/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/settings has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/account/settings/blocked/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/settings/blocked has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/account/settings/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/settings/profile has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/account/settings/security/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/settings/security has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/admin/cards/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /admin/cards has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/admin/cards/[herocraftId]/rulings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /admin/cards/[herocraftId]/rulings has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/admin/cards/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /admin/cards/[id] has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/admin/cards/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /admin/cards/new has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/card/[uuid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /card/[uuid] has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/cards/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /cards has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/deck/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /deck/[slug] has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/deck/[slug]/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /deck/[slug]/search has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/deck/[slug]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /deck/[slug]/settings has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/decks/liked/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /decks/liked has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/decks/personal/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /decks/personal has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/decks/private/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /decks/private has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/decks/public/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /decks/public has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(app)/docs/syntax/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /docs/syntax has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(home)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); / has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(home)/about/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /about/privacy has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(home)/about/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /about/terms has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(login)/account/created/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/created has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(login)/account/forgot/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/forgot has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(login)/account/forgot/sent/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/forgot/sent has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(login)/account/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/register has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(login)/account/reset/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/reset/[token] has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(login)/account/reset/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/reset/success has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/json-ld::src/routes/(login)/account/signin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src/webapp/src or app.html (root +layout.svelte head emits og/twitter/description from page.data.seo only); /account/signin has no JSON-LD; public Ivion card database (herocraft.app)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/single-h1::/account::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1>: (app)/account/+page.svelte renders only {user.email}{user.verified} text; (app)/+layout.svelte's Header (Sheet <h3>s :116,144) and footer (<h6>s) have no <h1> — stub page convention"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/single-h1::/deck/[slug]/search::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1>: deck/[slug]/search/+page.svelte renders ShortHeader (deck name in a non-heading element, short-header.svelte:30), HeroImage, search/filter controls and image cards; layout chain has no <h1>"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/single-h1::/deck/[slug]/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1>: deck/[slug]/settings/+page.svelte renders ShortHeader (non-heading deck name, short-header.svelte:30), HeroImage and DeckSettingsForm; layout chain has no <h1>"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/single-h1::/deck/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1>: deck/[slug]/+page.svelte renders LongHeader, whose deck name is a <span class=\"text-6xl\"> (long-header.svelte:30-32), and a card table; layout chain (Header <h3>s, footer <h6>s) has no <h1> (script-verified grep: lib's <h1>s are CardDisplay/CardInfo/CardText Heading, not used here)"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/single-h1::/decks/personal::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1>: decks/personal/+page.svelte renders DeckDataTable, a BulkImportDialog and buttons, no heading (unlike decks/private|public|liked, which have one); layout chain has no <h1>"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/single-h1::src/lib/components/CardDisplay.svelte:27::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "two <h1>s render for every double-faced card: CardDisplay renders the cardInfo snippet's <h1>{infoSource.name} (CardDisplay.svelte:27) for frontFace and backFace {#if cardHasFaces} (:79-82); card/[uuid]/+page.svelte renders <CardDisplay {card} /> (:83) unconditionally"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/single-h1::src/lib/components/CardInfo.svelte:27::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "the <h1>s come only from CardInfo/CardDisplay (CardInfo.svelte:27) in the opt-in 'text'/'full' display modes ({:else if displayMode === 'text'|'full'}, :273-287); displayMode defaults to 'grid' (:34), which renders image cards and no <h1> at all — counted per the documented arm semantics, a user-toggled view state"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/single-h1::src/routes/(app)/docs/syntax/+page.svelte:9::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1>: docs/syntax/+page.svelte (no script imports) starts with <h2>Rules Text (:9) and has no other heading; layout chain (Header <h3>s, footer <h6>s) has no <h1>"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/robots.txt exists (allow all, no Sitemap: line) but no sitemap.xml file, route or generator; public card database/deckbuilder with /card/[uuid] and /deck/[slug] pages to list"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-length::src/routes/(app)/decks/liked/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 24): src/routes/(app)/decks/liked/+page.svelte:55 \"Liked Decks // Herocraft\"; the only title of the route (layouts/app.html set none); too short as claimed"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-length::src/routes/(app)/decks/personal/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 23): src/routes/(app)/decks/personal/+page.svelte:21 \"Your Decks // Herocraft\"; the only title of the route (layouts/app.html set none); too short as claimed"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-length::src/routes/(app)/decks/private/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 21): src/routes/(app)/decks/private/+page.svelte:55 \"My Decks // Herocraft\"; the only title of the route (layouts/app.html set none); too short as claimed"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-length::src/routes/(app)/decks/public/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 25): src/routes/(app)/decks/public/+page.svelte:53 \"Public Decks // Herocraft\"; the only title of the route (layouts/app.html set none); too short as claimed"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-length::src/routes/(home)/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 17): src/routes/(home)/+page.svelte:14 \"Home // Herocraft\"; the only title of the route (layouts/app.html set none); too short as claimed"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/account/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/account/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/account/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/account/settings/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/account/settings/blocked/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/account/settings/blocked/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/account/settings/profile/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/account/settings/profile/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/account/settings/security/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/account/settings/security/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/admin/cards/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/admin/cards/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/admin/cards/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/admin/cards/[id]/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/admin/cards/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/admin/cards/new/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/deck/[slug]/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/deck/[slug]/settings/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(app)/docs/syntax/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (app)/docs/syntax/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(home)/about/privacy/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (home)/about/privacy/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(home)/about/terms/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (home)/about/terms/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(login)/account/created/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (login)/account/created/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(login)/account/forgot/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (login)/account/forgot/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(login)/account/forgot/sent/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (login)/account/forgot/sent/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(login)/account/register/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (login)/account/register/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(login)/account/reset/[token]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (login)/account/reset/[token]/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(login)/account/reset/success/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (login)/account/reset/success/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  },
+  {
+    "key": "sirlag/Herocraft:src/webapp::seo/title-presence::src/routes/(login)/account/signin/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified + read: (login)/account/signin/+page.svelte has no svelte:head; root +layout.svelte:10-68 head has opensearch/og/twitter meta but no <title>, group layouts have no svelte:head, app.html has no <title>, no document.title and no other <title> in src/lib (only an <svg> title in svelte-logo.svg); npm bits-ui@2.14.4, formsnap@2.0.1, paneforge@1.0.2, svelte-sonner@1.0.6, vaul-svelte@1.0.0-next.7, svelte-time@2.0.2, sveltekit-superforms@2.28.1 scanned on jsDelivr: none emit a title; loads redirect only conditionally; lucide Icon.svelte (dist/Icon.svelte) has no title/head"
+  }
+]

@@ -1,0 +1,1152 @@
+[
+  {
+    "key": "doceazedo/doce.sh::a11y/deprecated-attr::src/lib/components/sections/portfolio/portfolio-item.svelte:277::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read: literal <iframe> with the listed frameborder/scrolling/marginheight/marginwidth attributes (WHATWG obsolete iframe attributes)"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/deprecated-attr::src/routes/me/+page.svelte:316::`scrolling`, `frameborder` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read: literal <iframe> with the listed frameborder/scrolling/marginheight/marginwidth attributes (WHATWG obsolete iframe attributes)"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/deprecated-attr::src/routes/press-kit/+page.svelte:102::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read: literal <iframe> with the listed frameborder/scrolling/marginheight/marginwidth attributes (WHATWG obsolete iframe attributes)"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/deprecated-attr::src/routes/press-kit/+page.svelte:112::`scrolling`, `frameborder` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read: literal <iframe> with the listed frameborder/scrolling/marginheight/marginwidth attributes (WHATWG obsolete iframe attributes)"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/deprecated-attr::src/routes/press-kit/+page.svelte:119::`scrolling`, `frameborder` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read: literal <iframe> with the listed frameborder/scrolling/marginheight/marginwidth attributes (WHATWG obsolete iframe attributes)"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/duplicate-landmark::src/lib/components/sections/portfolio/portfolio-item.svelte:269::Duplicate main landmark (# of #)",
+    "verdict": "design",
+    "basis": "read: <main> only inside bits-ui <Dialog.Content> (rendered while that dialog is open); the 3 PortfolioItem instances are separate modal dialogs (one gachapon-type instance never renders it) and route / has no other <main>, so two never co-render — documented model counts component instances/conditionals as co-rendering"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/lib/components/misc/gachapon/views/gift.svelte:118::`<span>` is not permitted content here — `<hgroup>` admits only `<p>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <span> at this line has literal parent <hgroup> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/lib/components/misc/gachapon/views/inventory/inventory-item.svelte:187::`<hr>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <hr> at this line has literal parent <ul> with no component/snippet/svelte:element boundary between (crossed: IfBlock,EachBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:227::`<div>` is not permitted content here — `<hgroup>` admits only `<p>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <hgroup> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:268::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <h2> with no component/snippet/svelte:element boundary between (crossed: IfBlock), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:321::`<figure>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <figure> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:343::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <button> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/lib/components/misc/gachapon/views/play.svelte:139::`<span>` is not permitted content here — `<hgroup>` admits only `<p>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <span> at this line has literal parent <hgroup> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/routes/blog/(posts)/comment.svelte:193::`<hr>` is not permitted content here — `<hgroup>` admits only `<p>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <hr> at this line has literal parent <hgroup> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::a11y/permitted-contents::src/routes/blog/(posts)/comment.svelte:194::`<div>` is not permitted content here — `<hgroup>` admits only `<p>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>`, `<h#>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, h-a11y/pc.mjs): literal <div> at this line has literal parent <hgroup> with no component/snippet/svelte:element boundary between (crossed: none), and an independent content-model table says the child is not permitted"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/lib/components/gallery/lightbox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/gallery/lightbox.svelte has 233 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/lib/components/misc/gachapon/models/loot/spellbook.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/misc/gachapon/models/loot/spellbook.svelte has 275 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/lib/components/misc/gachapon/scenes/play-scene.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/misc/gachapon/scenes/play-scene.svelte has 411 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/lib/components/misc/gachapon/views/inventory/inventory-item.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/misc/gachapon/views/inventory/inventory-item.svelte has 272 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/misc/gachapon/views/inventory/inventory.svelte has 370 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/lib/components/misc/gachapon/views/rewards.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/misc/gachapon/views/rewards.svelte has 284 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/lib/components/sections/portfolio/portfolio-item.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/sections/portfolio/portfolio-item.svelte has 311 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/routes/blog/(posts)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/(posts)/+layout.svelte has 308 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/routes/blog/(posts)/comment.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/blog/(posts)/comment.svelte has 233 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/routes/colophon/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/colophon/+page.svelte has 386 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/routes/me/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/me/+page.svelte has 413 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/routes/now/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/now/+page.svelte has 488 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/component-size::src/routes/uses/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/uses/+page.svelte has 281 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/prop-count::src/lib/components/common/media-grid-section.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): icon, title, subtitle, updatedAt, items, poster, link, details"
+  },
+  {
+    "key": "doceazedo/doce.sh::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-index-key::src/lib/components/common/media-grid-section.svelte:83::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: header '{#each items as item, i (i)}' keyed by its index binding (claim literally true); list source is runtime data (query/state/prop/fetched records), not static or positional; source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-index-key::src/routes/contact/+page.svelte:75::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: header '{#each Object.values(SOCIALS) as social, i (i)}' keyed by its index binding (claim literally true); static list (Object.values(SOCIALS) imported constant): never reorders/inserts"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-index-key::src/routes/me/+page.svelte:353::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: header '{#each collection as lp, i (i)}' keyed by its index binding (claim literally true); list source is runtime data (query/state/prop/fetched records), not static or positional; source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-index-key::src/routes/uses/apps-grid.svelte:32::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: header '{#each items as item, i (i)}' keyed by its index binding (claim literally true); static list (all callers pass module constants (PC_PARTS, GENERAL_SOFTWARE, ...)): never reorders/inserts"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-index-key::src/routes/uses/products-grid.svelte:27::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: header '{#each items as item, i (i)}' keyed by its index binding (claim literally true); static list (all callers pass module constants or an inline literal): never reorders/inserts"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/common/media-grid-section.svelte:78::{#each} block has no key",
+    "verdict": "fp",
+    "basis": "read: header '{#each Array(5).fill(null) as _uwu}' has no key; Array(n).fill(null) is a length-only placeholder list (item binding _uwu unused), the docs' exempt \"length-only lists\" class, but isLengthOnlyArrayCall (component-parse.ts:77) only matches a bare Array(n)/Array.from({length}); repro-h-correctness/each-fill-null (Array(5) control is silent)"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/controls/language-selector.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each Object.values(LANGUAGES) as lang}' has no key; not an exempt shape; static list (Object.values of local LANGUAGES object): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/layout/sidebar.svelte:145::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each pages as _page}' has no key; not an exempt shape; static list ($derived literal nav pages): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/layout/sidebar.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each pages as _page}' has no key; not an exempt shape; static list ($derived literal nav pages): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/gachapon/scenes/play-scene.svelte:372::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each Array(2) .fill(shuffleArray(CAPSULE_PALETTE)) .flat() as color, index}' has no key; not an exempt shape; static list (palette shuffled once): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/gachapon/views/inventory/inventory-item.svelte:155::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each details as detail, i}' has no key; not an exempt shape; static list (fixed metadata rows of one item): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:212::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each orderOptions as option}' has no key; not an exempt shape; static list ($derived literal order options): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/gachapon/views/inventory/inventory.svelte:262::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each orderByOption.orderedItems as group, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — groups reordered by the chosen order option; source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/misc/noise-overlay.svelte:28::{#each} block has no key",
+    "verdict": "fp",
+    "basis": "read: header '{#each Array(SPRITES).fill(null) as _uwu, i}' has no key; Array(n).fill(null) is a length-only placeholder list (item binding _uwu unused), the docs' exempt \"length-only lists\" class, but isLengthOnlyArrayCall (component-parse.ts:77) only matches a bare Array(n)/Array.from({length}); repro-h-correctness/each-fill-null (Array(5) control is silent)"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/sections/blog-posts.svelte:37::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each page.data.posts as post, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/sections/hero/hero-decorations.svelte:25::{#each} block has no key",
+    "verdict": "fp",
+    "basis": "read: header '{#each Array(12 * 9).fill(null) as _uwu}' has no key; Array(n).fill(null) is a length-only placeholder list (item binding _uwu unused), the docs' exempt \"length-only lists\" class, but isLengthOnlyArrayCall (component-parse.ts:77) only matches a bare Array(n)/Array.from({length}); repro-h-correctness/each-fill-null (Array(5) control is silent)"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/sections/portfolio/portfolio-item.svelte:241::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each project.stack as icon}' has no key; not an exempt shape; static list (project from static workProjects module): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/sections/portfolio/portfolio-item.svelte:256::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each project.links as link, i}' has no key; not an exempt shape; static list (project from static workProjects module): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/sections/portfolio/portfolio-item.svelte:271::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each project.media as media}' has no key; not an exempt shape; static list (project from static workProjects module): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/lib/components/views/error-page.svelte:125::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each Math.floor(tweenedStatusCode.current).toString().split(\"\") as digit}' has no key; not an exempt shape; positional list (digits of a status code): items have no identity beyond position"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/blog/(posts)/+layout.svelte:233::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each activity.comments as comment, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/blog/(posts)/+layout.svelte:243::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each comment.replies as reply, j}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/blog/(posts)/+layout.svelte:261::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each headings as heading, i}' has no key; not an exempt shape; positional list (TOC headings of the current post): items have no identity beyond position"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/blog/(posts)/comment.svelte:127::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each comment.embed.images as img, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/blog/+page.svelte:23::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each data.postsByYear as yearPosts, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/blog/+page.svelte:40::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each yearPosts as post, j}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/colophon/list.svelte:18::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each items as item}' has no key; not an exempt shape; static list (callers pass inline literals): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/gallery/+page.svelte:88::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each albums as album}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/gallery/+page.svelte:95::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each album.previewThumbnailUrls as href, thumbIdx}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/me/+page.svelte:296::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each column.items as item}' has no key; not an exempt shape; static list (static like/dislike columns): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/now/+page.svelte:141::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: header '{#each ACTIVITIES as activity}' has no key; not an exempt shape; static list ($derived literal ACTIVITIES): never reorders/inserts, a key cannot help"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/now/+page.svelte:293::{#each} block has no key",
+    "verdict": "fp",
+    "basis": "read: header '{#each Array(5).fill(null) as _uwu}' has no key; Array(n).fill(null) is a length-only placeholder list (item binding _uwu unused), the docs' exempt \"length-only lists\" class, but isLengthOnlyArrayCall (component-parse.ts:77) only matches a bare Array(n)/Array.from({length}); repro-h-correctness/each-fill-null (Array(5) control is silent)"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/now/+page.svelte:297::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each $LAST_PLAYED_TRACKS as track}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data — live last-played store; source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/now/+page.svelte:363::{#each} block has no key",
+    "verdict": "fp",
+    "basis": "read: header '{#each Array(9).fill(null) as _uwu}' has no key; Array(n).fill(null) is a length-only placeholder list (item binding _uwu unused), the docs' exempt \"length-only lists\" class, but isLengthOnlyArrayCall (component-parse.ts:77) only matches a bare Array(n)/Array.from({length}); repro-h-correctness/each-fill-null (Array(5) control is silent)"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/each-key::src/routes/now/+page.svelte:367::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: header '{#each artists as artist, i}' has no key and is not an inline literal/length-only/itemless/local-const shape; list source is runtime data (prop/state/derived/query/fetched records); source read"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/effect-as-onmount::src/lib/components/gallery/lightbox.svelte:130::$effect reads no reactive value this analysis can see — consider an event handler, {@attach}, or onMount instead",
+    "verdict": "tp",
+    "basis": "read: body only touches document.body.style; no reactive read, runs once per mount"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/prop-mutation::src/lib/components/misc/gachapon/scenes/gift-scene.svelte:62::Prop \"flashTweener\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: prop is a reactive class instance (Tween (svelte/motion) created in gift.svelte); mutation through its methods is reactive and not ownership-checked; flagged as the docs' class-instance limitation says"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/prop-mutation::src/lib/components/misc/gachapon/scenes/gift-scene.svelte:67::Prop \"flashTweener\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: prop is a reactive class instance (Tween); mutation through its methods is reactive and not ownership-checked; flagged as the docs' class-instance limitation says"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/stale-prop-derivation::src/lib/components/sections/portfolio/portfolio-item.svelte:30::\"delay\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: all three callers pass a literal type (portfolio.svelte:178-184); delay only feeds intro transition params"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/stale-prop-derivation::src/routes/blog/(posts)/+layout.svelte:111::\"hasRedditPost\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "tp",
+    "basis": "read: blog/(posts)/+layout.svelte is shared by every post and already re-runs setupPage on data.slug changes (line 106-109); hasRedditPost (rendered at 201/215) stays frozen on client-side navigation between posts"
+  },
+  {
+    "key": "doceazedo/doce.sh::correctness/unmutated-state::src/routes/now/+page.svelte:124::$state \"locale\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified: every reference of the name in the file listed (hc grep); no reassignment/mutation/bind:/call-arg/directive/component prop; only rendered"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/iframe-loading::src/lib/components/sections/portfolio/portfolio-item.svelte:277::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: YouTube embed inside portfolio items list — can be offscreen"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/iframe-loading::src/routes/me/+page.svelte:316::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: SoundCloud player mid-page on /me — offscreen on load"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/iframe-loading::src/routes/press-kit/+page.svelte:102::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: YouTube embed below the press-kit photo grid"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/iframe-loading::src/routes/press-kit/+page.svelte:112::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: SoundCloud player below the press-kit photo grid"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/iframe-loading::src/routes/press-kit/+page.svelte:119::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "tp",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: SoundCloud player below the press-kit photo grid"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/blog/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: size-12 fixed box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/colophon/+page.svelte:248::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class/size; prose image at natural size"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/colophon/+page.svelte:269::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: size-5 fixed box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/colophon/+page.svelte:322::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class/size; prose image at natural size"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/colophon/+page.svelte:326::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: no class/size; prose image at natural size"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/gallery/+page.svelte:105::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — figure aspect-square w-1/2 reserves the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/gallery/+page.svelte:114::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — figure aspect-square w-3/4 reserves the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/me/+page.svelte:136::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — figure aspect-4/5 w-full reserves the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/me/+page.svelte:251::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — container aspect-3/4 w-xs reserves the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/me/+page.svelte:374::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — aspect-square tooltip trigger reserves the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/now/+page.svelte:159::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: size-24 fixed box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/now/+page.svelte:307::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: size-14 fixed box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/now/+page.svelte:391::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — aspect-square link reserves the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/press-kit/+page.svelte:147::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: only opacity-50; natural size decides the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/press-kit/+page.svelte:161::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: only opacity-50; natural size decides the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/press-kit/+page.svelte:33::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full only; height from natural aspect ratio"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/press-kit/+page.svelte:38::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full only; height from natural aspect ratio"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/press-kit/+page.svelte:39::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full only; height from natural aspect ratio"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/press-kit/+page.svelte:40::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: w-full only; height from natural aspect ratio"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-dimensions::src/routes/uses/+page.svelte:250::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: parent container traced — figure aspect-video w-full reserves the box"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/blog/+page.svelte:52::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: post icon in the blog post list"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/colophon/+page.svelte:248::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: colophon body section below the fold"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/colophon/+page.svelte:269::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar in the changelog timeline lower on the page"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/colophon/+page.svelte:322::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: \"previous versions\" section below the fold"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/colophon/+page.svelte:326::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: \"previous versions\" section below the fold"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/gallery/+page.svelte:105::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: album preview thumbnails in the album grid"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/gallery/+page.svelte:114::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: album thumbnail in the album grid"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/me/+page.svelte:136::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: intro photo row, first section of /me"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/me/+page.svelte:251::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: personal-life section further down /me"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/me/+page.svelte:374::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: LP collection grid lower on /me"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/now/+page.svelte:159::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: avatar in the /now page header"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/now/+page.svelte:307::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: track cover in recently-played list"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/now/+page.svelte:391::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: artist grid lower on /now"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/press-kit/+page.svelte:147::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: tech-rider section below the fold"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/press-kit/+page.svelte:161::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: tech-rider section below the fold"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/press-kit/+page.svelte:33::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: first photo right under the h1, above the fold"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/press-kit/+page.svelte:38::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: photo grid directly under the h1, top of page"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/press-kit/+page.svelte:39::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: photo grid directly under the h1, top of page"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/press-kit/+page.svelte:40::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: photo grid directly under the h1, top of page"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/image-loading-hint::src/routes/uses/+page.svelte:250::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: first figure of /uses, top of page"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/blog/+page.svelte:52::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: post.icon comes from frontmatter and is mostly /img/icons/*.svg (a couple of .webp) — dynamic, mostly-SVG 48px icons"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/colophon/+page.svelte:248::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp screenshot"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/colophon/+page.svelte:269::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster avatar.jpg"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/colophon/+page.svelte:322::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/colophon/+page.svelte:326::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/gallery/+page.svelte:105::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote raster thumbnail"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/gallery/+page.svelte:114::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote raster thumbnail"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/me/+page.svelte:136::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: raster photo"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/me/+page.svelte:251::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/me/+page.svelte:374::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote raster cover"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/now/+page.svelte:159::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster avatar.jpg"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/now/+page.svelte:307::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote raster cover"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/now/+page.svelte:391::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: remote raster artist image"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/press-kit/+page.svelte:147::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/press-kit/+page.svelte:161::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/press-kit/+page.svelte:33::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp photo"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/press-kit/+page.svelte:38::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp photo"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/press-kit/+page.svelte:39::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp photo"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/press-kit/+page.svelte:40::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp photo"
+  },
+  {
+    "key": "doceazedo/doce.sh::performance/responsive-image::src/routes/uses/+page.svelte:250::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: static raster .webp"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/lib/components/common/page-title.svelte:21::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html subtitle}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/lib/components/common/section-title-with-icon.svelte:37::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.updated_at({ date: updatedAt ? timeAgo(updatedAt}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/lib/components/misc/gachapon/views/rewards.svelte:232::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.piggybank_description({ quantity: PIGGYBANK.quan}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/lib/components/sections/hero/hero.svelte:60::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.excerpt({ companyName: WORK.company, companyUrl:}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/lib/components/sections/portfolio/portfolio-item.svelte:234::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html project.details.replaceAll(\"\\n\", \"<br />\")}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/lib/components/sections/portfolio/portfolio-item.svelte:245::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html icon.svg}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/lib/components/views/error-page.svelte:119::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html STATUS_DESCRIPTIONS?.[`${status}`] ? CULPRITS?.[`$}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/lib/components/views/error-page.svelte:138::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html STATUS_DESCRIPTIONS?.[`${status}`] || STATUS_DESCR}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/ai/+page.svelte:13::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.ai_usage_description()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/blog/(posts)/+layout.svelte:138::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.published_at({ date: fullDate(new Date(`${data.m}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/blog/(posts)/+layout.svelte:147::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.read_time({ min: readTime, })}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/blog/(posts)/+layout.svelte:163::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.blog_footnote()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/blog/(posts)/comment.svelte:101::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html comment.content}; read: comment.content from Bluesky/Mastodon/Reddit replies (activity.json/+server.ts), third-party user content rendered unsanitized"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/blog/(posts)/comment.svelte:97::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "script-extracted {@html comment.content}; read: comment.content from Bluesky/Mastodon/Reddit replies (activity.json/+server.ts), third-party user content rendered unsanitized"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/colophon/+page.svelte:224::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.analytics_description()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/colophon/+page.svelte:232::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.ai_usage_summary()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/colophon/+page.svelte:242::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.design_description({ technology: `${siFigma.svg}}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/colophon/+page.svelte:249::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.overall_design_details()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/colophon/+page.svelte:251::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.key_principles_description()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/colophon/+page.svelte:253::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.pages_vs_blog_posts_description()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/colophon/list.svelte:34::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html item.icon}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/colophon/list.svelte:44::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html item.description}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/contact/+page.svelte:93::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html social.icon}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:192::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html card.text}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:215::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.map_distance({ km: Math.floor( distance(MY_LOCAT}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:221::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.map_distance_fallback()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:236::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.personal_life_intro()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:237::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.personal_life_name()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:238::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.personal_life_hobbies()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:239::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.personal_life_about_site()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:410::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.lets_have_fun_intro()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/me/+page.svelte:411::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.lets_have_fun_tip()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/now/+page.svelte:145::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html activity.icon}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/now/+page.svelte:150::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html activity.description}; read: repo constants / i18n messages / simple-icons SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/now/+page.svelte:256::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.played_last_two_weeks({ time: game.playtime_2wee}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/now/+page.svelte:263::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.last_played_game({ date: timeAgo(new Date(game.l}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/now/+page.svelte:267::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.updated_at({ date: new Date(game.updated).toLoca}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/now/+page.svelte:461::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.last_watched_movie({ date: timeAgo(new Date(movi}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/press-kit/+page.svelte:76::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.presskit_bio_intro()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/press-kit/+page.svelte:77::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.presskit_bio_experience()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/talks/+page.svelte:141::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.giving_talks_languages()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/talks/+page.svelte:144::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.giving_talks_in_person_availability()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/raw-html::src/routes/talks/+page.svelte:153::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "script-extracted {@html m.giving_talks_cta()}; read: paraglide/i18n message from the repo; interpolated params are dates/numbers/constants or a country already matched against the chapter list — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/server-module-state::src/routes/api/now/artists/+server.ts:27::module-scope variable \"spotify\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: lazy singleton API client (Spotify client-credentials SDK) created once and reused — app-level credentials, no per-user data; docs name a deliberate process-wide cache as a suppress case"
+  },
+  {
+    "key": "doceazedo/doce.sh::security/server-module-state::src/routes/api/now/games/+server.ts:64::module-scope variable \"steam\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: lazy singleton API client (anonymous SteamUser) created once and reused — app-level credentials, no per-user data; docs name a deliberate process-wide cache as a suppress case"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/[status=status]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/ai/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/blog/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/colophon/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/contact/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/gachapon/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/gallery/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/gallery/[albumId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/me/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/now/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/press-kit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; not a search target (route carries literal noindex robots meta), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/talks/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/canonical-url::src/routes/uses/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "hsp-check: no <link rel=\"canonical\"> in any svelte:head across the layout chain + import-reachable components, none in app.html/hooks; publicly reachable, rendered route"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/indexability::src/routes/press-kit/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: literal unconditional <meta name=\"robots\" content=\"noindex…\"> in the route's own svelte:head or its layout; route is noindex as claimed"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/[status=status]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/ai/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/blog/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/colophon/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/gachapon/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/gallery/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/gallery/[albumId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/me/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/now/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/press-kit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/talks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/json-ld::src/routes/uses/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/schema-dts/JsonLd anywhere in app source outside node_modules (incl. app.html, hooks transformPageChunk)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "find/grep: no robots.txt in static/ or routes; public site"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/single-h1::/[status=status]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "error-page.svelte has no <h1>; {@html} is inside <p> (status text), SectionTitleWithIcon renders <h2>"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/single-h1::/gachapon::Missing <h#>",
+    "verdict": "fp",
+    "basis": "h1 IS rendered: $lib/components/misc/gachapon/index (index.ts default re-export of ui/dialog.svelte, not followed) renders <PageTitle> -> <h1> unconditionally"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/single-h1::src/lib/components/common/section-title.svelte:12::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "PageTitle <h1> plus three SectionTitle each rendering <h1> unconditionally (+page.svelte:75,93,129,157)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap file, endpoint or generator; public personal site"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/[status=status]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/ai/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/blog/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/colophon/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/contact/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/gachapon/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/gallery/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/gallery/[albumId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/me/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/now/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/press-kit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/talks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/twitter-card::src/routes/uses/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "fp",
+    "basis": "[strict] script-verified + read: route renders src/lib/components/common/seo.svelte with unconditional <meta property=\"twitter:card\" content=\"summary_large_image\"> (og:* pass on this route, so the component was resolved); rule matches name= only, as its docs state; X's card parser falls back to property=, so the card renders (repro-h-seo-social/twitter-property)"
+  },
+  {
+    "key": "doceazedo/doce.sh::seo/heading-level-skip::src/routes/blog/+page.svelte:29::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "page-title.svelte:16 unconditional <h1>{title}, then blog/+page.svelte:29 per-year <h3> in {#if mounted}{#each}; nothing between -> h1 to h3"
+  }
+]

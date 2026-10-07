@@ -1,0 +1,327 @@
+[
+  {
+    "key": "Joshjess/honeylink-website::a11y/deprecated-attr::src/routes/contact/+page.svelte:170::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read contact/+page.svelte:170-179: Calendly <iframe ... frameborder=\"0\">; frameborder is deprecated on <iframe>"
+  },
+  {
+    "key": "Joshjess/honeylink-website::a11y/permitted-contents::src/routes/contact/+page.svelte:191::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E8work/ctx.mjs): literal <div> at src/routes/contact/+page.svelte:191 has literal <button> as its nearest element ancestor in the same template (only {#if}/{#each} blocks between, no component/slot/{@render} boundary); outside button's permitted content"
+  },
+  {
+    "key": "Joshjess/honeylink-website::architecture/component-size::src/routes/contact/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/contact/+page.svelte has 400 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Joshjess/honeylink-website::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/Button.svelte has a single destructured $props() with 7 named props (> 6): href, variant, size, children, onclick, type, class"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/lib/components/homepage/ServicesSection.svelte:50::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/homepage/ServicesSection.svelte:50 '{#each service.bullets as bullet}' has no key; service is an item of the same-file const services literal (ServicesSection.svelte:4); a member list of a static literal is not an exempt shape but is fixed at author time and never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/lib/components/homepage/TestimonialsSection.svelte:83::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/homepage/TestimonialsSection.svelte:83 '{#each others as testimonial}' has no key; others = testimonials.filter(t => !t.featured) at init over a same-file const literal (TestimonialsSection.svelte:15/43); static list fixed at author time"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/lib/components/layout/Footer.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/Footer.svelte:47 '{#each column.links as link}' has no key; column is an item of footerLinks imported from $lib/data/navigation (static nav data); static list, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/lib/components/layout/MobileMenu.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/MobileMenu.svelte:46 each over links/link.children with no key; the only caller Header.svelte:38/63 passes navigationLinks, the static nav table of $lib/data/navigation; static list fixed at author time"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/lib/components/layout/MobileMenu.svelte:62::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/MobileMenu.svelte:62 each over links/link.children with no key; the only caller Header.svelte:38/63 passes navigationLinks, the static nav table of $lib/data/navigation; static list fixed at author time"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/lib/components/layout/Navigation.svelte:20::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/Navigation.svelte:20 each over links/link.children with no key; the only caller Header.svelte:38/63 passes navigationLinks, the static nav table of $lib/data/navigation; static list fixed at author time"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/lib/components/layout/Navigation.svelte:39::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/Navigation.svelte:39 each over links/link.children with no key; the only caller Header.svelte:38/63 passes navigationLinks, the static nav table of $lib/data/navigation; static list fixed at author time"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/lib/components/ui/FaqAccordion.svelte:21::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/FaqAccordion.svelte:21 '{#each items as item}' has no key; every caller passes a static FAQ list (pageData.faq of $lib/data/services/*, contactFaqItems, faqItems); static list fixed at author time"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/ai-agent/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/ai-agent/+page.svelte:118 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/ai-agent/+page.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/ai-agent/+page.svelte:34 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/ai-agent/+page.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/ai-agent/+page.svelte:91 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/api/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/api/+page.svelte:118 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/api/+page.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/api/+page.svelte:34 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/api/+page.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/api/+page.svelte:91 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/automation/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/automation/+page.svelte:118 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/automation/+page.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/automation/+page.svelte:34 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/automation/+page.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/automation/+page.svelte:91 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/blogs/+page.svelte:32::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/blogs/+page.svelte:32 '{#each data.posts as post}' has no key; data.posts = getBlogPosts() from repository markdown in a prerendered load (blogs/+page.server.ts:4); static list fixed at build time, the page never re-fetches or reorders it"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/cases/+page.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/cases/+page.svelte:36 '{#each data.cases as caseStudy}' has no key; data.cases = getCases() from repository content in a prerendered load (cases/+page.server.ts:4); static list fixed at build time"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/chatbot/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/chatbot/+page.svelte:118 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/chatbot/+page.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/chatbot/+page.svelte:34 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/chatbot/+page.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/chatbot/+page.svelte:91 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/data-verrijking/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/data-verrijking/+page.svelte:118 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/data-verrijking/+page.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/data-verrijking/+page.svelte:34 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/data-verrijking/+page.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/data-verrijking/+page.svelte:91 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/maatwerk-software/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/maatwerk-software/+page.svelte:118 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/maatwerk-software/+page.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/maatwerk-software/+page.svelte:34 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/maatwerk-software/+page.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/maatwerk-software/+page.svelte:91 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/offerte-automatisering/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/offerte-automatisering/+page.svelte:118 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/offerte-automatisering/+page.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/offerte-automatisering/+page.svelte:34 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/offerte-automatisering/+page.svelte:91::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/offerte-automatisering/+page.svelte:91 each over pageData.sections / section.items with no key; pageData is a static object imported from $lib/data/services/<page> on a prerendered page; static list fixed at author time, never reorders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::correctness/each-key::src/routes/terms-conditions/+page.svelte:45::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/terms-conditions/+page.svelte:45 '{#each data.previousVersions as version}' has no key; previousVersions = termsConditionsArchiveVersions from $lib/data/legal in a prerendered load; static list fixed at author time"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/ai-agent/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/api/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/automation/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/blogs/[slug]/+page.svelte:63::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the plain <img> is the {:else} fallback of {#if data.heroPicture}, and every post/case has a hero in src/lib/assets/blogs/*/hero.* (script-verified), so the <enhanced:img> arm (srcset, dimensions, fetchpriority=high) always renders instead - the flagged element never renders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/cases/[slug]/+page.svelte:51::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the plain <img> is the {:else} fallback of {#if data.heroPicture}, and every post/case has a hero in src/lib/assets/cases/*/hero.* (script-verified), so the <enhanced:img> arm (srcset, dimensions, fetchpriority=high) always renders instead - the flagged element never renders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/chatbot/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/data-verrijking/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/maatwerk-software/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-dimensions::src/routes/offerte-automatisering/+page.svelte:52::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-loading-hint::src/routes/blogs/[slug]/+page.svelte:63::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the plain <img> is the {:else} fallback of {#if data.heroPicture}, and every post/case has a hero in src/lib/assets/blogs/*/hero.* (script-verified), so the <enhanced:img> arm (srcset, dimensions, fetchpriority=high) always renders instead - the flagged element never renders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/image-loading-hint::src/routes/cases/[slug]/+page.svelte:51::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: the plain <img> is the {:else} fallback of {#if data.heroPicture}, and every post/case has a hero in src/lib/assets/cases/*/hero.* (script-verified), so the <enhanced:img> arm (srcset, dimensions, fetchpriority=high) always renders instead - the flagged element never renders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/lcp-image::src/routes/ai-agent/+page.svelte:52::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data; it would also sit below the PageHero, where lazy is right"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/lcp-image::src/routes/api/+page.svelte:52::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data; it would also sit below the PageHero, where lazy is right"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/lcp-image::src/routes/automation/+page.svelte:52::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data; it would also sit below the PageHero, where lazy is right"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/lcp-image::src/routes/chatbot/+page.svelte:52::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data; it would also sit below the PageHero, where lazy is right"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/lcp-image::src/routes/data-verrijking/+page.svelte:52::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data; it would also sit below the PageHero, where lazy is right"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/lcp-image::src/routes/maatwerk-software/+page.svelte:52::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data; it would also sit below the PageHero, where lazy is right"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/lcp-image::src/routes/offerte-automatisering/+page.svelte:52::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data; it would also sit below the PageHero, where lazy is right"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/ai-agent/+page.svelte:52::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/api/+page.svelte:52::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/automation/+page.svelte:52::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/blogs/[slug]/+page.svelte:63::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the plain <img> is the {:else} fallback of {#if data.heroPicture}, and every post/case has a hero in src/lib/assets/blogs/*/hero.* (script-verified), so the <enhanced:img> arm (srcset, dimensions, fetchpriority=high) always renders instead - the flagged element never renders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/cases/[slug]/+page.svelte:51::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the plain <img> is the {:else} fallback of {#if data.heroPicture}, and every post/case has a hero in src/lib/assets/cases/*/hero.* (script-verified), so the <enhanced:img> arm (srcset, dimensions, fetchpriority=high) always renders instead - the flagged element never renders"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/chatbot/+page.svelte:52::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/data-verrijking/+page.svelte:52::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/maatwerk-software/+page.svelte:52::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/responsive-image::src/routes/offerte-automatisering/+page.svelte:52::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: the <img> sits in {#if section.image} of the value-proposition arm, and none of the 7 service data files (src/lib/data/services/*.ts) sets an image on any section (script-verified) - the element never renders with the shipped data"
+  },
+  {
+    "key": "Joshjess/honeylink-website::performance/sequential-awaits::src/routes/blogs/[slug]/+page.ts:24::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read blogs/[slug]/+page.ts:23-24: `await import(.md)` then `await import(.md?raw)` of the same slug — two independent per-slug chunks the universal load fetches sequentially in the browser on client navigation; Promise.all would work"
+  },
+  {
+    "key": "Joshjess/honeylink-website::seo/heading-level-skip::src/routes/contact/+page.svelte:235::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: contact/+page.svelte:106 <h1>, then in the {#if $message?.type === \"success\"} arm the <h3> (:235); the only <h2> (:247) is in the sibling {:else} form arm and the calendar block between (:169-216) has no heading -> h1 to h3 after a successful submit"
+  }
+]

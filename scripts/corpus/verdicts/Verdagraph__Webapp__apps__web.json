@@ -1,0 +1,1372 @@
+[
+  {
+    "key": "Verdagraph/Webapp:apps/web::architecture/component-size::src/routes/gardens/create/GardenCreateForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/gardens/create/GardenCreateForm.svelte has 270 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/lib/components/primaryNav/BottombarGardenDrawer.svelte:30::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/primaryNav/BottombarGardenDrawer.svelte:30 '{#each gardenTabs ?? [] as spec}' has no key; gardenTabs is getGardenSpecifcTabs(garden) (tabs.svelte.ts:85), a fixed author-written tab set per garden that never reorders/inserts; static list, a key cannot help"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/lib/components/primaryNav/BottombarGardenDrawer.svelte:44::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/primaryNav/BottombarGardenDrawer.svelte:44 '{#each spec.submenuItems ?? [] as item}' has no key; iterates the fixed submenu items of the garden-specific tabs (tabs.svelte.ts:91-140 author-written literals); static list"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/lib/components/primaryNav/Sidebar.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/primaryNav/Sidebar.svelte:47 '{#each gardenTabs as tab}' has no key; gardenTabs = getGardenSpecifcTabs(garden) (tabs.svelte.ts:85), a fixed author-written tab set; static list"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/lib/components/primaryNav/Sidebar.svelte:55::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/primaryNav/Sidebar.svelte:55 '{#each bottomTabs as tab}' has no key; the only caller passes the literal [traitsTab, resourcesTab] (PrimaryNav.svelte:36); static list"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/lib/components/primaryNav/Tab.svelte:40::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/primaryNav/Tab.svelte:40 '{#each spec.submenuItems ?? [] as item}' has no key; Tab renders the gardens tab too, whose submenuItems are the user's gardens fetched from the API (tabs.svelte.ts:45-57, gardens.slice().map()), runtime data that changes with membership"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/routes/gardens/GardenInviteScrollable.svelte:21::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/gardens/GardenInviteScrollable.svelte:21 '{#each invites as invite}' has no key; invites = pendingAcceptanceMemberships.results (gardens/+page.svelte:83), a query result that shrinks as invites are accepted; runtime data"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/routes/gardens/GardenThumbnailScrollable.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/gardens/GardenThumbnailScrollable.svelte:16 '{#each gardens as garden}' has no key; gardens are query results passed from gardens/+page.svelte:104; runtime data"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte:25::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte:25 '{#each workspaces as workspace}' has no key; workspaces is a `let` one-item placeholder literal ('TODO: Replace with query', line 5-16) never written; static list at this sha (not exempt only because it is `let`)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/routes/gardens/create/GardenCreateForm.svelte:157::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/gardens/create/GardenCreateForm.svelte:157 '{#each visibilityOptions as visibilityOption}' has no key; const 3-item literal (line 29) also passed as items={visibilityOptions} (line 144), which the docs say keeps it reported; static list, never reorders"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/routes/gardens/create/GardenCreateFormUserTagsInput.svelte:67::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/gardens/create/GardenCreateFormUserTagsInput.svelte:67 '{#each $tags as t}' has no key; $tags is the melt-ui tags-input store the user adds to/removes from (lines 22-44); runtime data"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::correctness/each-key::src/routes/register/verify/[confirmationToken]/+page.svelte:47::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/register/verify/[confirmationToken]/+page.svelte:47 '{#each formHandler.fieldErrors?.token ?? [] as error}' has no key; runtime validation errors from the command handler; ledger convention for validation lists is tp"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/(other)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/(other)/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/(other)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 333 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 3 layout(s) + 331 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/[gardenId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 332 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/gardens/discover/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/login/request-password-reset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/register/request-email-verification/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/register/verify/[confirmationToken]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/traits/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/traits/cultivars/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/traits/environments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/canonical-url::src/routes/traits/workspaces/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1); no auth gate or noindex (root +layout.svelte:22-31 auto-logs every visitor in with hard-coded dev credentials)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/(other)/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/(other)/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/(other)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/[gardenId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/gardens/discover/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/login/request-password-reset/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/register/request-email-verification/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/register/verify/[confirmationToken]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/traits/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/traits/cultivars/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/traits/environments/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/description-presence::src/routes/traits/workspaces/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in apps/web/src, packages/ui or app.html (literal claim holds); pre-release ssr=false garden-planner SPA whose root +layout.svelte renders children only after a hard-coded test-user login (+layout.svelte:21-33), README has no public deployment; not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/duplicate-title::src/routes/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: /, /gardens/discover, /traits/environments, /traits/workspaces each carry the literal placeholder <title>Verdagraph</title> (+page.svelte:6), duplicate as claimed; but the whole app is an ssr=false SPA that renders nothing until the root layout's hard-coded dev login (+layout.svelte:21-33 {#if initialized}), so no search competition"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/duplicate-title::src/routes/gardens/discover/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: /, /gardens/discover, /traits/environments, /traits/workspaces each carry the literal placeholder <title>Verdagraph</title> (+page.svelte:6), duplicate as claimed; but the whole app is an ssr=false SPA that renders nothing until the root layout's hard-coded dev login (+layout.svelte:21-33 {#if initialized}), so no search competition"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/duplicate-title::src/routes/traits/environments/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: /, /gardens/discover, /traits/environments, /traits/workspaces each carry the literal placeholder <title>Verdagraph</title> (+page.svelte:6), duplicate as claimed; but the whole app is an ssr=false SPA that renders nothing until the root layout's hard-coded dev login (+layout.svelte:21-33 {#if initialized}), so no search competition"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/duplicate-title::src/routes/traits/workspaces/+page.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: /, /gardens/discover, /traits/environments, /traits/workspaces each carry the literal placeholder <title>Verdagraph</title> (+page.svelte:6), duplicate as claimed; but the whole app is an ssr=false SPA that renders nothing until the root layout's hard-coded dev login (+layout.svelte:21-33 {#if initialized}), so no search competition"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/(other)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/(other)/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/(other)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/[gardenId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/gardens/discover/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/login/request-password-reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/register/request-email-verification/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/register/verify/[confirmationToken]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/traits/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/traits/cultivars/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/traits/environments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/json-ld::src/routes/traits/workspaces/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in apps/web/src, packages/ui or app.html; route has no JSON-LD"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/(other)/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/(other)/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/(other)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 333 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 3 layout(s) + 331 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/[gardenId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/create/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 332 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/gardens/discover/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/login/request-password-reset/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/register/request-email-verification/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/register/verify/[confirmationToken]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/traits/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/traits/cultivars/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/traits/environments/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-description::src/routes/traits/workspaces/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/(other)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/(other)/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/(other)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 333 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 3 layout(s) + 331 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/[gardenId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 332 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/gardens/discover/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/login/request-password-reset/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/register/request-email-verification/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/register/verify/[confirmationToken]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/traits/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/traits/cultivars/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/traits/environments/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-image::src/routes/traits/workspaces/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/(other)/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/(other)/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/(other)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 333 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 3 layout(s) + 331 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/[gardenId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/create/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 332 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/gardens/discover/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/login/request-password-reset/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/register/request-email-verification/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/register/verify/[confirmationToken]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/traits/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/traits/cultivars/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/traits/environments/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-title::src/routes/traits/workspaces/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/(other)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/(other)/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/(other)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 333 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 3 layout(s) + 331 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/[gardenId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 332 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/gardens/discover/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/login/request-password-reset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/register/request-email-verification/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/register/verify/[confirmationToken]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/traits/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/traits/cultivars/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/traits/environments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/og-url::src/routes/traits/workspaces/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: static/ has only favicon.png, no robots.txt route (literal claim holds); pre-release signed-in SPA with no public deployment (README \"Try it yourself\" link commented out), not a search target"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/gardens/[gardenId]/verdagraph::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/gardens/[gardenId]/workspaces/[workspaceSlug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/gardens/[gardenId]/workspaces/create::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/gardens/[gardenId]/workspaces::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/gardens/create::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/gardens::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/login/request-password-reset::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/login/reset-password/[userId]/[confirmationToken]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/register/request-email-verification::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/register/verify/[confirmationToken]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/register::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/single-h1::/traits/cultivars::Missing <h#>",
+    "verdict": "tp",
+    "basis": "whole-src grep of apps/web and workspace @vdg-webapp/ui: the only <h1>s are traits/+page.svelte:10 and ui UnderConstructionPage.svelte (not used by this route); the page's titles are ui Card.Title = <div role=\"heading\" aria-level={3}> (card-title.svelte, default level 3, no route passes level) or bits-ui Dialog.Title; no <h1> rendered"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has only favicon.png, no sitemap.xml route or generator (literal claim holds); pre-release signed-in SPA with no public deployment, nothing to list"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/ssr-disabled::src/routes/+layout.server.js:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.server.js:1; deliberate SPA for a local-first (triplit) garden-planner app that renders only after login (+layout.svelte:21-33), no public content; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/(other)/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/(other)/notifications/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/(other)/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/[gardenId]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/create/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/gardens/discover/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/register/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/register/request-email-verification/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/register/verify/[confirmationToken]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/traits/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/traits/cultivars/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/traits/environments/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-length::src/routes/traits/workspaces/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> - Verdagraph\" <title> in the page's own unconditional svelte:head, the route's only title (layouts/app.html/@vdg-webapp/ui set none); length as reported"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/title-presence::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: workspaces/[workspaceSlug]/+page.svelte renders only <WorkspaceEditor> from workspace @vdg-webapp/ui (no svelte:head/<title>/document.title anywhere in packages/ui), (config)/workspaces, [gardenId] and root layouts have no head title (ModeWatcher emits no title), app.html none; siblings set literal titles, this one stays untitled even client-side"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/(other)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/(other)/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/(other)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 333 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(config)/cultivars/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(config)/workspaces/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(config)/workspaces/[workspaceSlug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(config)/workspaces/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 3 layout(s) + 331 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(garden)/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(garden)/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(garden)/metrics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(planner)/verdagraph/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/(planner)/workbook/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/[gardenId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 2 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 332 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/gardens/discover/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/login/request-password-reset/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/login/reset-password/[userId]/[confirmationToken]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/register/request-email-verification/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 329 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/register/verify/[confirmationToken]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 328 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/traits/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/traits/cultivars/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/traits/environments/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  },
+  {
+    "key": "Verdagraph/Webapp:apps/web::seo/twitter-card::src/routes/traits/workspaces/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 327 transitively imported local/workspace files incl. app.html/hooks; no og/twitter/canonical tag in apps/web or the @vdg-webapp/* workspace packages (only apps/docs has og tags); ssr=false app-wide (routes/+layout.server.js:1)"
+  }
+]

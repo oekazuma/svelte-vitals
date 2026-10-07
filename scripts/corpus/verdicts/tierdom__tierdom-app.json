@@ -1,0 +1,947 @@
+[
+  {
+    "key": "tierdom/tierdom-app::a11y/id-duplication::src/lib/components/admin/ConfirmDialog.svelte:75::Duplicate id \"confirm-dialog-title\"",
+    "verdict": "tp",
+    "basis": "read: ConfirmDialog.svelte renders a native <dialog> unconditionally (closed dialogs stay in the DOM) with h2#confirm-dialog-title (:75); categories/[id]/+page.svelte (:227-265), trash/+page.svelte (:197/:216) and ItemForm.svelte (:149/:162) each render several, so the id repeats in the DOM and aria-labelledby resolves to the first (native-dialog precedent)"
+  },
+  {
+    "key": "tierdom/tierdom-app::a11y/permitted-contents::src/routes/setup/+page@.svelte:66::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E-work/pc.mjs): literal <div> at src/routes/setup/+page@.svelte:66 has literal parent <label> (line 53) with no component/snippet/svelte:element/{@render} boundary between (only control-flow blocks), not inside <svg>; outside <label>'s content model"
+  },
+  {
+    "key": "tierdom/tierdom-app::a11y/top-level-landmark::src/routes/admin/cms/general/[key]/+page.svelte:44::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read cms/general/[key]/+page.svelte:44: <aside aria-label=\"Using built-in default\"> inside <section> is a complementary landmark (named), and root +layout.svelte:32-38 renders children inside <main> (admin/+layout.svelte adds none); nested in main as reported"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/component-size::src/lib/components/admin/PropEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/PropEditor.svelte has 388 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/component-size::src/lib/components/admin/PropKeyEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/PropKeyEditor.svelte has 322 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/component-size::src/lib/components/admin/import/ReviewForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/admin/import/ReviewForm.svelte has 259 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/component-size::src/routes/admin/categories/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/categories/[id]/+page.svelte has 278 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/component-size::src/routes/admin/trash/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/trash/+page.svelte has 238 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/prop-count::src/lib/components/ItemDetail.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ItemDetail.svelte has a single destructured $props() with 7 named props (> 6): name, score, descriptionHtml, tier, props, propKeyConfigs, image"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/prop-count::src/lib/components/admin/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/ConfirmDialog.svelte has a single destructured $props() with 11 named props (> 6): open, title, message, confirmLabel, cancelLabel, variant, requireTypedConfirmation, typedConfirmationLabel, typedConfirmationHint, onconfirm, oncancel"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/prop-count::src/lib/components/admin/FormField.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/FormField.svelte has a single destructured $props() with 11 named props (> 6): label, name, type, value, required, help, multiline, rows, min, max, step"
+  },
+  {
+    "key": "tierdom/tierdom-app::architecture/prop-count::src/lib/components/admin/import/UploadForm.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/admin/import/UploadForm.svelte has a single destructured $props() with 7 named props (> 6): label, description, accept, maxMb, hasOptions, setPhase, onFileChosen"
+  },
+  {
+    "key": "tierdom/tierdom-app::correctness/each-index-key::src/lib/components/admin/import/ResultPanel.svelte:71::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/import/ResultPanel.svelte:71 '{#each result.errors.slice(0, 20) as err, i (i)}' is keyed by its index binding and is not an exempt shape; runtime data: error records of an import result"
+  },
+  {
+    "key": "tierdom/tierdom-app::correctness/each-index-key::src/lib/components/admin/import/ResultPanel.svelte:93::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/admin/import/ResultPanel.svelte:93 '{#each group.items as path, i (i)}' is keyed by its index binding and is not an exempt shape; runtime data: item paths of an import result group"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/+layout.server.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.server.ts:14 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/+page.server.ts:26::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+page.server.ts:26 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/admin/+page.server.ts:10::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/+page.server.ts:10 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/admin/+page.server.ts:11::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/+page.server.ts:11 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/admin/+page.server.ts:13::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/+page.server.ts:13 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/admin/+page.server.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/+page.server.ts:25 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/admin/+page.server.ts:39::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/+page.server.ts:39 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/admin/+page.server.ts:43::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/+page.server.ts:43 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/admin/categories/[id]/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/categories/[id]/+page.server.ts:15 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::performance/sequential-awaits::src/routes/admin/items/[id]/+page.server.ts:63::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/admin/items/[id]/+page.server.ts:63 + src/lib/server/db/index.ts:1-17: drizzle over better-sqlite3 (synchronous driver; site-content cache over the same DB) - every await resolves synchronously, nothing asynchronous to overlap (ledger sync better-sqlite3 convention)"
+  },
+  {
+    "key": "tierdom/tierdom-app::security/raw-html::src/lib/components/Prose.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/Prose.svelte:28 + every caller (category/[slug], +page, about, +layout footer): html is renderMarkdown output from lib/server/markdown.ts:20-24 = isomorphic-dompurify sanitize(marked.parse(...)) on the server - sanitized, reported per docs"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); publicly reachable, rendered route, no noindex (robots.txt allows all)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /about (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); publicly reachable, rendered route, no noindex (robots.txt allows all)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/categories/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/categories (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/categories/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/categories/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 30 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/categories/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/categories/create (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/cms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/cms (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/cms/general/[key]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/cms/general/[key] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/cms/pages/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/cms/pages/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/items/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/items (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/items/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/items/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/login/+page@.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /admin/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); publicly reachable, rendered route, no noindex (robots.txt allows all)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/tools/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/tools (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/tools/export/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/tools/export (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/tools/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/tools/import (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/tools/import/[importerId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/tools/import/[importerId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 21 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/admin/trash/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin/trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (auth-gated: hooks.server.ts:44-48 redirects guests on /admin/* (except /admin/login) to /admin/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/category/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /category/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); publicly reachable, rendered route, no noindex (robots.txt allows all)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/canonical-url::src/routes/setup/+page@.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /setup (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no <link rel=\"canonical\"> in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally) but not a search target (first-run setup wizard: setup/+page.server.ts:11-14 redirects to / once setup is complete (hooks.server.ts:17-27 send every path here only before that), so it is never a crawlable page of a running site), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on / (page svelte:head has only a <title>, root +layout.svelte:9-12 title/icon only, app.html none); public tier-list page of a self-hosted personal review site, static/robots.txt allows all"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/about/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /about (page svelte:head has only a <title>, root +layout.svelte:9-12 title/icon only, app.html none); public tier-list page of a self-hosted personal review site, static/robots.txt allows all"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/categories/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/categories (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/categories/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/categories/[id] (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/categories/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/categories/create (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/cms/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/cms (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/cms/general/[key]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/cms/general/[key] (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/cms/pages/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/cms/pages/[slug] (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/items/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/items (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/items/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/items/[id] (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/login/+page@.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/login (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login, this is that login form)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/tools/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/tools (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/tools/export/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/tools/export (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/tools/import/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/tools/import (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/tools/import/[importerId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/tools/import/[importerId] (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/admin/trash/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /admin/trash (literal claim holds); not a search target (admin area: hooks.server.ts:47-49 redirects every session-less /admin request to /admin/login)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/category/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /category/[slug] (page svelte:head has only a <title>, root +layout.svelte:9-12 title/icon only, app.html none); public tier-list page of a self-hosted personal review site, static/robots.txt allows all"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/description-presence::src/routes/setup/+page@.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no <meta name=description> on /setup (literal claim holds); not a search target (first-run setup wizard: setup/+page.server.ts redirects to / once setup is complete)"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; / has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /about has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/categories/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/categories has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/categories/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/categories/[id] has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/categories/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/categories/create has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/cms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/cms has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/cms/general/[key]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/cms/general/[key] has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/cms/pages/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/cms/pages/[slug] has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/items/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/items has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/items/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/items/[id] has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/login/+page@.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/login has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/tools/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/tools has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/tools/export/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/tools/export has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/tools/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/tools/import has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/tools/import/[importerId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/tools/import/[importerId] has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/admin/trash/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /admin/trash has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/category/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /category/[slug] has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/json-ld::src/routes/setup/+page@.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src incl. app.html/hooks and every svelte:head; no meta-tag or JSON-LD library in deps): no ld+json anywhere in src or app.html; /setup has no JSON-LD"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /about (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/categories/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/categories (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/categories/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/categories/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 30 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/categories/create/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/categories/create (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/cms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/cms (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/cms/general/[key]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/cms/general/[key] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/cms/pages/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/cms/pages/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/items/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/items (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/items/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/items/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/login/+page@.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/tools/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/tools (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/tools/export/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/tools/export (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/tools/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/tools/import (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/tools/import/[importerId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/tools/import/[importerId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 21 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/admin/trash/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/category/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /category/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-description::src/routes/setup/+page@.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /setup (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /about (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/categories/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/categories (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/categories/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/categories/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 30 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/categories/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/categories/create (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/cms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/cms (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/cms/general/[key]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/cms/general/[key] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/cms/pages/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/cms/pages/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/items/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/items (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/items/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/items/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/login/+page@.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/tools/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/tools (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/tools/export/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/tools/export (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/tools/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/tools/import (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/tools/import/[importerId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/tools/import/[importerId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 21 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/admin/trash/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/category/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /category/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-image::src/routes/setup/+page@.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /setup (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /about (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/categories/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/categories (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/categories/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/categories/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 30 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/categories/create/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/categories/create (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/cms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/cms (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/cms/general/[key]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/cms/general/[key] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/cms/pages/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/cms/pages/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/items/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/items (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/items/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/items/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/login/+page@.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/tools/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/tools (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/tools/export/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/tools/export (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/tools/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/tools/import (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/tools/import/[importerId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/tools/import/[importerId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 21 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/admin/trash/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/category/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /category/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-title::src/routes/setup/+page@.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /setup (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /about (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/categories/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/categories (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/categories/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/categories/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 30 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/categories/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/categories/create (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/cms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/cms (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/cms/general/[key]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/cms/general/[key] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/cms/pages/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/cms/pages/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/items/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/items (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/items/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/items/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/login/+page@.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/tools/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/tools (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/tools/export/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/tools/export (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/tools/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/tools/import (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/tools/import/[importerId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/tools/import/[importerId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 21 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/admin/trash/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin/trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/category/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /category/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/og-url::src/routes/setup/+page@.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /setup (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:url in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/single-h1::/about::Missing <h#>",
+    "verdict": "unclear",
+    "basis": "about/+page.svelte renders only <Prose html={data.page.contentHtml}> ({@html} of admin-editable markdown); whether it has an <h1> depends on the instance's About content: the Empty and Minimal setup presets seed '# About' (setup-seed.ts:27-29,43-46) but the Full Demo preset's About starts with bold text and '## ' (seed-data.ts:329-335), and no preset is the default — decided by which preset/content a deployment has"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/single-h1::src/routes/+page.svelte:31::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<h1> IS rendered: +page.svelte:22-25 renders the 'home' page markdown with <Prose html={data.page.contentHtml}> = {@html} (Prose.svelte:28), built by marked with the stock heading renderer (lib/server/markdown.ts); every setup preset seeds a home page starting with \"# \" ('# Welcome' setup-seed.ts:21-24, '# Welcome to **Tierdom**' :37-41, demo '# My personal **Tierdom**' seed-data.ts:322-326), and hooks.server.ts redirects to /setup until one is seeded"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/robots.txt allows all but there is no sitemap.xml file or route; the public /, /about and /category/[slug] tier-list pages are the content of the site"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 14): src/routes/+page.svelte:20 \"Home — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/admin/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 15): src/routes/admin/+page.svelte:55 \"Admin — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/admin/categories/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 28): src/routes/admin/categories/+page.svelte:33 \"Categories — Admin — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/admin/cms/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 21): src/routes/admin/cms/+page.svelte:9 \"CMS — Admin — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/admin/items/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 29): src/routes/admin/items/+page.svelte:41 \"Items (all) — Admin — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/admin/login/+page@.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 15): src/routes/admin/login/+page@.svelte:9 \"Login — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/admin/tools/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 23): src/routes/admin/tools/+page.svelte:7 \"Tools — Admin — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/admin/trash/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 23): src/routes/admin/trash/+page.svelte:63 \"Trash — Admin — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/title-length::src/routes/setup/+page@.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 15): src/routes/setup/+page@.svelte:35 \"Setup — tierdom\"; it renders after the root layout <title>tierdom</title> (+layout.svelte:10) and wins; too short as claimed"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /about (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 9 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 13 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/categories/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/categories (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/categories/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/categories/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 30 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/categories/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/categories/create (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/cms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/cms (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/cms/general/[key]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/cms/general/[key] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 19 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/cms/pages/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/cms/pages/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/items/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/items (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 18 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/items/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/items/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 25 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/login/+page@.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/tools/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/tools (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/tools/export/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/tools/export (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/tools/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/tools/import (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 11 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/tools/import/[importerId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/tools/import/[importerId] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 21 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/admin/trash/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin/trash (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/category/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /category/[slug] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 17 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "tierdom/tierdom-app::seo/twitter-card::src/routes/setup/+page@.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /setup (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no twitter:card in page, ancestor layouts, 10 transitively imported local files or app.html; no og/twitter/canonical tag anywhere in src or app.html (root +layout.svelte:9-12 head is <title>+icon; page heads are <title> only); npm Svelte deps lucide-svelte only; page load redirects/errors only conditionally); route renders; og/twitter rules carry no search-target exemption"
+  }
+]

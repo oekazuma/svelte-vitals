@@ -1,0 +1,1032 @@
+[
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/disallowed-aria-props::src/routes/+layout.svelte:93::`aria-label` is prohibited on <label> — its role does not take a name",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.svelte:93: daisyUI drawer-overlay <label for=... aria-label='close ...' class=drawer-overlay> with no role/spread/use:; docs name exactly this <label for aria-label> case as firing while the spec prohibits a name only when exposed as generic (ledger precedent: drawer-toggle labels are design)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/interactive-nesting::src/routes/+page.svelte:18::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read src/routes/+page.svelte:18: literal <button class=btn> inside <a href=\"/login\"> in the same template; a button in a link is invalid HTML (interactive content in <a>) and browsers disagree on which activates"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/interactive-nesting::src/routes/login/[instanceID]/+page.svelte:149::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read src/routes/login/[instanceID]/+page.svelte:149: literal <button class=btn> inside <a href=\"/login\"> in the same template; a button in a link is invalid HTML (interactive content in <a>) and browsers disagree on which activates"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/interactive-nesting::src/routes/settings/+page.svelte:84::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "read src/routes/settings/+page.svelte:84: literal <button class=btn> inside <a href=\"/login\"> in the same template; a button in a link is invalid HTML (interactive content in <a>) and browsers disagree on which activates"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/CallControls.svelte:33::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/CallControls.svelte:33 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/CallControls.svelte:49::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/CallControls.svelte:49 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/CallControls.svelte:68::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/CallControls.svelte:68 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/CallControls.svelte:82::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/CallControls.svelte:82 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/ChannelList.svelte:115::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/ChannelList.svelte:115 is a literal <div> directly inside a <ul> (through {#if}/{#each} only), which admits only <li>; the list exposes non-item children"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/ChannelList.svelte:121::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/ChannelList.svelte:121 is a literal <div> directly inside a <ul> (through {#if}/{#each} only), which admits only <li>; the list exposes non-item children"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/DMList.svelte:117::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/DMList.svelte:117 is a literal <div> directly inside a <ul> (through {#if}/{#each} only), which admits only <li>; the list exposes non-item children"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/DMList.svelte:139::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/DMList.svelte:139 is a literal <div> directly inside a <ul> (through {#if}/{#each} only), which admits only <li>; the list exposes non-item children"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/lib/components/DrawerContents/ServerSettingsLinks.svelte:56::`<div>` is not permitted content here — `<ul>` admits only `<li>` and script-supporting elements",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/DrawerContents/ServerSettingsLinks.svelte:56 is a literal <div> directly inside a <ul> (through {#if}/{#each} only), which admits only <li>; the list exposes non-item children"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:123::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:123 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:138::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:138 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:168::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:168 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:78::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:78 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:96::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/Me.svelte:96 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/ChannelAccess.svelte:221::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/ChannelAccess.svelte:221 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Danger.svelte:67::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Danger.svelte:67 is a literal <label> nested directly in another <label> in the same template; label content excludes label descendants (nested labels make the association ambiguous)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Danger.svelte:68::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Danger.svelte:68 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:106::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:106 is a literal <label> nested directly in another <label> in the same template; label content excludes label descendants (nested labels make the association ambiguous)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:107::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:107 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:125::`<fieldset>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:125 is a literal <fieldset> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:144::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:144 is a literal <label> nested directly in another <label> in the same template; label content excludes label descendants (nested labels make the association ambiguous)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:145::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:145 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:93::`<fieldset>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Meta.svelte:93 is a literal <fieldset> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/RolePermissions.svelte:174::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/RolePermissions.svelte:174 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/instance/[instanceID]/server/[serverID]/settings/Users.svelte:258::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/instance/[instanceID]/server/[serverID]/settings/Users.svelte:258 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:102::`<fieldset>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:102 is a literal <fieldset> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:133::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:133 is a literal <label> nested directly in another <label> in the same template; label content excludes label descendants (nested labels make the association ambiguous)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:139::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:139 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:173::`<fieldset>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:173 is a literal <fieldset> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:197::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:197 is a literal <label> nested directly in another <label> in the same template; label content excludes label descendants (nested labels make the association ambiguous)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:203::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:203 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:232::`<fieldset>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:232 is a literal <fieldset> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:250::`<label>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:250 is a literal <label> nested directly in another <label> in the same template; label content excludes label descendants (nested labels make the association ambiguous)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:251::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:251 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:51::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:51 is a literal <div> whose nearest element ancestor is a <span> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::a11y/permitted-contents::src/routes/settings/+page.svelte:63::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/settings/+page.svelte:63 is a literal <div> whose nearest element ancestor is a <span> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/CallView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/CallView.svelte has 266 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte has 262 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/instance/[instanceID]/server/[serverID]/settings/ChannelAccess.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instance/[instanceID]/server/[serverID]/settings/ChannelAccess.svelte has 247 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/instance/[instanceID]/server/[serverID]/settings/Channels.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instance/[instanceID]/server/[serverID]/settings/Channels.svelte has 287 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/instance/[instanceID]/server/[serverID]/settings/Invites.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instance/[instanceID]/server/[serverID]/settings/Invites.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/instance/[instanceID]/server/[serverID]/settings/RolePermissions.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instance/[instanceID]/server/[serverID]/settings/RolePermissions.svelte has 233 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/instance/[instanceID]/server/[serverID]/settings/Roles.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instance/[instanceID]/server/[serverID]/settings/Roles.svelte has 402 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/instance/[instanceID]/server/[serverID]/settings/Users.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/instance/[instanceID]/server/[serverID]/settings/Users.svelte has 276 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/login/[instanceID]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/[instanceID]/+page.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 287 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/prop-count::src/lib/components/PBAvatar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/PBAvatar.svelte has a single destructured $props() with 11 named props (> 6): instanceID, userID, serverID, url, name, size, color, className, imgClassName, fallbackClassName, server"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::architecture/prop-count::src/routes/instance/[instanceID]/server/[serverID]/settings/RoleEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/instance/[instanceID]/server/[serverID]/settings/RoleEditor.svelte has a single destructured $props() with 7 named props (> 6): role, rename, color, ordinal, del, atTop, atBottom"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::correctness/unmutated-state::src/routes/new/+page.svelte:24::$state \"loading\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w of the name in the file): src/routes/new/+page.svelte:24 the $state is only declared and read (or never mentioned again); no reassignment, mutation, bind:, call argument, getter or directive, so it is never written as claimed"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::security/raw-html::src/lib/md/MD.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/md/MD.svelte:11 + lib/md/messageToHTML.ts: chat message text from other users (components/Message.svelte:67 record.content) goes through remark-rehype {allowDangerousHtml:false} + rehype-stringify with no rehype-sanitize; raw HTML is dropped but link URLs are only normalizeUri'd (mdast-util-to-hast@13.2.1 lib/handlers/link.js), so a javascript: markdown link renders clickable - same shape as the ledger's roomy javascript:-link tp"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/[catchall]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (client redirect stub: [catchall]/+page.svelte:7-9 onMount goto(/instance/…/invite/…), no markup), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /instance: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/dm/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/dm/[dmID]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 64 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/invite/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (client redirect stub: instance/[instanceID]/invite/+page.svelte:6-8 onMount goto(\"/new\"), no markup), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/invite/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/server/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/server/[serverID]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/server/[serverID]/channel/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 81 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 4 ancestor layout(s), 74 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)) but not a search target (session-gated: instance/[instanceID]/+layout.svelte:12-14 renders children only when sunburn[instanceID].ready, set by initPB after the user logged into that instance; a guest gets an empty page), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/login/[instanceID]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/login/[instanceID]/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login/[instanceID]/success: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /new: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /settings: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 59 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/[catchall]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /[catchall]; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/dm/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/dm; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/dm/[dmID]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/dm/[dmID]; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/invite/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/invite; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/invite/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/invite/[slug]; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/server/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/server; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/server/[serverID]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/server/[serverID]; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/server/[serverID]/channel/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/server/[serverID]/channel; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/server/[serverID]/channel/[channelID]; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /instance/[instanceID]/server/[serverID]/settings; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /login; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/login/[instanceID]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /login/[instanceID]; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/login/[instanceID]/success/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /login/[instanceID]/success; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /new; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> in pwa/src or app.html (root +layout.svelte:71-74 head is title+icon only; literal claim holds) on /settings; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:72 literal <title>Sunburn</title> is the only title of all 18 routes, duplicate as claimed; Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/heading-level-skip::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte:253::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: the previous heading that renders with the flagged <h3> 'Unsaved Changes' (:253) is the page <h1> 'Server Settings' (:196); the section components between (Meta, Invites, Channels, Roles, Users) render no headings and Danger.svelte's <h1>s are in a closed <dialog> — h1 to h3"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; / has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/[catchall]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /[catchall] has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID] has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/dm/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/dm has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/dm/[dmID]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/dm/[dmID] has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/invite/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/invite has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/invite/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/invite/[slug] has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/server/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/server has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/server/[serverID]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/server/[serverID] has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/server/[serverID]/channel/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/server/[serverID]/channel has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/server/[serverID]/channel/[channelID] has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /instance/[instanceID]/server/[serverID]/settings has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /login has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/login/[instanceID]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /login/[instanceID] has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/login/[instanceID]/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /login/[instanceID]/success has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /new has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in pwa; /settings has none"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/[catchall]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[catchall]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/dm/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/dm: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/dm/[dmID]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/dm/[dmID]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 64 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/invite/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/invite: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/invite/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/invite/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/server/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/server: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/server/[serverID]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/server/[serverID]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/server/[serverID]/channel/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/server/[serverID]/channel: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/server/[serverID]/channel/[channelID]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 81 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /instance/[instanceID]/server/[serverID]/settings: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 4 ancestor layout(s), 74 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/login/[instanceID]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/login/[instanceID]/success/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login/[instanceID]/success: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /new: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings: script-verified (a1b_reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 59 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/[catchall]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[catchall]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/dm/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/dm: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/dm/[dmID]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/dm/[dmID]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 64 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/invite/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/invite: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/invite/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/invite/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/server/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/server: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/server/[serverID]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/server/[serverID]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/server/[serverID]/channel/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/server/[serverID]/channel: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/server/[serverID]/channel/[channelID]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 81 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /instance/[instanceID]/server/[serverID]/settings: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 4 ancestor layout(s), 74 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/login/[instanceID]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/login/[instanceID]/success/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login/[instanceID]/success: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /new: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings: script-verified (a1b_reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 59 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/[catchall]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[catchall]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/dm/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/dm: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/dm/[dmID]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/dm/[dmID]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 64 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/invite/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/invite: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/invite/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/invite/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/server/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/server: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/server/[serverID]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/server/[serverID]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/server/[serverID]/channel/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/server/[serverID]/channel: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/server/[serverID]/channel/[channelID]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 81 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /instance/[instanceID]/server/[serverID]/settings: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 4 ancestor layout(s), 74 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/login/[instanceID]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/login/[instanceID]/success/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login/[instanceID]/success: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /new: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings: script-verified (a1b_reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 59 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/[catchall]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[catchall]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/dm/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/dm: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/dm/[dmID]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/dm/[dmID]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 64 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/invite/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/invite: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/invite/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/invite/[slug]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/server/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/server: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/server/[serverID]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/server/[serverID]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/server/[serverID]/channel/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/server/[serverID]/channel: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/server/[serverID]/channel/[channelID]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 81 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /instance/[instanceID]/server/[serverID]/settings: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 4 ancestor layout(s), 74 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/login/[instanceID]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/login/[instanceID]/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login/[instanceID]/success: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /new: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 59 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/single-h1::src/lib/components/DrawerContents/SettingsLinks.svelte:6::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "key covers 5 routes (local CLI), majority fp: the counted extra <h1> is SettingsLinks.svelte:6, which routes/DrawerContents.svelte:42-45 renders only {:else if drawerState.serverID === 'settings'}; DrawerStateUpdater.svelte sets serverID = 'settings' only on /settings and 'new' on /login, /login/[instanceID], /login/[instanceID]/success and /instance/[instanceID]/invite/[slug] (Empty arm, no heading), so those 4 routes render one page <h1> each (e.g. login/+page.svelte:20; invite/[slug] :74/:89 in exclusive {#if error}/{:else} arms); only /settings really renders two (settings/+page.svelte:36 + SettingsLinks)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/single-h1::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte:196::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two <h1>s render together: the page's 'Server Settings' <h1> (:196) and ServerSettingsLinks.svelte:24 'Sections' in the drawer, which DrawerContents.svelte:46-49 shows on this route (DrawerStateUpdater sets channelID = 'settings'); the other two counted are in closed <dialog class=\"modal\">s (:171-179, Danger.svelte:36-46) — the count is high but the claim holds"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/single-h1::src/routes/new/+page.svelte:84::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: two unconditional <h1>s render together on /new: 'Accept Invite' (new/+page.svelte:45) and 'New Server' (:84); the third counted is the drawer's SettingsLinks <h1>, not shown here (serverID = 'new' → Empty) — the count is high but the claim holds"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: pwa/static has robots.txt (allow all) but no sitemap.xml, route or generator anywhere in the repo (literal claim holds); Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/ssr-disabled::src/routes/+layout.server.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.server.ts:1 (whole-app SPA, deliberate: LiveKit voice/media client); Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target; docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "design",
+    "basis": "read: root +layout.svelte:72 literal <title>Sunburn</title> (7 chars), the only title on the 18 routes (literal claim holds); Sunburn is a self-hosted Discord-like chat client (README self-host guide) whose root +layout.server.ts:1 ssr = false SPA shows instance/server/channel/DM views of the user's own account, not a search target"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/[catchall]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[catchall]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 56 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/dm/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/dm: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/dm/[dmID]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/dm/[dmID]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 64 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/invite/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/invite: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/invite/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/invite/[slug]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/server/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/server: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/server/[serverID]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/server/[serverID]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/server/[serverID]/channel/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/server/[serverID]/channel: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 3 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/server/[serverID]/channel/[channelID]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/server/[serverID]/channel/[channelID]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 81 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/instance/[instanceID]/server/[serverID]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /instance/[instanceID]/server/[serverID]/settings: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 4 ancestor layout(s), 74 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/login/[instanceID]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login/[instanceID]: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 58 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/login/[instanceID]/success/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login/[instanceID]/success: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 57 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /new: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 62 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  },
+  {
+    "key": "sunburnco/sunburn:pwa::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings: script-verified (a1b_reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 59 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); no og/twitter/canonical tag anywhere in pwa/src or app.html (root +layout.svelte head is <title>Sunburn</title> + icon only); ssr=false app-wide (+layout.server.ts:1) so client heads count and none emit it; no meta-tag library (npm Svelte deps @lucide/svelte only)"
+  }
+]

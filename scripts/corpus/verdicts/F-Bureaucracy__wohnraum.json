@@ -1,0 +1,1387 @@
+[
+  {
+    "key": "F-Bureaucracy/wohnraum::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:13 wraps every route in <main>; (app)/+layout.svelte:24 renders children in <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) unconditionally, so all 14 (app) routes have two main landmarks, one nested"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::a11y/duplicate-landmark::src/routes/(app)/audit-log/+page.svelte:138::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/audit-log/+page.svelte:138 is an unconditional <main> inside (app)/+layout.svelte <Sidebar.Inset> <main> inside root +layout.svelte:13 <main>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::a11y/duplicate-landmark::src/routes/settings/+layout.svelte:49::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: settings/+layout.svelte:19-52 renders, in {#if isWide.current} (MediaQuery min-width 1024px, true on desktop after hydration), <aside> (:21) and <main> (:49) around {@render children()}, all inside root +layout.svelte:13 <main>; nested/duplicated as reported whenever the wide arm renders"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::a11y/permitted-contents::src/lib/components/mietobjekt-detail.svelte:132::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E13w/pc.mjs): literal <div> at mietobjekt-detail.svelte:132 has literal <button>@121 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::a11y/top-level-landmark::src/routes/(app)/audit-log/+page.svelte:138::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/audit-log/+page.svelte:138 is an unconditional <main> inside (app)/+layout.svelte <Sidebar.Inset> <main> inside root +layout.svelte:13 <main>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::a11y/top-level-landmark::src/routes/settings/+layout.svelte:21::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings/+layout.svelte:21 <aside> sits in the {#if isWide.current} arm (MediaQuery min-width 1024px, true on desktop) not inside sectioning content, rendered inside root +layout.svelte:13 <main>, so a complementary landmark nested in main"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::a11y/top-level-landmark::src/routes/settings/+layout.svelte:49::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings/+layout.svelte:19-52 renders, in {#if isWide.current} (MediaQuery min-width 1024px, true on desktop after hydration), <aside> (:21) and <main> (:49) around {@render children()}, all inside root +layout.svelte:13 <main>; nested/duplicated as reported whenever the wide arm renders"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/lib/components/data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/data-table.svelte has 411 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/lib/components/mietobjekt-detail.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mietobjekt-detail.svelte has 290 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/lib/components/mietobjekte-view.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/mietobjekte-view.svelte has 215 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/routes/(app)/admin/mieter/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/mieter/[id]/+page.svelte has 301 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/routes/(app)/admin/mieter/new/mieter-form.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/mieter/new/mieter-form.svelte has 320 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/mietobjekte/[id]/+page.svelte has 216 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/routes/(app)/admin/vermieter/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/admin/vermieter/[id]/+page.svelte has 238 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/routes/(app)/audit-log/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/audit-log/+page.svelte has 236 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/routes/(app)/vermieter/mietobjekte/new/mietobjekt-form.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/vermieter/mietobjekte/new/mietobjekt-form.svelte has 758 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/component-size::src/routes/settings/organization/filters/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/organization/filters/+page.svelte has 213 physical lines (newlines, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/actions.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/actions.svelte has a single destructured $props() with 7 named props (> 6): ids, floating, entitySingular, entityPlural, idFieldName, deleteAction, editHref"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/bookmark-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/bookmark-button.svelte has a single destructured $props() with 7 named props (> 6): entityType, entityId, bookmarked, action, label, variant, size"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/data-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/data-table.svelte has a single destructured $props() with 14 named props (> 6): data, columns, filterColumnId, filterPlaceholder, entitySingular, entityPlural, idFieldName, deleteAction, createHref, createLabel, createAction, filters, initialColumnFilters, onFilteredDataChange"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/mietobjekte-view.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/mietobjekte-view.svelte has a single destructured $props() with 10 named props (> 6): data, basePath, filterDefinitions, createHref, createLabel, createAction, bookmarkAction, showVermieterColumn, filters, initialColumnFilters"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) (plus a ...rest element, not counted, per docs): class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) (plus a ...rest element, not counted, per docs): ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) (plus a ...rest element, not counted, per docs): ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6) (plus a ...rest element, not counted, per docs): ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6) (plus a ...rest element, not counted, per docs): open, ref, value, title, description, showCloseButton, portalProps, children, class"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6) (plus a ...rest element, not counted, per docs): ref, class, sideOffset, alignOffset, align, side, portalProps"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6) (plus a ...rest element, not counted, per docs): ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, monthFormat, yearFormat, day, disableDaysOutsideMonth"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) (plus a ...rest element, not counted, per docs): ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) (plus a ...rest element, not counted, per docs): ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/toggle-group/toggle-group.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/toggle-group/toggle-group.svelte has a single destructured $props() with 7 named props (> 6) (plus a ...rest element, not counted, per docs): ref, value, class, size, spacing, orientation, variant"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) (plus a ...rest element, not counted, per docs): ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/routes/(app)/admin/mieter/new/mieter-form.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/admin/mieter/new/mieter-form.svelte has a single destructured $props() with 9 named props (> 6): data, filterDefinitions, title, description, submitLabel, submittingLabel, action, onCancel, onSaved"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::architecture/prop-count::src/routes/(app)/vermieter/mietobjekte/new/mietobjekt-form.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(app)/vermieter/mietobjekte/new/mietobjekt-form.svelte has a single destructured $props() with 9 named props (> 6): data, filterDefinitions, title, description, submitLabel, submittingLabel, action, onCancel, onSaved"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::correctness/each-index-key::src/lib/components/ui/calendar/calendar.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:85 '{#each weekdays as weekday, i (i)}' keyed by its index binding; positional list (weekdays header of a calendar (bits-ui Calendar snippet, calendar.svelte:61)): items have no identity beyond position"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; runtime list (errors prop of shadcn field-error (field-error.svelte:6)): runtime validation errors (ledger field-error convention)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::correctness/each-index-key::src/lib/components/ui/range-calendar/range-calendar.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:82 '{#each weekdays as weekday, i (i)}' keyed by its index binding; positional list (weekdays header of a calendar (bits-ui RangeCalendar snippet, range-calendar.svelte:57)): items have no identity beyond position"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/admin/mieter/+page.server.ts:37::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read routes/(app)/admin/mieter/+page.server.ts:37: getBookmarkedIds(user.id,'mieter') uses nothing from the preceding mieter list query (:16) — independent DB round trips (drizzle over postgres-js, lib/server/db/index.ts:14-16) serialized; Promise.all would work"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/admin/mieter/[id]/+page.server.ts:57::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read routes/(app)/admin/mieter/[id]/+page.server.ts:57: getBookmarkedIds(user.id,'mieter') uses nothing from the preceding org-scoped mieter row (:29), whose only role here is the 404 gate (:37; superValidate between is in-process) — per the 404-gate convention the DB round trips (drizzle over postgres-js, lib/server/db/index.ts:14-16) serialize on the normal path"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/admin/mieter/[id]/+page.server.ts:61::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read routes/(app)/admin/mieter/[id]/+page.server.ts:61: the notes query uses params.id, nothing from getBookmarkedIds (:57) — independent DB round trips (drizzle over postgres-js, lib/server/db/index.ts:14-16) serialized; Promise.all would work"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/admin/mietobjekte/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read routes/(app)/admin/mietobjekte/+page.server.ts:23: getBookmarkedIds(user.id,'mietobjekt') uses nothing from the preceding mietobjekt list query (:20) — independent DB round trips (drizzle over postgres-js, lib/server/db/index.ts:14-16) serialized"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/admin/mietobjekte/[id]/+page.server.ts:53::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read routes/(app)/admin/mietobjekte/[id]/+page.server.ts:53: the bookmarks Promise.all uses only locals.user.id, nothing from the preceding detail/images/bewohner Promise.all (:17-48) — could join it; independent DB round trips (drizzle over postgres-js, lib/server/db/index.ts:14-16) serialized"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/admin/vermieter/[id]/+page.server.ts:34::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read routes/(app)/admin/vermieter/[id]/+page.server.ts:34: the owners query uses params.id only, nothing from the preceding org row (:17), whose only role is the 404 gate (:32) — per the 404-gate convention the DB round trips (drizzle over postgres-js, lib/server/db/index.ts:14-16) serialize on the normal path"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/admin/vermieter/[id]/+page.server.ts:44::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read routes/(app)/admin/vermieter/[id]/+page.server.ts:44: the notes query uses params.id only, nothing from the owners query (:34) — independent DB round trips (drizzle over postgres-js, lib/server/db/index.ts:14-16) serialized; Promise.all would work"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/audit-log/+page.server.ts:219::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/audit-log/+page.server.ts:219: the only preceding await is requireAuditAccess(headers) (:10-18), a better-auth getActiveMember role check that throws 403 unless owner/admin — deliberate auth-before-query ordering, docs Limitations"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/users/+page.server.ts:56::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/users/+page.server.ts:56: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/vermieter/mietobjekte/[id]/+page.server.ts:36::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read routes/(app)/vermieter/mietobjekte/[id]/+page.server.ts:36: loadMietobjektImages(params.id) uses nothing from loadMietobjektDetail (:32, lib/server/mietobjekt-mapping.ts:64-78, org-scoped lookup that throws 404), whose only role before this line is the 404 gate — per the 404-gate convention the DB round trips (drizzle over postgres-js, lib/server/db/index.ts:14-16) serialize on the normal path"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/(app)/vermieter/mietobjekte/new/+page.server.ts:41::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/(app)/vermieter/mietobjekte/new/+page.server.ts:41: flagged await is superValidate(zod(schema)) building form defaults in-process — no request to parallelize (ledger superValidate no-I/O convention)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/settings/organization/+page.server.ts:23::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/settings/organization/+page.server.ts:23: the only preceding await is requireOrgManager(headers) (:9-17), a better-auth getActiveMember role check that throws 403 unless owner/admin — deliberate auth-before-query ordering, docs Limitations"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::performance/sequential-awaits::src/routes/settings/organization/filters/+page.server.ts:45::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read routes/settings/organization/filters/+page.server.ts:45: the only preceding await is requireAdministrationManager(event) (:13-30, also login/administration-org gates), a better-auth getActiveMember role check that throws 403 unless owner/admin — deliberate auth-before-query ordering, docs Limitations"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/berichte/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 21 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/mieter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/mieter/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/vermieter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/audit-log/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 17 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 32 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: (app)/+layout.server.ts:17-18 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/password-reset/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/password-reset/confirm/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: settings/+layout.server.ts:6-7 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/settings/organization/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: settings/+layout.server.ts:6-7 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/settings/organization/features/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: settings/+layout.server.ts:6-7 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/settings/organization/filters/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: settings/+layout.server.ts:6-7 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/settings/user/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 2 layout(s), 11 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none)) but not a search target (auth-gated: settings/+layout.server.ts:6-7 redirects guests to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/canonical-url::src/routes/signup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); publicly reachable, rendered route with no guest redirect or noindex"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/berichte/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/mieter/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/mieter/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/vermieter/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/audit-log/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: (app)/+layout.server.ts:17-19 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description; publicly reachable, rendered sign-in page of Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants), no noindex, static/robots.txt allows all (login convention)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/password-reset/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description; publicly reachable, rendered password-reset request form of Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants), no noindex, static/robots.txt allows all (login convention)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/password-reset/confirm/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: token-only reset form (load throws error(400) without ?token) of Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants), whose content is all login-gated"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: settings/+layout.server.ts:6-8 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/settings/organization/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: settings/+layout.server.ts:6-8 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/settings/organization/features/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: settings/+layout.server.ts:6-8 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/settings/organization/filters/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: settings/+layout.server.ts:6-8 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/settings/user/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description (literal claim holds); not a search target: settings/+layout.server.ts:6-8 redirects every session-less request to /login, in Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/description-presence::src/routes/signup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: the only svelte:head in the app is root +layout.svelte:9 (favicon link), app.html has no description; publicly reachable, rendered account sign-up page (landlords register here to list homes; bounces only signed-in users) of Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants), no noindex, static/robots.txt allows all (login convention)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/berichte/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/mieter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/mieter/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/vermieter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/audit-log/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/password-reset/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/password-reset/confirm/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/settings/organization/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/settings/organization/features/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/settings/organization/filters/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/settings/user/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/json-ld::src/routes/signup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src (the one hit is a server listing-import parser) or app.html, no meta/JSON-LD package in deps; the route has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/berichte/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 21 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/mieter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/mieter/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/vermieter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/audit-log/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 17 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 32 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/password-reset/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/password-reset/confirm/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/settings/organization/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/settings/organization/features/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/settings/organization/filters/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/settings/user/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 2 layout(s), 11 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-description::src/routes/signup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:description in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/berichte/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 21 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/mieter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/mieter/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/vermieter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/audit-log/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 17 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 32 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/password-reset/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/password-reset/confirm/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/settings/organization/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/settings/organization/features/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/settings/organization/filters/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/settings/user/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 2 layout(s), 11 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-image::src/routes/signup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:image in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/berichte/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 21 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/mieter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/mieter/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/vermieter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/audit-log/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 17 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 32 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/password-reset/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/password-reset/confirm/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/settings/organization/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/settings/organization/features/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/settings/organization/filters/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/settings/user/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 2 layout(s), 11 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-title::src/routes/signup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:title in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/berichte/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 21 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/mieter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/mieter/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/vermieter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/audit-log/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 17 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 32 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/password-reset/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/password-reset/confirm/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/settings/organization/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/settings/organization/features/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/settings/organization/filters/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/settings/user/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 2 layout(s), 11 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/og-url::src/routes/signup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no og:url in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: static/ has favicon.svg and robots.txt only, no sitemap.xml file/route/generator (literal claim holds); Osnabrück's internal placement platform (AGENTS.md: landlords list homes, city case workers assign homeless tenants), whose every content route is behind (app)/+layout.server.ts:17-19 and settings/+layout.server.ts:6-8 login redirects, nothing public to list"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so / renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/berichte/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/berichte/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/berichte renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/berichte/[id]/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/berichte/[id] renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/mieter/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/mieter/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/mieter renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/mieter/[id]/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/mieter/[id] renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/mieter/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/mieter/new/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/mieter/new renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/mietobjekte/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/mietobjekte renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/mietobjekte/[id]/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/mietobjekte/[id] renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/vermieter/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/vermieter/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/vermieter renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/admin/vermieter/[id]/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /admin/vermieter/[id] renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/audit-log/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/audit-log/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /audit-log renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/users/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/users/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /users renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/vermieter/mietobjekte/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /vermieter/mietobjekte renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /vermieter/mietobjekte/[id] renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/(app)/vermieter/mietobjekte/new/+page.svelte has no svelte:head/<title>; (app)/+layout.svelte (Sidebar.Provider/AppSidebar) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /vermieter/mietobjekte/new renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/login/+page.svelte has no svelte:head/<title>; no intermediate layout; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /login renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/password-reset/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/password-reset/+page.svelte has no svelte:head/<title>; no intermediate layout; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /password-reset renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/password-reset/confirm/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/password-reset/confirm/+page.svelte has no svelte:head/<title>; no intermediate layout; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /password-reset/confirm renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/settings/+page.svelte has no svelte:head/<title>; settings/+layout.svelte (settings nav) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; no page load; layout loads redirect only conditionally, so /settings renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/settings/organization/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/settings/organization/+page.svelte has no svelte:head/<title>; settings/+layout.svelte (settings nav) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /settings/organization renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/settings/organization/features/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/settings/organization/features/+page.svelte has no svelte:head/<title>; settings/+layout.svelte (settings nav) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /settings/organization/features renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/settings/organization/filters/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/settings/organization/filters/+page.svelte has no svelte:head/<title>; settings/+layout.svelte (settings nav) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /settings/organization/filters renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/settings/user/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/settings/user/+page.svelte has no svelte:head/<title>; settings/+layout.svelte (settings nav) has no svelte:head; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /settings/user renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/title-presence::src/routes/signup/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (closure of page + layout chain + local imports): src/routes/signup/+page.svelte has no svelte:head/<title>; no intermediate layout; root +layout.svelte:9 svelte:head is only a favicon link (favicon.svg's <title> is SVG-internal); app.html none, no document.title, no transformPageChunk, no ssr exports; npm Svelte deps (bits-ui@2.18.1, mode-watcher@1.1.0 theme-color only, layerchart svg <title>, @prosekit/svelte, svelte-sonner, formsnap, paneforge, vaul-svelte; bun.lock) emit no document title; load redirects/throws only conditionally, so /signup renders untitled"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/berichte/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 21 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/berichte/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/mieter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 22 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/mieter/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 23 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/mieter/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/mietobjekte/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 24 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/mietobjekte/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 28 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/vermieter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/admin/vermieter/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 16 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/audit-log/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 15 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 17 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/vermieter/mietobjekte/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 25 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/vermieter/mietobjekte/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 32 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/(app)/vermieter/mietobjekte/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 20 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 1 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/password-reset/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/password-reset/confirm/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/settings/organization/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 9 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/settings/organization/features/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/settings/organization/filters/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 7 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/settings/user/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 2 layout(s), 11 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/twitter-card::src/routes/signup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b13/reach.mjs, comments stripped): no twitter:card in page, 1 layout(s), 6 files incl. transitively imported local files ($lib/relative/$utils/$models) and app.html; no og/twitter/canonical tag anywhere in src or app.html; no meta-tag library among deps (UI libs bits-ui/shadcn-svelte/mode-watcher emit none); rendered route, tag missing as claimed"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/single-h1::/admin/berichte/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /admin/berichte/[id] title is PageHeader, a breadcrumb whose Breadcrumb.Page is a <span> (lib/components/page-header.svelte); Card/Empty titles are <div>s (ui/card/card-title.svelte:13, ui/empty/empty-title.svelte:13); (app) and root layouts have no <h1>; npm bits-ui@2.18.1, @lucide/svelte@1.14.0, svelte-maplibre-gl@2.0.1, layerchart@2.0.0-next.48, svelte-sonner@1.1.1, formsnap@2.0.1 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/single-h1::/admin/berichte::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /admin/berichte title is PageHeader, a breadcrumb whose Breadcrumb.Page is a <span> (lib/components/page-header.svelte); Card/Empty titles are <div>s (ui/card/card-title.svelte:13, ui/empty/empty-title.svelte:13); (app) and root layouts have no <h1>; npm bits-ui@2.18.1, @lucide/svelte@1.14.0, svelte-maplibre-gl@2.0.1, layerchart@2.0.0-next.48, svelte-sonner@1.1.1, formsnap@2.0.1 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/single-h1::/admin/mieter::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /admin/mieter title is PageHeader, a breadcrumb whose Breadcrumb.Page is a <span> (lib/components/page-header.svelte); Card/Empty titles are <div>s (ui/card/card-title.svelte:13, ui/empty/empty-title.svelte:13); (app) and root layouts have no <h1>; npm bits-ui@2.18.1, @lucide/svelte@1.14.0, svelte-maplibre-gl@2.0.1, layerchart@2.0.0-next.48, svelte-sonner@1.1.1, formsnap@2.0.1 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/single-h1::/admin/mietobjekte::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /admin/mietobjekte title is PageHeader, a breadcrumb whose Breadcrumb.Page is a <span> (lib/components/page-header.svelte); Card/Empty titles are <div>s (ui/card/card-title.svelte:13, ui/empty/empty-title.svelte:13); (app) and root layouts have no <h1>; npm bits-ui@2.18.1, @lucide/svelte@1.14.0, svelte-maplibre-gl@2.0.1, layerchart@2.0.0-next.48, svelte-sonner@1.1.1, formsnap@2.0.1 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/single-h1::/admin/vermieter::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /admin/vermieter title is PageHeader, a breadcrumb whose Breadcrumb.Page is a <span> (lib/components/page-header.svelte); Card/Empty titles are <div>s (ui/card/card-title.svelte:13, ui/empty/empty-title.svelte:13); (app) and root layouts have no <h1>; npm bits-ui@2.18.1, @lucide/svelte@1.14.0, svelte-maplibre-gl@2.0.1, layerchart@2.0.0-next.48, svelte-sonner@1.1.1, formsnap@2.0.1 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/single-h1::/users::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /users title is PageHeader, a breadcrumb whose Breadcrumb.Page is a <span> (lib/components/page-header.svelte); Card/Empty titles are <div>s (ui/card/card-title.svelte:13, ui/empty/empty-title.svelte:13); (app) and root layouts have no <h1>; npm bits-ui@2.18.1, @lucide/svelte@1.14.0, svelte-maplibre-gl@2.0.1, layerchart@2.0.0-next.48, svelte-sonner@1.1.1, formsnap@2.0.1 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/single-h1::/vermieter/mietobjekte::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /vermieter/mietobjekte title is PageHeader, a breadcrumb whose Breadcrumb.Page is a <span> (lib/components/page-header.svelte); Card/Empty titles are <div>s (ui/card/card-title.svelte:13, ui/empty/empty-title.svelte:13); (app) and root layouts have no <h1>; npm bits-ui@2.18.1, @lucide/svelte@1.14.0, svelte-maplibre-gl@2.0.1, layerchart@2.0.0-next.48, svelte-sonner@1.1.1, formsnap@2.0.1 (jsDelivr) render no <h1>"
+  },
+  {
+    "key": "F-Bureaucracy/wohnraum::seo/single-h1::src/routes/(app)/audit-log/+page.svelte:166::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + page + transitive local imports (barrels, .js->.ts) contain no <h1>, no heading-level <svelte:element>, no heading in {@html}; page /audit-log title is PageHeader, a breadcrumb whose Breadcrumb.Page is a <span> (lib/components/page-header.svelte); Card/Empty titles are <div>s (ui/card/card-title.svelte:13, ui/empty/empty-title.svelte:13); (app) and root layouts have no <h1>; first real heading is <h2> at audit-log/+page.svelte:166; npm bits-ui@2.18.1, @lucide/svelte@1.14.0, svelte-maplibre-gl@2.0.1, layerchart@2.0.0-next.48, svelte-sonner@1.1.1, formsnap@2.0.1 (jsDelivr) render no <h1>"
+  }
+]

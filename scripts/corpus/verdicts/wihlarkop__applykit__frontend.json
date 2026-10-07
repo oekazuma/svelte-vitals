@@ -1,0 +1,1242 @@
+[
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/disallowed-aria-props::src/lib/components/ModelSelector.svelte:132::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <div aria-label> at src/lib/components/ModelSelector.svelte:132 has no role attribute, spread or use: action; implicit role generic prohibits naming (ARIA 1.3 / ARIA in HTML), so the label is not exposed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/disallowed-aria-props::src/routes/cover-letter/+page.svelte:568::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <div aria-label> at src/routes/cover-letter/+page.svelte:568 has no role attribute, spread or use: action; implicit role generic prohibits naming (ARIA 1.3 / ARIA in HTML), so the label is not exposed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/disallowed-aria-props::src/routes/cover-letter/+page.svelte:795::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <div aria-label> at src/routes/cover-letter/+page.svelte:795 has no role attribute, spread or use: action; implicit role generic prohibits naming (ARIA 1.3 / ARIA in HTML), so the label is not exposed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/disallowed-aria-props::src/routes/cover-letter/+page.svelte:984::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <div aria-label> at src/routes/cover-letter/+page.svelte:984 has no role attribute, spread or use: action; implicit role generic prohibits naming (ARIA 1.3 / ARIA in HTML), so the label is not exposed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/id-duplication::src/lib/components/ModelSelector.svelte:173::Duplicate id \"available-models\"",
+    "verdict": "design",
+    "basis": "read: ModelSelector's #available-models appears in SettingsModal.svelte:748 (under {#if open} :547) and OllamaSettingsModal.svelte:185 (under {#if open} :121); settings/+page.svelte:428/436 binds them to separate modalOpen / ollamaModalOpen, two modals never open together; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/interactive-nesting::src/lib/components/history/ClCard.svelte:107::<span> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <span> at src/lib/components/history/ClCard.svelte:107 (<span role=\"button\" tabindex=\"0\" class=\"absolute top-3.5 rig…) sits inside literal <div role=\"button\"> in the same template (chain …div > div[role=\"button\"] > {#if entry.application_id}); a natively interactive or role=button/option descendant of a button/children-presentational container"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/interactive-nesting::src/lib/components/history/ClCard.svelte:128::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <button> at src/lib/components/history/ClCard.svelte:128 (<button class=\"text-[10px] px-2 py-0.5 rounded-full font-med…) sits inside literal <div role=\"button\"> in the same template (chain …div > div[role=\"button\"] > div[role=\"presentation\"] > {#each}); a natively interactive or role=button/option descendant of a button/children-presentational container"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/interactive-nesting::src/lib/components/history/RoleMatchClCard.svelte:123::<span> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <span> at src/lib/components/history/RoleMatchClCard.svelte:123 (<span role=\"button\" tabindex=\"0\" class=\"absolute right-3 top…) sits inside literal <div role=\"button\"> in the same template (chain …div > div[role=\"button\"] > {#if entry.application_id}); a natively interactive or role=button/option descendant of a button/children-presentational container"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/interactive-nesting::src/lib/components/history/RoleMatchClCard.svelte:149::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): <button> at src/lib/components/history/RoleMatchClCard.svelte:149 (<button class=\"cursor-pointer rounded-full border px-2 py-0.…) sits inside literal <div role=\"button\"> in the same template (chain …div > div[role=\"button\"] > div[role=\"presentation\"] > {#each}); a natively interactive or role=button/option descendant of a button/children-presentational container"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/ProviderCredentialsPanel.svelte:335::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/ProviderCredentialsPanel.svelte:335 has literal <label> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <label>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/ProviderCredentialsPanel.svelte:528::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/ProviderCredentialsPanel.svelte:528 has literal <label> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <label>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/ThemeToggle.svelte:14::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/ThemeToggle.svelte:14 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/history/CvCard.svelte:21::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/history/CvCard.svelte:21 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/history/CvCard.svelte:40::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/history/CvCard.svelte:40 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/profile/CertificationsTab.svelte:30::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/profile/CertificationsTab.svelte:30 has literal <h2> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <h2>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/profile/EducationTab.svelte:30::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/profile/EducationTab.svelte:30 has literal <h2> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <h2>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/profile/ExperienceTab.svelte:116::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/profile/ExperienceTab.svelte:116 has literal <h2> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <h2>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/profile/PersonalInfoTab.svelte:75::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/profile/PersonalInfoTab.svelte:75 has literal <h2> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <h2>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/profile/ProjectsTab.svelte:42::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/profile/ProjectsTab.svelte:42 has literal <h2> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <h2>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/profile/SkillsTab.svelte:39::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/profile/SkillsTab.svelte:39 has literal <h2> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <h2>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/tracker/ApplicationCard.svelte:21::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/tracker/ApplicationCard.svelte:21 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/tracker/ApplicationCard.svelte:31::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <p> at src/lib/components/tracker/ApplicationCard.svelte:31 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/tracker/ApplicationCard.svelte:34::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/tracker/ApplicationCard.svelte:34 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/tracker/ApplicationCard.svelte:54::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/tracker/ApplicationCard.svelte:54 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/tracker/RoleMatchApplicationCard.svelte:27::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/tracker/RoleMatchApplicationCard.svelte:27 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/tracker/RoleMatchApplicationCard.svelte:37::`<p>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <p> at src/lib/components/tracker/RoleMatchApplicationCard.svelte:37 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/tracker/RoleMatchApplicationCard.svelte:39::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/tracker/RoleMatchApplicationCard.svelte:39 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/lib/components/tracker/RoleMatchApplicationCard.svelte:54::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/lib/components/tracker/RoleMatchApplicationCard.svelte:54 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/routes/profile/+page.svelte:192::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/routes/profile/+page.svelte:192 has literal <h1> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <h1>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/permitted-contents::src/routes/profile/+page.svelte:300::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <div> at src/routes/profile/+page.svelte:300 has literal <button> as its nearest element ancestor (only {#if}/{#each} blocks between, no component/snippet/{@render} boundary); outside <button>'s permitted content"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/top-level-landmark::src/routes/onboarding/+page.svelte:247::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: onboarding/+page.svelte:247 bare <aside> (no sectioning ancestor) renders in root +layout.svelte:167-172 <main> (the {:else} arm; isAuthRoute is only /login and /setup, +layout.ts:17); complementary nested in main"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::a11y/top-level-landmark::src/routes/profile/+page.svelte:289::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: profile/+page.svelte:289 bare <aside class='hidden lg:block …'> (no sectioning ancestor) renders in root +layout.svelte:167 <main> ({:else} arm, /profile is not an auth route per +layout.ts:17); complementary nested in main"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/CvImporter.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CvImporter.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/ModelSelector.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ModelSelector.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/OllamaSettingsModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/OllamaSettingsModal.svelte has 240 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/ProfileModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ProfileModal.svelte has 204 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/ProviderCredentialsPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ProviderCredentialsPanel.svelte has 590 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/SettingsModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SettingsModal.svelte has 1103 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/profile/ExperienceTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/profile/ExperienceTab.svelte has 290 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/profile/PersonalInfoTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/profile/PersonalInfoTab.svelte has 211 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/lib/components/tracker/DetailPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/tracker/DetailPanel.svelte has 348 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/cover-letter/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/cover-letter/+page.svelte has 1122 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/generate/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/generate/+page.svelte has 321 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/history/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/history/+page.svelte has 533 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/import/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/import/+page.svelte has 270 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/onboarding/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/onboarding/+page.svelte has 287 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 381 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/+page.svelte has 443 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/settings/security/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/settings/security/+page.svelte has 209 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/smart-apply/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/smart-apply/+page.svelte has 581 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/tracker/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tracker/+page.svelte has 349 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/component-size::src/routes/usage/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/usage/+page.svelte has 226 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/prop-count::src/lib/components/FilterBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FilterBar.svelte has a single destructured $props() with 12 named props (> 6): search, dateRange, matchFilter, sortBy, features, selectedCount, searchPlaceholder, onsearch, ondatechange, onmatchchange, onsortchange, onbulkdelete"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/prop-count::src/lib/components/FitAnalysisDisplay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FitAnalysisDisplay.svelte has a single destructured $props() with 8 named props (> 6): fitResult, companyName, onReanalyze, analyzing, onAcceptEmphasis, showInterviewPrep, compact, embedded"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/prop-count::src/lib/components/JobInputTabs.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/JobInputTabs.svelte has a single destructured $props() with 17 named props (> 6): mode, style, pasteLabel, urlLabel, pastePlaceholder, urlPlaceholder, showUrlHelper, urlHelperText, onmodechange, onscrape, onscrapeclick, scraping, jobUrl, jobText, children, urlInput, pasteInput"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/prop-count::src/lib/components/RoleMatchFitAnalysisDisplay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/RoleMatchFitAnalysisDisplay.svelte has a single destructured $props() with 8 named props (> 6): fitResult, companyName, onReanalyze, analyzing, onAcceptEmphasis, showInterviewPrep, compact, embedded"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/CvPreview.svelte:37::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CvPreview.svelte:37 '{#each profile.work_experience …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/CvPreview.svelte:46::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CvPreview.svelte:46 '{#each w.bullets …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: ?)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/CvPreview.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CvPreview.svelte:57 '{#each profile.education …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/CvPreview.svelte:79::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CvPreview.svelte:79 '{#each profile.projects …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/CvPreview.svelte:97::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CvPreview.svelte:97 '{#each profile.certifications …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/FitAnalysisDisplay.svelte:111::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FitAnalysisDisplay.svelte:111 '{#each fitResult.red_flags …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/FitAnalysisDisplay.svelte:125::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FitAnalysisDisplay.svelte:125 '{#each fitResult.missing_keywords …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/FitAnalysisDisplay.svelte:175::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FitAnalysisDisplay.svelte:175 '{#each fitResult.interview_questions …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/FitAnalysisDisplay.svelte:76::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FitAnalysisDisplay.svelte:76 '{#each fitResult.pros …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/FitAnalysisDisplay.svelte:92::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/FitAnalysisDisplay.svelte:92 '{#each fitResult.cons …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/ModelSelector.svelte:179::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ModelSelector.svelte:179 '{#each filteredModels …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(filterCatalogModels(models, query, filter)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/ProfileModal.svelte:185::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ProfileModal.svelte:185 '{#each allProfiles …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(profiles.all);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/ProfileSwitcher.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ProfileSwitcher.svelte:58 '{#each allProfiles …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(profiles.all);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/ProviderCredentialsPanel.svelte:392::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ProviderCredentialsPanel.svelte:392 '{#each credentials …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $state([]);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/Scrollspy.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Scrollspy.svelte:57 '{#each sections …}' has no key; sections prop of a component no file imports; runtime data by default, the claim holds for the component API (ledger convention)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/SettingsModal.svelte:696::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SettingsModal.svelte:696 '{#each providers …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $state([]);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/SettingsModal.svelte:776::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SettingsModal.svelte:776 '{#each selectedModelInfo.traits …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived()"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/SettingsNav.svelte:16::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/SettingsNav.svelte:16 '{#each tabs …}' has no key; tabs = settingsTabs(authMode) (settings-nav.ts:8), a fixed tab list with one tab appended by auth mode; static list"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/history/ClCard.svelte:127::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/history/ClCard.svelte:127 '{#each STATUS_PIPELINE …}' has no key; STATUS_PIPELINE = Object.entries(STATUS_CONFIG).map(...) over a static status config; static list (fixed pipeline stages), not the exempt shape (a map call)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/history/FitAnalysisTab.svelte:125::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/history/FitAnalysisTab.svelte:125 '{#each analysis.interview_questions …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/history/FitAnalysisTab.svelte:47::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/history/FitAnalysisTab.svelte:47 '{#each analysis.pros …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/history/FitAnalysisTab.svelte:64::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/history/FitAnalysisTab.svelte:64 '{#each analysis.cons …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/history/FitAnalysisTab.svelte:81::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/history/FitAnalysisTab.svelte:81 '{#each analysis.missing_keywords …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/history/FitAnalysisTab.svelte:96::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/history/FitAnalysisTab.svelte:96 '{#each analysis.red_flags …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/history/RoleMatchClCard.svelte:148::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/history/RoleMatchClCard.svelte:148 '{#each STATUS_PIPELINE …}' has no key; STATUS_PIPELINE = Object.entries(STATUS_CONFIG).map(...) over a static status config; static list (fixed pipeline stages)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/profile/CertificationsTab.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/profile/CertificationsTab.svelte:58 '{#each profile.certifications …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/profile/EducationTab.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/profile/EducationTab.svelte:58 '{#each profile.education …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/profile/ExperienceTab.svelte:144::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/profile/ExperienceTab.svelte:144 '{#each profile.work_experience …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/profile/ProjectsTab.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/profile/ProjectsTab.svelte:70 '{#each profile.projects …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/AnalysisNeedsReview.svelte:33::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/AnalysisNeedsReview.svelte:33 '{#each view.requirements.slice(0, 6) …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchBreakdown.svelte:106::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchBreakdown.svelte:106 '{#each requirement.evidence …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: ?)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchBreakdown.svelte:126::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchBreakdown.svelte:126 '{#each analysis.excluded_items …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchBreakdown.svelte:55::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchBreakdown.svelte:55 '{#each analysis.category_breakdown …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchBreakdown.svelte:78::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchBreakdown.svelte:78 '{#each analysis.requirements …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchInsights.svelte:23::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchInsights.svelte:23 '{#each view.sections.strengths.items …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchInsights.svelte:52::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchInsights.svelte:52 '{#each view.sections.gaps.items …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchReviewPanel.svelte:106::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchReviewPanel.svelte:106 '{#each analysis.requirements …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchReviewPanel.svelte:146::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchReviewPanel.svelte:146 '{#each selectedRequirement?.evidence ?? [] …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived()"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchVersionCompare.svelte:61::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchVersionCompare.svelte:61 '{#each versions.items …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/lib/components/role-match/RoleMatchVersionCompare.svelte:78::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/role-match/RoleMatchVersionCompare.svelte:78 '{#each analysis.overrides …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $props();)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/history/+page.svelte:262::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/history/+page.svelte:262 '{#each allProfiles …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(profiles.all);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/history/+page.svelte:334::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/history/+page.svelte:334 '{#each cvItems …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $state([]);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/history/+page.svelte:452::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/history/+page.svelte:452 '{#each clItems …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $state([]);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/onboarding/+page.svelte:181::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/onboarding/+page.svelte:181 '{#each profile.missing_requirements …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(readiness?.profile ?? null);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/profiles/+page.svelte:68::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/profiles/+page.svelte:68 '{#each allProfiles …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(profiles.all);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/settings/+page.svelte:310::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte:310 '{#each connected …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(grouped.connected as CredentialIntegratio)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/settings/+page.svelte:406::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte:406 '{#each available …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(grouped.available as CredentialIntegratio)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/tracker/+page.svelte:182::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tracker/+page.svelte:182 '{#each allProfiles …}' has no key; list source is runtime data (user profiles/CV records, AI fit/role-match analysis results, credentials/providers/history from the API, via $props/$state/$derived: $derived(profiles.all);)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/each-key::src/routes/usage/+page.svelte:136::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/usage/+page.svelte:136 '{#each stats.by_operation …}' has no key; stats.by_operation, aggregate usage rows (operation/count) of one stats response; positional list (rows of one aggregate result)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/unmutated-state::src/routes/history/+page.svelte:43::$state \"cvPreviewEl\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file): src/routes/history/+page.svelte:43 let cvPreviewEl: HTMLDivElement | undefined = $state(undefined);; it is never mentioned again; no reassignment, mutation, bind:, call argument or directive, so it is never written"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::correctness/unmutated-state::src/routes/history/+page.svelte:55::$state \"selectedCvIds\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the name in the file): src/routes/history/+page.svelte:55 let selectedCvIds = $state<Set<number>>(new Set());; it is never mentioned again; no reassignment, mutation, bind:, call argument or directive, so it is never written"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::performance/sequential-awaits::src/routes/+layout.ts:37::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.ts:19-37: the only preceding await is getAuthStatus, whose result drives the auth redirect at :21-22 and the auth-route early return — auth-before-query ordering (docs Limitations); ssr=false SPA"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 46 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/cover-letter/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 69 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/generate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 60 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 58 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/import/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 49 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/onboarding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 53 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 61 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/profiles/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 52 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/settings/security/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/smart-apply/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 64 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/tracker/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/canonical-url::src/routes/usage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1work/reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); publicly reachable, rendered route, no noindex or auth gate"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/cover-letter/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/generate/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/history/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/import/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/onboarding/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/profiles/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/settings/security/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/smart-apply/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/tracker/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/description-presence::src/routes/usage/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no <meta name=description> anywhere in frontend/src or app.html (literal claim holds); not a search target: self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login))"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/heading-level-skip::src/routes/profile/+page.svelte:257::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: profile/+page.svelte:191 <h1>, then in the {#if isProfileEmpty && !loading && !showImporter} arm the <h3> \"New here?\" (:257); the importer card (CardTitle) is excluded by !showImporter -> h1 to h3"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; / has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/cover-letter/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /cover-letter has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/generate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /generate has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /history has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/import/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /import has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /login has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /onboarding has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /profile has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/profiles/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /profiles has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /settings has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/settings/security/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /settings/security has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /setup has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/smart-apply/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /smart-apply has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/tracker/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /tracker has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/json-ld::src/routes/usage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org/{@html} anywhere in frontend/src or app.html; /usage has no JSON-LD"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 46 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/cover-letter/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 69 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/generate/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 60 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/history/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 58 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/import/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 49 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 53 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 61 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/profiles/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 52 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/settings/security/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/smart-apply/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 64 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/tracker/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-description::src/routes/usage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent (script-verified (a1work/reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 46 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/cover-letter/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 69 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/generate/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 60 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/history/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 58 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/import/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 49 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 53 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 61 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/profiles/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 52 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/settings/security/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/smart-apply/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 64 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/tracker/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-image::src/routes/usage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent (script-verified (a1work/reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 46 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/cover-letter/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 69 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/generate/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 60 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/history/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 58 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/import/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 49 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 53 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 61 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/profiles/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 52 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/settings/security/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/smart-apply/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 64 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/tracker/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-title::src/routes/usage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent (script-verified (a1work/reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 46 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/cover-letter/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 69 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/generate/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 60 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 58 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/import/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 49 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 53 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 61 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/profiles/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 52 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/settings/security/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/smart-apply/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 64 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/tracker/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/og-url::src/routes/usage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent (script-verified (a1work/reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/single-h1::src/lib/components/CvPreview.svelte:16::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: key covers /generate and /history (mixed): /generate renders PageHeader's <h1>{title} (PageHeader.svelte:34) and CvPreview's <h1>{profile.name} (CvPreview.svelte:16) for previewProfile (generate/+page.svelte:282-294) -> two <h1>s; on /history the CvPreview <h1> renders only after the user selects a CV (selectedCv null by default, history/+page.svelte:42,373-374)"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in frontend/static (favicon.png, robots.txt only) or routes (literal claim holds); self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"), whole app ssr=false with optional owner password (+layout.ts:13, +layout.svelte goto(/login)), nothing public to list"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/ssr-disabled::src/routes/+layout.ts:13::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:13; deliberate SPA for the self-hosted, local-first single-owner resume/job-application tool (README \"Self-hosted, local-first tools\"); docs say turn the rule off for a deliberate SPA"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/cover-letter/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/cover-letter/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/generate/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/generate/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/history/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/history/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/import/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/import/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/login/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/login/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/onboarding/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/onboarding/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/profile/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/profile/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/profiles/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/profiles/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/settings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/settings/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/settings/security/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/settings/security/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/setup/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/setup/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/smart-apply/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/smart-apply/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/tracker/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/tracker/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/title-presence::src/routes/usage/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read + script-verified: src/routes/usage/+page.svelte has no svelte:head; root +layout.svelte (the only layout) has none, app.html has no <title>, and there is no <title>/document.title anywhere in the applykit repo; deps (bits-ui, @lucide/svelte) emit no document title; the ssr=false route stays untitled in the browser too"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 46 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/cover-letter/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 69 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/generate/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 60 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/history/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 58 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/import/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 49 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/onboarding/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 53 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 61 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/profiles/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 52 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/settings/security/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/smart-apply/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 64 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/tracker/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 42 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  },
+  {
+    "key": "wihlarkop/applykit:frontend::seo/twitter-card::src/routes/usage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent (script-verified (a1work/reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 39 transitively imported local files ($lib/kit.alias/relative/barrels) or app.html; no og/twitter/canonical tag anywhere in frontend/src or app.html, no meta-tag library among reached npm deps (ssr=false SPA, routes/+layout.ts:13); the optional single-owner password gate (routes/+layout.ts:17-22 via lib/auth-routing.ts) is off by default (backend/app/config.py:39 auth_mode \"disabled\", docker-compose.yml:14)); missing as claimed"
+  }
+]

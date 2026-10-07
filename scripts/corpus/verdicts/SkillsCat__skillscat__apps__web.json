@@ -1,0 +1,1437 @@
+[
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/deprecated-aria::src/lib/components/ui/Pagination.svelte:114::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read: bare <span> (no role, no spread) with aria-disabled=\"true\"; aria-disabled deprecated on generic since ARIA 1.2"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/deprecated-aria::src/lib/components/ui/Pagination.svelte:162::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read: bare <span> (no role, no spread) with aria-disabled=\"true\"; aria-disabled deprecated on generic since ARIA 1.2"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/disallowed-aria-props::src/lib/components/ui/Pagination.svelte:114::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e-a11y/ctx.mjs) + read: literal <span> at this line carries aria-label, no role attribute, no spread, not in svg; generic role prohibits naming"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/disallowed-aria-props::src/lib/components/ui/Pagination.svelte:130::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e-a11y/ctx.mjs) + read: literal <span> at this line carries aria-label, no role attribute, no spread, not in svg; generic role prohibits naming"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/disallowed-aria-props::src/lib/components/ui/Pagination.svelte:162::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, e-a11y/ctx.mjs) + read: literal <span> at this line carries aria-label, no role attribute, no spread, not in svg; generic role prohibits naming"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/duplicate-landmark::src/routes/org/[slug]/settings/+layout.svelte:152::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:298 unconditional <main>{@render children()} plus settings layout <main> at 152 (under {#if org})"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/duplicate-landmark::src/routes/user/+layout.svelte:91::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: routes/+layout.svelte:298 unconditional <main>{@render children()} plus user layout <main> at 91 (under {#if user})"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/id-duplication::src/lib/components/common/Logo.svelte:19::Duplicate id \"logo-squircle\"",
+    "verdict": "tp",
+    "basis": "read: Logo.svelte:19 <clipPath id=\"logo-squircle\"> unconditional; Logo rendered unconditionally by Navbar.svelte:120 and Footer.svelte:17, both unconditional in routes/+layout.svelte"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/id-duplication::src/lib/components/ui/ConfirmDialog.svelte:47::Duplicate id \"confirm-dialog-title\"",
+    "verdict": "design",
+    "basis": "read: ConfirmDialog content is under {#if open}; members/+page.svelte:409/420 has two instances open on removeTarget / roleTarget (separate user actions behind a modal overlay); documented separate-{#if} co-render model"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/permitted-contents::src/routes/skills/[owner]/[...name]/+page.svelte:1074::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e-a11y/pc.mjs): literal <div> at this line has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary; child not permitted by <button>'s content model"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/top-level-landmark::src/routes/org/[slug]/settings/+layout.svelte:123::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings layout bare <aside class=\"settings-sidebar\"> at 123 (divs above) inside routes/+layout.svelte:298 unconditional <main>"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/top-level-landmark::src/routes/org/[slug]/settings/+layout.svelte:152::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: settings layout <main> at 152 nested in routes/+layout.svelte:298 unconditional <main>"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/top-level-landmark::src/routes/user/+layout.svelte:73::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: user layout bare <aside class=\"settings-sidebar\"> at 73 (divs above) inside routes/+layout.svelte:298 unconditional <main>"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::a11y/top-level-landmark::src/routes/user/+layout.svelte:91::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: user layout <main> at 91 nested in routes/+layout.svelte:298 unconditional <main>"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/common/SearchBox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/common/SearchBox.svelte has 971 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/common/UserMenuAuthenticated.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/common/UserMenuAuthenticated.svelte has 214 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/dialog/InstallDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/dialog/InstallDialog.svelte has 494 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/dialog/LoginDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/dialog/LoginDialog.svelte has 213 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/dialog/SubmitDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/dialog/SubmitDialog.svelte has 618 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/docs/DocsProseCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/docs/DocsProseCard.svelte has 317 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/docs/DocsTableOfContents.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/docs/DocsTableOfContents.svelte has 392 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/layout/DeferredNavbarCategoriesMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/layout/DeferredNavbarCategoriesMenu.svelte has 246 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/layout/DeferredSearchBox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/layout/DeferredSearchBox.svelte has 264 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/layout/Navbar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/layout/Navbar.svelte has 773 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/layout/NavbarCategoriesContent.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/layout/NavbarCategoriesContent.svelte has 316 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/settings/SkillManageDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/settings/SkillManageDialog.svelte has 592 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/settings/SkillsList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/settings/SkillsList.svelte has 530 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/skill/DeferredSkillResourcesPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/skill/DeferredSkillResourcesPanel.svelte has 209 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/skill/FileBrowser.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/skill/FileBrowser.svelte has 213 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/skill/MarkdownRenderer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/skill/MarkdownRenderer.svelte has 230 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/skill/SkillCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/skill/SkillCard.svelte has 347 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/skill/SkillCardCompact.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/skill/SkillCardCompact.svelte has 208 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/skill/SkillResourcesPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/skill/SkillResourcesPanel.svelte has 637 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/ui/LocaleSwitcher.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/ui/LocaleSwitcher.svelte has 204 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/ui/Pagination.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/ui/Pagination.svelte has 389 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/lib/components/ui/Toast.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/lib/components/ui/Toast.svelte has 364 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/+layout.svelte has 581 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/+page.svelte has 427 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/categories/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/categories/+page.svelte has 494 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/category/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/category/[slug]/+page.svelte has 505 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/device/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/device/+page.svelte has 527 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/docs/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/docs/+page.svelte has 447 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/docs/cli/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/docs/cli/+page.svelte has 403 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/docs/openclaw/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/docs/openclaw/+page.svelte has 371 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/org/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/org/[slug]/+page.svelte has 951 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/org/[slug]/settings/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/org/[slug]/settings/+layout.svelte has 327 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/org/[slug]/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/org/[slug]/settings/+page.svelte has 767 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/org/[slug]/settings/members/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/org/[slug]/settings/members/+page.svelte has 792 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/org/[slug]/settings/skills/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/org/[slug]/settings/skills/+page.svelte has 353 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/org/[slug]/settings/tokens/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/org/[slug]/settings/tokens/+page.svelte has 900 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/registry/auth/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/registry/auth/login/+page.svelte has 397 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/search/+page.svelte has 510 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/skills/[owner]/[...name]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/skills/[owner]/[...name]/+page.svelte has 2828 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/u/[username]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/u/[username]/+page.svelte has 486 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/user/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/user/+layout.svelte has 230 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/user/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/user/account/+page.svelte has 453 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/user/messages/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/user/messages/+page.svelte has 475 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/user/organizations/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/user/organizations/+page.svelte has 506 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/user/skills/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/user/skills/+page.svelte has 453 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/component-size::src/routes/user/tokens/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: apps/web/src/routes/user/tokens/+page.svelte has 935 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/common/Avatar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): src, alt, fallback, size, shape, border, shadow, class, loading, fetchpriority, useGithubFallback"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/common/SEO.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 16 named props (> 6): title, description, url, prevUrl, nextUrl, image, imageAlt, type, publishedTime, modifiedTime, author, tags, section, noindex, robots, structuredData"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/common/SearchBox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6): value, placeholder, onSearch, onSelectSkill, onSelectCategory, class, showSuggestions, suggestionMode, showHistory, suggestionCategory, autofocus, isLoading"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/feedback/EmptyState.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): emoji, icon, title, description, actionText, actionHref, actionOnClick"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/feedback/ErrorState.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 11 named props (> 6): code, title, message, icon, fullPage, primaryActionText, primaryActionHref, primaryActionClick, secondaryActionText, secondaryActionHref, secondaryActionClick"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/layout/DeferredSearchBox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): value, placeholder, onSearch, onSelectSkill, class, autofocus, isLoading"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/layout/ListPage.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): title, icon, description, skills, emptyMessage, pagination, maxCrawlablePage"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/settings/SkillsList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 10 named props (> 6): skills, layout, loading, error, emptyTitle, emptyDescription, emptyHint, onRetry, onUnpublish, onSkillUpdated"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/ui/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6) plus ...rest: variant, size, renderAs, href, children, class, disabled, type, onclick"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/ui/ConfirmDialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6): open, title, description, confirmText, cancelText, onConfirm, onCancel, danger, loading"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/ui/HugeiconsIcon.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6) plus ...rest: icon, altIcon, size, strokeWidth, absoluteStrokeWidth, color, showAlt, class, className"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::architecture/prop-count::src/lib/components/ui/Input.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6) plus ...rest: label, error, icon, class, id, value, variant"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/lib/components/common/SEO.svelte:151::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/common/SEO.svelte:151 header '{#each tags as tag}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (prop: tags), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/lib/components/docs/DocsTableOfContents.svelte:312::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/docs/DocsTableOfContents.svelte:312 header '{#each items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (prop: items), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/lib/components/layout/NavbarCategoriesContent.svelte:135::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/NavbarCategoriesContent.svelte:135 header '{#each displaySections as section}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (localized static category sections filtered by a menu-density constant): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/lib/components/layout/NavbarCategoriesContent.svelte:139::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/layout/NavbarCategoriesContent.svelte:139 header '{#each section.categories as category}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (categories of static localized category sections): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/lib/components/ui/LocaleSwitcher.svelte:38::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/LocaleSwitcher.svelte:38 header '{#each locales as locale}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (i18n.availableLocales() static locale list): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/lib/components/ui/Pagination.svelte:126::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/Pagination.svelte:126 header '{#each pageNumbers as page}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; positional list (pagination page numbers): items have no identity beyond position"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/categories/+page.svelte:247::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/categories/+page.svelte:247 header '{#each groupedCategories() as section}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static localized category sections): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/category/[slug]/+page.svelte:299::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/category/[slug]/+page.svelte:299 header '{#each guide.related as category}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (guide.related from the static categoryGuide import): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/device/+page.svelte:212::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/device/+page.svelte:212 header '{#each deviceInfo.scopes as scope}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: deviceInfo), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/docs/+page.svelte:73::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/docs/+page.svelte:73 header '{#each doc.bullets as bullet}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (bullets of a same-file const docs literal): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/org/[slug]/+page.svelte:573::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/org/[slug]/+page.svelte:573 header '{#each members as member}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: members), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/org/[slug]/settings/+layout.svelte:140::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/org/[slug]/settings/+layout.svelte:140 header '{#each navItems as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list ($derived nav literal (fixed entries, labels localized)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/org/[slug]/settings/tokens/+page.svelte:314::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/org/[slug]/settings/tokens/+page.svelte:314 header '{#each expirationOptions as option}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list ($derived options literal (fixed entries, labels localized)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/org/[slug]/settings/tokens/+page.svelte:364::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/org/[slug]/settings/tokens/+page.svelte:364 header '{#each token.scopes as scope}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (template-scope: token), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/privacy/+page.svelte:38::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:38 header '{#each legalDocument.sections as section}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content (getLegalDocument)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/privacy/+page.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:41 header '{#each section.paragraphs as paragraph}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/privacy/+page.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:47 header '{#each section.items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/privacy/+page.svelte:53::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:53 header '{#each section.subsections as subsection}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/privacy/+page.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:56 header '{#each subsection.paragraphs as paragraph}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/privacy/+page.svelte:62::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:62 header '{#each subsection.items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/registry/auth/login/+page.svelte:163::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/registry/auth/login/+page.svelte:163 header '{#each data.cliSession.scopes as scope}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (data: data), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/skills/[owner]/[...name]/+page.svelte:1102::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/skills/[owner]/[...name]/+page.svelte:1102 header '{#each securityFindings as finding}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: securityFindings), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/skills/[owner]/[...name]/+page.svelte:1117::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/skills/[owner]/[...name]/+page.svelte:1117 header '{#each securityDimensions as dimension}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: securityDimensions), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/skills/[owner]/[...name]/+page.svelte:1418::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/skills/[owner]/[...name]/+page.svelte:1418 header '{#each data.skill.categories as categorySlug}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (data: data), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/terms/+page.svelte:38::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/terms/+page.svelte:38 header '{#each legalDocument.sections as section}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content (getLegalDocument)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/terms/+page.svelte:41::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/terms/+page.svelte:41 header '{#each section.paragraphs as paragraph}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/terms/+page.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/terms/+page.svelte:47 header '{#each section.items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/terms/+page.svelte:53::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/terms/+page.svelte:53 header '{#each section.subsections as subsection}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/terms/+page.svelte:56::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/terms/+page.svelte:56 header '{#each subsection.paragraphs as paragraph}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/terms/+page.svelte:62::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/terms/+page.svelte:62 header '{#each subsection.items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (static legal document content): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/u/[username]/+page.svelte:356::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/u/[username]/+page.svelte:356 header '{#each skills as skill}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (derived: skills), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/user/+layout.svelte:76::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/user/+layout.svelte:76 header '{#each navItems as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list ($derived nav literal (fixed entries, labels localized)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/user/tokens/+page.svelte:300::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/user/tokens/+page.svelte:300 header '{#each expirationOptions as option}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list ($derived options literal (fixed entries, labels localized)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/each-key::src/routes/user/tokens/+page.svelte:344::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/user/tokens/+page.svelte:344 header '{#each token.scopes as scope}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (template-scope: token), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/effect-as-derived::src/routes/org/[slug]/settings/members/+page.svelte:48::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/org/[slug]/settings/members/+page.svelte:48; effect only syncs members/org $state from data (load props); later local reassignments are the writable-$derived override pattern, supported by the app's svelte (package.json ^5.55 or later)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/effect-as-derived::src/routes/org/[slug]/settings/skills/+page.svelte:62::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/org/[slug]/settings/skills/+page.svelte:62; effect only assigns $state from data.* props; later handlers reassign wholesale (no deep mutation), so the writable-$derived override pattern, supported by the app's svelte (package.json ^5.55 or later) applies"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::correctness/effect-as-derived::src/routes/search/+page.svelte:183::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/routes/search/+page.svelte:183; searchValue = data.query; the input bind is the writable-$derived override pattern, supported by the app's svelte (package.json ^5.55 or later)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::performance/image-loading-hint::src/routes/device/+page.svelte:136::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at top of the centered CLI-auth card — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::performance/image-loading-hint::src/routes/registry/auth/login/+page.svelte:115::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at top of the centered CLI-auth card — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::performance/responsive-image::src/routes/device/+page.svelte:136::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /favicon-256x256.png shown at 88px — raster, one fixed-size asset"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::performance/responsive-image::src/routes/registry/auth/login/+page.svelte:115::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /favicon-256x256.png shown at 88px — raster, one fixed-size asset"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::performance/sequential-awaits::src/routes/bookmarks/+page.server.ts:18::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: only preceding await is the session check locals.auth() whose unauthenticated branch returns early — auth-before-query gate, docs Limitations"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::performance/sequential-awaits::src/routes/org/[slug]/settings/skills/+page.server.ts:28::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read load body: only preceding await is the session check locals.auth() that throws 401 — auth-before-query gate, docs Limitations"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::performance/sequential-awaits::src/routes/u/[username]/+page.server.ts:254::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read load body: the repo_owner skills query (line 254, binds the username param) uses nothing from the preceding author D1 query, whose only role there is a 404 gate (exceptional path) — two D1 round trips serialize on the normal path; per convention 404-gate-then-independent-query = tp"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::performance/state-raw::src/lib/components/dialog/SubmitDialog.svelte:69::\"submitResults\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to the binding: only whole-binding reassignments and template/read-only uses; no member writes, method calls, bind:, call args or each-item escapes (each-item uses are read-only: attribute/text reads, an option value, a read-only snippet/handler that only reads the item)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/lib/components/common/SEO.svelte:182::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: SEO.svelte:110-111 safeJsonLd = JSON.stringify(...).replace(/</g,'\\u003c').replace(/>/g,'\\u003e') — script-safe serialization per docs"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/lib/components/skill/CodeViewer.svelte:112::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: Shiki codeToHtml() output (escaping highlighter) of the skill file content — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/lib/components/skill/MarkdownRenderer.svelte:65::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: MarkdownRenderer.svelte:52 html = sanitizeRenderedHtml(marked output) — allowlist tag/attr sanitizer in $lib/markdown/sanitize.ts (script/style/svg/iframe escaped), hrefs/srcs via sanitizeMarkdownHref/sanitizeImageSrc — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/lib/components/skill/SkillResourcesPanel.svelte:362::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: getFileIconSvg (SkillResourcesPanel.svelte:255) returns literal inline SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/lib/components/skill/SkillResourcesPanel.svelte:384::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: getFileIconSvg (SkillResourcesPanel.svelte:255) returns literal inline SVG strings — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/lib/components/skill/SkillResourcesPanel.svelte:434::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: Shiki codeToHtml() output (escaping highlighter) of the skill file content — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/privacy/+page.svelte:36::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/privacy/+page.svelte:42::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/privacy/+page.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/privacy/+page.svelte:57::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/privacy/+page.svelte:63::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/skills/[owner]/[...name]/+page.svelte:1018::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: highlightCommand (+page.svelte:775) wraps each command token in a <span> after escapeHtml() — escaped, reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/skills/[owner]/[...name]/+page.svelte:1408::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: data.renderedReadme from renderHighlightedReadmeMarkdown (server/text/highlight.ts:157) = renderReadmeMarkdown -> sanitizeRenderedHtml (allowlist) then Shiki-highlighted code blocks — sanitized, reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/terms/+page.svelte:36::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/terms/+page.svelte:42::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/terms/+page.svelte:48::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/terms/+page.svelte:57::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/raw-html::src/routes/terms/+page.svelte:63::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: legalDocument = getLegalDocument(locale,'privacy'/'terms') — repo-authored legal text constants — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/search/+server.ts:1055::module-scope variable \"hasSkillSearchStateTable\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: hasSkillSearch*Table memoise whether the D1 search tables exist (sqlite_master probe) — a process-wide schema capability flag, not request data; sharing across requests is intended"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/search/+server.ts:1056::module-scope variable \"hasSkillSearchTermsTable\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: hasSkillSearch*Table memoise whether the D1 search tables exist (sqlite_master probe) — a process-wide schema capability flag, not request data; sharing across requests is intended"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/search/+server.ts:1057::module-scope variable \"hasSkillSearchPrefixesTable\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: hasSkillSearch*Table memoise whether the D1 search tables exist (sqlite_master probe) — a process-wide schema capability flag, not request data; sharing across requests is intended"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/search/+server.ts:1059::module-scope variable \"hasSkillSearchStateTable\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: hasSkillSearch*Table memoise whether the D1 search tables exist (sqlite_master probe) — a process-wide schema capability flag, not request data; sharing across requests is intended"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/search/+server.ts:1060::module-scope variable \"hasSkillSearchTermsTable\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: hasSkillSearch*Table memoise whether the D1 search tables exist (sqlite_master probe) — a process-wide schema capability flag, not request data; sharing across requests is intended"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/search/+server.ts:1061::module-scope variable \"hasSkillSearchPrefixesTable\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: hasSkillSearch*Table memoise whether the D1 search tables exist (sqlite_master probe) — a process-wide schema capability flag, not request data; sharing across requests is intended"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/skills/[slug]/download/+server.ts:250::module-scope variable \"crc#Table\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: lazy one-time memo of static process-wide data (crc32 lookup table / OG font buffers / site logo data URI) — no per-user data; docs name a deliberate process-wide cache as a suppress case"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/submit/+server.ts:532::module-scope variable \"cachedSubmitRateLimitState\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: cachedSubmitRateLimitState caches the app's own GitHub token rate-limit status keyed by tokenKey with a short TTL — app-level credential state, no per-user data; deliberate process-wide cache"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/api/submit/+server.ts:565::module-scope variable \"cachedSubmitRateLimitState\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: cachedSubmitRateLimitState caches the app's own GitHub token rate-limit status keyed by tokenKey with a short TTL — app-level credential state, no per-user data; deliberate process-wide cache"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/og/+server.ts:282::module-scope variable \"fontBuffers\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: lazy one-time memo of static process-wide data (crc32 lookup table / OG font buffers / site logo data URI) — no per-user data; docs name a deliberate process-wide cache as a suppress case"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::security/server-module-state::src/routes/og/+server.ts:309::module-scope variable \"logoDataUri\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read: lazy one-time memo of static process-wide data (crc32 lookup table / OG font buffers / site logo data URI) — no per-user data; docs name a deliberate process-wide cache as a suppress case"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/cli/auth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at cli/auth/+page.svelte:92), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/device/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at device/+page.svelte:130), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/org/[slug]/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at org/[slug]/settings/+layout.svelte:110), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/org/[slug]/settings/members/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at org/[slug]/settings/+layout.svelte:110), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/org/[slug]/settings/skills/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at org/[slug]/settings/+layout.svelte:110), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/org/[slug]/settings/tokens/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at org/[slug]/settings/+layout.svelte:110), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/registry/auth/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at registry/auth/login/+page.svelte:109), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/user/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at user/+layout.svelte:64), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/user/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at user/+layout.svelte:64), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/user/messages/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at user/+layout.svelte:64), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/user/organizations/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at user/+layout.svelte:64), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/user/skills/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at user/+layout.svelte:64), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/canonical-url::src/routes/user/tokens/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified, reach.mjs) but not a search target (literal noindex robots meta at user/+layout.svelte:64), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/cli/auth/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (cli/auth/+page.svelte:92 literal noindex, nofollow)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/device/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (device/+page.svelte:130 literal noindex, nofollow)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/org/[slug]/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (org/[slug]/settings/+layout.svelte:110 literal noindex, nofollow, noarchive (and its +layout.server.ts redirects anonymous/non-owner users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/org/[slug]/settings/members/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (org/[slug]/settings/+layout.svelte:110 literal noindex, nofollow, noarchive (and its +layout.server.ts redirects anonymous/non-owner users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/org/[slug]/settings/skills/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (org/[slug]/settings/+layout.svelte:110 literal noindex, nofollow, noarchive (and its +layout.server.ts redirects anonymous/non-owner users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/org/[slug]/settings/tokens/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (org/[slug]/settings/+layout.svelte:110 literal noindex, nofollow, noarchive (and its +layout.server.ts redirects anonymous/non-owner users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/registry/auth/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (registry/auth/login/+page.svelte:109 literal noindex, nofollow)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/user/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/user/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/user/messages/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/user/organizations/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/user/skills/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/description-presence::src/routes/user/tokens/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (route-check.mjs): no <meta name=description> in the layout chain + transitively imported local files (route does not render the shared SEO.svelte), none in app.html; not a search target (user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users))"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/device/+page.svelte:194::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): <h1> (:139), the two <h2> are in {#if success}/{:else if denied} arms exclusive with the flagged <h3> (:194) arm, no heading component between -> real h1->h3"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/org/[slug]/+page.svelte:529::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): <h1> (:412, if org) then skills-list <h3> (:529) with no heading-rendering component between -> real h1->h3"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/org/[slug]/settings/+page.svelte:195::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): flagged <h3> (:195) sits inside <SettingsSection> (:186), which renders <h2>{title}</h2> (SettingsSection.svelte:24) before its children -> rendered order h1 (:167) -> h2 -> h3, no skip (component heading unseen, documented)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/org/[slug]/settings/members/+page.svelte:296::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): flagged <h3> (:296) sits inside <SettingsSection> (:277), which renders <h2>{title}</h2> before its children -> rendered order h1 (:254) -> h2 -> h3, no skip (component heading unseen, documented)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/registry/auth/login/+page.svelte:161::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): <h1> (:118); <h2>s are in {#if success}/{:else if denied} arms exclusive with the flagged <h3> (:161) arm -> real h1->h3"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/skills/[owner]/[...name]/+page.svelte:1457::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): <h2> (:1416, categories) then the private-visibility notice <h4> (:1457) with nothing between -> real h2->h4"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/user/account/+page.svelte:90::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): <h2> (:78) directly followed by <h4> (:90), no heading component between -> real h2->h4"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/user/messages/+page.svelte:230::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): flagged <h3> (:230) sits inside <SettingsSection> (:209), which renders <h2>{title}</h2> before its children -> rendered order h1 (:192) -> h2 -> h3, no skip (component heading unseen, documented)"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/user/organizations/+page.svelte:157::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): <h1> (:128) then empty-state <h3> (:157); ErrorState (h2) is in the exclusive {:else if error} arm -> real h1->h3"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/bookmarks/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: bookmarks/+page.svelte:58 literal noindex, nofollow in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/cli/auth/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: cli/auth/+page.svelte:92 literal noindex, nofollow in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/device/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: device/+page.svelte:130 literal noindex, nofollow in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/org/[slug]/settings/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: org/[slug]/settings/+layout.svelte:110 literal noindex, nofollow, noarchive (and its +layout.server.ts redirects anonymous/non-owner users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/org/[slug]/settings/members/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: org/[slug]/settings/+layout.svelte:110 literal noindex, nofollow, noarchive (and its +layout.server.ts redirects anonymous/non-owner users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/org/[slug]/settings/skills/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: org/[slug]/settings/+layout.svelte:110 literal noindex, nofollow, noarchive (and its +layout.server.ts redirects anonymous/non-owner users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/org/[slug]/settings/tokens/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: org/[slug]/settings/+layout.svelte:110 literal noindex, nofollow, noarchive (and its +layout.server.ts redirects anonymous/non-owner users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/registry/auth/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: registry/auth/login/+page.svelte:109 literal noindex, nofollow in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/user/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/user/account/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/user/messages/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/user/organizations/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/user/skills/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/indexability::src/routes/user/tokens/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: user/+layout.svelte:64 literal noindex, nofollow, noarchive (and user/+layout.server.ts redirects anonymous users) in an unconditional svelte:head; noindex as claimed"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/bookmarks/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/cli/auth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/device/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/org/[slug]/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/org/[slug]/settings/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/org/[slug]/settings/skills/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/org/[slug]/settings/tokens/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/registry/auth/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/user/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/user/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/user/messages/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/user/organizations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/user/skills/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/json-ld::src/routes/user/tokens/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: layout chain + transitive imports never reach SEO.svelte (the only JSON-LD emitter, {@html} ld+json at :182); no ld+json in app.html/hooks"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/bookmarks/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 46 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/cli/auth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/device/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/org/[slug]/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/org/[slug]/settings/members/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/org/[slug]/settings/skills/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 51 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/org/[slug]/settings/tokens/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/registry/auth/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/user/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 40 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/user/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/user/messages/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/user/organizations/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/user/skills/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 52 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-description::src/routes/user/tokens/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:description in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/bookmarks/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 46 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/cli/auth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/device/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/org/[slug]/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/org/[slug]/settings/members/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/org/[slug]/settings/skills/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 51 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/org/[slug]/settings/tokens/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/registry/auth/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/user/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 40 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/user/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/user/messages/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/user/organizations/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/user/skills/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 52 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-image::src/routes/user/tokens/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:image in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/bookmarks/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 46 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/cli/auth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/device/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/org/[slug]/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/org/[slug]/settings/members/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/org/[slug]/settings/skills/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 51 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/org/[slug]/settings/tokens/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/registry/auth/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/user/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 40 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/user/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/user/messages/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/user/organizations/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/user/skills/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 52 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-title::src/routes/user/tokens/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:title in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/bookmarks/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 46 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/cli/auth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/device/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/org/[slug]/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/org/[slug]/settings/members/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/org/[slug]/settings/skills/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 51 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/org/[slug]/settings/tokens/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/registry/auth/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/user/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 40 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/user/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/user/messages/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/user/organizations/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/user/skills/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 52 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/og-url::src/routes/user/tokens/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no og:url in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/single-h1::src/lib/components/docs/ChineseDocs.svelte:17::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "all 3 routes (/docs, /docs/cli, /docs/openclaw): <ChineseDocs> (its <h1> at :17) sits in {#if i18n.locale() === \"zh-CN\"} and the page's own <h1> in the matching {:else} (e.g. docs/+page.svelte:37/:56) — exclusive, one <h1> renders"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/single-h1::src/lib/components/feedback/ErrorState.svelte:62::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "all 7 routes: ErrorState <h1> (:62) is inside {#if code}; on org/[slug], u/[username] and skills/[owner]/[...name] ErrorState sits in an {#if error} arm exclusive with the page <h1> arm, and on org/[slug]/settings(/tokens), user/messages and user/organizations ErrorState is rendered without a code prop, so its <h1> never renders — one <h1> per route (mixed key: anchor /org/[slug] and 2 others are syntactic {#if}/{:else} exclusivity; 4 are a never-true {#if code})"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/title-length::src/routes/cli/auth/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: cli/auth/+page.svelte:91 literal <title>ClawHub CLI Login - SkillsCat</title> = 29 chars, the only title for the route; length matches"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/bookmarks/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 46 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/cli/auth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/device/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 39 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/org/[slug]/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/org/[slug]/settings/members/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/org/[slug]/settings/skills/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 51 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/org/[slug]/settings/tokens/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/registry/auth/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 1 ancestor layout(s), 41 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/user/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 40 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/user/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/user/messages/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 45 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/user/organizations/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 44 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/user/skills/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 52 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/twitter-card::src/routes/user/tokens/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.mjs, comments stripped): no twitter:card in page, 2 ancestor layout(s), 43 transitively imported local files (aliases/barrels/workspace pkgs) or app.html/hooks; these tags exist only in src/lib/components/common/SEO.svelte (and bookmarks canonical), not rendered on this route; hooks only read og: meta for markdown export"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/org/[slug]/settings/+page.svelte:238::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "second SettingsSection (org/[slug]/settings/+page.svelte:229) renders <h2>{title}</h2> (SettingsSection.svelte:24) before its children; inside, the flagged <h4> (:238) follows with no <h3> between -> h2 to h4"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/org/[slug]/settings/tokens/+page.svelte:238::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): <h1> (:223) then the {#if createdToken} <h3> (:238), placed before the first SettingsSection (:258) -> real h1->h3 once a token is created"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/user/tokens/+page.svelte:223::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "own heading walk (page+layouts+followed components, arms tracked): <h1> (:208) then the {#if createdToken} <h3> (:223) before the first <h2> (:244) -> real h1->h3"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/heading-level-skip::src/routes/user/messages/+page.svelte:247::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "user/messages/+page.svelte:192 <h1>, then <SettingsSection> (:209) renders <h2>{title}</h2> (SettingsSection.svelte:24) before its children; in the {:else} (notifications present) arm the first {#each notifications} card renders <h4> (:247) with only HugeiconsIcon between; the <h3> (:230) and ErrorState are in exclusive empty/error arms -> real h2->h4 at the flagged heading"
+  },
+  {
+    "key": "SkillsCat/skillscat:apps/web::seo/single-h1::src/routes/user/+layout.svelte:74::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /user renders user/+layout.svelte (sidebar <h2> at :74, no <h1>) and user/+page.svelte (a loading <p>, then onMount goto('/user/skills')); no <h1> in the chain or its imports, and the inline SVG icons are not headings; a client-redirect stub, labelled like the ledger's other ones (tp)"
+  }
+]

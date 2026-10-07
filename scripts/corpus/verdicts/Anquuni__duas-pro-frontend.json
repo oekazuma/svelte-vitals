@@ -1,0 +1,227 @@
+[
+  {
+    "key": "Anquuni/duas-pro-frontend::architecture/component-size::src/lib/dua-detail/audio-player/AudioPlayer.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/dua-detail/audio-player/AudioPlayer.svelte has 373 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::architecture/component-size::src/lib/header/DefaultHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/header/DefaultHeader.svelte has 228 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 7 named props (> 6) plus ...rest: class, variant, size, ref, href, type, children"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/bookmarks/BookmarkedDuas.svelte:11::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: BookmarkedDuas.svelte:11 '{#each $bookmarksStore as dua}' has no key; bookmarksStore is the user's bookmark list (writable, toggled by toggleBookmark with an X button per item at bookmarks.store.ts:31): items inserted/removed mid-list"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-detail/DuaContent.svelte:34::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: DuaContent.svelte:34 '{#each dua.collections …}' has no key; dua is the API record from the page load: runtime records"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-detail/audio-player/AudioSettingsPopover.svelte:67::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: AudioSettingsPopover.svelte:67 '{#each speeds …}' has no key; speeds is the only caller's constant [0.25 … 2.0] (AudioPlayer.svelte:35): static list fixed at author time"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-detail/audio-player/AudioSettingsPopover.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: AudioSettingsPopover.svelte:86 '{#each reciters …}' has no key; reciters = dua.recitations.map(...) of the API dua record (AudioPlayer.svelte:37): runtime records"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-detail/views/DuaReadingView.svelte:12::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DuaReadingView.svelte:12 '{#each lines …}' has no key; lines = dua.lines (DuaLineViews.svelte:40), the verse lines of one dua text: positional list (text lines of a fixed document)"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-detail/views/DuaTranslationView.svelte:8::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DuaTranslationView.svelte:8 '{#each lines …}' has no key; lines = dua.lines (DuaLineViews.svelte:37), the verse lines of one dua text: positional list (text lines of a fixed document)"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-discovery/BrowsePage.svelte:95::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: BrowsePage.svelte:95 '{#each selectedTypes.filter(…) …}' has no key; selectedTypes = $derived(page.url.searchParams.getAll('types')), the user's active filter chips: items inserted/removed"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-discovery/DuaCard.svelte:114::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: DuaCard.svelte:114 '{#each dua.reciters …}' has no key; dua is an API record passed through DuaGrid from data.duas: runtime records"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-discovery/DuaCard.svelte:74::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: DuaCard.svelte:74 '{#each dua.collections …}' has no key; dua is an API record passed through DuaGrid from data.duas: runtime records"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-discovery/DuaGrid.svelte:9::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: DuaGrid.svelte:9 '{#each duas …}' has no key; duas = data.duas (BrowsePage.svelte:106, collections/[slug]/+page.svelte:26), the paged/filtered API result: runtime records"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-discovery/FilterPanel.svelte:59::{#each} block has no key",
+    "verdict": "fp",
+    "basis": "read: FilterPanel.svelte:59 '{#each duaTypes …}' iterates duaTypes imported from '$lib/types/dua.model', which is `export const duaTypes = [ \"dua\", \"ziyarat\" ] as const` (src/lib/types/dua.model.ts:24), never written; its only other mention in the component is the import: the documented imported-constant exemption; missed because resolveExportAt (cli/src/providers/source/resolve.ts:224-235) reads '.model' as a file extension and returns undefined for a dotted basename"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/dua-discovery/Pagination.svelte:75::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Pagination.svelte:75 '{#each pages …}' has no key; pages = $derived.by page numbers around the current page with '...' gaps: positional list (items have no identity beyond position)"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/header/DefaultHeader.svelte:112::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DefaultHeader.svelte:112 '{#each navItems …}' has no key; navItems = $derived([...]) literal nav entries with translated labels (:41): static list fixed at author time"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/header/DefaultHeader.svelte:123::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DefaultHeader.svelte:123 '{#each item.subitems …}' has no key; subitems of the authored navItems literal (:41): static list fixed at author time"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/header/DefaultHeader.svelte:164::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DefaultHeader.svelte:164 '{#each navItems …}' has no key; navItems = $derived([...]) literal nav entries with translated labels (:41): static list fixed at author time"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/header/DefaultHeader.svelte:172::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DefaultHeader.svelte:172 '{#each item.subitems …}' has no key; subitems of the authored navItems literal (:41): static list fixed at author time"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/live-reading/CreateSessionDialog.svelte:99::{#each} block has no key",
+    "verdict": "fp",
+    "basis": "read: CreateSessionDialog.svelte:99 '{#each daysOfWeek …}' iterates daysOfWeek imported from './session.model', `export const daysOfWeek = [ \"monday\" … \"sunday\" ] as const` (session.model.ts:1), never written; other mention in the component is a type query (typeof daysOfWeek[number], :34): the documented imported-constant exemption; missed because resolveExportAt (resolve.ts:224-235) reads '.model' as a file extension"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/live-reading/SessionCard.svelte:161::{#each} block has no key",
+    "verdict": "fp",
+    "basis": "read: SessionCard.svelte:161 '{#each daysOfWeek …}' iterates daysOfWeek imported from './session.model', `export const daysOfWeek = [ … ] as const` (session.model.ts:1), never written; other mention is a type query (:44): the documented imported-constant exemption; missed because resolveExportAt (resolve.ts:224-235) reads '.model' as a file extension"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/settings/DuaLanguageSelector.svelte:127::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: DuaLanguageSelector.svelte:127 '{#each secondTranslationOptions …}' has no key; $derived filter of the constant languages list (settings.store.ts:24) minus the current system language: static option list of plain menu buttons"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/lib/settings/SettingsPopover.svelte:105::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SettingsPopover.svelte:105 '{#each nonTranslitLanguages …}' has no key; nonTranslitLanguages = languages.filter(...) of the constant languages list (settings.store.ts:100), not an exempt array literal: static list fixed at author time"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/routes/[[lang]]/blog/+page.svelte:22::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: blog/+page.svelte:22 '{#each data.posts.items …}' has no key; blog posts from the page load (API): runtime records"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/each-key::src/routes/[[lang]]/collections/+page.svelte:23::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: collections/+page.svelte:23 '{#each data.collections …}' has no key; collections from the page load (API): runtime records"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/effect-as-derived::src/lib/dua-discovery/BrowsePage.svelte:31::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: BrowsePage.svelte:31; the effect only does searchTerm = urlSearchWord ($derived); the later write is bind:value={searchTerm} (:81), the writable-$derived override pattern (svelte ^5.55)"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/stale-prop-derivation::src/lib/SEOHead.svelte:18::\"schemaType\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: SEOHead.svelte:18 schemaType from the type prop at init (structurally true); every caller passes a literal type ('organization'/'webpage'/'article', e.g. BrowsePage.svelte:61, DuaDetailPage.svelte:169), so the frozen value never differs within an instance"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::correctness/stale-prop-derivation::src/lib/SEOHead.svelte:19::\"imageKey\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: SEOHead.svelte:19 imageKey from the type prop at init (structurally true); every caller passes a literal type, so the frozen value never differs within an instance"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::performance/image-dimensions::src/routes/[[lang]]/blog/[slug]/+page.svelte:104::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class h-auto w-full only — the natural aspect decides the height, the article below shifts"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::performance/image-dimensions::src/routes/[[lang]]/blog/[slug]/+page.svelte:77::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-10 w-10)"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::performance/lcp-image::src/routes/[[lang]]/blog/[slug]/+page.svelte:77::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route is the 40px author avatar in the byline under the post <h1> (:68-77) — not the LCP candidate (the heading/text is), so lazy costs no largest paint; the post cover at :104 is also loading=\"lazy\""
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::performance/responsive-image::src/routes/[[lang]]/blog/[slug]/+page.svelte:104::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: post cover image, remote raster — one fixed-size asset"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::performance/responsive-image::src/routes/[[lang]]/blog/[slug]/+page.svelte:77::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg; read: author_avatar_url or the Supabase logo.png fallback — remote raster, one fixed-size asset"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::performance/sequential-awaits::src/routes/+layout.ts:40::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.ts:33-40: getSession() reads the session from cookie storage (no request) and getUser() must follow it; both run under GoTrueClient's _acquireLock, so Promise.all would still serialize them — nothing parallelizable"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::performance/sequential-awaits::src/routes/[[lang]]/profile/+page.server.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read [[lang]]/profile/+page.server.ts:12-15: the only preceding await is safeGetSession(), the auth gate that redirects when there is no session — auth-before-query ordering, docs Limitations (ledger auth-gate convention)"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::security/raw-html::src/lib/SEOHead.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read lib/SEOHead.svelte:39-45: JSON-LD built by raw string interpolation of title (DB dua/collection/blog titles, e.g. DuaDetailPage.svelte:167, blog/[slug]/+page.svelte:52) with no JSON or '<' escaping — docs: non-literal JSON-LD needs script-safe serialization"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::security/raw-html::src/lib/dua-detail/DuaContent.svelte:50::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read dua-detail/DuaContent.svelte:50: $t(\"dua.by\") with narrator = $t(\"narrator.\"+key), a repo i18n lookup — repo strings; reported per docs"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::security/raw-html::src/lib/live-reading/ManageLiveReadingDialog.svelte:111::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ManageLiveReadingDialog.svelte:111: repo i18n message with a numeric participant count or a nested repo i18n status string — no user text; reported per docs"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::security/raw-html::src/lib/live-reading/ManageLiveReadingDialog.svelte:116::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ManageLiveReadingDialog.svelte:116: repo i18n message with a numeric participant count or a nested repo i18n status string — no user text; reported per docs"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::security/raw-html::src/lib/live-reading/ManageLiveReadingDialog.svelte:68::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read ManageLiveReadingDialog.svelte:68 + translations/en.ts:92 (template \"Code: <strong>{{code}}</strong>\") + live-reading.utils.ts:46 + DuaDetailPage.svelte:27-34: liveReadingRoomCode is taken verbatim from the ?code= URL param (or typed code) and interpolated unescaped into {@html} — reflected DOM XSS via a crafted link"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::security/raw-html::src/lib/live-reading/ManageLiveReadingDialog.svelte:69::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read ManageLiveReadingDialog.svelte:69: repo i18n message with a numeric participant count or a nested repo i18n status string — no user text; reported per docs"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::security/raw-html::src/routes/[[lang]]/blog/[slug]/+page.svelte:110::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read [[lang]]/blog/[slug]/+page.svelte:11-18 + +page.server.ts: contentHtml = marked parse of the site's own blog posts (supabase \"posts\" function, author defaults to \"duas.pro\") — first-party CMS content (ledger site-owner CMS convention); reported per docs"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::seo/single-h1::src/lib/dua-detail/DuaContent.svelte:27::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: key covers 2 routes (duas/[duaRouteName], ziyarat/[ziyaratRouteName]): DuaContent's <h1> (:27) plus DuaHeader's <h1>, which appears only after hydration: Header.svelte (root +layout.svelte:47) mounts DuaHeader — whose <h1> is DuaHeader.svelte:16 — only {#if $headerStore.isDuaPage} (Header.svelte:23); headerStore.isDuaPage defaults to false (lib/header/header.store.ts:10-15) and only DuaDetailPage.svelte sets it, true in onMount (:82) and back to false on destroy (:133) — the server HTML has one <h1> and the client adds the second, a client-only state counted per documented semantics (same as the afterNavigate documentTitle precedent)"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::seo/single-h1::src/lib/dua-discovery/BrowsePage.svelte:65::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: key covers 3 routes (/duas, /sahifa-sajjadia, /ziyarat): BrowsePage's <h1> (:65) is the single one; Header.svelte (root +layout.svelte:47) mounts DuaHeader — whose <h1> is DuaHeader.svelte:16 — only {#if $headerStore.isDuaPage} (Header.svelte:23); headerStore.isDuaPage defaults to false (lib/header/header.store.ts:10-15) and only DuaDetailPage.svelte sets it, true in onMount (:82) and back to false on destroy (:133), which never happens on these browse routes -> 1 <h1>, not 2"
+  },
+  {
+    "key": "Anquuni/duas-pro-frontend::seo/single-h1::src/lib/header/DuaHeader.svelte:16::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "fp",
+    "basis": "read: key covers 4 routes (/blog, /blog/[slug], /collections, /collections/[slug]): Header.svelte (root +layout.svelte:47) mounts DuaHeader — whose <h1> is DuaHeader.svelte:16 — only {#if $headerStore.isDuaPage} (Header.svelte:23); headerStore.isDuaPage defaults to false (lib/header/header.store.ts:10-15) and only DuaDetailPage.svelte sets it, true in onMount (:82) and back to false on destroy (:133), and these routes never render DuaDetailPage, so DuaHeader never renders there; each page has its single <h1> (e.g. blog/+page.svelte:12) -> 1 <h1>, not 2"
+  }
+]

@@ -1,0 +1,1632 @@
+[
+  {
+    "key": "company-of-heroes/app:packages/app::a11y/accessible-name::src/lib/components/ui/table/data-table.svelte:107::<button> has no accessible name",
+    "verdict": "design",
+    "basis": "read ui/table/data-table.svelte:107: empty row-overlay <button tabindex=\"-1\" aria-hidden=\"true\"> under {#if clickable}; unnamed as reported, but aria-hidden and tabindex=-1 keep it out of the AT tree and tab order (aria-hidden backdrop precedent)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::a11y/permitted-contents::src/lib/components/leaderboard/leaderboard-mode-summary.svelte:35::`<dt>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <dt> at leaderboard/leaderboard-mode-summary.svelte:35 has nearest literal parent <div> with no component/snippet/{@render}/svelte:element boundary between and not in svg; <dt> is outside <div>'s content model as reported; the wrapping <div> (:31) is an {#each} child of the root <div>, not a direct <dl> child, so the dl>div wrapper exemption does not apply"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::a11y/permitted-contents::src/lib/components/leaderboard/leaderboard-mode-summary.svelte:36::`<dd>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, ework/ctx.mjs): literal <dd> at leaderboard/leaderboard-mode-summary.svelte:36 has nearest literal parent <div> with no component/snippet/{@render}/svelte:element boundary between and not in svg; <dd> is outside <div>'s content model as reported; the wrapping <div> (:31) is an {#each} child of the root <div>, not a direct <dl> child, so the dl>div wrapper exemption does not apply"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::a11y/top-level-landmark::src/routes/(loaded)/admin/+layout.svelte:39::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (loaded)/admin/+layout.svelte:39 unlabelled <aside> ({#if app.account.isStaff}, inside plain divs) is placed at (loaded)/+layout.svelte:296 {@render children()} inside <main> (:264); complementary nested in main on the 9 /admin routes"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/leaderboard/leaderboard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/leaderboard/leaderboard.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/match-history/match-history.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/match-history/match-history.svelte has 333 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/match/match-comments.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/match/match-comments.svelte has 939 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/match/match-overview.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/match/match-overview.svelte has 234 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/match/match-screenshots.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/match/match-screenshots.svelte has 364 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/player/player-match-history.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/player/player-match-history.svelte has 283 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/player/player-screenshots.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/player/player-screenshots.svelte has 271 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/replay/member-replay-edit-modal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/replay/member-replay-edit-modal.svelte has 405 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/replay/replay-actions.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/replay/replay-actions.svelte has 377 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/replay/replay-details.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/replay/replay-details.svelte has 553 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/replay/replay-players.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/replay/replay-players.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/select/select-voices.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/select/select-voices.svelte has 203 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/ui/table/data-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ui/table/data-table.svelte has 319 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/widgets/current-game-view.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/widgets/current-game-view.svelte has 443 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/widgets/widget-dashboard-hero.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/widgets/widget-dashboard-hero.svelte has 830 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/lib/components/widgets/widget-live-lobbies.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/widgets/widget-live-lobbies.svelte has 221 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/+layout.svelte has 305 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/account/+page.svelte has 276 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/account/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/account/profile/+page.svelte has 294 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/denylist-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/denylist-tab.svelte has 312 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/flagged-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/flagged-tab.svelte has 451 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/hidden-matches-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/hidden-matches-tab.svelte has 326 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/labels-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/labels-tab.svelte has 401 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/modules-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/modules-tab.svelte has 392 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/notifications-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/notifications-tab.svelte has 325 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/reputation-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/reputation-tab.svelte has 300 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/screenshots-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/screenshots-tab.svelte has 619 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/admin/tabs/users-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/admin/tabs/users-tab.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/history/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/history/+page.svelte has 463 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/history/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/history/[id]/+page.svelte has 443 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/history/member-replays.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/history/member-replays.svelte has 252 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/leaderboards/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/leaderboards/+page.svelte has 294 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/players/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/players/[id]/+page.svelte has 346 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/replays/replay-filters.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/replays/replay-filters.svelte has 242 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/replays/replay-table.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/replays/replay-table.svelte has 427 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/replays/upload/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/replays/upload/+page.svelte has 996 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/settings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/settings/+page.svelte has 334 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(loaded)/twitch/tabs/twitch-tab/twitch-tab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(loaded)/twitch/tabs/twitch-tab/twitch-tab.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/component-size::src/routes/(onboarding)/setup/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(onboarding)/setup/+page.svelte has 360 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/prop-count::src/lib/components/leaderboard/leaderboard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/leaderboard/leaderboard.svelte has a single destructured $props() with 7 named props (> 6): stats, elo, loading, skeletonRows, empty, class, wrapperClass"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/prop-count::src/lib/components/match/match-comment-composer.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/match/match-comment-composer.svelte has a single destructured $props() with 11 named props (> 6): value, posting, name, placeholder, submitLabel, autofocus, rows, class, people, onpost, oncancel"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/prop-count::src/lib/components/match/match-list-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/match/match-list-table.svelte has a single destructured $props() with 12 named props (> 6): matches, loading, columns, showMap, showRating, expandable, highlightedPlayers, emptyMessage, class, footer, expandContent, detailsHref"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/prop-count::src/lib/components/player-performance/player-performance-matches.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/player-performance/player-performance-matches.svelte has a single destructured $props() with 10 named props (> 6): profileId, scope, userId, totalGames, maps, races, matchtypes, showMap, label, emptyMessage"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/prop-count::src/lib/components/player-performance/player-performance.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/player-performance/player-performance.svelte has a single destructured $props() with 7 named props (> 6): profileId, scope, userId, empty, class, refreshKey, performance"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/prop-count::src/lib/components/ui/input/file-selection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/input/file-selection.svelte has a single destructured $props() with 8 named props (> 6): value, directory, type, onSelect, filters, defaultPath, showStatus, class (plus rest element ..._restProps)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/prop-count::src/lib/components/ui/table/data-table.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/table/data-table.svelte has a single destructured $props() with 24 named props (> 6): data, columns, rowKey, rowHref, onRowClick, isRowExpanded, rowClass, loading, skeletonRows, empty, showHeader, class, headerClass, headerRowClass, bodyRowClass, children, rowWrapper, cells, headers, skeletons, skeletonClasses, tableLayout, density, striped"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::architecture/prop-count::src/lib/components/widgets/lobby-players-grid.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/widgets/lobby-players-grid.svelte has a single destructured $props() with 7 named props (> 6): players, matchType, highlightPlayerId, result, smurfs, cheaters, hideStats"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/each-index-key::src/lib/components/replay/replay-actions.svelte:350::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/replay/replay-actions.svelte:350 keyed by its index binding; actions is a $derived.by filter of replay.actions for the selected player (54-72), runtime replay records that change with the player selection; runtime data, not static or positional"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/each-key::src/lib/components/lobby/lobby-details.svelte:23::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/lobby/lobby-details.svelte:23 '{#each sortBy(lobby.players, 'team') …}' has no key and is not an exempt shape; list source is runtime data (sortBy(lobby.players, 'team') of a live lobby record), players join/leave and reorder"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/each-key::src/lib/components/ui/input/options.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/input/options.svelte:85 '{#each value …}' has no key and is not an exempt shape; list source is runtime data (the $bindable value prop of an editable options input, with add/remove, options.svelte:21-41), items are inserted/removed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/each-key::src/lib/components/ui/input/options.svelte:99::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/input/options.svelte:99 '{#each Object.entries(value) …}' has no key and is not an exempt shape; list source is runtime data (the $bindable value prop of an editable options input, with add/remove, options.svelte:21-41), items are inserted/removed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:70::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:70 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:73::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:73 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:76::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:76 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:79::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:79 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:82::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:82 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:85::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:85 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:88::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:88 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:91::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:91 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:94::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:94 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/history/history-filters.svelte:97::Prop \"matches\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/history/history-filters.svelte:97 writes matches.filters.<field>; matches is a Matches class instance whose filters is a $state field (lib/core/app/features/history/matches.svelte.ts:81, 195), so the write is reactive through the class's deep proxy; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/replays/replay-table.svelte:146::Prop \"list\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/replays/replay-table.svelte:146 writes list.filters.sort.<field>; list is a ReplayList class instance whose filters is a $state field (replays/replay-list.svelte.ts:76-77), so the write is reactive; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/replays/replay-table.svelte:148::Prop \"list\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/replays/replay-table.svelte:148 writes list.filters.sort.<field>; list is a ReplayList class instance whose filters is a $state field (replays/replay-list.svelte.ts:76-77), so the write is reactive; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/replays/replay-table.svelte:150::Prop \"list\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/replays/replay-table.svelte:150 writes list.filters.sort.<field>; list is a ReplayList class instance whose filters is a $state field (replays/replay-list.svelte.ts:76-77), so the write is reactive; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/replays/replay-table.svelte:155::Prop \"list\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/replays/replay-table.svelte:155 writes list.filters.sort.<field>; list is a ReplayList class instance whose filters is a $state field (replays/replay-list.svelte.ts:76-77), so the write is reactive; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/replays/replay-table.svelte:157::Prop \"list\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/replays/replay-table.svelte:157 writes list.filters.sort.<field>; list is a ReplayList class instance whose filters is a $state field (replays/replay-list.svelte.ts:76-77), so the write is reactive; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/prop-mutation::src/routes/(loaded)/replays/replay-table.svelte:159::Prop \"list\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: src/routes/(loaded)/replays/replay-table.svelte:159 writes list.filters.sort.<field>; list is a ReplayList class instance whose filters is a $state field (replays/replay-list.svelte.ts:76-77), so the write is reactive; the docs' class-instance limitation"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::correctness/unmutated-state::src/lib/components/player-performance/player-performance.svelte:83::$state \"eloExpanded\" is never mutated — use const (or $state.raw if you only reassign it)",
+    "verdict": "tp",
+    "basis": "script-verified (grep -w eloExpanded): src/lib/components/player-performance/player-performance.svelte:83; every other mention is a read (86 resource key getter, 100 $derived); never written, bound or passed (nothing ever expands it)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-dimensions::src/routes/(loaded)/+layout.svelte:136::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class size-10)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-dimensions::src/routes/(loaded)/+layout.svelte:256::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: size-full object-cover in an absolute inset-0 backdrop layer (:255) - out of flow, it moves no content"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-dimensions::src/routes/(loaded)/account/+page.svelte:156::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class size-16)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-dimensions::src/routes/(loaded)/account/profile/+page.svelte:254::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: class mb-3 max-h-40 w-full max-w-md only (max-height, no height) - the natural aspect decides the height, the form below shifts"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-dimensions::src/routes/(onboarding)/setup/+page.svelte:163::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class size-10)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-loading-hint::src/routes/(loaded)/+layout.svelte:136::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: app logo in the sidebar nav of the (loaded) layout - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-loading-hint::src/routes/(loaded)/+layout.svelte:256::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: full-page decorative backdrop behind every (loaded) page - visible on load, where the docs keep the image eager"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-loading-hint::src/routes/(loaded)/account/+page.svelte:156::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: user avatar at the top of the account page - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-loading-hint::src/routes/(loaded)/account/profile/+page.svelte:254::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: background preview in the Background form group after the profile and links groups (:240-) - offscreen on load"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/image-loading-hint::src/routes/(onboarding)/setup/+page.svelte:163::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: app logo at the top of the onboarding screen - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/namespace-import::src/lib/components/ui/input/editor.svelte:2::Namespace import \"import * as … from 'monaco-editor'\" — prefer named imports so the bundle reliably tree-shakes",
+    "verdict": "design",
+    "basis": "read editor.svelte:2,157: `import * as monaco from 'monaco-editor'` is passed whole to new MonacoJSXHighlighter(monaco, babelParse, traverse, editor) - that library's API takes the monaco module object, like the ledger's prettier-plugin design entries; other uses are static (monaco.editor.*, monaco.Uri.*)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/responsive-image::src/routes/(loaded)/+layout.svelte:136::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: Logo is the bundled $lib/files/logo-transparent-bg.png?url of a Tauri desktop app (src-tauri, ssr=false, adapter-static): read from the app bundle on one desktop window, no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/responsive-image::src/routes/(loaded)/+layout.svelte:256::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: pageBackgroundImage is a bundled @assets png of a Tauri desktop app (src-tauri, ssr=false, adapter-static): read from the app bundle, no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/responsive-image::src/routes/(loaded)/account/+page.svelte:156::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: app.features.auth.avatarUrl remote avatar raster - one fixed-size asset"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/responsive-image::src/routes/(loaded)/account/profile/+page.svelte:254::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: backgroundPreview = previewUrl ?? customization.backgroundUrl (:48-54): the stored remote upload raster on load - one fixed-size asset"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/responsive-image::src/routes/(onboarding)/setup/+page.svelte:163::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: bundled $lib/files/logo-transparent-bg.png?url of a Tauri desktop app (src-tauri, ssr=false, adapter-static): no per-device bandwidth for srcset to save"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/sequential-awaits::src/routes/+layout.ts:68::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read src/routes/+layout.ts:31-71: ssr=false Tauri SPA; boot.advance() follows `await initI18n()` — app start-up sequence that may redirect to setup, intentional setup ordering (ledger ssr=false start-up design convention)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/state-raw::src/routes/(loaded)/settings/+page.svelte:38::\"logValidation\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference in src/routes/(loaded)/settings/+page.svelte: logValidation: reassigned at :54, read only as .valid/.reason (:175-183); no member writes, mutating calls, bind:, call-arg or prop escapes — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::performance/state-raw::src/routes/(loaded)/settings/+page.svelte:39::\"dirValidation\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference in src/routes/(loaded)/settings/+page.svelte: dirValidation: reassigned at :63, read only as .valid/.reason (:223-231); no member writes, mutating calls, bind:, call-arg or prop escapes — reassign-only, $state.raw fits (ledger state-raw tp convention)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::security/raw-html::src/lib/components/match/match-comments.svelte:775::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read match-comments.svelte:775 + packages/ui/src/comment/markdown.ts:136-160: renderMarkdown's marked renderer drops raw html and images, allows only http(s) links with escaped attributes, text escaped by marked — escaped, reported per docs"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::security/raw-html::src/lib/components/match/match-comments.svelte:812::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read match-comments.svelte:812 + packages/ui/src/comment/markdown.ts:136-160: renderMarkdown drops raw html/images, only escaped http(s) links — escaped, reported per docs"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::security/raw-html::src/lib/components/notifications/notification-detail.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read notification-detail.svelte:11,23 + core/notifications/notifications.svelte.ts:115 + pocketbase/pb_hooks/lib/match-social.js:284-292,378: body is a snippet of another user's comment text (only whitespace/mention rewriting) rendered with plain marked.parse (raw HTML passes), no sanitizer — stored XSS between users"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::security/raw-html::src/lib/core/app/features/updater/changelog.svelte:31::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read changelog.svelte:3-12 + updater/markdown.ts:25-60: repo CHANGELOG.md / what's-new markdown through a renderer that drops raw html and escapes attrs — repo content, escaped"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/account/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/denylist/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/flagged/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/hidden-matches/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/labels/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/modules/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/notifications/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/reputation/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/screenshots/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/admin/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/current-game/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/history/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/history/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/leaderboards/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/live/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/players/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/players/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/replays/[replayId]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/replays/upload/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/shortcuts/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loaded)/twitch/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(loading)/splashscreen/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/canonical-url::src/routes/(onboarding)/setup/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no <link rel=\"canonical\"> on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library; rendered route with no auth gate or noindex; packages/app is a Tauri desktop shell (adapter-static, ssr=false), same treatment as the EpicenterHQ whispering Tauri app in the ledger"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/account/profile/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/denylist/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/flagged/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/hidden-matches/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/labels/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/modules/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/notifications/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/reputation/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/screenshots/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/admin/users/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/current-game/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/history/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/history/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/leaderboards/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/live/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/players/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/players/[id]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/replays/[replayId]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/replays/upload/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/shortcuts/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loaded)/twitch/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(loading)/splashscreen/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/description-presence::src/routes/(onboarding)/setup/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (grep): no svelte:head or name=\"description\" anywhere in packages/app/src or @company-of-heroes/ui, app.html has none (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/duplicate-title::src/app.html::Title is duplicated across # routes",
+    "verdict": "design",
+    "basis": "read: app.html:7 literal <title>Company of Heroes Companion - created by Fknoobs</title> is the only title of all 26 routes (no svelte:head/document.title anywhere), duplicate as claimed; Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website), so no search competition"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/account/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/account/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/account/profile/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/denylist/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/denylist/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/flagged/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/flagged/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/hidden-matches/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/hidden-matches/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/labels/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/labels/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/modules/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/modules/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/notifications/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/notifications/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/reputation/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/reputation/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/screenshots/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/screenshots/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/admin/users/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/current-game/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/current-game/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/history/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/history/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/history/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/history/[id]/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/leaderboards/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/leaderboards/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/live/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/live/[id]/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/players/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/players/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/players/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/players/[id]/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/replays/[replayId]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/replays/[replayId]/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/replays/upload/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/replays/upload/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/settings/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/shortcuts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/shortcuts/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loaded)/twitch/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loaded)/twitch/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(loading)/splashscreen/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (loading)/splashscreen/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/json-ld::src/routes/(onboarding)/setup/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/JsonLd in packages/app/src or the @company-of-heroes/ui workspace package, and no svelte:head anywhere (client-side included, root +layout.ts ssr=false); (onboarding)/setup/+page.svelte has no JSON-LD, missing as claimed"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/account/profile/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/denylist/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/flagged/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/hidden-matches/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/labels/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/modules/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/notifications/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/reputation/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/screenshots/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/current-game/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/history/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/history/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/leaderboards/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/live/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/players/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/players/[id]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/replays/[replayId]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/replays/upload/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/shortcuts/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loaded)/twitch/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(loading)/splashscreen/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-description::src/routes/(onboarding)/setup/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:description on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/account/profile/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/denylist/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/flagged/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/hidden-matches/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/labels/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/modules/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/notifications/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/reputation/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/screenshots/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/current-game/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/history/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/history/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/leaderboards/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/live/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/players/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/players/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/replays/[replayId]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/replays/upload/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/shortcuts/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loaded)/twitch/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(loading)/splashscreen/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-image::src/routes/(onboarding)/setup/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:image on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/account/profile/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/denylist/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/flagged/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/hidden-matches/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/labels/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/modules/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/notifications/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/reputation/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/screenshots/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/current-game/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/history/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/history/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/leaderboards/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/live/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/players/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/players/[id]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/replays/[replayId]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/replays/upload/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/shortcuts/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loaded)/twitch/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(loading)/splashscreen/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-title::src/routes/(onboarding)/setup/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:title on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/account/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/denylist/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/flagged/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/hidden-matches/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/labels/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/modules/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/notifications/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/reputation/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/screenshots/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/admin/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/current-game/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/history/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/history/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/leaderboards/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/live/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/players/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/players/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/replays/[replayId]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/replays/upload/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/shortcuts/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loaded)/twitch/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(loading)/splashscreen/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/og-url::src/routes/(onboarding)/setup/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no og:url on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: packages/app/static has only images/whats-new, no robots.txt route or generator (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/account::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/denylist::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/flagged::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/hidden-matches::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/labels::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/modules::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/notifications::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/reputation::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/screenshots::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/admin/users::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/current-game::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/history::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/leaderboards::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/live/[id]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/players::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/setup::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/shortcuts::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/single-h1::/splashscreen::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (grep of packages/app/src and packages/ui/src for <h1, svelte:element, {@html}): the app's only <h1>s are account/profile/+page.svelte:172, history/[id]/+page.svelte:438 and the @company-of-heroes/ui replay-detail/player-profile headers, none rendered on this route; the (loaded)/(onboarding) layouts and the ui <H> component (used only with level 2/5/6) render no <h1> -> no <h1> (Tauri ssr=false app, client render counted)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in packages/app/static or routes, no generator (literal claim holds); Tauri desktop companion app (README: Windows installer from GitHub releases; src-tauri/tauri.conf.json frontendDist ../build, adapter-static SPA per root +layout.ts:1-3 comment), not a website search engines crawl (the public site is the separate packages/website)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/ssr-disabled::src/routes/+layout.ts:24::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:24; deliberate SPA for the Tauri desktop shell (comment :1-3: Tauri has no Node.js server), docs say turn the rule off for a deliberate SPA (Tauri precedent)"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/account/profile/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/denylist/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/flagged/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/hidden-matches/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/labels/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/modules/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/notifications/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/reputation/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/screenshots/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/admin/users/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/current-game/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/history/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/history/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/leaderboards/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/live/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/players/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/players/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/replays/[replayId]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/replays/upload/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/shortcuts/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loaded)/twitch/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(loading)/splashscreen/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  },
+  {
+    "key": "company-of-heroes/app:packages/app::seo/twitter-card::src/routes/(onboarding)/setup/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1work/reach.mjs, comments stripped: page + ancestor layouts + transitively imported local files incl. $lib/kit.alias/barrels + app.html): no twitter:card on this route; no og/twitter/canonical anywhere in packages/app/src, workspace @company-of-heroes/ui|i18n src, or app.html (head is charset/icon/viewport/<title>/boot-splash style); root +layout.ts:23-24 prerender=true, ssr=false Tauri shell; no meta-tag library"
+  }
+]

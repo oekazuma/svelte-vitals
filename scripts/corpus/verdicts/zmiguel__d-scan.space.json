@@ -1,0 +1,227 @@
+[
+  {
+    "key": "zmiguel/d-scan.space::a11y/deprecated-aria::src/lib/components/ScanList.svelte:188::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read ScanList.svelte:188: bare <span aria-disabled=\"true\"> (no role, no spread) disabled pager label; generic role where aria-disabled is deprecated"
+  },
+  {
+    "key": "zmiguel/d-scan.space::a11y/deprecated-aria::src/lib/components/ScanList.svelte:196::`aria-disabled` is deprecated on role `generic`",
+    "verdict": "tp",
+    "basis": "read ScanList.svelte:196: bare <span aria-disabled=\"true\"> (no role, no spread) disabled pager label; generic role where aria-disabled is deprecated"
+  },
+  {
+    "key": "zmiguel/d-scan.space::a11y/permitted-contents::src/lib/components/LocalDisclosure.svelte:28::`<div>` is not permitted content here — `<h#>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at LocalDisclosure.svelte:28 has literal <h2> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <h2>'s content model as reported"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/component-size::src/lib/components/TabLocalScan.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TabLocalScan.svelte has 466 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/component-size::src/lib/components/TopBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TopBar.svelte has 273 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 278 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/component-size::src/routes/scan/[group]/[scan]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/scan/[group]/[scan]/+page.svelte has 210 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/component-size::src/routes/stats/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/stats/+page.svelte has 530 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/prop-count::src/lib/components/HtmlTimelineItem.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/HtmlTimelineItem.svelte has a single destructured $props() with 9 named props (> 6): date, svgClass, classDiv, classLi, classTime, classH3, icon, title, children"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/prop-count::src/lib/components/MetaTags.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/MetaTags.svelte has a single destructured $props() with 11 named props (> 6): title, description, image, imageAlt, showImage, type, color, noIndex, appendSiteName, imageWidth, imageHeight"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/prop-count::src/lib/components/ScanList.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ScanList.svelte has a single destructured $props() with 9 named props (> 6): basePath, scans, total, page, pageCount, query, type, showVisibility, emptyText"
+  },
+  {
+    "key": "zmiguel/d-scan.space::architecture/prop-count::src/lib/components/compare/ComparePicker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/compare/ComparePicker.svelte has a single destructured $props() with 7 named props (> 6): a, b, fixedA, labelA, labelB, choices, submitLabel"
+  },
+  {
+    "key": "zmiguel/d-scan.space::correctness/each-index-key::src/lib/components/stats/BarChart.svelte:44::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: '{#each data as entry, i (i)}' keyed by its index binding; data is a chart series from stats/+page.svelte:63-82 drawn as bars; positional chart bars"
+  },
+  {
+    "key": "zmiguel/d-scan.space::correctness/each-index-key::src/routes/stats/+page.svelte:110::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each rows as row, i (i)}' keyed by its index binding; rows are top-N ranked records (systems/regions/etc.) from the stats load data passed to the topList snippet; a ranked list of records that reorders as stats change (ledger ranked-list convention)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-dimensions::src/routes/+layout.svelte:214::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: EVE SSO button image (w-full) inside the login <Dropdown> (:204-236); flowbite-svelte@1.33.1 Popper renders it only {#if isOpen} as a top-layer popover=\"manual\" element — out of flow, and nothing follows the image inside its button, so its load shifts no content (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-dimensions::src/routes/+layout.svelte:219::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: EVE SSO button image (w-full) inside the login <Dropdown> (:204-236); flowbite-svelte@1.33.1 Popper renders it only {#if isOpen} as a top-layer popover=\"manual\" element — out of flow, and nothing follows the image inside its button, so its load shifts no content (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-dimensions::src/routes/+layout.svelte:224::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: EVE SSO button image (w-full) inside the login <Dropdown> (:204-236); flowbite-svelte@1.33.1 Popper renders it only {#if isOpen} as a top-layer popover=\"manual\" element — out of flow, and nothing follows the image inside its button, so its load shifts no content (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-dimensions::src/routes/+layout.svelte:229::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: EVE SSO button image (w-full) inside the login <Dropdown> (:204-236); flowbite-svelte@1.33.1 Popper renders it only {#if isOpen} as a top-layer popover=\"manual\" element — out of flow, and nothing follows the image inside its button, so its load shifts no content (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-dimensions::src/routes/my-scans/+page.svelte:27::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: EVE SSO button image with class w-full only, in the vertically centred login prompt (flex-col justify-center, :21-46) — no box reserved, the prompt text shifts when it loads"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-dimensions::src/routes/my-scans/+page.svelte:32::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: EVE SSO button image with class w-full only, in the vertically centred login prompt (flex-col justify-center, :21-46) — no box reserved, the prompt text shifts when it loads"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-dimensions::src/routes/my-scans/+page.svelte:37::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: EVE SSO button image with class w-full only, in the vertically centred login prompt (flex-col justify-center, :21-46) — no box reserved, the prompt text shifts when it loads"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-dimensions::src/routes/my-scans/+page.svelte:42::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: EVE SSO button image with class w-full only, in the vertically centred login prompt (flex-col justify-center, :21-46) — no box reserved, the prompt text shifts when it loads"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-loading-hint::src/routes/+layout.svelte:214::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image in the login Dropdown, rendered only when the user opens it (flowbite Popper {#if isOpen}) — visible when rendered (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-loading-hint::src/routes/+layout.svelte:219::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image in the login Dropdown, rendered only when the user opens it (flowbite Popper {#if isOpen}) — visible when rendered (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-loading-hint::src/routes/+layout.svelte:224::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image in the login Dropdown, rendered only when the user opens it (flowbite Popper {#if isOpen}) — visible when rendered (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-loading-hint::src/routes/+layout.svelte:229::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image in the login Dropdown, rendered only when the user opens it (flowbite Popper {#if isOpen}) — visible when rendered (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-loading-hint::src/routes/my-scans/+page.svelte:27::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: login button image in the {#if data.requiresLogin} prompt at the top of /my-scans — above the fold"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-loading-hint::src/routes/my-scans/+page.svelte:32::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: login button image in the {#if data.requiresLogin} prompt at the top of /my-scans — above the fold"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-loading-hint::src/routes/my-scans/+page.svelte:37::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: login button image in the {#if data.requiresLogin} prompt at the top of /my-scans — above the fold"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/image-loading-hint::src/routes/my-scans/+page.svelte:42::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: login button image in the {#if data.requiresLogin} prompt at the top of /my-scans — above the fold"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/responsive-image::src/routes/+layout.svelte:214::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset('/eve-sso-login-black-large.png') raster; the variants are switched with CSS display classes, so each <img> ships one fixed-size asset (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/responsive-image::src/routes/+layout.svelte:219::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset('/eve-sso-login-white-large.png') raster; the variants are switched with CSS display classes, so each <img> ships one fixed-size asset (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/responsive-image::src/routes/+layout.svelte:224::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset('/eve-sso-login-black-small.png') raster; the variants are switched with CSS display classes, so each <img> ships one fixed-size asset (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/responsive-image::src/routes/+layout.svelte:229::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset('/eve-sso-login-white-small.png') raster; the variants are switched with CSS display classes, so each <img> ships one fixed-size asset (10 routes)"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/responsive-image::src/routes/my-scans/+page.svelte:27::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset('/eve-sso-login-black-large.png') raster, CSS-switched variant — one fixed-size asset"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/responsive-image::src/routes/my-scans/+page.svelte:32::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset('/eve-sso-login-white-large.png') raster, CSS-switched variant — one fixed-size asset"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/responsive-image::src/routes/my-scans/+page.svelte:37::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset('/eve-sso-login-black-small.png') raster, CSS-switched variant — one fixed-size asset"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/responsive-image::src/routes/my-scans/+page.svelte:42::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: asset('/eve-sso-login-white-small.png') raster, CSS-switched variant — one fixed-size asset"
+  },
+  {
+    "key": "zmiguel/d-scan.space::performance/state-raw::src/lib/components/TopBar.svelte:20::\"systemSuggestions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"systemSuggestions\" in src/lib/components/TopBar.svelte: whole-array reassignments (:67,:87,:90,:119,:144) and a read-only {#each} into <option> (:204); no member writes, mutating calls, bind:, call-arg/prop escapes or aliasing"
+  },
+  {
+    "key": "zmiguel/d-scan.space::security/server-module-state::src/routes/stats/+page.server.js:59::module-scope variable \"cached\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/stats/+page.server.js:15-75 (line 59): `cached` is a 60 s TTL memo of the public stats promise (aggregate DB counts, no request/user data), cleared on failure or by the test hook — deliberate process-wide cache of public data per docs"
+  },
+  {
+    "key": "zmiguel/d-scan.space::security/server-module-state::src/routes/stats/+page.server.js:70::module-scope variable \"cached\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/stats/+page.server.js:15-75 (line 70): `cached` is a 60 s TTL memo of the public stats promise (aggregate DB counts, no request/user data), cleared on failure or by the test hook — deliberate process-wide cache of public data per docs"
+  },
+  {
+    "key": "zmiguel/d-scan.space::security/server-module-state::src/routes/stats/+page.server.js:73::module-scope variable \"cached\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/stats/+page.server.js:15-75 (line 73): `cached` is a 60 s TTL memo of the public stats promise (aggregate DB counts, no request/user data), cleared on failure or by the test hook — deliberate process-wide cache of public data per docs"
+  },
+  {
+    "key": "zmiguel/d-scan.space::seo/single-h1::/my-scans::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: my-scans/+page.svelte renders MetaTags and either the login prompt (<p> + form) or ScanList (no heading; flowbite Button only); root layout renders flowbite Navbar/NavBrand (<a> + <span>), NavUl and Footer/FooterBrand — no <h1>"
+  },
+  {
+    "key": "zmiguel/d-scan.space::seo/single-h1::/scans::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: scans/+page.svelte renders MetaTags and ScanList (a search form, flowbite Button and a scan table, no heading); root layout Navbar/NavBrand/Footer render no heading — no <h1>"
+  },
+  {
+    "key": "zmiguel/d-scan.space::seo/single-h1::src/lib/components/TabLocalScan.svelte:333::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: TabLocalScan renders three unconditional <h1>s (Alliances :253, Corporations :333, Pilots :403); ScanTabs opens the Local tab by default when a scan has only local data (defaultTab, ScanTabs.svelte:49-57), and flowbite-svelte@1.33.1 Tabs renders the selected tab's snippet — three <h1>s on such scans"
+  }
+]

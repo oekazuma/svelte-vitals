@@ -1,0 +1,1902 @@
+[
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/disallowed-aria-props::src/lib/components/CardName.svelte:27::`aria-label` is prohibited on <span> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "read src/lib/components/CardName.svelte:27: <span aria-label={card.full_name} title=...> with no role/spread/use:, children aria-hidden; a generic span prohibits a name, so AT may expose nothing (the comment at :25 shows the name was intended)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/ConfirmActionModal.svelte:93::Duplicate id \"confirm-action-title\"",
+    "verdict": "design",
+    "basis": "read: h2#confirm-action-title (:93) is in ConfirmActionModal, which every use mounts under its own {#if} (profile/AdminSection.svelte:185 {#if activeOp}, :198 {#if confirmExport}, LinkedAccounts.svelte:271 {#if removing}; tournaments: TournamentBanner :137, PlayersTab :1066, PlayerView :725, TimerDisplay :183); separately opened confirm dialogs never open together; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:303::Duplicate id \"sanction-modal-title\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:319::Duplicate id \"sanction-level\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:338::Duplicate id \"sanction-category\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:353::Duplicate id \"sanction-description\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:368::Duplicate id \"sanction-expires\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:424::Duplicate id \"edit-sanction-modal-title\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:442::Duplicate id \"edit-sanction-level\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:466::Duplicate id \"edit-sanction-category\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:483::Duplicate id \"edit-sanction-description\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/id-duplication::src/lib/components/SanctionsManager.svelte:498::Duplicate id \"edit-sanction-expires\"",
+    "verdict": "design",
+    "basis": "read: on /users/[uid] the copies are the page's <SanctionsManager canIssueSanctions> (users/[uid]/+page.svelte:285) and User.svelte:587's inline <SanctionsManager canIssueSanctions={false}>; each id sits in that instance's {#if showSanctionModal …} (:287) / {#if showEditSanctionModal …} (:407) modal, opened only by buttons under {#if canIssueSanctions} (:259/:274), so the inline copy never opens; documented separate-{#if} co-render model"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/no-autofocus::src/routes/tournaments/[uid]/RoundsTab.svelte:554::autofocus on <input> steals focus when the page loads — keyboard and screen reader users lose their place",
+    "verdict": "design",
+    "basis": "reported as documented; find input under {#if findOpen} (RoundsTab.svelte:551), toggled by the find button, Escape closes it (:557); focus on user action, not page load"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/lib/components/CityAutocomplete.svelte:152::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/CityAutocomplete.svelte:152 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/lib/components/CityAutocomplete.svelte:155::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/CityAutocomplete.svelte:155 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/lib/components/CommunityCountryCard.svelte:100::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/CommunityCountryCard.svelte:100 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/lib/components/User.svelte:514::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/User.svelte:514 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/lib/components/User.svelte:518::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/User.svelte:518 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/lib/components/VenueAutocomplete.svelte:117::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/VenueAutocomplete.svelte:117 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/lib/components/VenueAutocomplete.svelte:119::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/VenueAutocomplete.svelte:119 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/lib/components/help/PlayerGuide.svelte:284::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/lib/components/help/PlayerGuide.svelte:284 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/leagues/+page.svelte:159::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/leagues/+page.svelte:159 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/profile/DeveloperSection.svelte:188::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/profile/DeveloperSection.svelte:188 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/profile/DeveloperSection.svelte:196::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/profile/DeveloperSection.svelte:196 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/profile/DeveloperSection.svelte:209::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/profile/DeveloperSection.svelte:209 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/profile/DeveloperSection.svelte:217::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/profile/DeveloperSection.svelte:217 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/profile/ProfileIdentity.svelte:120::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/profile/ProfileIdentity.svelte:120 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/profile/ProfileIdentity.svelte:124::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/profile/ProfileIdentity.svelte:124 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/tournaments/+page.svelte:773::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/tournaments/+page.svelte:773 is a literal <div> whose nearest element ancestor is a <label> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/tournaments/[uid]/PlayerDecksSection.svelte:362::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/tournaments/[uid]/PlayerDecksSection.svelte:362 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/tournaments/[uid]/RoundsTab.svelte:714::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/tournaments/[uid]/RoundsTab.svelte:714 is a literal <div> whose nearest element ancestor is a <button> (phrasing-only content model) in the same template, no component/snippet boundary between; info-level category mismatch as documented"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::a11y/permitted-contents::src/routes/tournaments/[uid]/RoundsTab.svelte:811::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parser ancestors): src/routes/tournaments/[uid]/RoundsTab.svelte:811 is a literal <h3> whose nearest element ancestor is a <button> in the same template; a heading inside a button loses its outline role (warning-level, as documented)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/AddPlayerForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AddPlayerForm.svelte has 224 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/AvatarCropper.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/AvatarCropper.svelte has 256 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/BannerCropper.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/BannerCropper.svelte has 283 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/CommunityLinkEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CommunityLinkEditor.svelte has 249 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/CommunityTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/CommunityTab.svelte has 359 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/DeckDisplay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DeckDisplay.svelte has 449 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/DeckUpload.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/DeckUpload.svelte has 282 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/FeedbackModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/FeedbackModal.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/SanctionsManager.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SanctionsManager.svelte has 543 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/SeatingSortable.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SeatingSortable.svelte has 276 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/TournamentFields.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TournamentFields.svelte has 679 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/TournamentSanctionModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/TournamentSanctionModal.svelte has 373 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/User.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/User.svelte has 656 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/UserList.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/UserList.svelte has 769 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/VeknManagement.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/VeknManagement.svelte has 646 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/help/OrganizerGuide.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/help/OrganizerGuide.svelte has 695 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/help/PlayerGuide.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/help/PlayerGuide.svelte has 552 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/promos/PromoEditModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/promos/PromoEditModal.svelte has 345 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/lib/components/promos/RecordMovementModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/promos/RecordMovementModal.svelte has 283 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 248 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/consent/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/consent/+page.svelte has 245 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/leagues/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/leagues/+page.svelte has 276 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/leagues/[uid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/leagues/[uid]/+page.svelte has 756 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/leagues/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/leagues/new/+page.svelte has 233 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 458 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/profile/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/+page.svelte has 421 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/profile/AdminSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/AdminSection.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/profile/DeveloperSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/DeveloperSection.svelte has 326 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/profile/LinkedAccounts.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/LinkedAccounts.svelte has 281 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/profile/ProfileIdentity.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/ProfileIdentity.svelte has 225 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/rankings/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/rankings/+page.svelte has 260 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/+page.svelte has 790 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/+page.svelte has 1104 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/ActionBar.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/ActionBar.svelte has 391 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/CreateAndRegisterModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/CreateAndRegisterModal.svelte has 396 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/CsvRegisterModal.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/CsvRegisterModal.svelte has 230 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/FinalsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/FinalsTab.svelte has 293 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/PlayerDecksSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/PlayerDecksSection.svelte has 394 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/PlayerView.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/PlayerView.svelte has 865 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/PlayersTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/PlayersTab.svelte has 1090 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/PromosDistributedEditor.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/PromosDistributedEditor.svelte has 225 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/RaffleSection.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/RaffleSection.svelte has 274 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/RoundsTab.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/RoundsTab.svelte has 1077 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/ToolsSheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/ToolsSheet.svelte has 335 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/TournamentDetailsForm.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/TournamentDetailsForm.svelte has 293 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/[uid]/TournamentModals.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/[uid]/TournamentModals.svelte has 232 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/new/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/new/+page.svelte has 241 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/tournaments/new/CreationWizard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/tournaments/new/CreationWizard.svelte has 236 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/component-size::src/routes/users/[uid]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/users/[uid]/+page.svelte has 294 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/ActionMenu.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ActionMenu.svelte has a single destructured $props() with 7 named props (> 6): label, items, align, disabled, icon, indicator, children"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/Badge.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Badge.svelte has a single destructured $props() with 9 named props (> 6): kind, tone, href, external, onclick, title, truncate, lapsed, children"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Button.svelte has a single destructured $props() with 9 named props (> 6) beside a ...rest element: variant, size, block, loading, disabled, type, href, class, children"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/CityAutocomplete.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CityAutocomplete.svelte has a single destructured $props() with 8 named props (> 6): id, value, geonameId, countryCode, disabled, required, class, onselect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/CommunityContentPool.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CommunityContentPool.svelte has a single destructured $props() with 10 named props (> 6): items, languages, mediaKinds, selectedLanguages, selectedMedia, canEdit, onToggleLanguage, onSelectMedia, onClearFilters, onEdit"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/CommunityCountryCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CommunityCountryCard.svelte has a single destructured $props() with 13 named props (> 6): code, name, pinned, groups, officials, isOwnCountry, expanded, showLinks, showOfficials, canPromoteNational, canEdit, onToggle, onEdit"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/CommunityLinkEditor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/CommunityLinkEditor.svelte has a single destructured $props() with 7 named props (> 6): link, ownerCountry, canEditUrl, defaultLanguage, onclose, onsave, ondelete"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/DeckDisplay.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/DeckDisplay.svelte has a single destructured $props() with 9 named props (> 6): deck, editable, tournamentUid, organizer, multideck, format, onsaved, onreplace, ondelete"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/FoldableSection.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/FoldableSection.svelte has a single destructured $props() with 7 named props (> 6): title, open, ontoggle, disabled, level, header, children"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/SeatingSortable.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SeatingSortable.svelte has a single destructured $props() with 8 named props (> 6): tables, playerInfo, playerIssues, isFinals, numbering, online, pool, onchange"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/TournamentFields.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/TournamentFields.svelte has a single destructured $props() with 8 named props (> 6): values, onchange, onvenueselect, disabled, disabledFields, idPrefix, mode, venueExtra"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/User.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/User.svelte has a single destructured $props() with 9 named props (> 6): user, mode, editable, inline, targetHasNda, onupdated, oncreated, oncancel, oneditingchange"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/VeknManagement.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/VeknManagement.svelte has a single destructured $props() with 9 named props (> 6): user, onaction, ondelete, canMarkDeceased, canDelete, canMerge, canAnonymize, sponsorName, sponsorOnly"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/VenueAutocomplete.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/VenueAutocomplete.svelte has a single destructured $props() with 7 named props (> 6): value, country, disabled, id, onselect, oninput, countryHint"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/lib/components/promos/PromoGallery.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/promos/PromoGallery.svelte has a single destructured $props() with 7 named props (> 6): promos, canManagePromo, canViewLedger, onedit, ontoggleactive, ondelete, oncreate"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/profile/LinkedAccounts.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/profile/LinkedAccounts.svelte has a single destructured $props() with 20 named props (> 6): hasEmail, emailIdentifier, discordLogins, passkeys, canRemove, hasGithub, githubUsername, discordMessage, discordError, githubMessage, githubError, passkeyMessage, error, onLinkEmail, onChangePassword, onLinkDiscord, onLinkGithub, onUnlinkGithub, onRegisterPasskey, onRemoveMethod"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/tournaments/[uid]/ActionBar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/tournaments/[uid]/ActionBar.svelte has a single destructured $props() with 12 named props (> 6): tournament, standings, playerInfo, decksByUser, actionLoading, doAction, onImportArchon, onImportCsv, onAddBanner, onRecordPromos, onFinishTournament, children"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/tournaments/[uid]/FinalsTab.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/tournaments/[uid]/FinalsTab.svelte has a single destructured $props() with 11 named props (> 6): tournament, playerInfo, standings, isOrganizer, actionLoading, doAction, loadPlayerNames, setFinalsVp, scoreSaving, scoreSavingSeat, tournamentSanctions"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/tournaments/[uid]/FinishConfirmModal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/tournaments/[uid]/FinishConfirmModal.svelte has a single destructured $props() with 7 named props (> 6): tournament, standings, playerInfo, decksByUser, actionLoading, onConfirm, onClose"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/tournaments/[uid]/PlayerView.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/tournaments/[uid]/PlayerView.svelte has a single destructured $props() with 17 named props (> 6): tournament, playerInfo, standings, playerStandings, cutoffScore, playerHasValidDeck, myDeckErrors, userUid, userVeknId, actionLoading, scoreSaving, scoreSavingSeat, doAction, setVp, setFinalsVp, tournamentSanctions, decksByUser"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/tournaments/[uid]/PlayersTab.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/tournaments/[uid]/PlayersTab.svelte has a single destructured $props() with 11 named props (> 6): tournament, playerInfo, standings, isOrganizer, actionLoading, doAction, tournamentSanctions, isOfflineMode, decksByUser, playerStandings, cutoffScore"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/tournaments/[uid]/RoundsTab.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/tournaments/[uid]/RoundsTab.svelte has a single destructured $props() with 11 named props (> 6): tournament, playerInfo, isOrganizer, actionLoading, doAction, loadPlayerNames, tournamentSanctions, setVp, scoreSaving, scoreSavingSeat, decksByUser"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/tournaments/[uid]/ToolsSheet.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/tournaments/[uid]/ToolsSheet.svelte has a single destructured $props() with 15 named props (> 6): open, requestPanel, tournament, playerInfo, standings, sanctions, doAction, actionLoading, bannerItem, csvImportItem, archonImportItem, syncVeknItem, canDelete, onFinishTournament, onDelete"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::architecture/prop-count::src/routes/tournaments/[uid]/TournamentModals.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/tournaments/[uid]/TournamentModals.svelte has a single destructured $props() with 12 named props (> 6): showDeleteConfirm, showGoOfflineConfirm, showGoOnlineConfirm, showForceTakeoverConfirm, showForceUnlockConfirm, offlineActionLoading, deleteHasResults, onDelete, onGoOffline, onGoOnline, onForceTakeover, onForceUnlock"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/ActionMenu.svelte:95::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ActionMenu.svelte:95 '{#each items as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; ActionMenu's items are the menu literals its callers pass (ActionBar.svelte:278, 303): static menu list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/AddPlayerForm.svelte:129::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AddPlayerForm.svelte:129 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/AttributionPicker.svelte:113::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/AttributionPicker.svelte:113 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CardSearch.svelte:65::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CardSearch.svelte:65 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CityAutocomplete.svelte:143::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CityAutocomplete.svelte:143 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityContentPool.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CommunityContentPool.svelte:47 '{#each mediaKinds as kind}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; mediaKinds is a prop holding the fixed LinkMedia kinds: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityContentPool.svelte:70::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CommunityContentPool.svelte:70 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityCountryCard.svelte:142::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CommunityCountryCard.svelte:142 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityCountryCard.svelte:153::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CommunityCountryCard.svelte:153 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityCountryCard.svelte:53::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CommunityCountryCard.svelte:53 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityLinkEditor.svelte:138::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CommunityLinkEditor.svelte:138 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityLinkEditor.svelte:174::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CommunityLinkEditor.svelte:174 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityLinkEditor.svelte:205::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CommunityLinkEditor.svelte:205 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityLinkEditor.svelte:222::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CommunityLinkEditor.svelte:222 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityLinkPills.svelte:101::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CommunityLinkPills.svelte:101 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/CommunityTab.svelte:305::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CommunityTab.svelte:305 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/ConfirmActionModal.svelte:105::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ConfirmActionModal.svelte:105 '{#each stats as [key, value]}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; the summary fields of the one action being confirmed: positional list of one result's fields"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/DeckDisplay.svelte:329::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeckDisplay.svelte:329 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/DeckDisplay.svelte:351::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/DeckDisplay.svelte:351 '{#each entry.card.disciplines as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; the disciplines of a card from the static VTES card database: static list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/DeckDisplay.svelte:367::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeckDisplay.svelte:367 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/DeckDisplay.svelte:374::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeckDisplay.svelte:374 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/DeckDisplay.svelte:414::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeckDisplay.svelte:414 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/DeckUpload.svelte:247::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeckUpload.svelte:247 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/DeckUpload.svelte:261::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DeckUpload.svelte:261 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/PlayerRatings.svelte:59::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/PlayerRatings.svelte:59 '{#each availableCategories as cat}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; the fixed rating categories (allCategories) filtered to those the shown user has (PlayerRatings.svelte:27): static category list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/PlayerRatings.svelte:82::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlayerRatings.svelte:82 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/PlayerRecord.svelte:95::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/PlayerRecord.svelte:95 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/SeatingSortable.svelte:177::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/SeatingSortable.svelte:177 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TabStrip.svelte:11::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/TabStrip.svelte:11 '{#each tabs as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; TabStrip's tabs prop, fixed tab definitions passed by callers: static list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TableOfContents.svelte:32::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/TableOfContents.svelte:32 '{#each entries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; table-of-contents entries of the one help document shown: positional list of one document's headings"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TableOfContents.svelte:82::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/TableOfContents.svelte:82 '{#each entries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; table-of-contents entries of the one help document shown: positional list of one document's headings"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TournamentFields.svelte:251::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/TournamentFields.svelte:251 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TournamentFields.svelte:259::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/TournamentFields.svelte:259 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TournamentFields.svelte:303::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/TournamentFields.svelte:303 '{#each timezones as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; timezones = Intl.supportedValuesOf('timeZone') (TournamentFields.svelte:71): static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TournamentFields.svelte:396::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/TournamentFields.svelte:396 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TournamentSanctionModal.svelte:296::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/TournamentSanctionModal.svelte:296 '{#each availableSubcategories as sub}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; the constant subcategory options of the selected sanction category (TournamentSanctionModal.svelte:42): static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/TournamentSanctionModal.svelte:335::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/TournamentSanctionModal.svelte:335 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; one slot per tournament round (round options / multideck slots built with Array.from({ length: roundCount })): positional list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/User.svelte:391::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/User.svelte:391 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/User.svelte:580::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/User.svelte:580 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/UserList.svelte:471::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/components/UserList.svelte:471 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/UserList.svelte:618::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/UserList.svelte:618 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/UserList.svelte:655::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/UserList.svelte:655 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/VenueAutocomplete.svelte:111::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/VenueAutocomplete.svelte:111 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/lib/components/promos/RecordMovementModal.svelte:177::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/promos/RecordMovementModal.svelte:177 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/+page.svelte:44::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:44 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; seats/arcs = five fixed decorative positions ([0,1,2,3,4].map(...), +page.svelte:19-20): static positional list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/+page.svelte:47::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:47 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; seats/arcs = five fixed decorative positions ([0,1,2,3,4].map(...), +page.svelte:19-20): static positional list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/consent/+page.svelte:201::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/consent/+page.svelte:201 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/help/+page.svelte:100::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/help/+page.svelte:100 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/leagues/+page.svelte:149::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/leagues/+page.svelte:149 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/leagues/[uid]/+page.svelte:479::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/leagues/[uid]/+page.svelte:479 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/leagues/[uid]/+page.svelte:523::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/leagues/[uid]/+page.svelte:523 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/leagues/new/+page.svelte:168::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/leagues/new/+page.svelte:168 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/profile/AppSettings.svelte:70::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/profile/AppSettings.svelte:70 '{#each locales as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; locales from the paraglide runtime, the fixed list of compiled locales: static list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/profile/AuthorizedApps.svelte:105::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/profile/AuthorizedApps.svelte:105 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/profile/AuthorizedApps.svelte:111::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/profile/AuthorizedApps.svelte:111 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/profile/DeveloperSection.svelte:246::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/profile/DeveloperSection.svelte:246 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/profile/ProfileIdentity.svelte:198::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/profile/ProfileIdentity.svelte:198 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/profile/ProfileIdentity.svelte:219::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/profile/ProfileIdentity.svelte:219 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/rankings/+page.svelte:159::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/rankings/+page.svelte:159 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/rankings/+page.svelte:202::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/rankings/+page.svelte:202 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/+page.svelte:729::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/+page.svelte:729 '{#each sortedCountries/countries as ...}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; getSortedCountries() of the bundled country table: static option list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/+page.svelte:765::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/+page.svelte:765 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/+page.svelte:911::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/+page.svelte:911 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/ArchonImportModal.svelte:131::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/ArchonImportModal.svelte:131 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/CreateAndRegisterModal.svelte:275::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/CreateAndRegisterModal.svelte:275 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/CsvRegisterModal.svelte:175::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/CsvRegisterModal.svelte:175 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/CsvRegisterModal.svelte:186::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/CsvRegisterModal.svelte:186 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/FinalsTab.svelte:149::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/FinalsTab.svelte:149 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/FinalsTab.svelte:96::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/FinalsTab.svelte:96 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/FinishConfirmModal.svelte:99::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/[uid]/FinishConfirmModal.svelte:99 '{#each warnings as warning}' has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; warnings = $derived of up to three fixed conditional messages for the confirm modal (FinishConfirmModal.svelte:51): static list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerDecksSection.svelte:343::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerDecksSection.svelte:343 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerDecksSection.svelte:344::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerDecksSection.svelte:344 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:260::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:260 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:491::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:491 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:542::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:542 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:578::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:578 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:659::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:659 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:678::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:678 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:688::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:688 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:745::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:745 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:818::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:818 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayerView.svelte:847::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayerView.svelte:847 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayersTab.svelte:583::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/[uid]/PlayersTab.svelte:583 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; one slot per tournament round (round options / multideck slots built with Array.from({ length: roundCount })): positional list"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayersTab.svelte:637::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayersTab.svelte:637 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayersTab.svelte:795::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayersTab.svelte:795 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PlayersTab.svelte:909::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PlayersTab.svelte:909 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PromosDistributedEditor.svelte:150::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PromosDistributedEditor.svelte:150 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a sub-list of a runtime record (user roles, organizers, scopes, seating of a table): runtime records (ledger convention for record sub-lists)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/PromosDistributedEditor.svelte:172::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/PromosDistributedEditor.svelte:172 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RaffleSection.svelte:219::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/RaffleSection.svelte:219 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RaffleSection.svelte:246::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/RaffleSection.svelte:246 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RoundsTab.svelte:1017::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/RoundsTab.svelte:1017 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RoundsTab.svelte:632::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/[uid]/RoundsTab.svelte:632 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RoundsTab.svelte:677::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/RoundsTab.svelte:677 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RoundsTab.svelte:690::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/RoundsTab.svelte:690 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RoundsTab.svelte:700::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/RoundsTab.svelte:700 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RoundsTab.svelte:798::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/RoundsTab.svelte:798 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/RoundsTab.svelte:868::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/RoundsTab.svelte:868 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/[uid]/TableRoomsEditor.svelte:109::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/[uid]/TableRoomsEditor.svelte:109 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/new/CreationGuidance.svelte:147::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/tournaments/new/CreationGuidance.svelte:147 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; runtime data (tournament players, rounds, seating, standings, decks, users, leagues or search results from the API, or user-edited/filtered lists): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/new/CreationWizard.svelte:136::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/new/CreationWizard.svelte:136 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/new/CreationWizard.svelte:150::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/new/CreationWizard.svelte:150 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/new/CreationWizard.svelte:159::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/new/CreationWizard.svelte:159 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/new/CreationWizard.svelte:168::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/new/CreationWizard.svelte:168 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/each-key::src/routes/tournaments/new/CreationWizard.svelte:178::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/tournaments/new/CreationWizard.svelte:178 has no key and is not an exempt inline-literal/length-only/itemless/local-const/imported-const shape; a fixed option/label literal ($derived of constant choices, reference types or legal links): static list fixed at author time"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/effect-as-derived::src/lib/components/CityAutocomplete.svelte:34::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/CityAutocomplete.svelte:34 the effect only does inputValue = value (prop); later writes are top-level reassignments (71) and bind:value={inputValue} (116), the writable-$derived override pattern (svelte ^5.43.4)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/effect-as-derived::src/lib/components/VenueAutocomplete.svelte:32::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/VenueAutocomplete.svelte:32 the effect only does inputValue = value (prop); later writes are top-level reassignments (56) and bind:value={inputValue} (95), the writable-$derived override pattern (svelte ^5.43.4)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::correctness/stale-prop-derivation::src/lib/components/CommunityLinkEditor.svelte:30::\"original\" is computed from a prop once, at initialization — it will not update when the prop changes. Wrap it in $derived.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/CommunityLinkEditor.svelte:30 `const original = link;` under `svelte-ignore state_referenced_locally` with the comment 'Snapshot at open: an SSE frame must not rewrite the form mid-edit' (28-29): a deliberate snapshot, reported per docs but not a defect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/image-dimensions::src/routes/+layout.svelte:200::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> lacks width/height, no spread; rail logo with own class w-16 h-16 (+layout.svelte:200) — fixed box, no CLS"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/image-loading-hint::src/routes/+layout.svelte:200::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading attribute, no spread; logo at the top of the fixed left nav rail (+layout.svelte:198-200) — above the fold on every route, where the docs keep the image eager"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/responsive-image::src/routes/+layout.svelte:200::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "read: <img> has no srcset, no spread; src={isBeta ? '/favicon-beta.svg' : '/favicon.svg'} (+layout.svelte:200) — a vector either way, but a conditional expression is outside the docs' static SVG detection"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/lib/components/DeckDisplay.svelte:63::\"validationErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"validationErrors\" in src/lib/components/DeckDisplay.svelte: declared at :63, whole-binding reassignments at :72,76; other references (:407,412,414) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/lib/components/DeckUpload.svelte:36::\"warnings\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"warnings\" in src/lib/components/DeckUpload.svelte: declared at :36, whole-binding reassignments at :110,159; other references (:119,245,247) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/lib/components/DeckUpload.svelte:40::\"validationErrors\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"validationErrors\" in src/lib/components/DeckUpload.svelte: declared at :40, whole-binding reassignments at :111,164,169; other references (:254,259,261) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/lib/components/OrganizerManager.svelte:21::\"organizers\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"organizers\" in src/lib/components/OrganizerManager.svelte: declared at :21, whole-binding reassignments at :29; other references (:67) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/lib/components/promos/PromoInventoryPanel.svelte:42::\"names\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"names\" in src/lib/components/promos/PromoInventoryPanel.svelte: declared at :42, whole-binding reassignments at :50; other references (:41,138) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/lib/components/promos/PromoLedgerList.svelte:20::\"names\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"names\" in src/lib/components/promos/PromoLedgerList.svelte: declared at :20, whole-binding reassignments at :47; other references (:40,130,132,134) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/routes/consent/+page.svelte:17::\"scopeDescriptions\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"scopeDescriptions\" in src/routes/consent/+page.svelte: declared at :17, whole-binding reassignments at :68; other references (:206,207) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/routes/leagues/+page.svelte:16::\"metaLeagueNames\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"metaLeagueNames\" in src/routes/leagues/+page.svelte: declared at :16, whole-binding reassignments at :69; other references (:207,208,220,221) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/routes/leagues/[uid]/+page.svelte:41::\"orphanLeagues\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"orphanLeagues\" in src/routes/leagues/[uid]/+page.svelte: declared at :41, whole-binding reassignments at :161,172; other references (:539,544) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/routes/leagues/[uid]/+page.svelte:75::\"organizerNames\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"organizerNames\" in src/routes/leagues/[uid]/+page.svelte: declared at :75, whole-binding reassignments at :180; other references (:524) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/routes/leagues/new/+page.svelte:29::\"metaLeagues\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"metaLeagues\" in src/routes/leagues/new/+page.svelte: declared at :29, whole-binding reassignments at :33; other references (:123,129) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/routes/tournaments/+page.svelte:137::\"leagueNames\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"leagueNames\" in src/routes/tournaments/+page.svelte: declared at :137, whole-binding reassignments at :141,146; other references (:532,533,544,546) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/routes/tournaments/+page.svelte:138::\"metaLeagues\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"metaLeagues\" in src/routes/tournaments/+page.svelte: declared at :138, whole-binding reassignments at :141,153; other references (:535,536,546) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::performance/state-raw::src/routes/tournaments/[uid]/+page.svelte:59::\"organizerNames\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"organizerNames\" in src/routes/tournaments/[uid]/+page.svelte: declared at :59, whole-binding reassignments at :450; other references (:911) only read it in template text/attributes, {#each} items or member reads; no member writes, mutating calls, bind:, prop/call-arg escapes or written aliases - $state.raw fits"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/DocumentViewer.svelte:101::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/DocumentViewer.svelte:101: html comes only from help/[slug]/+page.svelte:19 doc.content = renderDocument() of repo help markdown ($lib/help-content/*.md?raw) and renderDocument ends in DOMPurify.sanitize (lib/markdown.ts) - sanitized repo content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/FoldableDescription.svelte:27::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/FoldableDescription.svelte:27: renderMarkdown(...) of user/organizer or changelog text, but renderMarkdown runs DOMPurify.sanitize on marked output (lib/markdown.ts:3-10) - sanitized, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/TournamentFields.svelte:664::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/TournamentFields.svelte:664: m.tfield_markdown_support with a literal <a> link param - repo paraglide message + literal markup, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/WhatsNewModal.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/WhatsNewModal.svelte:55: renderMarkdown(...) of user/organizer or changelog text, but renderMarkdown runs DOMPurify.sanitize on marked output (lib/markdown.ts:3-10) - sanitized, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:124::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:124: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:154::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:154: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:160::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:160: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:194::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:194: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:209::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:209: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:234::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:234: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:242::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:242: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:277::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:277: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:308::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:308: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:318::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:318: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:327::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:327: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:336::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:336: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:345::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:345: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:359::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:359: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:373::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:373: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:422::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:422: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:428::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:428: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:446::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:446: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:450::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:450: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:466::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:466: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:472::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:472: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:474::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:474: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:512::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:512: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:514::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:514: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:516::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:516: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:535::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:535: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:545::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:545: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:547::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:547: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:567::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:567: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:573::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:573: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:579::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:579: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:596::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:596: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:598::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:598: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:602::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:602: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:604::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:604: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:606::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:606: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:610::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:610: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:612::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:612: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:616::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:616: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:65::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:65: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:671::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:671: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:673::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:673: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:675::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:675: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:677::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:677: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:679::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:679: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:67::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:67: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:681::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:681: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/OrganizerGuide.svelte:691::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/OrganizerGuide.svelte:691: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:112::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:112: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:130::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:130: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:139::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:139: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:160::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:160: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:174::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:174: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:206::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:206: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:276::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:276: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:278::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:278: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:30::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:30: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:314::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:314: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:377::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:377: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:39::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:39: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:403::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:403: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:409::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:409: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:450::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:450: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:459::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:459: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:46::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:46: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:515::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:515: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:524::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:524: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:539::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:539: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:552::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:552: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:55::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:55: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:64::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:64: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/lib/components/help/PlayerGuide.svelte:81::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/help/PlayerGuide.svelte:81: renderGuideSection(m.og_*/pg_* or faqs[].a) - marked over the app's own paraglide messages (messages/*.json, no params) - repo i18n content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/routes/leagues/new/+page.svelte:207::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/leagues/new/+page.svelte:207: m.tfield_markdown_support with a literal <a> link param - repo paraglide message + literal markup, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/routes/legal/privacy/+page.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/legal/privacy/+page.svelte:17: html = renderMarkdown(repo $lib/legal-content/*.md?raw); renderMarkdown ends in DOMPurify.sanitize (lib/markdown.ts:3-10) - sanitized repo content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/routes/legal/terms/+page.svelte:17::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/legal/terms/+page.svelte:17: html = renderMarkdown(repo $lib/legal-content/*.md?raw); renderMarkdown ends in DOMPurify.sanitize (lib/markdown.ts:3-10) - sanitized repo content, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/routes/login/+page.svelte:389::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/login/+page.svelte:389: consentHtml = m.login_consent_html with literal <a> params whose text is m.legal_*_title() - repo i18n + literal markup, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/routes/nda/+page.svelte:120::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/nda/+page.svelte:120: documentHtml = renderMarkdown(doc.text) and renderMarkdown runs DOMPurify.sanitize on marked output (lib/markdown.ts:3-10) - sanitized, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::security/raw-html::src/routes/tournaments/[uid]/+page.svelte:917::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/tournaments/[uid]/+page.svelte:917: renderMarkdown(...) of user/organizer or changelog text, but renderMarkdown runs DOMPurify.sanitize on marked output (lib/markdown.ts:3-10) - sanitized, reported per docs"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); the backend og stub (og.py:112) adds a canonical only for preview-bot UAs, and app.conf.j2:17-18 deliberately excludes Googlebot/Bingbot, so search engines get the SPA shell without one; public route"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/consent/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)) but not a search target (OAuth consent step: consent/+page.svelte:29-42 onMount goto(/login?redirect=…) for every guest), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/help/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /help: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 36 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/help/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /help/[slug]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 45 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); the backend og stub (og.py:112) adds a canonical only for preview-bot UAs, and app.conf.j2:17-18 deliberately excludes Googlebot/Bingbot, so search engines get the SPA shell without one; public route"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/leagues/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leagues: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/leagues/[uid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /leagues/[uid]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 40 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); the backend og stub (og.py:112) adds a canonical only for preview-bot UAs, and app.conf.j2:17-18 deliberately excludes Googlebot/Bingbot, so search engines get the SPA shell without one; public route"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/leagues/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)) but not a search target (permission-gated creation form: leagues/new/+page.svelte:92-95 shows only a no-permission notice unless canManageLeagues(auth.user)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/legal/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /legal/privacy: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/legal/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /legal/terms: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/nda/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 36 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)) but not a search target (sign-in gated: nda/+page.svelte:81-82 shows only a login-required notice to guests), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/profile/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 67 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)) but not a search target (sign-in gated: profile/+page.svelte:245 shows only a sign-in-required card to guests), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/rankings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /rankings: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 36 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/t/[code]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)) but not a search target (client redirect stub: t/[code]/+page.svelte:11-17 resolves the short code and goto(/tournaments/{uid}, replaceState)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/tournaments/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tournaments: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 36 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/tournaments/[uid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /tournaments/[uid]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 104 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); the backend og stub (og.py:112) adds a canonical only for preview-bot UAs, and app.conf.j2:17-18 deliberately excludes Googlebot/Bingbot, so search engines get the SPA shell without one; public route"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/tournaments/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)) but not a search target (permission-gated creation form: tournaments/new/+page.svelte:166-168 shows only a no-permission notice unless canCreateTournament(auth.user)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/users/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /users: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 66 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/users/[uid]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /users/[uid]: script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 61 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1); publicly reachable route, no noindex, robots.txt does not disallow it"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/canonical-url::src/routes/verify-email/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b_reach.mjs, comments stripped): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)) but not a search target (magic-link token handler: verify-email/+page.svelte:20-58 reads ?token, verifies it and goto(\"/\")), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/description-length::src/app.html::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: app.html:23 literal <meta name=description content=\"VEKN Tournament Management - Web App\"> (36 chars) is the only description of the 20 routes (none in any svelte:head); Archon is the VEKN tournament/league site whose tournaments, leagues, rankings and help pages are public and meant to be indexed (wiki/architecture.md:1060-1061: search engines render JS and should index the real SPA route; only social bots get backend og.py stubs), under 70 as claimed"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/duplicate-description::src/app.html::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: app.html:23 literal description is the only description of all 20 routes (/tournaments, /leagues, /rankings, /help/[slug] ...), duplicate as claimed; Archon is the VEKN tournament/league site whose tournaments, leagues, rankings and help pages are public and meant to be indexed (wiki/architecture.md:1060-1061: search engines render JS and should index the real SPA route; only social bots get backend og.py stubs)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/heading-level-skip::src/routes/leagues/+page.svelte:255::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: leagues/+page.svelte:118 <h1> then the {:else if !loaded} loading <h3> (:255); the league list arm before it holds only Badges — h1 to h3 when it renders"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/heading-level-skip::src/routes/profile/+page.svelte:287::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: profile/+page.svelte:239 <h1>, then TabStrip (no heading) and in the {:else if activeTab === 'record'} arm the ratings <h3> (:287); the <h2> (:250) is in the exclusive signed-out arm — h1 to h3"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/heading-level-skip::src/routes/tournaments/+page.svelte:607::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: tournaments/+page.svelte:395 <h1> then the {:else if !loaded} loading <h3> (:607); the tournament list arm holds no heading — h1 to h3 when it renders"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); / has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/consent/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /consent has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/help/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /help has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/help/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /help/[slug] has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/leagues/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /leagues has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/leagues/[uid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /leagues/[uid] has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/leagues/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /leagues/new has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/legal/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /legal/privacy has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/legal/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /legal/terms has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /login has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/nda/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /nda has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/profile/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /profile has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/rankings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /rankings has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/t/[code]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /t/[code] has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/tournaments/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /tournaments has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/tournaments/[uid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /tournaments/[uid] has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/tournaments/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /tournaments/new has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /users has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/users/[uid]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /users/[uid] has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/json-ld::src/routes/verify-email/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of the app incl. app.html/hooks/lib for ld+json|jsonld|json-ld|JsonLd|schema.org; no meta-tag or JSON-LD library in deps): no JSON-LD anywhere in frontend/src (backend og.py crawler stubs carry OG only, and only for social-bot UAs); /verify-email has none"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered outside SvelteKit for its consumers: nginx sends preview-bot UAs (map $is_social_bot, deploy/templates/app.conf.j2:19-22; facebookexternalhit/Twitterbot/Discordbot/Slackbot/LinkedInBot…) on / to the backend stub (location = / (app.conf.j2:111-117) -> @og_site -> main.py:612-619 render_site_og_html), whose backend/src/og.py:114 emits <meta property=\"og:url\" content=canonical>; the SPA shell humans get has none (halideworks precedent)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/consent/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /consent: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/help/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /help: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 36 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/help/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered outside SvelteKit for its consumers: nginx sends preview-bot UAs (map $is_social_bot, deploy/templates/app.conf.j2:19-22; facebookexternalhit/Twitterbot/Discordbot/Slackbot/LinkedInBot…) on /help/[slug] to the backend stub (location ~ ^/help/[a-z0-9-]+$ (app.conf.j2:86-93) -> main.py:597-607 render_help_og_html), whose backend/src/og.py:114 emits <meta property=\"og:url\" content=canonical>; the SPA shell humans get has none (halideworks precedent)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/leagues/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leagues: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/leagues/[uid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered outside SvelteKit for its consumers: nginx sends preview-bot UAs (map $is_social_bot, deploy/templates/app.conf.j2:19-22; facebookexternalhit/Twitterbot/Discordbot/Slackbot/LinkedInBot…) on /leagues/[uid] to the backend stub (location ~ ^/(tournaments|leagues)/[0-9a-fA-F-]+$ (app.conf.j2:86-93) -> main.py:585-593 render_league_og_html), whose backend/src/og.py:114 emits <meta property=\"og:url\" content=canonical>; the SPA shell humans get has none (halideworks precedent)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/leagues/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /leagues/new: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/legal/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /legal/privacy: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/legal/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /legal/terms: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 35 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/nda/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /nda: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 36 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/profile/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /profile: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 67 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/rankings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /rankings: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 36 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/t/[code]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered outside SvelteKit for its consumers: nginx sends preview-bot UAs (map $is_social_bot, deploy/templates/app.conf.j2:19-22; facebookexternalhit/Twitterbot/Discordbot/Slackbot/LinkedInBot…) on /t/[code] to the backend stub (location ~ ^/t/[0-9a-zA-Z]+$ (app.conf.j2:86-93) -> main.py:563-571 render_og_html), whose backend/src/og.py:114 emits <meta property=\"og:url\" content=canonical>; the SPA shell humans get has none (halideworks precedent)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/tournaments/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tournaments: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 36 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/tournaments/[uid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "fp",
+    "basis": "rendered outside SvelteKit for its consumers: nginx sends preview-bot UAs (map $is_social_bot, deploy/templates/app.conf.j2:19-22; facebookexternalhit/Twitterbot/Discordbot/Slackbot/LinkedInBot…) on /tournaments/[uid] to the backend stub (location ~ ^/(tournaments|leagues)/[0-9a-fA-F-]+$ (app.conf.j2:86-93) -> main.py:548-560 render_og_html), whose backend/src/og.py:114 emits <meta property=\"og:url\" content=canonical>; the SPA shell humans get has none (halideworks precedent)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/tournaments/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /tournaments/new: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 41 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/users/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 66 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/users/[uid]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /users/[uid]: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 61 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/og-url::src/routes/verify-email/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /verify-email: script-verified (a1b_reach.mjs, comments stripped): no og:url in page, 1 ancestor layout(s), 33 page/layout/transitively imported local files ($lib/relative) or app.html (positive control: the script finds the page-level og/canonical tags on namsbokasafn-vefur and kali-afl-stats /docs/mcp); app.html:27-37 carries og:type/title/description/image and twitter:* but no og:url or canonical; no Svelte emitter in src; ssr=false app-wide (+layout.ts:1)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/single-h1::/t/[code]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: t/[code]/+page.svelte renders only a <p> 'resolving'/'not found' line (:40-45) while an $effect resolves the short code and goto()s the tournament page; no <h1> in the page, root layout or followed components — redirect-stub convention (ssr = false app)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/single-h1::src/lib/components/UserList.svelte:413::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "design",
+    "basis": "read: on load only users/+page.svelte:42 <h1> renders; UserList (its own <h1> at :413) is shown only in the {:else if auth.isAuthenticated} arm when the user picks the non-default 'members' tab (activeTab starts 'community', users/+page.svelte:28, 76-82) — the two <h1>s co-render only in that state"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: frontend/static has robots.txt (allow all, no Sitemap: line) but no sitemap.xml; no route, backend endpoint or deploy template serves one; Archon is the VEKN tournament/league site whose tournaments, leagues, rankings and help pages are public and meant to be indexed (wiki/architecture.md:1060-1061: search engines render JS and should index the real SPA route; only social bots get backend og.py stubs)"
+  },
+  {
+    "key": "vtes-biased/archon-vibe:frontend::seo/ssr-disabled::src/routes/+layout.ts:1::SSR is disabled for the whole app — search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint",
+    "verdict": "tp",
+    "basis": "read: literal export const ssr = false at src/routes/+layout.ts:1 (whole app, prerender = true shells); Archon is the VEKN tournament/league site whose tournaments, leagues, rankings and help pages are public and meant to be indexed (wiki/architecture.md:1060-1061: search engines render JS and should index the real SPA route; only social bots get backend og.py stubs), so that content ships as an empty shell to non-JS crawlers as claimed"
+  }
+]

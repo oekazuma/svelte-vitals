@@ -1,0 +1,1587 @@
+[
+  {
+    "key": "n9d0g/fcc::a11y/deprecated-attr::src/routes/events/+page.svelte:16::`frameborder`, `scrolling` on <iframe> are deprecated attributes",
+    "verdict": "tp",
+    "basis": "read events/+page.svelte:16-20: <iframe frameborder=\"0\" scrolling=\"no\">, both deprecated on <iframe> as reported"
+  },
+  {
+    "key": "n9d0g/fcc::a11y/permitted-contents::src/lib/components/sermons/SermonCard.svelte:46::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read sermons/SermonCard.svelte:42-46: <div> inside the card <button>; phrasing content only"
+  },
+  {
+    "key": "n9d0g/fcc::a11y/permitted-contents::src/lib/components/sermons/SermonCard.svelte:66::`<footer>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read sermons/SermonCard.svelte:42-66: <footer> inside the card <button>; phrasing content only"
+  },
+  {
+    "key": "n9d0g/fcc::a11y/permitted-contents::src/routes/contact/+page.svelte:110::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read contact/+page.svelte:110: error <p> inside <label class=\"label\">; <label> admits phrasing content only"
+  },
+  {
+    "key": "n9d0g/fcc::a11y/permitted-contents::src/routes/contact/+page.svelte:81::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read contact/+page.svelte:81: error <p> inside <label class=\"label\">; <label> admits phrasing content only"
+  },
+  {
+    "key": "n9d0g/fcc::a11y/permitted-contents::src/routes/contact/+page.svelte:95::`<p>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "read contact/+page.svelte:95: error <p> inside <label class=\"label\">; <label> admits phrasing content only"
+  },
+  {
+    "key": "n9d0g/fcc::architecture/component-size::src/routes/ministries/sunday-school/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/ministries/sunday-school/+page.svelte has 295 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "n9d0g/fcc::architecture/component-size::src/routes/small-groups/women-chasing-god/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/small-groups/women-chasing-god/+page.svelte has 233 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "n9d0g/fcc::architecture/prop-count::src/lib/components/ministries/MinistryPageContent.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ministries/MinistryPageContent.svelte has a single destructured $props() with 12 named props (> 6): welcomeTitle, welcomeDescription, highlight, mission, vision, expectationsTitle, expectations, howToJoinTitle, howToJoinContent, gallery, galleryTitle, customContent"
+  },
+  {
+    "key": "n9d0g/fcc::architecture/prop-count::src/lib/components/small-groups/SmallGroupPageContent.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/small-groups/SmallGroupPageContent.svelte has a single destructured $props() with 12 named props (> 6): welcomeTitle, welcomeText, meetingSchedule, meetingLocation, studyTitle, studyDescription, howToJoinText, contactInfo, zoomLink, zoomMeetingId, zoomPasscode, gallery"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/lib/components/Banner.svelte:32::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: Banner.svelte:32 '{#each banner.body[0].children as child}' has no key; the portable-text spans of one CMS banner's first block, rendered as text/links: positional list (segments of one text), items have no identity beyond position"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/lib/components/FccLayout.svelte:34::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: FccLayout.svelte:34 '{#each breadcrumb as link, index}' has no key; breadcrumb prop built in each load from the constant breadcrumbs config (e.g. about/leadership/+page.ts:15-19): positional list (breadcrumbs), ledger breadcrumb convention"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/lib/components/LandingPageGrid.svelte:7::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: LandingPageGrid.svelte:7 '{#each items as card}' has no key; callers pass author-written literals (routes/+error.svelte:13 const landingPageItems, ministries/+page.ts:10 and praise/+page.ts:17 landingPageItems literals): static list fixed at author time"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/lib/components/SideNav.svelte:58::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: SideNav.svelte:58 '{#each visibleNavOptions as option}' has no key; visibleNavOptions = $derived(navOptions.filter(...)) of the imported constant $lib/config navOptions (:2, :17-18): static list (fixed nav filtered by a flag), ledger convention"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/lib/components/about/leadership/LeadershipCard.svelte:37::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: LeadershipCard.svelte:37 '{#each subministries as subministry}' has no key; subministries of a leader fetched from the Sanity CMS (about/leadership/+page.ts:9-13), passed per card from an unkeyed each over the leaders: runtime CMS records (ledger CMS convention)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/lib/components/ministries/MinistryPageContent.svelte:110::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: MinistryPageContent.svelte:110 '{#each expectations as item}' has no key; every caller passes a same-file const literal (ministries/men/+page.svelte:19, prayer:18, women:12, youth:12, young-adults:12, praise instruments:20): static list fixed at author time"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/lib/components/ministries/praise/PraiseModal.svelte:55::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: PraiseModal.svelte:55 '{#each data.songs as song}' has no key; data is the praise-schedule week chosen from the Sanity CMS records: runtime CMS data swapped per opened week (ledger CMS convention)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/lib/components/ministries/praise/PraiseModal.svelte:68::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: PraiseModal.svelte:68 '{#each data.unavailableList as unavailable}' has no key; the unavailable-members list of the chosen CMS schedule week: runtime CMS data"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/about/beliefs/+page.svelte:36::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: about/beliefs/+page.svelte:36 '{#each coreValues as value, index}' has no key; coreValues = data.coreValues, an author-written literal returned by the load (about/beliefs/+page.ts:13): static list fixed at author time"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/about/beliefs/+page.svelte:64::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: about/beliefs/+page.svelte:64 '{#each statementsOfFaith as statement, index}' has no key; data.statementsOfFaith is an author-written literal returned by the load (about/beliefs/+page.ts): static list fixed at author time"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/about/leadership/+page.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: about/leadership/+page.svelte:16 '{#each data.leaders as leader}' has no key; leaders are fetched from the Sanity CMS (+page.ts:9-13, client.fetch): runtime CMS records (ledger CMS convention)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/contact/+page.svelte:94::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: contact/+page.svelte:94 '{#each form?.errors?.email as error}' has no key; validation errors returned by the form action: runtime data (ledger validation-list convention)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/praise/schedule/+page.svelte:104::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: praise/schedule/+page.svelte:104 '{#each tHead as header, index}' has no key; tHead = data.tHead, an author-written header literal in the load (schedule/+page.ts:34-46): static list (fixed columns)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/praise/schedule/+page.svelte:116::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: praise/schedule/+page.svelte:116 '{#each filteredData as week, rowIndex}' has no key; filteredData = $derived of the CMS schedule weeks filtered by the chosen role (:30): runtime data that changes with the filter"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/praise/schedule/+page.svelte:118::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: praise/schedule/+page.svelte:118 '{#each tBody as col}' has no key; tBody = data.tBody, an author-written column-key literal in the load (schedule/+page.ts:47-59): static list (fixed columns)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/praise/schedule/+page.svelte:130::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: praise/schedule/+page.svelte:130 '{#each week[col] as unavailable, i}' has no key; the unavailable-members list of one CMS schedule week, inside the unkeyed filtered rows: runtime CMS data"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/praise/schedule/+page.svelte:61::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: praise/schedule/+page.svelte:61 '{#each filterData as role}' has no key; filterData = data.filterData, an author-written option literal in the load (schedule/+page.ts:71+): static list fixed at author time"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/praise/song-usage/+page.svelte:22::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: praise/song-usage/+page.svelte:22 '{#each tHead as header, index}' has no key; tHead is the author-written literal ['Song Name', 'Artist', 'Times Played', 'Spotify'] from the load (song-usage/+page.ts:20): static list (fixed columns)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/praise/song-usage/+page.svelte:28::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: praise/song-usage/+page.svelte:28 '{#each songs as song}' has no key; songs = the awaited song-usage data from the CMS: runtime data"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/prayer/+page.svelte:115::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: prayer/+page.svelte:115 '{#each searchFilter(prayerData, 'name', filterQuery) as row}' has no key; CMS prayer data filtered by the user's search text: runtime list that changes as the user types"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/sunday-ministries/+page.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sunday-ministries/+page.svelte:24 '{#each tHeaders as header, index}' has no key; tHeaders = data.tHeaders, an author-written header literal in the load (sunday-ministries/+page.ts:20): static list (fixed columns)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/sunday-ministries/+page.svelte:40::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: sunday-ministries/+page.svelte:40 '{#each tBody as month, rowIndex}' has no key; tBody = updatedDataFiltered of the Sanity sunday-ministries records (sunday-ministries/+page.ts:19): runtime CMS records"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/sunday-school/+page.svelte:184::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: sunday-school/+page.svelte:184 '{#each juniorLinks as link}' has no key; juniorLinks = $derived filter of the sunday-school-links records fetched from the Sanity CMS (+page.ts:6-12): runtime CMS records"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/sunday-school/+page.svelte:206::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: sunday-school/+page.svelte:206 '{#each primaryLinks as link}' has no key; primaryLinks = $derived filter of the CMS sunday-school-links records (+page.ts:6-12): runtime CMS records"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/sunday-school/+page.svelte:230::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: sunday-school/+page.svelte:230 '{#each additionalLinks as link}' has no key; additionalLinks = $derived filter of the CMS sunday-school-links records (+page.ts:6-12): runtime CMS records"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/sunday-school/+page.svelte:248::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: sunday-school/+page.svelte:248 '{#each tHeaders as header, index}' has no key; tHeaders = data.tHeaders, an author-written header literal in the load (sunday-school/+page.ts:28): static list (fixed columns)"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/ministries/sunday-school/+page.svelte:264::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: sunday-school/+page.svelte:264 '{#each tBody as month}' has no key; tBody = updatedDataFiltered of the Sanity sunday-ministries records (sunday-school/+page.ts:27): runtime CMS records"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/small-groups/women-chasing-god/+page.svelte:213::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: women-chasing-god/+page.svelte:213 '{#each gallery.photos as photo, index}' has no key; gallery = fetchPageGallery(...) from the Sanity CMS in the load: runtime CMS records"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/each-key::src/routes/small-groups/young-adults/+page.svelte:114::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: young-adults/+page.svelte:114 '{#each gallery.photos as photo, index}' has no key; gallery = fetchPageGallery('/small-groups/young-adults') from the Sanity CMS (+page.ts:14): runtime CMS records"
+  },
+  {
+    "key": "n9d0g/fcc::correctness/effect-as-derived::src/lib/components/sermons/SermonCard.svelte:32::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: SermonCard.svelte:32-34 the effect only does thumbImg = maxResUrl (a $derived of the youtube prop); other writes are wholesale reassignments to the fallback in the img error/load handlers (:52, :56), the writable-$derived override pattern (svelte ^5.56.4)"
+  },
+  {
+    "key": "n9d0g/fcc::performance/iframe-loading::src/routes/events/+page.svelte:16::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "read: <iframe> has no loading attribute and no spread; Google Calendar embed (height 900px) is the page's main content directly under the FccLayout title and one intro line (events/+page.svelte:13-24) - above the fold, where eager is right"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-dimensions::src/routes/give/+page.svelte:43::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> has no width/height and no spread; class h-auto w-full only (give/+page.svelte:43-47) - the natural aspect decides the height"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-dimensions::src/routes/ministries/men/+page.svelte:105::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> has no width/height and no spread; photo 2 with class w-full only (ministries/men/+page.svelte:105) - the natural aspect decides the height"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-dimensions::src/routes/ministries/men/+page.svelte:115::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> has no width/height and no spread; photo 3 with class w-full only (ministries/men/+page.svelte:115) - the natural aspect decides the height"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-dimensions::src/routes/ministries/men/+page.svelte:119::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> has no width/height and no spread; photo 4 with class w-full only (ministries/men/+page.svelte:119) - the natural aspect decides the height"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-dimensions::src/routes/ministries/men/+page.svelte:87::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "read: <img> has no width/height and no spread; cover photo with class h-auto w-full only (ministries/men/+page.svelte:87) - the natural aspect decides the height"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-dimensions::src/routes/small-groups/women-chasing-god/+page.svelte:223::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> has no width/height and no spread; gallery photo with h-full w-full object-cover inside a grid with auto-rows-[200px] (:211) - the cell size is fixed by CSS, so no CLS"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-dimensions::src/routes/small-groups/young-adults/+page.svelte:124::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "read: <img> has no width/height and no spread; gallery photo with h-full w-full object-cover inside a grid with auto-rows-[200px] (:112) - the cell size is fixed by CSS, so no CLS"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-loading-hint::src/routes/give/+page.svelte:43::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "read: <img> has no loading and no spread; hero image of the first section, order-1 (first on mobile) right under the FccLayout title (give/+page.svelte:15-48) - above the fold"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-loading-hint::src/routes/ministries/men/+page.svelte:105::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading and no spread; photo 2 in the customContent snippet that MinistryPageContent renders after the welcome, mission/vision, expectations and how-to-join sections (MinistryPageContent.svelte:133-135) - offscreen on load"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-loading-hint::src/routes/ministries/men/+page.svelte:115::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading and no spread; photo 3 in the customContent snippet that MinistryPageContent renders after the welcome, mission/vision, expectations and how-to-join sections (MinistryPageContent.svelte:133-135) - offscreen on load"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-loading-hint::src/routes/ministries/men/+page.svelte:119::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading and no spread; photo 4 in the customContent snippet that MinistryPageContent renders after the welcome, mission/vision, expectations and how-to-join sections (MinistryPageContent.svelte:133-135) - offscreen on load"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-loading-hint::src/routes/ministries/men/+page.svelte:87::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading and no spread; cover photo in the customContent snippet that MinistryPageContent renders after the welcome, mission/vision, expectations and how-to-join sections (MinistryPageContent.svelte:133-135) - offscreen on load"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-loading-hint::src/routes/small-groups/women-chasing-god/+page.svelte:223::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading and no spread; Sanity gallery photo in the {#each gallery.photos} grid at the bottom of the page, after the zoom card and five study-group cards - offscreen on load"
+  },
+  {
+    "key": "n9d0g/fcc::performance/image-loading-hint::src/routes/small-groups/young-adults/+page.svelte:124::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "read: <img> has no loading and no spread; Sanity gallery photo in the {#each gallery.photos} grid at the bottom of the page, after the welcome, who-we-are and how-to-join sections - offscreen on load"
+  },
+  {
+    "key": "n9d0g/fcc::performance/responsive-image::src/routes/give/+page.svelte:43::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; src is one Unsplash URL with w=1074 (give/+page.ts pic1) shown w-full - raster, one fixed-size asset"
+  },
+  {
+    "key": "n9d0g/fcc::performance/responsive-image::src/routes/ministries/men/+page.svelte:105::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; photo 2 is a raster import from $lib/assets/ministries/men (.avif/.jpg, no enhanced-img) - one fixed-size asset"
+  },
+  {
+    "key": "n9d0g/fcc::performance/responsive-image::src/routes/ministries/men/+page.svelte:115::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; photo 3 is a raster import from $lib/assets/ministries/men (.avif/.jpg, no enhanced-img) - one fixed-size asset"
+  },
+  {
+    "key": "n9d0g/fcc::performance/responsive-image::src/routes/ministries/men/+page.svelte:119::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; photo 4 is a raster import from $lib/assets/ministries/men (.avif/.jpg, no enhanced-img) - one fixed-size asset"
+  },
+  {
+    "key": "n9d0g/fcc::performance/responsive-image::src/routes/ministries/men/+page.svelte:87::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; cover photo is a raster import from $lib/assets/ministries/men (.avif/.jpg, no enhanced-img) - one fixed-size asset"
+  },
+  {
+    "key": "n9d0g/fcc::performance/responsive-image::src/routes/small-groups/women-chasing-god/+page.svelte:223::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; photo.url is the raw Sanity asset->url (lib/config/sanity.ts fetchPageGallery), no size params - raster, one fixed-size asset"
+  },
+  {
+    "key": "n9d0g/fcc::performance/responsive-image::src/routes/small-groups/young-adults/+page.svelte:124::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "read: <img> has no srcset and no spread; photo.url is the raw Sanity asset->url (lib/config/sanity.ts fetchPageGallery), no size params - raster, one fixed-size asset"
+  },
+  {
+    "key": "n9d0g/fcc::performance/sequential-awaits::src/routes/ministries/praise/schedule/+page.ts:15::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/ministries/praise/schedule/+page.ts:9-15: the praise-assignments GROQ client.fetch uses nothing from the praise query before it — independent Sanity API requests serialized (no prerender export); Promise.all would work"
+  },
+  {
+    "key": "n9d0g/fcc::performance/sequential-awaits::src/routes/ministries/sunday-school/+page.ts:14::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/ministries/sunday-school/+page.ts:5-14: fetchPageGallery (a Sanity client.fetch, lib/config/sanity.ts:11-21) uses nothing from the two queries before it — independent Sanity API requests serialized (no prerender export); Promise.all would work"
+  },
+  {
+    "key": "n9d0g/fcc::performance/sequential-awaits::src/routes/ministries/sunday-school/+page.ts:7::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/ministries/sunday-school/+page.ts:5-7: the sunday-school-links GROQ client.fetch uses nothing from the sunday-ministries query — independent Sanity API requests serialized (no prerender export); Promise.all would work"
+  },
+  {
+    "key": "n9d0g/fcc::security/raw-html::src/lib/components/FccLayout.svelte:28::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/FccLayout.svelte:28 + lib/utils.ts:74-88: buildSeoHeadExtras emits canonical + JSON-LD from repo headData constants (lib/config/seo.ts / literal error copy) and $page.url.href, whose \" < > are percent-encoded by the URL parser — no user-controlled markup, reported per docs"
+  },
+  {
+    "key": "n9d0g/fcc::security/raw-html::src/routes/+page.svelte:23::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/+page.svelte:23 + lib/utils.ts:74-88: buildSeoHeadExtras emits canonical + JSON-LD from repo headData constants (lib/config/seo.ts / literal error copy) and $page.url.href, whose \" < > are percent-encoded by the URL parser — no user-controlled markup, reported per docs"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: routes/+page.svelte:20-24 <svelte:head> renders {@html seoHeadExtras}, built by buildSeoHeadExtras (lib/utils.ts:74-88) whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link before it"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/about/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/about/beliefs/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/about/beliefs/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/about/leadership/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/about/leadership/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/about/mission-vision/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/about/mission-vision/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/contact/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/contact/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/events/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/events/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/events/2024/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/events/2024/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/events/2024/fall-retreat/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/events/2024/fall-retreat/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/give/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/give/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/login/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/men/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/men/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/praise/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/praise/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/praise/schedule/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/praise/schedule/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/praise/song-usage/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/praise/song-usage/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/prayer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/prayer/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/sunday-ministries/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/sunday-ministries/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/sunday-school/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/sunday-school/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/women/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/women/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/young-adults/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/young-adults/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/ministries/youth/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/ministries/youth/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/programming/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/programming/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/programming/details/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/programming/details/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/sermons/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/sermons/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/brampton-womens-1/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/brampton-womens-1/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/brampton-womens-2/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/brampton-womens-2/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/golden-girls/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/golden-girls/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/macasaquit-bible-study/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/macasaquit-bible-study/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/partners-in-prayer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/partners-in-prayer/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/south-mississauga/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/south-mississauga/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/university-bible-study/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/university-bible-study/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/women-chasing-god/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/women-chasing-god/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/canonical-url::src/routes/small-groups/young-adults/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "fp",
+    "basis": "rendered: src/routes/small-groups/young-adults/+page.svelte renders <FccLayout> at top level (column 0, not in a block); lib/components/FccLayout.svelte:25-29 <svelte:head> renders {@html seoHeadExtras} from buildSeoHeadExtras (lib/utils.ts:74-88), whose string opens with <link rel=\"canonical\" href=\"${url}\"/> (url = $page.url.href); analyzer reads the JSON-LD in that {@html} string but not the canonical link"
+  },
+  {
+    "key": "n9d0g/fcc::seo/heading-level-skip::src/routes/give/+page.svelte:54::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: FccLayout renders <h1>{title} (FccLayout.svelte:47) before the page content, then the hero section (no heading) and \"Ways to Give\" <h3> (give/+page.svelte:54) -> h1 to h3"
+  },
+  {
+    "key": "n9d0g/fcc::seo/heading-level-skip::src/routes/ministries/praise/schedule/+page.svelte:90::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: FccLayout <h1> (FccLayout.svelte:47), then the search-result <h6> (schedule/+page.svelte:90, {#if searchTerm.length !== 0}) with no heading between -> h1 to h6 whenever the user searches"
+  },
+  {
+    "key": "n9d0g/fcc::seo/heading-level-skip::src/routes/ministries/sunday-school/+page.svelte:181::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: \"PDFs\" <h3> (sunday-school/+page.svelte:178) directly followed by \"Junior Worksheets\" <h5> (:181) -> h3 to h5"
+  },
+  {
+    "key": "n9d0g/fcc::seo/heading-level-skip::src/routes/small-groups/women-chasing-god/+page.svelte:41::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: FccLayout <h1> (FccLayout.svelte:47), then the Zoom card (no heading) and \"Our Study Groups\" <h3> (women-chasing-god/+page.svelte:41) -> h1 to h3"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: +page.svelte:20-24 svelte:head has unconditional {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns '<link rel=canonical .../><script type=\"application/ld+json\">{...schema.org...}</script>'; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/about/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/about/beliefs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/about/beliefs/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/about/leadership/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/about/leadership/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/about/mission-vision/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/about/mission-vision/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/contact/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/events/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/events/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/events/2024/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/events/2024/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/events/2024/fall-retreat/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/events/2024/fall-retreat/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/give/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/give/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/login/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/men/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/men/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/praise/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/praise/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/praise/schedule/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/praise/schedule/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/praise/song-usage/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/praise/song-usage/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/prayer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/prayer/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/sunday-ministries/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/sunday-ministries/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/sunday-school/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/sunday-school/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/women/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/women/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/young-adults/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/young-adults/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/ministries/youth/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/ministries/youth/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/programming/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/programming/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/programming/details/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/programming/details/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/sermons/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/sermons/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/brampton-womens-1/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/brampton-womens-1/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/brampton-womens-2/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/brampton-womens-2/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/golden-girls/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/golden-girls/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/macasaquit-bible-study/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/macasaquit-bible-study/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/partners-in-prayer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/partners-in-prayer/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/south-mississauga/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/south-mississauga/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/university-bible-study/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/university-bible-study/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/women-chasing-god/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/women-chasing-god/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/json-ld::src/routes/small-groups/young-adults/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "fp",
+    "basis": "JSON-LD IS rendered: src/routes/small-groups/young-adults/+page.svelte renders unconditional top-level <FccLayout> whose svelte:head (lib/components/FccLayout.svelte:25-29) has {@html seoHeadExtras}, seoHeadExtras = $derived(buildSeoHeadExtras(...)) and lib/utils.ts:74-88 returns a <script type=\"application/ld+json\"> string; analyzer does not follow the helper's return value"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/about/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /about: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/about/beliefs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /about/beliefs: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/about/leadership/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /about/leadership: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/about/mission-vision/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /about/mission-vision: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/contact/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /contact: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/events/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /events: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/events/2024/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /events/2024: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/events/2024/fall-retreat/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /events/2024/fall-retreat: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/give/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /give: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /login: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/men/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/men: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/praise/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/praise: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/praise/schedule/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/praise/schedule: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/praise/song-usage/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/praise/song-usage: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/prayer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/sunday-ministries/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/sunday-ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/sunday-school/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/sunday-school: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/women/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/women: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/young-adults/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/ministries/youth/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /ministries/youth: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/programming/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /programming: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/programming/details/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /programming/details: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/sermons/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /sermons: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/brampton-womens-1/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/brampton-womens-1: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/brampton-womens-2/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/brampton-womens-2: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/golden-girls/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/golden-girls: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/macasaquit-bible-study/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/macasaquit-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/partners-in-prayer/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/partners-in-prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/south-mississauga/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/south-mississauga: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/university-bible-study/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/university-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/women-chasing-god/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/women-chasing-god: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-description::src/routes/small-groups/young-adults/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:description absent on /small-groups/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /about: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/about/beliefs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /about/beliefs: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/about/leadership/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /about/leadership: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/about/mission-vision/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /about/mission-vision: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/contact/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /contact: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/events/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /events: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/events/2024/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /events/2024: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/events/2024/fall-retreat/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /events/2024/fall-retreat: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/give/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /give: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /login: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/men/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/men: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/praise/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/praise: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/praise/schedule/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/praise/schedule: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/praise/song-usage/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/praise/song-usage: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/prayer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/sunday-ministries/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/sunday-ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/sunday-school/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/sunday-school: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/women/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/women: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/young-adults/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/ministries/youth/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /ministries/youth: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/programming/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /programming: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/programming/details/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /programming/details: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/sermons/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /sermons: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/brampton-womens-1/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/brampton-womens-1: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/brampton-womens-2/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/brampton-womens-2: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/golden-girls/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/golden-girls: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/macasaquit-bible-study/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/macasaquit-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/partners-in-prayer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/partners-in-prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/south-mississauga/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/south-mississauga: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/university-bible-study/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/university-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/women-chasing-god/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/women-chasing-god: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-image::src/routes/small-groups/young-adults/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:image absent on /small-groups/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/about/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /about: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/about/beliefs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /about/beliefs: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/about/leadership/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /about/leadership: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/about/mission-vision/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /about/mission-vision: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/contact/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /contact: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/events/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /events: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/events/2024/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /events/2024: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/events/2024/fall-retreat/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /events/2024/fall-retreat: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/give/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /give: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /login: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/men/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/men: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/praise/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/praise: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/praise/schedule/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/praise/schedule: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/praise/song-usage/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/praise/song-usage: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/prayer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/sunday-ministries/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/sunday-ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/sunday-school/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/sunday-school: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/women/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/women: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/young-adults/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/ministries/youth/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /ministries/youth: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/programming/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /programming: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/programming/details/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /programming/details: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/sermons/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /sermons: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/brampton-womens-1/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/brampton-womens-1: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/brampton-womens-2/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/brampton-womens-2: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/golden-girls/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/golden-girls: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/macasaquit-bible-study/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/macasaquit-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/partners-in-prayer/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/partners-in-prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/south-mississauga/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/south-mississauga: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/university-bible-study/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/university-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/women-chasing-god/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/women-chasing-god: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-title::src/routes/small-groups/young-adults/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:title absent on /small-groups/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/about/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /about: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/about/beliefs/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /about/beliefs: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/about/leadership/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /about/leadership: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/about/mission-vision/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /about/mission-vision: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/contact/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /contact: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/events/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /events: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/events/2024/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /events/2024: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/events/2024/fall-retreat/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /events/2024/fall-retreat: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/give/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /give: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /login: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/men/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/men: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/praise/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/praise: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/praise/schedule/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/praise/schedule: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/praise/song-usage/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/praise/song-usage: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/prayer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/sunday-ministries/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/sunday-ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/sunday-school/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/sunday-school: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/women/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/women: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/young-adults/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/ministries/youth/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /ministries/youth: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/programming/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /programming: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/programming/details/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /programming/details: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/sermons/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /sermons: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/brampton-womens-1/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/brampton-womens-1: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/brampton-womens-2/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/brampton-womens-2: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/golden-girls/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/golden-girls: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/macasaquit-bible-study/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/macasaquit-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/partners-in-prayer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/partners-in-prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/south-mississauga/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/south-mississauga: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/university-bible-study/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/university-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/women-chasing-god/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/women-chasing-god: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/og-url::src/routes/small-groups/young-adults/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): og:url absent on /small-groups/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has robots.txt (allow all, no Sitemap: line) but no sitemap.xml, no sitemap route, hook, wrangler config or generator repo-wide; public church website (README: fcccanada.ca) with ministries/small-groups/events pages to list"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/about/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /about: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/about/beliefs/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /about/beliefs: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/about/leadership/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /about/leadership: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/about/mission-vision/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /about/mission-vision: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/contact/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /contact: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/events/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /events: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/events/2024/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /events/2024: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/events/2024/fall-retreat/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /events/2024/fall-retreat: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/give/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /give: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /login: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/men/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/men: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/praise/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/praise: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/praise/schedule/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/praise/schedule: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/praise/song-usage/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/praise/song-usage: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/prayer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/sunday-ministries/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/sunday-ministries: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/sunday-school/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/sunday-school: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/women/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/women: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/young-adults/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/ministries/youth/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /ministries/youth: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/programming/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /programming: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/programming/details/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /programming/details: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/sermons/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /sermons: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/brampton-womens-1/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/brampton-womens-1: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/brampton-womens-2/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/brampton-womens-2: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/golden-girls/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/golden-girls: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/macasaquit-bible-study/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/macasaquit-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/partners-in-prayer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/partners-in-prayer: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/south-mississauga/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/south-mississauga: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/university-bible-study/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/university-bible-study: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/women-chasing-god/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/women-chasing-god: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  },
+  {
+    "key": "n9d0g/fcc::seo/twitter-card::src/routes/small-groups/young-adults/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1a_npmscan25.py on jsDelivr at lockfile versions + repo grep, positive control: the same grep finds fcc lib/utils.ts:87 canonical string): twitter:card absent on /small-groups/young-adults: no og:*/twitter:* in page, root layout, FccLayout.svelte (head: <title>, description, {@html} canonical+JSON-LD only) or any file of src incl. app.html; npm Svelte deps @iconify/svelte@5.2.2, @skeletonlabs/skeleton-svelte@5.0.0, svelte-youtube-embed@0.4.6 emit none"
+  }
+]

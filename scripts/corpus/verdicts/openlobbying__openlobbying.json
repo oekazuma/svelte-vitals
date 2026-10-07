@@ -1,0 +1,352 @@
+[
+  {
+    "key": "openlobbying/openlobbying::a11y/deprecated-attr::src/lib/components/ResponsiveEmbed.svelte:6::`frameborder` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read src/lib/components/ResponsiveEmbed.svelte:6: <iframe {src} {title} frameborder=\"0\">; frameborder is obsolete on iframe as reported (use CSS border)"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/component-size::src/lib/components/NetworkGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NetworkGraph.svelte has 202 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/component-size::src/lib/components/timeline/TimelineItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/timeline/TimelineItem.svelte has 382 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 291 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 205 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/component-size::src/routes/login/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/login/+page.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/component-size::src/routes/profile/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/profile/[id]/+page.svelte has 297 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/component-size::src/routes/search/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/search/+page.svelte has 305 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/prop-count::src/lib/components/timeline/Timeline.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/timeline/Timeline.svelte has a single destructured $props() with 7 named props (> 6): activities, currentEntityId, title, hasMore, loadingMore, loadMoreError, onLoadMore"
+  },
+  {
+    "key": "openlobbying/openlobbying::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/lib/components/DatasetList.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/DatasetList.svelte:25 '{#each labels as label, i}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/lib/components/Properties.svelte:26::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Properties.svelte:26 '{#each propertyEntries as [key, values]}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/lib/components/Properties.svelte:32::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/Properties.svelte:32 '{#each values as value}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/lib/components/timeline/TimelineDetails.svelte:28::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/timeline/TimelineDetails.svelte:28 '{#each row.values as value, i}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/lib/components/timeline/TimelineItem.svelte:322::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/timeline/TimelineItem.svelte:322 '{#each rowValues as value, i}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/lib/components/timeline/TimelineItem.svelte:71::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/timeline/TimelineItem.svelte:71 '{#each entities as entity, i}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/routes/+page.svelte:152::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:152 '{#each stats.top_lobbying_companies as row}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/routes/+page.svelte:185::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/+page.svelte:185 '{#each stats.top_organizations as row}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/routes/datasets/+page.svelte:68::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/datasets/+page.svelte:68 '{#each datasets as dataset}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::correctness/each-key::src/routes/search/+page.svelte:241::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/search/+page.svelte:241 '{#each search.results as result}' has no key and is not an exempt shape; runtime data (load/API records, props, $state/$derived of fetched or user-edited data): items can be inserted, removed or reordered"
+  },
+  {
+    "key": "openlobbying/openlobbying::performance/iframe-loading::src/lib/components/ResponsiveEmbed.svelte:6::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: its only use is the YouTube embed that opens the /about page body (about/+page.svx:10), directly under the MarkdownPage header <h1> (MarkdownPage.svelte header, then children) — above the fold, where eager is right"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/description-length::src/routes/admin/dedupe/clusters/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 67): src/routes/admin/dedupe/clusters/+page.svelte:28 \"Review grouped dedupe candidates from the OpenLobbying admin panel.\"; the route's only description (root layout sets none); too short as claimed (route is noindex at admin/+layout.svelte:27; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/description-length::src/routes/admin/dedupe/pairs/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 64): src/routes/admin/dedupe/pairs/+page.svelte:27 \"Review pair dedupe candidates from the OpenLobbying admin panel.\"; the route's only description (root layout sets none); too short as claimed (route is noindex at admin/+layout.svelte:27; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/description-length::src/routes/admin/users/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 44): src/routes/admin/users/+page.svelte:40 \"Manage OpenLobbying users and account roles.\"; the route's only description (root layout sets none); too short as claimed (route is noindex at admin/+layout.svelte:27; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/description-length::src/routes/login/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <meta name=description> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 68): src/routes/login/+page.svelte:113 \"Log in to access protected OpenLobbying pages backed by Better Auth.\"; the route's only description (root layout sets none); too short as claimed (route is noindex at login/+page.svelte:117; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/indexability::src/routes/account/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: account/+page.svelte:39 unconditional literal <meta name=\"robots\" content=\"noindex…\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/indexability::src/routes/admin/dedupe/clusters/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:27 unconditional literal <meta name=\"robots\" content=\"noindex…\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/indexability::src/routes/admin/dedupe/pairs/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:27 unconditional literal <meta name=\"robots\" content=\"noindex…\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/indexability::src/routes/admin/users/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:27 unconditional literal <meta name=\"robots\" content=\"noindex…\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/indexability::src/routes/login/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: login/+page.svelte:117 unconditional literal <meta name=\"robots\" content=\"noindex…\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/indexability::src/routes/search/+page.svelte::Route is noindex — verify this is intentional",
+    "verdict": "tp",
+    "basis": "read: search/+page.svelte:108 unconditional literal <meta name=\"robots\" content=\"noindex…\"> covers the route; noindex as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld-validity::src/routes/+page.svelte::JSON-LD is not valid JSON",
+    "verdict": "tp",
+    "basis": "read: +page.svelte:55 unconditional <script type=\"application/ld+json\">{homeStructuredData}</script> in svelte:head; Svelte treats <script> content as raw text, so the literal \"{homeStructuredData}\" ships and the block is not valid JSON, as claimed (same shape as the ledger's {JSON.stringify(...)} precedents)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/account/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/admin/dedupe/clusters/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/admin/dedupe/clusters/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/admin/dedupe/pairs/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/admin/dedupe/pairs/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/admin/users/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/datasets/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/datasets/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/login/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/profile/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/profile/[id]/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/search/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/search/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/json-ld::src/routes/statement/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only ld+json in src is the home page's (+page.svelte:55); src/routes/statement/[id]/+page.svelte, its layouts and app.html render none; no JSON-LD as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /account (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 41 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-description::src/routes/admin/dedupe/clusters/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/dedupe/clusters (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-description::src/routes/admin/dedupe/pairs/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/dedupe/pairs (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-description::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /admin/users (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 41 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-description::src/routes/search/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:description in page, ancestor layouts, 45 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on / (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 50 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 41 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/admin/dedupe/clusters/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/dedupe/clusters (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/admin/dedupe/pairs/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/dedupe/pairs (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin/users (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/datasets/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /datasets (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 40 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 41 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/profile/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /profile/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 64 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/search/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 45 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-image::src/routes/statement/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /statement/[id] (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:image in page, ancestor layouts, 45 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /account (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 41 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-title::src/routes/admin/dedupe/clusters/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/dedupe/clusters (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-title::src/routes/admin/dedupe/pairs/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/dedupe/pairs (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-title::src/routes/admin/users/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /admin/users (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 53 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /login (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 41 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/og-title::src/routes/search/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /search (script-verified (label16/a1b16_reach.py, comments stripped; positive control finds layout-emitted og:title/og:url/canonical/twitter:card in leagr/openlobbying/Herocraft): no og:title in page, ancestor layouts, 45 transitively imported local files or app.html; root +layout.svelte:64-73 emits canonical, og:site_name/locale/type/url and twitter:card only; og:image appears nowhere in src, svelte.config.js or app.html, and this page's <svelte:head> has no og:title/og:description; npm Svelte deps bits-ui/@lucide/svelte emit none); route renders; og/twitter rules carry no search-target exemption"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/single-h1::/datasets::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1>: datasets/+page.svelte titles with CardTitle, which renders a <div data-slot=\"card-title\"> (ui/card/card-title.svelte:13), and Dataset.svelte uses the same; root +layout.svelte (nav, Sheet, Footer) renders no <h1>"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/title-length::src/routes/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 22): src/routes/account/+page.svelte:34 \"Account - OpenLobbying\"; the route's only title (root layout sets none); too short as claimed (route is noindex at account/+page.svelte:39; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/title-length::src/routes/admin/dedupe/pairs/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 27): src/routes/admin/dedupe/pairs/+page.svelte:26 \"Dedupe Pairs - OpenLobbying\"; the route's only title (root layout sets none); too short as claimed (route is noindex at admin/+layout.svelte:27; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/title-length::src/routes/admin/users/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 26): src/routes/admin/users/+page.svelte:39 \"Admin Users - OpenLobbying\"; the route's only title (root layout sets none); too short as claimed (route is noindex at admin/+layout.svelte:27; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/title-length::src/routes/datasets/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 23): src/routes/datasets/+page.svelte:10 \"Datasets - OpenLobbying\"; the route's only title (root layout sets none); too short as claimed"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 20): src/routes/login/+page.svelte:112 \"Login - OpenLobbying\"; the route's only title (root layout sets none); too short as claimed (route is noindex at login/+page.svelte:117; length rules are tp regardless, ledger convention)"
+  },
+  {
+    "key": "openlobbying/openlobbying::seo/title-length::src/routes/search/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (tl.js: literal <title> in the location file's top-level unconditional <svelte:head>, grapheme-counted after whitespace collapse = 21): src/routes/search/+page.svelte:103 \"Search - OpenLobbying\"; the route's only title (root layout sets none); too short as claimed (route is noindex at search/+page.svelte:108; length rules are tp regardless, ledger convention)"
+  }
+]

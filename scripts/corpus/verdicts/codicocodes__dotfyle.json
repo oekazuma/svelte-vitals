@@ -1,0 +1,1127 @@
+[
+  {
+    "key": "codicocodes/dotfyle::a11y/duplicate-landmark::src/lib/components/OuterLayout.svelte:9::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:259-376 wraps {@render children()} in <OuterLayout> (OuterLayout.svelte:9 <main>), and [username]/+page.svelte:34 renders another <OuterLayout>, so /[username] has two nested <main> landmarks"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/id-duplication::src/lib/components/ColorschemeSwitcher.svelte:51::Duplicate id \"user-menu\"",
+    "verdict": "tp",
+    "basis": "read: ColorschemeSwitcher.svelte:51 div#user-menu sits in an always-mounted <dialog> (Modal.svelte, closed but in the DOM) rendered by root +layout.svelte:164; the layout's own div#user-menu (:209) renders when the signed-in user menu opens, so both co-render and the trigger's aria-controls=\"user-menu\" resolves to the first (the colorscheme one); all 21 routes share the root layout"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/interactive-nesting::src/routes/+page.svelte:78::<button> is nested inside interactive <a>",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): <button> at +page.svelte:78 is a literal descendant of the literal interactive container named in the message in the same template (only {#if} blocks/non-interactive <div>s between, no component boundary, not display:none); nested interactive content as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/ActionButton.svelte:18::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at ActionButton.svelte:18 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/Button.svelte:45::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at Button.svelte:45 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/GithubLoginButton.svelte:34::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at GithubLoginButton.svelte:34 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigCard.svelte:96::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigCard.svelte:96 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:106::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:106 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:116::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:116 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:128::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:128 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:140::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:140 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:147::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:147 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:45::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:45 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:52::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:52 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:60::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:60 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:67::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:67 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:75::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:75 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:87::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:87 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimConfigMetaData.svelte:99::`<div>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimConfigMetaData.svelte:99 has literal <span> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <span>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/NeovimPluginMetaData.svelte:79::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at NeovimPluginMetaData.svelte:79 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/lib/components/SingleSelectFilter.svelte:50::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at SingleSelectFilter.svelte:50 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/routes/+layout.svelte:182::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +layout.svelte:182 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/routes/+layout.svelte:215::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +layout.svelte:215 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::a11y/permitted-contents::src/routes/+layout.svelte:248::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e_anc.mjs): literal <div> at +layout.svelte:248 has literal <button> as its nearest non-transparent element ancestor in the same template (only {#if}/{#each}/{#key} blocks or transparent <a> between, no component/snippet/{@render} boundary); outside <button>'s content model as reported"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 377 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 339 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/component-size::src/routes/[username]/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/[username]/[slug]/+page.svelte has 203 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/component-size::src/routes/neovim/plugins/add/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/neovim/plugins/add/+page.svelte has 207 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/component-size::src/routes/plugins/[owner]/[plugin]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/plugins/[owner]/[plugin]/+page.svelte has 514 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/component-size::src/routes/privacy/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/privacy/+page.svelte has 269 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/prop-count::src/lib/components/Button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/Button.svelte has a single destructured $props() with 8 named props (> 6): text, icon, loading, iconPosition, disabled, type, formaction, onclick"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/prop-count::src/lib/components/NeovimConfigCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/NeovimConfigCard.svelte has a single destructured $props() with 10 named props (> 6): owner, repo, initFile, root, avatar, stars, pluginCount, slug, loc, links"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/prop-count::src/lib/components/NeovimConfigMetaData.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/NeovimConfigMetaData.svelte has a single destructured $props() with 9 named props (> 6): syncing, pluginManager, pluginCount, root, initFile, isMonorepo, isFork, leaderkey, loc"
+  },
+  {
+    "key": "codicocodes/dotfyle::architecture/prop-count::src/lib/components/RepositoryCard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/RepositoryCard.svelte has a single destructured $props() with 7 named props (> 6): avatar, name, link, description, thumbnail, disableMinHeight, footer"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/ConfigCard.svelte:39::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each tools.slice(0, 4) as tool}' has no key; tools is a $props() list of a config's plugin/tool names from load data (runtime records)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/MultiSelectFilter.svelte:39::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each items.filter(...).filter(...).slice(...)}' has no key; items is a prop filtered by the user-typed filter and the selected set, so entries are inserted/removed as the user types/selects (runtime list)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/NeovimConfigCard.svelte:102::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each links as link}' has no key; links is a $props() list (:41) of a config's links from load data (runtime records)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/NeovimPluginMetaData.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each links as link}' has no key; links is a $props() list (:27) of a plugin's links from load data (runtime records)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/PluginList.svelte:25::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each sorted as plugin}' has no key; sorted = $derived(sort of the plugins prop) (:14), runtime records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/RepoPicker.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each likelyConfigs as repo}' has no key; $derived (:16) filter of the user's fetched GitHub repositories, runtime records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/RepoPicker.svelte:84::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each repositories as repo}' has no key; $derived filter of fetched repositoriesInput (:29), runtime records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/SearchHeader.svelte:44::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: '{#each navigation as nav}' has no key; navigation is data.navigation built from the literal ['Trending', 'Top', 'New'].map(...) in neovim/plugins/[sort]/+page.ts:78 (and siblings); static nav list fixed at author time, never reorders"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/SingleSelectFilter.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each items.filter(...).filter(...).slice(...)}' has no key; filtered by the user-typed filter and selection, so entries insert/remove as the user types (runtime list)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/lib/components/welcome-steps/InitFilePicker.svelte:58::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each files as file}' has no key; files = $state() filled from a fetch of the repo's init files (:33), runtime records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/+page.svelte:179::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each res.data as plugin}' has no key; awaited load data (plugins from the database), runtime records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/+page.svelte:222::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each res.data as plugin}' has no key; awaited load data (plugins from the database), runtime records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/+page.svelte:274::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each configs as conf}' has no key; {:then configs} of data.loading.configs (:264-272), runtime records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/+page.svelte:312::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.loading.twinPosts as issue}' has no key; load data (TWiN posts from the database), runtime records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/[username]/+page.svelte:69::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.configs as conf}' has no key; load data records of the user's configs; route param changes reuse the page (runtime records)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/[username]/+page.svelte:98::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.plugins as plugin}' has no key; load data records, runtime"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/[username]/[slug]/+page.svelte:158::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each languageServers as ls}' has no key; $derived(data) destructure (:31), load data records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/[username]/[slug]/+page.svelte:174::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each plugins as plugin}' has no key; $derived(data) destructure (:31), load data records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/guides/auto-generated-readme/+page.svelte:96::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each configs as config}' has no key; {#await data.loading.configs then configs} (:94), database records"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/guides/plugin-usage-badge/+page.svelte:91::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each plugins as plugin}' has no key; awaited load data plugins (database records), runtime"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/neovim/colorscheme/[sort]/+page.svelte:50::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.plugins as plugin}' has no key; load data records, re-sorted per [sort] param (runtime)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/neovim/configurations/[sort]/+page.svelte:139::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.configs as item}' has no key; load data records filtered/sorted by query params (runtime)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/neovim/configurations/[sort]/+page.svelte:75::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each Array.from(selectedPluginsSet) as plugin}' has no key; user-selected filter set (:26), items removed on click (:79), runtime list"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/neovim/configurations/[sort]/+page.svelte:89::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each Array.from(selectedLanguageServersSet) as server}' has no key; user-selected filter set (:32), items removed on click (:93), runtime list"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/neovim/plugins/[sort]/+page.svelte:110::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.plugins as plugin}' has no key; load data records filtered/sorted by params (runtime)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/neovim/plugins/[sort]/+page.svelte:75::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each Array.from(selectedCategoriesSet) as category}' has no key; user-selected filter set (:28), items removed on click (:79), runtime list"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/neovim/plugins/add/+page.svelte:171::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each validationErrors as err}' has no key; $state([]) reset and refilled from zod errors on each submit (:43, :66), runtime list"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/plugins/[owner]/[plugin]/+page.svelte:315::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.breaking as post}' has no key; load data posts (database records), runtime"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/plugins/[owner]/[plugin]/+page.svelte:335::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.media as media}' has no key; load data media of the plugin (runtime records; video elements keep playback state per position)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/plugins/[owner]/[plugin]/+page.svelte:368::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each Object.keys(data.installInstructions).sort() as currPM}' has no key; the plugin managers present in this plugin's load data, which change with the [plugin] param while the page stays mounted (runtime list)"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/plugins/[owner]/[plugin]/+page.svelte:409::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.configs as conf}' has no key; load data records, runtime"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/plugins/[owner]/[plugin]/+page.svelte:446::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each categoryPlugins as plugin}' has no key; $derived filter of load data plugins (:49), runtime"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/each-key::src/routes/this-week-in-neovim/+page.svelte:59::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: '{#each data.posts as post}' has no key; load data posts (database records), runtime"
+  },
+  {
+    "key": "codicocodes/dotfyle::correctness/prop-mutation::src/lib/components/PluginList.svelte:15::Prop \"plugins\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: PluginList.svelte:15 'plugins.sort(...)' inside a $derived (:14): in-place sort of the prop array whose sorted return value is what is rendered, so the UI is correct (ledger: sort inside a derived/each expression is design)"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-dimensions::src/routes/[username]/[slug]/readme/+page.svelte:136::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: shields badges in a flex row with no width/height or CSS size — the row grows from 0 to the badge height when they load, the Highlight block below shifts"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-dimensions::src/routes/guides/plugin-usage-badge/+page.svelte:43::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: shield badge alone in a block <div>, no size attributes or CSS — the div grows to the badge height on load and the GlossyCard below shifts"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-dimensions::src/routes/plugins/[owner]/[plugin]/+page.svelte:187::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: media image in the selectedMedia <Modal>, class \"rounded:cursor-pointer\" only — natural size decides the modal content box"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-dimensions::src/routes/plugins/[owner]/[plugin]/+page.svelte:347::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: media gallery tile, class rounded hover:cursor-pointer only — natural aspect decides the height in the grid, sections below shift"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-dimensions::src/routes/plugins/[owner]/[plugin]/+page.svelte:478::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: shield badge in the Accordion title row beside the flex-grow text-lg <h3> (:474-481) — the row height is set by the h3, so the badge only varies inside its row"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-dimensions::src/routes/this-week-in-neovim/[issue]/+page.svelte:106::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: CC-BY-SA 88x31 button with class px-2 only — natural size decides the box, the Previous/Next row below shifts"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-dimensions::src/routes/this-week-in-neovim/[issue]/+page.svelte:65::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: avatar with class w-6 h-6 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-dimensions::src/routes/this-week-in-neovim/[issue]/+page.svelte:79::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: avatar with class w-6 h-6 — box reserved by CSS, so no CLS from the missing attributes"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/+layout.svelte:186::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: signed-in user avatar in the root layout <header> (w-10 h-10), all 21 routes — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/[username]/[slug]/+page.svelte:56::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: owner avatar inside the page <h1> (:55-62), first line of the page — above the fold"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/[username]/[slug]/readme/+page.svelte:136::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: badge previews rendered only in the {:else if view === 'badges'} tab the user opens (:111-140) — visible when rendered"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/[username]/[slug]/readme/+page.svelte:35::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: owner avatar in the first breadcrumb row of the page — above the fold"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/guides/plugin-usage-badge/+page.svelte:43::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: example badge directly under the h1 and intro paragraph — above the fold"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/plugins/[owner]/[plugin]/+page.svelte:187::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: image rendered only {#if selectedMedia} in a Modal the user opens by clicking a media tile (:171-188) — visible when rendered"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/plugins/[owner]/[plugin]/+page.svelte:197::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: owner avatar (h-8 w-8) in the first row of the plugin header above the h1 — above the fold"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/plugins/[owner]/[plugin]/+page.svelte:347::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: {#each data.media} gallery tiles after the plugin header, description and breaking-changes section — rows past the first screen are offscreen"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/plugins/[owner]/[plugin]/+page.svelte:478::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: usage badge in the Accordion at the bottom of the plugin page, after the media, install, configs and category sections — offscreen on load"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/this-week-in-neovim/[issue]/+page.svelte:106::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: licence button after the whole newsletter body ({@html} HtmlContent, :98) — offscreen on load"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/this-week-in-neovim/[issue]/+page.svelte:65::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author avatar in the issue meta row directly under the title — above the fold"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/image-loading-hint::src/routes/this-week-in-neovim/[issue]/+page.svelte:79::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: author avatar in the issue meta row directly under the title — above the fold"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/load-waterfall::src/routes/[username]/[slug]/readme/+page.ts:104::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read src/routes/[username]/[slug]/readme/+page.ts:104 + lib/sanitize.ts:6-13: flagged `await sanitizeHtml(marked(readme))` is an in-process rehype-sanitize pass over the trpc Promise.all result — hop real in data flow but starts no browser round trip (ledger in-process async hop design convention)"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/load-waterfall::src/routes/this-week-in-neovim/[issue]/+page.ts:39::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read src/routes/this-week-in-neovim/[issue]/+page.ts:39 + lib/sanitize.ts:6-13: flagged `await sanitizeHtml(marked(post.content))` is an in-process rehype-sanitize pass after the single trpc getTwinByIssue fetch — no second browser round trip (ledger in-process async hop design convention)"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/+layout.svelte:186::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: $session.user.avatarUrl, a GitHub avatar (raster) shown at 40px — one fixed-size asset although GitHub serves other sizes"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/[username]/[slug]/+page.svelte:56::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: config.ownerAvatar, a GitHub avatar (raster) at 32px — one fixed-size asset"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/[username]/[slug]/readme/+page.svelte:136::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src is the /[username]/[slug]/badges/{badge} endpoint, which returns image/svg+xml (badges/*/+server.ts) — a vector, but a dynamic SVG is outside the docs' static SVG detection list"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/[username]/[slug]/readme/+page.svelte:35::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.config.ownerAvatar, a GitHub avatar (raster) at 32px — one fixed-size asset"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/guides/plugin-usage-badge/+page.svelte:43::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src /plugins/nvim-treesitter/nvim-treesitter/shield returns image/svg+xml (plugins/[owner]/[plugin]/shield/+server.ts:24) — a vector, but a dynamic SVG is outside the docs' static SVG detection list"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/plugins/[owner]/[plugin]/+page.svelte:187::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: selectedMedia.url, plugin media screenshots/gifs (raster) shown full size — one fixed-size asset"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/plugins/[owner]/[plugin]/+page.svelte:197::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.owner.avatarUrl, a GitHub avatar (raster) at 32px — one fixed-size asset"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/plugins/[owner]/[plugin]/+page.svelte:347::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: media.url, plugin screenshots/gifs (raster) shown in grid tiles — one fixed-size asset"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/plugins/[owner]/[plugin]/+page.svelte:478::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src /plugins/{owner}/{name}/shield returns image/svg+xml (shield/+server.ts:24) — a vector, but a dynamic SVG is outside the docs' static SVG detection list"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/this-week-in-neovim/[issue]/+page.svelte:65::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: avatars.githubusercontent.com avatar (raster) at 24px — one fixed-size asset although GitHub serves other sizes"
+  },
+  {
+    "key": "codicocodes/dotfyle::performance/responsive-image::src/routes/this-week-in-neovim/[issue]/+page.svelte:79::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: avatars.githubusercontent.com avatar (raster) at 24px — one fixed-size asset although GitHub serves other sizes"
+  },
+  {
+    "key": "codicocodes/dotfyle::security/raw-html::src/lib/components/HtmlContent.svelte:12::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read HtmlContent.svelte:12: every caller passes rehype-sanitize output (lib/sanitize.ts: readme/+page.ts:104 and this-week-in-neovim/[issue]/+page.ts:39 sanitizeHtml(marked(...)), edit/+page.svelte:17 sanitizeHtml(marked(...))) — sanitized, reported per docs"
+  },
+  {
+    "key": "codicocodes/dotfyle::security/raw-html::src/routes/[username]/[slug]/+page.svelte:44::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[username]/[slug]/+page.svelte:14,44: githubDark is a highlight.js theme CSS string from svelte-highlight/styles (library constant) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "codicocodes/dotfyle::security/raw-html::src/routes/[username]/[slug]/readme/+page.svelte:30::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/[username]/[slug]/readme/+page.svelte:12,30: githubDark is a highlight.js theme CSS string from svelte-highlight/styles (library constant) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "codicocodes/dotfyle::security/raw-html::src/routes/guides/auto-generated-readme/+page.svelte:32::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/guides/auto-generated-readme/+page.svelte:4,32: `github` is the svelte-highlight/styles/github-dark theme CSS string (library constant) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "codicocodes/dotfyle::security/raw-html::src/routes/guides/plugin-usage-badge/+page.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/guides/plugin-usage-badge/+page.svelte:24: `github` is the svelte-highlight/styles/github-dark theme CSS string (library constant) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "codicocodes/dotfyle::security/raw-html::src/routes/plugins/[owner]/[plugin]/+page.svelte:157::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/routes/plugins/[owner]/[plugin]/+page.svelte:41,157: githubDark is a highlight.js theme CSS string from svelte-highlight/styles (library constant) — reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/[username]/[slug]/readme/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /[username]/[slug]/readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; but not a search target (auth-gated: add/+page.server.ts:6-9 redirects guests (no verifyToken user) to GitHub login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/guides/auto-generated-readme/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guides/auto-generated-readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/guides/plugin-usage-badge/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /guides/plugin-usage-badge (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/neovim/plugins/add/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /neovim/plugins/add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; but not a search target (auth-gated: neovim/plugins/add/+page.server.ts:6-9 redirects guests to GitHub login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /settings (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; but not a search target (auth-gated: settings/+page.server.ts:6-9 redirects guests to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /this-week-in-neovim/[issue]/edit (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; but not a search target (auth-gated: [issue]/edit/+page.server.ts:11-17 redirects guests to GitHub login and non-admins to /), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/this-week-in-neovim/create/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /this-week-in-neovim/create (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/canonical-url::src/routes/welcome/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /welcome (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; but not a search target (auth-gated: welcome/+page.server.ts:6-9 redirects guests to GitHub login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-length::src/routes/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (grapheme count): src/routes/+page.svelte:62-66 OpenGraph description literal \"Find new plugins, trending plugins...\" = 187 chars, rendered as <meta name=\"description\"> (OpenGraph.svelte:12) on the public dotfyle.com page; length as claimed"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-length::src/routes/[username]/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (grapheme count): [username]/+page.svelte:26-31 OpenGraph description=\"Dotfiles | Neovim configurations | Authored plugins\" = 51 chars, rendered as <meta name=\"description\"> (OpenGraph.svelte:12) on the public dotfyle.com page; length as claimed"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-length::src/routes/guides/plugin-usage-badge/+page.svelte::Description is too long (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (grapheme count): guides/plugin-usage-badge/+page.svelte:25-28 literal <meta name=\"description\"> \"Add a badge to your Neovim plugins...\" = 170 chars, rendered as <meta name=\"description\"> (OpenGraph.svelte:12) on the public dotfyle.com page; length as claimed"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-length::src/routes/this-week-in-neovim/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (grapheme count): this-week-in-neovim/+page.svelte:22-27 OpenGraph description=\"Neovim news and updates from the Neovim plugin ecosystem\" = 56 chars, rendered as <meta name=\"description\"> (OpenGraph.svelte:12) on the public dotfyle.com page; length as claimed"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/[username]/[slug]/readme/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/[username]/[slug]/readme/+page.svelte has no OpenGraph/description (readme page head is only {@html githubDark} styles), root +layout.svelte head is only a viewport meta, app.html none; publicly reachable page of dotfyle.com (no load gate)"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (literal claim holds); not a search target: src/routes/add/+page.server.ts load redirects requests without a verified session cookie (verifyToken) to GitHub login or /"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/neovim/plugins/add/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (literal claim holds); not a search target: src/routes/neovim/plugins/add/+page.server.ts load redirects requests without a verified session cookie (verifyToken) to GitHub login or /"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/privacy/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/privacy/+page.svelte has no OpenGraph/description (readme page head is only {@html githubDark} styles), root +layout.svelte head is only a viewport meta, app.html none; publicly reachable page of dotfyle.com (no load gate)"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (literal claim holds); not a search target: src/routes/settings/+page.server.ts load redirects requests without a verified session cookie (verifyToken) to GitHub login or /"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/terms/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: src/routes/terms/+page.svelte has no OpenGraph/description (readme page head is only {@html githubDark} styles), root +layout.svelte head is only a viewport meta, app.html none; publicly reachable page of dotfyle.com (no load gate)"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (literal claim holds); not a search target: src/routes/this-week-in-neovim/[issue]/edit/+page.server.ts load redirects requests without a verified session cookie (verifyToken) to GitHub login or /, and non-admins to /?error=permission_denied"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/this-week-in-neovim/create/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (page is a bare admin form, root layout/app.html none; literal claim holds); unlinked admin-only form whose action calls generateTwinIssue and redirects to the admin-gated edit page, not a page for search"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/description-presence::src/routes/welcome/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (literal claim holds); not a search target: src/routes/welcome/+page.server.ts load redirects requests without a verified session cookie (verifyToken) to GitHub login or /"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/heading-level-skip::src/routes/+layout.svelte:265::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: key covers 8 routes; root +layout.svelte:265 footer <h3>Sitemap follows the page content, and on /[username]/[slug] (h1 :55, Accordion/RepositoryCard/NeovimConfigMetaData render no heading), the three /neovim/*/[sort] pages (SearchHeader -> MediumHeroTitle <h1>, cards render no heading), /this-week-in-neovim/create and /[issue]/edit (layout MediumHeroTitle <h1>, no page heading) the last heading before it is an <h1> — h1 to h3; majority tp (/add and /readme also reach it from an <h1> in their loading/no-heading arms)"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/heading-level-skip::src/routes/+page.svelte:150::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: HeroTitle <h1> (+page.svelte:90, HeroTitle.svelte:12), then only Fa icons and Buttons until the <h3> (:150) — h1 to h3"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/heading-level-skip::src/routes/guides/auto-generated-readme/+page.svelte:50::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:42), then GlossyCard (no heading) and the <h3>How it works (:50) — h1 to h3"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/heading-level-skip::src/routes/guides/plugin-usage-badge/+page.svelte:48::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:34), the badge <img>, then GlossyCard and <h3>How to add your badge (:48) — h1 to h3"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/heading-level-skip::src/routes/neovim/plugins/add/+page.svelte:109::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <MediumHeroTitle> <h1> (:83, MediumHeroTitle.svelte:11), then the {#if !fetchedRepository} <h3> (:109) with no heading between — h1 to h3"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/heading-level-skip::src/routes/plugins/[owner]/[plugin]/+page.svelte:306::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: plugin <h1> (:240), then the {#if data.breaking.length > 0} <h3> Breaking changes (:306) before any <h2> — h1 to h3 on a plugin with breaking changes"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/heading-level-skip::src/routes/this-week-in-neovim/[issue]/+page.svelte:53::Heading level skipped (<h#> to <h#>)",
+    "verdict": "tp",
+    "basis": "read: <h1> (:47, and the layout MediumHeroTitle <h1>), then the {#if data.post.publishedAt} meta row <h5> Issue # (:53) — h1 to h5"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; / has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/[username]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /[username] has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/[username]/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /[username]/[slug] has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/[username]/[slug]/readme/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /[username]/[slug]/readme has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /add has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/guides/auto-generated-readme/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /guides/auto-generated-readme has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/guides/plugin-usage-badge/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /guides/plugin-usage-badge has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/neovim/colorscheme/[sort]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /neovim/colorscheme/[sort] has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/neovim/configurations/[sort]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /neovim/configurations/[sort] has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/neovim/plugins/[sort]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /neovim/plugins/[sort] has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/neovim/plugins/add/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /neovim/plugins/add has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/plugins/[owner]/[plugin]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /plugins/[owner]/[plugin] has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /privacy has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /settings has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /terms has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/this-week-in-neovim/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /this-week-in-neovim has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/this-week-in-neovim/[issue]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /this-week-in-neovim/[issue] has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /this-week-in-neovim/[issue]/edit has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/this-week-in-neovim/create/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /this-week-in-neovim/create has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/this-week-in-neovim/subscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /this-week-in-neovim/subscribe has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/json-ld::src/routes/welcome/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere; OpenGraph.svelte and page heads emit meta/og/canonical only; /welcome has no JSON-LD"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/[username]/[slug]/readme/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /[username]/[slug]/readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/guides/auto-generated-readme/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guides/auto-generated-readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/guides/plugin-usage-badge/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /guides/plugin-usage-badge (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/neovim/plugins/add/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /neovim/plugins/add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/privacy/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /privacy (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /settings (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/terms/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /terms (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /this-week-in-neovim/[issue]/edit (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/this-week-in-neovim/create/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /this-week-in-neovim/create (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-description::src/routes/welcome/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "og:description absent on /welcome (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/[username]/[slug]/readme/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /[username]/[slug]/readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/guides/auto-generated-readme/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guides/auto-generated-readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/guides/plugin-usage-badge/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /guides/plugin-usage-badge (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/neovim/plugins/add/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /neovim/plugins/add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /privacy (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /settings (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /terms (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /this-week-in-neovim/[issue]/edit (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/this-week-in-neovim/create/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /this-week-in-neovim/create (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-image::src/routes/welcome/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /welcome (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/[username]/[slug]/readme/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /[username]/[slug]/readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/guides/auto-generated-readme/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guides/auto-generated-readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/guides/plugin-usage-badge/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /guides/plugin-usage-badge (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/neovim/plugins/add/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /neovim/plugins/add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/privacy/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /privacy (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /settings (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/terms/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /terms (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /this-week-in-neovim/[issue]/edit (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/this-week-in-neovim/create/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /this-week-in-neovim/create (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-title::src/routes/welcome/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "og:title absent on /welcome (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/[username]/[slug]/readme/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /[username]/[slug]/readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/guides/auto-generated-readme/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guides/auto-generated-readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/guides/plugin-usage-badge/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /guides/plugin-usage-badge (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/neovim/plugins/add/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /neovim/plugins/add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /settings (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /terms (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /this-week-in-neovim/[issue]/edit (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/this-week-in-neovim/create/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /this-week-in-neovim/create (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/og-url::src/routes/welcome/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /welcome (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/single-h1::src/lib/components/MediumHeroTitle.svelte:11::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /this-week-in-neovim/[issue] renders three <h1>s: the layout MediumHeroTitle (this-week-in-neovim/+layout.svelte:12, MediumHeroTitle.svelte:11), the page <h1 class=\"p-2\"> (:47) and SmallTitle's <h1> nested inside it (SmallTitle.svelte:10)"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/single-h1::src/routes/+layout.svelte:265::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: /[username] page (OuterLayout, skeleton Avatar, NeovimConfigCard/RepositoryCard lists) has only <h3> section titles (:65, :89); root layout renders no <h1> (header CoolText, footer <h3>s) — no <h1>"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-length::src/routes/add/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/add/+page.svelte top-level svelte:head unconditional literal <title>Add neovim config (17)</title>, the route's only title (root layout has none); under 30 as claimed (login-gated page, title-length ledger convention tp)"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/settings/+page.svelte top-level svelte:head unconditional literal <title>Settings — Dotfyle (18)</title>, the route's only title (root layout has none); under 30 as claimed (login-gated page, title-length ledger convention tp)"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-length::src/routes/welcome/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: src/routes/welcome/+page.svelte top-level svelte:head unconditional literal <title>Welcome to Dotfyle (18)</title>, the route's only title (root layout has none); under 30 as claimed (login-gated page, title-length ledger convention tp)"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-presence::src/routes/[username]/[slug]/readme/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/[username]/[slug]/readme/+page.svelte: its svelte:head (:28-31) holds only {@html githubDark} (svelte-highlight stylesheet); root +layout.svelte:102-104 head is only a viewport meta; no $lib component has svelte:head; app.html has icons/RSS links only, no document.title in src; npm components checked on jsDelivr (svelte-toast 0.9.6, svelte-fa 4.0.4 (svg <title> only), svelte-highlight 7.9.0, @skeletonlabs/skeleton 1.12.0 (only unused LightSwitch has a head script)) emit no <title>"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-presence::src/routes/neovim/plugins/add/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/neovim/plugins/add/+page.svelte: no svelte:head; login-gated (+page.server.ts redirects only when no user); root +layout.svelte:102-104 head is only a viewport meta; no $lib component has svelte:head; app.html has icons/RSS links only, no document.title in src; npm components checked on jsDelivr (svelte-toast 0.9.6, svelte-fa 4.0.4 (svg <title> only), svelte-highlight 7.9.0, @skeletonlabs/skeleton 1.12.0 (only unused LightSwitch has a head script)) emit no <title>"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-presence::src/routes/privacy/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/privacy/+page.svelte: public policy page, plain markup with no svelte:head; root +layout.svelte:102-104 head is only a viewport meta; no $lib component has svelte:head; app.html has icons/RSS links only, no document.title in src; npm components checked on jsDelivr (svelte-toast 0.9.6, svelte-fa 4.0.4 (svg <title> only), svelte-highlight 7.9.0, @skeletonlabs/skeleton 1.12.0 (only unused LightSwitch has a head script)) emit no <title>"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-presence::src/routes/terms/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/terms/+page.svelte: public terms page, plain markup with no svelte:head; root +layout.svelte:102-104 head is only a viewport meta; no $lib component has svelte:head; app.html has icons/RSS links only, no document.title in src; npm components checked on jsDelivr (svelte-toast 0.9.6, svelte-fa 4.0.4 (svg <title> only), svelte-highlight 7.9.0, @skeletonlabs/skeleton 1.12.0 (only unused LightSwitch has a head script)) emit no <title>"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-presence::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/this-week-in-neovim/[issue]/edit/+page.svelte: no svelte:head; admin-gated editor (redirects only for non-admin), this-week-in-neovim/+layout.svelte renders MediumHeroTitle only; root +layout.svelte:102-104 head is only a viewport meta; no $lib component has svelte:head; app.html has icons/RSS links only, no document.title in src; npm components checked on jsDelivr (svelte-toast 0.9.6, svelte-fa 4.0.4 (svg <title> only), svelte-highlight 7.9.0, @skeletonlabs/skeleton 1.12.0 (only unused LightSwitch has a head script)) emit no <title>"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/title-presence::src/routes/this-week-in-neovim/create/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: src/routes/this-week-in-neovim/create/+page.svelte: no svelte:head; this-week-in-neovim/+layout.svelte renders MediumHeroTitle only; root +layout.svelte:102-104 head is only a viewport meta; no $lib component has svelte:head; app.html has icons/RSS links only, no document.title in src; npm components checked on jsDelivr (svelte-toast 0.9.6, svelte-fa 4.0.4 (svg <title> only), svelte-highlight 7.9.0, @skeletonlabs/skeleton 1.12.0 (only unused LightSwitch has a head script)) emit no <title>"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/[username]/[slug]/readme/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /[username]/[slug]/readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/guides/auto-generated-readme/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guides/auto-generated-readme (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/guides/plugin-usage-badge/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /guides/plugin-usage-badge (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/neovim/plugins/add/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /neovim/plugins/add (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /privacy (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /settings (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/terms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /terms (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/this-week-in-neovim/[issue]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /this-week-in-neovim/[issue]/edit (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/this-week-in-neovim/create/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /this-week-in-neovim/create (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "codicocodes/dotfyle::seo/twitter-card::src/routes/welcome/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /welcome (read + repo-wide grep): the only emitter, lib/components/OpenGraph.svelte:13-24 (og:*, twitter:card, canonical), is rendered only by 10 other pages (/, plugins/[owner]/[plugin], this-week-in-neovim, [username], [username]/[slug], neovim/*/[sort] ...), not on this route; root +layout.svelte:102-104 head is viewport only, this-week-in-neovim/+layout.svelte has none, app.html has icons/rss alternates only; no meta-tag library among deps; the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  }
+]

@@ -1,0 +1,517 @@
+[
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:43-53 {#if data.loggedIn} renders <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) around a second literal <main> (:47) holding {@render children()}; every route a signed-in user sees has two (nested) main landmarks; the logged-out {:else} arm has one (majority/logged-in arm, 13 routes)"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/component-size::src/lib/components/EditScoreDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/EditScoreDialog.svelte has 206 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/component-size::src/routes/account/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/account/+page.svelte has 216 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/component-size::src/routes/admin/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/admin/+page.svelte has 440 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/component-size::src/routes/db-viewer/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/db-viewer/+page.svelte has 790 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/component-size::src/routes/home/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/home/+page.svelte has 315 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/component-size::src/routes/success/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/success/+page.svelte has 315 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/prop-count::src/lib/components/AgentChat.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/AgentChat.svelte has a single destructured $props() with 10 named props (> 6): form, action, title, emptyMessage, placeholder, onResult, children, resultSnippet, user, store"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) beside a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) beside a ...rest element: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::correctness/each-index-key::src/lib/components/AgentChat.svelte:125::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: '{#each store.history as msg, index (index)}' keyed by its index binding; store.history = $state chat messages (stores/chat.svelte.ts:7) appended and reset (:26, AgentChat.svelte:88); runtime data (ledger chat-messages convention)"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::correctness/prop-mutation::src/lib/components/AgentChat.svelte:71::Prop \"store\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: AgentChat.svelte:71 'store.clear()' on the chat store object returned by createHistoryStore (stores/chat.svelte.ts:6-30), whose clear() resets its own closure $state; a store API method, the docs' class-instance limitation (ledger store-object convention)"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::correctness/prop-mutation::src/lib/components/AgentChat.svelte:88::Prop \"store\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: AgentChat.svelte:88 'store.history = [...]' calls the store object's setter (stores/chat.svelte.ts:14 'set history(value) { history = value; }') over closure $state; reactive by design, the docs' class-instance limitation (ledger store-object convention)"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::correctness/prop-mutation::src/lib/components/AgentChat.svelte:97::Prop \"store\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: AgentChat.svelte:97 'store.rawHistory = ...' calls the store object's setter (stores/chat.svelte.ts:21) over closure $state; the docs' class-instance limitation"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/iframe-loading::src/routes/reader/[id]/+page.svelte:72::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "<iframe> has no loading attribute and no spread; read: PDF viewer filling the h-[calc(100vh-8rem)] box directly under the title row — the main above-the-fold content, where eager is right per docs"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/image-dimensions::src/routes/forgot-password/+page.svelte:15::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: logo with class h-16 w-auto — fixed-height box; width only varies inside its centred row"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/image-dimensions::src/routes/login/+page.svelte:17::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: logo with class h-16 w-auto — fixed-height box; width only varies inside its centred row"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/image-dimensions::src/routes/reset-password/+page.svelte:15::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: logo with class h-16 w-auto — fixed-height box; width only varies inside its centred row"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/image-loading-hint::src/routes/forgot-password/+page.svelte:15::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the auth card, first element of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/image-loading-hint::src/routes/login/+page.svelte:17::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the auth card, first element of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/image-loading-hint::src/routes/reset-password/+page.svelte:15::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo at the top of the auth card, first element of the page — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/responsive-image::src/routes/forgot-password/+page.svelte:15::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /logo.png is a 400x400 raster (static/logo.png) shown at 64px — one fixed-size asset"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/responsive-image::src/routes/login/+page.svelte:17::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /logo.png is a 400x400 raster (static/logo.png) shown at 64px — one fixed-size asset"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/responsive-image::src/routes/reset-password/+page.svelte:15::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: /logo.png is a 400x400 raster (static/logo.png) shown at 64px — one fixed-size asset"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/sequential-awaits::src/routes/admin/+page.server.ts:19::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read frontend-svelte/ui/src/routes/admin/+page.server.ts:14-19: the only preceding await is the /is_admin check that redirects non-admins — deliberate auth-before-query ordering (docs Limitations; ledger admin/login gate design convention)"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/sequential-awaits::src/routes/admin/+page.server.ts:27::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read frontend-svelte/ui/src/routes/admin/+page.server.ts:19-27: /imslp/stats uses nothing from the preceding /users (and other) API responses; the only gate is /is_admin — independent backend API round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/sequential-awaits::src/routes/admin/+page.server.ts:33::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read frontend-svelte/ui/src/routes/admin/+page.server.ts:19-33: /imslp/progress uses nothing from the preceding /users (and other) API responses; the only gate is /is_admin — independent backend API round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/sequential-awaits::src/routes/admin/+page.server.ts:39::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read frontend-svelte/ui/src/routes/admin/+page.server.ts:19-39: /admin/model uses nothing from the preceding /users (and other) API responses; the only gate is /is_admin — independent backend API round trips serialized; Promise.all would work"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/sequential-awaits::src/routes/home/+page.server.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read frontend-svelte/ui/src/routes/home/+page.server.ts:14-25: the only preceding await is api('/user'), the session check that deletes the cookie and redirects to /login when invalid — auth-before-query ordering (ledger login-gate design convention)"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::performance/sequential-awaits::src/routes/success/+page.server.ts:25::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "design",
+    "basis": "read frontend-svelte/ui/src/routes/success/+page.server.ts:14-25: the only preceding await is api('/user'), the session check that deletes the cookie and redirects to /login when invalid — auth-before-query ordering (ledger login-gate design convention)"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /account (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); but not a search target (auth-gated: account/+page.server.ts:7-10 redirects requests without the access_token cookie to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/admin/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /admin (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); but not a search target (auth-gated: admin/+page.server.ts:6-9 (and non-admins to /) redirects requests without the access_token cookie to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/contact/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /contact (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/db-viewer/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /db-viewer (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); but not a search target (auth-gated: db-viewer/+page.server.ts:9-11 redirects requests without the access_token cookie to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /forgot-password (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/home/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /home (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); but not a search target (auth-gated: home/+page.server.ts:8-10 redirects requests without the access_token cookie to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /login (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /privacy (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/reader/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reader (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); but not a search target (auth-gated: reader/+page.server.ts:5-7 redirects requests without the access_token cookie to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/reader/[id]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /reader/[id] (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); but not a search target (auth-gated: reader/[id]/+page.server.ts:9-11 redirects requests without the access_token cookie to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/reset-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /reset-password (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/success/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent on /success (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); but not a search target (auth-gated: success/+page.server.ts:8-10 redirects requests without the access_token cookie to /login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/canonical-url::src/routes/terms/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "<link rel=\"canonical\"> absent on /terms (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); publicly reachable, rendered route, no auth gate or noindex"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/duplicate-description::src/routes/+layout.svelte::Description is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:29-32 literal description is the only description of all 13 routes, duplicate as claimed; the set includes public /login, /forgot-password, /reset-password, /privacy, /terms, /contact of the hosted scoreguide.ch service"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:28 literal <title>ScoreGuide</title> is the only title of all 13 routes (no page sets one), duplicate as claimed; the set includes public /login, /forgot-password, /reset-password, /privacy, /terms, /contact of the hosted scoreguide.ch service"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/heading-level-skip::src/routes/db-viewer/+page.svelte:727::Heading level skipped (<h#> to <h#>)",
+    "verdict": "fp",
+    "basis": "read: the flagged <h3> (:727) is inside the IMSLP <Sheet.Content> after its <Sheet.Title> (:686), which is bits-ui@2.18.1 Dialog.Title (package-lock) rendering <div role=\"heading\" aria-level=2> (dist/bits/dialog/components/dialog-title.svelte level=2, dialog.svelte.js:215-216) — level 2 then h3, no skip"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /account has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /admin has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/contact/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /contact has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/db-viewer/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /db-viewer has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /forgot-password has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/home/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /home has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /login has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /privacy has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/reader/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /reader has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/reader/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /reader/[id] has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/reset-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /reset-password has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/success/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /success has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/json-ld::src/routes/terms/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep of src, app.html, deps): no ld+json/jsonld/schema.org anywhere in frontend-svelte/ui; root +layout.svelte:27-39 head has title/description/og only; /terms has no JSON-LD"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /account (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /admin (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/contact/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /contact (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/db-viewer/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /db-viewer (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /forgot-password (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/home/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /home (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /login (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /privacy (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/reader/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reader (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/reader/[id]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reader/[id] (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /reset-password (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/success/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /success (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-image::src/routes/terms/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "og:image absent on /terms (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /account (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /admin (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/contact/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /contact (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/db-viewer/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /db-viewer (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /forgot-password (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/home/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /home (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /login (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/privacy/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /privacy (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/reader/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reader (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/reader/[id]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reader/[id] (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/reset-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /reset-password (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/success/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /success (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/og-url::src/routes/terms/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "og:url absent on /terms (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "design",
+    "basis": "find/grep: no robots.txt in static/ (logo.png, pdfjs only), routes, hooks or Caddyfile (literal claim holds); personal score library whose content routes all redirect to /login without the access_token cookie (+page.server.ts loads), public surface is login/password/legal/contact only"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/single-h1::src/lib/components/AgentChat.svelte:114::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "read: /db-viewer renders the page <h1> (+page.svelte:439) and AgentChat's unconditional <h1> (AgentChat.svelte:114) inside the IMSLP <Tabs.Content> (:321-327); bits-ui@2.18.1 Tabs.Content renders its children even when inactive (tabs-content.svelte), so both <h1>s are in the HTML"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "find/grep: no sitemap.xml in static/, routes, hooks or Caddyfile (literal claim holds); personal score library whose content routes all redirect to /login without the access_token cookie, nothing public to list beyond login/legal/contact"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:28 unconditional literal <title>ScoreGuide</title> = 10 chars, the only title of the 13 routes (incl. public /login, /privacy, /terms, /contact); under 30 as claimed"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /account (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /admin (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/contact/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /contact (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/db-viewer/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /db-viewer (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /forgot-password (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/home/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /home (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /login (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/privacy/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /privacy (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/reader/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reader (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/reader/[id]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reader/[id] (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/reset-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /reset-password (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/success/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /success (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  },
+  {
+    "key": "arnaudon/ScoreGuide:frontend-svelte/ui::seo/twitter-card::src/routes/terms/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "twitter:card absent on /terms (read + repo-wide grep): repo-wide grep of ui/src/** incl. app.html: root +layout.svelte:27-39 head carries only <title>, description, og:title, og:description, og:type; no canonical/og:image/og:url/twitter:card anywhere; app.html icon/viewport only; hooks.server.ts transformPageChunk only fills %paraglide.lang/dir%; no meta-tag library (mode-watcher/bits-ui emit none); the og/twitter rules have no search-target exemption (ledger convention), and the route renders"
+  }
+]

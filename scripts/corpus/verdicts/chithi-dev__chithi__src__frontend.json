@@ -1,0 +1,507 @@
+[
+  {
+    "key": "chithi-dev/chithi:src/frontend::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: admin/+layout.svelte:19 and admin/app-sidebar.svelte:30 (rendered by that layout inside Sidebar.Root) both use <Sidebar.Inset>, which renders <main> (sidebar-inset.svelte:13); two <main> co-render on /admin/config"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::a11y/interactive-nesting::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:705::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read host.svelte:691-705: <input type=\"file\" class=\"hidden\"> literally inside <div role=\"button\" tabindex=\"0\"> drop zone; CSS hiding does not change the markup claim (cigale convention)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::a11y/interactive-nesting::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_1.svelte:173::<input> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "read stage_1.svelte:106-173: <input type=\"file\" class=\"hidden\"> literally inside <div role=\"button\" tabindex=\"0\"> drop zone; CSS hiding does not change the markup claim (cigale convention)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::a11y/permitted-contents::src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/view/[slug]/+page.svelte:442::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, e-a11y/pc.mjs): literal <div> at this line has literal parent <button> (crossed: none), no component/snippet/svelte:element boundary; child not permitted by <button>'s content model"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/lib/components/FileViewerOverlay.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/lib/components/FileViewerOverlay.svelte has 718 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte has 253 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/download/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/download/[slug]/+page.svelte has 221 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/view/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/view/[slug]/+page.svelte has 491 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/+layout.svelte has 313 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/+page.svelte has 233 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/client.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/client.svelte has 738 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte has 945 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/speedtest/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/speedtest/+page.svelte has 273 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/speedtest/SpeedGraph.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/speedtest/SpeedGraph.svelte has 281 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/upload/+page.svelte has 435 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte has 568 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/upload_showcase.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/(needs_onboarding)/(navbar_and_footer)/upload/upload_showcase.svelte has 363 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/component-size::src/routes/informations/backend/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/frontend/src/routes/informations/backend/+page.svelte has 201 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 12 named props (> 6) plus ...rest: ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, nameKey, color"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6) plus ...rest: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 9 named props (> 6) plus ...rest: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6) plus ...rest: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/routes/(needs_onboarding)/(login_required)/admin/config/site_description_card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): editing, descDraft, previewMarkdown, descWordCount, descExceeds, wordLimit, save, openEditor"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/routes/(needs_onboarding)/(navbar_and_footer)/speedtest/SpeedGraph.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 8 named props (> 6): downloadHistory, uploadHistory, downloadColor, uploadColor, activePhase, currentSpeed, currentProgress, testDuration"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): files, onFilesUpdated, onUploadComplete, onBack, isDraggingOverZone, onZoneDragEnter, onZoneDragLeave"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::architecture/prop-count::src/routes/og/Component.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): single destructured $props() with 7 named props (> 6): displayDomain, domainDirection, domainSecurity, label, title, subtitle, footerTags"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 header '{#each errors ?? [] as error, index (index)}' keyed by its index binding; list source is runtime data (prop: errors), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/file_security_card.svelte:161::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/file_security_card.svelte:161 header '{#each configData.banned_file_types as type}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/file_security_card.svelte:87::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/file_security_card.svelte:87 header '{#each configData.allowed_file_types as type}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:124::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:124 header '{#each configData.time_configs as t, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:161::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:161 header '{#each T_UNITS as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (T_UNITS imported constant): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:207::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:207 header '{#each configData.download_configs as dl, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:55::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:55 header '{#each configData.time_configs as t}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:86::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/retention_policy_card.svelte:86 header '{#each configData.download_configs as dl}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/storage_file_card.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/storage_file_card.svelte:49 header '{#each Object.keys(B_VALS) as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (Object.keys of the imported B_VALS constant): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/config/storage_file_card.svelte:93::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/config/storage_file_card.svelte:93 header '{#each Object.keys(B_VALS) as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (Object.keys of the imported B_VALS constant): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(login_required)/admin/users/+page.svelte:80::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(login_required)/admin/users/+page.svelte:80 header '{#each users.data.items as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: users), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/view/[slug]/+page.svelte:427::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/view/[slug]/+page.svelte:427 header '{#each zipEntries as entry}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: zipEntries), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/+layout.svelte:306::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/+layout.svelte:306 header '{#each rightFooterLinks as item}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (base+donation footer link constants, only remapped in place (same length/order)): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/+page.svelte:163::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/+page.svelte:163 header '{#each configData.data.download_configs as limit}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/client.svelte:620::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/client.svelte:620 header '{#each remoteUploads as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: remoteUploads), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/client.svelte:636::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/client.svelte:636 header '{#each roomFiles as f}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: roomFiles), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:720::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:720 header '{#each pendingFiles as file, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: pendingFiles), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:756::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:756 header '{#each uploads as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: uploads), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:827::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:827 header '{#each remoteUploads as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: remoteUploads), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:843::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:843 header '{#each roomFiles as f}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: roomFiles), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte:439::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte:439 header '{#each files as file}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (prop: files), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte:476::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte:476 header '{#each configData.data.download_configs as limit}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte:495::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/upload/stage_2.svelte:495 header '{#each configData.data.time_configs as time}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (unresolved: configData), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/upload_showcase.svelte:205::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "read: src/routes/(needs_onboarding)/(navbar_and_footer)/upload/upload_showcase.svelte:205 header '{#each uploadPcts as pct, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; list source is runtime data (state: uploadPcts), items can be inserted/removed/reordered, so the rule's claim holds"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/og/Component.svelte:81::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/og/Component.svelte:81 header '{#each footerTags as tag, i}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (footerTags prop default literal in the OG-image component): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/onboarding/stage_2.svelte:108::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/stage_2.svelte:108 header '{#each Object.keys(B_VALS) as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (Object.keys of the imported B_VALS constant): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::correctness/each-key::src/routes/onboarding/stage_2.svelte:137::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/onboarding/stage_2.svelte:137 header '{#each Object.keys(B_VALS) as u}' has no key and is not an exempt inline-literal/length-only/itemless/local-const shape; static list (Object.keys of the imported B_VALS constant): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::performance/iframe-loading::src/lib/components/FileViewerOverlay.svelte:706::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: file preview iframe inside the viewer overlay the user opens — the visible content, not offscreen"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::performance/image-dimensions::src/routes/(needs_onboarding)/(navbar_and_footer)/+layout.svelte:203::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-6 w-6), so no CLS from the missing attributes"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::performance/image-dimensions::src/routes/informations/+layout.svelte:35::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class h-14 w-14 inside fixed h-24 w-24 box), so no CLS from the missing attributes"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::performance/image-loading-hint::src/routes/(needs_onboarding)/(navbar_and_footer)/+layout.svelte:203::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo (imported logo.svg) in the sticky header, all 7 routes — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::performance/image-loading-hint::src/routes/informations/+layout.svelte:35::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: logo (imported logo.svg) at top of the centered card, all 4 routes — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::performance/load-waterfall::src/routes/informations/backend/+page.ts:32::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read: parent() -> prefetch(Instance*) into the TanStack queryClient the root +layout.ts creates; the hop is real (parent waits on the root layout's auth prefetch) but the dependency is on a client-side QueryClient object, which a server load cannot hand over — the docs remedy does not apply"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::performance/load-waterfall::src/routes/informations/statistics/+page.ts:32::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read: parent() -> prefetch(Instance*) into the TanStack queryClient the root +layout.ts creates; the hop is real (parent waits on the root layout's auth prefetch) but the dependency is on a client-side QueryClient object, which a server load cannot hand over — the docs remedy does not apply"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::security/raw-html::src/routes/(needs_onboarding)/(login_required)/admin/config/site_description_card.svelte:83::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: markdown_to_html (lib/markdown/markdown.ts:8) = remark -> rehype-sanitize -> stringify over the admin site_description — sanitized, reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::security/raw-html::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/+page.svelte:394::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: markdown_to_html (lib/markdown/markdown.ts:8) = remark -> rehype-sanitize -> stringify over the admin site_description — sanitized, reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::security/raw-html::src/routes/og/Component.svelte:56::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: logo imported from $lib/assets/logo.svg?raw — repo asset, reported per docs, not a demonstrable XSS"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::security/shared-state-import::src/routes/+layout.ts:2::\"$lib/store/user.svelte\" holds module-scope $state — on the server it is shared by every request and keeps its boot-time value (a leak if it ever holds per-user data)",
+    "verdict": "design",
+    "basis": "read: +layout.ts imports user_store ($lib/store/user.svelte.ts, module $state authenticated); on the server it only ever calls unauthenticate() and nothing reads is_authenticated server-side (reads are browser-guarded in queries/auth.ts:12 or under the ssr=false (login_required) layout) — the shared instance exists as documented but no cross-request leak is demonstrable"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/duplicate-title::src/routes/+layout.svelte::Title is duplicated across # routes",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:67 literal <title>Chithi</title>; the following <MetaTags {...deepMerge(data.baseMetaTags, page.data.pageMetaTags)}> gets no title because neither baseMetaTags nor pageMetaTags is set anywhere in src, and no page sets a title, so all 19 public routes ship the same title"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(login_required)/admin/config/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(login_required)/admin/urls/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(login_required)/admin/user/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(login_required)/admin/users/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/download/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/view/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(navbar_and_footer)/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(navbar_and_footer)/speedtest/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/(navbar_and_footer)/upload/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/(needs_onboarding)/logout/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/informations/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/informations/backend/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/informations/frontend/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/informations/statistics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/json-ld::src/routes/once/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: no ld+json/jsonld/JsonLd/schema.org anywhere in src/frontend source (incl. app.html, hooks); svelte-meta-tags used only as MetaTags (no JsonLd)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; the app's only <h1>s are in (navbar_and_footer)/+layout, reverse/*, informations/+layout and og/, none on this chain; login form (login_form.svelte), no heading"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::/logout::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; the app's only <h1>s are in (navbar_and_footer)/+layout, reverse/*, informations/+layout and og/, none on this chain; page is an auto-submitted empty <form> (action redirects), renders no heading"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::/onboarding::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; the app's only <h1>s are in (navbar_and_footer)/+layout, reverse/*, informations/+layout and og/, none on this chain; stage_1/stage_2 wizard, no <h1>"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::/once/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; the app's only <h1>s are in (navbar_and_footer)/+layout, reverse/*, informations/+layout and og/, none on this chain; ssr=false download page, no <h1>"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::src/routes/(needs_onboarding)/(login_required)/admin/config/+page.svelte:83::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; the app's only <h1>s are in (navbar_and_footer)/+layout, reverse/*, informations/+layout and og/, none on this chain; admin page title is <h2>Settings</h2> at the reported line"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::src/routes/(needs_onboarding)/(login_required)/admin/urls/+page.svelte:55::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; the app's only <h1>s are in (navbar_and_footer)/+layout, reverse/*, informations/+layout and og/, none on this chain; admin page title is <h2>Settings</h2> at the reported line"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::src/routes/(needs_onboarding)/(login_required)/admin/user/+page.svelte:87::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; the app's only <h1>s are in (navbar_and_footer)/+layout, reverse/*, informations/+layout and og/, none on this chain; admin page title is <h2>Settings</h2> at the reported line"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::src/routes/(needs_onboarding)/(login_required)/admin/users/+page.svelte:38::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+import walker, HTML comments stripped): no <h1>/svelte:element/h1 {@html} in page+layouts+components; the app's only <h1>s are in (navbar_and_footer)/+layout, reverse/*, informations/+layout and og/, none on this chain; admin page title is <h2>Users</h2> at the reported line"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::src/routes/(needs_onboarding)/(navbar_and_footer)/+page.svelte:46::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "(navbar_and_footer)/+layout.svelte:204 unconditional header <h1>Chithi</h1> plus +page.svelte:46 <h1>Chithi</h1> — two <h1>s render"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/+page.svelte:95::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "(navbar_and_footer)/+layout.svelte:204 unconditional header <h1>Chithi</h1> plus reverse/+page.svelte:95 <h1>Reverse File Share</h1> — two <h1>s render"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/single-h1::src/routes/(needs_onboarding)/(navbar_and_footer)/reverse/[room_id]/host.svelte:596::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "layout header <h1>Chithi</h1> (+layout.svelte:204) plus the room <h1>{room.name}</h1> of whichever of Host (host.svelte:596) / Client (client.svelte:533) renders ({#if renderHost}/{:else}) — multiple holds (2 render; the reported count of 3 adds both exclusive arms)"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/ has robots.txt (allow all) but no sitemap.xml, no sitemap endpoint or generator; public file-sharing site"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/ssr-disabled::src/routes/(needs_onboarding)/(login_required)/+layout.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at (login_required)/+layout.ts:1; auth-gated admin section (+layout.svelte goto('/login') without a session), not content for search"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/ssr-disabled::src/routes/(needs_onboarding)/(navbar_and_footer)/(ignore_slash)/view/[slug]/+page.server.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at view/[slug]/+page.server.ts:1; end-to-end-encrypted share view whose decryption key is the URL fragment (page.url.hash), which the server never sees, so SSR cannot render it; not content for search"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/ssr-disabled::src/routes/once/[slug]/+page.server.ts:1::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at once/[slug]/+page.server.ts:1; end-to-end-encrypted share view whose decryption key is the URL fragment (page.url.hash), which the server never sees, so SSR cannot render it; not content for search"
+  },
+  {
+    "key": "chithi-dev/chithi:src/frontend::seo/title-length::src/routes/+layout.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: root +layout.svelte:67 <title>Chithi</title> (6) is the winning title (MetaTags receives no title; no page sets one); length matches"
+  }
+]

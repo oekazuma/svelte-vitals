@@ -1,0 +1,667 @@
+[
+  {
+    "key": "imputnet/cobalt:web::a11y/aria-hidden-focus::src/components/donate/DonateOptionsCard.svelte:142::<button> inside <div aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "tp",
+    "basis": "read: literal aria-hidden=\"true\" on the button or its wrapper div, button has no tabindex=-1/disabled/inert"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/aria-hidden-focus::src/components/donate/DonateOptionsCard.svelte:151::<button> inside <div aria-hidden=\"true\"> is still keyboard-focusable",
+    "verdict": "tp",
+    "basis": "read: literal aria-hidden=\"true\" on the button or its wrapper div, button has no tabindex=-1/disabled/inert"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/disallowed-aria-props::src/components/sidebar/SidebarTab.svelte:47::`aria-label` is prohibited on <div> — its role does not take a name",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): literal <div> with aria-label, no role attribute, no spread, not in SVG; generic role prohibits naming"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/id-duplication::src/components/settings/SettingsInput.svelte:95::Duplicate id \"settings-input-holder\"",
+    "verdict": "tp",
+    "basis": "read: SettingsInput ids unconditional; settings/instances renders 2 SettingsInput under independent toggles (enableCustomInstances, enableCustomApiKey) that can both be on"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/id-duplication::src/components/settings/SettingsInput.svelte:96::Duplicate id \"input-container\"",
+    "verdict": "tp",
+    "basis": "read: SettingsInput ids unconditional; settings/instances renders 2 SettingsInput under independent toggles (enableCustomInstances, enableCustomApiKey) that can both be on"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/id-duplication::src/components/subnav/PageNavSection.svelte:11::Duplicate id \"subnav-section-categories\"",
+    "verdict": "tp",
+    "basis": "read: id is unconditional in PageNavSection, rendered 2x unconditionally by about/+layout.svelte (4x in settings layout)"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/id-duplication::src/components/subnav/PageNavSection.svelte:5::Duplicate id \"subnav-section\"",
+    "verdict": "tp",
+    "basis": "read: id is unconditional in PageNavSection, rendered 2x unconditionally by about/+layout.svelte (4x in settings layout)"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/about/AboutSupport.svelte:47::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/about/AboutSupport.svelte:62::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/buttons/SettingsToggle.svelte:48::`<h#>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <h4> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/dialog/PickerItem.svelte:57::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/dialog/SavingTutorial.svelte:20::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/dialog/SavingTutorial.svelte:33::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): literal parent, no component/snippet/svelte:element boundary; read: <li> is a direct child of <div class=\"numbered-list\">, no ul/ol/menu ancestor"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/dialog/SavingTutorial.svelte:58::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): literal parent, no component/snippet/svelte:element boundary; read: <li> is a direct child of <div class=\"numbered-list\">, no ul/ol/menu ancestor"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/dialog/SavingTutorial.svelte:61::`<li>` is not permitted content here — `<div>`'s content model is flow content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): literal parent, no component/snippet/svelte:element boundary; read: <li> is a direct child of <div class=\"numbered-list\">, no ul/ol/menu ancestor"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateAltItem.svelte:41::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateAltItem.svelte:49::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateOptionsCard.svelte:112::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateOptionsCard.svelte:113::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateOptionsCard.svelte:129::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateOptionsCard.svelte:130::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateShareCard.svelte:63::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateShareCard.svelte:75::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateShareCard.svelte:87::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonateShareCard.svelte:99::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonationOption.svelte:20::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/donate/DonationOption.svelte:24::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/misc/FileReceiver.svelte:57::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/misc/FileReceiver.svelte:63::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/misc/FileReceiver.svelte:71::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/misc/UpdateNotification.svelte:24::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/misc/UpdateNotification.svelte:27::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/queue/ProcessingStatus.svelte:51::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::a11y/permitted-contents::src/components/save/SupportedServices.svelte:44::`<div>` is not permitted content here — `<button>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <div> at this line has nearest literal element ancestor <button> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/dialog/PickerDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/dialog/PickerDialog.svelte has 215 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/dialog/SavingDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/dialog/SavingDialog.svelte has 206 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/donate/DonateBanner.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/donate/DonateBanner.svelte has 260 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/donate/DonateOptionsCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/donate/DonateOptionsCard.svelte has 455 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/donate/DonateShareCard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/donate/DonateShareCard.svelte has 240 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/queue/ProcessingQueueItem.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/queue/ProcessingQueueItem.svelte has 444 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/save/Omnibox.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/save/Omnibox.svelte has 380 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/settings/SettingsInput.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/settings/SettingsInput.svelte has 279 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/components/subnav/PageNav.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/components/subnav/PageNav.svelte has 273 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 232 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::architecture/component-size::src/routes/updates/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/updates/+page.svelte has 225 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/components/dialog/DialogButtons.svelte:10::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each buttons as button}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: buttons), not shown static; sheet-read"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/components/dialog/DialogHolder.svelte:18::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each $dialogs as dialog}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (store: $dialogs), not shown static; sheet-read"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/components/dialog/PickerDialog.svelte:52::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each items as item, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: items), not shown static; sheet-read"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/components/donate/DonateOptionsCard.svelte:176::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each Object.entries(PRESET_DONATION_AMOUNTS) as [amount, icon]}' has no key and is not an inline literal/length-only/itemless shape; static list (const-literal): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/components/queue/ProcessingQueue.svelte:85::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each queue as [id, item]}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (derived: queue), not shown static; sheet-read"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/components/queue/ProcessingQueueItem.svelte:189::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each info.pipeline as task}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: info), not shown static; sheet-read"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/components/save/SupportedServices.svelte:57::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each services as service}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (let-reassigned: services), not shown static; sheet-read"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/components/settings/SettingsDropdown.svelte:56::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each Object.keys(items) as value, i}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: items), not shown static; sheet-read"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/donate/+page.svelte:46::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each Object.entries(donate.crypto) as [name, address]}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/env): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/donate/+page.svelte:49::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each Object.entries(donate.other) as [name, address]}' has no key and is not an inline literal/length-only/itemless shape; static list (import:$lib/env): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/each-key::src/routes/settings/debug/+page.svelte:62::{#each} block has no key",
+    "verdict": "design",
+    "basis": "script-verified: header '{#each sections as { title, data }, i}' has no key and is not an inline literal/length-only/itemless shape; static list ($: rebuilds a fixed 3-entry list): fixed at author time, never reorders/inserts, so a key cannot help"
+  },
+  {
+    "key": "imputnet/cobalt:web::correctness/effect-as-derived::src/components/save/OmniboxIcon.svelte:13::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: effect only does `animated = loading`; the local overrides in ontransitionstart/end are exactly what a writable $derived(loading) supports (svelte ^5.55)"
+  },
+  {
+    "key": "imputnet/cobalt:web::performance/load-waterfall::src/routes/+layout.ts:20::Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.",
+    "verdict": "design",
+    "basis": "read: the upstream await is `await import('$lib/i18n/locale')` inside `if (browser)`; that module is statically imported by the root +layout.svelte (same node), so it is already loaded — no network hop precedes loadTranslations; reported per the rule's await-taint design"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 98 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/about/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 88 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/about/[page]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 88 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/about/community/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 89 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/donate/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 92 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/remux/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 87 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 89 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/accessibility/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 92 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/advanced/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 97 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/appearance/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 95 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/audio/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 95 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/debug/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 89 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/instances/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 94 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/local/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 94 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/metadata/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 96 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/privacy/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 93 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/settings/video/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 94 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/canonical-url::src/routes/updates/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 87 transitively imported files, or app.html; no meta-tag library in deps; mdsvex about pages grepped: no head tags"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/html-lang::(site)::Missing <html lang>",
+    "verdict": "tp",
+    "basis": "app.html:2 <html> without lang; +layout.svelte:97 puts lang={$locale} on a display:contents div, not <html>; no hook sets it"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 45 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/about/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 36 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/about/[page]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 36 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/about/community/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 37 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/donate/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 40 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/remux/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 35 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 36 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/accessibility/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 39 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/advanced/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 43 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/appearance/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 42 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/audio/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 42 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/debug/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 36 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/instances/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 40 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/local/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 41 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/metadata/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 43 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/privacy/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 40 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/settings/video/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 41 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/json-ld::src/routes/updates/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 33 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/about/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/about/[page]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/about/community/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/donate/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/remux/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/accessibility/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/advanced/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/appearance/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/audio/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/debug/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/instances/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/local/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/metadata/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/privacy/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/settings/video/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/og-image::src/routes/updates/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/robots-txt::(site)::Missing robots.txt",
+    "verdict": "tp",
+    "basis": "no static/robots.txt, no robots.txt endpoint, hook or build generator (repo-wide grep); kit.files not overridden"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/about/[page]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "no <h1> in chain/components; dynamic mdsvex page (i18n/*/about/*.md) has no # heading; PageNav uses <h2/h3 aria-level=1>, not <h1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/about/community::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/about::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/remux::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/accessibility::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/advanced::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/appearance::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/audio::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/debug::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/instances::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/local::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/metadata::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/privacy::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings/video::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/settings::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::/updates::Missing <h#>",
+    "verdict": "tp",
+    "basis": "prerendered (+layout.ts prerender=true, ssr=true) server HTML has no <h1>: updates/+page.svelte renders the {#await changelog.page} pending arm, <ChangelogEntry version=... skeleton /> (boolean shorthand = true), and ChangelogEntry.svelte:68-72 puts its <h1 class=changelog-title> only in the {:else} of {#if skeleton}; the {:then} arm's <svelte:component this={page.default}> (mdsvex changelog -> ChangelogEntryWrapper -> ChangelogEntry without skeleton, which does render the <h1>) only resolves in the browser, since SSR renders an await block's pending arm; no other <h1> in cobalt web/src; client-only heading counts as absent on a server-rendered route (settled convention). The analyzer decided the skeleton gate correctly"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/single-h1::src/routes/donate/+page.svelte:43::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> reachable (only ChangelogEntry, not on this route); PageNav title is <h2/h3 aria-level=1>"
+  },
+  {
+    "key": "imputnet/cobalt:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "design",
+    "basis": "no static/sitemap.xml or sitemap.xml endpoint (literal claim holds), but web/vite.config.ts:66 generate-sitemap plugin runs svelte-sitemap createSitemap into prerendered output at build (gated on WEB_HOST), so the site ships a sitemap"
+  }
+]

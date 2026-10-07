@@ -1,0 +1,462 @@
+[
+  {
+    "key": "dxlbnl/website::a11y/deprecated-attr::src/lib/email/EmailCta.svelte:13::`width`, `cellpadding`, `cellspacing`, `border` on <table> are deprecated attributes",
+    "verdict": "design",
+    "basis": "read lib/email/EmailCta.svelte:13-19: <table width cellpadding cellspacing border role=\"presentation\"> in an email template (lib/email/, rendered for mail clients, comment :8-11); deprecated as reported, but presentational table attributes are the established HTML-email convention for clients without CSS support"
+  },
+  {
+    "key": "dxlbnl/website::a11y/deprecated-attr::src/routes/(console)/mailings/[slug]/+page.svelte:30::`scrolling` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read (console)/mailings/[slug]/+page.svelte:30: scrolling literal on <iframe> in live markup; deprecated as reported"
+  },
+  {
+    "key": "dxlbnl/website::a11y/deprecated-attr::src/routes/(private)/admin/mailings/[slug]/+page.svelte:74::`scrolling` on <iframe> is a deprecated attribute",
+    "verdict": "tp",
+    "basis": "read (private)/admin/mailings/[slug]/+page.svelte:74: scrolling literal on <iframe> in live markup; deprecated as reported"
+  },
+  {
+    "key": "dxlbnl/website::a11y/id-duplication::src/lib/ui/SubscribeForm.svelte:40::Duplicate id \"subscribe-email\"",
+    "verdict": "tp",
+    "basis": "read: (console)/+layout.svelte:45 renders Footer.svelte:10 <SubscribeForm/> on every route, and /contact (:85), /mailings/[slug] (:44) and the catalogue Pricebox (:79) render a second; input#subscribe-email (SubscribeForm.svelte:41, {:else} of status===success, default) appears twice"
+  },
+  {
+    "key": "dxlbnl/website::architecture/component-size::src/lib/ui/CV.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/CV.svelte has 408 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dxlbnl/website::architecture/component-size::src/lib/ui/SEO.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/ui/SEO.svelte has 278 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dxlbnl/website::architecture/component-size::src/routes/(console)/catalogue/[id]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(console)/catalogue/[id]/+page.svelte has 287 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dxlbnl/website::architecture/component-size::src/routes/(console)/share/ChatPanel.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(console)/share/ChatPanel.svelte has 420 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dxlbnl/website::architecture/component-size::src/routes/(console)/share/ShareSetup.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(console)/share/ShareSetup.svelte has 214 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dxlbnl/website::architecture/component-size::src/routes/(private)/admin/mailings/[slug]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(private)/admin/mailings/[slug]/+page.svelte has 223 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dxlbnl/website::architecture/component-size::src/routes/(private)/admin/orders/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(private)/admin/orders/+page.svelte has 276 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dxlbnl/website::architecture/component-size::src/routes/(private)/invoices/[invoicenr]/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(private)/invoices/[invoicenr]/+page.svelte has 534 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "dxlbnl/website::architecture/prop-count::src/lib/ui/SEO.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/ui/SEO.svelte has a single destructured $props() with 9 named props (> 6): title, description, image, type, articleDate, articleAuthor, product, tags, noindex"
+  },
+  {
+    "key": "dxlbnl/website::architecture/prop-count::src/routes/(console)/share/ShareSetup.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/routes/(console)/share/ShareSetup.svelte has a single destructured $props() with 8 named props (> 6): name, trustedPeers, nearbySessions, onstart, onjoin, onstartdirected, onforget, isJoining"
+  },
+  {
+    "key": "dxlbnl/website::correctness/each-key::src/lib/ui/MiniBarChart.svelte:9::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/lib/ui/MiniBarChart.svelte:9 '{#each data as d, i}' has no key and is not an exempt shape; positional list (data prop drawn as mini chart bars, MiniBarChart.svelte:9): chart geometry, items have no identity beyond position"
+  },
+  {
+    "key": "dxlbnl/website::correctness/effect-as-derived::src/routes/(console)/share/ShareSetup.svelte:27::$effect only assigns state — use $derived instead",
+    "verdict": "tp",
+    "basis": "read: ShareSetup.svelte:27 the effect only does inputName = name (prop); later write is the input binding, the writable-$derived override pattern (svelte ^5.55.9)"
+  },
+  {
+    "key": "dxlbnl/website::performance/iframe-loading::src/routes/(console)/mailings/[slug]/+page.svelte:30::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: srcdoc email body (no document fetch), the first and main content of the mailing page (:28-37) - above the fold, eager is right"
+  },
+  {
+    "key": "dxlbnl/website::performance/iframe-loading::src/routes/(private)/admin/mailings/[slug]/+page.svelte:74::<iframe> without a loading attribute loads eagerly even when offscreen",
+    "verdict": "design",
+    "basis": "script-verified: <iframe> has no loading attribute and no spread; read: srcdoc email preview (no document fetch) in the preview section right after the short send/status section (:71-82) - the admin page's visible content"
+  },
+  {
+    "key": "dxlbnl/website::performance/image-dimensions::src/routes/(console)/+page.svelte:62::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .hero-portrait height:2.5em; width:auto; object-fit:contain (:156-161) - fixed-height box inline with the heading text"
+  },
+  {
+    "key": "dxlbnl/website::performance/image-dimensions::src/routes/(console)/catalogue/[id]/+page.svelte:71::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .hero-img aspect-ratio:3/2 with img width/height 100% (:249-256) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "dxlbnl/website::performance/image-dimensions::src/routes/(console)/catalogue/[id]/+page.svelte:90::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .thumb 72px x 72px with img width/height 100% (:265-280) - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "dxlbnl/website::performance/image-loading-hint::src/routes/(console)/+page.svelte:62::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: portrait inside the PageHero heading snippet, first block of the home page (:55-70) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "dxlbnl/website::performance/image-loading-hint::src/routes/(console)/catalogue/[id]/+page.svelte:90::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 72px gallery thumbnails directly under the eager hero image in the left column (:67-93) - within the first viewport, where the docs keep images eager"
+  },
+  {
+    "key": "dxlbnl/website::performance/responsive-image::src/routes/(console)/catalogue/[id]/+page.svelte:90::Missing <img> srcset",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: src is vercelImg(src, 128), an optimizer variant already sized for the fixed 72px .thumb box (:90, :265-268) - the box is the same on every viewport, so a srcset has nothing to pick between"
+  },
+  {
+    "key": "dxlbnl/website::performance/sequential-awaits::src/routes/(private)/admin/analytics/+page.server.ts:127::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (private)/admin/analytics/+page.server.ts:49-182 line 127: each of the seven pageviews/mailing/opens aggregates takes no input from the previous ones - independent Neon HTTP (drizzle neon-http) queries serialized"
+  },
+  {
+    "key": "dxlbnl/website::performance/sequential-awaits::src/routes/(private)/admin/analytics/+page.server.ts:150::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (private)/admin/analytics/+page.server.ts:49-182 line 150: each of the seven pageviews/mailing/opens aggregates takes no input from the previous ones - independent Neon HTTP (drizzle neon-http) queries serialized"
+  },
+  {
+    "key": "dxlbnl/website::performance/sequential-awaits::src/routes/(private)/admin/analytics/+page.server.ts:152::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (private)/admin/analytics/+page.server.ts:49-182 line 152: each of the seven pageviews/mailing/opens aggregates takes no input from the previous ones - independent Neon HTTP (drizzle neon-http) queries serialized"
+  },
+  {
+    "key": "dxlbnl/website::performance/sequential-awaits::src/routes/(private)/admin/analytics/+page.server.ts:182::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (private)/admin/analytics/+page.server.ts:49-182 line 182: each of the seven pageviews/mailing/opens aggregates takes no input from the previous ones - independent Neon HTTP (drizzle neon-http) queries serialized"
+  },
+  {
+    "key": "dxlbnl/website::performance/sequential-awaits::src/routes/(private)/admin/analytics/+page.server.ts:64::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (private)/admin/analytics/+page.server.ts:49-182 line 64: each of the seven pageviews/mailing/opens aggregates takes no input from the previous ones - independent Neon HTTP (drizzle neon-http) queries serialized"
+  },
+  {
+    "key": "dxlbnl/website::performance/sequential-awaits::src/routes/(private)/admin/analytics/+page.server.ts:91::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (private)/admin/analytics/+page.server.ts:49-182 line 91: each of the seven pageviews/mailing/opens aggregates takes no input from the previous ones - independent Neon HTTP (drizzle neon-http) queries serialized"
+  },
+  {
+    "key": "dxlbnl/website::performance/sequential-awaits::src/routes/(private)/admin/mailings/+page.server.ts:39::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read (private)/admin/mailings/+page.server.ts:22,39: the emailOpens aggregate uses nothing from the mailingBroadcasts select - independent Neon HTTP (drizzle neon-http, lib/server/db/index.ts:5) queries serialized"
+  },
+  {
+    "key": "dxlbnl/website::security/raw-html::src/lib/ui/SEO.svelte:277::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "tp",
+    "basis": "read src/lib/ui/SEO.svelte:100-130,236-237,277: JSON-LD = JSON.stringify(buildJsonLd()) of title/description/product props with no '<' escaping; callers pass non-literal values (notes/[slug] and projects/[slug] data.metadata.title, mailings/[slug] data.mailing.title/subject) - docs: non-literal JSON-LD needs script-safe serialization (ledger JSON-LD tp convention)"
+  },
+  {
+    "key": "dxlbnl/website::security/server-module-state::src/routes/api/og/+server.ts:63::module-scope variable \"fontCache\" is reassigned from a request handler — its value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read src/routes/api/og/+server.ts:63: fontCache (:23,60-64) lazily caches the constant JetBrains Mono font ArrayBuffer fetched from CONFIG.fontPath - process-wide cache, no request data"
+  },
+  {
+    "key": "dxlbnl/website::seo/description-presence::src/routes/(private)/admin/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> on /admin (only the (console) pages render $lib/ui/SEO.svelte; the admin layout renders @dxlbnl/ui Nav, whose 1.1.1 components emit no svelte:head) (literal claim holds); not a search target: admin console, (private)/admin/+layout.server.ts redirects every non-admin request to /admin/ (this is the admin sign-in page)"
+  },
+  {
+    "key": "dxlbnl/website::seo/description-presence::src/routes/(private)/admin/analytics/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> on /admin/analytics (only the (console) pages render $lib/ui/SEO.svelte; the admin layout renders @dxlbnl/ui Nav, whose 1.1.1 components emit no svelte:head) (literal claim holds); not a search target: admin console, (private)/admin/+layout.server.ts redirects every non-admin request to /admin/ (the admin sign-in page)"
+  },
+  {
+    "key": "dxlbnl/website::seo/description-presence::src/routes/(private)/admin/mailings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> on /admin/mailings (only the (console) pages render $lib/ui/SEO.svelte; the admin layout renders @dxlbnl/ui Nav, whose 1.1.1 components emit no svelte:head) (literal claim holds); not a search target: admin console, (private)/admin/+layout.server.ts redirects every non-admin request to /admin/ (the admin sign-in page)"
+  },
+  {
+    "key": "dxlbnl/website::seo/description-presence::src/routes/(private)/admin/mailings/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> on /admin/mailings/[slug] (only the (console) pages render $lib/ui/SEO.svelte; the admin layout renders @dxlbnl/ui Nav, whose 1.1.1 components emit no svelte:head) (literal claim holds); not a search target: admin console, (private)/admin/+layout.server.ts redirects every non-admin request to /admin/ (the admin sign-in page)"
+  },
+  {
+    "key": "dxlbnl/website::seo/description-presence::src/routes/(private)/admin/orders/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> on /admin/orders (only the (console) pages render $lib/ui/SEO.svelte; the admin layout renders @dxlbnl/ui Nav, whose 1.1.1 components emit no svelte:head) (literal claim holds); not a search target: admin console, (private)/admin/+layout.server.ts redirects every non-admin request to /admin/ (the admin sign-in page)"
+  },
+  {
+    "key": "dxlbnl/website::seo/description-presence::src/routes/(private)/invoices/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> on /invoices (only the (console) pages render $lib/ui/SEO.svelte; (private) pages render no SEO/svelte:head; @dxlbnl/ui 1.1.1 components emit no svelte:head) (literal claim holds); not a search target: dev-only invoice tool, src/routes/(private)/invoices/+page.ts load throws error(404) whenever !dev (PauseAI/orrery dev-only convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/description-presence::src/routes/(private)/invoices/[invoicenr]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "script-verified (scan.sh grep of src incl. app.html/hooks, every svelte:head and dynamic-name metas; layout chain read): no <meta name=description> on /invoices/[invoicenr] (only the (console) pages render $lib/ui/SEO.svelte; (private) pages render no SEO/svelte:head; @dxlbnl/ui 1.1.1 components emit no svelte:head) (literal claim holds); not a search target: dev-only invoice tool, src/routes/(private)/invoices/[invoicenr]/+page.ts load throws error(404) whenever !dev (PauseAI/orrery dev-only convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/json-ld::src/routes/(private)/admin/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD emitter is $lib/ui/SEO.svelte:277 ({@html} ld+json), rendered only by (console) pages and /cv; /admin under (private) renders no SEO and @dxlbnl/ui 1.1.1 has no svelte:head; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dxlbnl/website::seo/json-ld::src/routes/(private)/admin/analytics/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD emitter is $lib/ui/SEO.svelte:277 ({@html} ld+json), rendered only by (console) pages and /cv; /admin/analytics under (private) renders no SEO and @dxlbnl/ui 1.1.1 has no svelte:head; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dxlbnl/website::seo/json-ld::src/routes/(private)/admin/mailings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD emitter is $lib/ui/SEO.svelte:277 ({@html} ld+json), rendered only by (console) pages and /cv; /admin/mailings under (private) renders no SEO and @dxlbnl/ui 1.1.1 has no svelte:head; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dxlbnl/website::seo/json-ld::src/routes/(private)/admin/mailings/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD emitter is $lib/ui/SEO.svelte:277 ({@html} ld+json), rendered only by (console) pages and /cv; /admin/mailings/[slug] under (private) renders no SEO and @dxlbnl/ui 1.1.1 has no svelte:head; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dxlbnl/website::seo/json-ld::src/routes/(private)/admin/orders/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD emitter is $lib/ui/SEO.svelte:277 ({@html} ld+json), rendered only by (console) pages and /cv; /admin/orders under (private) renders no SEO and @dxlbnl/ui 1.1.1 has no svelte:head; no JSON-LD as claimed (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "dxlbnl/website::seo/json-ld::src/routes/(private)/invoices/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD emitter is $lib/ui/SEO.svelte:277 ({@html} ld+json), rendered only by (console) pages and /cv; /invoices under (private) renders no SEO and @dxlbnl/ui 1.1.1 has no svelte:head; no JSON-LD as claimed (json-ld convention: tp regardless of gating; dev-only route, ledger treats it as rendering)"
+  },
+  {
+    "key": "dxlbnl/website::seo/json-ld::src/routes/(private)/invoices/[invoicenr]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "read/grep: the only JSON-LD emitter is $lib/ui/SEO.svelte:277 ({@html} ld+json), rendered only by (console) pages and /cv; /invoices/[invoicenr] under (private) renders no SEO and @dxlbnl/ui 1.1.1 has no svelte:head; no JSON-LD as claimed (json-ld convention: tp regardless of gating; dev-only route, ledger treats it as rendering)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-description::src/routes/(private)/admin/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 6 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /admin; no og:description in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-description::src/routes/(private)/admin/analytics/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 8 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /admin/analytics; no og:description in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-description::src/routes/(private)/admin/mailings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /admin/mailings; no og:description in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-description::src/routes/(private)/admin/mailings/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /admin/mailings/[slug]; no og:description in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-description::src/routes/(private)/admin/orders/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /admin/orders; no og:description in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-description::src/routes/(private)/invoices/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /invoices; no og:description in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-description::src/routes/(private)/invoices/[invoicenr]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:description on /invoices/[invoicenr]; no og:description in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-image::src/routes/(private)/admin/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 6 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /admin; no og:image in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-image::src/routes/(private)/admin/analytics/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 8 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /admin/analytics; no og:image in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-image::src/routes/(private)/admin/mailings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /admin/mailings; no og:image in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-image::src/routes/(private)/admin/mailings/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /admin/mailings/[slug]; no og:image in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-image::src/routes/(private)/admin/orders/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /admin/orders; no og:image in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-image::src/routes/(private)/invoices/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /invoices; no og:image in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-image::src/routes/(private)/invoices/[invoicenr]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:image on /invoices/[invoicenr]; no og:image in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-title::src/routes/(private)/admin/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 6 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /admin; no og:title in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-title::src/routes/(private)/admin/analytics/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 8 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /admin/analytics; no og:title in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-title::src/routes/(private)/admin/mailings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /admin/mailings; no og:title in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-title::src/routes/(private)/admin/mailings/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /admin/mailings/[slug]; no og:title in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-title::src/routes/(private)/admin/orders/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /admin/orders; no og:title in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-title::src/routes/(private)/invoices/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /invoices; no og:title in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-title::src/routes/(private)/invoices/[invoicenr]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:title on /invoices/[invoicenr]; no og:title in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-url::src/routes/(private)/admin/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 6 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /admin; no og:url in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-url::src/routes/(private)/admin/analytics/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 8 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /admin/analytics; no og:url in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-url::src/routes/(private)/admin/mailings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /admin/mailings; no og:url in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-url::src/routes/(private)/admin/mailings/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /admin/mailings/[slug]; no og:url in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-url::src/routes/(private)/admin/orders/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /admin/orders; no og:url in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-url::src/routes/(private)/invoices/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /invoices; no og:url in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/og-url::src/routes/(private)/invoices/[invoicenr]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no og:url on /invoices/[invoicenr]; no og:url in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/single-h1::/cv::Missing <h#>",
+    "verdict": "fp",
+    "basis": "<h1> IS rendered: cv/+page.ts loads /content/cv.md (mdsvex, svelte.config.js:76) and passes its component to CV.svelte, which renders <Content /> (CV.svelte:27); cv.md:1 is \"# Alexander Esselink\" -> <h1>, prerendered (+layout.ts prerender=true)"
+  },
+  {
+    "key": "dxlbnl/website::seo/single-h1::/invoices/[invoicenr]::Missing <h#>",
+    "verdict": "design",
+    "basis": "dev-only: (private)/invoices/[invoicenr]/+page.ts:19-21 throws error(404) when !dev, so the route 404s in every production build; in dev the invoice page (+page.svelte) has no <h1> - claim holds for a dev-only tool"
+  },
+  {
+    "key": "dxlbnl/website::seo/ssr-disabled::src/routes/(console)/share/+page.ts:2::SSR is disabled for this route — its content is invisible to crawlers that don't execute JavaScript and indexes less reliably",
+    "verdict": "design",
+    "basis": "read: literal export const ssr = false at src/routes/(console)/share/+page.ts:2; peer-to-peer text/file share tool (device id, WebRTC-style pairing and polling in share.svelte.ts on mount), an interactive tool screen rather than content for search; not listed in the sitemap.xml endpoint (nrdbv2 tool-screen precedent)"
+  },
+  {
+    "key": "dxlbnl/website::seo/title-presence::src/routes/(private)/admin/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: (private)/admin/+page.svelte has no svelte:head (imports only @dxlbnl/ui PageHero/Led/etc. and local helpers); (private)/admin/+layout.svelte renders @dxlbnl/ui Nav + main, no head; root +layout.svelte:27-35 head has only canonical + RSS links, app.html only icon links, no document.title; SEO.svelte (the app's <title> emitter) is used only by (console) pages; @dxlbnl/ui@1.1.1 (pnpm-lock, jsDelivr, 90 .svelte files) has no svelte:head/<title>; admin page (session-gated by admin/+layout.server.ts) renders untitled"
+  },
+  {
+    "key": "dxlbnl/website::seo/title-presence::src/routes/(private)/admin/analytics/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: (private)/admin/analytics/+page.svelte has no svelte:head (imports only @dxlbnl/ui PageHero/Led/etc. and local helpers); (private)/admin/+layout.svelte renders @dxlbnl/ui Nav + main, no head; root +layout.svelte:27-35 head has only canonical + RSS links, app.html only icon links, no document.title; SEO.svelte (the app's <title> emitter) is used only by (console) pages; @dxlbnl/ui@1.1.1 (pnpm-lock, jsDelivr, 90 .svelte files) has no svelte:head/<title>; admin page (session-gated by admin/+layout.server.ts) renders untitled"
+  },
+  {
+    "key": "dxlbnl/website::seo/title-presence::src/routes/(private)/admin/mailings/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: (private)/admin/mailings/+page.svelte has no svelte:head (imports only @dxlbnl/ui PageHero/Led/etc. and local helpers); (private)/admin/+layout.svelte renders @dxlbnl/ui Nav + main, no head; root +layout.svelte:27-35 head has only canonical + RSS links, app.html only icon links, no document.title; SEO.svelte (the app's <title> emitter) is used only by (console) pages; @dxlbnl/ui@1.1.1 (pnpm-lock, jsDelivr, 90 .svelte files) has no svelte:head/<title>; admin page (session-gated by admin/+layout.server.ts) renders untitled"
+  },
+  {
+    "key": "dxlbnl/website::seo/title-presence::src/routes/(private)/admin/mailings/[slug]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: (private)/admin/mailings/[slug]/+page.svelte has no svelte:head (imports only @dxlbnl/ui PageHero/Led/etc. and local helpers); (private)/admin/+layout.svelte renders @dxlbnl/ui Nav + main, no head; root +layout.svelte:27-35 head has only canonical + RSS links, app.html only icon links, no document.title; SEO.svelte (the app's <title> emitter) is used only by (console) pages; @dxlbnl/ui@1.1.1 (pnpm-lock, jsDelivr, 90 .svelte files) has no svelte:head/<title>; admin page (session-gated by admin/+layout.server.ts) renders untitled"
+  },
+  {
+    "key": "dxlbnl/website::seo/title-presence::src/routes/(private)/admin/orders/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: (private)/admin/orders/+page.svelte has no svelte:head (imports only @dxlbnl/ui PageHero/Led/etc. and local helpers); (private)/admin/+layout.svelte renders @dxlbnl/ui Nav + main, no head; root +layout.svelte:27-35 head has only canonical + RSS links, app.html only icon links, no document.title; SEO.svelte (the app's <title> emitter) is used only by (console) pages; @dxlbnl/ui@1.1.1 (pnpm-lock, jsDelivr, 90 .svelte files) has no svelte:head/<title>; admin page (session-gated by admin/+layout.server.ts) renders untitled"
+  },
+  {
+    "key": "dxlbnl/website::seo/title-presence::src/routes/(private)/invoices/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "read: (private)/invoices/+page.svelte has no svelte:head; root +layout.svelte:27-35 head has only canonical + RSS links, app.html only icon links, no document.title; SEO.svelte (the app's <title> emitter) is used only by (console) pages; @dxlbnl/ui@1.1.1 (pnpm-lock, jsDelivr, 90 .svelte files) has no svelte:head/<title>; dev-only tool: its +page.ts load throws error(404) whenever !dev (modules glob is empty outside DEV), so production never renders it (literal claim holds; prejemesi playground precedent)"
+  },
+  {
+    "key": "dxlbnl/website::seo/title-presence::src/routes/(private)/invoices/[invoicenr]/+page.svelte::Missing <title>",
+    "verdict": "design",
+    "basis": "read: (private)/invoices/[invoicenr]/+page.svelte has no svelte:head; root +layout.svelte:27-35 head has only canonical + RSS links, app.html only icon links, no document.title; SEO.svelte (the app's <title> emitter) is used only by (console) pages; @dxlbnl/ui@1.1.1 (pnpm-lock, jsDelivr, 90 .svelte files) has no svelte:head/<title>; dev-only tool: its +page.ts load throws error(404) whenever !dev (modules glob is empty outside DEV), so production never renders it (literal claim holds; prejemesi playground precedent)"
+  },
+  {
+    "key": "dxlbnl/website::seo/twitter-card::src/routes/(private)/admin/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 6 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /admin; no twitter:card in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/twitter-card::src/routes/(private)/admin/analytics/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 8 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /admin/analytics; no twitter:card in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/twitter-card::src/routes/(private)/admin/mailings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /admin/mailings; no twitter:card in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/twitter-card::src/routes/(private)/admin/mailings/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /admin/mailings/[slug]; no twitter:card in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/twitter-card::src/routes/(private)/admin/orders/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 7 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /admin/orders; no twitter:card in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; admin route (auth-gated by admin/+layout.server.ts:7-12; og/twitter have no auth exemption by convention)"
+  },
+  {
+    "key": "dxlbnl/website::seo/twitter-card::src/routes/(private)/invoices/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /invoices; no twitter:card in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  },
+  {
+    "key": "dxlbnl/website::seo/twitter-card::src/routes/(private)/invoices/[invoicenr]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (reach.py: page + ancestor layouts + transitively imported local files incl. aliases/barrels + app.html, comments stripped, 10 files; positive control on seminary-sidekick /about,/teachers and dxlbnl root-layout canonical finds the tags): no twitter:card on /invoices/[invoicenr]; no twitter:card in the page, root +layout.svelte (head: canonical + RSS link only) or admin/+layout.svelte; the only og/twitter emitter, src/lib/ui/SEO.svelte, is not rendered on this route; @dxlbnl/ui@1.1.1 (PageHero/Led/Nav) has no <svelte:head>; npm Svelte deps at lockfile versions scanned on jsDelivr (npmscan.py): none emits og:*/twitter:card/rel=canonical; dev-only route (+page.ts load throws error(404) when !dev) - dev-only pages stay tp for og/twitter per convention"
+  }
+]

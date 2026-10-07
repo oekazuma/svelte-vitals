@@ -1,0 +1,502 @@
+[
+  {
+    "key": "sveltejs/realworld::a11y/permitted-contents::src/routes/article/[slug]/ArticleMeta.svelte:25::`<form>` is not permitted content here — `<span>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse): <form> at this line has nearest literal element ancestor <span> (through if/each/await/key only, no component/snippet/svelte:element boundary); child is not phrasing content; per-app samples read"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/each-key::src/lib/ArticleList/ArticlePreview.svelte:56::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each article.tagList as tag}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: article), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/each-key::src/lib/ListErrors.svelte:7::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each Object.keys(errors) as key}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (prop: errors), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/each-key::src/routes/+page.svelte:71::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each data.tags as tag}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (data: data), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/each-key::src/routes/Pagination.svelte:16::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each range as n}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (derived: range), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/each-key::src/routes/article/[slug]/+page.svelte:28::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each data.article.tagList as tag}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (data: data), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/each-key::src/routes/editor/Editor.svelte:82::{#each} block has no key",
+    "verdict": "tp",
+    "basis": "script-verified: header '{#each tagList as tag}' has no key and is not an inline literal/length-only/itemless shape; list source resolves to runtime data (state: tagList), not shown static; sheet-read"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/prop-mutation::src/lib/ArticleList/ArticlePreview.svelte:25::Prop \"article\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "optimistic article.favorited write; article is an {#each} item of data.articles; kit 2 root is asClassComponent(Root) whose props proxy is coarse-grained (svelte legacy-client.js Svelte4Component: \"Do not use our $state proxy\"), so page data is a plain object and this member write updates no UI; mutated non-bindable prop as documented; enhance callback only calls update() on error, so nothing re-renders the optimistic write (inferred from runtime source, not executed)"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/prop-mutation::src/lib/ArticleList/ArticlePreview.svelte:26::Prop \"article\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "optimistic article.favoritesCount write; same plain page-data object; kit 2 root is asClassComponent(Root) whose props proxy is coarse-grained (svelte legacy-client.js Svelte4Component: \"Do not use our $state proxy\"), so page data is a plain object and this member write updates no UI; mutated non-bindable prop as documented"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/prop-mutation::src/lib/ArticleList/ArticlePreview.svelte:28::Prop \"article\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "optimistic article.favorited write; same plain page-data object; kit 2 root is asClassComponent(Root) whose props proxy is coarse-grained (svelte legacy-client.js Svelte4Component: \"Do not use our $state proxy\"), so page data is a plain object and this member write updates no UI; mutated non-bindable prop as documented"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/prop-mutation::src/lib/ArticleList/ArticlePreview.svelte:29::Prop \"article\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "optimistic article.favoritesCount write; same plain page-data object; kit 2 root is asClassComponent(Root) whose props proxy is coarse-grained (svelte legacy-client.js Svelte4Component: \"Do not use our $state proxy\"), so page data is a plain object and this member write updates no UI; mutated non-bindable prop as documented"
+  },
+  {
+    "key": "sveltejs/realworld::correctness/prop-mutation::src/routes/profile/@[user]/+layout.svelte:36::Prop \"data\" is mutated, but it is not declared $bindable",
+    "verdict": "tp",
+    "basis": "optimistic data.profile.following write; kit 2 root is asClassComponent(Root) whose props proxy is coarse-grained (svelte legacy-client.js Svelte4Component: \"Do not use our $state proxy\"), so page data is a plain object and this member write updates no UI; mutated non-bindable prop as documented; update() only on error"
+  },
+  {
+    "key": "sveltejs/realworld::performance/image-dimensions::src/routes/+page.svelte:24::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: CSS does not fix both dimensions (natural size decides the box)"
+  },
+  {
+    "key": "sveltejs/realworld::performance/image-dimensions::src/routes/profile/@[user]/+layout.svelte:19::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width/height, no spread; read: box reserved by CSS (.user-img {width:100px;height:100px} in static/conduit-theme.css), so no CLS from the missing attributes"
+  },
+  {
+    "key": "sveltejs/realworld::performance/image-loading-hint::src/routes/+page.svelte:24::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> tag has no loading attribute and no spread"
+  },
+  {
+    "key": "sveltejs/realworld::performance/image-loading-hint::src/routes/profile/@[user]/+layout.svelte:19::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attr and no spread; read: profile header avatar (user-info banner) at top of profile layout — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "sveltejs/realworld::performance/responsive-image::src/routes/profile/@[user]/+layout.svelte:19::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src is not a .svg path/import/data URI; read: raster or remote image"
+  },
+  {
+    "key": "sveltejs/realworld::security/raw-html::src/routes/article/[slug]/+page.svelte:24::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read: {@html} at this line (script-confirmed); article.body is marked() output passed through sanitize-html in +page.server.js — reported per docs (\"finding persists by design\"), not an XSS path"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 9 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/article/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 11 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/editor/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (literal claim holds) but not a search target (auth-gated: editor/+page.server.js:6 load redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/editor/[slug]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (literal claim holds) but not a search target (auth-gated: editor/[slug]/+page.server.js:5 load redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/login/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 7 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/profile/@[user]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 9 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/profile/@[user]/favorites/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [2 layouts], 9 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/register/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <link rel=canonical> in layout chain [1 layouts], 7 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/canonical-url::src/routes/settings/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (literal claim holds) but not a search target (auth-gated: settings/+page.server.js:5 load redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 9 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/article/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 11 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/editor/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "<meta name=description> absent (literal claim holds) but not a search target (auth-gated: editor/+page.server.js:6 load redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/editor/[slug]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "<meta name=description> absent (literal claim holds) but not a search target (auth-gated: editor/[slug]/+page.server.js:5 load redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/login/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 7 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/profile/@[user]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 9 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/profile/@[user]/favorites/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [2 layouts], 9 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/register/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <meta name=description> in layout chain [1 layouts], 7 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/description-presence::src/routes/settings/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "<meta name=description> absent (literal claim holds) but not a search target (auth-gated: settings/+page.server.js:5 load redirects to /login when !locals.user), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 7 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/article/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 8 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/editor/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 6 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/editor/[slug]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 6 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/profile/@[user]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 7 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/profile/@[user]/favorites/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 7 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/register/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/json-ld::src/routes/settings/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified: page+layout chain, 5 transitively imported local components (incl. #lib/site-kit/barrels), app.html and hooks have no ld+json/jsonld/schema.org and no meta-tag library dep"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/article/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/editor/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/editor/[slug]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/login/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/profile/@[user]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/profile/@[user]/favorites/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/register/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-description::src/routes/settings/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:description absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/article/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/editor/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/editor/[slug]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/login/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/profile/@[user]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/profile/@[user]/favorites/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/register/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-image::src/routes/settings/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:image absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/article/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/editor/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/editor/[slug]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/login/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/profile/@[user]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/profile/@[user]/favorites/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/register/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-title::src/routes/settings/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:title absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/article/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/editor/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/editor/[slug]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/login/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/profile/@[user]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/profile/@[user]/favorites/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/register/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/og-url::src/routes/settings/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified: og:url absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/single-h1::/editor/[slug]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> in chain or components"
+  },
+  {
+    "key": "sveltejs/realworld::seo/single-h1::/editor::Missing <h#>",
+    "verdict": "tp",
+    "basis": "script-verified (own chain+component walker incl. aliases/#lib/site-kit): no <h1> in chain or components"
+  },
+  {
+    "key": "sveltejs/realworld::seo/single-h1::src/lib/ArticleList/ArticlePreview.svelte:52::Multiple <h#> (#); a single <h#> is the conventional signal",
+    "verdict": "tp",
+    "basis": "logo <h1> (logged-out) co-renders with an <h1> per ArticlePreview in the article list"
+  },
+  {
+    "key": "sveltejs/realworld::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "no static/sitemap.xml, no sitemap.xml endpoint, hook or build generator (repo-wide grep); kit.files not overridden"
+  },
+  {
+    "key": "sveltejs/realworld::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Conduit\" = 7 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/realworld::seo/title-length::src/routes/login/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Sign in • Conduit\" = 17 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/realworld::seo/title-length::src/routes/register/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Sign up • Conduit\" = 17 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/realworld::seo/title-length::src/routes/settings/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "measured literal \"Settings • Conduit\" = 18 graphemes (<30)"
+  },
+  {
+    "key": "sveltejs/realworld::seo/title-presence::src/routes/editor/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [1 layouts], 8 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/title-presence::src/routes/editor/[slug]/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (sp-check.mjs): no <title> in layout chain [1 layouts], 8 transitively imported files, or app.html; no meta-tag library in deps; Editor.svelte name=\"description\" is an <input>, not <meta>"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/article/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/editor/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/editor/[slug]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/login/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/profile/@[user]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/profile/@[user]/favorites/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/register/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  },
+  {
+    "key": "sveltejs/realworld::seo/twitter-card::src/routes/settings/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified: twitter:card absent (case-insensitive) from page + all ancestor layouts + transitive local imports ($lib/aliases/#imports/barrels) + app.html + hooks.server"
+  }
+]

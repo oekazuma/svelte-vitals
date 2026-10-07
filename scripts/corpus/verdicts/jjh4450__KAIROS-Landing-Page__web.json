@@ -1,0 +1,632 @@
+[
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::architecture/component-size::src/lib/components/SiteHeader.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SiteHeader.svelte has 204 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::architecture/component-size::src/routes/members/me/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/members/me/+page.svelte has 201 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::architecture/component-size::src/routes/posts/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/posts/+page.svelte has 216 physical lines (> 200), matches reported count"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::architecture/prop-count::src/lib/components/SiteMeta.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/SiteMeta.svelte has a single destructured $props() with 7 named props (> 6): title, description, image, type, publishedTime, modifiedTime, noindex"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) plus ...rest: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; errors prop is runtime validation errors (shadcn field-error), the ledger's settled convention for this file"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/image-dimensions::src/routes/achievements/+page.svelte:56::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside an aspect-video w-full cover box), so no CLS from the missing attributes"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/image-dimensions::src/routes/achievements/[id]/+page.svelte:35::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside an aspect-video w-full cover box), so no CLS from the missing attributes"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/image-dimensions::src/routes/achievements/[id]/edit/+page.svelte:80::Missing <img> width/height",
+    "verdict": "tp",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: own class max-h-40 only — natural size decides the box, the checkbox below shifts"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/image-dimensions::src/routes/members/me/+page.svelte:124::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (own class size-20), so no CLS from the missing attributes"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/image-dimensions::src/routes/posts/[id]/+page.svelte:95::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: box reserved by CSS (h-full w-full inside an aspect-square attachment tile), so no CLS from the missing attributes"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/image-loading-hint::src/routes/achievements/[id]/+page.svelte:35::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: cover image at the top of the achievement article — above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/image-loading-hint::src/routes/achievements/[id]/edit/+page.svelte:80::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: current-cover preview, third field of the edit form right under the page header (edit/+page.svelte:40-80) — in the first viewport on desktop, where the docs keep the image eager"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/image-loading-hint::src/routes/members/me/+page.svelte:124::Missing <img> loading attribute",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: current-avatar preview after the name, position, year and tracks fields of the profile form (members/me/+page.svelte:37-124) — below the fold on load"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/lcp-image::src/routes/achievements/+page.svelte:56::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> of the route (layout has none): cover of the first card in the achievements grid directly under the page header (achievements/+page.svelte:8-56) — in view on load, yet marked loading=\"lazy\""
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/lcp-image::src/routes/posts/[id]/+page.svelte:95::First image (likely LCP) is loading=\"lazy\"",
+    "verdict": "design",
+    "basis": "script-verified: <img> has literal loading=\"lazy\"; read: first <img> in the route source, but it is an attachment thumbnail in the attachments grid after the header and the full rendered post body (posts/[id]/+page.svelte:50-95) — not the LCP candidate; lazy is right there"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/responsive-image::src/routes/achievements/+page.svelte:56::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: PocketBase file URL (fileUrl, raster upload) — raster, one fixed-size asset (PocketBase can serve ?thumb= sizes)"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/responsive-image::src/routes/achievements/[id]/+page.svelte:35::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.coverUrl is a PocketBase file URL (fileUrl, raster upload) — raster, one fixed-size asset"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/responsive-image::src/routes/achievements/[id]/edit/+page.svelte:80::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.coverUrl is a PocketBase file URL (fileUrl, raster upload) — raster, one fixed-size asset"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/responsive-image::src/routes/members/me/+page.svelte:124::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: data.avatarUrl is a PocketBase file URL (fileUrl, raster upload) — raster, one fixed-size asset"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/responsive-image::src/routes/posts/[id]/+page.svelte:95::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not a literal .svg/data-svg/.svg import; read: att.url attachment file URL — raster upload, one fixed-size asset"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::performance/state-raw::src/lib/components/AttachmentUploader.svelte:22::\"selectedNames\" is an object/array $state that is only ever reassigned, never mutated — $state.raw skips the deep-proxy overhead (reassignment stays reactive).",
+    "verdict": "tp",
+    "basis": "script-listed every reference to \"selectedNames\" in src/lib/components/AttachmentUploader.svelte: only whole-binding reassignments and read-only template/expression uses (:27 reassign; {#each} at :106 reads fname); no member writes, mutating method calls, bind:, call-arg/prop escapes or aliasing — $state.raw fits"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::security/raw-html::src/lib/components/MarkdownView.svelte:11::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read MarkdownView.svelte:11 and all four callers: html is always renderMarkdown()/DOMPurify output (lib/markdown.ts:12-20, isomorphic-dompurify) — posts/[id], achievements/[id], members/[id] +page.server.ts and MarkdownEditor.svelte:24; sanitized, reported per docs"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::security/server-module-state::src/routes/og/+server.ts:21::module-scope variable \"fontsPromise\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read og/+server.ts:11-29: fontsPromise lazily memoizes fetching two static font files (FONT_PATHS constants), reset to null on failure (:25) so the next request retries — process-wide cache of static assets, no request/user data; docs name a deliberate process-wide cache as a suppress case"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::security/server-module-state::src/routes/og/+server.ts:25::module-scope variable \"fontsPromise\" is reassigned from a function — if it runs during a request, the value is shared across all requests on the server",
+    "verdict": "design",
+    "basis": "read og/+server.ts:11-29: fontsPromise lazily memoizes fetching two static font files (FONT_PATHS constants), reset to null on failure (:25) so the next request retries — process-wide cache of static assets, no request/user data; docs name a deliberate process-wide cache as a suppress case"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/account/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 13 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon) but not a search target (auth-gated: account/+page.server.ts load calls requireUser (lib/auth.ts:9-11 throws redirect(303, /login) without locals.user)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/achievements/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon) but not a search target (auth-gated: achievements/[id]/edit/+page.server.ts load calls requireStaff (lib/auth.ts:24-26: requireUser redirects guests to /login, non-staff get 403)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/achievements/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon) but not a search target (auth-gated: achievements/new/+page.server.ts load calls requireStaff (lib/auth.ts:24-26: requireUser redirects guests to /login, non-staff get 403)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/demo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon; publicly reachable, no load gate or noindex"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/demo/paraglide/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon; publicly reachable, no load gate or noindex"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/forgot-password/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon; publicly reachable, no load gate or noindex"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/members/me/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon) but not a search target (auth-gated: members/me/+page.server.ts load calls requireUser (lib/auth.ts:9-11 throws redirect(303, /login) without locals.user)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/posts/[id]/edit/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon) but not a search target (auth-gated: posts/[id]/edit/+page.server.ts load calls requireUser (lib/auth.ts:9-11 throws redirect(303, /login) without locals.user)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/posts/new/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon) but not a search target (auth-gated: posts/new/+page.server.ts load calls requireUser (lib/auth.ts:9-11 throws redirect(303, /login) without locals.user)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/canonical-url::src/routes/reset-password/[token]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no <link rel=\"canonical\"> in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon; publicly reachable, no load gate or noindex"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/account/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: page head only a literal <title>, root layout favicon only, app.html none (literal claim holds); auth-gated: account/+page.server.ts load requireUser() redirects to /login without a session"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/achievements/[id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: page head only a <title> (MarkdownEditor name=\"description\" is a form field), app.html none (literal claim holds); staff-only: load requireStaff() redirects/403s"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/achievements/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: page head only a literal <title> (MarkdownEditor name=\"description\" is a form field), app.html none (literal claim holds); staff-only: load requireStaff() redirects/403s"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/demo/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (literal claim holds); leftover sv-create scaffold demo page, not a page for search"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/demo/paraglide/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> on the route (literal claim holds); leftover sv-create paraglide demo page, not a page for search"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/forgot-password/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: forgot-password/+page.svelte head only a literal <title>, no SiteMeta, root layout favicon only, app.html none; publicly reachable (no load gate), robots.txt allows all"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/members/me/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: page head only a literal <title>, no SiteMeta, app.html none (literal claim holds); auth-gated: members/me/+page.server.ts load requireUser() redirects to /login"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/posts/[id]/edit/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: page head only a literal <title>, app.html none (literal claim holds); auth-gated: posts/[id]/edit/+page.server.ts requireUser() + 403 for non-authors"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/posts/new/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: page head only a literal <title>, app.html none (literal claim holds); auth-gated: posts/new/+page.server.ts:9 requireUser() redirects to /login"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/description-presence::src/routes/reset-password/[token]/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "tp",
+    "basis": "read: reset-password/[token]/+page.svelte head only a literal <title>, root layout favicon only, app.html none; publicly reachable (no load, only a form action)"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/account/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/achievements/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/achievements/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/achievements/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/achievements/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/demo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/demo/paraglide/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/forgot-password/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/login/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/members/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/members/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/members/me/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/posts/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/posts/[id]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/posts/[id]/edit/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/posts/new/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/json-ld::src/routes/reset-password/[token]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org anywhere in web/src or app.html; SiteMeta renders svelte-meta-tags MetaTags only (no JsonLd component); route has no JSON-LD"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/account/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 13 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/achievements/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/achievements/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/demo/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/members/me/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/posts/[id]/edit/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/posts/new/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-description::src/routes/reset-password/[token]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:description in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/account/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 13 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/achievements/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/achievements/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/demo/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/members/me/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/posts/[id]/edit/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/posts/new/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-image::src/routes/reset-password/[token]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:image in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/account/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 13 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/achievements/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/achievements/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/demo/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/members/me/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/posts/[id]/edit/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/posts/new/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-title::src/routes/reset-password/[token]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:title in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/account/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 13 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/achievements/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/achievements/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/demo/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/demo/paraglide/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/forgot-password/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/members/me/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/posts/[id]/edit/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/posts/new/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/og-url::src/routes/reset-password/[token]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no og:url in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/single-h1::/demo::Missing <h#>",
+    "verdict": "tp",
+    "basis": "demo/+page.svelte is a scaffold page with a single <a> to /demo/paraglide; root layout renders only children; no <h1>"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/single-h1::/forgot-password::Missing <h#>",
+    "verdict": "tp",
+    "basis": "forgot-password/+page.svelte wraps a shadcn Card in AuthShell (no heading); Card.Title renders a <div data-slot=\"card-title\"> (ui/card/card-title.svelte); no <h1> in page, AuthShell or root layout"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/single-h1::/login::Missing <h#>",
+    "verdict": "tp",
+    "basis": "login/+page.svelte wraps a shadcn Card in AuthShell (no heading); Card.Title renders a <div data-slot=\"card-title\"> (ui/card/card-title.svelte); no <h1> in page, AuthShell or root layout"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/single-h1::/reset-password/[token]::Missing <h#>",
+    "verdict": "tp",
+    "basis": "reset-password/[token]/+page.svelte wraps a shadcn Card in AuthShell (no heading); Card.Title renders a <div data-slot=\"card-title\"> (ui/card/card-title.svelte); no <h1> in page, AuthShell or root layout"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: no sitemap.xml in static/ (robots.txt has no Sitemap: line), no sitemap route or generator repo-wide; public club landing site with public posts/achievements/members pages"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/title-length::src/routes/account/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> · KAIROS\" <title> in the page's own unconditional svelte:head (e.g. account \"계정 · KAIROS\" 11), the route's only title (no SiteMeta on these pages); length as reported"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/title-length::src/routes/achievements/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> · KAIROS\" <title> in the page's own unconditional svelte:head (e.g. account \"계정 · KAIROS\" 11), the route's only title (no SiteMeta on these pages); length as reported"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/title-length::src/routes/forgot-password/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> · KAIROS\" <title> in the page's own unconditional svelte:head (e.g. account \"계정 · KAIROS\" 11), the route's only title (no SiteMeta on these pages); length as reported"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/title-length::src/routes/members/me/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> · KAIROS\" <title> in the page's own unconditional svelte:head (e.g. account \"계정 · KAIROS\" 11), the route's only title (no SiteMeta on these pages); length as reported"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/title-length::src/routes/posts/new/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> · KAIROS\" <title> in the page's own unconditional svelte:head (e.g. account \"계정 · KAIROS\" 11), the route's only title (no SiteMeta on these pages); length as reported"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/title-length::src/routes/reset-password/[token]/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "read: literal \"<X> · KAIROS\" <title> in the page's own unconditional svelte:head (e.g. account \"계정 · KAIROS\" 11), the route's only title (no SiteMeta on these pages); length as reported"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/title-presence::src/routes/demo/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: demo/+page.svelte is the leftover sv-create scaffold link page (only <a href=/demo/paraglide>), no svelte:head, root +layout.svelte head only a favicon link, no SiteMeta/MetaTags, app.html none, no document.title; publicly reachable (no load, robots.txt allows all, no noindex), served untitled"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/title-presence::src/routes/demo/paraglide/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "read: demo/paraglide/+page.svelte is the leftover sv-create paraglide demo (\"Hello SvelteKit User\"), no svelte:head, root layout head favicon only, no SiteMeta, app.html none, no document.title; publicly reachable (robots.txt allows all, no noindex), served untitled"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/account/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 13 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/achievements/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/achievements/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 19 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/demo/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/demo/paraglide/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 5 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/forgot-password/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/members/me/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/posts/[id]/edit/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/posts/new/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 20 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  },
+  {
+    "key": "jjh4450/KAIROS-Landing-Page:web::seo/twitter-card::src/routes/reset-password/[token]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1-reach.mjs, comments stripped): no twitter:card in page + 1 layout(s) + 7 transitively imported local/workspace files incl. app.html/hooks; the only emitter is lib/components/SiteMeta.svelte (svelte-meta-tags 4.7.0 MetaTags), rendered only by /, /login, /posts, /posts/[id], /achievements, /achievements/[id], /members, /members/[id]; this page renders only a <title>; root +layout.svelte:24 head has only the favicon"
+  }
+]

@@ -1,0 +1,227 @@
+[
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::a11y/top-level-landmark::src/routes/+page.svelte:128::complementary landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read +page.svelte:128: <aside id=status aria-labelledby=\"status-title\"> (named by <h2 id=status-title> at :138, so complementary even inside <section class=hero>) rendered in the root layout's <main id=main-content> (+layout.svelte:289-291); complementary nested inside main"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/component-size::src/lib/components/ContributeMenu.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/ContributeMenu.svelte has 227 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/component-size::src/lib/components/HoursBand.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/HoursBand.svelte has 360 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/component-size::src/lib/components/NotesAndGoals.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/NotesAndGoals.svelte has 213 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/component-size::src/lib/components/RsvpDialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/RsvpDialog.svelte has 502 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/component-size::src/lib/components/SubscribeCapture.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/SubscribeCapture.svelte has 547 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/component-size::src/lib/components/WiperScene.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/WiperScene.svelte has 399 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/component-size::src/routes/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+layout.svelte has 367 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 403 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::architecture/prop-count::src/lib/components/SEOHead.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/SEOHead.svelte has a single destructured $props() with 11 named props (> 6): title, description, keywords, image, imageAlt, noindex, canonical, ogType, siteName, origin, jsonLd"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/lib/components/HoursBand.svelte:316::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/HoursBand.svelte:316 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/lib/components/NotFound.svelte:30::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/NotFound.svelte:30 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/+layout.svelte:259::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+layout.svelte:259 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/+page.svelte:123::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:123 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/+page.svelte:124::<a href=\"/log\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/log') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:124 <a href=\"/log\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/+page.svelte:284::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:284 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/+page.svelte:305::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:305 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/+page.svelte:375::<a href=\"/log\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/log') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:375 <a href=\"/log\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/+page.svelte:386::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:386 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/+page.svelte:389::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/+page.svelte:389 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/contact/+page.svelte:22::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/contact/+page.svelte:22 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/join/+page.svelte:25::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/join/+page.svelte:25 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/join/+page.svelte:66::<a href=\"/legal\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/legal') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/join/+page.svelte:66 <a href=\"/legal\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/join/+page.svelte:75::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/join/+page.svelte:75 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/legal/+page.svelte:29::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/legal/+page.svelte:29 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/legal/+page.svelte:52::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/legal/+page.svelte:52 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/legal/+page.svelte:53::<a href=\"/privacy\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/privacy') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/legal/+page.svelte:53 <a href=\"/privacy\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/log/+page.svelte:27::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/log/+page.svelte:27 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/log/+page.svelte:53::<a href=\"/log/page/#\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/log/page/#') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/log/+page.svelte:53 <a href=\"/log/page/2\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/log/[slug]/+page.svelte:20::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/log/[slug]/+page.svelte:20 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/log/[slug]/+page.svelte:21::<a href=\"/log\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/log') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/log/[slug]/+page.svelte:21 <a href=\"/log\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/log/page/[n]/+page.svelte:19::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/log/page/[n]/+page.svelte:19 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/log/page/[n]/+page.svelte:20::<a href=\"/log\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/log') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/log/page/[n]/+page.svelte:20 <a href=\"/log\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/privacy/+page.svelte:17::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:17 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/privacy/+page.svelte:40::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:40 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/privacy/+page.svelte:66::<a href=\"/refund-policy\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/refund-policy') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/privacy/+page.svelte:66 <a href=\"/refund-policy\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/refund-policy/+page.svelte:28::<a href=\"/\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/refund-policy/+page.svelte:28 <a href=\"/\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/base-path-navigation::src/routes/refund-policy/+page.svelte:93::<a href=\"/contact\"> is root-relative — under this project's kit.paths.base it points at the domain root, outside the app, and #s in production. Use resolve('/contact') from '$app/paths'.",
+    "verdict": "design",
+    "basis": "read: src/routes/refund-policy/+page.svelte:93 <a href=\"/contact\">; svelte.config.js:64 sets kit.paths.base = process.env.BASE_PATH ?? '' (computed, so the documented gate opens) and the line holds a root-relative literal, but the site is deployed at the apex with BASE_PATH unset (svelte.config.js:63 comment 'mounted at the apex', README.md:58 'Leave it unset for the apex site', flake.nix:210-213); no sub-path deploy exists, so not a demonstrated 404 (ledger convention for env-computed bases whose deploy is empty)"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/prop-mutation::src/lib/components/WiperScene.svelte:139::Prop \"engine\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: WiperScene.svelte:139 engine.tier = 'none'; engine is a WiperEngine class instance whose tier is a $state field (lib/wiper/engine.svelte.ts:44,47), passed from NotesAndGoals.svelte:154; reactive by design, the docs' class-instance limitation"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/prop-mutation::src/lib/components/WiperScene.svelte:162::Prop \"engine\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: WiperScene.svelte:162 engine.tier = 'none' on a WiperEngine class instance ($state field tier, engine.svelte.ts:47); the docs' class-instance limitation"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::correctness/prop-mutation::src/lib/components/WiperScene.svelte:334::Prop \"engine\" is mutated, but it is not declared $bindable",
+    "verdict": "design",
+    "basis": "read: WiperScene.svelte:334 engine.tier = renderer.tier on a WiperEngine class instance ($state field tier, engine.svelte.ts:47); the docs' class-instance limitation"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::performance/image-dimensions::src/routes/+page.svelte:179::Missing <img> width/height",
+    "verdict": "design",
+    "basis": "script-verified: <img> lacks width and/or height, no spread; read: .goal-media img width:100% + aspect-ratio 3/2 (max-height 16rem; app.css:1937-1944), overridable inline by image_aspect - box reserved by CSS, so no CLS"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::performance/image-loading-hint::src/routes/contact/+page.svelte:58::Missing <img> loading attribute",
+    "verdict": "design",
+    "basis": "script-verified: <img> has no loading attribute, no spread; read: 11rem committed SVG QR in the .qr-card, the second column of the .contact-card grid beside the Contact h1 and copy on wider viewports (app.css:2668-2671) - above the fold, where the docs keep the image eager"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::performance/responsive-image::src/routes/+page.svelte:179::Missing <img> srcset",
+    "verdict": "tp",
+    "basis": "script-verified: <img> has no srcset, no spread, src not .svg, not in <picture>; read: goal.metadata.image is a single /photos/goals/*-1280.webp (src/content/goals/*.md; only the 1280 variant exists in static/photos) shown at column width - raster, one fixed-size asset"
+  },
+  {
+    "key": "Great-Falls-Tool-Bus/gftb-site::security/raw-html::src/lib/components/SEOHead.svelte:113::{@html} renders unescaped HTML — ensure it is sanitized",
+    "verdict": "design",
+    "basis": "read src/lib/components/SEOHead.svelte:66-71,113: JSON-LD built as JSON.stringify(jsonLd).replace(/</g,'\\\\u003c') — script-safe serialization per docs"
+  }
+]

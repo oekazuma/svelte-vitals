@@ -1,0 +1,937 @@
+[
+  {
+    "key": "mia-cx/maal::a11y/duplicate-landmark::src/lib/components/ui/sidebar/sidebar-inset.svelte:13::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/+layout.svelte:129-174 renders, for a session (showDashboardShell = Boolean(data.session) :43; these pages' loads require one: requireFeatureFlag(locals.session) / requireLoadedHousehold), <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) holding a literal <main> (:163) around {@render children()}; /groceries, /household and /pantry each add a page <main>, so three main landmarks"
+  },
+  {
+    "key": "mia-cx/maal::a11y/duplicate-landmark::src/routes/(app)/groceries/+page.svelte:16::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/groceries/+page.svelte:16 is an unconditional page <main> rendered inside (app)/+layout.svelte:129-174 renders, for a session (showDashboardShell = Boolean(data.session) :43; these pages' loads require one: requireFeatureFlag(locals.session) / requireLoadedHousehold), <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) holding a literal <main> (:163) around {@render children()}; three main landmarks, nested"
+  },
+  {
+    "key": "mia-cx/maal::a11y/duplicate-landmark::src/routes/(app)/household/+page.svelte:377::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/household/+page.svelte:377 is an unconditional page <main> rendered inside (app)/+layout.svelte:129-174 renders, for a session (showDashboardShell = Boolean(data.session) :43; these pages' loads require one: requireFeatureFlag(locals.session) / requireLoadedHousehold), <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) holding a literal <main> (:163) around {@render children()}; three main landmarks, nested"
+  },
+  {
+    "key": "mia-cx/maal::a11y/duplicate-landmark::src/routes/(app)/pantry/+page.svelte:16::Duplicate main landmark (# of #)",
+    "verdict": "tp",
+    "basis": "read: (app)/pantry/+page.svelte:16 is an unconditional page <main> rendered inside (app)/+layout.svelte:129-174 renders, for a session (showDashboardShell = Boolean(data.session) :43; these pages' loads require one: requireFeatureFlag(locals.session) / requireLoadedHousehold), <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) holding a literal <main> (:163) around {@render children()}; three main landmarks, nested"
+  },
+  {
+    "key": "mia-cx/maal::a11y/interactive-nesting::src/lib/components/dashboard/month-day-cell.svelte:150::<button> is nested inside interactive <div role=\"button\">",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/ctx.mjs): literal <button> at month-day-cell.svelte:150 has the literal interactive container <div role=\"button\"> as an ancestor in the same template, no component boundary between"
+  },
+  {
+    "key": "mia-cx/maal::a11y/permitted-contents::src/lib/components/menu/recipe-identity-fields.svelte:53::`<div>` is not permitted content here — `<label>`'s content model is phrasing content",
+    "verdict": "tp",
+    "basis": "script-verified (svelte/compiler AST, E14w/pc.mjs): literal <div> at recipe-identity-fields.svelte:53 has literal <label>@51 as nearest element ancestor in the same template (only {#if}/{#each} between, no component/snippet/{@render} boundary, not in svg); <div> is not phrasing content"
+  },
+  {
+    "key": "mia-cx/maal::a11y/top-level-landmark::src/routes/(app)/groceries/+page.svelte:16::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/groceries/+page.svelte:16 is an unconditional page <main> rendered inside (app)/+layout.svelte:129-174 renders, for a session (showDashboardShell = Boolean(data.session) :43; these pages' loads require one: requireFeatureFlag(locals.session) / requireLoadedHousehold), <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) holding a literal <main> (:163) around {@render children()}; three main landmarks, nested"
+  },
+  {
+    "key": "mia-cx/maal::a11y/top-level-landmark::src/routes/(app)/household/+page.svelte:377::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/household/+page.svelte:377 is an unconditional page <main> rendered inside (app)/+layout.svelte:129-174 renders, for a session (showDashboardShell = Boolean(data.session) :43; these pages' loads require one: requireFeatureFlag(locals.session) / requireLoadedHousehold), <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) holding a literal <main> (:163) around {@render children()}; three main landmarks, nested"
+  },
+  {
+    "key": "mia-cx/maal::a11y/top-level-landmark::src/routes/(app)/pantry/+page.svelte:16::main landmark is nested inside main",
+    "verdict": "tp",
+    "basis": "read: (app)/pantry/+page.svelte:16 is an unconditional page <main> rendered inside (app)/+layout.svelte:129-174 renders, for a session (showDashboardShell = Boolean(data.session) :43; these pages' loads require one: requireFeatureFlag(locals.session) / requireLoadedHousehold), <Sidebar.Inset> (sidebar-inset.svelte:13 <main>) holding a literal <main> (:163) around {@render children()}; three main landmarks, nested"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/dashboard/add-meal-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/add-meal-dialog.svelte has 292 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/dashboard/continuous-schedule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/continuous-schedule.svelte has 267 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/dashboard/meal-plan-card.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/meal-plan-card.svelte has 537 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/dashboard/meal-preview-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/meal-preview-dialog.svelte has 590 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/dashboard/month-schedule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/month-schedule.svelte has 751 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/dashboard/multi-day-schedule.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/multi-day-schedule.svelte has 803 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/dashboard/schedule-dashboard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/dashboard/schedule-dashboard.svelte has 573 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/marketing/sticky-header.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/marketing/sticky-header.svelte has 273 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/menu/my-menu-dashboard.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/my-menu-dashboard.svelte has 580 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/menu/recipe-edit-sheet.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/menu/recipe-edit-sheet.svelte has 552 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/lib/components/user-settings-dialog.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/lib/components/user-settings-dialog.svelte has 789 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/routes/(app)/+layout.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/+layout.svelte has 237 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/routes/(app)/household/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/(app)/household/+page.svelte has 1069 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/component-size::src/routes/+page.svelte:1::Component is # lines (over #)",
+    "verdict": "tp",
+    "basis": "script-verified: src/routes/+page.svelte has 322 physical lines (split on \\n, trailing newline not counted; > 200), matches reported count"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/add-meal-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/add-meal-dialog.svelte has a single destructured $props() with 9 named props (> 6): open, date, recipes, showExistingRecipes, busy, error, onexisting, onnewrecipe, onurl"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/continuous-schedule.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/continuous-schedule.svelte has a single destructured $props() with 16 named props (> 6): mealPool, plannedMeals, startDate, showMealPoolImages, todaySignal, dayNavigationSignal, dailyScroll, draggingMealId, draggedMeal, dropTarget, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/daily-schedule-day.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/daily-schedule-day.svelte has a single destructured $props() with 10 named props (> 6): day, meals, mealPoolOffset, draggingMealId, draggedMeal, dropTarget, onaddmeal, onpick, onselect, oncheckin"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/meal-plan-card.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/meal-plan-card.svelte has a single destructured $props() with 11 named props (> 6): meal, density, hidden, showImage, imageLayout, imageAspect, dragStartThreshold, onpick, onselect, oncheckin, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/meal-pool.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/meal-pool.svelte has a single destructured $props() with 10 named props (> 6): meals, density, showImages, cardClass, draggingMealId, draggedMeal, dropTarget, onaddmeal, onpick, onselect"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/month-day-cell.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/month-day-cell.svelte has a single destructured $props() with 11 named props (> 6): day, index, anchorDate, meals, draggingMealId, draggedMeal, dropTarget, onaddmeal, onpick, onselect, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/month-schedule.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/month-schedule.svelte has a single destructured $props() with 15 named props (> 6): mealPool, plannedMeals, showMealPoolImages, anchorDate, weekStartsOn, draggingMealId, draggedMeal, dropTarget, onaddmeal, onpick, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/multi-day-column.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/multi-day-column.svelte has a single destructured $props() with 11 named props (> 6): day, index, meals, draggingScroller, draggingMealId, draggedMeal, dropTarget, onaddmeal, onpick, onselect, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/multi-day-schedule.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/multi-day-schedule.svelte has a single destructured $props() with 16 named props (> 6): mealPool, plannedMeals, showMealPoolImages, anchorDate, weekStartsOn, dayNavigationSignal, draggingMealId, draggedMeal, dropTarget, onaddmeal, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/planned-meal.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/planned-meal.svelte has a single destructured $props() with 10 named props (> 6): meal, compact, density, hidden, showImage, imageLayout, onpick, onselect, oncheckin, class"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/schedule-dashboard.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/schedule-dashboard.svelte has a single destructured $props() with 8 named props (> 6): meals, recipes, defaultMealServings, weekStartsOn, initialMealRange, currentUserId, householdMembers, unitPreferences"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/schedule-header.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/schedule-header.svelte has a single destructured $props() with 7 named props (> 6): mode, showDateControls, showStepControls, onmodechange, onprevious, onnext, ontoday"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/schedule-meal-pool-bar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/schedule-meal-pool-bar.svelte has a single destructured $props() with 9 named props (> 6): draggingMealId, draggedMeal, dropTarget, onaddmeal, onpick, onselect, meals, density, showImages"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/schedule-meal-pool.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/schedule-meal-pool.svelte has a single destructured $props() with 9 named props (> 6): draggingMealId, draggedMeal, dropTarget, onaddmeal, onpick, onselect, meals, density, showImages"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/dashboard/scheduled-meal-list.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/dashboard/scheduled-meal-list.svelte has a single destructured $props() with 15 named props (> 6): meals, previewIndex, draggingMealId, draggedMeal, density, compact, showEmpty, showImages, imageLayout, cardClass, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/delete-confirm-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/delete-confirm-dialog.svelte has a single destructured $props() with 13 named props (> 6): open, title, description, confirmLabel, confirmingLabel, cancelLabel, busy, error, formAction, formMethod, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/menu/recipe-identity-fields.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/menu/recipe-identity-fields.svelte has a single destructured $props() with 17 named props (> 6): title, sourceUrl, sourceSiteName, sourceAuthorName, sourcePublisherName, sourceIsBasedOnUrl, description, image, prepTimeMinutes, cookTimeMinutes, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/menu/recipe-instructions-editor.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/menu/recipe-instructions-editor.svelte has a single destructured $props() with 15 named props (> 6): instructionListElement, visibleInstructions, sortedInstructionCount, draggedInstruction, instructionDropIndex, instructionPositionDrafts, textareaClass, startInstructionDrag, swapInstructionPosition, updateInstructionPositionDraft, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/settings/account-settings-section.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/account-settings-section.svelte has a single destructured $props() with 16 named props (> 6): accountName, accountEmail, emailVerificationCode, verificationEmail, normalizedAccountEmail, accountEmailChanged, accountEmailVerified, emailVerificationRequired, emailVerificationBusy, emailVerificationChecking, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/settings/mcp-household-access-picker.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/mcp-household-access-picker.svelte has a single destructured $props() with 7 named props (> 6): mcpKeyHouseholdKind, mcpHouseholdPickerOpen, mcpHouseholdQuery, mcpHouseholdPickerLabel, filteredMcpHouseholds, mcpKeyHouseholdIds, toggleMcpHousehold"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/settings/mcp-key-form.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/mcp-key-form.svelte has a single destructured $props() with 15 named props (> 6): mcpKeyLabel, mcpKeyHouseholdKind, mcpHouseholdPickerOpen, mcpHouseholdQuery, mcpKeyCreating, selectedMcpScopes, mcpKeyHouseholdIds, mcpScopeLevels, mcpHouseholdPickerLabel, filteredMcpHouseholds, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/settings/mcp-key-list.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/mcp-key-list.svelte has a single destructured $props() with 8 named props (> 6): mcpKeys, mcpKeysBusy, rerollingMcpKeyId, revokingMcpKeyId, loadMcpKeys, rerollMcpAccessKey, confirmRevokeMcpKey, openCreateForm"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/settings/mcp-settings-section.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/mcp-settings-section.svelte has a single destructured $props() with 27 named props (> 6): mcpServerUrl, mcpKeys, mcpKeysBusy, rerollingMcpKeyId, revokingMcpKeyId, createdMcpKey, mcpKeyFormOpen, mcpKeyLabel, mcpKeyHouseholdKind, mcpHouseholdPickerOpen, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/settings/password-change-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/password-change-dialog.svelte has a single destructured $props() with 8 named props (> 6): open, currentPassword, newPassword, confirmPassword, passwordMessage, passwordError, passwordChangeBusy, changePassword"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/settings/security-settings-section.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/settings/security-settings-section.svelte has a single destructured $props() with 9 named props (> 6): mfaSetupBusy, mfaFactorsBusy, mfaFactors, deletingMfaFactorId, securityMessage, securityError, openPasswordChange, startMfaSetup, confirmDeleteMfaFactor"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/button/button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/button/button.svelte has a single destructured $props() with 8 named props (> 6) beside a ...rest element: class, variant, size, ref, href, type, disabled, children"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/calendar/calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/calendar/calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/calendar/calendar.svelte has a single destructured $props() with 14 named props (> 6) beside a ...rest element: ref, value, placeholder, class, weekdayFormat, buttonVariant, captionLayout, locale, months, years, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/carousel/carousel.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/carousel/carousel.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: ref, opts, plugins, setApi, orientation, class, children"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/chart/chart-tooltip.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/chart/chart-tooltip.svelte has a single destructured $props() with 12 named props (> 6) beside a ...rest element: ref, class, hideLabel, indicator, hideIndicator, labelKey, label, labelFormatter, labelClassName, formatter, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/command/command-dialog.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/command/command-dialog.svelte has a single destructured $props() with 9 named props (> 6) beside a ...rest element: open, ref, value, title, description, showCloseButton, portalProps, children, class"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/menubar/menubar-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/menubar/menubar-content.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: ref, class, sideOffset, alignOffset, align, side, portalProps"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar-caption.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar-caption.svelte has a single destructured $props() with 9 named props (> 6): captionLayout, months, monthFormat, years, yearFormat, month, locale, placeholder, monthIndex"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/range-calendar/range-calendar.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/range-calendar/range-calendar.svelte has a single destructured $props() with 14 named props (> 6) beside a ...rest element: ref, value, placeholder, weekdayFormat, class, buttonVariant, captionLayout, locale, months, years, ..."
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/scroll-area/scroll-area.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/scroll-area/scroll-area.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: ref, viewportRef, class, orientation, scrollbarXClasses, scrollbarYClasses, children"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/search-combobox.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/search-combobox.svelte has a single destructured $props() with 10 named props (> 6): value, name, options, disabled, placeholder, searchPlaceholder, emptyText, allowCustom, customOptionLabel, class"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/sidebar/sidebar-menu-button.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/sidebar/sidebar-menu-button.svelte has a single destructured $props() with 9 named props (> 6) beside a ...rest element: ref, class, children, child, variant, size, isActive, tooltipContent, tooltipContentProps"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/toggle-group/toggle-group.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/toggle-group/toggle-group.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: ref, value, class, size, spacing, orientation, variant"
+  },
+  {
+    "key": "mia-cx/maal::architecture/prop-count::src/lib/components/ui/tooltip/tooltip-content.svelte:1::Component takes # props (over #)",
+    "verdict": "tp",
+    "basis": "script-verified (svelte parse, own walk of instance script): src/lib/components/ui/tooltip/tooltip-content.svelte has a single destructured $props() with 7 named props (> 6) beside a ...rest element: ref, class, sideOffset, side, children, arrowClasses, portalProps"
+  },
+  {
+    "key": "mia-cx/maal::correctness/each-index-key::src/lib/components/marketing/gradient-blur.svelte:47::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/marketing/gradient-blur.svelte:47 '{#each blurValues as blurValue, i (i)}' keyed by its index binding; positional list (blurValues = $derived blur radii of stacked decorative layers): items have no identity beyond position"
+  },
+  {
+    "key": "mia-cx/maal::correctness/each-index-key::src/lib/components/settings/verification-code-input.svelte:22::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/settings/verification-code-input.svelte:22 '{#each cells as cell, index (index)}' keyed by its index binding; positional list (cells of a verification-code input, one slot per digit): items have no identity beyond position"
+  },
+  {
+    "key": "mia-cx/maal::correctness/each-index-key::src/lib/components/ui/calendar/calendar.svelte:85::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/calendar/calendar.svelte:85 '{#each weekdays as weekday, i (i)}' keyed by its index binding; positional list (weekdays header of the shadcn calendar): items have no identity beyond position"
+  },
+  {
+    "key": "mia-cx/maal::correctness/each-index-key::src/lib/components/ui/field/field-error.svelte:50::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "tp",
+    "basis": "read: src/lib/components/ui/field/field-error.svelte:50 '{#each errors ?? [] as error, index (index)}' keyed by its index binding; list source is runtime data (errors prop of the shadcn field-error, runtime validation errors; ledger field-error convention)"
+  },
+  {
+    "key": "mia-cx/maal::correctness/each-index-key::src/lib/components/ui/range-calendar/range-calendar.svelte:82::{#each} is keyed by its index — identity follows position, exactly like an unkeyed block, but the key makes it look safe.",
+    "verdict": "design",
+    "basis": "read: src/lib/components/ui/range-calendar/range-calendar.svelte:82 '{#each weekdays as weekday, i (i)}' keyed by its index binding; positional list (weekdays header of the shadcn range-calendar): items have no identity beyond position"
+  },
+  {
+    "key": "mia-cx/maal::correctness/each-key::src/routes/legal/+page.svelte:24::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/legal/+page.svelte:24 '{#each data.policies as policy}' has no key; static list (data.policies = getPolicyList(), built from the bundled legal policy modules in $lib/legal/policies): fixed at build time"
+  },
+  {
+    "key": "mia-cx/maal::correctness/each-key::src/routes/legal/[policy]/archive/+page.svelte:26::{#each} block has no key",
+    "verdict": "design",
+    "basis": "read: src/routes/legal/[policy]/archive/+page.svelte:26 '{#each data.policy.versions as version}' has no key; static list (data.policy.versions of one bundled legal policy, from import.meta.glob modules in $lib/legal/policies): fixed at build time"
+  },
+  {
+    "key": "mia-cx/maal::performance/sequential-awaits::src/routes/(app)/subscribe/+page.server.ts:36::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/subscribe/+page.server.ts:36: independent D1/Stripe request that names no binding from the preceding non-gate await(s) at :27,30,32 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "mia-cx/maal::performance/sequential-awaits::src/routes/(app)/subscribe/+page.server.ts:47::This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.",
+    "verdict": "tp",
+    "basis": "read src/routes/(app)/subscribe/+page.server.ts:47: independent D1/Stripe request that names no binding from the preceding non-gate await(s) at :27,30,32,36 (script-extracted; read for conditional/closure/side-effect coupling — none; an earlier lookup at most gates the exceptional 404/redirect path) — independent requests serialized; Promise.all would work"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/(app)/groceries/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library) but not a search target (auth-gated: (app)/groceries/+page.server.ts:6 requireFeatureFlag 404s without a session carrying the flag (lib/server/features/guards.ts:5-8)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/(app)/household/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 156 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library) but not a search target (auth-gated: (app)/household/+page.server.ts:79 requireLoadedHousehold redirects !locals.session to /auth/login (lib/server/household/load-context.ts:13)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/(app)/menu/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 188 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library) but not a search target (auth-gated: (app)/menu/+page.server.ts:27 redirects !session to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/(app)/pantry/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library) but not a search target (auth-gated: (app)/pantry/+page.server.ts:6 requireFeatureFlag 404s without a session carrying the flag (lib/server/features/guards.ts:5-8)), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/(app)/plan/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 247 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library) but not a search target (auth-gated: (app)/plan/+page.server.ts:22 redirects !session to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/(app)/subscribe/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library) but not a search target (auth-gated: (app)/subscribe/+page.server.ts:24 redirects !session to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/demo/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/demo/playwright/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/legal/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/legal/[policy]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/legal/[policy]/[version]/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/legal/[policy]/archive/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library; publicly reachable, rendered route, no noindex"
+  },
+  {
+    "key": "mia-cx/maal::seo/canonical-url::src/routes/onboarding/+page.svelte::Missing <link rel=\"canonical\">",
+    "verdict": "design",
+    "basis": "<link rel=\"canonical\"> absent (script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no <link rel=\"canonical\"> in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library) but not a search target (auth-gated: onboarding/+page.server.ts:10 redirects !session to /auth/login), so absence is not demonstrably a defect"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-length::src/routes/legal/+page.svelte::Description is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/legal/+page.svelte top-level svelte:head literal <meta name=\"description\"> (block-depth check: not inside {#if}/{#each}/{#await}) is 49 chars, the route's only description; too short as claimed"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/(app)/groceries/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/(app)/groceries/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); household app route whose load requires a session (redirect to /auth/login or requireFeatureFlag 404), not a search target"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/(app)/household/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/(app)/household/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); household app route whose load requires a session (redirect to /auth/login or requireFeatureFlag 404), not a search target"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/(app)/menu/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/(app)/menu/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); household app route whose load requires a session (redirect to /auth/login or requireFeatureFlag 404), not a search target"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/(app)/pantry/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/(app)/pantry/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); household app route whose load requires a session (redirect to /auth/login or requireFeatureFlag 404), not a search target"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/(app)/plan/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/(app)/plan/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); household app route whose load requires a session (redirect to /auth/login or requireFeatureFlag 404), not a search target"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/(app)/subscribe/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/(app)/subscribe/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); household app route whose load requires a session (redirect to /auth/login or requireFeatureFlag 404), not a search target"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/demo/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/demo/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); leftover sv-create demo page (a bare link to /demo/playwright), not a page for search"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/demo/playwright/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/demo/playwright/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); leftover sv-create demo page (a bare link to /demo/playwright), not a page for search"
+  },
+  {
+    "key": "mia-cx/maal::seo/description-presence::src/routes/onboarding/+page.svelte::Missing <meta name=\"description\">",
+    "verdict": "design",
+    "basis": "read: no <meta name=description> in src/routes/onboarding/+page.svelte, root +layout.svelte (icons/manifest/theme meta only) or app.html; only /, /legal/* set one (literal claim holds); onboarding/+page.server.ts:10 redirects session-less visitors to /auth/login, not a search target"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/(app)/groceries/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /groceries has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/(app)/household/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /household has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/(app)/menu/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /menu has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/(app)/pantry/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /pantry has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/(app)/plan/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /plan has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/(app)/subscribe/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /subscribe has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); / has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/demo/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /demo has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/demo/playwright/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /demo/playwright has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/legal/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /legal has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/legal/[policy]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /legal/[policy] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/legal/[policy]/[version]/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /legal/[policy]/[version] has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/legal/[policy]/archive/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /legal/[policy]/archive has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/json-ld::src/routes/onboarding/+page.svelte::Missing JSON-LD (<script type=\"application/ld+json\">)",
+    "verdict": "tp",
+    "basis": "script-verified (grep): no ld+json/jsonld/schema.org in src or app.html (only hits are i18n message text and spec docs); /onboarding has no JSON-LD (json-ld convention: tp regardless of gating)"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/(app)/groceries/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/(app)/household/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 156 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/(app)/menu/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 188 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/(app)/pantry/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 247 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/(app)/subscribe/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/demo/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/legal/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/legal/[policy]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/legal/[policy]/[version]/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/legal/[policy]/archive/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-description::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:description\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:description in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/(app)/groceries/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/(app)/household/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 156 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/(app)/menu/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 188 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/(app)/pantry/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 247 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/(app)/subscribe/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/demo/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/legal/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/legal/[policy]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/legal/[policy]/[version]/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/legal/[policy]/archive/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-image::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:image\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:image in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/(app)/groceries/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/(app)/household/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 156 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/(app)/menu/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 188 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/(app)/pantry/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 247 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/(app)/subscribe/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/demo/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/legal/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/legal/[policy]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/legal/[policy]/[version]/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/legal/[policy]/archive/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-title::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:title\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:title in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/(app)/groceries/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/(app)/household/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 156 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/(app)/menu/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 188 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/(app)/pantry/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/(app)/plan/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 247 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/(app)/subscribe/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/demo/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/demo/playwright/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/legal/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/legal/[policy]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/legal/[policy]/[version]/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/legal/[policy]/archive/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/og-url::src/routes/onboarding/+page.svelte::Missing <meta property=\"og:url\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no og:url in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/single-h1::/demo::Missing <h#>",
+    "verdict": "tp",
+    "basis": "read: demo/+page.svelte renders only <a href=\"/demo/playwright\">playwright</a> (demo stub page); the root +layout.svelte renders ModeWatcher, {@render children()} and a hidden locale-link list — no heading in the chain -> no <h1> (demo-page convention tp)"
+  },
+  {
+    "key": "mia-cx/maal::seo/single-h1::src/routes/(app)/+layout.svelte:182::Missing <h#>",
+    "verdict": "tp",
+    "basis": "No <h1> on /menu and /plan (both routes of this key agree): root +layout.svelte and (app)/+layout.svelte:182 (<h2> in the subscription-locked overlay) + MyMenuDashboard / ScheduleDashboard; the only local <h1> is ui/dialog/dialog-title.svelte:19, prop-decided by level (default 2) and no use passes level={1}; npm (bits-ui@2.18.1, @lucide/svelte@0.577.0, @solar-icons/svelte, mode-watcher) render no <h1>; script-verified: transitive import walk of the layout chain + page finds no <h1> in any reachable local component; installed run left the route unreported only because the walk reached lucide Icon.svelte's <svelte:element this={tag}> (an <svg> child, never a heading)"
+  },
+  {
+    "key": "mia-cx/maal::seo/sitemap-xml::(site)::Missing sitemap.xml",
+    "verdict": "tp",
+    "basis": "find/grep: static/robots.txt allows all, no sitemap.xml file/route/generator; public product landing (/) plus /legal, /legal/[policy], versions and archives to list (One-Learn convention)"
+  },
+  {
+    "key": "mia-cx/maal::seo/title-length::src/routes/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/+page.svelte has a literal <title> of 29 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "mia-cx/maal::seo/title-length::src/routes/legal/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/legal/+page.svelte has a literal <title> of 12 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "mia-cx/maal::seo/title-length::src/routes/onboarding/+page.svelte::Title is too short (# chars; aim for #–#)",
+    "verdict": "tp",
+    "basis": "script-verified (whitespace-collapsed grapheme count): src/routes/onboarding/+page.svelte has a literal <title> of 23 chars in its top-level svelte:head (block-depth check: not inside {#if}/{#each}/{#await}), the last title on the route (layout heads precede children and set none or only an earlier default; no later child component sets one); too short as claimed"
+  },
+  {
+    "key": "mia-cx/maal::seo/title-presence::src/routes/demo/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (import closure of demo/+page.svelte > +layout.svelte (+1 imported local files); npm svelte deps checked on jsDelivr): src/routes/demo/+page.svelte is the leftover sv-create demo page (only a link / an <h1>), no svelte:head; root +layout.svelte:24-31 head is favicon/manifest/theme meta only, mode-watcher@1.1.0 renders no <title>, app.html none, no document.title (forumgw leftover-demo precedent: tp)"
+  },
+  {
+    "key": "mia-cx/maal::seo/title-presence::src/routes/demo/playwright/+page.svelte::Missing <title>",
+    "verdict": "tp",
+    "basis": "script-verified (import closure of demo/playwright/+page.svelte > +layout.svelte (+1 imported local files); npm svelte deps checked on jsDelivr): src/routes/demo/playwright/+page.svelte is the leftover sv-create demo page (only a link / an <h1>), no svelte:head; root +layout.svelte:24-31 head is favicon/manifest/theme meta only, mode-watcher@1.1.0 renders no <title>, app.html none, no document.title (forumgw leftover-demo precedent: tp)"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/(app)/groceries/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/(app)/household/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 156 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/(app)/menu/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 188 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/(app)/pantry/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 142 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/(app)/plan/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 247 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/(app)/subscribe/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 2 ancestor layout(s), 143 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/demo/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/demo/playwright/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 2 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/legal/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/legal/[policy]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/legal/[policy]/[version]/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 16 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/legal/[policy]/archive/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 13 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  },
+  {
+    "key": "mia-cx/maal::seo/twitter-card::src/routes/onboarding/+page.svelte::Missing <meta name=\"twitter:card\">",
+    "verdict": "tp",
+    "basis": "script-verified (a1b14/reach.mjs, comments stripped; positive control hits SEOHead/layout/app.html): no twitter:card in page, 1 ancestor layout(s), 10 page/layout/transitively imported local files or app.html; no og:*/twitter:*/rel=canonical anywhere in src or app.html (root +layout.svelte:24-31 head is icon/manifest/theme-color), no meta-tag library"
+  }
+]
