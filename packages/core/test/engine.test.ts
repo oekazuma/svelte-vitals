@@ -175,3 +175,15 @@ describe('runRules — a throwing rule is isolated', () => {
     expect(failedRules).toEqual([]);
   });
 });
+
+describe('runRules on a very large site', () => {
+  it('collects a rule returning more results than fit in a call stack', async () => {
+    const finding = (await ruleThatFindsOne('x/many').check(ctx))[0]!;
+    const many: Rule = {
+      ...ruleThatFindsOne('x/many'),
+      check: async () => Array.from({ length: 500_000 }, () => finding)
+    };
+    const { results } = await runRules([many], ctx);
+    expect(results).toHaveLength(500_000);
+  });
+});

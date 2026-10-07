@@ -83,6 +83,8 @@ export interface Project {
    * Absent means the app is served at the root — the rule stays silent.
    */
   kitPathsBase?: { value?: string; file: string };
+  /** `kit.router.type: 'hash'` in `svelte.config.{js,ts}`: SvelteKit then never server-renders or prerenders a page. */
+  kitHashRouter?: true;
   /**
    * The project's compiled SvelteKit alias entries, in Kit's own order (`$lib` first), read from
    * `svelte.config.{js,ts}`. Absent means no config was read — resolution then falls back to

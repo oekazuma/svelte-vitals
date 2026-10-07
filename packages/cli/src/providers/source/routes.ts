@@ -141,6 +141,7 @@ interface RouteFacts {
   images: ResolvedImages;
   headings: ResolvedHeadings;
   a11y: ResolvedA11y;
+  neverRenders?: true;
 }
 
 /** A file's a11y occurrence, re-addressed into the composed route's branch space. */
@@ -396,9 +397,11 @@ async function resolveRoute(
   // Set once a layout renders its children only in arms an imported `false` flag rules out: the rest
   // of the chain renders no body. Its head still counts, as the route is judged on the shell it serves.
   let unreached = false;
+  let throws = false;
   const callers: { rel: string; isPage: boolean; parsed: ParsedFile }[] = [];
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
+    if (parsed.alwaysThrows) throws = true;
     if (parsed.scriptCalls && !unreached) callers.push({ rel, isPage, parsed });
     const flagGates = [...(parsed.a11y.flagGates?.values() ?? []), ...(parsed.headingFlagGates?.values() ?? [])];
     const falses =
@@ -587,6 +590,7 @@ async function resolveRoute(
 
   const route = deriveRoute(pageRel);
   return {
+    ...(throws ? { neverRenders: true } : {}),
     head: { route, source: 'static', tags: [...composed.values(), ...additiveTags], file: pageRel },
     images: { route, images },
     headings: {
@@ -655,6 +659,8 @@ export async function collectRoutes(
   a11y: ResolvedA11y[];
   /** Every `+page`/`+layout` `.svelte` file, for resolving which routes are server-rendered. */
   routeFiles: string[];
+  /** Routes a page or layout script throws on every render of. */
+  neverRenders: string[];
 }> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
   const facts = await Promise.all(
@@ -679,7 +685,8 @@ export async function collectRoutes(
     images: facts.map((f) => f.images),
     headings: facts.map((f) => f.headings),
     a11y: facts.map((f) => f.a11y),
-    routeFiles: [...pages, ...layouts.values()]
+    routeFiles: [...pages, ...layouts.values()],
+    neverRenders: facts.flatMap((f) => (f.neverRenders ? [f.head.route] : []))
   };
 }
 

@@ -40,13 +40,18 @@ describe('svelteVitals options', () => {
     expect(JSON.parse(written)).toHaveProperty('version');
   });
 
-  it("logs the JSON report to the console when report is 'json'", async () => {
+  it("writes the JSON report to stdout when report is 'json'", async () => {
     // Default failOn:'critical' throws after logging; the log fires first.
-    const p = svelteVitals({ cwd, ui: false, report: 'json' }) as Plugin;
-    await closeBundleOf(p)().catch(() => {});
-    expect(logSpy).toHaveBeenCalledTimes(1);
-    const logged = logSpy.mock.calls[0]![0] as string;
-    expect(() => JSON.parse(logged)).not.toThrow();
+    const writeSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);
+    try {
+      const p = svelteVitals({ cwd, ui: false, report: 'json' }) as Plugin;
+      await closeBundleOf(p)().catch(() => {});
+      const logged = writeSpy.mock.calls.map((c) => String(c[0])).join('');
+      expect(() => JSON.parse(logged)).not.toThrow();
+      expect(logSpy).not.toHaveBeenCalled();
+    } finally {
+      writeSpy.mockRestore();
+    }
   });
 
   it('is a no-op (no report, no throw) when the prerendered dir is absent', async () => {

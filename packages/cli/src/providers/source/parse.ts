@@ -352,6 +352,17 @@ function isDocumentTitle(n: Parameters<Parameters<typeof walkEstree>[1]>[0]): bo
   );
 }
 
+/** A top-level `throw`, or a call to Kit's `redirect()`/`error()` (which throw), in the instance script: it throws on every render. */
+function scriptAlwaysThrows(ast: AST.Root, imports: ImportMap): boolean {
+  return (ast.instance?.content.body ?? []).some((stmt) => {
+    if (stmt.type === 'ThrowStatement') return true;
+    const call = stmt.type === 'ExpressionStatement' ? stmt.expression : undefined;
+    if (call?.type !== 'CallExpression' || call.callee.type !== 'Identifier') return false;
+    const imp = imports.get(call.callee.name);
+    return imp?.source === '@sveltejs/kit' && (imp.imported === 'redirect' || imp.imported === 'error');
+  });
+}
+
 /** Imported bindings the component's script calls by name (`syncTitle()`), for `titleSetterCalled`. */
 function importedCalls(ast: AST.Root, imports: ImportMap): string[] {
   const names = new Set<string>();
@@ -2207,6 +2218,8 @@ export interface ParsedFile {
   headingUrlGates?: ReadonlyMap<number, UrlCond>;
   /** Imported bindings the script calls by name, for `titleSetterCalled`. */
   scriptCalls?: string[];
+  /** The instance script throws on every render, so no route through this file renders. */
+  alwaysThrows?: true;
   /** Literal prop defaults, for `decidedArms`. */
   propDefaults: ReadonlyMap<string, PropDefault>;
   a11y: ParsedA11y;
@@ -2273,6 +2286,7 @@ export function parseFile(raw: string, filename: string): ParsedFile {
       ...documentTitle(ast)
     ],
     ...(calls.length > 0 ? { scriptCalls: calls } : {}),
+    ...(scriptAlwaysThrows(ast, imports) ? { alwaysThrows: true } : {}),
     components,
     imports,
     componentBindings: collectComponentBindings(ast),

@@ -284,13 +284,15 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       }
 
       if (options.report !== false) {
-        const out = options.report === 'json' ? result.jsonReport : result.consoleReport;
-        console.log(out);
+        if (options.report === 'json') {
+          for (const chunk of result.jsonReportChunks()) process.stdout.write(chunk);
+          process.stdout.write('\n');
+        } else console.log(result.consoleReport);
       }
       if (options.outFile) {
         const outPath = isAbsolute(options.outFile) ? options.outFile : join(root, options.outFile);
         await mkdir(dirname(outPath), { recursive: true });
-        await writeFile(outPath, result.jsonReport);
+        await writeFile(outPath, result.jsonReportChunks());
       }
       if (result.failed) {
         throw new Error(`svelte-vitals: build failed — findings at or above "${result.failOn}".`);

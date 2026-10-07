@@ -12,7 +12,7 @@ import {
   summarize,
   hasFailureAtOrAbove,
   formatConsoleReport,
-  formatJsonReport,
+  formatJsonReportChunks,
   type KitModuleFacts,
   type Project,
   type SuppressionDirective
@@ -35,7 +35,9 @@ export interface AnalyzeResult {
   summary: Summary;
   results: Result[];
   consoleReport: string;
-  jsonReport: string;
+  /** Built on read; `jsonReportChunks` writes the same text without holding it in one string. */
+  readonly jsonReport: string;
+  jsonReportChunks: () => Iterable<string>;
   routeCount: number;
   failed: boolean;
   failOn: Severity;
@@ -163,7 +165,8 @@ export async function analyze(
     dropConstantListEachBlocks(cwd, componentFacts, project.componentAliases ?? project.kitAliases)
   ]);
   // The shell's `<html lang>` is still app.html's, so htmlLang above keeps reading every file.
-  const isShell = ssrDisabledRouteMatcher(kitModules);
+  const isShell = project.kitHashRouter ? () => true : ssrDisabledRouteMatcher(kitModules);
+  const shellCause = project.kitHashRouter ? 'the hash router' : 'ssr = false';
   const keep = <T extends { route: string }>(items: T[]): T[] => items.filter((i) => !isShell(i.route));
   const heads = keep(rendered.heads);
   const headings = keep(rendered.headings);
@@ -182,7 +185,7 @@ export async function analyze(
         ? `${shown.join(', ')}, … and ${shells.length - shown.length} more`
         : shown.join(', ');
     warnings.push(
-      `skipped ${shells.length} prerendered route(s) with ssr = false — their HTML is the app shell, not the page; ` +
+      `skipped ${shells.length} prerendered route(s) with ${shellCause} — their HTML is the app shell, not the page; ` +
         `run \`npx svelte-vitals\` to check them from source: ${list}`
     );
   }
@@ -224,25 +227,29 @@ export async function analyze(
   const failed = hasFailureAtOrAbove(summary, scoringConfig.failOn);
 
   const coverageNote =
-    `Analyzed ${heads.length} prerendered route(s)${shells.length > 0 ? ` (skipped ${shells.length} with ssr = false)` : ''}. ` +
+    `Analyzed ${heads.length} prerendered route(s)${shells.length > 0 ? ` (skipped ${shells.length} with ${shellCause})` : ''}. ` +
     'SSR/dynamic routes are not covered — run `npx svelte-vitals` for those.\n' +
     `Scanned ${components.length} component(s) under src/ for Correctness/Security/Architecture/Accessibility/Bundle findings.`;
   const consoleReport =
     formatConsoleReport(results, scoringConfig, { mode: 'rendered / plugin' }) + '\n' + coverageNote + '\n';
-  const jsonReport = formatJsonReport(
-    results,
-    scoringConfig,
-    { version: readPackageVersion() },
-    selected.map((r) => r.id),
-    examined
-  );
+  const jsonReportChunks = () =>
+    formatJsonReportChunks(
+      results,
+      scoringConfig,
+      { version: readPackageVersion() },
+      selected.map((r) => r.id),
+      examined
+    );
 
   return {
     score,
     summary,
     results,
     consoleReport,
-    jsonReport,
+    get jsonReport() {
+      return [...jsonReportChunks()].join('');
+    },
+    jsonReportChunks,
     // Prerendered files found, shells included: plugin.ts warns on 0 that route analysis was skipped,
     // which an all-shell SPA (whose pages were read, then skipped) must not trigger.
     routeCount: rendered.heads.length,

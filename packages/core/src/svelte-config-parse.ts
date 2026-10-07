@@ -354,6 +354,20 @@ export function findKitPathsBaseInSvelteConfig(source: string): { value?: string
   return kitObj ? basePathOf(kitObj, bindings, constBindings(program, bindings)) : undefined;
 }
 
+/** Whether `kit.router.type` is the literal `'hash'`. */
+export function findKitHashRouterInSvelteConfig(source: string): boolean {
+  const program = programOf(source, 'svelte.config.js');
+  const config = program && resolveConfigObject(program);
+  if (!program || !config) return false;
+  const bindings = collectTopLevelBindings(program);
+  const objectAt = (obj: ObjectExpression | undefined, key: string) => {
+    const p = obj && propOf(obj, key);
+    return p ? unwrapToObjectExpression(p.value as Expression, bindings) : undefined;
+  };
+  const router = objectAt(objectAt(config, 'kit'), 'router');
+  return stringLiteralOf(router && (propOf(router, 'type')?.value as Expression)) === 'hash';
+}
+
 /**
  * Local names bound to `sveltekit` imported from '@sveltejs/kit/vite'. When no such import is
  * found (an unusual or unparsed import form), the bare name `sveltekit` is assumed — the call

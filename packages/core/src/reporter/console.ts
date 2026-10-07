@@ -186,7 +186,7 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
     lines.push('');
   }
 
-  if (options.byRoute) lines.push(...byRouteTree(p, results, config, options.verbose ?? false));
+  if (options.byRoute) for (const line of byRouteTree(p, results, config, options.verbose ?? false)) lines.push(line);
   // The ↯ marker itself only ever prints in the verbose Passed listing above — showing
   // this footnote in compact mode would explain a symbol the user can't see anywhere.
   if (options.verbose && summary.dynamic > 0) lines.push(p.dim('↯ = set dynamically (verified at runtime).'));

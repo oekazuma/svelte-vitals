@@ -1,5 +1,6 @@
 import type { BasePathLinkFact, SuppressionDirective } from './component.js';
 import type { RuleContext } from './rule.js';
+import type { Project } from './types.js';
 
 /**
  * Facts parsed from one SvelteKit route/hooks file for the SSR shared-state rules
@@ -78,11 +79,13 @@ export const PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
 const appSsrCache = new WeakMap<readonly KitModuleFacts[], boolean>();
 
 /**
- * Whether no page is ever server-rendered: the root layout exports `ssr = false` and no page-option
- * file might turn it back on. Universal loads and components then run only in the browser; server
- * files (`+page.server`, `+server`, hooks) still run on the server.
+ * Whether no page is ever server-rendered: the hash router, or a root layout exporting `ssr = false`
+ * that no page-option file might turn back on. Universal loads and components then run only in the
+ * browser; server files (`+page.server`, `+server`, hooks) still run on the server.
  */
-export function appSsrDisabled(kitModules: readonly KitModuleFacts[] | undefined): boolean {
+export function appSsrDisabled(scope: SsrScope): boolean {
+  if (scope.project?.kitHashRouter) return true;
+  const kitModules = scope.kitModules;
   if (!kitModules) return false;
   let hit = appSsrCache.get(kitModules);
   if (hit === undefined) {
@@ -95,7 +98,9 @@ export function appSsrDisabled(kitModules: readonly KitModuleFacts[] | undefined
 }
 
 /** The rule-context fields the per-route SSR resolution reads. */
-export type SsrScope = Pick<RuleContext, 'kitModules' | 'components' | 'sourceFiles'>;
+export type SsrScope = Pick<RuleContext, 'kitModules' | 'components' | 'sourceFiles'> & {
+  project?: Pick<Project, 'kitHashRouter'>;
+};
 
 const ROUTES_DIR = 'src/routes';
 /** A `+page`/`+layout` file: its directory, kind, and the `@segment` layout reset (on `.svelte` names). */
@@ -205,7 +210,7 @@ export function routeGated(file: string, scope: SsrScope): boolean {
 /** Whether a `+page`/`+layout` file (module or component) belongs to a route that is never server-rendered. */
 export function routeNeverSsr(file: string, scope: SsrScope): boolean {
   const match = ROUTE_FILE_RE.exec(file);
-  return !!match && routeOptionOff(scope, 'ssr').get(`${match[2]}:${match[1]}`) === true;
+  return !!match && (appSsrDisabled(scope) || routeOptionOff(scope, 'ssr').get(`${match[2]}:${match[1]}`) === true);
 }
 
 /** Whether a universal `+page`/`+layout` module never runs in the browser: every page it serves has `csr` off, its own or inherited. */
@@ -218,7 +223,6 @@ export function universalNeverCsr(m: KitModuleFacts, scope: SsrScope): boolean {
 /** Whether a universal `+page`/`+layout` module never runs on the server — its own `ssr = false`, an app-wide one, or one its route inherits. */
 export function universalNeverSsr(m: KitModuleFacts, scope: SsrScope): boolean {
   return (
-    m.kind === 'universal' &&
-    (m.ssrDisabled !== undefined || appSsrDisabled(scope.kitModules) || routeNeverSsr(m.file, scope))
+    m.kind === 'universal' && (m.ssrDisabled !== undefined || appSsrDisabled(scope) || routeNeverSsr(m.file, scope))
   );
 }

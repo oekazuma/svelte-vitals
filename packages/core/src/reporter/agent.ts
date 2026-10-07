@@ -29,7 +29,8 @@ export function formatAgentReport(results: Result[], config: Config): string {
 
   // Order groups by their most severe finding (critical-bearing files first),
   // then alphabetically; within each group, order findings by severity.
-  const groupSeverity = (rs: Result[]) => Math.min(...rs.map((r) => SEVERITY_RANK[effectiveSeverity(r, config)]));
+  const groupSeverity = (rs: Result[]) =>
+    rs.reduce((min, r) => Math.min(min, SEVERITY_RANK[effectiveSeverity(r, config)]), Infinity);
   const orderedGroups = [...groups.entries()].sort(
     (a, b) => groupSeverity(a[1]) - groupSeverity(b[1]) || a[0].localeCompare(b[0])
   );

@@ -48,7 +48,12 @@ export { routeNeverSsr } from './kit-module.js';
 export { collectFalseExports, resolveRepoLocalPath } from './kit-module-parse.js';
 export { collectKitModuleFacts } from './kit-module-collect.js';
 export { findMinifyDisabled } from './vite-config-parse.js';
-export { resolveKitPathsBase, resolveKitAliases, withPackageImports } from './svelte-config-parse.js';
+export {
+  resolveKitPathsBase,
+  resolveKitAliases,
+  withPackageImports,
+  findKitHashRouterInSvelteConfig
+} from './svelte-config-parse.js';
 export {
   declaredInstalledPackages,
   declaredLocalPackages,
@@ -98,7 +103,7 @@ export { formatConsoleReport } from './reporter/console.js';
 export { terminalSafe } from './reporter/sanitize.js';
 export { noColorPalette, scoreColor } from './reporter/palette.js';
 export type { Palette } from './reporter/palette.js';
-export { buildJsonReport, formatJsonReport } from './reporter/json.js';
+export { buildJsonReport, formatJsonReport, formatJsonReportChunks } from './reporter/json.js';
 export { formatAgentReport } from './reporter/agent.js';
 export { formatSarifReport } from './reporter/sarif.js';
 export { formatGithubReport } from './reporter/github.js';

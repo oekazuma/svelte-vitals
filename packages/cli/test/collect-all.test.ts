@@ -85,6 +85,31 @@ describe('collectAll', () => {
   });
 });
 
+describe('collectAll — routes that never render', () => {
+  it('drops the route facts of a page whose script throws on every render, but not on a guarded one', async () => {
+    const rt = createMemoryRuntime({
+      ...PROJECT,
+      'src/routes/old/+page.svelte': `<script>\n  import { redirect } from '@sveltejs/kit';\n  throw redirect(308, '/a');\n</script>\n`,
+      'src/routes/gone/+page.svelte': `<script>\n  import { error } from '@sveltejs/kit';\n  error(404);\n</script>\n<h1>never</h1>`,
+      'src/routes/maybe/+page.svelte': `<script>\n  import { redirect } from '@sveltejs/kit';\n  let { data } = $props();\n  if (!data.user) redirect(303, '/a');\n</script>\n<h1>maybe</h1>`
+    });
+
+    const facts = await collectAll(rt, '', defaultConfig);
+
+    for (const list of [facts.heads, facts.images, facts.headings, facts.a11y])
+      expect(list.map((f) => f.route).sort()).toEqual(['/a', '/b', '/maybe']);
+  });
+
+  it("reads kit.router.type: 'hash' from svelte.config", async () => {
+    const rt = createMemoryRuntime({
+      ...PROJECT,
+      'svelte.config.js': `export default { kit: { router: { type: 'hash' } } };`
+    });
+    expect((await collectAll(rt, '', defaultConfig)).project.kitHashRouter).toBe(true);
+    expect((await collectAll(createMemoryRuntime(PROJECT), '', defaultConfig)).project.kitHashRouter).toBeUndefined();
+  });
+});
+
 describe('collectAll — kit aliases', () => {
   const TREE = {
     'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
